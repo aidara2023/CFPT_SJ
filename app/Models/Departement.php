@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Departement extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'intitule',
+        'nom_departement',
+        'id_direction',
+    ]
 }
