@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emprunter_livre', function (Blueprint $table) {
+        Schema::create('emprunter_livres', function (Blueprint $table) {
             $table->id();
             $table->date('date_emprunter');
             $table->date('date_retour')
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('emprunter_livres');
     }
 };
