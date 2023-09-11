@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Batiment extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'id',
+        'intitule'
+    ];
 }

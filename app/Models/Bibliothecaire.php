@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Bibliothecaire extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'id',
+        'id_service',
+        'id_user'
+    ];
 }
