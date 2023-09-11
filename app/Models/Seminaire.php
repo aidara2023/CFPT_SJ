@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Seminaire extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'titre',
+        'date_debut',
+        'date_fin',
+        'description',
+        'id_direction',
+    ];
 }

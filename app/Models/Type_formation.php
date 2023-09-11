@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type_formation extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'intitule',
+    ];
 }

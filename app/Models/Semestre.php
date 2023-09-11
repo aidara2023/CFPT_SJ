@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Semestre extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'intitule',
+    ];
 }
