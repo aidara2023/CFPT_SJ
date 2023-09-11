@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('livres', function (Blueprint $table) {
             $table->id();
+            $table->string('titre_livre');
+            $table->unsignedBigInterger('id_categorie');
+            $table->unsignedBigInterger('id_auteur');
+            $table->unsignedBigInterger('id_edition');
+            $table->foreign('id_categorie')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_auteur')->references('id')->on('auteurs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_edition')->references('id')->on('editions')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

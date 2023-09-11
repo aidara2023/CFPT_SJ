@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('seminaires', function (Blueprint $table) {
             $table->id();
+            $table->string('titre');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->string('description');
+            $table->unsignedBigInteger('id_direction');
+            $table->foreign('id_direction')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

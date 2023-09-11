@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('editions', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_edition');
+            $table->unsignedBigInteger('id_editeur');
+            $table->foreign('id_editeur')->references('id')->on('editeurs')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

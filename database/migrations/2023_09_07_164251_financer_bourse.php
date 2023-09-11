@@ -11,7 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('financer_bourses', function (Blueprint $table) {
+            $table->id();
+            $table->date('date');
+            $table->string('montant');
+            $table->unsignedBigInteger('id_organisme');
+            $table->unsignedBigInteger('id_eleve');
+            $table->unsignedBigInteger('id_classe');
+            $table->unsignedBigInteger('id_annee_academique');
+            $table->foreign('id_organisme')->references('id')->on('organismes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_classe')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**

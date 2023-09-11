@@ -11,7 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('assiter', function (Blueprint $table) {
+            $table->id();
+            $table->string('presence');
+            $table->unsignedBigInteger('id_cour');
+            $table->foreign('id_cour')->references('id')->on('cours')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('id_eleve');
+            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+
+
+
+            $table->timestamps();
+        });
     }
 
     /**

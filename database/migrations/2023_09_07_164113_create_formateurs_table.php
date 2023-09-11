@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unite_de_formations', function (Blueprint $table) {
+        Schema::create('formateurs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_unite_formation');
-            $table->unsignedBigInteger('id_formateur');
+            $table->string('type');
+            $table->string('situation_matrimoniale');
+            $table->unsignedBigInteger('id_specialite');
             $table->unsignedBigInteger('id_departement');
-            $table->foreign('id_formateur')->references('id')->on('formateurs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_specialite')->references('id')->on('specialites')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_departement')->references('id')->on('departements')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unite_de_formations');
+        Schema::dropIfExists('formateurs');
     }
 };

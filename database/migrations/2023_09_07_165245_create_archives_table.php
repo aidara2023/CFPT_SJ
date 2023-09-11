@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
+            $table->string('titre');
+            $table->string('type');
+            $table->dtring('statut');
+            $table->date('date_destruction');
+            $table->string('contenu')
+            $table->unsignedBigInteger('id_departement');
+            $table->foreign('id_departement')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('id_service');
+            $table->foreign('id_service')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
