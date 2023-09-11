@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('semestres', function (Blueprint $table) {
             $table->id();
-            $tabble->string('intitule');
+            $table->string('intitule');
             $table->timestamps();
         });
     }
