@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('emprunter_livres', function (Blueprint $table) {
             $table->id();
             $table->date('date_emprunter');
-            $table->date('date_retour')
+            $table->date('date_retour');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_bibliothecaire');
             $table->unsignedBigInteger('id_exemplaire');
