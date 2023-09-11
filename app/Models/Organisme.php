@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Organisme extends Model
 {
     use HasFactory;
-    protected $fillable =[
-        'id_organisme',
-        'Nom'
-        ];
+     protected $fillable =[
+         'id',
+         'nom_organisme'
+         ];
 }

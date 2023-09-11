@@ -10,9 +10,6 @@ class Matiere extends Model
     use HasFactory;
     protected $fillable =[
         'id',
-        'id'
         'intitule'
         ];
-
-
 }

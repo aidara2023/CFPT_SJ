@@ -15,5 +15,4 @@ class Paiement extends Model
     'id_annee_academique',
     'mois'
   ];
-    
 }
