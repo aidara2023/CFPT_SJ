@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_matiere');
             $table->foreign('id_matiere')->references('id')->on('matieres')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_type_evaluation');
-            $table->foreign('id_type_evalution')->references('id')->on('type_evaluations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_type_evaluation')->references('id')->on('type_evaluations')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_semestre');
             $table->foreign('id_semestre')->references('id')->on('semestres')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_annee_academique');
