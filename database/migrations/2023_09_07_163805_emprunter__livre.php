@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emprunter_livre', function (Blueprint $table) {
+        Schema::create('emprunter_livres', function (Blueprint $table) {
             $table->id();
             $table->date('date_emprunter');
-            $table->date('date_retour')
+            $table->date('date_retour');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_bibliothecaire');
             $table->unsignedBigInteger('id_exemplaire');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('emprunter_livres');
     }
 };

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Auteur extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'id',
+        'nom_auteur'
+    ];
 }

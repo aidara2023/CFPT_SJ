@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Caissier extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'id',
+        'id_service'
+    ]
 }

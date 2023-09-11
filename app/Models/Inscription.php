@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Inscription extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'id',
+        'Montant',
+        'date_inscription',
+        'id eleve',
+        'id_classe',
+        'id_annee_academique'
+        
+
+    ];
 }
