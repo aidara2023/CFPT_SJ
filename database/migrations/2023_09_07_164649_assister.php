@@ -13,7 +13,7 @@ return new class extends Migration
     {
 
         Schema::create('assisters', function (Blueprint $table) 
-     
+        {
             $table->id();
             $table->string('presence');
             $table->unsignedBigInteger('id_cour');

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nom_classe');
             $table->string('type_classe');
-            $table->string('niveau')
+            $table->string('niveau');
             $table->unsignedBigInteger('id_type_formation');
-            $table->unsignedBigInteger('id_unite_formation');
+            $table->unsignedBigInteger('id_unite_de_formation');
             $table->foreign('id_type_formation')->references('id')->on('type_formations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_unite_formation')->references('id')->on('unite_formations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

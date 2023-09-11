@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->string('type');
-            $table->dtring('statut');
+            $table->string('statut');
             $table->date('date_destruction');
-            $table->string('contenu')
+            $table->string('contenu');
             $table->unsignedBigInteger('id_departement');
             $table->foreign('id_departement')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_service');

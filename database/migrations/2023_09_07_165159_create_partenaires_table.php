@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('contact');
             $table->string('email');
             $table->string('adresse');
-            $table->string('boite_postale')
+            $table->string('boite_postale');
             $table->date('date_debut');
-            $table->date('date_fin')
+            $table->date('date_fin');
             $table->unsignedBigInteger('id_direction');
             $table->foreign('id_direction')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
