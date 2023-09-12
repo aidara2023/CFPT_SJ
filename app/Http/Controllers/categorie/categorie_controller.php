@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\categorie;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class categorie_controller extends Controller
 {
     
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $categorie=Categorie::all();
+        if($categorie!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'categorie'=>$categorie
             ],200)  ;
         }else{
             return response()->json([ 
@@ -24,13 +25,13 @@ class categorie_controller extends Controller
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'intitule'=>'required',
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $categorie=Categorie::create($data);
+        if($categorie!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'categorie'=>$categorie
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,50 +41,50 @@ class categorie_controller extends Controller
         }
     }
     public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
+        $categorie=Categorie::find($id);
+        if($categorie!=null){
+           $categorie->intitule=$request['intitule'];
            
-           $auteur->save();
+           $categorie->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'categorie'=>$categorie
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La mise à jour n\'a pas été éffectué',
+                'message'=>'La mise à jour n\'a pas été éffectuée',
             ],500 );
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $categorie=categorie::find($id);
+        if($categorie!=null){
+            $categorie->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'categorie supprimée avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'La categorie n\'est pas supprimée',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $categorie=categorie::find($id);
+        if($categorie!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'categorie'=>$categorie
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'L\'categorie n\'existe pas ',
             ],500 );
         }
     }
