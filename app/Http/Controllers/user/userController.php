@@ -4,7 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class userController extends Controller
 {
     public function index() {
@@ -24,17 +24,17 @@ class userController extends Controller
 
     public function ajouter (Request $request){
         $data=$request->validate([
-            'nom'=>'required'
-            'prenom'=>'required'
-            'genre'=>'required'
-            'adresse'=>'required'
-            'email'=>'required'
-            'telephone'=>'required'
-            'password'=>'required'
-            'date_naissance'=>'required'
-            'lieu_naissance'=>'required'
-            'nationalite'=>'required'
-            'photo'=>'required'
+            'nom'=>'required',
+            'prenom'=>'required',
+            'genre'=>'required',
+            'adresse'=>'required',
+            'email'=>'required',
+            'telephone'=>'required',
+            'password'=>'required',
+            'date_naissance'=>'required',
+            'lieu_naissance'=>'required',
+            'nationalite'=>'required',
+            'photo'=>'required',
             'id_role'=>'required'
         ]);
         $user=User::create($data);
@@ -82,7 +82,7 @@ class userController extends Controller
             $user->delete();
             return response()->json([
                 'statut'=>200,
-                'user'=>$user
+                'message'=>'utilisateur supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
