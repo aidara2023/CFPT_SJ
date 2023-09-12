@@ -4,7 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class userController extends Controller
 {
     public function index() {
@@ -21,6 +21,7 @@ class userController extends Controller
             ],500 );
         }
      }
+
     public function ajouter (Request $request){
         $data=$request->validate([
             'nom'=>'required',
