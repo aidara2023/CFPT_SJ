@@ -63,6 +63,7 @@ class userController extends Controller
            $user->nom=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
            $user->photo=$request['photo'];
+
            $user->id_role=$request['id_role'];
            $user->save();
             return response()->json([
