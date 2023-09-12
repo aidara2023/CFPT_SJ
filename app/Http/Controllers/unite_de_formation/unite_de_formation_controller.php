@@ -25,7 +25,8 @@ class unite_de_formation_controller extends Controller
 
      public function store (Request $request){
         $data=$request->validate([
-            'intitule'=>'required'
+            'nom_unite_de_formation'=>'required',
+            'id_formateur'=>'required'
                 ]);
         $unite_de_formation=Unite_de_formation::create($data);
         if($unite_de_formation!=null){
@@ -45,7 +46,8 @@ class unite_de_formation_controller extends Controller
     public function update(Request $request, $id){
         $unite_de_formation=Unite_de_formation::find($id);
         if($unite_de_formation!=null){
-           $unite_de_formation->intitule=$request['intitule'];
+           $unite_de_formation->nom_unite_de_formation=$request['nom_unite_de_formation'];
+           $unite_de_formation->id_user=$request['id_user'];
            $unite_de_formation->save();
             return response()->json([
                 'statut'=>200,
