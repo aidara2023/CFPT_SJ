@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cour extends Model
+class cour extends Model
 {
     use HasFactory;
     protected $fillable =[
@@ -18,4 +18,5 @@ class Cour extends Model
         'id_matiere',
         'id_salle',
         'id_semestre'
+    ];
 }

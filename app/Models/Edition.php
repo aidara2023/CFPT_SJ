@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Edition extends Model
+class edition extends Model
 {
     use HasFactory;
     protected $fillable =[
         'nom_edition',
-        'id_editeur',
-    ]
+        'id_editeur'
+    ];
 }

@@ -11,6 +11,6 @@ class participer extends Model
     protected $fillable = [
         'date_participation',
         'id_seminaire',
-        'id_formateur',
+        'id_formateur'
     ];
 }
