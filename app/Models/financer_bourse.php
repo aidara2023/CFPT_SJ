@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class financer_bourse extends Model
+class Financer_bourse extends Model
 {
     use HasFactory;
     protected $fillable =[

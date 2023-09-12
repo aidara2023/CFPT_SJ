@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dossier_medical extends Model
+class ossier_medical extends Model
 {
     use HasFactory;
     protected $fillable =[
