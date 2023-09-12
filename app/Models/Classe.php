@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classe extends Model
+class classe extends Model
 {
     use HasFactory;
     protected $fillable =[
@@ -15,6 +15,6 @@ class Classe extends Model
         'Niveau',
         'id_type formation',
         'id_unite_de_formation'
-    ]
+    ];
     
 }
