@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class role_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $role=Role::all();
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,16 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'intitule'=>'required',
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $role=Role::create($data);
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +41,15 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $role=role::find($id);
+        if($role!=null){
+           $role->intitule=$request['intitule'];
           
-           $formateur->save();
+           $role->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +59,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $role=role::find($id);
+        if($role!=null){
+            $role->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'Role supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'Le role n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $role=Role::find($id);
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'Role n\'a pas été éffectué',
             ],500 );
         }
        

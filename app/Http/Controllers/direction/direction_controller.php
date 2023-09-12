@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\direction;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Direction;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class direction_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $direction=Direction::all();
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,18 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'intitule'=>'required',
+            'nom_direction'=>'required',
+            'id_user'=>'required'
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $direction=Direction::create($data);
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +43,17 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $direction=Direction::find($id);
+        if($direction!=null){
+           $direction->intitule=$request['intitule'];
+           $direction->nom_direction=$request['nom_direction'];
+           $direction->id_user=$request['id_user'];
           
-           $formateur->save();
+           $direction->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +63,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $direction=Direction::find($id);
+        if($direction!=null){
+            $direction->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'Direction supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'La direction n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $direction=Direction::find($id);
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'Direction n\'a pas été éffectué',
             ],500 );
         }
        

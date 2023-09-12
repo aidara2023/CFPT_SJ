@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\salle;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Salle;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class salle_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $salle=Salle::all();
+        if($salle!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'salle'=>$salle
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,19 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'intitule'=>'required',
+            'nombre_place'=>'required',
+            'id_batiment'=>'required',
+           
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $salle=Salle::create($data);
+        if($salle!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'salle'=>$salle
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +44,17 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $salle=salle::find($id);
+        if($salle!=null){
+           $salle->intitule=$request['type_salle'];
+           $salle->nombre_place=$request['nombre_place'];
+           $salle->id_batiment=$request['id_batiment'];
           
-           $formateur->save();
+           $salle->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'salle'=>$salle
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +64,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $salle=Salle::find($id);
+        if($salle!=null){
+            $salle->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'La salle est supprimeé avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'La salle n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $salle=Salle::find($id);
+        if($salle!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'salle'=>$salle
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'salle n\'a pas été éffectué',
             ],500 );
         }
        

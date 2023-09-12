@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\retard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Retard;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class retard_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $retard=Retard::all();
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,20 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'date'=>'required',
+            'heure'=>'required',
+            'id_eleve'=>'required',
+            'id_cour'=>'required'
+            
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $retard=Retard::create($data);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +45,17 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $retard=retard::find($id);
+        if($retard!=null){
+           $retard->date=$request['date'];
+           $retard->id_eleve=$request['id_eleve'];
+           $retard->id_cour=$request['id_cour'];
           
-           $formateur->save();
+           $retard->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +65,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $retard=Retard::find($id);
+        if($retard!=null){
+            $retard->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'La retard supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'La retard n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $retard=Retard::find($id);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'retard n\'a pas été éffectué',
             ],500 );
         }
        
