@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\Formateur;
 
 use App\Http\Controllers\Controller;
+use App\Models\Formateur;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class FormateurController extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $formateur=Formateur::all();
+        if($formateur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'formateur'=>$formateur
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,21 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function ajouter (Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'type'=>'required',,
+            'Situation_matrimoniale'=>'required',,
+            'id_specialite'=>'required',,
+            'id_departement'=>'required',
+            'id_user'=>'required',
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $formateur=Formateur::create($data);
+        if($formateur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'formateur'=>$formateur
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +46,18 @@ class livre_controller extends Controller
         }
     }
     public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+        $formateur=Formateur::find($id);
+        if($formateur!=null){
+           $formateur->type=$request['nom'];
+           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
+           $formateur->genre=$request['id_specialite'];
+           $formateur->adresse=$request['id_departement'];
+           $formateur->telephone=$request['id_user'];
+          
+           $formateur->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'formateur'=>$formateur
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +67,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $formateur=Formateur::find($id);
+        if($formateur!=null){
+            $formateur->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'Formateur supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'Le formateur n\'est pas supprimer',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $formateur=Formateur::find($id);
+        if($formateur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'formateur'=>$formateur
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Le formateur n\'existe pas',
             ],500 );
         }
+       
     }
 }

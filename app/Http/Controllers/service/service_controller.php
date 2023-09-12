@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\service;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class service_controller extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $service=Service::all();
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,19 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'intitule'=>'required',
+            'nom_service'=>'required',
+            'id_user'=>'required'
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $service=Service::create($data);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,15 +43,17 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $service=Service::find($id);
+        if($service!=null){
+           $service->intitule=$request['intitule'];
+           $service->nom_service=$request['nom_service'];
+           $service->id_user=$request['id_user'];
+          
+           $service->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +63,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $service=Service::find($id);
+        if($service!=null){
+            $service->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'service supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'La service n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $service=Service::find($id);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'service n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

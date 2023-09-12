@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\classe;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class classe_controller extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $classe=Classe::all();
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,21 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'type_classe'=>'required',
+            'nom_classe'=>'required',
+            'niveau'=>'required',
+            'id_type_formation'=>'required',
+            'id_unite_de_formation'=>'required'
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $classe=Classe::create($data);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,15 +45,19 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $classe=classe::find($id);
+        if($classe!=null){
+           $classe->type_classe=$request['type_classe'];
+           $classe->nom_classe=$request['nom_classe'];
+           $classe->id_type_formation=$request['id_type_formation'];
+           $classe->id_unite_de_formation=$request['id_unite_de_formation'];
+           $classe->niveau=$request['niveau'];
+          
+           $classe->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +67,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $classe=classe::find($id);
+        if($classe!=null){
+            $classe->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'La classe supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'La classe n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $classe=classe::find($id);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Classe n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class role_controller extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $role=Role::all();
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,17 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'intitule'=>'required',
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $role=Role::create($data);
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,15 +41,15 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $role=role::find($id);
+        if($role!=null){
+           $role->intitule=$request['intitule'];
+          
+           $role->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +59,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $role=role::find($id);
+        if($role!=null){
+            $role->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'Role supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'Le role n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $role=Role::find($id);
+        if($role!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'role'=>$role
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Role n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

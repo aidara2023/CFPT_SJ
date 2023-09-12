@@ -4,7 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class userController extends Controller
 {
     public function index() {
@@ -21,6 +21,7 @@ class userController extends Controller
             ],500 );
         }
      }
+
     public function ajouter (Request $request){
         $data=$request->validate([
             'nom'=>'required',
@@ -62,8 +63,8 @@ class userController extends Controller
            $user->nom=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
            $user->photo=$request['photo'];
-           $id_role->nom=$request['id_role'];
-           
+
+           $user->id_role=$request['id_role'];
            $user->save();
             return response()->json([
                 'statut'=>200,

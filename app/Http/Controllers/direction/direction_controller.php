@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\direction;
 
 use App\Http\Controllers\Controller;
+use App\Models\Direction;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class direction_controller extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $direction=Direction::all();
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,19 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'intitule'=>'required',
+            'nom_direction'=>'required',
+            'id_user'=>'required'
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $direction=Direction::create($data);
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,15 +43,17 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $direction=Direction::find($id);
+        if($direction!=null){
+           $direction->intitule=$request['intitule'];
+           $direction->nom_direction=$request['nom_direction'];
+           $direction->id_user=$request['id_user'];
+          
+           $direction->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +63,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $direction=Direction::find($id);
+        if($direction!=null){
+            $direction->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'Direction supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'La direction n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $direction=Direction::find($id);
+        if($direction!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'direction'=>$direction
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Direction n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

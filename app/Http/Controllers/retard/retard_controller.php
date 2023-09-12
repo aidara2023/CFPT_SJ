@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\retard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Retard;
 use Illuminate\Http\Request;
 
-class livre_controller extends Controller
+class retard_controller extends Controller
 {
-    
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $retard=Retard::all();
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -22,15 +22,21 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'date'=>'required',
+            'heure'=>'required',
+            'id_eleve'=>'required',
+            'id_cour'=>'required'
+            
+           
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $retard=Retard::create($data);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,15 +45,17 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $retard=retard::find($id);
+        if($retard!=null){
+           $retard->date=$request['date'];
+           $retard->id_eleve=$request['id_eleve'];
+           $retard->id_cour=$request['id_cour'];
+          
+           $retard->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +65,35 @@ class livre_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $retard=Retard::find($id);
+        if($retard!=null){
+            $retard->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'La retard supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'La retard n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $retard=Retard::find($id);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'retard n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }
