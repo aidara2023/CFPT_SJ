@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\classe;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class classe_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $classe=Classe::all();
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,20 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'type_classe'=>'required',
+            'nom_classe'=>'required',
+            'niveau'=>'required',
+            'id_type_formation'=>'required',
+            'id_unite_de_formation'=>'required'
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $classe=Classe::create($data);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +45,19 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $classe=classe::find($id);
+        if($classe!=null){
+           $classe->type_classe=$request['type_classe'];
+           $classe->nom_classe=$request['nom_classe'];
+           $classe->id_type_formation=$request['id_type_formation'];
+           $classe->id_unite_de_formation=$request['id_unite_de_formation'];
+           $classe->niveau=$request['niveau'];
           
-           $formateur->save();
+           $classe->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +67,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $classe=classe::find($id);
+        if($classe!=null){
+            $classe->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'La classe supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'La classe n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $classe=classe::find($id);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'Classe n\'a pas été éffectué',
             ],500 );
         }
        

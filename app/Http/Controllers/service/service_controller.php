@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\service;
 
 use App\Http\Controllers\Controller;
-use App\Models\Formateur;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class service_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::all();
-        if($formateur!=null){
+        $service=Service::all();
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,20 +23,18 @@ class FormateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
+            'intitule'=>'required',
+            'nom_service'=>'required',
+            'id_user'=>'required'
            
         ]);
-        $formateur=Formateur::create($data);
-        if($formateur!=null){
+        $service=Service::create($data);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -45,19 +43,17 @@ class FormateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+    public function update(Request $request, $id){
+        $service=Service::find($id);
+        if($service!=null){
+           $service->intitule=$request['intitule'];
+           $service->nom_service=$request['nom_service'];
+           $service->id_user=$request['id_user'];
           
-           $formateur->save();
+           $service->save();
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -67,33 +63,33 @@ class FormateurController extends Controller
         }
     }
     public function supprimer($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
-            $formateur->delete();
+        $service=Service::find($id);
+        if($service!=null){
+            $service->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Formateur supprimer avec succes',
+                'message'=>'service supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'est pas supprimer',
+                'message'=>'La service n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $formateur=Formateur::find($id);
-        if($formateur!=null){
+        $service=Service::find($id);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'formateur'=>$formateur
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le formateur n\'existe pas',
+                'message'=>'service n\'a pas été éffectué',
             ],500 );
         }
        
