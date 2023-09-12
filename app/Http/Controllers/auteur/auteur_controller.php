@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\auteur;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auteur;
 use Illuminate\Http\Request;
 
 class auteur_controller extends Controller
 {
     public function index() {
-        $auteur=auteur$auteur::all();
+        $auteur=Auteur::all();
         if($auteur!=null){
             return response()->json([
                 'statut'=>200,
@@ -39,7 +40,7 @@ class auteur_controller extends Controller
         }
     }
     public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
+        $auteur=Auteur::find($id);
         if($auteur!=null){
            $auteur->nom_auteur=$request['nom_auteur'];
            

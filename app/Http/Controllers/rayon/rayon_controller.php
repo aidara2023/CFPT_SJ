@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\rayon;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rayon;
 use Illuminate\Http\Request;
 
 class rayon_controller extends Controller
 {
     
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $rayon=Rayon::all();
+        if($rayon!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'rayon'=>$rayon
             ],200)  ;
         }else{
             return response()->json([ 
@@ -24,13 +25,13 @@ class rayon_controller extends Controller
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'intitule'=>'required',
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $rayon=rayon::create($data);
+        if($rayon!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'rayon'=>$rayon
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +41,13 @@ class rayon_controller extends Controller
         }
     }
     public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+        $rayon=Rayon::find($id);
+        if($rayon!=null){
+           $rayon->intitule=$request['intitule'];
+           $rayon->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'rayon'=>$rayon
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,33 +57,33 @@ class rayon_controller extends Controller
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $rayon=rayon::find($id);
+        if($rayon!=null){
+            $rayon->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'Rayon supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'Le rayon n\'est pas supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $rayon=rayon::find($id);
+        if($rayon!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'rayon'=>$rayon
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Le rayon n\'existe pas ',
             ],500 );
         }
     }

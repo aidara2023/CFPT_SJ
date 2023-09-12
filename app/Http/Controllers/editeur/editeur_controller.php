@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\editeur;
 
 use App\Http\Controllers\Controller;
+use App\Models\Editeur;
 use Illuminate\Http\Request;
 
 class editeur_controller extends Controller
 {
     
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $editeur=Editeur::all();
+        if($editeur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'editeur'=>$editeur
             ],200)  ;
         }else{
             return response()->json([ 
@@ -24,30 +25,30 @@ class editeur_controller extends Controller
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'nom_editeur'=>'required',
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $editeur=Editeur::create($data);
+        if($editeur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'editeur'=>$editeur
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
+                'message'=>'L\'editeur n\'a pas été ajouté',
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
+    public function update(Request $request, $id){
+        $editeur=Editeur::find($id);
+        if($editeur!=null){
+           $editeur->nom_editeur=$request['nom_editeur'];
            
-           $auteur->save();
+           $editeur->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'editeur'=>$editeur
             ],200)  ;
         }else{
             return response()->json([ 
@@ -56,34 +57,34 @@ class editeur_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+    public function delete($id){
+        $editeur=editeur::find($id);
+        if($editeur!=null){
+            $editeur->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'editeur supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'L\'editeur n\'est pas supprimer',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $editeur=editeur::find($id);
+        if($editeur!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'editeur'=>$editeur
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'L\'editeur n\'existe pas ',
             ],500 );
         }
     }
