@@ -5,7 +5,6 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\User;
 class userController extends Controller
 {
     public function index() {
