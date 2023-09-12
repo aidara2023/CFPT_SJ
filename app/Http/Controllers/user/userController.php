@@ -21,6 +21,7 @@ class userController extends Controller
             ],500 );
         }
      }
+
     public function ajouter (Request $request){
         $data=$request->validate([
             'nom'=>'required'
