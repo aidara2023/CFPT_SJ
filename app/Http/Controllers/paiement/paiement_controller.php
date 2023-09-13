@@ -46,7 +46,7 @@ class paiement_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $paiement, $id) {
+    public function mise_a_jour(Request $request, $id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
             $paiement -> id_paiement = $request['id_paiement'];

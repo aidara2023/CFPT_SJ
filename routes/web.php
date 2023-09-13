@@ -24,7 +24,7 @@ Route::get('participer/mise_a_jour', [participer_controller::class, 'mise_a_jour
 Route::get('participer/delete', [participer_controller::class, 'delete']) -> name('participer_delete');
 Route::get('participer/show', [participer_controller::class, 'show']) -> name('participer_show');
 
-Route::get('specialite/index', [specialitecontroller::class, 'index']) -> name('specialite_index');
+Route::get('specialite/index', [specialite_controller::class, 'index']) -> name('specialite_index');
 Route::get('specialite/ajouter', [specialite_controller::class, 'ajouter']) -> name('specialite_ajouter');
 Route::get('specialite/mise_a_jour', [specialite_controller::class, 'mise_a_jour']) -> name('specialite_mise_a_jour');
 Route::get('specialite/delete', [specialite_controller::class, 'delete']) -> name('specialite_delete');
@@ -34,7 +34,7 @@ Route::get('annee_academique/index', [annee_academique_controller::class, 'index
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
-Route::get('annee_academique/show', annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
 Route::get('departement/index', [departement_controller::class, 'index']) -> name('departement_index');
 Route::get('departement/ajouter', [departement_controller::class, 'ajouter']) -> name('departement_ajouter');
