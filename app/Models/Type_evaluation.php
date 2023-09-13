@@ -9,6 +9,6 @@ class Type_evaluation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'libelle',
+        'libelle'
     ];
 }

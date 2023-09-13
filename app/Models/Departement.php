@@ -11,6 +11,8 @@ class Departement extends Model
     protected $fillable =[
         'intitule',
         'nom_departement',
-        'id_direction',
+
+        'id_direction'
+
     ];
 }

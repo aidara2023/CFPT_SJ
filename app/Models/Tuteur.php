@@ -9,6 +9,6 @@ class Tuteur extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_user',
+        'id_user'
     ];
 }

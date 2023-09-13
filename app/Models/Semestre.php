@@ -9,6 +9,6 @@ class Semestre extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'intitule',
+        'intitule'
     ];
 }
