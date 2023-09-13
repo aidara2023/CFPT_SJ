@@ -104,7 +104,7 @@ class userController extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L utilisateur n\'existe pas été éffectué',
+                'message'=>'L utilisateur n\'existe pas',
             ],500 );
         }
        
