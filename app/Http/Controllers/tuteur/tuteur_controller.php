@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\tuteur;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tuteur;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class tuteur_controller extends Controller
@@ -38,7 +40,7 @@ class tuteur_controller extends Controller
             'id_role'=> 'required'
         ]);
 
-        $user = User::create($data)
+        $user = User::create($data);
         $tuteur = Tuteur::create(['id_user' => $user -> id]);
 
         if($tuteur != null){
@@ -54,9 +56,9 @@ class tuteur_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $tuteur, $id) {
+    public function mise_a_jour(Request $request, $id) {
         $tuteur = Tuteur::find($id);
-        $user = $tuteur -> id_user
+        $user = $tuteur -> id_user;
         $user = User::find($user);
         if($user != null){
             $user-> nom=$request['nom'];
