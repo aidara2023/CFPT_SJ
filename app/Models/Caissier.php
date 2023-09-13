@@ -11,5 +11,5 @@ class Caissier extends Model
     protected $fillable =[
         'id',
         'id_service'
-    ]
+    ];
 }

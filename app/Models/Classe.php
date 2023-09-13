@@ -15,6 +15,6 @@ class Classe extends Model
         'Niveau',
         'id_type formation',
         'id_unite_de_formation'
-    ]
+    ];
     
 }

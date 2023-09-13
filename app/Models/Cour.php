@@ -18,4 +18,5 @@ class Cour extends Model
         'id_matiere',
         'id_salle',
         'id_semestre'
+    ];
 }

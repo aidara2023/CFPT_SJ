@@ -13,5 +13,5 @@ class Consultation extends Model
         'id_user',
         'id_infirmier',
         'id_dossier_medical'
-    ]
+    ];
 }

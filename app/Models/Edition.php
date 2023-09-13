@@ -11,5 +11,5 @@ class Edition extends Model
     protected $fillable =[
         'nom_edition',
         'id_editeur',
-    ]
+    ];
 }

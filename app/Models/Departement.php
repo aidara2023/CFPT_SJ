@@ -12,5 +12,5 @@ class Departement extends Model
         'intitule',
         'nom_departement',
         'id_direction',
-    ]
+    ];
 }

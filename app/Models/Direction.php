@@ -12,5 +12,5 @@ class Direction extends Model
         'intitule',
         'nom_direction',
         'id_user',
-    ]
+    ];
 }
