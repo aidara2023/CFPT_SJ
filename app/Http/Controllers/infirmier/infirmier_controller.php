@@ -61,9 +61,27 @@ class infirmier_controller extends Controller
 
     public function update(Request $request, $id){
         $infirmier=Infirmier::find($id);
-        if($infirmier!=null){
-           $infirmier->intitule=$request['intitule'];
+        $user=$infirmier ->id_user;
+        $user=User::find($id);
+        if($user!=null){
+
+            $user->nom=$request['nom'];
+            $user->prenom=$request['prenom'];
+            $user->genre=$request['genre'];
+            $user->adresse=$request['adresse'];
+            $user->telephone=$request['telephone'];
+            $user->password=$request['password'];
+            $user->date_naissance=$request['date_naissance'];
+            $user->nom=$request['lieu_naissance'];
+            $user->nationalite=$request['nationalite'];
+            $user->photo=$request['photo'];
+            $user->id_role=$request['id_role'];
+           $user->intitule=$request['intitule'];
            $infirmier->save();
+
+           $infirmier->id_user=$user ->id;
+           $infirmier->save();
+           
             return response()->json([
                 'statut'=>200,
                 'infirmier'=>$infirmier
