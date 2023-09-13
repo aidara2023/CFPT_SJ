@@ -62,7 +62,7 @@ class infirmier_controller extends Controller
     public function update(Request $request, $id){
         $infirmier=Infirmier::find($id);
         $user=$infirmier ->id_user;
-        $user=User::find($id);
+        $user=User::find($user);
         if($user!=null){
 
             $user->nom=$request['nom'];
@@ -76,12 +76,14 @@ class infirmier_controller extends Controller
             $user->nationalite=$request['nationalite'];
             $user->photo=$request['photo'];
             $user->id_role=$request['id_role'];
-           $user->intitule=$request['intitule'];
-           $infirmier->save();
+            $user->save();
 
+
+           $infirmier->intitule=$request['intitule'];
            $infirmier->id_user=$user ->id;
            $infirmier->save();
            
+
             return response()->json([
                 'statut'=>200,
                 'infirmier'=>$infirmier
