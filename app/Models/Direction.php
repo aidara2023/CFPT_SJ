@@ -11,6 +11,7 @@ class Direction extends Model
     protected $fillable =[
         'intitule',
         'nom_direction',
+
         'id_user'
-    ];
+  ];
 }
