@@ -10,6 +10,8 @@ class Edition extends Model
     use HasFactory;
     protected $fillable =[
         'nom_edition',
+
         'id_editeur'
+
     ];
 }
