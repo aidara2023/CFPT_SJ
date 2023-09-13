@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\organisme;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rayon;
+use App\Models\Organisme;
 use Illuminate\Http\Request;
 
-class rayon_controller extends Controller
+class organisme_controller extends Controller
 {
-    
     public function index() {
-        $rayon=Rayon::all();
-        if($rayon!=null){
+        $organisme=Organisme::all();
+        if($organisme!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'organisme'=>$organisme
             ],200)  ;
         }else{
             return response()->json([ 
-                'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'statut'=>500,  
+                'message'=>'aucun nom d organisme  n\'a été enregistrée',
             ],500 );
         }
      }
-    public function store (Request $request){
+
+     public function store (Request $request){
         $data=$request->validate([
-            'intitule'=>'required',
-        ]);
-        $rayon=rayon::create($data);
-        if($rayon!=null){
+            'intitule_organisme'=>'required'
+                ]);
+        $organisme=Organisme::create($data);
+        if($organisme!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'organisme'=>$organisme
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +40,16 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $rayon=Rayon::find($id);
-        if($rayon!=null){
-           $rayon->intitule=$request['intitule'];
-           $rayon->save();
+
+
+    public function update(Request $request, $id){
+        $organisme=Organisme::find($id);
+        if($organisme!=null){
+           $organisme->intitule=$request['intitule'];
+           $organisme->save();
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'organisme'=>$organisme
             ],200)  ;
         }else{
             return response()->json([ 
@@ -56,35 +58,38 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
-            $rayon->delete();
+
+    public function delete($id){
+        $organisme=Organisme::find($id);
+        if($organisme!=null){
+            $organisme->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Rayon supprimé avec succés',
+                'message'=>'L\'organisme a été supprimée avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'est pas supprimé',
+                'message'=>'Echec suppression de l\'Organisme',
             ],500 );
         }
        
     }
-    
+
+
     public function show($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
+        $organisme=Organisme::find($id);
+        if($organisme!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'organisme'=>$organisme
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'existe pas ',
+                'message'=>'L\'organisme n\'existe pas ',
             ],500 );
         }
+       
     }
 }

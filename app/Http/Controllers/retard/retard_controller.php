@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\retard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rayon;
+use App\Models\Retard;
 use Illuminate\Http\Request;
 
-class rayon_controller extends Controller
+class retard_controller extends Controller
 {
-    
     public function index() {
-        $rayon=Rayon::all();
-        if($rayon!=null){
+        $retard=Retard::all();
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,15 +22,21 @@ class rayon_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'intitule'=>'required',
+            'date'=>'required',
+            'heure'=>'required',
+            'id_eleve'=>'required',
+            'id_cour'=>'required'
+            
+           
         ]);
-        $rayon=rayon::create($data);
-        if($rayon!=null){
+        $retard=Retard::create($data);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +45,17 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $rayon=Rayon::find($id);
-        if($rayon!=null){
-           $rayon->intitule=$request['intitule'];
-           $rayon->save();
+    public function update(Request $request, $id){
+        $retard=retard::find($id);
+        if($retard!=null){
+           $retard->date=$request['date'];
+           $retard->id_eleve=$request['id_eleve'];
+           $retard->id_cour=$request['id_cour'];
+          
+           $retard->save();
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +65,35 @@ class rayon_controller extends Controller
         }
     }
     public function supprimer($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
-            $rayon->delete();
+        $retard=Retard::find($id);
+        if($retard!=null){
+            $retard->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Rayon supprimé avec succés',
+                'message'=>'La retard supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'est pas supprimé',
+                'message'=>'La retard n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
+        $retard=Retard::find($id);
+        if($retard!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'retard'=>$retard
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'existe pas ',
+                'message'=>'retard n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

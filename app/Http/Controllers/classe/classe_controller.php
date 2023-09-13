@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\classe;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rayon;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 
-class rayon_controller extends Controller
+class classe_controller extends Controller
 {
-    
     public function index() {
-        $rayon=Rayon::all();
-        if($rayon!=null){
+        $classe=Classe::all();
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,15 +22,21 @@ class rayon_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
-            'intitule'=>'required',
+            'type_classe'=>'required',
+            'nom_classe'=>'required',
+            'niveau'=>'required',
+            'id_type_formation'=>'required',
+            'id_unite_de_formation'=>'required'
+           
         ]);
-        $rayon=rayon::create($data);
-        if($rayon!=null){
+        $classe=Classe::create($data);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +45,19 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $rayon=Rayon::find($id);
-        if($rayon!=null){
-           $rayon->intitule=$request['intitule'];
-           $rayon->save();
+    public function update(Request $request, $id){
+        $classe=classe::find($id);
+        if($classe!=null){
+           $classe->type_classe=$request['type_classe'];
+           $classe->nom_classe=$request['nom_classe'];
+           $classe->id_type_formation=$request['id_type_formation'];
+           $classe->id_unite_de_formation=$request['id_unite_de_formation'];
+           $classe->niveau=$request['niveau'];
+          
+           $classe->save();
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +67,35 @@ class rayon_controller extends Controller
         }
     }
     public function supprimer($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
-            $rayon->delete();
+        $classe=classe::find($id);
+        if($classe!=null){
+            $classe->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Rayon supprimé avec succés',
+                'message'=>'La classe supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'est pas supprimé',
+                'message'=>'La classe n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
+        $classe=classe::find($id);
+        if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'classe'=>$classe
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'existe pas ',
+                'message'=>'Classe n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }

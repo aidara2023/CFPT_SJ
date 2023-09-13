@@ -12,7 +12,8 @@ class Eleve extends Model
         'id',
         'contact_urgence1',
         'contact_urgence2',
-        'id_tuteur'
+        'id_tuteur',
+        'id_user'
 
     ];
 }

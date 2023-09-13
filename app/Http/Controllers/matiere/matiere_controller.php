@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\matiere;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rayon;
 use Illuminate\Http\Request;
+use App\Models\Matiere;
 
-class rayon_controller extends Controller
+class matiere_controller extends Controller
 {
-    
     public function index() {
-        $rayon=Rayon::all();
-        if($rayon!=null){
+        $matiere=Matiere::all();
+        if($matiere!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'matiere'=>$matiere
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucune matiere  n\'a été enregistrée',
             ],500 );
         }
      }
-    public function store (Request $request){
+
+     public function store (Request $request){
         $data=$request->validate([
-            'intitule'=>'required',
-        ]);
-        $rayon=rayon::create($data);
-        if($rayon!=null){
+            'intitule'=>'required'
+                ]);
+        $matiere=Matiere::create($data);
+        if($matiere!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'matiere'=>$matiere
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +40,16 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $rayon=Rayon::find($id);
-        if($rayon!=null){
-           $rayon->intitule=$request['intitule'];
-           $rayon->save();
+
+
+    public function update(Request $request, $id){
+        $matiere=Matiere::find($id);
+        if($matiere!=null){
+           $matiere->intitule=$request['intitule'];
+           $matiere->save();
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'matiere'=>$matiere
             ],200)  ;
         }else{
             return response()->json([ 
@@ -56,35 +58,39 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
-            $rayon->delete();
+
+    public function delete($id){
+        $matiere=Matiere::find($id);
+        if($matiere!=null){
+            $matiere->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Rayon supprimé avec succés',
+                'message'=>'La matiére a été supprimée avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'est pas supprimé',
+                'message'=>'Echec suppression de la matiére',
             ],500 );
         }
        
     }
-    
+
+
     public function show($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
+        $matiere=Matiere::find($id);
+        if($matiere!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'matiere'=>$matiere
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'existe pas ',
+                'message'=>'La matiere n\'existe pas ',
             ],500 );
         }
+       
     }
+
 }

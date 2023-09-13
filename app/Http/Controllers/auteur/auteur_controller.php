@@ -7,37 +7,40 @@ use App\Models\Auteur;
 use Illuminate\Http\Request;
 
 class auteur_controller extends Controller
-{ public function index() {
-    $auteur=Auteur::all();
-    if($auteur!=null){
-        return response()->json([
-            'statut'=>200,
-            'auteur'=>$auteur
-        ],200)  ;
-    }else{
-        return response()->json([ 
-            'statut'=>500,
-            'message'=>'aucun donner trouver',
-        ],500 );
+
+{
+    public function index() {
+        $auteur=Auteur::all();
+        if($auteur!=null){
+            return response()->json([
+                'statut'=>200,
+                'auteur'=>$auteur
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été éffectué',
+            ],500 );
+        }
+     }
+    public function store (Request $request){
+        $data=$request->validate([
+            'nom_auteur'=>'required',
+        ]);
+        $auteur=Auteur::create($data);
+        if($auteur!=null){
+            return response()->json([
+                'statut'=>200,
+                'auteur'=>$auteur
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
+            ],500 );
+        }
     }
- }
-public function store (Request $request){
-    $data=$request->validate([
-        'nom_auteur'=>'required',
-    ]);
-    $auteur=Auteur::create($data);
-    if($auteur!=null){
-        return response()->json([
-            'statut'=>200,
-            'auteur'=>$auteur
-        ],200)  ;
-    }else{
-        return response()->json([ 
-            'statut'=>500,
-            'message'=>'L\'enregistrement n\'a pas été éffectué',
-        ],500 );
-    }
-}
+   
 public function mis_ajour(Request $request, $id){
     $auteur=Auteur::find($id);
     if($auteur!=null){

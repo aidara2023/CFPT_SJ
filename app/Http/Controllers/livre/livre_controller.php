@@ -3,34 +3,38 @@
 namespace App\Http\Controllers\livre;
 
 use App\Http\Controllers\Controller;
+use App\Models\Livre;
 use Illuminate\Http\Request;
 
 class livre_controller extends Controller
 {
     
     public function index() {
-        $auteur=auteur$auteur::all();
-        if($auteur!=null){
+        $livre=Livre::all();
+        if($livre!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'livre'=>$livre
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été éffectué',
             ],500 );
         }
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_auteur'=>'required',
+            'titre_livre'=>'required',
+            'id_categorie'=>'required',
+            'id_auteur'=>'required',
+            'id_edition'=>'required',
         ]);
-        $auteur=Auteur::create($data);
-        if($auteur!=null){
+        $livre=Livre::create($data);
+        if($livre!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'livre'=>$livre
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,51 +43,53 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $auteur=auteur$auteur::find($id);
-        if($auteur!=null){
-           $auteur->nom_auteur=$request['nom_auteur'];
-           
-           $auteur->save();
+    public function update(Request $request, $id){
+        $livre=Livre::find($id);
+        if($livre!=null){
+           $livre->titre_livre=$request['titre_livre'];
+           $livre->id_categorie=$request['id_categorie'];
+           $livre->id_auteur=$request['id_auteur'];
+           $livre->id_edition=$request['id_edition'];
+           $livre->save();
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'livre'=>$livre
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La mise à jour n\'a pas été éffectué',
+                'message'=>'La mise à jour n\'a pas été éffectuée',
             ],500 );
         }
     }
     public function supprimer($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
-            $auteur->delete();
+        $livre=livre::find($id);
+        if($livre!=null){
+            $livre->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Auteur supprimé avec succés',
+                'message'=>'livre supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'est pas supprimer',
+                'message'=>'Livre non supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $auteur=Auteur::find($id);
-        if($auteur!=null){
+        $livre=livre::find($id);
+        if($livre!=null){
             return response()->json([
                 'statut'=>200,
-                'auteur'=>$auteur
+                'livre'=>$livre
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'auteur n\'existe pas ',
+                'message'=>'Ce livre n\'existe pas ',
             ],500 );
         }
     }

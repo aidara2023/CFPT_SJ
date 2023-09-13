@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class seminaire_controller extends Controller
 {
+
         public function index()
         {
             $seminaires = Seminaire::all();

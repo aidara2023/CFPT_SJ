@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class rayon_view_controller extends Controller
+class role_view_controller extends Controller
 {
     //
 }

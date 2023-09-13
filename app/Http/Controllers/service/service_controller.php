@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\rayon;
+namespace App\Http\Controllers\service;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rayon;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class rayon_controller extends Controller
+class service_controller extends Controller
 {
-    
     public function index() {
-        $rayon=Rayon::all();
-        if($rayon!=null){
+        $service=Service::all();
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,15 +22,19 @@ class rayon_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
+
+    public function store(Request $request){
         $data=$request->validate([
             'intitule'=>'required',
+            'nom_service'=>'required',
+            'id_user'=>'required'
+           
         ]);
-        $rayon=rayon::create($data);
-        if($rayon!=null){
+        $service=Service::create($data);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -40,14 +43,17 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $rayon=Rayon::find($id);
-        if($rayon!=null){
-           $rayon->intitule=$request['intitule'];
-           $rayon->save();
+    public function update(Request $request, $id){
+        $service=Service::find($id);
+        if($service!=null){
+           $service->intitule=$request['intitule'];
+           $service->nom_service=$request['nom_service'];
+           $service->id_user=$request['id_user'];
+          
+           $service->save();
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
@@ -57,34 +63,35 @@ class rayon_controller extends Controller
         }
     }
     public function supprimer($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
-            $rayon->delete();
+        $service=Service::find($id);
+        if($service!=null){
+            $service->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Rayon supprimé avec succés',
+                'message'=>'service supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'est pas supprimé',
+                'message'=>'La service n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $rayon=rayon::find($id);
-        if($rayon!=null){
+        $service=Service::find($id);
+        if($service!=null){
             return response()->json([
                 'statut'=>200,
-                'rayon'=>$rayon
+                'service'=>$service
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le rayon n\'existe pas ',
+                'message'=>'service n\'a pas été éffectué',
             ],500 );
         }
+       
     }
 }
