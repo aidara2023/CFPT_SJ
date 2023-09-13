@@ -40,7 +40,7 @@ class categorie_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(Request $request, $id){
         $categorie=Categorie::find($id);
         if($categorie!=null){
            $categorie->intitule=$request['intitule'];
@@ -57,7 +57,7 @@ class categorie_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $categorie=categorie::find($id);
         if($categorie!=null){
             $categorie->delete();

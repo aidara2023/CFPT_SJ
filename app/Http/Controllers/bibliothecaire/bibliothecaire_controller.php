@@ -57,7 +57,7 @@ class bibliothecaire_controller extends Controller
             ],500 );
         }
     }
-    public function Update(Request $request, $id){
+    public function update(Request $request, $id){
         $bibliothecaire=Bibliothecaire::find($id);
         $user=$bibliothecaire->id_user;
         $user=user::find($user);

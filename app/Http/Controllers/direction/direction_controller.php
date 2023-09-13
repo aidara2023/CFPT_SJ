@@ -62,7 +62,7 @@ class direction_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $direction=Direction::find($id);
         if($direction!=null){
             $direction->delete();

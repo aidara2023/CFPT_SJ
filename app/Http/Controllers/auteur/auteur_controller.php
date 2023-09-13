@@ -39,7 +39,7 @@ class auteur_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(Request $request, $id){
         $auteur=Auteur::find($id);
         if($auteur!=null){
            $auteur->nom_auteur=$request['nom_auteur'];
@@ -56,7 +56,7 @@ class auteur_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $auteur=Auteur::find($id);
         if($auteur!=null){
             $auteur->delete();

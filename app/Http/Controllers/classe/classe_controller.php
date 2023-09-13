@@ -66,7 +66,7 @@ class classe_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $classe=classe::find($id);
         if($classe!=null){
             $classe->delete();

@@ -22,7 +22,7 @@ class userController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
+    public function store(Request $request){
         $data=$request->validate([
             'nom'=>'required',
             'prenom'=>'required',
@@ -50,7 +50,7 @@ class userController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function delete(Request $request, $id){
         $user=User::find($id);
         if($user!=null){
            $user->nom=$request['nom'];
