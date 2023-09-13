@@ -59,10 +59,25 @@ class bibliothecaire_controller extends Controller
     }
     public function Update(Request $request, $id){
         $bibliothecaire=Bibliothecaire::find($id);
+        $user=$bibliothecaire->id_user;
+        $user=user::find($user);
         if($bibliothecaire!=null){
-           $bibliothecaire->id_service=$request['id_service']; 
-           $bibliothecaire->id_user=$request['id_user'];
+            $user->nom=$request['nom'];
+            $user->prenom=$request['prenom'];
+            $user->genre=$request['genre'];
+            $user->adresse=$request['adresse'];
+            $user->telephone=$request['telephone'];
+            $user->password=$request['password'];
+            $user->date_naissance=$request['date_naissance'];
+            $user->lieu_naissance=$request['lieu_naissance'];
+            $user->nationalite=$request['nationalite'];
+            $user->photo=$request['photo'];
+            $user->id_role=$request['id_role'];
+            $user->save();
+           $bibliothecaire->id_user=$user->id;
+           $bibliothecaire->id_service=$request['id_service'];
            $bibliothecaire->save();
+
             return response()->json([
                 'statut'=>200,
                 'bibliothecaire'=>$bibliothecaire
