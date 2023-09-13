@@ -12,8 +12,8 @@ class participer_controller extends Controller
         $participer = Participer::all();
         if($participer != null){
             return response()->json([
-                'statut' => 200;
-                'participer' => $participer;
+                'statut' => 200,
+                'participer' => $participer
             ],200);
         } else {
             return response()->json([
@@ -44,7 +44,7 @@ class participer_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $participer, $id) {
+    public function mise_a_jour(Request $request, $id) {
         $participer = Participer::find($id);
         if($participer != null){
             $participer -> date_participation = $request['date_participation'];
