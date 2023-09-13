@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\bibliothecaire;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bibliothecaire;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class bibliothecaire_controller extends Controller
 {
     
     public function index() {
-        $bibliothecaire=bibliothecaire::all();
+        $bibliothecaire=Bibliothecaire::all();
         if($bibliothecaire!=null){
             return response()->json([
                 'statut'=>200,
@@ -18,15 +20,31 @@ class bibliothecaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été éffectué',
             ],500 );
         }
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_bibliothecaire'=>'required',
+            'nom'=>'required',
+            'prenom'=>'required',
+            'genre'=>'required',
+            'adresse'=>'required',
+            'email'=>'required',
+            'telephone'=>'required',
+            'password'=>'required',
+            'date_naissance'=>'required',
+            'lieu_naissance'=>'required',
+            'nationalite'=>'required',
+            'photo'=>'required',
+            'id_role'=>'required',
+            'id_service'=>'required'
         ]);
-        $bibliothecaire=bibliothecaire::create($data);
+        $user=User::create($data);
+        $bibliothecaire=Bibliothecaire::create([
+            'id_service'=>$request['id_service'],
+            'id_user'=>$user->id
+        ]);
         if($bibliothecaire!=null){
             return response()->json([
                 'statut'=>200,
@@ -39,11 +57,11 @@ class bibliothecaire_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
-        $bibliothecaire=bibliothecaire$bibliothecaire::find($id);
+    public function Update(Request $request, $id){
+        $bibliothecaire=Bibliothecaire::find($id);
         if($bibliothecaire!=null){
-           $bibliothecaire->nom_bibliothecaire=$request['nom_bibliothecaire'];
-           
+           $bibliothecaire->id_service=$request['id_service']; 
+           $bibliothecaire->id_user=$request['id_user'];
            $bibliothecaire->save();
             return response()->json([
                 'statut'=>200,
@@ -56,25 +74,25 @@ class bibliothecaire_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
-        $bibliothecaire=bibliothecaire::find($id);
+    public function delete($id){
+        $bibliothecaire=Bibliothecaire::find($id);
         if($bibliothecaire!=null){
             $bibliothecaire->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'bibliothecaire supprimé avec succés',
+                'message'=>'Bibliothecaire supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'bibliothecaire n\'est pas supprimer',
+                'message'=>'Bibliothecaire non supprimer',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $bibliothecaire=bibliothecaire::find($id);
+        $bibliothecaire=Bibliothecaire::find($id);
         if($bibliothecaire!=null){
             return response()->json([
                 'statut'=>200,
@@ -83,9 +101,10 @@ class bibliothecaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'bibliothecaire n\'existe pas ',
+                'message'=>'Bibliothecaire n\'existe pas ',
             ],500 );
         }
     }
 
 }
+
