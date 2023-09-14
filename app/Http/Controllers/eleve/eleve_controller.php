@@ -147,14 +147,11 @@ class eleve_controller extends Controller
        // return redirect()->route('eleves.index')->with('success', 'Élève mis à jour avec succès');
     }
 
-
-   
-
     public function delete($id)
     {
         $eleve = Eleve::find($id);
         if($eleve!=null){
-            $eleve->delete();
+            $eleve->destroy();
             return response()->json([
                 'statut'=>200,
                 'message'=>'eleve supprimé avec succés',
@@ -165,7 +162,7 @@ class eleve_controller extends Controller
                 'message'=>'eleve non supprimer',
             ],500 );
         }
-
+        //$eleve->delete();
 
        // return redirect()->route('eleves.index')->with('success', 'Élève supprimé avec succès');
     }
