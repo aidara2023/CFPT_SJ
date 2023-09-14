@@ -10,6 +10,6 @@ class Annee_academique extends Model
     use HasFactory;
     protected $fillable =[
         'id',
-        'intitule',
-    ]
+        'intitule'
+    ];
 }

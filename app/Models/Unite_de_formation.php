@@ -11,6 +11,6 @@ class Unite_de_formation extends Model
     protected $fillable = [
         'nom_unite_formation',
         'id_formateur',
-        'id_departement',
+        'id_departement'
     ];
 }

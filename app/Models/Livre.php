@@ -13,8 +13,8 @@ class Livre extends Model
         'titre_livre',
         'id_categorie',
         'id_auteur',
-         'id_edition'
+        'id_edition',
+    
         
-
     ];
 }

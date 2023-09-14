@@ -9,7 +9,7 @@ class Specialite extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'intitule',
+        'intitule'
         
     ];
 }

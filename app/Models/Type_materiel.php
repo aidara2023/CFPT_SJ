@@ -9,6 +9,6 @@ class Type_materiel extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'intitule',
+        'intitule'
     ];
 }

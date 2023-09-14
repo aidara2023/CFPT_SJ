@@ -11,7 +11,7 @@ class Salle extends Model
     protected $fillable = [
         'intitule',
         'nombre_place',
-        'id_batiment',
+        'id_batiment'
     ];
     
 }

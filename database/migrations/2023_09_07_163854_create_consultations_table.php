@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_user')->constrained('users');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_infirmier');
             $table->unsignedBigInteger('id_dossier_medical');

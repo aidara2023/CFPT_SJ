@@ -13,6 +13,6 @@ class Seminaire extends Model
         'date_debut',
         'date_fin',
         'description',
-        'id_direction',
+        'id_direction'
     ];
 }

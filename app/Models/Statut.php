@@ -9,6 +9,6 @@ class Statut extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'intitule', 
+        'intitule'
     ];
 }

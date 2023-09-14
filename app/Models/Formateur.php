@@ -14,7 +14,5 @@ class Formateur extends Model
         'Situation_matrimoniale',
         'id_specialite',
         'id_departement'
-        
-
     ];
 }
