@@ -4,9 +4,7 @@
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\roleController;
-use App\Http\Controllers\salle\salle_controller;
-use App\Http\Controllers\service\service_controller;
+use App\Http\Controllers\type_materiel\type_materiel_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +32,12 @@ Route::put('matiere/update/{id}', [matiere_controller::class, 'update'])->name('
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
 Route::get('matiere/get/{id}',[matiere_controller::class, 'get'])->name('matiere_get');
 
+
+Route::get('annee_academique/index', [annee_academique_controller::class, 'index']) -> name('annee_academique_index');
+Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
+Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
+Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
+Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 //Route de Organisme
 
 Route::get('organisme/index', [organisme_controller::class, 'index'])->name('organisme_index');
@@ -220,6 +224,7 @@ Route::post('ressource_pedagogique/store',[ressource_pedagogique_controller::cla
 Route::get('ressource_pedagogique/show/{id}',[ressource_pedagogique_controller::class, 'show'])->name('ressource_pedagogique_show');
 Route::put('ressource_pedagogique/update/{id}',[ressource_pedagogique_controller::class, 'update'])->name('ressource_pedagogique_update');
 Route::delete('ressource_pedagogique/delete/{id}',[ressource_pedagogique_controller::class, 'delete'])->name('ressource_pedagogique_delete');
+
 
 
 
