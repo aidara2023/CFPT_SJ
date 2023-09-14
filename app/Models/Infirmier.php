@@ -11,7 +11,5 @@ class Infirmier extends Model
     protected $fillable =[
         'id_dossier_medical',
         'id_user'
-        
-
     ];
 }

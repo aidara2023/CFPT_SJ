@@ -19,5 +19,6 @@ class Partenaire extends Model
         'date_debut',
         'date_fin',
         'id_direction',
+        'id_user',
     ];
 }
