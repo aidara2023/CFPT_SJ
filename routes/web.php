@@ -1,7 +1,12 @@
 <?php
 
-
+use App\Http\Controllers\caissier\caissier_controller;
+use App\Http\Controllers\consultation\consultation_controller;
+use App\Http\Controllers\cours\cours_controller;
+use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
+use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\matiere\matiere_controller;
+use App\Http\Controllers\note\note_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\type_materiel\type_materiel_controller;
@@ -251,10 +256,10 @@ Route::destory('note/destory/{$id}',[note_controller::class, 'destory'])->name('
 //Route pour cour
 
 Route::get('cour/index',[cours_controller::class, 'index'])->name('cour_index');
-Route::post('cour/store',[cour_controller::class, 'store'])->name('cour_store');
-Route::get('cour/show/{$id}',[cour_controller::class,'show'])->name('cour_show');
-Route::put('cour/update/{$id}',[cour_controller::class,'update'])->name('cour_update');
-Route::destory('cour/destory/{$id}',[cour_controller::class, 'destory'])->name('cour_destory');
+Route::post('cour/store',[cours_controller::class, 'store'])->name('cour_store');
+Route::get('cour/show/{$id}',[cours_controller::class,'show'])->name('cour_show');
+Route::put('cour/update/{$id}',[cours_controller::class,'update'])->name('cour_update');
+Route::destory('cour/destory/{$id}',[cours_controller::class, 'destory'])->name('cour_destory');
 
 //Route pourinscription
 
@@ -270,7 +275,7 @@ Route::get('emprunter_materiel/index',[emprunter_materiel_controller::class, 'in
 Route::post('emprunter_materiel/store',[emprunter_materiel_controller::class, 'store'])->name('emprunter_materiel_store');
 Route::get('emprunter_materiel/show/{$id}',[emprunter_materiel_controller::class,'show'])->name('emprunter_materiel_show');
 Route::put('emprunter_materiel/update/{$id}',[emprunter_materiel_controller::class,'update'])->name('emprunter_materiel_update');
-Route::destory('emprunter_materiel/destory/{$id}',[emprunter_controller::class, 'destory'])->name('emprunter_materiel_destory');
+Route::destory('emprunter_materiel/destory/{$id}',[emprunter_materiel_controller::class, 'destory'])->name('emprunter_materiel_destory');
 
 //Route pour consultation
 
