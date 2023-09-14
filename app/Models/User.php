@@ -52,4 +52,56 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'id_role');
+    }
+
+
+    public function service() {
+        return $this -> belongsTo(Service::class);
+    }
+
+    public function direction() {
+        return $this -> belongsTo(Direction::class);
+    }
+
+    public function bibliothecaires(){
+        return $this->hasMany(Bibliothecaire::class);
+    }
+
+    public function caissiers(){
+        return $this->hasMany(Caissier::class);
+    }
+
+    public function emprunter_livres(){
+        return $this->hasMany(Emprunter_livre::class);
+    }
+
+    public function dossiers_medical(){
+        return $this->hasMany(Dossier_medical::class);
+    }
+
+    public function infirmiers(){
+        return $this->hasMany(Infirmier::class);
+    }
+
+    public function tuteurs(){
+        return $this->hasMany(Tuteur::class);
+    }
+
+    public function eleves(){
+        return $this->hasMany(Eleve::class);
+    }
+
+    public function formateurs(){
+        return $this->hasMany(Formateur::class);
+    }
+
+    public function emprunter_materiels(){
+        return $this->hasMany(Emprunter_livre::class);
+    }
+    public function consultations(){
+        return $this->hasMany(Consultation::class);
+    }
 }

@@ -13,5 +13,20 @@ class Salle extends Model
         'nombre_place',
         'id_batiment'
     ];
+
+    public function cours (){
+        return $this->hasMany(Cour::class,'id');
+        
+    }
+
+    public function materiels (){
+        return $this->hasMany(Materiel::class,'id');
+        
+    }
+
+    public function batiment (){
+        return $this->belongsTo(Batiment::class,'id_batiment');
+        
+    }
     
 }

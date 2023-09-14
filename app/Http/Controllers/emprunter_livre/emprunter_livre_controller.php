@@ -30,6 +30,8 @@ class emprunter_livre_controller extends Controller
 
 
 
+
+
     public function show($id)
     {
         $emprunts = Emprunter_livre::find($id);
@@ -55,7 +57,9 @@ class emprunter_livre_controller extends Controller
         ]);
             //Affichez un formulaire pour permettre à l'utilisateur de sélectionner l'élève et le livre à emprunter
             //return view('emprunter_livre.create', ['emprunts$emprunts' => $emprunts, 'livres' => $livres]);
- 
+*/ 
+    
+
     public function store(Request $request)
     {
         // Validez les données du formulaire ici
@@ -69,85 +73,16 @@ class emprunter_livre_controller extends Controller
             'date_retour'=>$request['date_retour'],
         ]);
 
- 
+    /* 
         Mettez à jour le statut de disponibilité du livre
         $livre = Livre::find($request->input('livre_id'));
         $livre->disponible = false;
         $livre->save();
 
         return redirect()->route('emprunts.index')->with('success', 'Livre emprunté avec succès');
-
-    }  
-*/
-
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'id_user' => 'required',
-            'id_bibliothecaire' => 'required',
-            'id_exemplaire' => 'required',
-            'Date_emprunter' => 'required',
-            'date_retour' => 'required',
-        ]);
-
-        $emprunt = Emprunter_Livre::create($data);
-        if ($emprunt) {
-            return response()->json([
-                'status' => 200,
-                'emprunt' => $emprunt
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 500,
-                'message' => 'L\'enregistrement n\'a pas été effectué',
-            ], 500);
-        }
+   */
     }
 
-    public function update(Request $request, $id)
-    {
-        $emprunt = Emprunter_Livre::find($id);
-        if ($emprunt) {
-            $data = $request->validate([
-                'id_user' => 'required',
-                'id_bibliothecaire' => 'required',
-                'id_exemplaire' => 'required',
-                'Date_emprunter' => 'required',
-                'date_retour' => 'required',
-            ]);
-
-            $emprunt->update($data);
-
-            return response()->json([
-                'status' => 200,
-                'emprunt' => $emprunt
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 500,
-                'message' => 'La mise à jour n\'a pas été effectuée',
-            ], 500);
-        }
-    }
-
-    public function destroy($id)
-    {
-        $emprunt = Emprunter_Livre::find($id);
-        if ($emprunt) {
-            $emprunt->delete();
-            return response()->json([
-                'status' => 200,
-                'message' => 'Emprunt supprimé avec succès',
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 500,
-                'message' => 'L\'emprunt n\'a pas été supprimé',
-            ], 500);
-        }
-    }
-    
     public function rendre(Request $request, $id)
     {
         $emprunt = Emprunter_livre::find($id);
@@ -165,6 +100,7 @@ class emprunter_livre_controller extends Controller
                 'message'=>'aucun donner trouver',
             ],500 );
         } 
+    }
 
         
 /*
@@ -177,6 +113,6 @@ class emprunter_livre_controller extends Controller
     
 */
 
-    }
+    
 }
     

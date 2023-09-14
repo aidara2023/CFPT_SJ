@@ -14,4 +14,18 @@ class Consultation extends Model
         'id_infirmier',
         'id_dossier_medical'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function infirmier() {
+        return $this->belongsTo(Infirmier::class, 'id_infirmier');
+    }
+
+    
+    public function dossier_medical() {
+        return $this->belongsTo(Dossier_medical::class, 'id_dossier_medical');
+    }
+    
 }
