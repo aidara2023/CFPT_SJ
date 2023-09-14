@@ -11,7 +11,17 @@ class Infirmier extends Model
     protected $fillable =[
         'id_dossier_medical',
         'id_user'
-        
 
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
+    public function service() {
+        return $this->hasOne(Service::class);
+    }
+    public function consultation() {
+        return $this->hasMany(Consultation::class); 
+    }
+
 }

@@ -18,4 +18,17 @@ class Inscription extends Model
         
 
     ];
+
+    public function eleve() {
+        return $this->belongsTo(Eleve::class,'id_eleve');
+      }
+
+      public function class() {
+        return $this->belongsTo(Classe::class,'id_classe');
+      }
+
+      public function annee_academique() {
+        return $this->belongsTo(Annee_academique::class,'id_annee_academique');
+      }
+    
 }
