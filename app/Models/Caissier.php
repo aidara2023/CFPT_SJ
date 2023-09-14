@@ -20,12 +20,12 @@ class Caissier extends Model
     }
 
     public function service() {
-        return $this->hasOne(Service::class);
+        return $this->belongsTo(Service::class, 'id_service');
     }
 
     
     public function user() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'id_user');
     }
 
 

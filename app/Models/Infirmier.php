@@ -10,16 +10,18 @@ class Infirmier extends Model
     use HasFactory;
     protected $fillable =[
         'id_dossier_medical',
-        'id_user'
+        'id_user',
+        'id_service'
 
     ];
 
     public function user() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'id_user');
     }
     public function service() {
-        return $this->hasOne(Service::class);
+        return $this->belongsTo(Service::class, 'id_service');
     }
+
     public function consultation() {
         return $this->hasMany(Consultation::class); 
     }
