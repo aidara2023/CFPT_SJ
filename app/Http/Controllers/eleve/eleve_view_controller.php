@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\livre;
+namespace App\Http\Controllers\eleve;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class livre_view_controller extends Controller
+class eleve_view_controller extends Controller
 {
     //
 }

@@ -9,6 +9,8 @@ class Date_emprunter extends Model
 {
     use HasFactory;
     protected $fillable =[
+
         'intitule'
+
     ];
 }

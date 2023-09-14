@@ -15,7 +15,7 @@ class userController extends Controller
                 'user'=>$user
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'aucun enregistrement n\'a été éffectué',
             ],500 );
@@ -44,7 +44,7 @@ class userController extends Controller
                 'user'=>$user
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
@@ -70,7 +70,7 @@ class userController extends Controller
                 'user'=>$user
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
@@ -85,14 +85,14 @@ class userController extends Controller
                 'message'=>'utilisateur supprimer avec succes',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L utilisateur n\'est pas supprimer',
             ],500 );
         }
-       
+
     }
-    
+
     public function show($id){
         $user=User::find($id);
         if($user!=null){
@@ -101,11 +101,11 @@ class userController extends Controller
                 'user'=>$user
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L utilisateur n\'existe pas été éffectué',
             ],500 );
         }
-       
+
     }
 }
