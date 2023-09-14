@@ -13,7 +13,21 @@ class Exemplaire extends Model
         'Intitule',
         'id_livre',
         'id_rayon'
-        
+
 
     ];
+
+    public function livre() {
+        return $this -> belongsTo(Livre::class, 'id_livre');
+    }
+
+    public function emprunter_livre() {
+        return $this -> hasMany(Emprunter_livre::class, 'id_emprunter_livre');
+    }
+
+    public function rayon() {
+        return $this -> belongsTo(Rayon::class, 'id_rayon');
+    }
+
+
 }

@@ -13,4 +13,8 @@ class Categorie extends Model
         'intitule'
 
     ];
+
+    public function livre() {
+        return $this -> hasMany(Livre::class, 'id_livre');
+    }
 }
