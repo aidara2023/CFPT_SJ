@@ -11,4 +11,9 @@ class Type_materiel extends Model
     protected $fillable = [
         'intitule'
     ];
+
+    public function materiel (){
+        return $this->hasMany(Materiel::class,'id');
+        
+    }
 }
