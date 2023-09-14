@@ -13,4 +13,10 @@ class Participer extends Model
         'id_seminaire',
         'id_formateur'
     ];
+    public function seminaires(){
+        return $this->belongsToMany(Seminaire::class,'id_seminaire');
+    }
+    public function formateur(){
+        return $this->belongsToMany(Formateur::class,'id_formateur');
+    }
 }
