@@ -63,6 +63,7 @@ Route::get('/', function () {
 
 Route::get('/role/home',[roleController::class, 'index']);
 
+
 //Route de matiere
 
 Route::get('matiere/index', [matiere_controller::class, 'index'])->name('matiere_index');
@@ -347,6 +348,7 @@ Route::post('consultation/store',[consultation_controller::class, 'store'])->nam
 Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->name('consultation_show');
 Route::put('consultation/update/{$id}',[cosultation_controller::class,'update'])->name('consultation_update');
 Route::destory('consultation/destory/{$id}',[consulation_controller::class, 'destory'])->name('consultation_destory');
+
 
 
 

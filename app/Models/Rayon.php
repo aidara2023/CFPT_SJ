@@ -11,5 +11,8 @@ class Rayon extends Model
     protected $fillable = [
         'intitule'
     ];
-    
+
+    public function exemplaire() {
+        return $this -> hasMany(Exemplaire::class, 'id_exemplaire');
+    }
 }
