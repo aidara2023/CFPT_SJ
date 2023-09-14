@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Formateur;
 use Illuminate\Http\Request;
 
-class FormateurController extends Controller
+class formateurController extends Controller
 {
     public function index() {
         $formateur=Formateur::all();

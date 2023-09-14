@@ -42,7 +42,7 @@ class annee_academique_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $annee_academique, $id) {
+    public function mise_a_jour(Request $request, $id) {
         $annee_academique = Annee_academique::find($id);
         if($annee_academique != null){
             $annee_academique -> id = $request['id'];
