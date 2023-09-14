@@ -35,7 +35,7 @@ Route::get('annee_academique/index', [annee_academique_controller::class, 'index
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
-Route::get('annee_academique/show', annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
 Route::get('departement/index', [departement_controller::class, 'index']) -> name('departement_index');
 Route::get('departement/ajouter', [departement_controller::class, 'ajouter']) -> name('departement_ajouter');
