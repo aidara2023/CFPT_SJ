@@ -2,15 +2,19 @@
 
 
 use App\Http\Controllers\annee_academique\annee_academique_controller;
+use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
 use App\Http\Controllers\categorie\categorie_controller;
+use App\Http\Controllers\date_emprunter\date_emprunter_controller;
 use App\Http\Controllers\departement\departement_controller;
 use App\Http\Controllers\dossier_medical\dossier_medical_controller;
 use App\Http\Controllers\editeur\editeur_controller;
+use App\Http\Controllers\edition\edition_controller;
 use App\Http\Controllers\eleve\eleve_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_controller;
 use App\Http\Controllers\examplaire\exemplaire_controller;
+use App\Http\Controllers\financer_bourse\financer_bourse_controller;
 use App\Http\Controllers\infirmier\infirmier_controller;
 use App\Http\Controllers\livre\livre_controller;
 use App\Http\Controllers\materiel\materiel_controller;
@@ -243,6 +247,30 @@ Route::get('ressource_pedagogique/show/{id}',[ressource_pedagogique_controller::
 Route::put('ressource_pedagogique/update/{id}',[ressource_pedagogique_controller::class, 'update'])->name('ressource_pedagogique_update');
 Route::delete('ressource_pedagogique/delete/{id}',[ressource_pedagogique_controller::class, 'delete'])->name('ressource_pedagogique_delete');
 
+//route archive
+Route::get('archive/index',[archive_controller::class, 'index'])->name('archive_index');
+Route::post('archive/store',[archive_controller::class, 'store'])->name('archive_store');
+Route::get('archive/show/{id}',[archive_controller::class, 'show'])->name('archive_show');
+Route::put('archive/update/{id}',[archive_controller::class, 'update'])->name('archive_update');
+Route::delete('archive/delete/{id}',[archive_controller::class, 'delete'])->name('archive_delete');
 
+//route date_emprunter
+Route::get('date_emprunter/index',[date_emprunter_controller::class, 'index'])->name('date_emprunter_index');
+Route::post('date_emprunter/store',[date_emprunter_controller::class, 'store'])->name('date_emprunter_store');
+Route::get('date_emprunter/show/{id}',[date_emprunter_controller::class, 'show'])->name('date_emprunter_show');
+Route::put('date_emprunter/update/{id}',[date_emprunter_controller::class, 'update'])->name('date_emprunter_update');
+Route::delete('date_emprunter/delete/{id}',[date_emprunter_controller::class, 'delete'])->name('date_emprunter_delete');
 
+//route edition
+Route::get('edition/index',[edition_controller::class, 'index'])->name('edition_index');
+Route::post('edition/store',[edition_controller::class, 'store'])->name('edition_store');
+Route::get('edition/show/{id}',[edition_controller::class, 'show'])->name('edition_show');
+Route::put('edition/update/{id}',[edition_controller::class, 'update'])->name('edition_update');
+Route::delete('edition/delete/{id}',[edition_controller::class, 'delete'])->name('edition_delete');
 
+//route financer_bourse
+Route::get('financer_bourse/index',[financer_bourse_controller::class, 'index'])->name('financer_bourse_index');
+Route::post('financer_bourse/store',[financer_bourse_controller::class, 'store'])->name('financer_bourse_store');
+Route::get('financer_bourse/show/{id}',[financer_bourse_controller::class, 'show'])->name('financer_bourse_show');
+Route::put('financer_bourse/update/{id}',[financer_bourse_controller::class, 'update'])->name('financer_bourse_update');
+Route::delete('financer_bourse/delete/{id}',[financer_bourse_controller::class, 'delete'])->name('financer_bourse_delete');
