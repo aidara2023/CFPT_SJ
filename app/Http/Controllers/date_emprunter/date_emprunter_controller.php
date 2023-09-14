@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\edition;
+namespace App\Http\Controllers\date_emprunter;
 
 use App\Http\Controllers\Controller;
-use App\Models\Edition;
+use App\Models\Date_emprunter;
 use Illuminate\Http\Request;
 
-class edition_controller extends Controller
+class date_emprunter_controller extends Controller
 {
     public function index() {
-        $edition=Edition::all();
-        if($edition!=null){
+        $date_emprunter=Date_emprunter::all();
+        if($date_emprunter!=null){
             return response()->json([
                 'statut'=>200,
-                'edition'=>$edition
+                'date_emprunter'=>$date_emprunter
             ],200)  ;
         }else{
             return response()->json([ 
@@ -24,67 +24,66 @@ class edition_controller extends Controller
      }
     public function store (Request $request){
         $data=$request->validate([
-            'nom_edition'=>'required',
-            'id_editeur'=>'required'
+            'intitule'=>'required',
         ]);
-        $edition=edition::create($data);
-        if($edition!=null){
+        $date_emprunter=Date_emprunter::create($data);
+        if($date_emprunter!=null){
             return response()->json([
                 'statut'=>200,
-                'edition'=>$edition
+                'date_emprunter'=>$date_emprunter
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'edition n\'a pas été ajouté',
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
         }
     }
-    public function update(Request $request, $id){
-        $edition=Edition::find($id);
-        if($edition!=null){
-           $edition->nom_edition=$request['nom_edition'];
-           $edition->id_editeur=$request['id_editeur'];
-           $edition->save();
+    public function mis_ajour(Request $request, $id){
+        $date_emprunter=Date_emprunter::find($id);
+        if($date_emprunter!=null){
+           $date_emprunter->intitule=$request['intitule'];
+           
+           $date_emprunter->save();
             return response()->json([
                 'statut'=>200,
-                'edition'=>$edition
+                'date_emprunter'=>$date_emprunter
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La mise à jour n\'a pas été éffectué',
+                'message'=>'La mise à jour n\'a pas été éffectuée',
             ],500 );
         }
     }
-    public function delete($id){
-        $edition=Edition::find($id);
-        if($edition!=null){
-            $edition->delete();
+    public function supprimer($id){
+        $date_emprunter=Date_emprunter::find($id);
+        if($date_emprunter!=null){
+            $date_emprunter->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'edition supprimé avec succés',
+                'message'=>'date_emprunter supprimée avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'edition n\'est pas supprimer',
+                'message'=>'La date_emprunter n\'est pas supprimée',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $edition=Edition::find($id);
-        if($edition!=null){
+        $date_emprunter=Date_emprunter::find($id);
+        if($date_emprunter!=null){
             return response()->json([
                 'statut'=>200,
-                'edition'=>$edition
+                'date_emprunter'=>$date_emprunter
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'edition n\'existe pas ',
+                'message'=>'L\'date_emprunter n\'existe pas ',
             ],500 );
         }
     }

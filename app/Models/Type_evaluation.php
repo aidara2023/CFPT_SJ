@@ -11,4 +11,7 @@ class Type_evaluation extends Model
     protected $fillable = [
         'libelle'
     ];
+    public function classe() {
+        return $this -> hasMany(Classe::class);
+    }
 }

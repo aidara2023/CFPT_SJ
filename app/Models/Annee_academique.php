@@ -12,4 +12,13 @@ class Annee_academique extends Model
         'id',
         'intitule'
     ];
+    public function inscription() {
+        return $this->hasMany(Inscription::class); 
+    }
+    public function paiements() {
+        return $this->hasMany(Paiement::class); 
+    }
+    public function note() {
+        return $this->hasMany(Note::class); 
+    }
 }

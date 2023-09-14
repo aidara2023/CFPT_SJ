@@ -14,7 +14,21 @@ class Emprunter_livre extends Model
         'id_exemplaire',
         'Date_emprunter',
         'date_retour'
-        
-
     ];
+
+    public function exemplaire() {
+        return $this -> belongsTo(Exemplaire::class, 'id_exemplaire');
+    }
+
+    public function bibliothecaire() {
+        return $this -> belongsTo(Bibliothecaire::class, 'id_bibliothecaire');
+    }
+
+    public function user() {
+        return $this -> belongsTo(User::class, 'id_user');
+    }
+
+
+
+
 }

@@ -13,4 +13,13 @@ class Dossier_medical extends Model
         'id_user'
 
     ];
+
+    public function consultation() {
+        return $this->hasMany(Consultation::class); 
+    }
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
+
 }

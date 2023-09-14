@@ -15,4 +15,13 @@ class Departement extends Model
         'id_direction'
 
     ];
+    public function direction (){
+        return $this->belongsTo(Direction::class,'id_direction');
+        
+    }
+
+    public function unite_de_formations (){
+        return $this->hasMany(Unite_de_formation::class,'id');
+        
+    }
 }

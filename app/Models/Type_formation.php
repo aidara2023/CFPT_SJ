@@ -11,4 +11,9 @@ class Type_formation extends Model
     protected $fillable = [
         'intitule'
     ];
+
+    public function classe (){
+        return $this->hasMany(Classe::class,'id');
+    
+    }
 }
