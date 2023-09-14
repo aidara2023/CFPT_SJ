@@ -27,6 +27,11 @@ class emprunter_livre_controller extends Controller
         } 
        // return view('emprunter_livre.index', ['emprunts' => $emprunts]);
     }
+
+
+
+
+
     public function show($id)
     {
         $emprunts = Emprunter_livre::find($id);
@@ -95,6 +100,7 @@ class emprunter_livre_controller extends Controller
                 'message'=>'aucun donner trouver',
             ],500 );
         } 
+    }
 
         
 /*
@@ -107,6 +113,6 @@ class emprunter_livre_controller extends Controller
     
 */
 
-    }
+    
 }
     

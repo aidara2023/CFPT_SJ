@@ -12,8 +12,8 @@ class participer_controller extends Controller
         $participer = Participer::all();
         if($participer != null){
             return response()->json([
-                'statut' => 200;
-                'participer' => $participer;
+                'statut' => 200,
+                'participer' => $participer,
             ],200);
         } else {
             return response()->json([

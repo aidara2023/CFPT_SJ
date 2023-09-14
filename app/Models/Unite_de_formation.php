@@ -13,4 +13,28 @@ class Unite_de_formation extends Model
         'id_formateur',
         'id_departement'
     ];
+
+    public function departement (){
+        return $this->belongsTo(Departement::class, 'id_departement');
+
+    }
+
+    public function classes (){
+        return $this->hasMany(Classe::class,'id');
+    }
+
+    public function materiels (){
+        return $this->hasMany(Materiel::class,'id');
+        
+    }
+
+    public function formateur (){
+        return $this->belongsTo(Formateur::class,'id_formateur');
+        
+    }
+
+    public function ressource_pedagogique (){
+        return $this->hasMany(Ressource_pedagogique::class,'id');
+        
+    }
 }

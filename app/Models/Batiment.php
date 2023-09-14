@@ -12,4 +12,9 @@ class Batiment extends Model
         'id',
         'intitule'
     ];
+
+    public function salle (){
+        return $this->hasMany(Salle::class,'id');
+        
+    }
 }

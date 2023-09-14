@@ -13,4 +13,9 @@ class Date_emprunter extends Model
         'intitule'
 
     ];
+
+    public function emprunter_materiels (){
+        return $this->hasMany(Emprunter_materiel::class,'id');
+        
+    }
 }

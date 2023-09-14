@@ -151,7 +151,7 @@ class eleve_controller extends Controller
     {
         $eleve = Eleve::find($id);
         if($eleve!=null){
-            $eleve->delete();
+            $eleve->destroy();
             return response()->json([
                 'statut'=>200,
                 'message'=>'eleve supprimé avec succés',
