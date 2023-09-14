@@ -32,4 +32,9 @@ class Unite_de_formation extends Model
         return $this->belongsTo(Formateur::class,'id_formateur');
         
     }
+
+    public function ressource_pedagogique (){
+        return $this->hasMany(Ressource_pedagogique::class,'id');
+        
+    }
 }
