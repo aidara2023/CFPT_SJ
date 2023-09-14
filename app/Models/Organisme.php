@@ -12,4 +12,7 @@ class Organisme extends Model
          'id',
          'nom_organisme'
          ];
+         public function financer_bource(){
+            return $this->hasMany(Financer_bourse::class);
+          }
 }

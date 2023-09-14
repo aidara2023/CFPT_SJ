@@ -14,4 +14,10 @@ class Assister extends Model
         'id_cour',
         'id_eleve'
     ];
+    public function eleves(){
+        return $this->belongsToMany(Eleve::class,'id_eleve');
+    }
+    public function cours(){
+        return $this->belongsToMany(Cour::class,'id_cour');
+    }
 }
