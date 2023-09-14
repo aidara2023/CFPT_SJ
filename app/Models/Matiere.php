@@ -12,4 +12,12 @@ class Matiere extends Model
         'id',
         'intitule'
         ];
+
+        public function note(){
+            return $this->belongsToMany(note::class);
+        }
+
+        public function Cour(){
+            return $this->belongsTo(Cour::class);
+        }
 }
