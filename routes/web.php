@@ -3,9 +3,11 @@
 
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\organisme\organisme_controller;
-use App\Http\Controllers\eleve\eleve_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\roleController;
+use App\Http\Controllers\salle\salle_controller;
+use App\Http\Controllers\service\service_controller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,7 @@ use App\Http\Controllers\roleController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/role/home',[roleController::class, 'index']);
 
@@ -65,6 +68,7 @@ Route::post('unite_de_formation/store',[unite_de_formation_controller::class, 's
 Route::put('unite_de_formation/update/{id}', [unite_de_formation_controller::class, 'update'])->name('unite_de_formation_update');
 Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::class, 'delete'])->name('unite_de_formation_delete');
 Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 'get'])->name('unite_de_formation_get');
+
 
 //route eleve 
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
@@ -116,6 +120,7 @@ Route::post('seminaire/store',[seminaire_controller::class, 'store'])->name('sem
 Route::get('seminaire/show/{id}',[seminaire_controller::class, 'show'])->name('seminaire_show');
 Route::put('seminaire/update/{id}',[seminaire_controller::class, 'update'])->name('seminaire_update');
 Route::delete('seminaire/delete/{id}',[seminaire_controller::class, 'destroy'])->name('seminaire_delete');
+
 
 
 //route participer
@@ -215,3 +220,7 @@ Route::post('ressource_pedagogique/store',[ressource_pedagogique_controller::cla
 Route::get('ressource_pedagogique/show/{id}',[ressource_pedagogique_controller::class, 'show'])->name('ressource_pedagogique_show');
 Route::put('ressource_pedagogique/update/{id}',[ressource_pedagogique_controller::class, 'update'])->name('ressource_pedagogique_update');
 Route::delete('ressource_pedagogique/delete/{id}',[ressource_pedagogique_controller::class, 'delete'])->name('ressource_pedagogique_delete');
+
+
+
+
