@@ -41,6 +41,7 @@ class tuteur_controller extends Controller
         ]);
 
         $user = User::create($data);
+
         $tuteur = Tuteur::create(['id_user' => $user -> id]);
 
         if($tuteur != null){

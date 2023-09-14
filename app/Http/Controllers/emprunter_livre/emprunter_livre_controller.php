@@ -29,7 +29,6 @@ class emprunter_livre_controller extends Controller
     }
 
 
-
     public function show($id)
     {
         $emprunts = Emprunter_livre::find($id);
@@ -55,30 +54,10 @@ class emprunter_livre_controller extends Controller
         ]);
             //Affichez un formulaire pour permettre à l'utilisateur de sélectionner l'élève et le livre à emprunter
             //return view('emprunter_livre.create', ['emprunts$emprunts' => $emprunts, 'livres' => $livres]);
- 
-    public function store(Request $request)
-    {
-        // Validez les données du formulaire ici
-        $emprunts = Emprunter_livre::create([
-            //'eleve_id' => $request['eleve_id'],
-            //'livre_id' => $request['livre_id'],
-            'date_emprunter' => now(),
-            'id_bibliothecaire'=>$request['id_bibliothecaire'],
-            'id_exemplaire'=>$request['id_exemplaire'],
-            'Date_emprunter'=>$request['Date_emprunter'],
-            'date_retour'=>$request['date_retour'],
-        ]);
 
- 
-        Mettez à jour le statut de disponibilité du livre
-        $livre = Livre::find($request->input('livre_id'));
-        $livre->disponible = false;
-        $livre->save();
 
-        return redirect()->route('emprunts.index')->with('success', 'Livre emprunté avec succès');
-
-    }  
-*/
+*/ 
+    
 
 
     public function store(Request $request)
@@ -148,6 +127,8 @@ class emprunter_livre_controller extends Controller
         }
     }
     
+
+
     public function rendre(Request $request, $id)
     {
         $emprunt = Emprunter_livre::find($id);
@@ -165,6 +146,7 @@ class emprunter_livre_controller extends Controller
                 'message'=>'aucun donner trouver',
             ],500 );
         } 
+    }
 
         
 /*
@@ -177,6 +159,6 @@ class emprunter_livre_controller extends Controller
     
 */
 
-    }
+    
 }
     
