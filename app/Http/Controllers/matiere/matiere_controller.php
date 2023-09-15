@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\matiere;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\matiere\matiere_request;
 use Illuminate\Http\Request;
 use App\Models\Matiere;
 
@@ -23,10 +24,8 @@ class matiere_controller extends Controller
         }
      }
 
-     public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required'
-                ]);
+     public function store (matiere_request $request){
+        $data=$request->validated();
         $matiere=Matiere::create($data);
         if($matiere!=null){
             return response()->json([
@@ -42,7 +41,7 @@ class matiere_controller extends Controller
     }
 
 
-    public function update(Request $request, $id){
+    public function update(matiere_request $request, $id){
         $matiere=Matiere::find($id);
         if($matiere!=null){
            $matiere->intitule=$request['intitule'];

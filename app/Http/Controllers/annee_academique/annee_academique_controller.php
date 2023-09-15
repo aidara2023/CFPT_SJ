@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\annee_academique;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\annee_academique\annee_academique_request;
 use Illuminate\Http\Request;
 use App\Models\Annee_academique;
 
@@ -23,10 +24,8 @@ class annee_academique_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request) {
-        $data = $request -> validate([
-            'intitule' => 'required'
-        ]);
+    public function store(annee_academique_request $request) {
+        $data = $request -> validated();
 
         $annee_academique = Annee_academique::create($data);
         if($annee_academique != null){
@@ -42,7 +41,7 @@ class annee_academique_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $request, $id) {
+    public function update(annee_academique_request $request, $id) {
         $annee_academique = Annee_academique::find($id);
         if($annee_academique != null){
             $annee_academique -> id = $request['id'];
@@ -61,7 +60,7 @@ class annee_academique_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $annee_academique = Annee_academique::find($id);
         if($annee_academique != null){
             $annee_academique -> delete();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\editeur;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\editeur\editeur_request;
 use App\Models\Editeur;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,8 @@ class editeur_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'nom_editeur'=>'required',
-        ]);
+    public function store (editeur_request $request){
+        $data=$request->validated();
         $editeur=Editeur::create($data);
         if($editeur!=null){
             return response()->json([
@@ -40,7 +39,7 @@ class editeur_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(editeur_request $request, $id){
         $editeur=Editeur::find($id);
         if($editeur!=null){
            $editeur->nom_editeur=$request['nom_editeur'];

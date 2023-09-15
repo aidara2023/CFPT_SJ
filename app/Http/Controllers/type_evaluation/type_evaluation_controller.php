@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\type_evaluation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\type_evaluation\type_evaluation_request;
 use App\Models\Type_evaluation;
 use Illuminate\Http\Request;
 
@@ -24,13 +25,11 @@ class type_evaluation_controller extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(type_evaluation_request $request)
     {
-        $data = $request->validate([
-            'libelle' => 'required',
-        ]);
+        $data = $request->validated();
 
-        $type_Evaluation = Type_Evaluation::create($data);
+        $type_Evaluation = Type_evaluation::create($data);
         if ($type_Evaluation) {
             return response()->json([
                 'status' => 200,
@@ -44,9 +43,9 @@ class type_evaluation_controller extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(type_evaluation_request $request, $id)
     {
-        $type_Evaluation = Type_Evaluation::find($id);
+        $type_Evaluation = Type_evaluation::find($id);
         if ($type_Evaluation) {
             $data = $request->validate([
                 'libeller' => 'required',
@@ -66,9 +65,9 @@ class type_evaluation_controller extends Controller
         }
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        $type_Evaluation = Type_Evaluation::find($id);
+        $type_Evaluation = Type_evaluation::find($id);
         if ($type_Evaluation) {
             $type_Evaluation->delete();
             return response()->json([
@@ -85,7 +84,7 @@ class type_evaluation_controller extends Controller
 
     public function show($id)
     {
-        $type_Evaluation = Type_Evaluation::find($id);
+        $type_Evaluation = Type_evaluation::find($id);
         if ($type_Evaluation) {
             return response()->json([
                 'status' => 200,

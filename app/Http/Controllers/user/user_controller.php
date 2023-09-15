@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\user\user_request;
 use Illuminate\Http\Request;
 use App\Models\User;
 class userController extends Controller
@@ -22,21 +23,8 @@ class userController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
-        $data=$request->validate([
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
-            'photo'=>'required',
-            'id_role'=>'required'
-        ]);
+    public function store (user_request $request){
+        $data=$request->validated();
         $user=User::create($data);
         if($user!=null){
             return response()->json([
@@ -50,7 +38,7 @@ class userController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(user_request $request, $id){
         $user=User::find($id);
         if($user!=null){
            $user->nom=$request['nom'];
@@ -76,7 +64,7 @@ class userController extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $user=User::find($id);
         if($user!=null){
             $user->delete();

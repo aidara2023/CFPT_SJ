@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\materiel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\materiel\materiel_request;
 use App\Models\Materiel;
 use Illuminate\Http\Request;
 
@@ -24,20 +25,9 @@ class materiel_controller extends Controller
             }
         }
     
-        public function store(Request $request)
+        public function store(materiel_request $request)
         {
-            $data = $request->validate([
-                'Nom' => 'required',
-                'date_entree' => 'required',
-                'date_sortie' => 'required',
-                'Etat' => 'required',
-                'Quantité' => 'required',
-                'id_service' => 'required',
-                'id_salle' => 'required',
-                'id_type_materiel' => 'required',
-                'id_statut' => 'required',
-                'id_unite_formation' => 'required',
-            ]);
+            $data = $request->validated();
     
             $materiel = Materiel::create($data);
             if ($materiel) {
@@ -53,7 +43,7 @@ class materiel_controller extends Controller
             }
         }
     
-        public function update(Request $request, $id)
+        public function update(materiel_request $request, $id)
         {
             $materiel = Materiel::find($id);
             if ($materiel) {

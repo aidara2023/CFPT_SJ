@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\batiment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\batiment\batiment_request;
 use App\Models\Batiment;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,8 @@ class batiment_controller extends Controller
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-           
-           
-        ]);
+    public function store(batiment_request $request){
+        $data=$request->validated();
         $batiment=Batiment::create($data);
         if($batiment!=null){
             return response()->json([
@@ -42,7 +39,7 @@ class batiment_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(batiment_request $request, $id){
         $batiment=Batiment::find($id);
         if($batiment!=null){
            $batiment->intitule=$request['type_batiment'];

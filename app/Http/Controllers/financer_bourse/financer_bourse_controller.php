@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\financer_bourse;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\financer_bourse\financer_bourse_request;
 use App\Models\Financer_bourse;
 use Illuminate\Http\Request;
 
@@ -22,15 +23,8 @@ class financer_bourse_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'date'=>'required',
-            'montant'=>'required',
-            'id_organisme'=>'required',
-            'id_classe'=>'required',
-            'id_eleve'=>'required',
-            'id_annee_academique'=>'required'
-        ]);
+    public function store (financer_bourse_request $request){
+        $data=$request->validated();
         $financer_bourse=Financer_bourse::create($data);
         if($financer_bourse!=null){
             return response()->json([
@@ -44,7 +38,7 @@ class financer_bourse_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(financer_bourse_request $request, $id){
         $financer_bourse=Financer_bourse::find($id);
         if($financer_bourse!=null){
            $financer_bourse->date=$request['date'];

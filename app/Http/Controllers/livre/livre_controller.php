@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\livre;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\livre\livre_request;
 use App\Models\Livre;
 use Illuminate\Http\Request;
 
@@ -23,13 +24,8 @@ class livre_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'titre_livre'=>'required',
-            'id_categorie'=>'required',
-            'id_auteur'=>'required',
-            'id_edition'=>'required',
-        ]);
+    public function store (livre_request $request){
+        $data=$request->validated();
         $livre=Livre::create($data);
         if($livre!=null){
             return response()->json([
@@ -43,7 +39,7 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(livre_request $request, $id){
         $livre=Livre::find($id);
         if($livre!=null){
            $livre->titre_livre=$request['titre_livre'];
@@ -62,7 +58,7 @@ class livre_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $livre=livre::find($id);
         if($livre!=null){
             $livre->delete();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\archive;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\archive\archive_request;
 use App\Models\Archive;
 use Illuminate\Http\Request;
 
@@ -23,17 +24,8 @@ class archive_controller extends Controller
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'titre'=>'required',
-            'type'=>'required',
-            'statut'=>'required',
-            'date_destruction'=>'required',
-            'contenu'=>'required',
-            'id_departement'=>'required',
-            'id_service'=>'required'
-           
-        ]);
+    public function store(archive_request $request){
+        $data=$request->validated();
         $archive=archive::create($data);
         if($archive!=null){
             return response()->json([
@@ -47,7 +39,7 @@ class archive_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(archive_request $request, $id){
         $archive=archive::find($id);
         if($archive!=null){
            $archive->titre=$request['titre'];

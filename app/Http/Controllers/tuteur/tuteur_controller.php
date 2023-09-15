@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\tuteur;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\tuteur\tuteur_request;
 use App\Models\Tuteur;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,21 +25,8 @@ class tuteur_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request) {
-        $data = $request -> validate([
-            'nom' =>  'required',
-            'prenom' =>  'required',
-            'genre' =>  'required',
-            'adresse' =>  'required',
-            'email'=>  'required',
-            'telephone'=> 'required',
-            'password'=> 'required',
-            'date_naissance'=> 'required',
-            'lieu_naissance'=> 'required',
-            'nationalite'=> 'required',
-            'photo'=> 'required',
-            'id_role'=> 'required'
-        ]);
+    public function store(tuteur_request $request) {
+        $data = $request -> validated();
 
         $user = User::create($data);
         $tuteur = Tuteur::create(['id_user' => $user -> id]);
@@ -56,7 +44,7 @@ class tuteur_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $request, $id) {
+    public function update(tuteur_request $request, $id) {
         $tuteur = Tuteur::find($id);
         $user = $tuteur -> id_user;
         $user = User::find($user);
@@ -89,7 +77,7 @@ class tuteur_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $tuteur = Tuteur::find($id);
         if($tuteur != null){
             $tuteur -> delete();

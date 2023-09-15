@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ressource_pedagogique;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ressource_pedagogique\ressource_pedagogique_request;
 use App\Models\Ressource_pedagogique;
 use Illuminate\Http\Request;
 
@@ -22,16 +23,8 @@ class ressource_pedagogique_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'titre_ressource_pedagogique'=>'required',
-            'libelle'=>'required',
-            'contenu'=>'required',
-            'id_formateur'=>'required',
-            'id_cour'=>'required',
-            'id_eleve'=>'required',
-            'id_unite_de_formation'=>'required'
-        ]);
+    public function store (ressource_pedagogique_request $request){
+        $data=$request->validated();
         $ressource_pedagogique=ressource_pedagogique::create($data);
         if($ressource_pedagogique!=null){
             return response()->json([
@@ -45,7 +38,7 @@ class ressource_pedagogique_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(ressource_pedagogique_request $request, $id){
         $ressource_pedagogique=ressource_pedagogique::find($id);
         if($ressource_pedagogique!=null){
            $ressource_pedagogique->libelle=$request['libelle'];

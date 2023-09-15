@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\retard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\retard\retard_request;
 use App\Models\Retard;
 use Illuminate\Http\Request;
 
@@ -23,15 +24,8 @@ class retard_controller extends Controller
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'date'=>'required',
-            'heure'=>'required',
-            'id_eleve'=>'required',
-            'id_cour'=>'required'
-            
-           
-        ]);
+    public function store(retard_request $request){
+        $data=$request->validated();
         $retard=Retard::create($data);
         if($retard!=null){
             return response()->json([
@@ -45,7 +39,7 @@ class retard_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(retard_request $request, $id){
         $retard=retard::find($id);
         if($retard!=null){
            $retard->date=$request['date'];

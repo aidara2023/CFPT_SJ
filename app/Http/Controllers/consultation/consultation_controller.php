@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\consultation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\consultation\consultation_request;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
 
@@ -30,16 +31,10 @@ class consultation_controller extends Controller
         return response()->json($consultation);
     }
 
-    public function store(Request $request)
+    public function store(consultation_request $request)
     {
         
-        $validatedData = $request->validate([
-            'id_consultation' => 'required',
-            'id_user' => 'required',
-            'id_infirmier' => 'required',
-            'id_dossier_medical' => 'required',
-            
-        ]);
+        $validatedData = $request->validated();
 
         
         $consultation = Consultation::create($validatedData);
@@ -48,7 +43,7 @@ class consultation_controller extends Controller
         return response()->json($consultation, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(consultation_request $request, $id)
     {
         
         $validatedData = $request->validate([
@@ -73,7 +68,7 @@ class consultation_controller extends Controller
         return response()->json($consultation);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         
         $consultation = Consultation::find($id);

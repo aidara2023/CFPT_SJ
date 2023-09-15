@@ -4,6 +4,7 @@ namespace App\Http\Controllers\caissier;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\caissier\caissier_request;
 use App\Models\Caissier;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,23 +29,8 @@ class caissier_controller extends Controller
         return response()->json($caissier);
 
     }
-    public function store(Request $request){
-        $validatedData = $request->validate([
-            'Nom'=>'required',
-            'Prénom'=>'required',
-            'Genre'=>'required',
-            'Adresse'=>'required',
-            'Email'=>'required',
-            'Telephone'=>'required',
-            'Mdp'=>'required',
-            'date_naissance'=>'required',
-            'Lieu_naissance'=>'required',
-            'Nationalité'=>'required',
-            'Photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required'
-            
-        ]);
+    public function store(caissier_request $request){
+        $validatedData = $request->validated();
 
         $user=User::create($validatedData);
         $caissier=Caissier::create([
@@ -64,7 +50,7 @@ class caissier_controller extends Controller
         
     }
 
-    public function update(Request $request, $id){
+    public function update(caissier_request $request, $id){
         $validatedData = $request->validate([
         'Nom' => 'required',
         'Prénom' => 'required',

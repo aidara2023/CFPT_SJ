@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\categorie;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\categorie\categorie_request;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,8 @@ class categorie_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-        ]);
+    public function store (categorie_request $request){
+        $data=$request->validated();
         $categorie=Categorie::create($data);
         if($categorie!=null){
             return response()->json([
@@ -40,7 +39,7 @@ class categorie_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(categorie_request $request, $id){
         $categorie=Categorie::find($id);
         if($categorie!=null){
            $categorie->intitule=$request['intitule'];
@@ -57,7 +56,7 @@ class categorie_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $categorie=categorie::find($id);
         if($categorie!=null){
             $categorie->delete();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\eleve;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\eleve\eleve_request;
 use App\Models\Eleve;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -51,27 +52,12 @@ class eleve_controller extends Controller
         return view('eleves.create');
     }
 */    
-    public function store(Request $request)
+    public function store(eleve_request $request)
     {
-        $data=$request->validate([
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
-            'photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required'
-        ]);
+        $data=$request->validated();
         $user=User::create($data);
         $eleves = Eleve::create([
             'id_user'=>$user->id,
-            'id'=>$request['id'],
             'contact_urgence1'=>$request['contact_urgence1'],
             'contact_urgence2'=>$request['contact_urgence2'],
             'id_tuteur'=>$request['id_tuteur']
@@ -90,24 +76,11 @@ class eleve_controller extends Controller
             ],500 );
         } 
         
-        // Eleve::create([
-        //     'nom' => $request->input('nom'),
-        //   'prenom' => $request->input('prenom'),
-        // Ajoutez d'autres attributs ici
-        //]);
-    
-        //return redirect()->route('eleves.index')->with('success', 'Élève ajouté avec succès');
     }
 
 
-/*
-    public function edit($id)
-    {
-        $eleve = Eleve::find($id);
-        return view('eleves.edit', ['eleve' => $eleve]);
-    }
-*/
-    public function update(Request $request, $id)
+
+    public function update(eleve_request $request, $id)
     {
         $eleves = Eleve::find($id);
         $user = $eleves -> id_user;

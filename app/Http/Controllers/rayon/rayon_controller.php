@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\rayon;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\rayon\rayon_request;
 use App\Models\Rayon;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,8 @@ class rayon_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-        ]);
+    public function store (rayon_request $request){
+        $data=$request->validated();
         $rayon=rayon::create($data);
         if($rayon!=null){
             return response()->json([
@@ -40,7 +39,7 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(rayon_request $request, $id){
         $rayon=Rayon::find($id);
         if($rayon!=null){
            $rayon->intitule=$request['intitule'];
@@ -56,7 +55,7 @@ class rayon_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $rayon=rayon::find($id);
         if($rayon!=null){
             $rayon->delete();

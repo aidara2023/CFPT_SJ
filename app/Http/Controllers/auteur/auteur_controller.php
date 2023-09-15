@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auteur;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\auteur\auteur_request;
 use App\Models\Auteur;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,8 @@ class auteur_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'nom_auteur'=>'required',
-        ]);
+    public function store (auteur_request $request){
+        $data=$request->validated();
         $auteur=Auteur::create($data);
         if($auteur!=null){
             return response()->json([
@@ -41,7 +40,7 @@ class auteur_controller extends Controller
         }
     }
    
-public function mis_ajour(Request $request, $id){
+public function update(auteur_request $request, $id){
     $auteur=Auteur::find($id);
     if($auteur!=null){
        $auteur->nom_auteur=$request['nom_auteur'];
@@ -58,7 +57,7 @@ public function mis_ajour(Request $request, $id){
         ],500 );
     }
 }
-public function supprimer($id){
+public function delete($id){
     $auteur=Auteur::find($id);
     if($auteur!=null){
         $auteur->delete();

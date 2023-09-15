@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\date_emprunter;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\date_emprunter\date_emprunter_request;
 use App\Models\Date_emprunter;
 use Illuminate\Http\Request;
 
@@ -22,10 +23,8 @@ class date_emprunter_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-        ]);
+    public function store (date_emprunter_request $request){
+        $data=$request->validated();
         $date_emprunter=Date_emprunter::create($data);
         if($date_emprunter!=null){
             return response()->json([
@@ -39,7 +38,7 @@ class date_emprunter_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(date_emprunter_request $request, $id){
         $date_emprunter=Date_emprunter::find($id);
         if($date_emprunter!=null){
            $date_emprunter->intitule=$request['intitule'];
@@ -56,7 +55,7 @@ class date_emprunter_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $date_emprunter=Date_emprunter::find($id);
         if($date_emprunter!=null){
             $date_emprunter->delete();
