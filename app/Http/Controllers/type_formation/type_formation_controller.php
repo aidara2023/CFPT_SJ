@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\type_formation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\typr_formation\type_formation_request;
 use App\Models\Type_formation;
 use Illuminate\Http\Request;
 
@@ -25,13 +26,11 @@ class type_formation_controller extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(type_formation_request $request)
     {
-        $data = $request->validate([
-            'intitule' => 'required',
-        ]);
+        $data = $request->validated();
 
-        $Type_Formation = Type_Formation::create($data);
+        $Type_Formation = Type_formation::create($data);
         if ($Type_Formation) {
             return response()->json([
                 'status' => 200,
@@ -45,9 +44,9 @@ class type_formation_controller extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(type_formation_request $request, $id)
     {
-        $Type_Formation = Type_Formation::find($id);
+        $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {
             $data = $request->validate([
                 'nom_type' => 'required',
@@ -67,9 +66,9 @@ class type_formation_controller extends Controller
         }
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        $Type_Formation = Type_Formation::find($id);
+        $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {
             $Type_Formation->delete();
             return response()->json([
@@ -86,7 +85,7 @@ class type_formation_controller extends Controller
 
     public function show($id)
     {
-        $Type_Formation = Type_Formation::find($id);
+        $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {
             return response()->json([
                 'status' => 200,

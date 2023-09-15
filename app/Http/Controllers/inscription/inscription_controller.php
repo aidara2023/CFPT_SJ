@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\inscription;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\inscription\inscription_request;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
 
@@ -29,17 +30,10 @@ class inscription_controller extends Controller
         return response()->json($inscription);
     }
 
-    public function store(Request $request)
+    public function store(inscription_request $request)
     {
         
-        $validatedData = $request->validate([
-            'Montant' => 'required',
-            'date_inscription' => 'required',
-            'id_eleve' => 'required',
-            'id_classe' => 'required',
-            'id_annee_academique' => 'required',
-           
-        ]);
+        $validatedData = $request->validated();
 
         
         $inscription = Inscription::create($validatedData);
@@ -48,7 +42,7 @@ class inscription_controller extends Controller
         return response()->json($inscription, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(inscription_request $request, $id)
     {
         
         $validatedData = $request->validate([

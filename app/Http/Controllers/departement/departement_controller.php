@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\departement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\departement\departement_request;
 use Illuminate\Http\Request;
 use App\Models\Departement;
 
@@ -23,12 +24,8 @@ class departement_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request) {
-        $data = $request -> validate([
-            'intitule' => 'required',
-            'nom_direction' => 'required',
-            'id_direction' => 'required'
-        ]);
+    public function store(departement_request $request) {
+        $data = $request -> validated();
 
         $departement = Departement::create($data);
         if($departement != null){
@@ -44,12 +41,12 @@ class departement_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $departement, $id) {
+    public function update(departement_request $request, $id) {
         $departement = Departement::find($id);
         if($departement != null){
             $departement -> intitule = $request['intitule'];
-            $departement -> nom_direction = $request['nom_direction'];
-            $departement -> id_direction = $request['id_direction'];
+            $departement -> nom_departement = $request['nom_departement'];
+            $departement -> id_departement = $request['id_departement'];
             $departement -> save();
 
             return response()->json([
@@ -64,7 +61,7 @@ class departement_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $departement = Departement::find($id);
         if($departement != null){
             $departement -> delete();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\emprunter_livre;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\emprunter_livre\emprunter_livre_request;
 use App\Models\Eleve;
 use App\Models\Emprunter_livre;
 use App\Models\Livre;
@@ -60,12 +61,12 @@ class emprunter_livre_controller extends Controller
 */ 
     
 
-    public function store(Request $request)
+    public function store(emprunter_livre_request $request)
     {
-        // Validez les données du formulaire ici
+        $request->validated();
+        
         $emprunts = Emprunter_livre::create([
-            //'eleve_id' => $request['eleve_id'],
-            //'livre_id' => $request['livre_id'],
+            
             'date_emprunter' => now(),
             'id_bibliothecaire'=>$request['id_bibliothecaire'],
             'id_exemplaire'=>$request['id_exemplaire'],

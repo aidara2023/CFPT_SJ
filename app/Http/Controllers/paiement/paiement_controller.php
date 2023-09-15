@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\paiement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\paiement\paiement_request;
 use Illuminate\Http\Request;
 use App\Models\Paiement;
 
@@ -23,14 +24,8 @@ class paiement_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request) {
-        $data = $request -> validate([
-            'id_paiement' => 'required',
-            'id_eleve' => 'required',
-            'id_caissier' => 'required',
-            'id_annee_academique' => 'required',
-            'mois' => 'required'
-        ]);
+    public function store(paiement_request $request) {
+        $data = $request -> validated();
 
         $paiement = Paiement::create($data);
         if($paiement != null){
@@ -46,7 +41,7 @@ class paiement_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $request, $id) {
+    public function update(paiement_request $request, $id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
             $paiement -> id_paiement = $request['id_paiement'];
@@ -68,7 +63,7 @@ class paiement_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
             $paiement -> delete();

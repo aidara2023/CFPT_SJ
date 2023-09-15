@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\type_materiel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\type_materiel\type_materiel_request;
 use App\Models\Type_materiel;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,8 @@ class type_materiel_controller extends Controller
         return response()->json($Type_materiel);
     }
 
-    public function store(Request $request){
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-        ]);
+    public function store(type_materiel_request $request){
+        $validatedData = $request->validated();
 
         $newType_materiel = Type_materiel::create($validatedData);
 
@@ -37,7 +36,7 @@ class type_materiel_controller extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function update(type_materiel_request $request, $id){
         $validatedData = $request->validate([
             'name' => 'required|string',
             
@@ -54,7 +53,7 @@ class type_materiel_controller extends Controller
         return response()->json($type_materiel);
     }
 
-    public function destroy($id){
+    public function delete($id){
         $type_materiel = Type_materiel::find($id);
 
         if (!$type_materiel) {

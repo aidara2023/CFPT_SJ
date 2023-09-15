@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\classe;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\classe\classe_request;
 use App\Models\Classe;
 use Illuminate\Http\Request;
 
@@ -23,15 +24,8 @@ class classe_controller extends Controller
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'type_classe'=>'required',
-            'nom_classe'=>'required',
-            'niveau'=>'required',
-            'id_type_formation'=>'required',
-            'id_unite_de_formation'=>'required'
-           
-        ]);
+    public function store(classe_request $request){
+        $data=$request->validated();
         $classe=Classe::create($data);
         if($classe!=null){
             return response()->json([
@@ -45,7 +39,7 @@ class classe_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(classe_request $request, $id){
         $classe=classe::find($id);
         if($classe!=null){
            $classe->type_classe=$request['type_classe'];
@@ -66,7 +60,7 @@ class classe_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $classe=classe::find($id);
         if($classe!=null){
             $classe->delete();

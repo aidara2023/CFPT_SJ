@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\edition;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\edition\edition_request;
 use App\Models\Edition;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,8 @@ class edition_controller extends Controller
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'nom_edition'=>'required',
-            'id_editeur'=>'required'
-        ]);
+    public function store (edition_request $request){
+        $data=$request->validated();
         $edition=edition::create($data);
         if($edition!=null){
             return response()->json([
@@ -40,7 +38,7 @@ class edition_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(edition_request $request, $id){
         $edition=Edition::find($id);
         if($edition!=null){
            $edition->nom_edition=$request['nom_edition'];

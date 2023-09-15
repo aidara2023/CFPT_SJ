@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dossier_medical;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\dossier_medical\dossier_medical_request;
 use App\Models\Dossier_medical;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,8 @@ class dossier_medical_controller extends Controller
         }
      }
 
-     public function store (Request $request){
-        $data=$request->validate([
-            'id_user'=>'required'
-                ]);
+     public function store (dossier_medical_request $request){
+        $data=$request->validated();
        $dossier_medical=Dossier_medical::create($data);
         if($dossier_medical!=null){
             return response()->json([
@@ -42,7 +41,7 @@ class dossier_medical_controller extends Controller
     }
 
 
-    public function update(Request $request, $id){
+    public function update(dossier_medical_request $request, $id){
        $dossier_medical=Dossier_medical::find($id);
         if($dossier_medical!=null){
           $dossier_medical->intitule=$request['id_user'];

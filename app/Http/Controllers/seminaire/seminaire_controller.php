@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\seminaire;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\seminaire\seminaire_request;
 use App\Models\Seminaire;
 use Illuminate\Http\Request;
 
@@ -25,15 +26,9 @@ class seminaire_controller extends Controller
             }
         }
     
-        public function store(Request $request)
+        public function store(seminaire_request $request)
         {
-            $data = $request->validate([
-                'titre' => 'required',
-                'date_debut' => 'required',
-                'date_fin' => 'required',
-                'description' => 'required',
-                'id_direction' => 'required',
-            ]);
+            $data = $request->validated();
     
             $seminaire = Seminaire::create($data);
             if ($seminaire) {
@@ -49,7 +44,7 @@ class seminaire_controller extends Controller
             }
         }
     
-        public function update(Request $request, $id)
+        public function update(seminaire_request $request, $id)
         {
             $seminaire = Seminaire::find($id);
             if ($seminaire) {
@@ -75,7 +70,7 @@ class seminaire_controller extends Controller
             }
         }
     
-        public function destroy($id)
+        public function delete($id)
         {
             $seminaire = Seminaire::find($id);
             if ($seminaire) {

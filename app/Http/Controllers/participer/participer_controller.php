@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\participer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\participer\participer_request;
 use Illuminate\Http\Request;
 use App\Models\Participer;
 
@@ -23,12 +24,8 @@ class participer_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request) {
-        $data = $request -> validate([
-            'date_participation' => 'required',
-            'id_seminaire' => 'required',
-            'id_formateur' => 'required'
-        ]);
+    public function store(participer_request $request) {
+        $data = $request -> validated();
 
         $participer = Participer::create($data);
         if($participer != null){
@@ -44,7 +41,7 @@ class participer_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $participer, $id) {
+    public function update(participer_request $request, $id) {
         $participer = Participer::find($id);
         if($participer != null){
             $participer -> date_participation = $request['date_participation'];
@@ -64,7 +61,7 @@ class participer_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $participer = Participer::find($id);
         if($participer != null){
             $participer -> delete();

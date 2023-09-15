@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\partenaire;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\partenaire\partenaire_request;
 use App\Models\Partenaire;
 use Illuminate\Http\Request;
 
@@ -24,20 +25,9 @@ class partenaire_controller extends Controller
             }
         }
     
-        public function store(Request $request)
+        public function store(partenaire_request $request)
         {
-            $data = $request->validate([
-                'nom_partenaire' => 'required',
-                'type' => 'required',
-                'description' => 'required',
-                'contact' => 'required',
-                'email' => 'required|email',
-                'adresse' => 'required',
-                'boite_postale' => 'required',
-                'date_debut' => 'required',
-                'date_fin' => 'required',
-                'id_direction' => 'required',
-            ]);
+            $data = $request->validated();
     
             $partenaire = Partenaire::create($data);
             if ($partenaire) {
@@ -53,7 +43,7 @@ class partenaire_controller extends Controller
             }
         }
     
-        public function update(Request $request, $id)
+        public function update(partenaire_request $request, $id)
         {
             $partenaire = Partenaire::find($id);
             if ($partenaire) {
@@ -67,7 +57,7 @@ class partenaire_controller extends Controller
                     'boite_postale' => 'required',
                     'date_debut' => 'required',
                     'date_fin' => 'required',
-                    'id_direction' => 'required',
+                    'id_direction' => 'required'
                 ]);
     
                 $partenaire->update($data);
@@ -84,7 +74,7 @@ class partenaire_controller extends Controller
             }
         }
     
-        public function destroy($id)
+        public function delete($id)
         {
             $partenaire = Partenaire::find($id);
             if ($partenaire) {

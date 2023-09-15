@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\infirmier;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\infirmier\infirmier_request;
 use App\Models\Infirmier;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,22 +25,8 @@ class infirmier_controller extends Controller
         }
      }
 
-     public function store (Request $request){
-        $data=$request->validate([
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
-            'photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required'
-        ]);
+     public function store (infirmier_request $request){
+        $data=$request->validated();
         $user=User::create($data);
         $infirmier=Infirmier::create([
              'id_service'=>$request['id_service'],
@@ -59,7 +46,7 @@ class infirmier_controller extends Controller
     }
 
 
-    public function update(Request $request, $id){
+    public function update(infirmier_request $request, $id){
         $infirmier=Infirmier::find($id);
         $user=$infirmier ->id_user;
         $user=User::find($user);

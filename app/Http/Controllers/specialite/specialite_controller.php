@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\specialite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\specialite\specialite_request;
 use Illuminate\Http\Request;
 use App\Models\Specialite;
 
@@ -24,12 +25,10 @@ class specialite_controller extends Controller
         }
     }
 
-    public function ajouter(Request $request){
-        $data = $request -> validate([
-            'intitule' => 'required'
-        ]);
+    public function store(specialite_request $request){
+        $data = $request -> validated();
 
-        $specialite = Specialte::create($data);
+        $specialite = Specialite::create($data);
         if($specialite != null){
             return response() -> json([
                 'statut' => 200,
@@ -43,7 +42,7 @@ class specialite_controller extends Controller
         }
     }
 
-    public function mise_a_jour(Request $specialite, $id) {
+    public function update(specialite_request $request, $id) {
         $specialite = Specialite::find($id);
         if($specialite != null){
             $specialite -> intitule = $request['intitule'];
@@ -61,7 +60,7 @@ class specialite_controller extends Controller
         }
     }
 
-    public function supprimer($id) {
+    public function delete($id) {
         $specialite = Specialite::find($id);
         if($specialite != null){
             $specialite -> delete();

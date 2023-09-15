@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\note;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\note\note_request;
 use App\Models\note;
 use Illuminate\Http\Request;
 
@@ -25,26 +26,14 @@ class note_controller extends Controller
 
     }
 
-    public function store(Request $request){
-        $validatedData = $request->validate([
-            'id_eleve'=>'required',
-            'id_formateur'=>'required',
-            'id_type_evaluation'=>'required',
-           'id_annee_academique'=>'required',
-            'id_semestre'=>'required',
-            'id_matiere'=>'required',
-            'Note_obtenue'=>'required',
-            'date_enregistrer'=>'required',
-            'Appreciation'=>'required',
-            'Observation'
-
-        ]);
+    public function store(note_request $request){
+        $validatedData = $request->validated();
 
         $note = Note::create($validatedData);
         return response()->json($note, 201);
     }
 
-    public function update(Request $request, $id){
+    public function update(note_request $request, $id){
         $validatedData = $request->validate([
         'id_eleve' => 'required',
         'id_formateur' => 'required',
@@ -69,7 +58,7 @@ class note_controller extends Controller
 
     }
 
-    public function destory($id){
+    public function delete($id){
         $note = Note::find($id);
 
         if (!$note) {

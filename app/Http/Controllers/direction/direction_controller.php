@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\direction;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\direction\direction_request;
 use App\Models\Direction;
 use Illuminate\Http\Request;
 
@@ -23,13 +24,8 @@ class direction_controller extends Controller
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-            'nom_direction'=>'required',
-            'id_user'=>'required'
-           
-        ]);
+    public function store(direction_request $request){
+        $data=$request->validated();
         $direction=Direction::create($data);
         if($direction!=null){
             return response()->json([
@@ -43,7 +39,7 @@ class direction_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(direction_request $request, $id){
         $direction=Direction::find($id);
         if($direction!=null){
            $direction->intitule=$request['intitule'];

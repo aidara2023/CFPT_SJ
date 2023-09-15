@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Formateur;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\formateur\formateur_request;
 use App\Models\Formateur;
 use Illuminate\Http\Request;
 
@@ -23,15 +24,8 @@ class formateurController extends Controller
         }
      }
 
-    public function ajouter (Request $request){
-        $data=$request->validate([
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
-            'id_departement'=>'required',
-            'id_user'=>'required',
-           
-        ]);
+    public function store (formateur_request $request){
+        $data=$request->validated();
         $formateur=Formateur::create($data);
         if($formateur!=null){
             return response()->json([
@@ -45,7 +39,7 @@ class formateurController extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(formateur_request $request, $id){
         $formateur=Formateur::find($id);
         if($formateur!=null){
            $formateur->type=$request['nom'];
