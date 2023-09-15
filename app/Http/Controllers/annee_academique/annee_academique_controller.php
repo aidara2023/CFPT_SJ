@@ -19,7 +19,7 @@ class annee_academique_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucun enregistrement n\'a été trouvé'
             ],500);
         }
     }
@@ -44,7 +44,7 @@ class annee_academique_controller extends Controller
     public function update(annee_academique_request $request, $id) {
         $annee_academique = Annee_academique::find($id);
         if($annee_academique != null){
-            $annee_academique -> id = $request['id'];
+           /*  $annee_academique -> id = $request['id']; */
             $annee_academique -> intitule = $request['intitule'];
             $annee_academique -> save();
 
@@ -66,12 +66,12 @@ class annee_academique_controller extends Controller
             $annee_academique -> delete();
             return response()->json([
                 'statut' => 200,
-                'message' => 'L\'enregistrement a été supprimé avec succés'
+                'message' => 'L\'annee a été supprimé avec succés'
             ],200);
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'L\'enregistrement n\'a pas été supprimé'
+                'message' => 'L\'annee n\'a pas été supprimé'
             ],500);
         }
     }

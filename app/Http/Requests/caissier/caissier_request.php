@@ -22,17 +22,17 @@ class caissier_request extends FormRequest
     public function rules(): array
     {
         return [
-            'Nom'=>'required',
-            'Prénom'=>'required',
-            'Genre'=>'required',
-            'Adresse'=>'required',
-            'Email'=>'required',
-            'Telephone'=>'required',
-            'Mdp'=>'required',
+            'nom'=>'required',
+            'prenom'=>'required',
+            'genre'=>'required',
+            'adresse'=>'required',
+            'email'=>'required',
+            'telephone'=>'required',
+            'password'=>'required',
             'date_naissance'=>'required',
-            'Lieu_naissance'=>'required',
-            'Nationalité'=>'required',
-            'Photo'=>'required',
+            'lieu_naissance'=>'required',
+            'nationalite'=>'required',
+            'photo'=>'required',
             'id_role'=>'required',
             'id_service'=>'required'
         ];

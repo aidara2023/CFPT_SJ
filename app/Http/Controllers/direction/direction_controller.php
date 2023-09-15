@@ -19,7 +19,7 @@ class direction_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }

@@ -20,7 +20,7 @@ class infirmier_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,  
-                'message'=>'aucun nom d infirmier  n\'a été enregistrée',
+                'message'=>'Aucun nom d infirmier  n\'a été trouvé',
             ],500 );
         }
      }
@@ -29,7 +29,6 @@ class infirmier_controller extends Controller
         $data=$request->validated();
         $user=User::create($data);
         $infirmier=Infirmier::create([
-             'id_service'=>$request['id_service'],
             'id_user'=>$user->id
         ]);
         if($infirmier!=null){
@@ -63,10 +62,10 @@ class infirmier_controller extends Controller
             $user->nationalite=$request['nationalite'];
             $user->photo=$request['photo'];
             $user->id_role=$request['id_role'];
+            $user->id_service=$request['id_service'];
             $user->save();
 
 
-           $infirmier->intitule=$request['intitule'];
            $infirmier->id_user=$user ->id;
            $infirmier->save();
            

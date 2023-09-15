@@ -34,7 +34,8 @@ class infirmier_request extends FormRequest
             'nationalite'=>'required',
             'photo'=>'required',
             'id_role'=>'required',
-            'id_service'=>'required'
+            'id_service'=>'required',
+            'id_user'=>'required'
         ];
     }
 }
