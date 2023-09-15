@@ -1,7 +1,5 @@
 <?php
 
-
-
 use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
@@ -348,8 +346,6 @@ Route::post('consultation/store',[consultation_controller::class, 'store'])->nam
 Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->name('consultation_show');
 Route::put('consultation/update/{$id}',[cosultation_controller::class,'update'])->name('consultation_update');
 Route::delete('consultation/delete/{$id}',[consulation_controller::class, 'delete'])->name('consultation_delete');
-
-
 
 
 
