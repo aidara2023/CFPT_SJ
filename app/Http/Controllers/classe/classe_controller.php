@@ -19,7 +19,7 @@ class classe_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
@@ -42,6 +42,7 @@ class classe_controller extends Controller
     public function update(classe_request $request, $id){
         $classe=classe::find($id);
         if($classe!=null){
+            $request->validated();
            $classe->type_classe=$request['type_classe'];
            $classe->nom_classe=$request['nom_classe'];
            $classe->id_type_formation=$request['id_type_formation'];
@@ -66,7 +67,7 @@ class classe_controller extends Controller
             $classe->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'La classe supprimer avec succes',
+                'message'=>'La classe a été supprimé avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
@@ -87,7 +88,7 @@ class classe_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Classe n\'a pas été éffectué',
+                'message'=>'Classe n\'a pas été trouvé',
             ],500 );
         }
        

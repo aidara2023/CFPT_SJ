@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Formateur;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\formateur\formateur_request;
 use App\Models\Formateur;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class formateurController extends Controller
+class formateur_controller extends Controller
 {
     public function index() {
         $formateur=Formateur::all();
@@ -19,14 +20,21 @@ class formateurController extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
 
     public function store (formateur_request $request){
         $data=$request->validated();
-        $formateur=Formateur::create($data);
+        $user=User::create($data);
+        $formateur=Formateur::create([
+            'type'=>$request->type,
+            'situation_matrimoniale'=>$request->situation_matrimoniale,
+            'id_specialite'=>$request->id_specialite,
+            'id_departement'=>$request->id_departement,
+            'id_user'=>$user->id
+        ]);
         if($formateur!=null){
             return response()->json([
                 'statut'=>200,
@@ -42,11 +50,11 @@ class formateurController extends Controller
     public function update(formateur_request $request, $id){
         $formateur=Formateur::find($id);
         if($formateur!=null){
-           $formateur->type=$request['nom'];
-           $formateur->Situation_matrimoniale=$request['Situation_matrimoniale'];
-           $formateur->genre=$request['id_specialite'];
-           $formateur->adresse=$request['id_departement'];
-           $formateur->telephone=$request['id_user'];
+           $formateur->type=$request['type'];
+           $formateur->Situation_matrimoniale=$request['situation_matrimoniale'];
+           $formateur->id_specialite=$request['id_specialite'];
+           $formateur->id_departement=$request['id_departement'];
+           $formateur->id_user=$request['id_user'];
           
            $formateur->save();
             return response()->json([
@@ -60,7 +68,7 @@ class formateurController extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $formateur=Formateur::find($id);
         if($formateur!=null){
             $formateur->delete();

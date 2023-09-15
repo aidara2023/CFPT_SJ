@@ -38,15 +38,17 @@ class caissier_controller extends Controller
             'id_user'=>$user->id
         ]);
 
-        $caissier = Caissier::find($validatedData);
-
-        if (!$caissier) {
-            return response()->json(['message' => 'Caissier non trouvé'], 404);
+        if($caissier!=null){
+            return response()->json([
+                'statut'=>200,
+                'caissier'=>$caissier
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
+            ],500 );
         }
-
-        $caissier->update($validatedData);
-
-        return response()->json($caissier);
         
     }
 

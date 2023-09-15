@@ -19,13 +19,13 @@ class edition_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
     public function store (edition_request $request){
         $data=$request->validated();
-        $edition=edition::create($data);
+        $edition=Edition::create($data);
         if($edition!=null){
             return response()->json([
                 'statut'=>200,
@@ -61,12 +61,12 @@ class edition_controller extends Controller
             $edition->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'edition supprimé avec succés',
+                'message'=>'L\'edition supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'edition n\'est pas supprimer',
+                'message'=>'L\'edition n\'est pas été supprimé',
             ],500 );
         }
        

@@ -5,54 +5,69 @@ namespace App\Http\Controllers\inscription;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\inscription\inscription_request;
 use App\Models\Inscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class inscription_controller extends Controller
 {
-    public function index()
-    {
-        
-        $inscriptions = Inscription::all();
-
-        return response()->json($inscriptions);
-    }
-
-    public function show($id)
-    {
-        
-        $inscription = Inscription::find($id);
-
-        if (!$inscription) {
-            return response()->json(['message' => 'Inscription non trouvée'], 404);
+    public function index() {
+        $inscription=Inscription::all();
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
         }
+     }
 
-        
-        return response()->json($inscription);
+     public function show($id){
+
+        $inscription=Inscription::find($id);
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Inscription introuvable ',
+            ],500 );
+        }
     }
 
-    public function store(inscription_request $request)
-    {
-        
-        $validatedData = $request->validated();
-
-        
-        $inscription = Inscription::create($validatedData);
-
-        
-        return response()->json($inscription, 201);
+    public function store (inscription_request $request){
+        $data=$request->validated();
+        $user=User::create($data);
+        $inscription=Inscription::create([
+            'montant'=>$request->montant,
+            'date_inscription'=>$request->date_inscription,
+            'id_eleve'=>$request->id_eleve,
+            'id_classe'=>$request->id_classe,
+            'id_annee_academique'=>$request->id_annee_academique
+        ]);
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'L\'inscription est introuvable',
+            ],500 );
+        }
     }
 
     public function update(inscription_request $request, $id)
     {
         
-        $validatedData = $request->validate([
-            'Montant' => 'required',
-            'date_inscription' => 'required',
-            'id_eleve' => 'required',
-            'id_classe' => 'required',
-            'id_annee_academique' => 'required',
-            
-        ]);
+        $validatedData = $request->validated();
 
         $inscription = Inscription::find($id);
 
@@ -67,7 +82,7 @@ class inscription_controller extends Controller
         return response()->json($inscription);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         
         $inscription = Inscription::find($id);

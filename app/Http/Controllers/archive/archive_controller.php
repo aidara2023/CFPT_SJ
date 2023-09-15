@@ -19,14 +19,14 @@ class archive_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
 
     public function store(archive_request $request){
         $data=$request->validated();
-        $archive=archive::create($data);
+        $archive=Archive::create($data);
         if($archive!=null){
             return response()->json([
                 'statut'=>200,
@@ -40,13 +40,13 @@ class archive_controller extends Controller
         }
     }
     public function update(archive_request $request, $id){
-        $archive=archive::find($id);
+        $archive=Archive::find($id);
         if($archive!=null){
            $archive->titre=$request['titre'];
            $archive->type=$request['type'];
-           $archive->statut=$request['id_statut'];
-           $archive->date_destruction=$request['id_date_destruction'];
-           $archive->contenu=$request['id_contenu'];
+           $archive->statut=$request['statut'];
+           $archive->date_destruction=$request['date_destruction'];
+           $archive->contenu=$request['contenu'];
            $archive->id_departement=$request['id_departement'];
            $archive->id_service=$request['id_service'];
           
@@ -62,25 +62,25 @@ class archive_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
-        $archive=archive::find($id);
+    public function delete($id){
+        $archive=Archive::find($id);
         if($archive!=null){
             $archive->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'archive supprimer avec succes',
+                'message'=>'Archive supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La archive n\'a pas été supprimé',
+                'message'=>'L\'archive n\'a pas été supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $archive=archive::find($id);
+        $archive=Archive::find($id);
         if($archive!=null){
             return response()->json([
                 'statut'=>200,
@@ -89,7 +89,7 @@ class archive_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'archive n\'a pas été éffectué',
+                'message'=>'Archive n\'a pas été trouvé',
             ],500 );
         }
        

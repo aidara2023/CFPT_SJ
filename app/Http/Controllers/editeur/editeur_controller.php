@@ -20,11 +20,11 @@ class editeur_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
-    public function store (editeur_request $request){
+    public function store(editeur_request $request){
         $data=$request->validated();
         $editeur=Editeur::create($data);
         if($editeur!=null){
@@ -57,7 +57,7 @@ class editeur_controller extends Controller
         }
     }
     public function delete($id){
-        $editeur=editeur::find($id);
+        $editeur=Editeur::find($id);
         if($editeur!=null){
             $editeur->delete();
             return response()->json([
@@ -74,7 +74,7 @@ class editeur_controller extends Controller
     }
     
     public function show($id){
-        $editeur=editeur::find($id);
+        $editeur=Editeur::find($id);
         if($editeur!=null){
             return response()->json([
                 'statut'=>200,

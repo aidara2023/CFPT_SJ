@@ -10,7 +10,7 @@ use App\Models\User;
 
 class eleve_controller extends Controller
 {
-        //
+        
     public function index()
     {
         $eleves = Eleve::all();
@@ -22,7 +22,7 @@ class eleve_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun donner trouver',
+                'message'=>'Aucun donnée trouvée',
             ],500 );
         } 
     }
@@ -38,20 +38,13 @@ class eleve_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun donner trouver',
+                'message'=>'Aucune donnee trouvée',
             ],500 );
         } 
 
-       // return view('eleves.show', ['eleve' => $eleve]);
     }
 
-
-/*
-    public function create()
-    {
-        return view('eleves.create');
-    }
-*/    
+  
     public function store(eleve_request $request)
     {
         $data=$request->validated();
@@ -72,7 +65,7 @@ class eleve_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun donner enregistrer',
+                'message'=>'Aucune donnee enregistrer',
             ],500 );
         } 
         
@@ -102,7 +95,7 @@ class eleve_controller extends Controller
             $eleves -> id_user  = $user -> id;
             $eleves->contact_urgence1=$request['contact_urgence1']; 
             $eleves->contact_urgence2=$request['contact_urgence2']; 
-           //$eleves->id_user=$request['id_user'];
+           
             $eleves->id_tuteur=$request['id_tuteur']; 
             $eleves->save();
             return response()->json([
@@ -117,7 +110,7 @@ class eleve_controller extends Controller
             ],500 );
         };
 
-       // return redirect()->route('eleves.index')->with('success', 'Élève mis à jour avec succès');
+       
     }
 
     public function delete($id)
@@ -135,9 +128,8 @@ class eleve_controller extends Controller
                 'message'=>'eleve non supprimer',
             ],500 );
         }
-        //$eleve->delete();
-
-       // return redirect()->route('eleves.index')->with('success', 'Élève supprimé avec succès');
+        
+        
     }
 
 }

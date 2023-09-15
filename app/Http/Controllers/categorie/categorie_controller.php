@@ -20,7 +20,7 @@ class categorie_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
@@ -42,6 +42,7 @@ class categorie_controller extends Controller
     public function update(categorie_request $request, $id){
         $categorie=Categorie::find($id);
         if($categorie!=null){
+            $request->validated();
            $categorie->intitule=$request['intitule'];
            
            $categorie->save();

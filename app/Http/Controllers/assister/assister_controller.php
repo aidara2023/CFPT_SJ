@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\retard;
+namespace App\Http\Controllers\assister;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\retard\retard_request;
-use App\Models\Retard;
+use App\Http\Requests\assister\assister_request;
+use App\Models\Assister;
 use Illuminate\Http\Request;
 
-class retard_controller extends Controller
+class assister_controller extends Controller
 {
     public function index() {
-        $retard=Retard::all();
-        if($retard!=null){
+        $assister=Assister::all();
+        if($assister!=null){
             return response()->json([
                 'statut'=>200,
-                'retard'=>$retard
+                'assister'=>$assister
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
 
-    public function store(retard_request $request){
+    public function store(assister_request $request){
         $data=$request->validated();
-        $retard=Retard::create($data);
-        if($retard!=null){
+        $assister=Assister::create($data);
+        if($assister!=null){
             return response()->json([
                 'statut'=>200,
-                'retard'=>$retard
+                'assister'=>$assister
             ],200)  ;
         }else{
             return response()->json([ 
@@ -39,17 +39,17 @@ class retard_controller extends Controller
             ],500 );
         }
     }
-    public function update(retard_request $request, $id){
-        $retard=retard::find($id);
-        if($retard!=null){
-           $retard->date=$request['date'];
-           $retard->id_eleve=$request['id_eleve'];
-           $retard->id_cour=$request['id_cour'];
+    public function update(assister_request $request, $id){
+        $assister=Assister::find($id);
+        if($assister!=null){
+           $assister->presence=$request['presence'];
+           $assister->id_eleve=$request['id_eleve'];
+           $assister->id_cour=$request['id_cour'];
           
-           $retard->save();
+           $assister->save();
             return response()->json([
                 'statut'=>200,
-                'retard'=>$retard
+                'assister'=>$assister
             ],200)  ;
         }else{
             return response()->json([ 
@@ -59,33 +59,33 @@ class retard_controller extends Controller
         }
     }
     public function delete($id){
-        $retard=Retard::find($id);
-        if($retard!=null){
-            $retard->delete();
+        $assister=Assister::find($id);
+        if($assister!=null){
+            $assister->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Le retard est supprimé avec succés',
+                'message'=>'Presence supprimée avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Le retard n\'a pas été supprimé',
+                'message'=>'Presence non supprimé',
             ],500 );
         }
        
     }
     
     public function show($id){
-        $retard=Retard::find($id);
-        if($retard!=null){
+        $assister=Assister::find($id);
+        if($assister!=null){
             return response()->json([
                 'statut'=>200,
-                'retard'=>$retard
+                'assister'=>$assister
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'retard n\'a pas été éffectué',
+                'message'=>'La presence n\'a pas été éffectué',
             ],500 );
         }
        

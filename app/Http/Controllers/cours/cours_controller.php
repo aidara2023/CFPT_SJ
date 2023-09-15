@@ -28,21 +28,11 @@ class cours_controller extends Controller
     public function store(cours_request $request){
         $validatedData = $request->validated();
         $cour = Cour::create($validatedData);
-        return response()->json($cour, 201);
+        return response()->json($cour, 200);
     }
 
     public function update(cours_request $request, $id){
-        $validatedData = $request->validate([
-        'id_cours' => 'required',
-        'Intitule_cours' => 'required',
-        'heure_debut' => 'required',
-        'heure_fin' => 'required',
-        'id_classe' => 'required',
-        'id_formateur' => 'required',
-        'id_matiere' => 'required',
-        'id_salle' => 'required',
-        'id_semestre' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         $cour = Cour::find($id);
 
