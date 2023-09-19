@@ -21,7 +21,7 @@ class type_formation_controller extends Controller
         } else {
             return response()->json([
                 'status' => 500,
-                'message' => 'aucun donner trouver',
+                'message' => 'Aucun donné trouvé',
             ], 500);
         }
     }

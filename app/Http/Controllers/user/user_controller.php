@@ -18,7 +18,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -34,7 +34,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
+                'message'=>'L\'enregistrement n\'a pas été ajouté',
             ],500 );
         }
     }
@@ -70,7 +70,7 @@ class userController extends Controller
             $user->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'utilisateur supprimer avec succes',
+                'message'=>'Utilisateur supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([
@@ -91,7 +91,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L utilisateur n\'existe pas été éffectué',
+                'message'=>'L utilisateur n\'existe pas',
             ],500 );
         }
 

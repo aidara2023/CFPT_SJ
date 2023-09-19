@@ -19,7 +19,7 @@ class salle_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -85,7 +85,7 @@ class salle_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'salle n\'a pas été éffectué',
+                'message'=>'La salle n\'existe pas ',
             ],500 );
         }
        

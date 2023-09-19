@@ -19,7 +19,7 @@ class unite_de_formation_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucune unite_de_formation  n\'a été enregistrée',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -87,7 +87,7 @@ class unite_de_formation_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\' unite_de_formation n\'existe pas ',
+                'message'=>'L\'unite_de_formation n\'existe pas ',
             ],500 );
         }
        

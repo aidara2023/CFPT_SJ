@@ -19,7 +19,7 @@ class organisme_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,  
-                'message'=>'aucun nom d organisme  n\'a été enregistrée',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }

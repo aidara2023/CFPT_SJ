@@ -19,7 +19,7 @@ class matiere_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucune matiere  n\'a été enregistrée',
+                'message'=>'aucune donnée trouvée',
             ],500 );
         }
      }

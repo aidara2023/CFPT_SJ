@@ -20,7 +20,7 @@ class type_evaluation_controller extends Controller
         } else {
             return response()->json([
                 'status' => 500,
-                'message' => 'aucun donner trouver',
+                'message' => 'Aucune donnée trouvée',
             ], 500);
         }
     }
@@ -38,7 +38,7 @@ class type_evaluation_controller extends Controller
         } else {
             return response()->json([
                 'status' => 500,
-                'message' => 'L\'enregistrement n\'a pas été effectué',
+                'message' => 'L\'enregistrement n\'a pas été ajouté',
             ], 500);
         }
     }
