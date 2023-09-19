@@ -19,7 +19,7 @@ class participer_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucune donnée trouvée'
             ],500);
         }
     }
@@ -87,7 +87,7 @@ class participer_controller extends Controller
         } else{
             return response() -> json([
                 'statut' => 500,
-                'participer' => 'Cette participation n\'a pas été effectué'
+                'participer' => 'Cette participation n\'existe pas'
             ],500);
         }
     }

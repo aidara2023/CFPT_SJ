@@ -20,7 +20,7 @@ class formateur_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Aucun enregistrement n\'a été trouvé',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
