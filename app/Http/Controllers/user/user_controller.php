@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use Illuminate\Http\Request;
 use App\Models\User;
-class userController extends Controller
+class user_controller extends Controller
 {
     public function index() {
         $user=User::all();
