@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/Users/mac6/Desktop/Pages/pages_web/CSS/Login.css">
+    <link rel="stylesheet" href="assetsCFPT/css/login.css">
     <title>Connexion</title>
+    @vite('resources/js/app.js')
 </head>
 <body>
     <!-- Shape: logoCFPT -->
@@ -32,13 +33,10 @@
   <h1 class="titre">Bienvenue au</h1>
   
     <h1 class="gros_titre" >CFPT Senegal-Japon</h1>
-    <div class="rectangle">
-        <form action="" method="">
-            <input type="text" name="matricule" id="matricule" placeholder="Matricule">
-            <input type="password" name="mdp" id="mot_de_passe" placeholder="Mot de passe">
-            <input type="submit" value="Je me connecte">
-            <input type="submit" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
-        </form>
+    <div class="rectangle" id="app">
+     
+      <user-login></user-login>
+    
 
         <!-- logoCFPT en arrière plan -->
 <svg class="logo_background" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" width="497" xmlns="http://www.w3.org/2000/svg" style="-webkit-print-color-adjust:exact" id="screenshot-eaf7bc1e-f498-805c-8003-14c98b542b2c" version="1.1" viewBox="18 532 497 497" height="497">

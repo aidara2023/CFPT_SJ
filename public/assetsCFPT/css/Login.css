@@ -7,7 +7,7 @@ body{
     width: 100%;
     align-items: center;
     height: 13vw;
-    max-height: 10rem;
+    max-height: 5rem;
     margin-top: 4vh;
   /*   border: 1px solid rebeccapurple ; */
     
@@ -19,7 +19,7 @@ body{
     text-align: center;
     color: rgba(0, 0, 0, 1);
     font-family: 'Open Sans', sans-serif;
-    font-size: clamp(1.5rem,5vw,3rem);
+    font-size: clamp(1.5rem,5vw,2.5rem);
     font-weight: 300;
   /*   border: 1px solid rebeccapurple ; */
     margin: 10px;
@@ -31,7 +31,7 @@ body{
     text-align: center;
     color: rgb(0, 0, 0);
     font-family: 'Open Sans', sans-serif;
-    font-size: clamp(1.9rem, 5vw, 3.75rem);
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
     
     font-weight: 700;
     line-height: 0.9;
@@ -132,10 +132,10 @@ input[type="submit"]:hover{
   bottom:0;
 
 }
-@media(min-width:600px){
+/* @media(min-width:600px){
   input{
     display: block;
   }
 }
-
+ */
 
