@@ -1,0 +1,42 @@
+/* logoCFPT */
+.logo-cfpt {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 162px;
+    top: 73px;
+  }
+  
+  /* CFPT Senegal-Japon */
+  .cfpt-senegal-japon {
+    width: 119px;
+    height: 22px;
+    left: 128px;
+    top: 129px;
+    color: rgba(0, 0, 0, 1);
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0px;
+    text-decoration: none;
+    text-transform: none;
+  }
+  
+  /* CFPT Senegal-Japon */
+  .cfpt-senegal-japon {
+    width: 233px;
+    height: 30px;
+    left: 71px;
+    top: 156px;
+    color: rgb(107, 8, 8);
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0px;
+    text-decoration: none;
+    text-transform: none;
+  }
