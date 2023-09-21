@@ -3,7 +3,7 @@
     <input type="text" name="matricule" v-model="form.matricule" id="matricule" placeholder="Matricule">
     <input type="password" name="mdp" v-model="form.password" id="mot_de_passe" placeholder="Mot de passe">
     <input type="submit"  @click="verification()" value="Je me connecte">
-    <input type="submit" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
+    <input type="submit" @click="verification()" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
 </form>
 </template>
 
