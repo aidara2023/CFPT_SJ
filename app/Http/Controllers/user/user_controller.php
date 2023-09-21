@@ -23,7 +23,7 @@ class user_controller extends Controller
                 'message'=>'Aucune donnée trouvée',
             ],500 );
         }
-     }
+    }
 
     public function store (user_request $request){
         $request->validated();
@@ -93,7 +93,7 @@ class user_controller extends Controller
            $user->photo=$request['photo'];
            $user->id_role=$request['id_role'];
            $user->save();
-           
+
             return response()->json([
                 'statut'=>200,
                 'user'=>$user
