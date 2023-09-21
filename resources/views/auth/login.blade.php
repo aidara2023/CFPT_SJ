@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assetsCFPT/css/login.css">
 
 <title>Connexion</title>
+ @vite('resources/js/app.js')
 </head>
 <body>
     <!-- Shape: logoCFPT -->
