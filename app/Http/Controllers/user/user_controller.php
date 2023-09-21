@@ -63,7 +63,7 @@ class user_controller extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été ajouté',
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
         }
     }
