@@ -19,7 +19,7 @@ class retard_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -40,7 +40,7 @@ class retard_controller extends Controller
         }
     }
     public function update(retard_request $request, $id){
-        $retard=retard::find($id);
+        $retard=Retard::find($id);
         if($retard!=null){
            $retard->date=$request['date'];
            $retard->id_eleve=$request['id_eleve'];
@@ -85,7 +85,7 @@ class retard_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'retard n\'a pas été éffectué',
+                'message'=>'retard n\'existe pas',
             ],500 );
         }
        

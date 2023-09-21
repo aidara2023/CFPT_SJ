@@ -20,7 +20,7 @@ class tuteur_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucune donnée trouvée'
             ],500);
         }
     }
@@ -39,7 +39,7 @@ class tuteur_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'L\'enregistrement n\'a pas été éffectué'
+                'message' => 'L\'enregistrement n\'a pas été ajouté'
             ],500);
         }
     }
@@ -103,7 +103,7 @@ class tuteur_controller extends Controller
         } else{
             return response() -> json([
                 'statut' => 500,
-                'tuteur' => 'Cet enregistrement n\'existe pas'
+                'tuteur' => 'Ce tuteur n\'existe pas'
             ],500);
         }
     }

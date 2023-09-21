@@ -19,7 +19,7 @@ class paiement_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucune donnée trouvée'
             ],500);
         }
     }

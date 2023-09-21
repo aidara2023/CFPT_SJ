@@ -21,7 +21,7 @@ class seminaire_controller extends Controller
             } else {
                 return response()->json([
                     'status' => 500,
-                    'message' => 'aucun donner trouver',
+                    'message' => 'Aucune donnée trouvée',
                 ], 500);
             }
         }

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use Illuminate\Http\Request;
 use App\Models\User;
-class userController extends Controller
+use Illuminate\Support\Facades\Hash;
+
+class user_controller extends Controller
 {
     public function index() {
         $user=User::all();
@@ -21,11 +23,38 @@ class userController extends Controller
                 'message'=>'Aucune donnée trouvée',
             ],500 );
         }
-     }
+    }
 
     public function store (user_request $request){
-        $data=$request->validated();
-        $user=User::create($data);
+        $request->validated();
+
+        $user=new User();
+
+       /*  Creation de matricule */
+        $matricule= User::generateur_matricule();
+        $user->matricule=$matricule;
+      /*   Fin attribution */
+
+        $user->nom=$request['nom'];
+        $user->prenom=$request['prenom'];
+        $user->genre=$request['genre'];
+        $user->adresse=$request['adresse'];
+        $user->telephone=$request['telephone'];
+        $user->password=Hash::make("CFPT2018");
+        $user->date_naissance=$request['date_naissance'];
+        $user->nom=$request['lieu_naissance'];
+        $user->nationalite=$request['nationalite'];
+
+        /* Uploader une image */
+        $image= $request->file('image');
+        $imageName=time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('image'), $imageName);
+        $user->photo=$imageName;
+        /* Fin upload */
+
+        $user->id_role=$request['id_role'];
+        $user->save();
+
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -34,7 +63,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L\'utilisateur n\'a pas été ajoutée',
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
         }
     }
@@ -46,13 +75,25 @@ class userController extends Controller
            $user->genre=$request['genre'];
            $user->adresse=$request['adresse'];
            $user->telephone=$request['telephone'];
-           $user->password=$request['password'];
+
+           if($request->filled('password')){
+                $user->password=Hash::make($request['password']);
+           }
+
+           if($request->hasFile('image')){
+            $image= $request->file('image');
+            $imageName=time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('image'), $imageName);
+            $user->photo=$imageName;
+           }
+           
            $user->date_naissance=$request['date_naissance'];
            $user->nom=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
            $user->photo=$request['photo'];
            $user->id_role=$request['id_role'];
            $user->save();
+
             return response()->json([
                 'statut'=>200,
                 'user'=>$user
@@ -70,7 +111,7 @@ class userController extends Controller
             $user->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'utilisateur supprimer avec succes',
+                'message'=>'Utilisateur supprimer avec succes',
             ],200)  ;
         }else{
             return response()->json([
@@ -91,7 +132,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L utilisateur n\'existe pas été éffectué',
+                'message'=>'L utilisateur n\'existe pas',
             ],500 );
         }
 

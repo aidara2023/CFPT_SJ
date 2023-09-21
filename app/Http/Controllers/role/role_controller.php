@@ -19,7 +19,7 @@ class role_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Auncune donnée trouvée',
             ],500 );
         }
      }
@@ -83,7 +83,7 @@ class role_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Role n\'a pas été éffectué',
+                'message'=>'Ce role n\'existe pas',
             ],500 );
         }
        

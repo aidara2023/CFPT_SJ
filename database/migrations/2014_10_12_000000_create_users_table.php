@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('genre');
+            $table->string('matricule')->unique();
+            $table->integer('matricule_nombre')->default(10066);
             $table->string('adresse');
             $table->date('date_naissance');
             $table->string('lieu_naissance');

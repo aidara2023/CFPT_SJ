@@ -20,7 +20,7 @@ class specialite_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucune donnée trouvée'
             ] ,500);
         }
     }
@@ -37,7 +37,7 @@ class specialite_controller extends Controller
         } else {
             return response() -> json([
                 'statut' => 500,
-                'message' => 'L\'enregistrement n\'a été éffectué'
+                'message' => 'L\'enregistrement n\'a pas été ajouté'
             ]);
         }
     }
