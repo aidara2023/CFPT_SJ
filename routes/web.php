@@ -16,6 +16,7 @@ use App\Http\Controllers\examplaire\exemplaire_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_controller;
 use App\Http\Controllers\infirmier\infirmier_controller;
 use App\Http\Controllers\livre\livre_controller;
+use App\Http\Controllers\login\login_view_controller;
 use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\consultation\consultation_controller;
@@ -57,9 +58,7 @@ use App\Http\Controllers\type_materiel\type_materiel_controller;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-Route::get('/role/home',[roleController::class, 'index']);
+ Route::get('login',[login_view_controller::class,'index'])->name('login');
 
 
 //Route de matiere
