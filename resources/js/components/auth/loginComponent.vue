@@ -1,10 +1,9 @@
 <template>
- <form action="" method="">
-            <input type="text" name="matricule" id="matricule" placeholder="Matricule">
-            <input type="password" name="mdp" id="mot_de_passe" placeholder="Mot de passe">
-            <input type="submit" value="Je me connecte">
-            <input type="submit" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
- </form>
+
+    <input type="text" name="matricule" v-model="form.matricule" id="matricule" placeholder="Matricule">
+    <input type="password" name="mdp" v-model="form.password" id="mot_de_passe" placeholder="Mot de passe">
+    <input type="submit" value="Je me connecte">
+    <input type="submit" @click.prevent="verification()" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
 </template>
 
 
@@ -16,14 +15,14 @@ export default {
     data(){
         return{
             form: new Form({
-                'id':0,
+                'matricule':0,
                 'password':""
             }),
         }
     },
     methods: { 
         async verification(){
-            if(this.form.id!=null && this.form.password!=null){
+            if(this.form.matricule!=null && this.form.password!=null){
                 await this.form.post('/connexion').then(({data})=>{
                     if(data.statut!="Error"){
                         window.location.href=data.url;
