@@ -18,7 +18,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -34,7 +34,7 @@ class userController extends Controller
         }else{
             return response()->json([
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
+                'message'=>'L\'utilisateur n\'a pas été ajoutée',
             ],500 );
         }
     }
