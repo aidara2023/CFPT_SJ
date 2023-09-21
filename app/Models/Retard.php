@@ -15,4 +15,11 @@ class Retard extends Model
         'id_eleve',
         'id_cour'
     ];
+    public function eleves(){
+        return $this->belongsToMany(Eleve::class,'id_eleve');
+    }
+    public function cours(){
+        return $this->belongsToMany(Cour::class,'id_cour');
+    }
+    
 }

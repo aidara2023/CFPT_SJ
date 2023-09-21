@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\examplaire;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\exemplaire\exemplaire_request;
 use App\Models\Exemplaire;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,12 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-            'id_livre'=>'required',
-            'id_rayon'=>'required'
-        ]);
+    public function store (exemplaire_request $request){
+        $data=$request->validated();
         $exemplaire=Exemplaire::create($data);
         if($exemplaire!=null){
             return response()->json([
@@ -42,7 +39,7 @@ class exemplaire_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(exemplaire_request $request, $id){
         $exemplaire=Exemplaire::find($id);
         if($exemplaire!=null){
            $exemplaire->intitule=$request['intitule'];
@@ -56,7 +53,7 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La mise à jour n\'a pas été éffectué',
+                'message'=>'La mise à jour n\'a pas été éffectuée',
             ],500 );
         }
     }
@@ -71,7 +68,7 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'exemplaire n\'est pas supprimer',
+                'message'=>'L\'exemplaire n\'est pas supprimé',
             ],500 );
         }
        

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\salle;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\salle\salle_request;
 use App\Models\Salle;
 use Illuminate\Http\Request;
 
@@ -18,19 +19,13 @@ class salle_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-            'nombre_place'=>'required',
-            'id_batiment'=>'required',
-           
-           
-        ]);
+    public function store(salle_request $request){
+        $data=$request->validated();
         $salle=Salle::create($data);
         if($salle!=null){
             return response()->json([
@@ -44,7 +39,7 @@ class salle_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(salle_request $request, $id){
         $salle=salle::find($id);
         if($salle!=null){
            $salle->intitule=$request['type_salle'];
@@ -90,7 +85,7 @@ class salle_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'salle n\'a pas été éffectué',
+                'message'=>'La salle n\'existe pas ',
             ],500 );
         }
        

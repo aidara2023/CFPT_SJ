@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\bibliothecaire;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\bibliothecaire\bibliothecaire_request;
 use App\Models\Bibliothecaire;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,26 +21,12 @@ class bibliothecaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
-            'photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required'
-        ]);
+    public function store (bibliothecaire_request $request){
+        $data=$request->validated();
         $user=User::create($data);
         $bibliothecaire=Bibliothecaire::create([
             'id_service'=>$request['id_service'],
@@ -122,3 +109,4 @@ class bibliothecaire_controller extends Controller
     }
 
 }
+

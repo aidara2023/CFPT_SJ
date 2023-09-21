@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\service;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\service\service_request;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -18,18 +19,13 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-            'nom_service'=>'required',
-            'id_user'=>'required'
-           
-        ]);
+    public function store(service_request $request){
+        $data=$request->validated();
         $service=Service::create($data);
         if($service!=null){
             return response()->json([
@@ -39,11 +35,11 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
+                'message'=>'L\'enregistrement n\'a pas été ajouté',
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(service_request $request, $id){
         $service=Service::find($id);
         if($service!=null){
            $service->intitule=$request['intitule'];
@@ -73,7 +69,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La service n\'a pas été supprimé',
+                'message'=>'Le service n\'est pas supprimé',
             ],500 );
         }
        
@@ -89,7 +85,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'service n\'a pas été éffectué',
+                'message'=>'Service non enregistré',
             ],500 );
         }
        

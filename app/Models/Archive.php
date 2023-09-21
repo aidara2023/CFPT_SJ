@@ -18,4 +18,10 @@ class Archive extends Model
         'id_departement',
         'id_service'
     ];
+    public function departement(){
+        return $this->belongsTo(Departement::class,'id_departement');
+    }
+    public function cour(){
+        return $this->belongsTo(Cour::class,'id_cour');
+    }
 }

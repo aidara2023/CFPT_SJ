@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\organisme;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\organisme\organisme_request;
 use App\Models\Organisme;
 use Illuminate\Http\Request;
 
@@ -18,15 +19,13 @@ class organisme_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,  
-                'message'=>'aucun nom d organisme  n\'a été enregistrée',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
 
-     public function store (Request $request){
-        $data=$request->validate([
-            'intitule_organisme'=>'required'
-                ]);
+     public function store (organisme_request $request){
+        $data=$request->validated();
         $organisme=Organisme::create($data);
         if($organisme!=null){
             return response()->json([
@@ -42,7 +41,7 @@ class organisme_controller extends Controller
     }
 
 
-    public function update(Request $request, $id){
+    public function update(organisme_request $request, $id){
         $organisme=Organisme::find($id);
         if($organisme!=null){
            $organisme->intitule=$request['intitule'];

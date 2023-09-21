@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\unite_de_formation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\unite_de_formation\unite_de_formation_request;
 use App\Models\Unite_de_formation;
 use Illuminate\Http\Request;
 
@@ -18,16 +19,13 @@ class unite_de_formation_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucune unite_de_formation  n\'a été enregistrée',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
 
-     public function store (Request $request){
-        $data=$request->validate([
-            'nom_unite_de_formation'=>'required',
-            'id_formateur'=>'required'
-                ]);
+     public function store (unite_de_formation_request $request){
+        $data=$request->validated();
         $unite_de_formation=Unite_de_formation::create($data);
         if($unite_de_formation!=null){
             return response()->json([
@@ -43,7 +41,7 @@ class unite_de_formation_controller extends Controller
     }
 
 
-    public function update(Request $request, $id){
+    public function update(unite_de_formation_request $request, $id){
         $unite_de_formation=Unite_de_formation::find($id);
         if($unite_de_formation!=null){
            $unite_de_formation->nom_unite_de_formation=$request['nom_unite_de_formation'];
@@ -89,7 +87,7 @@ class unite_de_formation_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\' unite_de_formation n\'existe pas ',
+                'message'=>'L\'unite_de_formation n\'existe pas ',
             ],500 );
         }
        

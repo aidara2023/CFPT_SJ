@@ -13,6 +13,26 @@ class Seminaire extends Model
         'date_debut',
         'date_fin',
         'description',
-        'id_direction'
+        'id_direction',
+        'id_user'
+        
     ];
+
+    
+    public function participers (){
+        return $this->hasMany(Seminaire::class,'id');
+        
+    }
+
+
+    public function direction (){
+        return $this->belongsTo(Direction::class,'id_direction');
+        
+    }
+
+    public function user (){
+        return $this->belongsTo(User::class,'id_user');
+        
+    }
+
 }

@@ -12,4 +12,14 @@ class Edition extends Model
         'nom_edition',
         'id_editeur'
     ];
+
+    public function livre() {
+        return $this -> hasMany(Livre::class, 'id_livre');
+    }
+
+    public function editeur() {
+        return $this -> belongsTo(Editeur::class, 'id_editeur');
+    }
+
+
 }

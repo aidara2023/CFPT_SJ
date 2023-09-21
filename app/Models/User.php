@@ -32,6 +32,8 @@ class User extends Authenticatable
         'id_role'
 
     ];
+    protected $table='users';
+    protected $primaryKey= 'matricule';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,4 +54,63 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'id_role');
+    }
+
+
+    public function service() {
+        return $this -> belongsTo(Service::class);
+    }
+
+    public function direction() {
+        return $this -> belongsTo(Direction::class);
+    }
+
+    public function bibliothecaires(){
+        return $this->hasMany(Bibliothecaire::class);
+    }
+
+    public function caissiers(){
+        return $this->hasMany(Caissier::class);
+    }
+
+    public function emprunter_livres(){
+        return $this->hasMany(Emprunter_livre::class);
+    }
+
+    public function dossiers_medical(){
+        return $this->hasMany(Dossier_medical::class);
+    }
+
+    public function infirmiers(){
+        return $this->hasMany(Infirmier::class);
+    }
+
+    public function tuteurs(){
+        return $this->hasMany(Tuteur::class);
+    }
+
+    public function eleves(){
+        return $this->hasMany(Eleve::class);
+    }
+
+    public function formateurs(){
+        return $this->hasMany(Formateur::class);
+    }
+
+    public function emprunter_materiels(){
+        return $this->hasMany(Emprunter_livre::class);
+    }
+    public function consultations(){
+        return $this->hasMany(Consultation::class);
+    }
+
+    public static function generateur_matricule($prefix= 'M'){
+        $dernier_user=self::orderBy('matricule_number', 'desc')->first();
+        $prochain_nombre= $dernier_user ? $dernier_user->matricule_number + 1 : 10066;
+        $matricule= $prefix . $prochain_nombre;
+        return $matricule;
+    }
 }

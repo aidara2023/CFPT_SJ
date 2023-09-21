@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Editeur extends Model
 {
     use HasFactory;
-    protected $fillable =[
+    protected $fillable = [
         'nom_editeur'
     ];
+
+
+    public function edition() {
+        return $this -> hasMany(Edition::class, 'id_edition');
+    }
 }

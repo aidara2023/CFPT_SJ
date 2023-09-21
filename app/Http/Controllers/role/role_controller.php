@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\role\role_request;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -18,16 +19,13 @@ class role_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Auncune donnée trouvée',
             ],500 );
         }
      }
 
-    public function store(Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-           
-        ]);
+    public function store(role_request $request){
+        $data=$request->validated();
         $role=Role::create($data);
         if($role!=null){
             return response()->json([
@@ -41,7 +39,7 @@ class role_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(role_request $request, $id){
         $role=role::find($id);
         if($role!=null){
            $role->intitule=$request['intitule'];
@@ -85,7 +83,7 @@ class role_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Role n\'a pas été éffectué',
+                'message'=>'Ce role n\'existe pas',
             ],500 );
         }
        

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\ressource_pedagogique;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ressource_pedagogique\ressource_pedagogique_request;
 use App\Models\Ressource_pedagogique;
 use Illuminate\Http\Request;
 
 class ressource_pedagogique_controller extends Controller
 {
-    
     public function index() {
         $ressource_pedagogique=Ressource_pedagogique::all();
         if($ressource_pedagogique!=null){
@@ -19,19 +19,12 @@ class ressource_pedagogique_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Aucun donné trouvé',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'libelle'=>'required',
-            'contenu'=>'required',
-            'id_formateur'=>'required',
-            'id_eleve'=>'required',
-            'id_cour'=>'required',
-            'id_unite_de_formation'=>'required'
-        ]);
+    public function store (ressource_pedagogique_request $request){
+        $data=$request->validated();
         $ressource_pedagogique=ressource_pedagogique::create($data);
         if($ressource_pedagogique!=null){
             return response()->json([
@@ -45,15 +38,15 @@ class ressource_pedagogique_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(ressource_pedagogique_request $request, $id){
         $ressource_pedagogique=ressource_pedagogique::find($id);
         if($ressource_pedagogique!=null){
-           $ressource_pedagogique->titre=$request['titre'];
+           $ressource_pedagogique->libelle=$request['libelle'];
            $ressource_pedagogique->contenu=$request['contenu'];
            $ressource_pedagogique->id_formateur=$request['id_formateur'];
            $ressource_pedagogique->id_eleve=$request['id_eleve'];
-           $ressource_pedagogique->id_unite_de_formation=$request['unite_de_formation'];
-           
+           $ressource_pedagogique->id_cour=$request['id_cour'];
+           $ressource_pedagogique->id_unite_de_formation=$request['id_unite_de_formation'];
            $ressource_pedagogique->save();
             return response()->json([
                 'statut'=>200,
@@ -72,12 +65,12 @@ class ressource_pedagogique_controller extends Controller
             $ressource_pedagogique->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'Ressource_pedagogique supprimée avec succés',
+                'message'=>'ressource_pedagogique supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La ressource_pedagogique n\'est pas supprimée',
+                'message'=>'ressource_pedagogique non supprimé',
             ],500 );
         }
        
@@ -93,9 +86,10 @@ class ressource_pedagogique_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'ressource_pedagogique n\'existe pas ',
+                'message'=>'Ce ressource_pedagogique n\'existe pas ',
             ],500 );
         }
     }
-
 }
+
+

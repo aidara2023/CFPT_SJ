@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\auteur;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\auteur\auteur_request;
 use App\Models\Auteur;
 use Illuminate\Http\Request;
 
 class auteur_controller extends Controller
+
 {
     public function index() {
         $auteur=Auteur::all();
@@ -18,14 +20,12 @@ class auteur_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'nom_auteur'=>'required',
-        ]);
+    public function store (auteur_request $request){
+        $data=$request->validated();
         $auteur=Auteur::create($data);
         if($auteur!=null){
             return response()->json([
@@ -39,7 +39,7 @@ class auteur_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function mis_ajour(Request $request, $id){
         $auteur=Auteur::find($id);
         if($auteur!=null){
            $auteur->nom_auteur=$request['nom_auteur'];
@@ -56,7 +56,7 @@ class auteur_controller extends Controller
             ],500 );
         }
     }
-    public function delete($id){
+    public function supprimer($id){
         $auteur=Auteur::find($id);
         if($auteur!=null){
             $auteur->delete();

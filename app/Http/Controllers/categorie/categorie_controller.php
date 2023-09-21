@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\categorie;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\categorie\categorie_request;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,12 @@ class categorie_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
-    public function store (Request $request){
-        $data=$request->validate([
-            'intitule'=>'required',
-        ]);
+    public function store (categorie_request $request){
+        $data=$request->validated();
         $categorie=Categorie::create($data);
         if($categorie!=null){
             return response()->json([
@@ -40,9 +39,10 @@ class categorie_controller extends Controller
             ],500 );
         }
     }
-    public function update(Request $request, $id){
+    public function update(categorie_request $request, $id){
         $categorie=Categorie::find($id);
         if($categorie!=null){
+            $request->validated();
            $categorie->intitule=$request['intitule'];
            
            $categorie->save();

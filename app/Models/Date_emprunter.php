@@ -9,6 +9,13 @@ class Date_emprunter extends Model
 {
     use HasFactory;
     protected $fillable =[
+
         'intitule'
+
     ];
+
+    public function emprunter_materiels (){
+        return $this->hasMany(Emprunter_materiel::class,'id');
+        
+    }
 }
