@@ -58,7 +58,7 @@ use App\Http\Controllers\type_materiel\type_materiel_controller;
 Route::get('/', function () {
     return view('welcome');
 });
- Route::get('login',[login_view_controller::class,'index'])->name('login');
+
 
 
 //Route de matiere
@@ -347,6 +347,8 @@ Route::put('consultation/update/{$id}',[cosultation_controller::class,'update'])
 Route::delete('consultation/delete/{$id}',[consulation_controller::class, 'delete'])->name('consultation_delete');
 
 
+//Route pour la connexion
+Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
 
 
 
