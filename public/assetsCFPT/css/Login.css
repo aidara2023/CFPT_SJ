@@ -10,9 +10,9 @@ body{
     max-height: 10rem;
     margin-top: 4vh;
   /*   border: 1px solid rebeccapurple ; */
-    
+
   }
-  
+
   /*  */
   .titre{
     width: auto;
@@ -24,7 +24,7 @@ body{
   /*   border: 1px solid rebeccapurple ; */
     margin: 10px;
   }
-  
+
   /* tres_gros */
   .gros_titre{
     width: auto;
@@ -32,13 +32,13 @@ body{
     color: rgb(0, 0, 0);
     font-family: 'Open Sans', sans-serif;
     font-size: clamp(1.9rem, 5vw, 3.75rem);
-    
+
     font-weight: 700;
     line-height: 0.9;
   /*   border: 1px solid rebeccapurple ; */
     margin: 10px;
   }
-  
+
   .rectangle {
     position: absolute;
     align: center;
@@ -74,7 +74,7 @@ body{
     color: #9c9c9C;
     font-size: clamp(1rem, 2vw, 1.5rem);
     /* font-size: 3.75rem; */
-    
+
   }
 
 input[type="submit"]{
@@ -84,13 +84,13 @@ input[type="submit"]{
   font-size: clamp(1.3rem, 2vw, 1.9rem);
   min-width: fit-content;
   border-radius: 45px;
-  margin-top: 67px; 
+  margin-top: 67px;
   display: block;
   padding: 20px;
 
   left: 50%;
   transform: translate(-50%);
-  
+
 }
 
 input[type="submit"]:hover{
@@ -131,6 +131,10 @@ input[type="submit"]:hover{
   left: -50vw;
   bottom:0;
 
+}
+
+input:focus{
+    outline: 0px solid red;
 }
 @media(min-width:600px){
   input{
