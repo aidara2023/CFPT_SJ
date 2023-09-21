@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 class user_controller extends Controller
 {
     public function index() {
@@ -24,8 +26,35 @@ class user_controller extends Controller
      }
 
     public function store (user_request $request){
-        $data=$request->validated();
-        $user=User::create($data);
+        $request->validated();
+
+        $user=new User();
+
+       /*  Creation de matricule */
+        $matricule= User::generateur_matricule();
+        $user->matricule=$matricule;
+      /*   Fin attribution */
+
+        $user->nom=$request['nom'];
+        $user->prenom=$request['prenom'];
+        $user->genre=$request['genre'];
+        $user->adresse=$request['adresse'];
+        $user->telephone=$request['telephone'];
+        $user->password=Hash::make("CFPT2018");
+        $user->date_naissance=$request['date_naissance'];
+        $user->nom=$request['lieu_naissance'];
+        $user->nationalite=$request['nationalite'];
+
+        /* Uploader une image */
+        $image= $request->file('image');
+        $imageName=time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('image'), $imageName);
+        $user->photo=$imageName;
+        /* Fin upload */
+
+        $user->id_role=$request['id_role'];
+        $user->save();
+
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -46,13 +75,25 @@ class user_controller extends Controller
            $user->genre=$request['genre'];
            $user->adresse=$request['adresse'];
            $user->telephone=$request['telephone'];
-           $user->password=$request['password'];
+
+           if($request->filled('password')){
+                $user->password=Hash::make($request['password']);
+           }
+
+           if($request->hasFile('image')){
+            $image= $request->file('image');
+            $imageName=time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('image'), $imageName);
+            $user->photo=$imageName;
+           }
+           
            $user->date_naissance=$request['date_naissance'];
            $user->nom=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
            $user->photo=$request['photo'];
            $user->id_role=$request['id_role'];
            $user->save();
+           
             return response()->json([
                 'statut'=>200,
                 'user'=>$user
