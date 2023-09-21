@@ -32,6 +32,8 @@ class User extends Authenticatable
         'id_role'
 
     ];
+    protected $table='users';
+    protected $primaryKey= 'matricule';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -103,5 +105,12 @@ class User extends Authenticatable
     }
     public function consultations(){
         return $this->hasMany(Consultation::class);
+    }
+
+    public static function generateur_matricule($prefix= 'M'){
+        $dernier_user=self::orderBy('matricule_number', 'desc')->first();
+        $prochain_nombre= $dernier_user ? $dernier_user->matricule_number + 1 : 10066;
+        $matricule= $prefix . $prochain_nombre;
+        return $matricule;
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class connexion_controller extends Controller
 {
     public function connexion(Request $request){
-        if(!Auth::attempt($request->only('id','password'))){
+        if(!Auth::attempt($request->only('matricule','password'))){
             return response([
                 'message'=>'Connexion échouée',
                 'statut'=>'Error'

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('emprunter_materiels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users');
             $table->date('date_retour_prevue');
             $table->date('date_retour_effective');
             $table->string('statut');

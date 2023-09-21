@@ -28,7 +28,7 @@ class user_request extends FormRequest
             'adresse'=>'required',
             'email'=>'required',
             'telephone'=>'required',
-            'password'=>'required',
+            'password'=>'',
             'date_naissance'=>'required',
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
