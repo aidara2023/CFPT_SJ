@@ -1,4 +1,4 @@
-<img class="grande" src="assetsCFPT/image/etudiant.png" alt="">
+<img class="grande" src="/assetsCFPT/image/professeur.png" alt="">
     <div class="info">
         <h1 class="titre" >Amadou GUEYE</h1>
         <h1 class="sous_titre">Professeur</h1>
