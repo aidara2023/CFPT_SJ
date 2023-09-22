@@ -22,6 +22,8 @@ use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
+use App\Http\Controllers\Formateur\formateur_controller;
+use App\Http\Controllers\Formateur\formateur_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\note\note_controller;
@@ -58,8 +60,6 @@ use App\Http\Controllers\type_materiel\type_materiel_controller;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 //Route de matiere
 
@@ -127,7 +127,7 @@ Route::delete('emprunter_livre/delete/{id}',[emprunter_livre_controller::class, 
 Route::put('emprunter_livre/rendre/{id}',[emprunter_livre_controller::class, 'rendre'])->name('emprunter_livre_rendre');
 
 
-//route formation
+//route type de formation
 Route::get('type_formation/index',[type_formation_controller::class, 'index'])->name('type_formation_index');
 Route::post('type_formation/store',[type_formation_controller::class, 'store'])->name('type_formation_store');
 Route::get('type_formation/show/{id}',[type_formation_controller::class, 'show'])->name('type_formation_show');
@@ -343,8 +343,18 @@ Route::delete('emprunter_materiel/delete/{$id}',[emprunter_materiel_controller::
 Route::get('consultation/index',[consultation_controller::class, 'index'])->name('consultation_index');
 Route::post('consultation/store',[consultation_controller::class, 'store'])->name('consultation_store');
 Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->name('consultation_show');
-Route::put('consultation/update/{$id}',[cosultation_controller::class,'update'])->name('consultation_update');
-Route::delete('consultation/delete/{$id}',[consulation_controller::class, 'delete'])->name('consultation_delete');
+Route::put('consultation/update/{$id}',[consultation_controller::class,'update'])->name('consultation_update');
+Route::delete('consultation/delete/{$id}',[consultation_controller::class, 'delete'])->name('consultation_delete');
+
+//Route pour formateur
+
+Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
+Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
+Route::get('formateur/show/{$id}',[formateur_controller::class,'show'])->name('formateur_show');
+Route::put('formateur/update/{$id}',[formateur_controller::class,'update'])->name('formateur_update');
+Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
+
+Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
 
 
 //Route pour la connexion
