@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel="stylesheet" href="/pages_web/Users/mac6/Desktop/Pages/pages_web/CSS/liste_note.css">
+    <link rel="stylesheet" href="/assetsCFPT/css/liste_note.css">
     <title>Liste Etudiants</title>
 </head>
 <body>
@@ -17,40 +17,7 @@
 
 
 <div class="entete">
-    <img class="grande" src="professeur.png" alt="">
-    <div class="info">
-        <h1 class="titre" >Amadou GUEYE</h1>
-        <h1 class="sous_titre">Professeur</h1>
-      </div>
-      <div class="menu"><!-- concerne uniquement le bouton -->
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="fenetre"></div>
-      <!-- <div class="arrondi"></div> -->
-      <div class="navigation">
-
-        <ul>
-            <li>
-                <span class="icon"><i class="fi fi-rr-user"></i></span>
-                <hr>
-                <a href="#">
-                    <span>Mon Profil</span></a></li>
-            <li>
-                <a href="#">
-                    <span>Modifier mot de passe</span></a></li>
-                    <li>
-                        <span class="icon"><i class="fi fi-rr-info"></i></span>
-                        <hr>
-                    <a href="#">
-                    <span>A propos du CFPT-SJ</span></a></li>
-            <li>
-                <a href="#">
-                    <span>Me déconnecter</span></a></li>
-        </ul>
-
-      </div>
+    @include('formateur.entete')
     </div>
 
     <section>
@@ -66,7 +33,7 @@
         </div>
         <div class="sections">
             <div class="etudiant">
-                <img src="etudiant.png" alt="Etu" class="petite">
+                <img src="/assetsCFPT/image/etudiant.png" alt="Etu" class="petite">
                 <p class="texte">Abdoulaye SARR</p>
                 <form method="" action="" class="notes">
                     <input type="number" inputmode="numeric" name="note1" id="note1" placeholder="17">
