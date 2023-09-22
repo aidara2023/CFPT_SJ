@@ -24,7 +24,16 @@ class connexion_controller extends Controller
                 'url'=>$url, 
                 'user'=>$user
              ]);
-        }else{
+        }elseif($role=="formateur"){
+            $url='formateur';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
+
+        }
+        
+        else{
             $url='/login';
             return response([
                 'url'=>$url,
