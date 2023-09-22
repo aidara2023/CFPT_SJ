@@ -209,7 +209,7 @@ ul{
     max-height: 300px;
 
     opacity: 1;
-    background-image: url(logo_cfpt.png);
+    background-image: url(../image/logo_cfpt.png);
     background-size: 150%;
     background-repeat: no-repeat;
     background-position:-50% 120% ;
@@ -236,10 +236,10 @@ ul{
 
 .emploi_du_temps{
     margin: 30px auto;
-    max-width: 700px;
+    max-width: 900px;
     height: fit-content;
-    padding:min(20px, 40px);
-/*     border: 1px  solid black; */
+    padding:20px;
+    /* border: 1px  solid black; */
 }
 
 .emploi_du_temps .sous_titre, section .sous_titre{
@@ -369,7 +369,7 @@ p{
         display: flex;
         align-items: center;
         color: white;
-        background-image: url(logo_cfpt.png);
+        background-image: url(../image/logo_cfpt.png);
         background-size: 50%;
         background-repeat: no-repeat;
         background-position:70% 50% ;
