@@ -142,4 +142,9 @@ input:focus{
   }
 }
 
+input:focus{
+    outline: 0px solid var(--clr);
+    transition: .5s;
+    border-bottom: 1px solid var(--clr);
+}
 
