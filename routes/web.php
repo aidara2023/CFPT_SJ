@@ -355,7 +355,7 @@ Route::put('formateur/update/{$id}',[formateur_controller::class,'update'])->nam
 Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
 
 Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
-
+Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
 
 //Route pour la connexion
 Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
