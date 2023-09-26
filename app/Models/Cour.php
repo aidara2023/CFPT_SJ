@@ -17,6 +17,7 @@ class Cour extends Model
         'id_formateur',
         'id_matiere',
         'id_salle',
+        'date_cour',
         'id_semestre'
     ];
 

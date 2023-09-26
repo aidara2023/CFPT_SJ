@@ -11,6 +11,7 @@ use App\Http\Controllers\dossier_medical\dossier_medical_controller;
 use App\Http\Controllers\editeur\editeur_controller;
 use App\Http\Controllers\edition\edition_controller;
 use App\Http\Controllers\eleve\eleve_controller;
+use App\Http\Controllers\eleve\eleve_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_controller;
 use App\Http\Controllers\examplaire\exemplaire_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_controller;
@@ -117,6 +118,8 @@ Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
 Route::put('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve_update');
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
+
+Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
 
 //route emprunter livre 
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');
@@ -346,6 +349,14 @@ Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->n
 Route::put('consultation/update/{$id}',[consultation_controller::class,'update'])->name('consultation_update');
 Route::delete('consultation/delete/{$id}',[consultation_controller::class, 'delete'])->name('consultation_delete');
 
+//Route pour inscription
+
+Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
+Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
+Route::put('inscription/update/{$id}',[inscription_controller::class,'update'])->name('inscription_update');
+Route::delete('inscription/delete/{$id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+
 //Route pour formateur
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
@@ -356,7 +367,8 @@ Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])-
 
 Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
 Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
-
+Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->name('formateur_profil');
+Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
 //Route pour la connexion
 Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
 

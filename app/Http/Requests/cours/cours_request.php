@@ -25,6 +25,7 @@ class cours_request extends FormRequest
         'intitule_cours' => 'required',
         'heure_debut' => 'required',
         'heure_fin' => 'required',
+        'date_cour' => 'required',
         'id_classe' => 'required',
         'id_formateur' => 'required',
         'id_matiere' => 'required',
