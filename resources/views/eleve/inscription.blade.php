@@ -8,23 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel="stylesheet" href="/assetsCFPT/css/formateur/liste_note.css">
-    <title>Liste Etudiants</title>
+    <link rel="stylesheet" href="/assetsCFPT/css/eleve/inscription.css">
+    <title>Inscription</title>
     @vite('resources/js/app.js')
 </head>
-<body>
+<body id="app">
+    <div class="cote_gauche">
+        <div class="elements">
 
-
-
-<div class="entete">
-
-    @include('formateur.entete')
-    </div>
-    <div id="app">
-        <listenote-formateur></listenote-formateur>
+            <img src="/assetsCFPT/image/logo_cfpt_bleu.png" alt="">
+            <h1 class="titre">Inscription</h1>
+            <p>Veuillez remplir ce formulaire</p>
+        </div>
     </div>
 
-    <script src="{{asset('assetsCFPT/js/formateur.js')}}"></script>
+    <inscription-eleve></inscription-eleve>
+    
+
 </body>
 </html>
