@@ -34,6 +34,7 @@ use App\Http\Controllers\partenaire\partenaire_controller;
 use App\Http\Controllers\participer\participer_controller;
 use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
+use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
@@ -45,7 +46,9 @@ use App\Http\Controllers\roleController;
 
 
 use App\Http\Controllers\type_materiel\type_materiel_controller;
-
+use App\Http\Controllers\user\user_controller;
+use App\Http\Controllers\user\user_view_controller;
+use App\Http\Controllers\user\userViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -371,6 +374,22 @@ Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->na
 Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
 //Route pour la connexion
 Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
+
+//Route pour utilisateur
+
+
+Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
+
+Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
+Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
+Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
+Route::put('user/update/{id}',[user_controller::class, 'update'])->name('user_update');
+Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('user_delete');
+
+//Route pour role
+
+Route::get('role/index',[role_controller::class, 'index'])->name('role_index');
+
 
 
 
