@@ -10,7 +10,8 @@ class Matiere extends Model
     use HasFactory;
     protected $fillable =[
         'id',
-        'intitule'
+        'intitule',
+        'duree'
         ];
 
         public function note(){

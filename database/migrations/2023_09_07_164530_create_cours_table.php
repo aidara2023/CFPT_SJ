@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('intitule');
             $table->time('heure_debut');
             $table->time('heure_fin');
+            $table->date('date_cour');
             $table->unsignedBigInteger('id_classe');
             $table->foreign('id_classe')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_formateur');
