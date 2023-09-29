@@ -4,6 +4,7 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
+use App\Http\Controllers\bibliothecaire\bibliothecaire_view_controller;
 use App\Http\Controllers\categorie\categorie_controller;
 use App\Http\Controllers\date_emprunter\date_emprunter_controller;
 use App\Http\Controllers\departement\departement_controller;
@@ -253,6 +254,11 @@ Route::post('bibliothecaire/store',[bibliothecaire_controller::class, 'store'])-
 Route::get('bibliothecaire/show/{id}',[bibliothecaire_controller::class, 'show'])->name('bibliothecaire_show');
 Route::put('bibliothecaire/update/{id}',[bibliothecaire_controller::class, 'update'])->name('bibliothecaire_update');
 Route::delete('bibliothecaire/delete/{id}',[bibliothecaire_controller::class, 'delete'])->name('bibliothecaire_delete');
+
+
+Route::get('/bibliothecaire',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
+
+
 
 //route exemplaire
 Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');

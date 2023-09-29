@@ -132,7 +132,7 @@ import Form from 'vform';
                 }
 
             }else{
-                Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
+                Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
             }
 
 
