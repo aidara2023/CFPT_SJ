@@ -10,4 +10,7 @@ class eleve_view_controller extends Controller
     public function inscription(){
         return view('eleve.inscription');
     }
+    public function create(){
+        return view('eleve.create');
+    }
 }

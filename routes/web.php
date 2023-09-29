@@ -42,7 +42,6 @@ use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\roleController;
 
 
 use App\Http\Controllers\type_materiel\type_materiel_controller;
@@ -123,6 +122,7 @@ Route::put('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
 
 Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
+Route::get('/eleve/create',[eleve_view_controller::class, 'create'])->name('eleve_create');
 
 //route emprunter livre 
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');
@@ -388,7 +388,7 @@ Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('use
 
 //Route pour role
 
-Route::get('role/index',[role_controller::class, 'index'])->name('role_index');
+Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
 
 
 

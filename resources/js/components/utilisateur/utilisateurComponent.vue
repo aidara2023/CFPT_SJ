@@ -1,6 +1,6 @@
 <template>
     <div class="cote_droit">
-        <form @submit="soumettre">
+        <form @submit.prevent="soumettre">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
             <div>
 
@@ -36,7 +36,7 @@
     
                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone">
                 <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse">
-                <input type="mail" name="email" id="email" placeholder="Email" v-model="form.contact_urgence_1">
+                <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email">
             </div>
 
 
@@ -70,9 +70,9 @@
 <script>
 import axios from 'axios';
 import Form from 'vform';
-import { shallowReadonly } from 'vue';
+
    export default {
-    name:"inscriptionCompenent",
+    name:"utilisateurCompenent",
     data(){
         return {
             filieres:[],
@@ -89,6 +89,7 @@ import { shallowReadonly } from 'vue';
                 'id_role':"",
             }),
             photo:"",
+            roles:[],
 
         }
     },
@@ -107,6 +108,7 @@ import { shallowReadonly } from 'vue';
             formdata.append('date_naissance', this.form.date_naissance);
             formdata.append('genre', this.form.genre);
             formdata.append('adresse', this.form.adresse);
+            formdata.append('email', this.form.email);
             formdata.append('telephone', this.form.telephone);
             formdata.append('nationalite', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
@@ -122,10 +124,11 @@ import { shallowReadonly } from 'vue';
 
                     });
                     Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
+                    this.resetForm();
                 }
                 catch(e){
                     console.log(e)
-                    Swal.fire('Erreur!','une erreur est survenue lors de l\'enregistrement','error')
+                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
@@ -136,18 +139,33 @@ import { shallowReadonly } from 'vue';
         },
         
 
-        async get_role(){
+         get_role(){
             
-            await axios.get('role/index').then(response=>{
-                 this.filieres=response.data.role;
+             axios.get('/roles/index')
+             .then(response => {
+                 this.roles=response.data.role
+                 
                 
             }).catch(error=>{
-                    Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des roles','error')
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
             });
         },
 
         ajoutimage(event){
             this.photo=event.target.files[0];
+        },
+        resetForm(){
+            this.form.nom="";
+            this.form.prenom="";
+            this.form.genre="";
+            this.form.adresse="";
+            this.form.telephone="";
+            this.form.email="";
+            this.form.date_naissance="";
+            this.form.lieu_naissance="";
+            this.form.nationalite="";
+            this.form.id_role="";
+           
         }
 
 
