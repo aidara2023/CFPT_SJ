@@ -33,11 +33,19 @@
               <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse_bibliothecaire">
           </div>
 
+
           <p><span class="str">*</span> Personnes à contacter en cas d'urgence</p>
           <div class="urgence">
               <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence_1">
               <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence_2">
           </div>
+
+          <div class="roles">
+                <select name="service" id="service" v-model="form.id_service">
+                        <option value=""> Service </option>
+                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
+                </select>
+            </div>
         
           <div class="boutons">
               <button type="button">Retourner</button>
@@ -55,7 +63,7 @@ import Swal from 'sweetalert2';
   name:"createBibliothecaireCompenent",
   data(){
       return {
-          filieres:[],
+        //   filieres:[],
           form:new Form({
             
               'nom_bibliothecaire':"",
@@ -74,52 +82,57 @@ import Swal from 'sweetalert2';
       }
   },
   methods:{
-    //   async soumettre(){
-    //       const formdata = new FormData(); 
+      async soumettre(){
+          const formdata = new FormData(); 
 
-    //       formdata.append('nom_bibliothecaire', this.form.nom_bibliothecaire  );
-    //       formdata.append('prenom_bibliothecaire', this.form.prenom_bibliothecaire  );
-    //       formdata.append('lieu_naissance_bibliothecaire', this.form.lieu_naissance_bibliothecaire );
-    //       formdata.append('date_naissance_bibliothecaire', this.form.date_naissance_bibliothecaire  );
-    //       formdata.append('genre_bibliothecaire', this.form.genre_bibliothecaire  );
-    //       formdata.append('adresse_bibliothecaire', this.form.adresse_bibliothecaire);
-    //       formdata.append('telephone_bibliothecaire', this.form.telephone_bibliothecaire  );
-    //       formdata.append('nationalite_bibliothecaire', this.form.nationalite_bibliothecaire );
-    //       formdata.append('contact_urgence_1', this.form.contact_urgence_1);
-    //       formdata.append('contact_urgence_2', this.form.contact_urgence_2);
-
-
-    //       if(this.form.nom_tuteur!=="" && this.form.prenom_tuteur!=="" && this.form.telephone_tuteur!=="" && this.form.date_naissance_tuteur!==""){
-    //           try{
-    //               const inscription_store=await axios.post('/bibliothecaire/store', formdata, {
-
-    //               });
-    //               Swal.fire('Succes!','bibliothecaire enregistrer avec success','succes');
-    //               this.resetForm('formulaire')
-    //           }
-    //           catch(e){
-    //               console.log(e)
-    //               Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
-    //           }
-
-    //       }else{
-    //           Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
-    //       }
+          formdata.append('nom_bibliothecaire', this.form.nom_bibliothecaire  );
+          formdata.append('prenom_bibliothecaire', this.form.prenom_bibliothecaire  );
+          formdata.append('lieu_naissance_bibliothecaire', this.form.lieu_naissance_bibliothecaire );
+          formdata.append('date_naissance_bibliothecaire', this.form.date_naissance_bibliothecaire  );
+          formdata.append('genre_bibliothecaire', this.form.genre_bibliothecaire  );
+          formdata.append('adresse_bibliothecaire', this.form.adresse_bibliothecaire);
+          formdata.append('telephone_bibliothecaire', this.form.telephone_bibliothecaire  );
+          formdata.append('nationalite_bibliothecaire', this.form.nationalite_bibliothecaire );
+          formdata.append('contact_urgence_1', this.form.contact_urgence_1);
+          formdata.append('contact_urgence_2', this.form.contact_urgence_2);
 
 
-    //   },
-    //     resetForm(name){
-    //         this.nom_bibliothecaire="";
-    //         this.prenom_bibliothecaire="";
-    //         this.genre_bibliothecaire="";
-    //         this.adresse_bibliothecaire="";
-    //         this.telephone_bibliothecaire="";
-    //         this.date_naissance_bibliothecaire="";
-    //         this.lieu_naissance_bibliothecaire="";
-    //         this.nationalite_bibliothecaire="";
-    //         this.photo="";
-    //         this.$(`#${name}`).modal('hide');
-    //     },
+          if(this.form.nom_bibliothecaire!=="" && this.form.prenom_bibliothecaire!=="" && this.form.telephone_bibliothecaire!=="" && this.form.date_naissance_bibliothecaire!==""){
+              try{
+                  const inscription_store=await axios.post('/bibliothecaire/store', formdata, {
+
+                  });
+                  if(inscription_store){
+                    Swal.fire('Succes!','bibliothecaire enregistrer avec success','succes');
+                  this.resetForm();
+                  }
+                  
+                  Swal.fire('Succes!','bibliothecaire enregistrer avec success','succes');
+                  this.resetForm('formulaire')
+              }
+              catch(e){
+                  console.log(e)
+                  Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+              }
+
+          }else{
+              Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
+          }
+
+
+      },
+        resetForm(name){
+            this.nom_bibliothecaire="";
+            this.prenom_bibliothecaire="";
+            this.genre_bibliothecaire="";
+            this.adresse_bibliothecaire="";
+            this.telephone_bibliothecaire="";
+            this.date_naissance_bibliothecaire="";
+            this.lieu_naissance_bibliothecaire="";
+            this.nationalite_bibliothecaire="";
+            this.photo="";
+            this.$(`#${name}`).modal('hide');
+        },
 
         ajoutimage(event){
             this.photo=event.target.files[0];
