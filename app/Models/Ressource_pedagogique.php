@@ -13,7 +13,6 @@ class Ressource_pedagogique extends Model
         'libelle',
         'contenu',
         'id_formateur',
-        'id_eleve',
         'id_cour',
         'id_unite_de_formation'
     ];

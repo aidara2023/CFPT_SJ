@@ -10,11 +10,14 @@ class Inscription extends Model
     use HasFactory;
     protected $fillable =[
         'id',
-        'Montant',
+        'montant',
         'date_inscription',
         'id eleve',
         'id_classe',
-        'id_annee_academique'
+        'id_annee_academique',
+        'diplome',
+        'acte_naissance',
+        'cni'
         
 
     ];

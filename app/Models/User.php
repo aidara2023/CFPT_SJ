@@ -18,10 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'genre',
         'adresse',
-        'email',
         'telephone',
         'email',
         'password',
@@ -108,7 +108,7 @@ class User extends Authenticatable
     }
 
     public static function generateur_matricule($prefix= 'M'){
-        $dernier_user=self::orderBy('matricule_number', 'desc')->first();
+        $dernier_user=self::orderBy('matricule_nombre', 'desc')->first();
         $prochain_nombre= $dernier_user ? $dernier_user->matricule_number + 1 : 10066;
         $matricule= $prefix . $prochain_nombre;
         return $matricule;

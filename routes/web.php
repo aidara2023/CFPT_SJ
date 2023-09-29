@@ -11,6 +11,7 @@ use App\Http\Controllers\dossier_medical\dossier_medical_controller;
 use App\Http\Controllers\editeur\editeur_controller;
 use App\Http\Controllers\edition\edition_controller;
 use App\Http\Controllers\eleve\eleve_controller;
+use App\Http\Controllers\eleve\eleve_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_controller;
 use App\Http\Controllers\examplaire\exemplaire_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_controller;
@@ -33,6 +34,7 @@ use App\Http\Controllers\partenaire\partenaire_controller;
 use App\Http\Controllers\participer\participer_controller;
 use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
+use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
@@ -40,11 +42,12 @@ use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\roleController;
 
 
 use App\Http\Controllers\type_materiel\type_materiel_controller;
-
+use App\Http\Controllers\user\user_controller;
+use App\Http\Controllers\user\user_view_controller;
+use App\Http\Controllers\user\userViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +120,9 @@ Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
 Route::put('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve_update');
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
+
+Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
+Route::get('/eleve/create',[eleve_view_controller::class, 'create'])->name('eleve_create');
 
 //route emprunter livre 
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');
@@ -346,6 +352,14 @@ Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->n
 Route::put('consultation/update/{$id}',[consultation_controller::class,'update'])->name('consultation_update');
 Route::delete('consultation/delete/{$id}',[consultation_controller::class, 'delete'])->name('consultation_delete');
 
+//Route pour inscription
+
+Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
+Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
+Route::put('inscription/update/{$id}',[inscription_controller::class,'update'])->name('inscription_update');
+Route::delete('inscription/delete/{$id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+
 //Route pour formateur
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
@@ -355,10 +369,27 @@ Route::put('formateur/update/{$id}',[formateur_controller::class,'update'])->nam
 Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
 
 Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
-
-
+Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
+Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->name('formateur_profil');
+Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
 //Route pour la connexion
 Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
+
+//Route pour utilisateur
+
+
+Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
+
+Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
+Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
+Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
+Route::put('user/update/{id}',[user_controller::class, 'update'])->name('user_update');
+Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('user_delete');
+
+//Route pour role
+
+Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
+
 
 
 
