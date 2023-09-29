@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('nom_classe');
-            $table->string('type_classe');
+            /* $table->string('type_classe'); */
             $table->string('niveau');
             $table->unsignedBigInteger('id_type_formation');
             $table->unsignedBigInteger('id_unite_de_formation');
