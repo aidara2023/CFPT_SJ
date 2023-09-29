@@ -37,6 +37,7 @@ use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
 use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
+use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
@@ -397,6 +398,10 @@ Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('use
 Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
 
 
+
+//Route pour service
+
+Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 
 
 

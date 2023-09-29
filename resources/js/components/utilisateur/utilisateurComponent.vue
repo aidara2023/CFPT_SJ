@@ -96,7 +96,6 @@ import Form from 'vform';
 
     mounted(){
         this.get_role();
-
     },
     
     methods:{
