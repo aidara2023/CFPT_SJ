@@ -107,6 +107,7 @@ form{
    /*  left: 50%;
     transform: translate(-50%); */
     overflow-y: auto;
+    overflow-x: hidden;
     background: transparent;
     width: auto;
     max-width: 900px;
@@ -136,7 +137,7 @@ form div{
     margin: 1px;
     display: flex;
     align-items: center;
-    
+
 }
 
 form .sous_titre{
@@ -244,7 +245,7 @@ input[type="file"]{
     justify-content: space-between;
   }
 
-.fichiers label{
+.fichiers label, .photo label{
     color: #9c9c9C;
     display: flex;
     border: 1px dashed white;
@@ -257,6 +258,21 @@ input[type="file"]{
     justify-content: center;
     align-items: center;
 }
+
+.photo{
+    display: flex;
+    justify-content: center;
+
+}
+
+.photo label{
+    border-radius: 50%;
+    width: min(30vw, 400px);
+    height: min(30vw, 400px);
+    left: 0;
+    transform: translate(0%);
+}
+
 
 .fichiers label span{
     color: white;
@@ -286,11 +302,11 @@ button:hover, .boutons button{
 }
 
 input[type="submit"]:hover{
-  background-color: rgba(10, 22, 57, 1);
+  background-color: var(--clr);
   /* 2a61e6  0a1639*/
   box-shadow: 0 0 5px 1px var(--clr);
-  color: var(--clr);
-  border-width: 0;
+  color: white;
+  outline: 2px solid var(--clr);
   transition: .5s;
 }
 
@@ -338,7 +354,6 @@ input[type="submit"]:hover{
         position: relative;
         width: clamp(10px, 19vw, 250px);
         display: inline;
-        transform: translate(-110%);
         font-size: clamp(1rem, 2vw, 1.9rem);
         outline: 3px solid white;
        }
@@ -370,11 +385,15 @@ input[type="submit"]:hover{
        }
 
         .boutons{
-            width: min(100vw, 250px);
+            width: min(120vw, 300px);
             position: relative;
             left: 50%;
             transform: translate(-50%);
             display: flex;
+            justify-content: center;
+            gap: 10px;
+
         }
+
 
    }

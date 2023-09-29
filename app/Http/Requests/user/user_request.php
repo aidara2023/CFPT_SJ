@@ -26,7 +26,7 @@ class user_request extends FormRequest
             'prenom'=>'required',
             'genre'=>'required',
             'adresse'=>'required',
-            'email'=>'required',
+            'email'=>'',
             'telephone'=>'required',
             'password'=>'',
             'date_naissance'=>'required',

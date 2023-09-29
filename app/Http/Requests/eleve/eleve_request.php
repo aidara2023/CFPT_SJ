@@ -22,23 +22,33 @@ class eleve_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
+            'nom_eleve'=>'required',
+            'prenom_eleve'=>'required',
+            'genre_eleve'=>'required',
+            'adresse_eleve'=>'required',
+            'email_tuteur'=>'',
+            'telephone_eleve'=>'required',
+            'password'=>'',
+            'date_naissance_eleve'=>'required',
+            'lieu_naissance_eleve'=>'required',
+            'nationalite_eleve'=>'required',
+            'nom_tuteur'=>'required',
+            'prenom_tuteur'=>'required',
+            'genre_tuteur'=>'required',
+            'adresse_tuteur'=>'required',
+            'email_tuteur'=>'',
+            'telephone_tuteur'=>'required',
+            'password'=>'',
+            'date_naissance_tuteur'=>'required',
+            'lieu_naissance_tuteur'=>'required',
+            'nationalite_tuteur'=>'required',
             'photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required',
-            'id_user'=>'required',
-            'contact_urgence1'=>'required',
-            'contact_urgence2'=>'required',
-            'id_tuteur'=>'required'
+            'id_role'=>'',
+
+            'id_user'=>'',
+            'contact_urgence_1'=>'required',
+            'contact_urgence_2'=>'required',
+            'id_tuteur'=>''
 
         ];
     }
