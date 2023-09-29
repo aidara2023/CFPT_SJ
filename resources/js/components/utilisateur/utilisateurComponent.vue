@@ -124,7 +124,7 @@ import Form from 'vform';
 
                     });
                     Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
-                    this.resetForm('formulaire');
+                    this.resetForm();
                 }
                 catch(e){
                     console.log(e)
@@ -154,18 +154,18 @@ import Form from 'vform';
         ajoutimage(event){
             this.photo=event.target.files[0];
         },
-        resetForm(name){
-            this.nom="";
-            this.prenom="";
-            this.genre="";
-            this.adresse="";
-            this.telephone="";
-            this.email="";
-            this.date_naissance="";
-            this.lieu_naissance="";
-            this.nationalite="";
-            this.id_role="";
-            this.$(`#${name}`).modal('hide');
+        resetForm(){
+            this.form.nom="";
+            this.form.prenom="";
+            this.form.genre="";
+            this.form.adresse="";
+            this.form.telephone="";
+            this.form.email="";
+            this.form.date_naissance="";
+            this.form.lieu_naissance="";
+            this.form.nationalite="";
+            this.form.id_role="";
+           
         }
 
 

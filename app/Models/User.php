@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nom',
         'prenom',
         'genre',
@@ -29,11 +30,11 @@ class User extends Authenticatable
         'lieu_naissance',
         'nationalite',
         'photo',
-        'id_role'
+        'id_role',
+        'matricule_nombre',
 
     ];
-    protected $table='users';
-    protected $primaryKey= 'matricule';
+   /*  protected $primaryKey= 'matricule'; */
 
     /**
      * The attributes that should be hidden for serialization.
@@ -107,10 +108,35 @@ class User extends Authenticatable
         return $this->hasMany(Consultation::class);
     }
 
-    public static function generateur_matricule($prefix= 'M'){
+   /*  public static function generateur_matricule($prefix= 'M'){
         $dernier_user=self::orderBy('matricule_nombre', 'desc')->first();
-        $prochain_nombre= $dernier_user ? $dernier_user->matricule_number + 1 : 10066;
+        $prochain_nombre= $dernier_user ? $dernier_user->matricule_nombre + 1 : 10066;
         $matricule= $prefix . $prochain_nombre;
+        $dernier_user->matricule_nombre= $dernier_user->matricule_nombre + 1;
+        $dernier_user->save();
         return $matricule;
+    } */
+
+    public static function generateur_matricule($prefix = 'M') {
+        $dernier_user = self::orderBy('matricule_nombre', 'desc')->first();
+        
+        if ($dernier_user) {
+            $prochain_nombre = $dernier_user->matricule_nombre + 1;
+            $dernier_user->matricule_nombre = $prochain_nombre;
+            $dernier_user->save();
+        } else {
+            // Si aucun utilisateur existant, commencez à partir de 10066
+            $prochain_nombre = 10066;
+        }
+        
+        $matricule = $prefix . $prochain_nombre;
+        return $matricule;
+    }
+    
+    
+
+    public static function getId($user){
+        return $user->id;
+
     }
 }

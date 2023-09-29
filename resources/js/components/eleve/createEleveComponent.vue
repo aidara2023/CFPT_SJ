@@ -83,12 +83,12 @@
 <script>
 import axios from 'axios';
 import Form from 'vform';
-import { shallowReadonly } from 'vue';
+import Swal  from 'sweetalert2';
  export default {
-  name:"inscriptionCompenent",
+  name:"createEleveCompenent",
   data(){
       return {
-          filieres:[],
+        /*   filieres:[], */
           form:new Form({
             
               'nom_eleve':"",
@@ -145,41 +145,42 @@ import { shallowReadonly } from 'vue';
                   const inscription_store=await axios.post('/eleve/store', formdata, {
 
                   });
-                  Swal.fire('Succes!','Eleve enregistrer avec success','succes');
-                  this.resetForm('formulaire')
+                  if(inscription_store){
+                    Swal.fire('Succes!','Eleve enregistrer avec success','succes');
+                  this.resetForm();
+                  }
               }
-              catch(e){
+            catch(e){
                   console.log(e)
                   Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
               }
 
           }else{
-              Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
+              Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
           }
 
 
       },
-        resetForm(name){
-            this.nom_eleve="";
-            this.prenom_eleve="";
-            this.genre_eleve="";
-            this.adresse_eleve="";
-            this.telephone_eleve="";
-            this.email_tuteur="";
-            this.date_naissance_eleve="";
-            this.lieu_naissance_eleve="";
-            this.nationalite_eleve="";
-            this.nom_tutteur="";
-            this.prenom_tutteur="";
-            this.genre_tutteur="";
-            this.adresse_tutteur="";
-            this.telephone_tutteur="";
-            this.email_tuteur="";
-            this.date_naissance_tutteur="";
-            this.lieu_naissance_tutteur="";
-            this.nationalite_tutteur="";
-            this.photo="";
-            this.$(`#${name}`).modal('hide');
+        resetForm(){
+            this.form.nom_eleve="";
+            this.form.prenom_eleve="";
+            this.form.genre_eleve="";
+            this.form.adresse_eleve="";
+            this.form.telephone_eleve="";
+            this.form.email_tuteur="";
+            this.form.date_naissance_eleve="";
+            this.form.lieu_naissance_eleve="";
+            this.form.nationalite_eleve="";
+            this.form.nom_tuteur="";
+            this.form.prenom_tuteur="";
+            this.form.genre_tuteur="";
+            this.form.adresse_tuteur="";
+            this.form.telephone_tuteur="";
+            this.form.email_tuteur="";
+            this.form.date_naissance_tuteur="";
+            this.form.lieu_naissance_tuteur="";
+            this.form.nationalite_tuteur="";
+            this.form.photo="";
         },
 
         ajoutimage(event){
