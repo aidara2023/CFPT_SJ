@@ -36,13 +36,12 @@ class eleve_request extends FormRequest
             'prenom_tuteur'=>'required',
             'genre_tuteur'=>'required',
             'adresse_tuteur'=>'required',
-            'email_tuteur'=>'',
+           
             'telephone_tuteur'=>'required',
-            'password'=>'',
             'date_naissance_tuteur'=>'required',
             'lieu_naissance_tuteur'=>'required',
             'nationalite_tuteur'=>'required',
-            'photo'=>'required',
+            'photo'=>'',
             'id_role'=>'',
 
             'id_user'=>'',
