@@ -134,6 +134,18 @@ import Swal from 'sweetalert2';
             this.photo="";
             this.$(`#${name}`).modal('hide');
         },
+        get_service(){
+            
+            axios.get('/services/index')
+            .then(response => {
+                this.services=response.data.service
+                
+               
+           }).catch(error=>{
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+           });
+       },
+
 
         ajoutimage(event){
             this.photo=event.target.files[0];
