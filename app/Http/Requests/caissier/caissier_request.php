@@ -33,7 +33,7 @@ class caissier_request extends FormRequest
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
             'photo'=>'required',
-            'id_role'=>'required',
+            'id_user'=>'required',
             'id_service'=>'required'
         ];
     }

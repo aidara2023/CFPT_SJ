@@ -18,17 +18,6 @@ class caissier_controller extends Controller
         $data = Caissier::all();
         return response()->json($data);
     }
-
-    public function show($id){
-        $caissier = Caissier::find($id);
-
-        if (!$caissier) {
-            return response()->json(['message' => 'Caissier non trouvé'], 404);
-        }
-
-        return response()->json($caissier);
-
-    }
     public function store(caissier_request $request){
         $validatedData = $request->validated();
 
@@ -53,46 +42,52 @@ class caissier_controller extends Controller
     }
 
     public function update(caissier_request $request, $id){
-        $validatedData = $request->validate([
-        'Nom' => 'required',
-        'Prénom' => 'required',
-        'Genre' => 'required',
-        'Adresse' => 'required',
-        'Email' => 'required',
-        'Telephone' => 'required',
-        'Mdp' => 'required',
-        'date_naissance' => 'required',
-        'Lieu_naissance' => 'required',
-        'Nationalité' => 'required',
-        'Photo' => 'required',
-        'id_role' => 'required',
-        'id_service' => 'required'
-        ]);
-
-        $caissier = Caissier::find($id);
-
-        if (!$caissier) {
-            return response()->json(['message' => 'Caissier non trouvé'], 404);
+        $caissier=Caissier::find($id);
+        if($caissier!=null){
+           $caissier->id_service=$request['id_service']; 
+           $caissier->id_user=$request['id_user'];
+           $caissier->save();
+            return response()->json([
+                'statut'=>200,
+                'caissier'=>$caissier
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'La mise à jour n\'a pas été éffectué',
+            ],500 );
         }
-
-        $caissier->update($validatedData);
-        $user = $caissier->user;
-        $user->update($validatedData);
-        return response()->json($caissier);
-
     }
 
-    public function destroy($id){
-        $caissier = Caissier::find($id);
-
-        if (!$caissier) {
-            return response()->json(['message' => 'Caissier non trouvé'], 404);
+    public function delete($id){
+        $caissier=Caissier::find($id);
+        if($caissier!=null){
+            $caissier->delete();
+            return response()->json([
+                'statut'=>200,
+                'message'=>'caissier supprimé avec succés',
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'caissier non supprimer',
+            ],500 );
         }
-
-        $caissier->delete();
-
-        return response()->json(['message' => 'Caissier supprimé avec succès']);
-
-
+       
+    }
+    
+    public function show($id){
+        $caissier=Caissier::find($id);
+        if($caissier!=null){
+            return response()->json([
+                'statut'=>200,
+                'caissier'=>$caissier
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'caissier n\'existe pas ',
+            ],500 );
+        }
     }
 }
