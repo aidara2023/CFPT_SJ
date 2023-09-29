@@ -4,7 +4,11 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
+
+use App\Http\Controllers\caissier\caissier_view_controller;
+
 use App\Http\Controllers\bibliothecaire\bibliothecaire_view_controller;
+
 use App\Http\Controllers\categorie\categorie_controller;
 use App\Http\Controllers\date_emprunter\date_emprunter_controller;
 use App\Http\Controllers\departement\departement_controller;
@@ -317,6 +321,8 @@ Route::post('caissier/store',[caissier_controller::class, 'store'])->name('caiss
 Route::get('caissier/show/{$id}',[caissier_controller::class,'show'])->name('caissier_show');
 Route::put('caissier/update/{$id}',[caissier_controller::class,'update'])->name('caissier_update');
 Route::delete('caissier/delete/{$id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
+
+Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
 
 //Route pour note
 
