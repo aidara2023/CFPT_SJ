@@ -46,6 +46,13 @@
                         <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
                 </select>
             </div>
+
+            <div class="roles">
+                <select name="role" id="role" v-model="form.id_role">
+                        <option value=""> Role</option>
+                        <option v-for="role in roles" :value="role.id">{{ role.intitule }}</option>
+                </select>
+            </div>
         
           <div class="boutons">
               <button type="button">Retourner</button>
@@ -79,9 +86,17 @@ import Swal from 'sweetalert2';
           }),
           photo:"",
           services:[],
+          roles:[]
 
       }
   },
+  mounted(){
+        this.get_service();
+        this.get_role();
+    },
+
+
+
   methods:{
       async soumettre(){
           const formdata = new FormData(); 
@@ -136,7 +151,7 @@ import Swal from 'sweetalert2';
         },
         get_service(){
             
-            axios.get('/services/index')
+            axios.get('/service/index')
             .then(response => {
                 this.services=response.data.service
                 
@@ -145,6 +160,20 @@ import Swal from 'sweetalert2';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
            });
        },
+
+
+       get_role(){
+            
+            axios.get('/roles/index')
+            .then(response => {
+                this.roles=response.data.role
+                
+               
+           }).catch(error=>{
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
+           });
+       },
+
 
 
         ajoutimage(event){
