@@ -32,7 +32,7 @@ class user_request extends FormRequest
             'date_naissance'=>'required',
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
-            'photo'=>'required',
+            'photo'=>'',
             'id_role'=>'required'
         ];
     }

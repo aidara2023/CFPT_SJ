@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\eleve\eleve_request;
 use App\Models\Eleve;
 use App\Models\Role;
+use App\Models\Tuteur;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -50,27 +51,31 @@ class eleve_controller extends Controller
     public function store(eleve_request $request)
     {
         $request->validated();
-        $tuteur=new User();
+        $tuteurUser=new User();
 
         /*  Creation de matricule  du teur de l'eleve*/
          $matricule= User::generateur_matricule();
-         $tuteur->matricule=$matricule;
+         $tuteurUser->matricule=$matricule;
        /*   Fin attribution */
  
-         $tuteur->nom=$request['nom_tuteur'];
-         $tuteur->prenom=$request['prenom_tuteur'];
-         $tuteur->genre=$request['genre_tuteur'];
-         $tuteur->adresse=$request['adresse_tuteur'];
-         $tuteur->email=$request['email_tuteur'];
-         $tuteur->telephone=$request['telephone_tuteur'];
-         $tuteur->password=Hash::make("CFPT2018");
-         $tuteur->date_naissance=$request['date_naissance_tuteur'];
-         $tuteur->lieu_naissance=$request['lieu_naissance_tuteur'];
-         $tuteur->nationalite=$request['nationalite_tuteur'];
+         $tuteurUser->nom=$request['nom_tuteur'];
+         $tuteurUser->prenom=$request['prenom_tuteur'];
+         $tuteurUser->genre=$request['genre_tuteur'];
+         $tuteurUser->adresse=$request['adresse_tuteur'];
+         $tuteurUser->email=$request['email_tuteur'];
+         $tuteurUser->telephone=$request['telephone_tuteur'];
+         $tuteurUser->password=Hash::make("CFPT2018");
+         $tuteurUser->date_naissance=$request['date_naissance_tuteur'];
+         $tuteurUser->lieu_naissance=$request['lieu_naissance_tuteur'];
+         $tuteurUser->nationalite=$request['nationalite_tuteur'];
 
-         $role= Role::where('intitule', "Tuteur");
+         $role= Role::where('intitule', "Tuteur")->first();
  
-         $tuteur->id_role=$role->id;
+         $tuteurUser->id_role=2;
+         $tuteurUser->save();
+
+         $tuteur= new Tuteur();
+         $tuteur->id_user=$tuteurUser->id;
          $tuteur->save();
 
 
@@ -99,18 +104,26 @@ class eleve_controller extends Controller
          $eleveUser->photo=$image;
          /* Fin upload */
 
-         $role= Role::where('intitule', "Eleve");
+         $role= Role::where('intitule', "Eleve")->first();
  
-         $eleveUser->id_role=$role->id;
+         $eleveUser->id_role=1;
          $eleveUser->save();
 
-        $eleves = Eleve::create([
-            'id_user'=>$eleveUser->id,
-            'contact_urgence1'=>$request['contact_urgence_1'],
-            'contact_urgence2'=>$request['contact_urgence_2'],
-            'id_tuteur'=>$tuteur->id,
+         /* $eleveUser->refresh();
+         $tuteur->refresh(); */
 
-        ]);
+         $ideleve=$eleveUser->id;
+         $idtuteur=$tuteur->id;
+
+         
+
+        $eleves= new Eleve();
+        $eleves->id_user=$ideleve;
+        $eleves->contact_urgence1=$request['contact_urgence_1'];
+        $eleves->contact_urgence2=$request['contact_urgence_2'];
+        $eleves->id_tuteur=$idtuteur;
+        $eleves->save();
+
         if($eleves!=null){
             return response()->json([
                 'statut'=>200,
@@ -149,9 +162,10 @@ class eleve_controller extends Controller
                 $image->move(public_path('image'), $imageName);
                 $user->photo=$imageName;
                }
-            $user-> photo =$user->photo;
-            $user-> id_role =$request['id_role'];
+            $user->id_role =$request['id_role'];
             $user -> save();
+
+            
 
             $eleves -> id_user  = $user -> id;
             $eleves->contact_urgence1=$request['contact_urgence1']; 

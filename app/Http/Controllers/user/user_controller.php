@@ -92,7 +92,6 @@ class user_controller extends Controller
            $user->date_naissance=$request['date_naissance'];
            $user->lieu_naissance=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
-           $user->photo=$user->photo;
            $user->id_role=$request['id_role'];
            $user->save();
 
