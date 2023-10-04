@@ -26,15 +26,15 @@ class bibliothecaire_request extends FormRequest
             'prenom'=>'required',
             'genre'=>'required',
             'adresse'=>'required',
-            'email'=>'required',
+            'email'=>'',
             'telephone'=>'required',
-            'password'=>'required',
+            'password'=>'',
             'date_naissance'=>'required',
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
-            'photo'=>'required',
-            'id_role'=>'required',
-            'id_service'=>'required'
+            'photo'=>'',
+            'id_role'=>'',
+            'id_service'=>''
         ];
     }
 }

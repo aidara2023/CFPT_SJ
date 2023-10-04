@@ -8,7 +8,13 @@ import profilComponent from './components/formateur/profilComponent.vue';
 import inscriptionComponent from './components/eleve/inscriptionComponent.vue';
 import utilisateurComponent from './components/utilisateur/utilisateurComponent.vue';
 import createEleveComponent from './components/eleve/createEleveComponent.vue';
+
 import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
+
+import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
+import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
+import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+
 import Swal from 'sweetalert2';
 window.Form=Form;
 window.Swal=Swal;
@@ -21,5 +27,10 @@ app.component("profil-formateur", profilComponent );
 app.component("inscription-eleve", inscriptionComponent);
 app.component("utilisateur-create", utilisateurComponent);
 app.component("create-eleve", createEleveComponent);
+
 app.component("create-infirmier",createInfirmierComponent);
+
+app.component("caissier-create", createCaissierComponent);
+app.component("tuteur-create", createTuteurComponent);
+
 app.mount('#app')

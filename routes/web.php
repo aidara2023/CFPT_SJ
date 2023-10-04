@@ -4,6 +4,11 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
+
+use App\Http\Controllers\caissier\caissier_view_controller;
+
+use App\Http\Controllers\bibliothecaire\bibliothecaire_view_controller;
+
 use App\Http\Controllers\categorie\categorie_controller;
 use App\Http\Controllers\date_emprunter\date_emprunter_controller;
 use App\Http\Controllers\departement\departement_controller;
@@ -40,6 +45,7 @@ use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
+use App\Http\Controllers\tuteur\tuteur_view_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use Illuminate\Support\Facades\Route;
@@ -158,6 +164,9 @@ Route::get('partenaire/show/{id}',[partenaire_controller::class, 'show'])->name(
 Route::put('partenaire/update/{id}',[partenaire_controller::class, 'update'])->name('partenaire_update');
 Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'destroy'])->name('partenaire_delete');
 
+
+
+
 //route materiel
 Route::get('materiel/index',[materiel_controller::class, 'index'])->name('materiel_index');
 Route::post('materiel/store',[materiel_controller::class, 'store'])->name('materiel_store');
@@ -171,6 +180,7 @@ Route::post('seminaire/store',[seminaire_controller::class, 'store'])->name('sem
 Route::get('seminaire/show/{id}',[seminaire_controller::class, 'show'])->name('seminaire_show');
 Route::put('seminaire/update/{id}',[seminaire_controller::class, 'update'])->name('seminaire_update');
 Route::delete('seminaire/delete/{id}',[seminaire_controller::class, 'destroy'])->name('seminaire_delete');
+
 
 
 
@@ -208,6 +218,9 @@ Route::post('tuteur/store',[tuteur_controller::class, 'store'])->name('tuteur_st
 Route::get('tuteur/show/{id}',[tuteur_controller::class, 'show'])->name('tuteur_show');
 Route::put('tuteur/update/{id}',[tuteur_controller::class, 'update'])->name('tuteur_update');
 Route::delete('tuteur/delete/{id}',[tuteur_controller::class, 'destroy'])->name('tuteur_delete');
+
+Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tuteur_create');
+
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
@@ -257,6 +270,11 @@ Route::post('bibliothecaire/store',[bibliothecaire_controller::class, 'store'])-
 Route::get('bibliothecaire/show/{id}',[bibliothecaire_controller::class, 'show'])->name('bibliothecaire_show');
 Route::put('bibliothecaire/update/{id}',[bibliothecaire_controller::class, 'update'])->name('bibliothecaire_update');
 Route::delete('bibliothecaire/delete/{id}',[bibliothecaire_controller::class, 'delete'])->name('bibliothecaire_delete');
+
+
+Route::get('/bibliothecaire',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
+
+
 
 //route exemplaire
 Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
@@ -315,6 +333,8 @@ Route::post('caissier/store',[caissier_controller::class, 'store'])->name('caiss
 Route::get('caissier/show/{$id}',[caissier_controller::class,'show'])->name('caissier_show');
 Route::put('caissier/update/{$id}',[caissier_controller::class,'update'])->name('caissier_update');
 Route::delete('caissier/delete/{$id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
+
+Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
 
 //Route pour note
 
@@ -399,6 +419,10 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 Route::get('services/index', [service_controller::class, 'index'])->name('service_index');
 
 
+
+//Route pour service
+
+Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 
 
 

@@ -8,7 +8,7 @@ body{
     align-items: center;
     height: 13vw;
     max-height: 5rem;
-    margin-top: 4vh;
+    margin-top: min(150px, 7vw);
   /*   border: 1px solid rebeccapurple ; */
     
   }
