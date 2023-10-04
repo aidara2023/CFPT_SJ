@@ -161,6 +161,9 @@ Route::get('partenaire/show/{id}',[partenaire_controller::class, 'show'])->name(
 Route::put('partenaire/update/{id}',[partenaire_controller::class, 'update'])->name('partenaire_update');
 Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'destroy'])->name('partenaire_delete');
 
+
+
+
 //route materiel
 Route::get('materiel/index',[materiel_controller::class, 'index'])->name('materiel_index');
 Route::post('materiel/store',[materiel_controller::class, 'store'])->name('materiel_store');
@@ -174,6 +177,7 @@ Route::post('seminaire/store',[seminaire_controller::class, 'store'])->name('sem
 Route::get('seminaire/show/{id}',[seminaire_controller::class, 'show'])->name('seminaire_show');
 Route::put('seminaire/update/{id}',[seminaire_controller::class, 'update'])->name('seminaire_update');
 Route::delete('seminaire/delete/{id}',[seminaire_controller::class, 'destroy'])->name('seminaire_delete');
+
 
 
 
