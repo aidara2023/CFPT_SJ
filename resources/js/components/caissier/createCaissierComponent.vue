@@ -39,18 +39,18 @@
                 <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email">
             </div>
 
+
             <div class="roles">
                 <select name="role" id="role" v-model="form.id_role">
-                        <option value=""> role</option>
+                        <option value=""> Role</option>
                         <option v-for="role in roles" :value="role.id">{{ role.intitule }}</option>
                 </select>
             </div>
 
-
             <div class="services">
                 <select name="service" id="service" v-model="form.id_service">
-                        <option value=""> service</option>
-                        <option v-for="service in services" :value="service.id">{{ service.intitule }}</option>
+                        <option value=""> Service</option>
+                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
                 </select>
             </div>
 
@@ -79,7 +79,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"createCaissierCompenent",
+    name:"caissierCompenent",
     data(){
         return {
             filieres:[],
@@ -93,37 +93,35 @@ import Form from 'vform';
                 'date_naissance':"",
                 'lieu_naissance':"",
                 'nationalite':"",
-                'role':"",
-                'id_user':"",
+                'id_role':"",
                 'id_service':""
             }),
             photo:"",
-            role:[],
-            service:[],
+            roles:[],
+            services:[],
 
         }
     },
 
     mounted(){
-        this.get_service();
         this.get_role();
+        this.get_service();
 
     },
     
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom', this.form.nom  );
-            formdata.append('prenom', this.form.prenom  );
-            formdata.append('lieu_naissance', this.form.lieu_naissance);
-            formdata.append('date_naissance', this.form.date_naissance);
-            formdata.append('genre', this.form.genre);
-            formdata.append('adresse', this.form.adresse);
-            formdata.append('email', this.form.email);
-            formdata.append('telephone', this.form.telephone);
-            formdata.append('nationalite', this.form.nationalite);
+            formdata.append('nom_caissier', this.form.nom  );
+            formdata.append('prenom_caissier', this.form.prenom  );
+            formdata.append('lieu_naissance_caissier', this.form.lieu_naissance);
+            formdata.append('date_naissance_caissier', this.form.date_naissance);
+            formdata.append('genre_caissier', this.form.genre);
+            formdata.append('adresse_caissier', this.form.adresse);
+            formdata.append('email_caissier', this.form.email);
+            formdata.append('telephone_caissier', this.form.telephone);
+            formdata.append('nationalite_caissier', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
-            formdata.append('id_user', this.form.id_user);
             formdata.append('id_service', this.form.id_service);
             formdata.append('photo', this.photo);
 
@@ -133,10 +131,10 @@ import Form from 'vform';
 
             if(this.form.nom!=="" && this.form.prenom!=="" && this.form.telephone!=="" && this.form.date_naissance!==""){
                 try{
-                    const user_store=await axios.post('/user/store', formdata, {
+                    const create_store=await axios.post('/caissier/store', formdata, {
 
                     });
-                    Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
+                    Swal.fire('Succes!','caissier ajouté avec succés','succes')
                     this.resetForm();
                 }
                 catch(e){
@@ -150,25 +148,13 @@ import Form from 'vform';
 
 
         },
-
-        get_role(){
-            
-            axios.get('/roles/index')
-            .then(response => {
-                this.roles=response.data.role
-                
-               
-           }).catch(error=>{
-               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
-           });
-       },
         
 
-         get_service(){
+         get_role(){
             
-             axios.get('/services/index')
+             axios.get('/roles/index')
              .then(response => {
-                 this.services=response.data.service
+                 this.roles=response.data.role
                  
                 
             }).catch(error=>{
@@ -176,20 +162,32 @@ import Form from 'vform';
             });
         },
 
+        get_service(){
+            
+            axios.get('/service/index')
+            .then(response => {
+                this.services=response.data.service
+                
+               
+           }).catch(error=>{
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+           });
+       },
+
         ajoutimage(event){
             this.photo=event.target.files[0];
         },
         resetForm(){
-            this.form.nom="";
-            this.form.prenom="";
-            this.form.genre="";
-            this.form.adresse="";
-            this.form.telephone="";
-            this.form.email="";
-            this.form.date_naissance="";
-            this.form.lieu_naissance="";
-            this.form.nationalite="";
-            this.form.id_user="";
+            this.form.nom_caisier="";
+            this.form.prenom_caissier="";
+            this.form.genre_caissier="";
+            this.form.adresse_caissier="";
+            this.form.telephone_caissier="";
+            this.form.email_caissier="";
+            this.form.date_naissance_caissier="";
+            this.form.lieu_naissance_caissier="";
+            this.form.nationalite_caissier="";
+            this.form.id_role="";
             this.form.id_service="";
            
         }

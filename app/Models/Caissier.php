@@ -11,8 +11,8 @@ class Caissier extends Model
     protected $fillable =[
         'id',
         'id_service',
-        'id_user'
-
+        'id_user',
+        'id_role'
     ];
 
     public function paiements() {

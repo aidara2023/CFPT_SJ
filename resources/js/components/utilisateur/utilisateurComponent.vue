@@ -96,6 +96,7 @@ import Form from 'vform';
 
     mounted(){
         this.get_role();
+
     },
     
     methods:{
@@ -131,7 +132,7 @@ import Form from 'vform';
                 }
 
             }else{
-                Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
+                Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
             }
 
 
