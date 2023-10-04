@@ -25,6 +25,7 @@ use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
+use App\Http\Controllers\infirmier\infirmier_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\note\note_controller;
@@ -36,6 +37,7 @@ use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
 use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
+use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
@@ -103,6 +105,8 @@ Route::post('infirmier/store',[infirmier_controller::class, 'store'])->name('inf
 Route::put('infirmier/update/{id}', [infirmier_controller::class, 'update'])->name('infirmier_update');
 Route::delete('infirmier/delete/{id}',[infirmier_controller::class, 'delete'])->name('infirmier_delete');
 Route::get('infirmier/get/{id}',[infirmier_controller::class, 'get'])->name('infirmier_get');
+
+Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->name('infirmier_create');
 
 
 //Route unite de formation
@@ -389,6 +393,10 @@ Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('use
 //Route pour role
 
 Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
+
+//Route pour services 
+
+Route::get('services/index', [service_controller::class, 'index'])->name('service_index');
 
 
 
