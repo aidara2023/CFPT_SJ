@@ -80,8 +80,9 @@ import Swal from 'sweetalert2';
               'nationalite_bibliothecaire':"",
               'genre_bibliothecaire':"",
               'telephone_bibliothecaire':"",
-              
               'adresse_bibliothecaire':"",
+              'id_role':"",
+              'id_service':""
           }),
           photo:"",
           services:[],
@@ -108,6 +109,9 @@ import Swal from 'sweetalert2';
           formdata.append('adresse', this.form.adresse_bibliothecaire);
           formdata.append('telephone', this.form.telephone_bibliothecaire );
           formdata.append('nationalite', this.form.nationalite_bibliothecaire );
+          formdata.append('id_role', this.form.id_role);
+          formdata.append('id_service', this.form.id_service);
+          formdata.append('photo', this.photo);
          
 
 
