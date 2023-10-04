@@ -44,6 +44,7 @@ use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
+use App\Http\Controllers\tuteur\tuteur_view_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use Illuminate\Support\Facades\Route;
@@ -210,6 +211,9 @@ Route::post('tuteur/store',[tuteur_controller::class, 'store'])->name('tuteur_st
 Route::get('tuteur/show/{id}',[tuteur_controller::class, 'show'])->name('tuteur_show');
 Route::put('tuteur/update/{id}',[tuteur_controller::class, 'update'])->name('tuteur_update');
 Route::delete('tuteur/delete/{id}',[tuteur_controller::class, 'destroy'])->name('tuteur_delete');
+
+Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tuteur_create');
+
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');

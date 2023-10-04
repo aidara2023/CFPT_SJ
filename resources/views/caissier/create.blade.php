@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <create-caissier></create-caissier>
+    <caissier-create></caissier-create>
     
 
 </body>
