@@ -12,11 +12,11 @@ class type_formation_controller extends Controller
 
     public function index()
     {
-        $Type_Formations = Type_formation::all();
-        if ($Type_Formations->count() > 0) {
+        $type_Formations = Type_formation::all();
+        if ($type_Formations->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'Type_Formations' => $Type_Formations
+                'Type_Formations' => $type_Formations
             ], 200);
         } else {
             return response()->json([

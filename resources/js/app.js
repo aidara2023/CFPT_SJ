@@ -11,6 +11,8 @@ import createEleveComponent from './components/eleve/createEleveComponent.vue';
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
+import createClasseComponent from './components/classe/createClasseComponent.vue';
 import Swal from 'sweetalert2';
 window.Form=Form;
 window.Swal=Swal;
@@ -25,5 +27,11 @@ app.component("utilisateur-create", utilisateurComponent);
 app.component("create-eleve", createEleveComponent);
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
+app.component("create-bibliothecaire", createBibliothecaireComponent);
+app.component("create-matiere", createMatiereComponent);
+app.component("create-classe", createClasseComponent);
+
+
+
 
 app.mount('#app')

@@ -25,6 +25,8 @@ use App\Http\Controllers\livre\livre_controller;
 use App\Http\Controllers\login\login_view_controller;
 use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\caissier\caissier_controller;
+use App\Http\Controllers\classe\classe_controller;
+use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
@@ -32,6 +34,7 @@ use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\matiere\matiere_controller;
+use App\Http\Controllers\matiere\matiere_view_controller;
 use App\Http\Controllers\note\note_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use App\Http\Controllers\paiement\paiement_controller;
@@ -79,7 +82,9 @@ Route::put('matiere/update/{id}', [matiere_controller::class, 'update'])->name('
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
 Route::get('matiere/get/{id}',[matiere_controller::class, 'get'])->name('matiere_get');
 
+Route::get('/matiere/create',[matiere_view_controller::class, 'create'])->name('matiere_create');
 
+//Route anne academique
 Route::get('annee_academique/index', [annee_academique_controller::class, 'index']) -> name('annee_academique_index');
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
@@ -416,6 +421,18 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
+
+//Route pour classe
+
+Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
+Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
+Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_show');
+Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');
+Route::delete('classe/delete/{$id}',[classe_controller::class, 'delete'])->name('classe_delete');
+Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
+
+
+
 
 
 
