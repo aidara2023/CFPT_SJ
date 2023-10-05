@@ -3,6 +3,8 @@
 use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
+use App\Http\Controllers\batiment\batiment_controller;
+use App\Http\Controllers\batiment\batiment_view_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
 
 use App\Http\Controllers\caissier\caissier_view_controller;
@@ -430,6 +432,15 @@ Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_
 Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{$id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
+
+//Route pour batiment
+
+Route::get('batiment/index',[batiment_controller::class, 'index'])->name('batiment_index');
+Route::post('batiment/store',[batiment_controller::class, 'store'])->name('batiment_store');
+Route::get('batiment/show/{$id}',[batiment_controller::class,'show'])->name('batiment_show');
+Route::put('batiment/update/{$id}',[batiment_controller::class,'update'])->name('batiment_update');
+Route::delete('batiment/delete/{$id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
+Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
 
 
 

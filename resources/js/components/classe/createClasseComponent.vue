@@ -66,8 +66,8 @@ import Form from 'vform';
             formdata.append('nom_classe', this.form.nom_classe );
             formdata.append('type_classe', this.form.type_classe  );
             formdata.append('niveau', this.form.niveau );
-            formdata.append('type_formation', this.form.type_formation );
-            formdata.append('unite_de_formation', this.form.unite_de_formation );
+            formdata.append('id_type_formation', this.form.id_type_formation );
+            formdata.append('id_unite_de_formation', this.form.id_unite_de_formation );
 
             
             if(this.form.nom_classe!=="" && this.form.type_classe!==""  && this.form.niveau!==""){
@@ -95,7 +95,7 @@ import Form from 'vform';
             
              axios.get('/type_formation/index')
              .then(response => {
-                 this.type_formations=response.data.type_Formations
+                 this.type_formations=response.data.type_formation
                  
                 
             }).catch(error=>{
