@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assetsCFPT/css/bibliothecaire/create.css">
+    <link rel="stylesheet" href="/assetsCFPT/css/eleve/inscription.css">
     <title>Ajout Utilsateur</title>
     @vite('resources/js/app.js')
 </head>
@@ -16,6 +16,6 @@
             <p>Veuillez remplir ce formulaire</p>
         </div>
     </div>
-    <create-salle></create-salle>
+    <create-cours></create-cours>
 </body>
 </html>

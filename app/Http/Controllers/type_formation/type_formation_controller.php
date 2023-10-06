@@ -16,7 +16,7 @@ class type_formation_controller extends Controller
         if ($type_formation->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'Type_Formations' => $type_formation
+                'type_formation' => $type_formation
             ], 200);
         } else {
             return response()->json([

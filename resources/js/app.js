@@ -14,6 +14,9 @@ import createTuteurComponent from './components/tuteur/createTuteurComponent.vue
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
 import createClasseComponent from './components/classe/createClasseComponent.vue';
 import createBatimentComponent from './components/batiment/createBatimentComponent.vue';
+import createSalleComponent from './components/salle/createSalleComponent.vue';
+import createCourComponent from './components/cours/createCourComponent.vue';
+
 import Swal from 'sweetalert2';
 window.Form=Form;
 window.Swal=Swal;
@@ -31,7 +34,11 @@ app.component("tuteur-create", createTuteurComponent);
 app.component("create-bibliothecaire", createBibliothecaireComponent);
 app.component("create-matiere", createMatiereComponent);
 app.component("create-classe", createClasseComponent);
-app.component("create-batiment", createBatimentComponent);
+app.component("create-batiment", createBatimentComponent);                      
+app.component("create-salle", createSalleComponent);
+app.component("create-cours", createCourComponent);
+
+
 
 
 

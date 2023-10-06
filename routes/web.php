@@ -31,6 +31,7 @@ use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\cours\cours_controller;
+use App\Http\Controllers\cours\cours_view_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
@@ -45,6 +46,9 @@ use App\Http\Controllers\participer\participer_controller;
 use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
 use App\Http\Controllers\role\role_controller;
+use App\Http\Controllers\salle\salle_controller;
+use App\Http\Controllers\salle\salle_view_controller;
+use App\Http\Controllers\semestre\semestre_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\specialite\specialite_controller;
@@ -356,6 +360,9 @@ Route::get('cour/show/{$id}',[cours_controller::class,'show'])->name('cour_show'
 Route::put('cour/update/{$id}',[cours_controller::class,'update'])->name('cour_update');
 Route::delete('cour/delete/{$id}',[cours_controller::class, 'delete'])->name('cour_delete');
 
+Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_create');
+
+
 //Route pourinscription
 
 Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
@@ -442,6 +449,18 @@ Route::put('batiment/update/{$id}',[batiment_controller::class,'update'])->name(
 Route::delete('batiment/delete/{$id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
 Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
 
+//Route pour salle
+
+Route::get('salle/index',[salle_controller::class, 'index'])->name('salle_index');
+Route::post('salle/store',[salle_controller::class, 'store'])->name('salle_store');
+Route::get('salle/show/{$id}',[salle_controller::class,'show'])->name('salle_show');
+Route::put('salle/update/{$id}',[salle_controller::class,'update'])->name('salle_update');
+Route::delete('salle/delete/{$id}',[salle_controller::class, 'delete'])->name('salle_delete');
+Route::get('salle/create' ,[salle_view_controller::class, 'create'])->name('salle_create');
+
+//ROUTE POUR SEMESTRE
+
+Route::get('semestre/index',[semestre_controller::class, 'index'])->name('semestre_index');
 
 
 
