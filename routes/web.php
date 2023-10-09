@@ -5,12 +5,9 @@ use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\archive\archive_view_controller;
 use App\Http\Controllers\auteur\auteur_controller;
-<<<<<<< HEAD
 use App\Http\Controllers\batiment\batiment_controller;
 use App\Http\Controllers\batiment\batiment_view_controller;
-=======
 use App\Http\Controllers\auteur\auteur_view_controller;
->>>>>>> 7b35b19ed2083fc9966fb11db1c6d00fad56db3a
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
 
 use App\Http\Controllers\caissier\caissier_view_controller;
@@ -33,18 +30,13 @@ use App\Http\Controllers\livre\livre_controller;
 use App\Http\Controllers\login\login_view_controller;
 use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\caissier\caissier_controller;
-<<<<<<< HEAD
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
-=======
 use App\Http\Controllers\categorie\categorie_view_controller;
->>>>>>> 7b35b19ed2083fc9966fb11db1c6d00fad56db3a
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
-<<<<<<< HEAD
 use App\Http\Controllers\cours\cours_view_controller;
-=======
 
 use App\Http\Controllers\departement\departement_view_controller;
 use App\Http\Controllers\dossier_medical\dossier_medical_view_controller;
@@ -53,7 +45,6 @@ use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 use App\Http\Controllers\editeur\editeur_view_controller;
 use App\Http\Controllers\edition\edition_view_controller;
 
->>>>>>> 7b35b19ed2083fc9966fb11db1c6d00fad56db3a
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
 use App\Http\Controllers\exemplaire\exemplaire_view_controller;
@@ -77,6 +68,8 @@ use App\Http\Controllers\rayon\rayon_controller;
 use App\Http\Controllers\rayon\rayon_view_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_view_controller;
+use App\Http\Controllers\retard\retard_controller;
+use App\Http\Controllers\retard\retard_view_controller;
 use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\salle\salle_controller;
 use App\Http\Controllers\salle\salle_view_controller;
@@ -126,11 +119,8 @@ Route::put('matiere/update/{id}', [matiere_controller::class, 'update'])->name('
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
 Route::get('matiere/get/{id}',[matiere_controller::class, 'get'])->name('matiere_get');
 
-<<<<<<< HEAD
 Route::get('/matiere/create',[matiere_view_controller::class, 'create'])->name('matiere_create');
-=======
 //annee academique
->>>>>>> 7b35b19ed2083fc9966fb11db1c6d00fad56db3a
 
 //Route anne academique
 Route::get('annee_academique/index', [annee_academique_controller::class, 'index']) -> name('annee_academique_index');
@@ -552,6 +542,14 @@ Route::get('salle/create' ,[salle_view_controller::class, 'create'])->name('sall
 Route::get('semestre/index',[semestre_controller::class, 'index'])->name('semestre_index');
 
 
+//Route pour retard
+
+Route::get('retard/index',[retard_controller::class, 'index'])->name('retard_index');
+Route::post('retard/store',[retard_controller::class, 'store'])->name('retard_store');
+Route::get('retard/show/{$id}',[retard_controller::class,'show'])->name('retard_show');
+Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('retard_update');
+Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
+Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
 
 
