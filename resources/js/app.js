@@ -30,13 +30,13 @@ import createEmprunterMaterielComponent from './components/emprunter_materiel/cr
 import createRessourcePedagogiqueComponent from './components/ressource_pedagogique/createRessourcePedagogiqueComponent.vue';
 import createEditeurComponent from './components/editeur/createEditeurComponent.vue';
 import createEditionComponent from './components/edition/createEditionComponent.vue';
-import createCategorieComponent from './components/categorie/createcategorieComponent.vue';
-import createAuteurComponent from './components/auteur/createauteurComponent.vue';
-import createRayonComponent from './components/rayon/createrayonComponent.vue';
-import createLivreComponent from './components/livre/createlivreComponent.vue';
-import createPaiementComponent from './components/paiement/createpaiementComponent.vue';
+import createCategorieComponent from './components/categorie/createCategorieComponent.vue';
+import createAuteurComponent from './components/auteur/createAuteurComponent.vue';
+import createRayonComponent from './components/rayon/createRayonComponent.vue';
+import createLivreComponent from './components/livre/createLivreComponent.vue';
+import createPaiementComponent from './components/paiement/createPaiementComponent.vue';
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
-
+import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
 
 import Swal from 'sweetalert2';
 window.Form=Form;
@@ -74,8 +74,8 @@ app.component("emprunterLivre-create", createEmprunterLivreComponent);
 app.component("emprunterMateriel-create", createEmprunterMaterielComponent);
 app.component("organisme-create", createOrganismeComponent);
 app.component("financerBourse-create", createFinancerBourseComponent);
-app.component("Consultation-create", createConsultationComponent);
-
+app.component("consultation-create", createConsultationComponent);
+app.component("specialite-create", createSpecialiteComponent);
 
 
 app.component("editeur-create", createEditeurComponent);
