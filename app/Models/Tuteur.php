@@ -9,8 +9,9 @@ class Tuteur extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_user',
-        'id'
+        'id',
+        'id_user'
+        
     ];
 
     public function eleves(){

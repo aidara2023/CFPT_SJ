@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Hash;
 
 class caissier_controller extends Controller
 {
-    public function index(){
-
-        $data = Caissier::all();
-        return response()->json($data);
+    public function index()
+    {
+        $caissiers = Caissier::with('user')->get();
+        if($caissiers!=null){
+            return response()->json([
+                'statut'=>200,
+                'caissier'=>$caissiers
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucun donnée trouvée',
+            ],500 );
+        } 
     }
     public function store(caissier_request $request){
         $validatedData = $request->validated();

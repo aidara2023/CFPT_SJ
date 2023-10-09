@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class annee_academique_view_controller extends Controller
 {
-    //
+    public function create(){
+        return view('annee.create');
+    }
 }

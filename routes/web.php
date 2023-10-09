@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\annee_academique\annee_academique_controller;
+use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\auteur\auteur_controller;
+use App\Http\Controllers\auteur\auteur_view_controller;
 use App\Http\Controllers\bibliothecaire\bibliothecaire_controller;
 
 use App\Http\Controllers\caissier\caissier_view_controller;
@@ -25,19 +27,25 @@ use App\Http\Controllers\livre\livre_controller;
 use App\Http\Controllers\login\login_view_controller;
 use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\caissier\caissier_controller;
+use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\cours\cours_controller;
+use App\Http\Controllers\editeur\editeur_view_controller;
+use App\Http\Controllers\edition\edition_view_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
+use App\Http\Controllers\livre\livre_view_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\note\note_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use App\Http\Controllers\paiement\paiement_controller;
+use App\Http\Controllers\paiement\paiement_view_controller;
 use App\Http\Controllers\partenaire\partenaire_controller;
 use App\Http\Controllers\participer\participer_controller;
 use App\Http\Controllers\rayon\rayon_controller;
+use App\Http\Controllers\rayon\rayon_view_controller;
 use App\Http\Controllers\ressource_pedagogique\ressource_pedagogique_controller;
 use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
@@ -79,12 +87,14 @@ Route::put('matiere/update/{id}', [matiere_controller::class, 'update'])->name('
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
 Route::get('matiere/get/{id}',[matiere_controller::class, 'get'])->name('matiere_get');
 
+//annee academique
 
 Route::get('annee_academique/index', [annee_academique_controller::class, 'index']) -> name('annee_academique_index');
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
 Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+
 //Route de Organisme
 
 Route::get('organisme/index', [organisme_controller::class, 'index'])->name('organisme_index');
@@ -198,6 +208,8 @@ Route::get('annee_academique/show/{id}',[annee_academique_controller::class, 'sh
 Route::put('annee_academique/update/{id}',[annee_academique_controller::class, 'update'])->name('annee_academique_update');
 Route::delete('annee_academique/delete/{id}',[annee_academique_controller::class, 'destroy'])->name('annee_academique_delete');
 
+Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
+
 //route departement
 Route::get('departement/index',[departement_controller::class, 'index'])->name('departement_index');
 Route::post('departement/store',[departement_controller::class, 'store'])->name('departement_store');
@@ -222,12 +234,17 @@ Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('pai
 Route::put('paiement/update/{id}',[paiement_controller::class, 'update'])->name('paiement_update');
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
+Route::get('/paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
+
 //route livre
 Route::get('livre/index',[livre_controller::class, 'index'])->name('livre_index');
 Route::post('livre/store',[livre_controller::class, 'store'])->name('livre_store');
 Route::get('livre/show/{id}',[livre_controller::class, 'show'])->name('livre_show');
 Route::put('livre/update/{id}',[livre_controller::class, 'update'])->name('livre_update');
 Route::delete('livre/delete/{id}',[livre_controller::class, 'delete'])->name('livre_delete');
+
+Route::get('/livre/create',[livre_view_controller::class, 'create'])->name('livre_create');
+
 
 //route editeur
 Route::get('editeur/index',[editeur_controller::class, 'index'])->name('editeur_index');
@@ -236,12 +253,16 @@ Route::get('editeur/show/{id}',[editeur_controller::class, 'show'])->name('edite
 Route::put('editeur/update/{id}',[editeur_controller::class, 'update'])->name('editeur_update');
 Route::delete('editeur/delete/{id}',[editeur_controller::class, 'delete'])->name('editeur_delete');
 
+Route::get('/editeur/create',[editeur_view_controller::class, 'create'])->name('editeur_create');
+
 //route auteur
 Route::get('auteur/index', [auteur_controller::class, 'index']) -> name('auteur_index');
-Route::get('auteur/ajouter', [auteur_controller::class, 'ajouter']) -> name('auteur_ajouter');
-Route::get('auteur/mise_a_jour/{id}', [auteur_controller::class, 'mise_a_jour']) -> name('auteur_mise_a_jour');
-Route::get('auteur/delete/{id}', [auteur_controller::class, 'delete']) -> name('auteur_delete');
+Route::post('auteur/store', [auteur_controller::class, 'store']) -> name('auteur_store');
+Route::put('auteur/update/{id}', [auteur_controller::class, 'update']) -> name('auteur_update');
+Route::delete('auteur/delete/{id}', [auteur_controller::class, 'delete']) -> name('auteur_delete');
 Route::get('auteur/show/{id}', [auteur_controller::class, 'show']) -> name('auteur_show');
+
+Route::get('/auteur/create',[auteur_view_controller::class, 'create'])->name('auteur_create');
 
 //route rayon
 Route::get('rayon/index',[rayon_controller::class, 'index'])->name('rayon_index');
@@ -250,12 +271,17 @@ Route::get('rayon/show/{id}',[rayon_controller::class, 'show'])->name('rayon_sho
 Route::put('rayon/update/{id}',[rayon_controller::class, 'update'])->name('rayon_update');
 Route::delete('rayon/delete/{id}',[rayon_controller::class, 'delete'])->name('rayon_delete');
 
+Route::get('/rayon/create',[rayon_view_controller::class, 'create'])->name('rayon_create');
+
+
 //route categorie
 Route::get('categorie/index',[categorie_controller::class, 'index'])->name('categorie_index');
 Route::post('categorie/store',[categorie_controller::class, 'store'])->name('categorie_store');
 Route::get('categorie/show/{id}',[categorie_controller::class, 'show'])->name('categorie_show');
 Route::put('categorie/update/{id}',[categorie_controller::class, 'update'])->name('categorie_update');
 Route::delete('categorie/delete/{id}',[categorie_controller::class, 'delete'])->name('categorie_delete');
+
+Route::get('/categorie/create',[categorie_view_controller::class, 'create'])->name('categorie_create');
 
 //route bibliothecaire
 Route::get('bibliothecaire/index',[bibliothecaire_controller::class, 'index'])->name('bibliothecaire_index');
@@ -304,6 +330,8 @@ Route::post('edition/store',[edition_controller::class, 'store'])->name('edition
 Route::get('edition/show/{id}',[edition_controller::class, 'show'])->name('edition_show');
 Route::put('edition/update/{id}',[edition_controller::class, 'update'])->name('edition_update');
 Route::delete('edition/delete/{id}',[edition_controller::class, 'delete'])->name('edition_delete');
+
+Route::get('/edition/create',[edition_view_controller::class, 'create'])->name('edition_create');
 
 //route financer_bourse
 Route::get('financer_bourse/index',[financer_bourse_controller::class, 'index'])->name('financer_bourse_index');
