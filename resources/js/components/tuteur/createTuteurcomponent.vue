@@ -1,7 +1,7 @@
 <template>
     <div class="cote_droit">
         <form @submit.prevent="soumettre">
-            <h1 class="sous_titre">Ajout d'utilisateur</h1>
+            <h1 class="sous_titre">Ajout de tuteur</h1>
             <div>
 
             </div>
@@ -47,6 +47,8 @@
                 </select>
             </div>
 
+
+
             
 
              <!-- <div class="identifiants">
@@ -72,7 +74,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"tuteurCompenent",
+    name:"createTuteurCompenent",
     data(){
         return {
             filieres:[],
@@ -86,31 +88,34 @@ import Form from 'vform';
                 'date_naissance':"",
                 'lieu_naissance':"",
                 'nationalite':"",
-                'id_role':"",
+                'id_role':""
+               
             }),
             photo:"",
             roles:[],
+        
 
         }
     },
 
     mounted(){
         this.get_role();
+       
 
     },
     
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom', this.form.nom  );
-            formdata.append('prenom', this.form.prenom  );
-            formdata.append('lieu_naissance', this.form.lieu_naissance);
-            formdata.append('date_naissance', this.form.date_naissance);
-            formdata.append('genre', this.form.genre);
-            formdata.append('adresse', this.form.adresse);
-            formdata.append('email', this.form.email);
-            formdata.append('telephone', this.form.telephone);
-            formdata.append('nationalite', this.form.nationalite);
+            formdata.append('nom_tuteur', this.form.nom  );
+            formdata.append('prenom_tuteur', this.form.prenom  );
+            formdata.append('lieu_naissance_tuteur', this.form.lieu_naissance);
+            formdata.append('date_naissance_tuteur', this.form.date_naissance);
+            formdata.append('genre_tuteur', this.form.genre);
+            formdata.append('adresse_tuteur', this.form.adresse);
+            formdata.append('email_tuteur', this.form.email);
+            formdata.append('telephone_tuteur', this.form.telephone);
+            formdata.append('nationalite_tuteur', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
             formdata.append('photo', this.photo);
 
@@ -120,7 +125,7 @@ import Form from 'vform';
 
             if(this.form.nom!=="" && this.form.prenom!=="" && this.form.telephone!=="" && this.form.date_naissance!==""){
                 try{
-                    const create_store=await axios.post('/create/store', formdata, {
+                    const create_store=await axios.post('/tuteur/store', formdata, {
 
                     });
                     Swal.fire('Succes!','tuteur ajouté avec succés','succes')
@@ -151,6 +156,7 @@ import Form from 'vform';
             });
         },
 
+
         ajoutimage(event){
             this.photo=event.target.files[0];
         },
@@ -166,10 +172,11 @@ import Form from 'vform';
             this.form.nationalite="";
             this.form.id_role="";
            
+           
         }
 
 
     }
    }
 </script>
-
+x
