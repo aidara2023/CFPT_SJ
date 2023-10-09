@@ -13,7 +13,6 @@ import createBibliothecaireComponent from './components/bibliothecaire/createBib
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
 import createDepartementComponent from './components/departement/createDepartementComponent.vue';
-
 import createPartenaireComponent from './components/partenaire/createPartenaireComponent.vue';
 import createConsultationComponent from './components/consultation/createConsultationComponent.vue';
 import createOrganismeComponent from './components/organisme/createOrganismeComponent.vue';
@@ -29,6 +28,14 @@ import createTypeMaterielComponent from './components/type_materiel/createTypeMa
 import createEmprunterLivreComponent from './components/emprunter_livre/createEmprunterLivreComponent.vue';
 import createEmprunterMaterielComponent from './components/emprunter_materiel/createEmprunterMaterielComponent.vue';
 import createRessourcePedagogiqueComponent from './components/ressource_pedagogique/createRessourcePedagogiqueComponent.vue';
+import createEditeurComponent from './components/editeur/createEditeurComponent.vue';
+import createEditionComponent from './components/edition/createEditionComponent.vue';
+import createCategorieComponent from './components/categorie/createcategorieComponent.vue';
+import createAuteurComponent from './components/auteur/createauteurComponent.vue';
+import createRayonComponent from './components/rayon/createrayonComponent.vue';
+import createLivreComponent from './components/livre/createlivreComponent.vue';
+import createPaiementComponent from './components/paiement/createpaiementComponent.vue';
+import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
 
 
 import Swal from 'sweetalert2';
@@ -45,6 +52,7 @@ app.component("utilisateur-create", utilisateurComponent);
 app.component("create-eleve", createEleveComponent);
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
+
 app.component("specialite-create", createSpecialiteComponent);
 app.component("departement-create", createDepartementComponent);
 
@@ -68,6 +76,16 @@ app.component("organisme-create", createOrganismeComponent);
 app.component("financerBourse-create", createFinancerBourseComponent);
 app.component("Consultation-create", createConsultationComponent);
 
+
+
+app.component("editeur-create", createEditeurComponent);
+app.component("edition-create", createEditionComponent);
+app.component("categorie-create", createCategorieComponent);
+app.component("auteur-create", createAuteurComponent);
+app.component("rayon-create", createRayonComponent);
+app.component("livre-create", createLivreComponent);
+app.component("paiement-create", createPaiementComponent);
+app.component("annee-create", createAnneeComponent);
 
 
 app.mount('#app')

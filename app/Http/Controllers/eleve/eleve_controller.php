@@ -16,7 +16,7 @@ class eleve_controller extends Controller
         
     public function index()
     {
-        $eleves = Eleve::all();
+        $eleves = Eleve::with('user')->get();
         if($eleves!=null){
             return response()->json([
                 'statut'=>200,
