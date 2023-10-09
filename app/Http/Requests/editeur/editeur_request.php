@@ -22,7 +22,9 @@ class editeur_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom_editeur'=>'required',
+            'id',
+            'nom_editeur'=>'required'
+        
         ];
     }
 }
