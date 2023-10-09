@@ -11,6 +11,26 @@ import createEleveComponent from './components/eleve/createEleveComponent.vue';
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
+import createDepartementComponent from './components/departement/createDepartementComponent.vue';
+
+import createPartenaireComponent from './components/partenaire/createPartenaireComponent.vue';
+import createConsultationComponent from './components/consultation/createConsultationComponent.vue';
+import createOrganismeComponent from './components/organisme/createOrganismeComponent.vue';
+import createExemplaireComponent from './components/exemplaire/createExemplaireComponent.vue';
+import createEvaluationComponent from './components/evaluation/createEvaluationComponent.vue';
+import createRetardComponent from './components/retard/createRetardComponent.vue';
+import createParticiperComponent from './components/participer/createParticiperComponent.vue';
+import createFinancerBourseComponent from './components/financer_bourse/createFinancerBourseComponent.vue';
+import createUniteDeFormationComponent from './components/unite_de_formation/createUniteDeFormationComponent.vue';
+import createTypeFormationComponent from './components/type_formation/createTypeFormationComponent.vue';
+import createTypeEvaluationComponent from './components/type_evaluation/createTypeEvaluationComponent.vue';
+import createTypeMaterielComponent from './components/type_materiel/createTypeMaterielComponent.vue';
+import createEmprunterLivreComponent from './components/emprunter_livre/createEmprunterLivreComponent.vue';
+import createEmprunterMaterielComponent from './components/emprunter_materiel/createEmprunterMaterielComponent.vue';
+import createRessourcePedagogiqueComponent from './components/ressource_pedagogique/createRessourcePedagogiqueComponent.vue';
+
+
 import Swal from 'sweetalert2';
 window.Form=Form;
 window.Swal=Swal;
@@ -25,5 +45,29 @@ app.component("utilisateur-create", utilisateurComponent);
 app.component("create-eleve", createEleveComponent);
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
+app.component("specialite-create", createSpecialiteComponent);
+app.component("departement-create", createDepartementComponent);
+
+app.component("evaluation-create", createEvaluationComponent);
+app.component("typeEvaluation-create", createTypeEvaluationComponent);
+app.component("evaluation-create", createEvaluationComponent);
+app.component("retard-create", createRetardComponent);
+app.component("ressourcePedagogique-create", createRessourcePedagogiqueComponent);
+app.component("participer-create", createParticiperComponent);
+app.component("partenaire-create", createPartenaireComponent);
+app.component("seminaire-create", createSeminaireComponent);
+app.component("typeEvaluation-create", createTypeEvaluationComponent);
+app.component("typeFormation-create", createTypeFormationComponent);
+app.component("typeMateriel-create", createTypeMaterielComponent);
+app.component("uniteDeFormation-create", createUniteDeFormationComponent);
+app.component("dossierMedical-create", createDossierMedicalComponent);
+app.component("exemplaire-create", createExemplaireComponent);
+app.component("emprunterLivre-create", createEmprunterLivreComponent);
+app.component("emprunterMateriel-create", createEmprunterMaterielComponent);
+app.component("organisme-create", createOrganismeComponent);
+app.component("financerBourse-create", createFinancerBourseComponent);
+app.component("Consultation-create", createConsultationComponent);
+
+
 
 app.mount('#app')

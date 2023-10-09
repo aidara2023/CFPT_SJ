@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class archive_view_controller extends Controller
 {
-    //
+    public function create(){
+        return view('archive.create');
+    }
 }
