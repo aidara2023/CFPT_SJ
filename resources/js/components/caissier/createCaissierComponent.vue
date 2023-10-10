@@ -79,7 +79,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"caissierCompenent",
+    name:"createCaissierCompenent",
     data(){
         return {
             filieres:[],
