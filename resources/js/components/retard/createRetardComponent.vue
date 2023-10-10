@@ -36,7 +36,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"matiereCompenent",
+    name:"retardCompenent",
     data(){
         return {
             form:new Form({

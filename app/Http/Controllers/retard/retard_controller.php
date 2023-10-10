@@ -43,6 +43,7 @@ class retard_controller extends Controller
         $retard=Retard::find($id);
         if($retard!=null){
            $retard->date=$request['date'];
+           $retard->heure=$request['heure'];
            $retard->id_eleve=$request['id_eleve'];
            $retard->id_cour=$request['id_cour'];
           

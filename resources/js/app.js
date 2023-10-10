@@ -11,13 +11,11 @@ import createEleveComponent from './components/eleve/createEleveComponent.vue';
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
-<<<<<<< HEAD
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
 import createClasseComponent from './components/classe/createClasseComponent.vue';
 import createBatimentComponent from './components/batiment/createBatimentComponent.vue';
 import createSalleComponent from './components/salle/createSalleComponent.vue';
 import createCourComponent from './components/cours/createCourComponent.vue';
-=======
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
 import createDepartementComponent from './components/departement/createDepartementComponent.vue';
 import createPartenaireComponent from './components/partenaire/createPartenaireComponent.vue';
@@ -43,12 +41,8 @@ import createRayonComponent from './components/rayon/createRayonComponent.vue';
 import createLivreComponent from './components/livre/createLivreComponent.vue';
 import createPaiementComponent from './components/paiement/createPaiementComponent.vue';
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
-<<<<<<< HEAD
 
->>>>>>> 7b35b19ed2083fc9966fb11db1c6d00fad56db3a
-=======
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
->>>>>>> 7185e841be4d2c41ddf9b23f5be96c46a827589a
 
 import Swal from 'sweetalert2';
 window.Form=Form;
