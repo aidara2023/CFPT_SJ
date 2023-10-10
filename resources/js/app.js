@@ -41,8 +41,13 @@ import createRayonComponent from './components/rayon/createRayonComponent.vue';
 import createLivreComponent from './components/livre/createLivreComponent.vue';
 import createPaiementComponent from './components/paiement/createPaiementComponent.vue';
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
+<<<<<<< HEAD
 
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
+=======
+import createSeminaireComponent from './components/seminaire/createSeminaireComponent.vue';
+import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
+>>>>>>> 41fbe5c4a27c4bf57b205f82ab265795b707df79
 
 import Swal from 'sweetalert2';
 window.Form=Form;
