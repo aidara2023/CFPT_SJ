@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class retard_view_controller extends Controller
 {
-    //
+    public function create(){
+        return view('retard.create');
+    }
+    
 }

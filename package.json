@@ -6,12 +6,14 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^1.5.0",
+        "axios": "^1.5.1",
         "laravel-vite-plugin": "^0.8.0",
         "vite": "^4.0.0"
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.3.4",
+        "swal": "^0.1.0",
+        "sweetalert2": "^11.7.31",
         "vform": "^2.1.2",
         "vue": "^3.2.36"
     }

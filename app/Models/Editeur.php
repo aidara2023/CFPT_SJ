@@ -9,7 +9,7 @@ class Editeur extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nom_editeur'
+        'nom_editeur'  
     ];
 
 
