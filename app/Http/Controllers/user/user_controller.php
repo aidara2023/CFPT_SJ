@@ -85,7 +85,7 @@ class user_controller extends Controller
             ],500 );
         }
     }
-    public function update(user_request $request, $id){
+    public function mis_ajour(Request $request, $id){
         $user=User::find($id);
         if($user!=null){
            $user->nom=$request['nom'];

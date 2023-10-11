@@ -81,12 +81,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 use App\Http\Controllers\type_materiel\type_materiel_controller;
 use App\Http\Controllers\type_materiel\type_materiel_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_view_controller;
 use App\Http\Controllers\user\user_controller;
 use App\Http\Controllers\user\user_view_controller;
 use App\Http\Controllers\user\userViewController;
+
+=======
+use App\Http\Controllers\roleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,10 +102,6 @@ use App\Http\Controllers\user\userViewController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //Route de direction
 
@@ -511,5 +511,5 @@ Route::get('service/store' ,[service_controller::class, 'store'])->name('service
 
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 
-
+Route::get('/role/home',[roleController::class, 'index']);
 
