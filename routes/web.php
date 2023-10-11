@@ -102,7 +102,6 @@ use App\Http\Controllers\user\user_controller;
 use App\Http\Controllers\user\user_view_controller;
 use App\Http\Controllers\user\userViewController;
 
-=======
 use App\Http\Controllers\roleController;
 
 /*
@@ -533,7 +532,6 @@ Route::get('services/index', [service_controller::class, 'index'])->name('servic
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
-<<<<<<< HEAD
 //Route pour classe
 
 Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
@@ -575,9 +573,7 @@ Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('ret
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
-=======
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
->>>>>>> c1c9a643b213ffd61f41ef4bc427b5762ef9d808
 
 Route::get('/role/home',[roleController::class, 'index']);
 
