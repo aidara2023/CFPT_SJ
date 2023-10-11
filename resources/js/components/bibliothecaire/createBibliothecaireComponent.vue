@@ -82,7 +82,7 @@ import Swal from 'sweetalert2';
               'telephone_bibliothecaire':"",
               'adresse_bibliothecaire':"",
               'id_role':"",
-              'id_service':""
+        
           }),
           photo:"",
           services:[],
@@ -117,10 +117,10 @@ import Swal from 'sweetalert2';
 
           if(this.form.nom_bibliothecaire!=="" && this.form.prenom_bibliothecaire!=="" && this.form.telephone_bibliothecaire!=="" && this.form.date_naissance_bibliothecaire!==""){
               try{
-                  const inscription_store=await axios.post('/bibliothecaire/store', formdata, {
+                  const create_store=await axios.post('/bibliothecaire/store', formdata, {
 
                   });
-                  if(inscription_store){
+                  if(create_store){
                     Swal.fire('Succes!','bibliothecaire enregistrer avec success','succes');
                   this.resetForm();
                   }
@@ -148,8 +148,9 @@ import Swal from 'sweetalert2';
             this.date_naissance_bibliothecaire="";
             this.lieu_naissance_bibliothecaire="";
             this.nationalite_bibliothecaire="";
-            this.photo="";
-            this.$(`#${name}`).modal('hide');
+            this.form.id_role="";
+            this.form.id_service="";
+            
         },
         get_service(){
             

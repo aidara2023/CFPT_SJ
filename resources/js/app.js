@@ -15,6 +15,12 @@ import createCaissierComponent from './components/caissier/createCaissierCompone
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
 
+import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
+import createClasseComponent from './components/classe/createClasseComponent.vue';
+import createBatimentComponent from './components/batiment/createBatimentComponent.vue';
+import createSalleComponent from './components/salle/createSalleComponent.vue';
+import createCourComponent from './components/cours/createCourComponent.vue';
+
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
 import createDepartementComponent from './components/departement/createDepartementComponent.vue';
 import createPartenaireComponent from './components/partenaire/createPartenaireComponent.vue';
@@ -62,20 +68,24 @@ app.component("create-infirmier",createInfirmierComponent);
 
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
+app.component("create-bibliothecaire", createBibliothecaireComponent);
+app.component("create-matiere", createMatiereComponent);
+app.component("create-classe", createClasseComponent);
+app.component("create-batiment", createBatimentComponent);                      
+app.component("create-salle", createSalleComponent);
+app.component("create-cours", createCourComponent);
+
 
 app.component("specialite-create", createSpecialiteComponent);
 app.component("departement-create", createDepartementComponent);
-
-app.component("evaluation-create", createEvaluationComponent);
-app.component("typeEvaluation-create", createTypeEvaluationComponent);
+app.component("type-evaluation-create", createTypeEvaluationComponent);
 app.component("evaluation-create", createEvaluationComponent);
 app.component("retard-create", createRetardComponent);
 app.component("ressourcePedagogique-create", createRessourcePedagogiqueComponent);
 app.component("participer-create", createParticiperComponent);
 app.component("partenaire-create", createPartenaireComponent);
 app.component("seminaire-create", createSeminaireComponent);
-app.component("typeEvaluation-create", createTypeEvaluationComponent);
-app.component("typeFormation-create", createTypeFormationComponent);
+app.component("type-formation-create", createTypeFormationComponent);
 app.component("typeMateriel-create", createTypeMaterielComponent);
 app.component("uniteDeFormation-create", createUniteDeFormationComponent);
 app.component("dossierMedical-create", createDossierMedicalComponent);
@@ -85,7 +95,6 @@ app.component("emprunterMateriel-create", createEmprunterMaterielComponent);
 app.component("organisme-create", createOrganismeComponent);
 app.component("financerBourse-create", createFinancerBourseComponent);
 app.component("consultation-create", createConsultationComponent);
-app.component("specialite-create", createSpecialiteComponent);
 
 
 app.component("editeur-create", createEditeurComponent);

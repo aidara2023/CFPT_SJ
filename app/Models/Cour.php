@@ -30,7 +30,7 @@ class Cour extends Model
     }
 
     public function Classe(){
-        return $this->belongsTo(Classe::class, 'id_class');
+        return $this->belongsTo(Classe::class, 'id_classe');
     }
 
     public function assister(){

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\typr_formation;
+namespace App\Http\Requests\type_formation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

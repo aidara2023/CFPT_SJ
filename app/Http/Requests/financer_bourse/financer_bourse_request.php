@@ -22,7 +22,11 @@ class financer_bourse_request extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date'=>'',
+           'montant'=>'',
+          'id_eleve '=>'',
+          'id_classe'=>'',
+          'id_annee_academique'=>''
         ];
     }
 }
