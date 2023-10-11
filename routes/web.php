@@ -39,6 +39,8 @@ use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\cours\cours_view_controller;
 
 use App\Http\Controllers\departement\departement_view_controller;
+use App\Http\Controllers\direction\direction_controller;
+use App\Http\Controllers\direction\direction_view_controller;
 use App\Http\Controllers\dossier_medical\dossier_medical_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 
@@ -77,6 +79,7 @@ use App\Http\Controllers\semestre\semestre_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\seminaire\seminaire_view_controller;
 use App\Http\Controllers\service\service_controller;
+use App\Http\Controllers\service\service_view_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\specialite\specialite_view_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
@@ -90,12 +93,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 use App\Http\Controllers\type_materiel\type_materiel_controller;
 use App\Http\Controllers\type_materiel\type_materiel_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_view_controller;
 use App\Http\Controllers\user\user_controller;
 use App\Http\Controllers\user\user_view_controller;
 use App\Http\Controllers\user\userViewController;
+
+=======
+use App\Http\Controllers\roleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,9 +115,15 @@ use App\Http\Controllers\user\userViewController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route de direction
+
+Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
+Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
+Route::put('direction/update/{id}', [direction_controller::class, 'update'])->name('direction_update');
+Route::delete('direction/delete/{id}',[direction_controller::class, 'delete'])->name('direction_delete');
+Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('direction_get');
+
+Route::get('/direction/create',[direction_view_controller::class, 'create'])->name('direction_create');
 
 //Route de matiere
 
@@ -496,6 +509,7 @@ Route::post('/connexion',[connexion_controller::class,'connexion'])->name('conne
 Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
+Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
 Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
 Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
 Route::put('user/update/{id}',[user_controller::class, 'update'])->name('user_update');
@@ -510,7 +524,9 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
+Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
+<<<<<<< HEAD
 //Route pour classe
 
 Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
@@ -552,5 +568,9 @@ Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('ret
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
+=======
+Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
+>>>>>>> c1c9a643b213ffd61f41ef4bc427b5762ef9d808
 
+Route::get('/role/home',[roleController::class, 'index']);
 

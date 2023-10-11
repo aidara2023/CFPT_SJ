@@ -45,19 +45,17 @@ import Form from 'vform';
         return {
             filieres:[],
             form:new Form({
-                'nom_departement':"",
+                'nom':"",
                 'id_direction':""
             }),
-            photo:"",
+
             directions:[],
             
-
         }
     },
 
     mounted(){
         this.get_direction();
-        
 
     },
     
@@ -101,7 +99,7 @@ import Form from 'vform';
                  
                 
             }).catch(error=>{
-                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de la direction','error')
             });
         },
 
