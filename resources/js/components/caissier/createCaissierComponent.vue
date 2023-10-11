@@ -43,14 +43,14 @@
             <div class="roles">
                 <select name="role" id="role" v-model="form.id_role">
                         <option value=""> Role</option>
-                        <option v-for="role in roles" :value="role.id">{{ role.intitule }}</option>
+                        <option v-for="role in roles" :key="role.id">{{ role.intitule }}</option>
                 </select>
             </div>
 
             <div class="services">
                 <select name="service" id="service" v-model="form.id_service">
                         <option value=""> Service</option>
-                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
+                        <option v-for="service in services" :key="service.id">{{ service.nom_service }}</option>
                 </select>
             </div>
 
@@ -79,7 +79,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"caissierCompenent",
+    name:"createCaissierCompenent",
     data(){
         return {
             filieres:[],

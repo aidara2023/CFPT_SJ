@@ -43,7 +43,7 @@
             <div class="roles">
                 <select name="role" id="role" v-model="form.id_role">
                         <option value=""> Role</option>
-                        <option v-for="role in roles" :value="role.id">{{ role.intitule }}</option>
+                        <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
                 </select>
             </div>
 

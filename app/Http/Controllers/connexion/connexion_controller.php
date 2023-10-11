@@ -31,7 +31,9 @@ class connexion_controller extends Controller
                 'user'=>$user
              ]);
 
-        }
+        } 
+
+        
         
         else{
             $url='/login';

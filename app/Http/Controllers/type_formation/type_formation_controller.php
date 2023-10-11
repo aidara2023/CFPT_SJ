@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\type_formation;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\typr_formation\type_formation_request;
+use App\Http\Requests\type_formation\type_formation_request;
 use App\Models\Type_formation;
 use Illuminate\Http\Request;
 
@@ -12,11 +12,11 @@ class type_formation_controller extends Controller
 
     public function index()
     {
-        $Type_Formations = Type_formation::all();
-        if ($Type_Formations->count() > 0) {
+        $type_formation = Type_formation::all();
+        if ($type_formation->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'Type_Formations' => $Type_Formations
+                'type_formation' => $type_formation
             ], 200);
         } else {
             return response()->json([
