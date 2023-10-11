@@ -38,6 +38,7 @@ import createPaiementComponent from './components/paiement/createPaiementCompone
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
 import createSeminaireComponent from './components/seminaire/createSeminaireComponent.vue';
 import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
+import createServiceComponent from './components/service/createServiceComponent.vue';
 
 import Swal from 'sweetalert2';
 window.Form=Form;
@@ -87,6 +88,7 @@ app.component("rayon-create", createRayonComponent);
 app.component("livre-create", createLivreComponent);
 app.component("paiement-create", createPaiementComponent);
 app.component("annee-create", createAnneeComponent);
+app.component("service-create", createServiceComponent);
 
 
 app.mount('#app')
