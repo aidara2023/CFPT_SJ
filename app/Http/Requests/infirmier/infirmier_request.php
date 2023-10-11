@@ -31,11 +31,11 @@ class infirmier_request extends FormRequest
             'password'=>'',
             'date_naissance'=>'required',
             'lieu_naissance'=>'required',
-            'nationalite'=>'required',
+            'nationalite'=>'',
             'photo'=>'required',
             'id_role'=>'required',
-            'id_service'=>'required',
-            'id_user'=>'required'
+            'id_service'=>'',
+            'id_user'=>''
         ];
     }
 }

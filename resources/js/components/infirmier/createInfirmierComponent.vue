@@ -35,7 +35,7 @@
 
           <div class="roles">
             <select name="roles" id="role" v-model="form.id_role">
-                <option value="">service</option>
+                <option value="">role</option>
                 <option v-for="role in roles" :key="role.id">{{ role.intitule }}</option>
                 
             </select>
@@ -45,7 +45,7 @@
           <div class="services">
             <select name="services" id="service" v-model="form.id_service">
                 <option value="">service</option>
-                <option v-for="service in services"  :key="service.id">{{ service.intitule }}</option>
+                <option v-for="service in services"  :key="service.id">{{ service.nom_service }}</option>
                 
             </select>
 
@@ -112,10 +112,12 @@ import Swal  from 'sweetalert2';
             'prenom_infirmier':"",
             'date_naissance_infirmier':"",
             'lieu_naissance_infirmier':"",
-            'nationalite':"",
+            'nationalite_infirmier':"",
             'genre_infirmier':"",
             'telephone_infirmier':"",
             'adresse_infirmier':"",
+            'id_service':"",
+            'id_role':""
             
             
           }),
@@ -136,26 +138,26 @@ import Swal  from 'sweetalert2';
   methods:{
       async soumettre(){
           const formdata = new FormData();
-          formdata.append('nom', this.form.nom  );
-          formdata.append('prenom', this.form.prenom  );
-          formdata.append('lieu_naissance', this.form.lieu_naissance);
-          formdata.append('date_naissance', this.form.date_naissance);
-          formdata.append('genre', this.form.genre);
-          formdata.append('adresse', this.form.adresse);
-          formdata.append('telephone', this.form.telephone);
-          formdata.append('nationalite', this.form.nationalite);
+          formdata.append('nom', this.form.nom_infirmier  );
+          formdata.append('prenom', this.form.prenom_infirmier  );
+          formdata.append('lieu_naissance', this.form.lieu_naissance_infirmier);
+          formdata.append('date_naissance', this.form.date_naissance_infirmier);
+          formdata.append('genre', this.form.genre_infirmier);
+          formdata.append('adresse', this.form.adresse_infirmier);
+          formdata.append('telephone', this.form.telephone_infirmier);
+          formdata.append('nationalite', this.form.nationalite_infirmier);
           formdata.append('id_role', this.form.id_role);
           formdata.append('photo', this.photo);
           
 
-          formdata.append('nom_infirmier', this.form.nom_infirmier  );
-          formdata.append('prenom_infirmier', this.form.prenom_infirmier  );
-          formdata.append('lieu_naissance_infirmier', this.form.lieu_naissance_infirmier );
-          formdata.append('date_naissance_infirmier', this.form.date_naissance_infirmier  );
-          formdata.append('genre_infirmier', this.form.genre_infirmier  );
-          formdata.append('adresse_infirmier', this.form.adresse_infirmier);
-          formdata.append('telephone_infirmier', this.form.telephone_infirmier  );
-          formdata.append('nationalite_infirmier', this.form.nationalite_infirmier );
+        //   formdata.append('nom_infirmier', this.form.nom_infirmier  );
+        //   formdata.append('prenom_infirmier', this.form.prenom_infirmier  );
+        //   formdata.append('lieu_naissance_infirmier', this.form.lieu_naissance_infirmier );
+        //   formdata.append('date_naissance_infirmier', this.form.date_naissance_infirmier  );
+        //   formdata.append('genre_infirmier', this.form.genre_infirmier  );
+        //   formdata.append('adresse_infirmier', this.form.adresse_infirmier);
+        //   formdata.append('telephone_infirmier', this.form.telephone_infirmier  );
+        //   formdata.append('nationalite_infirmier', this.form.nationalite_infirmier );
          
 
 
@@ -198,16 +200,17 @@ import Swal  from 'sweetalert2';
             this.form.date_naissance_infirmier="";
             this.form.lieu_naissance_infirmier="";
             this.form.nationalite_infirmier="";
-            this.form.nom="";
-            this.form.prenom="";
-            this.form.genre="";
-            this.form.adresse="";
-            this.form.telephone="";
-            this.form.email="";
-            this.form.date_naissance="";
-            this.form.lieu_naissance="";
-            this.form.nationalite="";
+            // this.form.nom="";
+            // this.form.prenom="";
+            // this.form.genre="";
+            // this.form.adresse="";
+            // this.form.telephone="";
+            // this.form.email="";
+            // this.form.date_naissance="";
+            // this.form.lieu_naissance="";
+            // this.form.nationalite="";
             this.form.id_role="";
+            this.form.id_service="";
             
         },
 
