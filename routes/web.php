@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\administrateur\administrateur_view_controller;
 use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
@@ -33,6 +34,7 @@ use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
+use App\Http\Controllers\connexion\connexion_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
@@ -102,7 +104,7 @@ use App\Http\Controllers\user\user_controller;
 use App\Http\Controllers\user\user_view_controller;
 use App\Http\Controllers\user\userViewController;
 
-=======
+
 use App\Http\Controllers\roleController;
 
 /*
@@ -417,6 +419,9 @@ Route::delete('financer_bourse/delete/{id}',[financer_bourse_controller::class, 
 
 Route::get('/financer_bourse/create',[financer_bourse_view_controller::class, 'create'])->name('financer_bourse_create');
 
+//administrateur
+Route::get('admin/index',[administrateur_view_controller::class, 'index'])->name('admin_index');
+
 //type materiel
 
 Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
@@ -435,6 +440,7 @@ Route::put('caissier/update/{$id}',[caissier_controller::class,'update'])->name(
 Route::delete('caissier/delete/{$id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
 
 Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
+Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('caissier_index');
 
 //Route pour note
 
@@ -505,6 +511,7 @@ Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->na
 Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
 //Route pour la connexion
 Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
+Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
 
 //Route pour utilisateur
 
@@ -522,18 +529,13 @@ Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('use
 
 Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
 
-//Route pour services 
-
-Route::get('services/index', [service_controller::class, 'index'])->name('service_index');
-
-
 
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
-<<<<<<< HEAD
+
 //Route pour classe
 
 Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
@@ -575,9 +577,8 @@ Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('ret
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
-=======
+
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
->>>>>>> c1c9a643b213ffd61f41ef4bc427b5762ef9d808
 
 Route::get('/role/home',[roleController::class, 'index']);
 
