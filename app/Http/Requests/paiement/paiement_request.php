@@ -22,7 +22,6 @@ class paiement_request extends FormRequest
     public function rules(): array
     {
         return [
-            'id_paiement' => 'required',
             'id_eleve' => 'required',
             'id_caissier' => 'required',
             'id_annee_academique' => 'required',

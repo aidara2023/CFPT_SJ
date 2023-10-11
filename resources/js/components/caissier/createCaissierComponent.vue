@@ -1,7 +1,7 @@
 <template>
     <div class="cote_droit">
         <form @submit.prevent="soumettre">
-            <h1 class="sous_titre">Ajout d'utilisateur</h1>
+            <h1 class="sous_titre">Ajout de caissier</h1>
             <div>
 
             </div>
@@ -79,7 +79,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"caissierCompenent",
+    name:"createCaissierCompenent",
     data(){
         return {
             filieres:[],
@@ -178,15 +178,15 @@ import Form from 'vform';
             this.photo=event.target.files[0];
         },
         resetForm(){
-            this.form.nom_caisier="";
-            this.form.prenom_caissier="";
-            this.form.genre_caissier="";
-            this.form.adresse_caissier="";
-            this.form.telephone_caissier="";
-            this.form.email_caissier="";
-            this.form.date_naissance_caissier="";
-            this.form.lieu_naissance_caissier="";
-            this.form.nationalite_caissier="";
+            this.form.nom="";
+            this.form.prenom="";
+            this.form.genre="";
+            this.form.adresse="";
+            this.form.telephone="";
+            this.form.email="";
+            this.form.date_naissance="";
+            this.form.lieu_naissance="";
+            this.form.nationalite="";
             this.form.id_role="";
             this.form.id_service="";
            

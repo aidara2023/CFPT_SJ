@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\paiement\paiement_request;
 use Illuminate\Http\Request;
 use App\Models\Paiement;
+use Illuminate\Support\Facades\Auth;
 
 class paiement_controller extends Controller
 {
@@ -26,8 +27,15 @@ class paiement_controller extends Controller
 
     public function store(paiement_request $request) {
         $data = $request -> validated();
+        $request->validated();
+        $paiement=new paiement();
+ 
+         $paiement->id_caissier=Auth::user()->id;
+         $paiement->mois=$request['mois'];
+         $paiement->id_annee_academique=$request['id_annee_academique'];
+         $paiement->id_eleve=$request['id_eleve'];
+        $paiement->save();
 
-        $paiement = Paiement::create($data);
         if($paiement != null){
             return response()->json([
                 'statut' => 200,
