@@ -8,14 +8,19 @@ import profilComponent from './components/formateur/profilComponent.vue';
 import inscriptionComponent from './components/eleve/inscriptionComponent.vue';
 import utilisateurComponent from './components/utilisateur/utilisateurComponent.vue';
 import createEleveComponent from './components/eleve/createEleveComponent.vue';
+
+import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
+
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
 import createClasseComponent from './components/classe/createClasseComponent.vue';
 import createBatimentComponent from './components/batiment/createBatimentComponent.vue';
 import createSalleComponent from './components/salle/createSalleComponent.vue';
 import createCourComponent from './components/cours/createCourComponent.vue';
+
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
 import createDepartementComponent from './components/departement/createDepartementComponent.vue';
 import createPartenaireComponent from './components/partenaire/createPartenaireComponent.vue';
@@ -58,6 +63,9 @@ app.component("profil-formateur", profilComponent );
 app.component("inscription-eleve", inscriptionComponent);
 app.component("utilisateur-create", utilisateurComponent);
 app.component("create-eleve", createEleveComponent);
+
+app.component("create-infirmier",createInfirmierComponent);
+
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
 app.component("create-bibliothecaire", createBibliothecaireComponent);
