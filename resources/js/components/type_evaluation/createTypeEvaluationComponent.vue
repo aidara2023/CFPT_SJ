@@ -21,7 +21,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"type_evaluationCompenent",
+    name:"createTypeEvaluationCompenent",
     data(){
         return {
             form:new Form({

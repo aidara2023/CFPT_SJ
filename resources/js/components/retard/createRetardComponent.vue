@@ -10,7 +10,7 @@
 
         <div class="role">
                 <select name="id_eleve" id="id_eleve" v-model="form.id_id_eleve">
-                        <option value=""> Type de formation </option>
+                        <option value=""> Eleve </option>
                         <option v-for="id_eleve in id_eleves" :value="id_eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</option>
                 </select>
             </div>

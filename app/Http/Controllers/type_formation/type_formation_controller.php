@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\type_formation;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\typr_formation\type_formation_request;
+use App\Http\Requests\type_formation\type_formation_request;
 use App\Models\Type_formation;
 use Illuminate\Http\Request;
 

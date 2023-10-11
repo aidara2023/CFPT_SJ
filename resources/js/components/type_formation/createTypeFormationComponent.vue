@@ -21,7 +21,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"type_formationCompenent",
+    name:"createTypeFormationCompenent",
     data(){
         return {
             form:new Form({

@@ -37,7 +37,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"matiereCompenent",
+    name:"classeCompenent",
     data(){
         return {
             form:new Form({

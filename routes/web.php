@@ -81,6 +81,7 @@ use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\specialite\specialite_view_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
 use App\Http\Controllers\tuteur\tuteur_view_controller;
+use App\Http\Controllers\type_evaluation\type_evaluation_controller;
 use App\Http\Controllers\type_evaluation\type_evaluation_view_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\type_formation\type_formation_view_controller;
@@ -199,13 +200,13 @@ Route::delete('type_formation/delete/{id}',[type_formation_controller::class, 'd
 Route::get('/type_formation/create',[type_formation_view_controller::class, 'create'])->name('type_formation_create');
 
 //route evaluation
-Route::get('type_evaluation/index',[partenaire_controller::class, 'index'])->name('partenaire_index');
-Route::post('type_evaluation/store',[partenaire_controller::class, 'store'])->name('partenaire_store');
-Route::get('type_evaluation/show/{id}',[partenaire_controller::class, 'show'])->name('partenaire_show');
-Route::put('type_evaluation/update/{id}',[partenaire_controller::class, 'update'])->name('partenaire_update');
-Route::delete('type_evaluation/delete/{id}',[partenaire_controller::class, 'destroy'])->name('partenaire_delete');
+Route::get('type_evaluation/index',[type_evaluation_controller::class, 'index'])->name('type_evaluation_index');
+Route::post('type_evaluation/store',[type_evaluation_controller::class, 'store'])->name('type_evaluation_store');
+Route::get('type_evaluation/show/{id}',[type_evaluation_controller::class, 'show'])->name('type_evaluation_show');
+Route::put('type_evaluation/update/{id}',[type_evaluation_controller::class, 'update'])->name('type_evaluation_update');
+Route::delete('type_evaluation/delete/{id}',[type_evaluation_controller::class, 'destroy'])->name('type_evaluation_delete');
 
-Route::get('/evaluation/create',[type_evaluation_view_controller::class, 'create'])->name('evaluation_create');
+Route::get('/type_evaluation/create',[type_evaluation_view_controller::class, 'create'])->name('evaluation_create');
 
 
 //route partenaire 

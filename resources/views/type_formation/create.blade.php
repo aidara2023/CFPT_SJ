@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <typeFormation-create></typeFormation-create>
+    <type-formation-create></type-formation-create>
     
 
 </body>

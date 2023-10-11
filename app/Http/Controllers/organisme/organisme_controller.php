@@ -44,7 +44,7 @@ class organisme_controller extends Controller
     public function update(organisme_request $request, $id){
         $organisme=Organisme::find($id);
         if($organisme!=null){
-           $organisme->intitule=$request['intitule'];
+           $organisme->nom_organisme=$request['nom_organisme'];
            $organisme->save();
             return response()->json([
                 'statut'=>200,
