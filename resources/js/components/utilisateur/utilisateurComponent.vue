@@ -1,12 +1,11 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre">
+    <div class="contenu">
+        <form @submit.prevent="soumettre()" method="dialog">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
-            <div>
-
-            </div>
             <!--Informations personnelles-->
-            <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
+            <div>
+                <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
+            </div>
             <div class="photo">
                 <label for="dossiers">Glissez la photo ici <span></span>
                     <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
@@ -48,21 +47,17 @@
             </div>
 
             
-
-             <!-- <div class="identifiants">
-                <input type="text" name="matricule" id="matricule" placeholder="Matricule" v-model="form.contact_urgence_2">
-                <input type="password" name="mot_de_passe" id="mot_de_passe" placeholder="Mot de passe" v-model="form.contact_urgence_2">
-            </div> --> 
-
-            
-            
-            <!--paiement-->
-    
+<!-- 
+            <div class="identifiants">
+                <input type="text" placeholder="Contact urgence 1" v-model="form.contact_urgence_2">
+                <input type="password"  placeholder="Contact urgence 2" v-model="form.contact_urgence_2">
+            </div>  -->
     
             <div class="boutons">
-                <input type="submit" value="Ajouter">
-                <button type="button">Annuler</button>
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
+
         </form>
     </div>
 </template>
@@ -96,6 +91,7 @@ import Form from 'vform';
 
     mounted(){
         this.get_role();
+        this.rafraichissementAutomatique();
 
     },
     
@@ -123,16 +119,23 @@ import Form from 'vform';
                     const user_store=await axios.post('/user/store', formdata, {
 
                     });
-                    Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
                     this.resetForm();
+                    Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
+                    
                 }
                 catch(e){
+                    this.resetForm();
                     console.log(e)
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                    
                 }
 
             }else{
-                Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
+               
+                this.resetForm();
+                Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error');
+              
+                
             }
 
 
@@ -154,7 +157,26 @@ import Form from 'vform';
         ajoutimage(event){
             this.photo=event.target.files[0];
         },
+        
         resetForm(){
+            var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close(); 
+                    
+            })
+       /*    ajout.remove("active");  */
+           
+            });
+
             this.form.nom="";
             this.form.prenom="";
             this.form.genre="";
@@ -166,7 +188,15 @@ import Form from 'vform';
             this.form.nationalite="";
             this.form.id_role="";
            
-        }
+        },
+
+        rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
+
+    
+
+    
 
 
     }

@@ -18,13 +18,13 @@ class connexion_controller extends Controller
         $user=Auth::user();
         $role=$user->role->intitule ;
         $url='';
-        if($role=="etudiant"){
+        if($role=="Etudiant"){
             $url='eleve/index';
             return response([
                 'url'=>$url, 
                 'user'=>$user
              ]);
-        }elseif($role=="formateur"){
+        }elseif($role=="Formateur"){
             $url='formateur';
             return response([
                 'url'=>$url, 
@@ -34,6 +34,14 @@ class connexion_controller extends Controller
         } 
         elseif($role=="Administrateur"){
             $url='/admin/index';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
+
+        } 
+        elseif($role=="Caissier"){
+            $url='/caissier/index';
             return response([
                 'url'=>$url, 
                 'user'=>$user
