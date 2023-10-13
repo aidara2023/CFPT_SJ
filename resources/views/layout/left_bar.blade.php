@@ -1,6 +1,6 @@
 @if (Auth::user())
     @if (Auth::user()->id_role==5)
-        <nav>
+        <nav class="flou">
             <ul>
                 <li><a href=""><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
                 <li><a href=""><i class="fi fi-rr-user"></i><span >Utilisateurs</span></a></li>
@@ -15,16 +15,17 @@
             </ul>
         </nav>
     @endif
-@else
-<nav>
-    <ul>
-        <li><a href=""><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
-        <li><a href=""><i class="fi fi-rr-user"></i><span >Utilisateurs</span></a></li>
-        <li><a href=""><i class="fi fi-rr-user"></i><span >Utilisateurs</span></a></li>
-        <li><a href=""><i class="fi fi-rr-user"></i><span >Utilisateurs</span></a></li>
-        <li><a href=""><i class="fi fi-rr-user"></i><span >Utilisateurs</span></a></li>
-       
-    </ul>
- </nav>
+    @if (Auth::user()->id_role==4)
+        <nav class="flou">
+            <ul>
+                <li><a href=""><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
+                <li><a href=""><i class="fi fi-rr-user"></i><span >Paiement</span></a></li>
+                <li><a href=""><i class="fi fi-rr-graduation-cap"></i><span>Inscription</span></a></li>
+            
+                <li><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>Me déconnecter</span></a></li>
+            </ul>
+        </nav>
+    @endif
+
 @endif
 
