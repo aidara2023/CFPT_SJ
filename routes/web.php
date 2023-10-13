@@ -535,7 +535,6 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
-
 //Route pour classe
 
 Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
@@ -576,7 +575,6 @@ Route::get('retard/show/{$id}',[retard_controller::class,'show'])->name('retard_
 Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('retard_update');
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
-
 
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 

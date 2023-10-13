@@ -31,7 +31,7 @@
                 <select name="eleve" id="eleve" v-model="form.id_eleve">
                         <option value=""> Eleve</option>
                         <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }}</option>
-                </select>
+                 </select>
             </div>
 
             <div class="annee_academiques">
