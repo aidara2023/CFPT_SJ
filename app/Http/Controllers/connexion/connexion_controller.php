@@ -32,9 +32,14 @@ class connexion_controller extends Controller
              ]);
 
         } 
+        elseif($role=="Administrateur"){
+            $url='/admin/index';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
 
-        
-        
+        } 
         else{
             $url='/login';
             return response([
@@ -44,5 +49,10 @@ class connexion_controller extends Controller
 
         }
 
+    }
+
+    public function logout(){
+        Auth::logout();
+        return view('auth.login');
     }
 }
