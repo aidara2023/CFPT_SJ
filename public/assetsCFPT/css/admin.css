@@ -149,6 +149,7 @@ div{
     position: relative;
     right: 0;
     width: 75%;
+   /*  z-index: -10; */
 }
 
 .entete{
@@ -352,7 +353,7 @@ input{
     height: 70%;
     
     background-color: var(--clr2);
-    background-image: url(logo_cfpt.png);
+    background-image: url(../image/logo_cfpt.png);
     background-size: 90%;
     background-blend-mode: overlay;
     background-position: 50%;
@@ -373,6 +374,8 @@ input{
     align-items: center;
     transition: .6s all ease;
 }
+
+
 
 
 
@@ -430,7 +433,7 @@ button , input[type="submit"]{
     background-color: transparent;
     color: white;
 
-    min-width: fit-content;
+    width: clamp(1px, 19vw, 250px);
     border-radius: 45px;
     padding: 10px 20px;
 

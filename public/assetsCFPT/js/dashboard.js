@@ -10,7 +10,8 @@ var modification = document.querySelector("[data-modal-modification]");
 var suppression = document.querySelector("[data-modal-suppression]");
 
 
-var fermemod = document.querySelectorAll('[data-close-modal]');           
+var fermemod = document.querySelectorAll('[data-close-modal]');     
+    
 
 // Ouverture des modals
  mdl.forEach(item => {
@@ -61,6 +62,7 @@ var fermemod = document.querySelectorAll('[data-close-modal]');
 //Fermeture des modals
 fermemod.forEach(item => {
     item.addEventListener('click', () => {
+        //console.log(fermemod[0].textContent);  
     var actif = document.querySelectorAll('.actif');
         actif.forEach(item => {
             item.classList.remove("actif");
