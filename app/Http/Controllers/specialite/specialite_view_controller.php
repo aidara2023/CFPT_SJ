@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class specialite_view_controller extends Controller
 {
-    //
+    public function create(){
+        return view('specialite.create');
+    }
 }

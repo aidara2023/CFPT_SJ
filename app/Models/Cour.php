@@ -17,6 +17,7 @@ class Cour extends Model
         'id_formateur',
         'id_matiere',
         'id_salle',
+        'date_cour',
         'id_semestre'
     ];
 
@@ -29,7 +30,7 @@ class Cour extends Model
     }
 
     public function Classe(){
-        return $this->belongsTo(Classe::class, 'id_class');
+        return $this->belongsTo(Classe::class, 'id_classe');
     }
 
     public function assister(){

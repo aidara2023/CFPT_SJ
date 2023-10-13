@@ -22,9 +22,8 @@ class departement_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule' => 'required',
             'nom_departement' => 'required',
-            'id_departement' => 'required'
+            'id_direction' => 'required'
         ];
     }
 }

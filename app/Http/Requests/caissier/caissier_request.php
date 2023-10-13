@@ -22,18 +22,19 @@ class caissier_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom'=>'required',
-            'prenom'=>'required',
-            'genre'=>'required',
-            'adresse'=>'required',
-            'email'=>'required',
-            'telephone'=>'required',
-            'password'=>'required',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
-            'nationalite'=>'required',
+            'nom_caissier'=>'required',
+            'prenom_caissier'=>'required',
+            'genre_caissier'=>'required',
+            'adresse_caissier'=>'required',
+            'email_caissier'=>'required',
+            'telephone_caissier'=>'required',
+            'password_caissier'=>'',
+            'date_naissance_caissier'=>'required',
+            'lieu_naissance_caissier'=>'required',
+            'nationalite_caissier'=>'required',
             'photo'=>'required',
             'id_role'=>'required',
+            'id_user'=>'',
             'id_service'=>'required'
         ];
     }
