@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('id_formateur')->references('id')->on('formateurs')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_unite_de_formation');
             $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('id_eleve');
-            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+           /*  $table->unsignedBigInteger('id_eleve');
+            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade'); */
             $table->unsignedBigInteger('id_cour');
             $table->foreign('id_cour')->references('id')->on('cours')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

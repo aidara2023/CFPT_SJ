@@ -22,14 +22,15 @@ class cours_request extends FormRequest
     public function rules(): array
     {
         return [
-        'intitule_cours' => 'required',
+        'intitule' => 'required',
         'heure_debut' => 'required',
         'heure_fin' => 'required',
-        'id_classe' => 'required',
-        'id_formateur' => 'required',
-        'id_matiere' => 'required',
-        'id_salle' => 'required',
-        'id_semestre' => 'required'
+        'date_cour' => 'required',
+        'id_classe' => '',
+        'id_formateur' => '',
+        'id_matiere' => '',
+        'id_salle' => '',
+        'id_semestre' => ''
         ];
     }
 }

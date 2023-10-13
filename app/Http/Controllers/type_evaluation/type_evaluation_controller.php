@@ -11,11 +11,11 @@ class type_evaluation_controller extends Controller
 {
     public function index()
     {
-        $type_Evaluations = Type_evaluation::all();
-        if ($type_Evaluations->count() > 0) {
+        $type_Evaluation = Type_evaluation::all();
+        if ($type_Evaluation->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'type_Evaluations' => $type_Evaluations
+                'type_Evaluation' => $type_Evaluation
             ], 200);
         } else {
             return response()->json([

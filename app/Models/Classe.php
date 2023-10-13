@@ -13,7 +13,7 @@ class Classe extends Model
         'nom_classe',
         'type classe',
         'niveau',
-        'id_type formation',
+        'id_type_formation',
         'id_unite_de_formation'
     ];
     public function inscription() {

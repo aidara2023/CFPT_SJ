@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class salle_view_controller extends Controller
 {
-    //
+    public function create(){
+        return view('salle.create');
+    }
 }

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nom');
+            $table->string('prenom');
             $table->string('genre');
             $table->string('matricule')->unique();
             $table->integer('matricule_nombre')->default(10066);
@@ -22,10 +23,10 @@ return new class extends Migration
             $table->string('lieu_naissance');
             $table->string('nationalite');
             $table->string('telephone');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->unsignedBigInteger('id_role');
             $table->foreign('id_role')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
