@@ -1,6 +1,6 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre">
+    <div class="cote_droit contenu">
+        <form @submit.prevent="soumettre" method="dialog">
             <h1 class="sous_titre">Ajout classe</h1>
            
             <div class="personnel">
@@ -25,8 +25,8 @@
 
     
             <div class="boutons">
-                <input type="submit" value="Ajouter">
-                <button type="button">Annuler</button>
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
         </form>
     </div>
@@ -57,6 +57,8 @@ import Form from 'vform';
     mounted(){
         this.get_type_formation();
         this.get_unite_de_formation();
+        this.rafraichissementAutomatique();
+
     },
 
     
@@ -75,15 +77,18 @@ import Form from 'vform';
                     const create_store=await axios.post('/classe/store', formdata, {
 
                     });
+                    this.resetForm();
                     Swal.fire('Succes!','classe ajouté avec succés','succes')
                     this.resetForm();
                 }
                 catch(e){
                     console.log(e)
+                    this.resetForm();
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
+                this.resetForm();
                 Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
             }
 
@@ -99,6 +104,7 @@ import Form from 'vform';
                  
                 
             }).catch(error=>{
+                this.resetForm();
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation du type de formation','error')
             });
         },
@@ -111,12 +117,31 @@ import Form from 'vform';
                 
                
            }).catch(error=>{
+            this.resetForm();
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de lunite de formation','error')
            });
        },
        
 
         resetForm(){
+            var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close(); 
+                    
+            })
+       /*    ajout.remove("active");  */
+           
+            });
+            
             this.nom_classe="";
             this.type_classe="";
             this.niveau="";
@@ -124,7 +149,10 @@ import Form from 'vform';
             this.form.id_unite_de_formation="";
             
            
-        }
+        },
+        rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
 
 
     }

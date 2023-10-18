@@ -1,7 +1,7 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre">
-            <h1 class="sous_titre">Ajout de caissier</h1>
+    <div class="cote_droit contenu">
+        <form @submit.prevent="soumettre" method="dialog">
+            <h1 class="sous_titre">Ajout de unite de formation</h1>
             <div>
 
             </div>
@@ -36,8 +36,8 @@
     
     
             <div class="boutons">
-                <input type="submit" value="Ajouter">
-                <button type="button">Annuler</button>
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
         </form>
     </div>
@@ -67,6 +67,7 @@ import Form from 'vform';
     mounted(){
         this.get_formateur();
         this.get_departement();
+        this.rafraichissementAutomatique();
 
     },
     
@@ -83,15 +84,18 @@ import Form from 'vform';
                     const create_store=await axios.post('/unite_de_formation/store', formdata, {
 
                     });
-                    Swal.fire('Succes!','unite de formation ajoutée avec succées','succes')
                     this.resetForm();
+                    Swal.fire('Succes!','unite de formation ajoutée avec succées','succes')
+                    
                 }
                 catch(e){
                     console.log(e)
+                    this.resetForm();
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
+                this.resetForm();
                 Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
             }
 
@@ -107,6 +111,7 @@ import Form from 'vform';
                  
                 
             }).catch(error=>{
+                this.resetForm();
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formateurs','error')
             });
         },
@@ -119,17 +124,40 @@ import Form from 'vform';
                 
                
            }).catch(error=>{
+            this.resetForm();
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des departements','error')
            });
        },
 
         
         resetForm(){
+
+            var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close(); 
+                    
+            })
+       /*    ajout.remove("active");  */
+           
+            });
             this.form.nom="";
             this.form.id_formateur="";
             this.form.id_departement="";
            
-        }
+        },
+        
+        rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
 
 
     }
