@@ -187,6 +187,8 @@ Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::c
 Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 'get'])->name('unite_de_formation_get');
 
 Route::get('/unite_de_formation/create',[unite_de_formation_view_controller::class, 'create'])->name('unite_deformation_create');
+Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class, 'index'])->name('unite_de_formation_index');
+
 
 //route eleve 
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
@@ -289,6 +291,8 @@ Route::put('departement/update/{id}',[departement_controller::class, 'update'])-
 Route::delete('departement/delete/{id}',[departement_controller::class, 'destroy'])->name('departement_delete');
 
 Route::get('/departement/create',[departement_view_controller::class, 'create'])->name('departement_create');
+Route::get('departement/index',[departement_view_controller::class, 'index'])->name('departement_index');
+
 
 //route tuteur
 Route::get('tuteur/index',[tuteur_controller::class, 'index'])->name('tuteur_index');
@@ -543,6 +547,8 @@ Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_
 Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{$id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
+Route::get('classe/index' ,[classe_view_controller::class, 'index'])->name('classe_index');
+
 
 //Route pour batiment
 

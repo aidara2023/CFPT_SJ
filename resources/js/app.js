@@ -81,19 +81,19 @@ app.component("departement-create", createDepartementComponent);
 app.component("type-evaluation-create", createTypeEvaluationComponent);
 app.component("evaluation-create", createEvaluationComponent);
 app.component("retard-create", createRetardComponent);
-app.component("ressourcePedagogique-create", createRessourcePedagogiqueComponent);
+app.component("ressource-pedagogique-create", createRessourcePedagogiqueComponent);
 app.component("participer-create", createParticiperComponent);
 app.component("partenaire-create", createPartenaireComponent);
 app.component("seminaire-create", createSeminaireComponent);
 app.component("type-formation-create", createTypeFormationComponent);
-app.component("typeMateriel-create", createTypeMaterielComponent);
-app.component("uniteDeFormation-create", createUniteDeFormationComponent);
-app.component("dossierMedical-create", createDossierMedicalComponent);
+app.component("type-materiel-create", createTypeMaterielComponent);
+app.component("unite-de-formation-create", createUniteDeFormationComponent);
+app.component("dossier-medical-create", createDossierMedicalComponent);
 app.component("exemplaire-create", createExemplaireComponent);
-app.component("emprunterLivre-create", createEmprunterLivreComponent);
-app.component("emprunterMateriel-create", createEmprunterMaterielComponent);
+app.component("emprunter-livre-create", createEmprunterLivreComponent);
+app.component("emprunter-materiel-create", createEmprunterMaterielComponent);
 app.component("organisme-create", createOrganismeComponent);
-app.component("financerBourse-create", createFinancerBourseComponent);
+app.component("financer-bourse-create", createFinancerBourseComponent);
 app.component("consultation-create", createConsultationComponent);
 
 
