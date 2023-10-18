@@ -26,6 +26,10 @@ class Paiement extends Model
     public function eleve() {
       return $this->belongsTo(Eleve::class,'id_eleve');
     }
+
+    public function mois() {
+      return $this->hasMany(mois::class);
+    }
   
 
 }
