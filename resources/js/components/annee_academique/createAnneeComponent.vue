@@ -26,7 +26,7 @@ import Form from 'vform';
         return {
             filieres:[],
             form:new Form({
-                'nom':"",
+                'nom':""
                
             }),
         }

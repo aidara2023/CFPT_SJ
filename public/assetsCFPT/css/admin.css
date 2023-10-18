@@ -16,6 +16,7 @@ body{
 
 :root{
     --clr: #2a61e6;
+    --clrclair: #3769df8b;
     --clr2:  #0a1639;
     --rouge: #ff5252;
 }
@@ -82,7 +83,6 @@ img{
 }
 
 a{
-
     text-decoration: none;
 }
 
@@ -90,7 +90,7 @@ nav{
     position: relative;
     left: 0px;
     top: 0px;
-    width: 60px;
+    width: min(9vw, 60px);
     max-width: 400px;
     height: 90vh;
     background-color: var(--clr2);
@@ -121,6 +121,8 @@ li{
     margin: 30px 10px;
     position: relative;
     left: 0;
+
+    transition: .6s;
 }
 
 ul li a{
@@ -149,7 +151,6 @@ div{
     position: relative;
     right: 0;
     width: 75%;
-   /*  z-index: -10; */
 }
 
 .entete{
@@ -161,6 +162,59 @@ div{
     margin-top: 0px;
     padding: 0;
 }
+
+.bloc{
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    margin: 0;
+}
+
+.recherche{
+    background-color: var(--clr);
+    padding: min(2vw, 20px);
+    border-radius: 40px;
+    width: 50%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: min(3vw,10px);
+
+}
+.recherche input{
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    cursor: text;
+    text-align: left;
+    width: clamp(10px, 100%, 250px);
+    font-size: clamp(0.7rem,1.9vw, 1.1rem);
+}
+.recherche input:focus{
+    border: none;
+}
+
+.recherche input::placeholder{
+    color: var(--clr2);
+    font-weight: 300;
+    text-align: left;
+
+    font-size: clamp(0.7rem,1.9vw, 1.1rem);
+
+}
+
+.recherche i{
+    background: transparent;
+    /* border: 1px solid red;
+ */
+    width: 3vw;
+    height: fit-content;
+    font-size: clamp(0.5rem,1.9vw, 1.1rem);
+    border-radius: 50%;
+    color: white;
+}
+
 
 .avant{
     display: flex;
@@ -175,6 +229,8 @@ div{
     overflow-y: hidden;
     margin-top: min(6vw, 50px);
 }
+
+
 
 .ajout{
     background-color: var(--clr2);
@@ -353,7 +409,7 @@ input{
     height: 70%;
     
     background-color: var(--clr2);
-    background-image: url(../image/logo_cfpt.png);
+    background-image: url(logo_cfpt.png);
     background-size: 90%;
     background-blend-mode: overlay;
     background-position: 50%;
@@ -374,8 +430,6 @@ input{
     align-items: center;
     transition: .6s all ease;
 }
-
-
 
 
 
@@ -433,7 +487,7 @@ button , input[type="submit"]{
     background-color: transparent;
     color: white;
 
-    width: clamp(1px, 19vw, 250px);
+    min-width: fit-content;
     border-radius: 45px;
     padding: 10px 20px;
 
@@ -458,16 +512,45 @@ input[type="submit"]:hover{
 
 
 @media(max-width:550px){
+    body{
+        justify-content: center;
+    }
     nav{
-        width: 55px;
+        width:90vw;
+        height: 55px;
         border-width:15px ;
-    justify-content: center;
+    justify-content: left;
+
+    position: fixed;
+    top:90%;
+    border: none;
+
+    left: 50%;
+    transform: translate(-50%);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
     }
     nav:hover{
-        width: 55px;
+        width: 90vw;
     }
+
+    nav ul{
+        display: flex;
+    }
+    nav ul li a{
+        padding: 7px 15px;
+    }
+
     nav ul li a span{
         display: none;
+    }
+
+    nav ul li.actif a span{
+        display: inline;
+    }
+    .elements{
+        width: 90vw;
     }
     .presences{
         gap: 8%;

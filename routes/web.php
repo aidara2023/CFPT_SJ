@@ -420,7 +420,7 @@ Route::delete('financer_bourse/delete/{id}',[financer_bourse_controller::class, 
 Route::get('/financer_bourse/create',[financer_bourse_view_controller::class, 'create'])->name('financer_bourse_create');
 
 //administrateur
-Route::get('admin/index',[administrateur_view_controller::class, 'index'])->name('admin_index');
+Route::get('admin/index',[administrateur_view_controller::class, 'index'])->middleware('auth')->name('admin_index');
 
 //type materiel
 

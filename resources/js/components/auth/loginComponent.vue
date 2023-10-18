@@ -1,9 +1,14 @@
 <template>
 <form>
-    <input type="text"  v-model="form.matricule" id="matricule" placeholder="Matricule">
-    <input type="password"  v-model="form.password" id="mot_de_passe" placeholder="Mot de passe">
-    <input type="submit"  @click.prevent="verification()" value="Je me connecte">
-    <input type="submit" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
+    <div class="connexion">
+        <input type="text"  v-model="form.matricule" id="matricule" placeholder="Matricule">
+        <input type="password"  v-model="form.password" id="mot_de_passe" placeholder="Mot de passe">
+    </div>
+
+    <div class="bloc">
+        <input type="submit"  @click.prevent="verification()" value="Je me connecte">
+        <input type="submit" value="Mot de passe oublié ?" id="mot_de_passe_oublie">
+    </div>
 </form>
 </template>
 
@@ -46,6 +51,10 @@ export default {
         },
      },
 }
+
+
+
+    
 </script>
 
 

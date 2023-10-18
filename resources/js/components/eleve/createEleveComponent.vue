@@ -8,13 +8,13 @@
                     <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
                 </label>
             </div>
-          <div class="personnel">
-          <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve">
-          <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom_eleve">
-          <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_eleve">
-          <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_eleve">
-          <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_eleve">
-      </div>
+        <div class="personnel">
+            <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve">
+            <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom_eleve">
+            <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_eleve">
+            <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_eleve">
+            <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_eleve">
+        </div>
 
           <div class="sexe">
               <span class="b">Sexe</span>
