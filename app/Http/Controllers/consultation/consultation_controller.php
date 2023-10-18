@@ -40,19 +40,13 @@ class consultation_controller extends Controller
         $consultation = Consultation::create($validatedData);
 
         
-        return response()->json($consultation, 201);
+        return response()->json($consultation, 200);
     }
 
     public function update(consultation_request $request, $id)
     {
         
-        $validatedData = $request->validate([
-            'id_consultation' => 'required',
-            'id_user' => 'required',
-            'id_infirmier' => 'required',
-            'id_dossier_medical' => 'required',
-           
-        ]);
+        $validatedData = $request->validated();
 
         
         $consultation = Consultation::find($id);

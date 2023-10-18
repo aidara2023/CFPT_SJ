@@ -19,7 +19,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -35,7 +35,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
+                'message'=>'L\'enregistrement n\'a pas été ajouté',
             ],500 );
         }
     }
@@ -69,7 +69,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La service n\'a pas été supprimé',
+                'message'=>'Le service n\'est pas supprimé',
             ],500 );
         }
        
@@ -85,7 +85,7 @@ class service_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'service n\'a pas été éffectué',
+                'message'=>'Service non enregistré',
             ],500 );
         }
        

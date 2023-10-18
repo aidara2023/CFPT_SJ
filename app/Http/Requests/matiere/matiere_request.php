@@ -22,7 +22,8 @@ class matiere_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule'=>'required'
+            'intitule'=>'required',
+            'duree'=>'required'
         ];
     }
 }

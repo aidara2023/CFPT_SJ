@@ -22,18 +22,18 @@ class tuteur_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' =>  'required',
-            'prenom' =>  'required',
-            'genre' =>  'required',
-            'adresse' =>  'required',
-            'email'=>  'required',
-            'telephone'=> 'required',
-            'password'=> 'required',
-            'date_naissance'=> 'required',
-            'lieu_naissance'=> 'required',
-            'nationalite'=> 'required',
-            'photo'=> 'required',
-            'id_role'=> 'required'
+            'nom_tuteur' =>  'required',
+            'prenom_tuteur' =>  'required',
+            'genre_tuteur' =>  'required',
+            'adresse_tuteur' =>  'required',
+            'email_tuteur'=>  'required',
+            'telephone_tuteur'=> 'required',
+            'password_tuteur'=> '',
+            'date_naissance_tuteur'=> 'required',
+            'lieu_naissance_tuteur'=> 'required',
+            'nationalite_tuteur'=> 'required',
+            'photo'=> '',
+            'id_user'=>'',
         ];
     }
 }

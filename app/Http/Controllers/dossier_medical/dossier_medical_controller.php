@@ -19,7 +19,7 @@ class dossier_medical_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,  
-                'message'=>'aucun  dossier medical  n\'a été enregistré',
+                'message'=>'Aucun  dossier medical  n\'a été enregistré',
             ],500 );
         }
      }

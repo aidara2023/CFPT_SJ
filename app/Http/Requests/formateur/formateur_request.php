@@ -22,9 +22,23 @@ class formateur_request extends FormRequest
     public function rules(): array
     {
         return [
-            'type'=>'required',,
-            'Situation_matrimoniale'=>'required',,
-            'id_specialite'=>'required',,
+            'nom'=>'required',
+            'prenom'=>'required',
+            'genre'=>'required',
+            'adresse'=>'required',
+            'email'=>'required',
+            'telephone'=>'required',
+            'password'=>'required',
+            'date_naissance'=>'required',
+            'lieu_naissance'=>'required',
+            'nationalite'=>'required',
+            'photo'=>'required',
+            'id_role'=>'required',
+            'id_service'=>'required',
+            
+            'type'=>'required',
+            'situation_matrimoniale'=>'required',
+            'id_specialite'=>'required',
             'id_departement'=>'required',
             'id_user'=>'required',
            

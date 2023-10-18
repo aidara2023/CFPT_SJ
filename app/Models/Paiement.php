@@ -9,7 +9,6 @@ class Paiement extends Model
 {
     use HasFactory;
     protected $fillable =[
-    'id_paiement',
     'id_eleve',
     'id_caissier',
     'id_annee_academique',
@@ -26,6 +25,10 @@ class Paiement extends Model
   
     public function eleve() {
       return $this->belongsTo(Eleve::class,'id_eleve');
+    }
+
+    public function mois() {
+      return $this->hasMany(mois::class);
     }
   
 

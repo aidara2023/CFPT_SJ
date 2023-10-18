@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class emprunter_livre_controller extends Controller
 {
-    //
+    
     public function index()
     {
         $emprunts = Emprunter_livre::all();

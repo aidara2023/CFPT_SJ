@@ -26,13 +26,13 @@ class user_request extends FormRequest
             'prenom'=>'required',
             'genre'=>'required',
             'adresse'=>'required',
-            'email'=>'required',
+            'email'=>'',
             'telephone'=>'required',
-            'password'=>'required',
+            'password'=>'',
             'date_naissance'=>'required',
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
-            'photo'=>'required',
+            'photo'=>'',
             'id_role'=>'required'
         ];
     }

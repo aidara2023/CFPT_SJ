@@ -22,7 +22,7 @@ class inscription_request extends FormRequest
     public function rules(): array
     {
         return [
-            'Montant' => 'required',
+            'montant' => 'required',
             'date_inscription' => 'required',
             'id_eleve' => 'required',
             'id_classe' => 'required',

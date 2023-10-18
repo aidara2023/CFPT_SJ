@@ -19,7 +19,7 @@ class organisme_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,  
-                'message'=>'aucun nom d organisme  n\'a été enregistrée',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -44,7 +44,7 @@ class organisme_controller extends Controller
     public function update(organisme_request $request, $id){
         $organisme=Organisme::find($id);
         if($organisme!=null){
-           $organisme->intitule=$request['intitule'];
+           $organisme->nom_organisme=$request['nom_organisme'];
            $organisme->save();
             return response()->json([
                 'statut'=>200,

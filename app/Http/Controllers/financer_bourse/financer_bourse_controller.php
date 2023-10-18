@@ -19,7 +19,7 @@ class financer_bourse_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée n\'a été trouvée',
             ],500 );
         }
      }
@@ -58,18 +58,18 @@ class financer_bourse_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $financer_bourse=Financer_bourse::find($id);
         if($financer_bourse!=null){
             $financer_bourse->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'financer_bourse supprimé avec succés',
+                'message'=>'Bourse supprimé avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'financer_bourse non supprimé',
+                'message'=>'Bourse non supprimé',
             ],500 );
         }
        
@@ -85,7 +85,7 @@ class financer_bourse_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Ce financer_bourse n\'existe pas ',
+                'message'=>'Bourse n\'existe pas ',
             ],500 );
         }
     }

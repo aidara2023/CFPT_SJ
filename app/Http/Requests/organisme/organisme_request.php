@@ -22,7 +22,7 @@ class organisme_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule_organisme'=>'required'
+            'nom_organisme'=>''
         ];
     }
 }

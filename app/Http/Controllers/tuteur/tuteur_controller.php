@@ -4,9 +4,11 @@ namespace App\Http\Controllers\tuteur;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\tuteur\tuteur_request;
+use App\Models\Role;
 use App\Models\Tuteur;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class tuteur_controller extends Controller
 {
@@ -20,16 +22,46 @@ class tuteur_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun enregistrement n\'a été éffectué'
+                'message' => 'Aucune donnée trouvée'
             ],500);
         }
     }
 
-    public function store(tuteur_request $request) {
-        $data = $request -> validated();
+    public function store(tuteur_request $request){
+        $validatedData = $request->validated();
 
-        $user = User::create($data);
-        $tuteur = Tuteur::create(['id_user' => $user -> id]);
+        $usertuteur=new User();
+
+        /*  Creation de matricule de tuteur*/
+         $matricule= User::generateur_matricule();
+         $usertuteur->matricule=$matricule;
+       /*   Fin attribution */
+ 
+         $usertuteur->nom=$request['nom_tuteur'];
+         $usertuteur->prenom=$request['prenom_tuteur'];
+         $usertuteur->genre=$request['genre_tuteur'];
+         $usertuteur->adresse=$request['adresse_tuteur'];
+         $usertuteur->email=$request['email_tuteur'];
+         $usertuteur->telephone=$request['telephone_tuteur'];
+         $usertuteur->password=Hash::make("CFPT2018");
+         $usertuteur->date_naissance=$request['date_naissance_tuteur'];
+         $usertuteur->lieu_naissance=$request['lieu_naissance_tuteur'];
+         $usertuteur->nationalite=$request['nationalite_tuteur'];
+ 
+         /* Uploader une image */
+         $image= $request->file('photo');
+         $imageName=time() . '_' . $image->getClientOriginalName();
+         $image->move(public_path('image'), $imageName);
+         $usertuteur->photo=$image;
+         /* Fin upload */
+
+         $role= Role::where('intitule', "tuteur")->first();
+ 
+         $usertuteur->id_role=$role->id;
+         $usertuteur->save();
+        $tuteur=tuteur::create([
+            'id_user'=>$usertuteur->id
+        ]);
 
         if($tuteur != null){
             return response()->json([
@@ -39,7 +71,7 @@ class tuteur_controller extends Controller
         } else {
             return response()->json([
                 'statut' => 500,
-                'message' => 'L\'enregistrement n\'a pas été éffectué'
+                'message' => 'L\'enregistrement n\'a pas été ajouté'
             ],500);
         }
     }
@@ -103,7 +135,7 @@ class tuteur_controller extends Controller
         } else{
             return response() -> json([
                 'statut' => 500,
-                'tuteur' => 'Cet enregistrement n\'existe pas'
+                'tuteur' => 'Ce tuteur n\'existe pas'
             ],500);
         }
     }

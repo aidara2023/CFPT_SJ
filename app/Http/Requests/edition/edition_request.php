@@ -22,6 +22,7 @@ class edition_request extends FormRequest
     public function rules(): array
     {
         return [
+            'id',
             'nom_edition'=>'required',
             'id_editeur'=>'required'
         ];

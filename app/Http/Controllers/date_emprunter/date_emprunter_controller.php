@@ -19,7 +19,7 @@ class date_emprunter_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
@@ -41,6 +41,7 @@ class date_emprunter_controller extends Controller
     public function update(date_emprunter_request $request, $id){
         $date_emprunter=Date_emprunter::find($id);
         if($date_emprunter!=null){
+            $request->validated();
            $date_emprunter->intitule=$request['intitule'];
            
            $date_emprunter->save();
@@ -61,12 +62,12 @@ class date_emprunter_controller extends Controller
             $date_emprunter->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'date_emprunter supprimée avec succés',
+                'message'=>'Date emprunt supprimée avec succés',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La date_emprunter n\'est pas supprimée',
+                'message'=>'La Date emprunt n\'a pas été supprimée',
             ],500 );
         }
        

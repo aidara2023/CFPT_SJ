@@ -19,7 +19,7 @@ class batiment_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été trouvé',
+                'message'=>'Aucun enregistrement n\'a été trouvé',
             ],500 );
         }
      }
@@ -56,7 +56,7 @@ class batiment_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $batiment=Batiment::find($id);
         if($batiment!=null){
             $batiment->delete();

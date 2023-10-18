@@ -22,7 +22,6 @@ class service_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule'=>'required',
             'nom_service'=>'required',
             'id_user'=>'required'
         ];

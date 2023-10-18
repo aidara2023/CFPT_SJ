@@ -20,7 +20,7 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
@@ -53,7 +53,7 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La mise à jour n\'a pas été éffectué',
+                'message'=>'La mise à jour n\'a pas été éffectuée',
             ],500 );
         }
     }
@@ -68,7 +68,7 @@ class exemplaire_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'L\'exemplaire n\'est pas supprimer',
+                'message'=>'L\'exemplaire n\'est pas supprimé',
             ],500 );
         }
        

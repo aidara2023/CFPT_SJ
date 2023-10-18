@@ -7,5 +7,5 @@ use Illuminate\Http\Request;
 
 class partenaire_view_controller extends Controller
 {
-    //
+ //
 }

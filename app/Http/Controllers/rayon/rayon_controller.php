@@ -20,7 +20,7 @@ class rayon_controller extends Controller
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'aucun enregistrement n\'a été éffectué',
+                'message'=>'Aucune donnée trouvée',
             ],500 );
         }
      }
