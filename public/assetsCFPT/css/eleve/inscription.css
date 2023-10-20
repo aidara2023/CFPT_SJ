@@ -5,6 +5,7 @@ body{
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     display: flex;
+    overflow: hidden;
 }
 
 :root{
@@ -86,7 +87,7 @@ p{
 .cote_droit{
     position: relative;
     width: 60%;
-    background: var(--clr2);
+    background-color: var(--clr2);
     height: 100vh;
 
     display: flex;
@@ -99,10 +100,12 @@ p{
     background-position: 50% 190%;
     background-blend-mode: soft-light;
 
+    overflow: hidden;
+
 }
 
 
-form{
+.form{
     position: relative;
    /*  left: 50%;
     transform: translate(-50%); */

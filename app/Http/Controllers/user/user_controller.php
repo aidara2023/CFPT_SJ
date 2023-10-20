@@ -27,18 +27,21 @@ class user_controller extends Controller
     }
 
     public function getPersonnelAdministratif() {
-        $role= Role::where('intitule', "Personnel Administratif")->get();
-        $user=User::where('id_role', $role->id)->get();
-        if($user!=null){
-            return response()->json([
-                'statut'=>200,
-                'user'=>$user
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'Aucune donnée trouvée',
-            ],500 );
+        $roles= Role::where('intitule', "Personnel Administratif")->get();
+        foreach($roles as $role){
+            $user=User::where('id_role', $role->id)->get();
+            if($user!=null){
+                return response()->json([
+                    'statut'=>200,
+                    'user'=>$user
+                ],200)  ;
+            }else{
+                return response()->json([
+                    'statut'=>500,
+                    'message'=>'Aucune donnée trouvée',
+                ],500 );
+            }
+
         }
     }
 
