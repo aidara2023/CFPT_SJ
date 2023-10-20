@@ -30,14 +30,14 @@
             <div class="eleves">
                 <select name="eleve" id="eleve" v-model="form.id_eleve">
                         <option value=""> Eleve</option>
-                        <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }}</option>
+                        <option v-for="eleve in eleves" :key="eleve.id">{{ eleve.user.nom }}</option>
                 </select>
             </div>
 
             <div class="annee_academiques">
                 <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
                         <option value=""> Annee_academique</option>
-                        <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
+                        <option v-for="annee_academique in annee_academiques" :key="annee_academique.id">{{ annee_academique.intitule }}</option>
                 </select>
             </div>                                                    
 
