@@ -4,7 +4,13 @@
 <div class="elements flou ">
     <div class="entete">
         <h1 class="titre">Administrateur</h1>
-         <h1 class="sous_titre">Utilisateurs</h1>
+         <div class="bloc">
+            <h1 class="sous_titre">Utilisateurs</h1>
+         <div class="recherche">
+            <i class="fi fi-rr-search"></i>
+            <input  type="text" name="" placeholder="Rechercher">
+        </div>
+         </div>
      </div>
      <div class="affichage">
         <div class="avant">
@@ -16,7 +22,7 @@
         <div class="sections">
             <!-- Répéter la div utilisateur pour un autre utilisateur -->
             <div class="utilisateur">
-                <img src="image1.png" alt="Etu" class="petite">
+                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                 <p class="texte" id="n">Mariama BA</p>
                 <div  class="presences">
                     <a href="#" class="texte b">
@@ -45,7 +51,7 @@
             <div class="sections">
                 <!-- Répéter la div utilisateur pour un autre utilisateur -->
                 <div class="utilisateur">
-                    <img src="professeur.png" alt="Etu" class="petite">
+                    <img src="/assetsCFPT/image/professeur.png" alt="Etu" class="petite">
                     <p class="texte" id="n">Amadou GUEYE</p>
                     <div  class="presences">
                         <a href="#" class="texte b">

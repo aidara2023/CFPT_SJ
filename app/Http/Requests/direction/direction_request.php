@@ -22,9 +22,9 @@ class direction_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule' => 'required',
-            'nom_departement' => 'required',
-            'id_departement' => 'required'
+            'nom_direction' => 'required',
+            'id_user' => 'required',
+            'id_service' => 'required'
         ];
     }
 }

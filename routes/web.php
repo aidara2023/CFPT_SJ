@@ -60,6 +60,8 @@ use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\livre\livre_view_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\matiere\matiere_view_controller;
+use App\Http\Controllers\mois\mois_controller;
+use App\Http\Controllers\mois\mois_view_controller;
 use App\Http\Controllers\note\note_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use App\Http\Controllers\organisme\organisme_view_controller;
@@ -187,6 +189,8 @@ Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::c
 Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 'get'])->name('unite_de_formation_get');
 
 Route::get('/unite_de_formation/create',[unite_de_formation_view_controller::class, 'create'])->name('unite_deformation_create');
+Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class, 'index'])->name('unite_de_formation_index');
+
 
 //route eleve 
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
@@ -289,6 +293,8 @@ Route::put('departement/update/{id}',[departement_controller::class, 'update'])-
 Route::delete('departement/delete/{id}',[departement_controller::class, 'destroy'])->name('departement_delete');
 
 Route::get('/departement/create',[departement_view_controller::class, 'create'])->name('departement_create');
+Route::get('departement/index',[departement_view_controller::class, 'index'])->name('departement_index');
+
 
 //route tuteur
 Route::get('tuteur/index',[tuteur_controller::class, 'index'])->name('tuteur_index');
@@ -308,6 +314,15 @@ Route::put('paiement/update/{id}',[paiement_controller::class, 'update'])->name(
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
 Route::get('/paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
+
+//route mois
+Route::get('mois/index',[mois_controller::class, 'index'])->name('mois_index');
+Route::post('mois/store',[mois_controller::class, 'store'])->name('mois_store');
+Route::get('mois/show/{id}',[mois_controller::class, 'show'])->name('mois_show');
+Route::put('mois/update/{id}',[mois_controller::class, 'update'])->name('mois_update');
+Route::delete('mois/delete/{id}',[mois_controller::class, 'destroy'])->name('mois_delete');
+
+Route::get('/mois/create',[mois_view_controller::class, 'create'])->name('mois_create');
 
 //route livre
 Route::get('livre/index',[livre_controller::class, 'index'])->name('livre_index');
@@ -420,7 +435,7 @@ Route::delete('financer_bourse/delete/{id}',[financer_bourse_controller::class, 
 Route::get('/financer_bourse/create',[financer_bourse_view_controller::class, 'create'])->name('financer_bourse_create');
 
 //administrateur
-Route::get('admin/index',[administrateur_view_controller::class, 'index'])->name('admin_index');
+Route::get('admin/index',[administrateur_view_controller::class, 'index'])->middleware('auth')->name('admin_index');
 
 //type materiel
 
@@ -535,7 +550,6 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
-
 //Route pour classe
 
 Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
@@ -544,6 +558,8 @@ Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_
 Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{$id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
+Route::get('classe/index' ,[classe_view_controller::class, 'index'])->name('classe_index');
+
 
 //Route pour batiment
 
@@ -576,7 +592,6 @@ Route::get('retard/show/{$id}',[retard_controller::class,'show'])->name('retard_
 Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('retard_update');
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
-
 
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 

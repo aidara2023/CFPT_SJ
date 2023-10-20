@@ -11,8 +11,9 @@ class Paiement extends Model
     protected $fillable =[
     'id_eleve',
     'id_caissier',
-    'id_annee_academique',
-    'mois'
+    'montant',
+    /* 'id_annee_academique',
+    'mois' */
   ];
 
       
@@ -25,6 +26,10 @@ class Paiement extends Model
   
     public function eleve() {
       return $this->belongsTo(Eleve::class,'id_eleve');
+    }
+
+    public function mois() {
+      return $this->hasMany(mois::class);
     }
   
 

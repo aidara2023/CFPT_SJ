@@ -10,4 +10,7 @@ class departement_view_controller extends Controller
     public function create(){
         return view('departement.create');
     }
+    public function index(){
+        return view('departement.index');
+    }
 }

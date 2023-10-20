@@ -20,7 +20,7 @@ var fermemod = document.querySelectorAll('[data-close-modal]');
         contenu = mdl[index].textContent;
         contenu = contenu.trim(); 
 
-        console.log(contenu == "Modifier")
+        //console.log(contenu == "Modifier")
         
         flou.forEach(item => {
             item.classList.add("actif");
@@ -28,7 +28,7 @@ var fermemod = document.querySelectorAll('[data-close-modal]');
         fond.classList.add("actif");
         
         if(contenu == "Ajouter"){
-            console.log(contenu);
+            //console.log(contenu);
 
             setTimeout(function(){
             ajout.showModal();
@@ -37,7 +37,7 @@ var fermemod = document.querySelectorAll('[data-close-modal]');
         }
 
         if(contenu == "Modifier"){
-            console.log(contenu);
+            //console.log(contenu);
             //modification.style.backgroundColor = 'var(--clr)';
 
             setTimeout(function(){
@@ -47,12 +47,24 @@ var fermemod = document.querySelectorAll('[data-close-modal]');
         }
 
         if(contenu == "Supprimer"){
-            console.log(contenu);
+            //console.log(contenu);
 
             suppression.style.backgroundColor = 'var(--rouge)';
             setTimeout(function(){
             suppression.showModal();
             suppression.classList.add("actif");
+            }, 20); 
+        }
+
+                            
+        if(item.classList.contains("prescription")){
+            ////console.log(contenu);
+
+            setTimeout(function(){
+            prescription_med.style.backgroundColor = '#f3f3f3';
+            prescription_med.style.Color = 'black';
+            prescription_med.showModal();
+            prescription_med.classList.add("actif");
             }, 20); 
         }
 

@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Models;
 
@@ -21,4 +21,8 @@ class Annee_academique extends Model
     public function note() {
         return $this->hasMany(Note::class); 
     }
+    public function mois() {
+        return $this->hasMany(Mois::class); 
+    }
 }
+

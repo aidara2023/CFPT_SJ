@@ -6,30 +6,29 @@
 
             </div>
 
-            <div class="personnel">
-            <!-- <input type="text" name="mois" id="mois" placeholder="Mois" v-model="form.mois"> -->
-    
+          <!--   <div class="personnel">
                 <select id="mois" name="mois" placeholder="Mois" v-model="form.mois">
                     <option value="">Mois</option>
-                    <option :value="janvier">Janvier</option>
-                    <option :value="février">Février</option>
-                    <option :value="mars">Mars</option>
-                    <option :value="avril">Avril</option>
-                    <option :value="mai">Mai</option>
-                    <option :value="juin">Juin</option>
-                    <option ::value="juillet">Juillet</option>
-                    <option :value="août">Août</option>
-                    <option :value="septembre">Septembre</option>
-                    <option :value="octobre">Octobre</option>
-                    <option :value="novembre">Novembre</option>
-                    <option :value="décembre">Décembre</option>
+                    <option value="janvier">Janvier</option>
+                    <option value="février">Février</option>
+                    <option value="mars">Mars</option>
+                    <option value="avril">Avril</option>
+                    <option value="mai">Mai</option>
+                    <option value="juin">Juin</option>
+                    <option value="juillet">Juillet</option>
+                    <option value="août">Août</option>
+                    <option value="septembre">Septembre</option>
+                    <option value="octobre">Octobre</option>
+                    <option value="novembre">Novembre</option>
+                    <option value="décembre">Décembre</option>
                 </select>
 
-        </div>
+            </div> -->
 
             <div class="eleves">
                 <select name="eleve" id="eleve" v-model="form.id_eleve">
                         <option value=""> Eleve</option>
+
                         <option v-for="eleve in eleves" :key="eleve.id">{{ eleve.user.nom }}</option>
                 </select>
             </div>
@@ -39,7 +38,19 @@
                         <option value=""> Annee_academique</option>
                         <option v-for="annee_academique in annee_academiques" :key="annee_academique.id">{{ annee_academique.intitule }}</option>
                 </select>
+            </div>   
+
+            <div class="personnel">
+                <select name="annee_academique" id="annee_academique" v-model="form.id_mois">
+                        <option value=""> Mois</option>
+                        <option v-for="m in mois" :value="m.id">{{ m.intitule }}</option>
+                </select>
+            </div> 
+
+            <div class="personnel">
+                <input type="number" v-model="form.montant">
             </div>                                                    
+                                                            
 
     
             <div class="boutons">
@@ -55,16 +66,19 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"createLivreCompenent",
+    name:"createPaiementCompenent",
     data(){
         return {
             filieres:[],
             form:new Form({
-                'mois':"",
+                'id_mois':"",
                 'id_eleve':"",
+                'montant':"",
+                'statut':"",
                 'id_annee_academique':""
             }),
             eleves:[],
+            mois:[],
             annee_academiques:[],
 
         }
@@ -72,6 +86,7 @@ import Form from 'vform';
 
     mounted(){
         this.get_annee_academique();
+        this.get_mois();
         this.get_eleve();
         this.rafraichissementAutomatique();
 
@@ -80,7 +95,9 @@ import Form from 'vform';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('mois', this.form.mois);
+            formdata.append('id_mois', this.form.id_mois);
+            formdata.append('montant', this.form.montant);
+            formdata.append('statut', this.form.statut);
             formdata.append('id_annee_academique', this.form.id_annee_academique);
             formdata.append('id_eleve', this.form.id_eleve);
             
@@ -117,6 +134,18 @@ import Form from 'vform';
                
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des année_academiques','error')
+           });
+       },
+
+        get_mois(){
+            
+            axios.get('/mois/index')
+            .then(response => {
+                this.mois=response.data.mois
+                
+               
+           }).catch(error=>{
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des mois','error')
            });
        },
 
