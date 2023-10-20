@@ -52,6 +52,7 @@ import Form from 'vform';
   },
   mounted(){
         this.get_service();
+        this.get_user();
        
     },
   
