@@ -9,9 +9,10 @@ class concerner extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'id_concerner',
+        'id',
         'id_paiement',
-        'id_mois'
+        'id_mois',
+        'statut'
     ];
 
     public function paiements(){

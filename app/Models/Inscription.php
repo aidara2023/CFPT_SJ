@@ -26,7 +26,7 @@ class Inscription extends Model
         return $this->belongsTo(Eleve::class,'id_eleve');
       }
 
-      public function class() {
+      public function classe() {
         return $this->belongsTo(Classe::class,'id_classe');
       }
 
