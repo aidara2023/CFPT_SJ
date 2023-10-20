@@ -11,7 +11,7 @@ class Classe extends Model
     protected $fillable =[
         'id_classe',
         'nom_classe',
-        'type classe',
+        'type_classe',
         'niveau',
         'id_type_formation',
         'id_unite_de_formation'

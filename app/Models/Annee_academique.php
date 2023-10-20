@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Models;
 
@@ -25,3 +25,4 @@ class Annee_academique extends Model
         return $this->hasMany(Mois::class); 
     }
 }
+

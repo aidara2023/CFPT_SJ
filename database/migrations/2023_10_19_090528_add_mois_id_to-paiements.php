@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mois', function (Blueprint $table) {
-            $table->id();
-            $table->string('intitule');
-            /* $table->unsignedBigInteger('id_annee_academique');
-            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade'); */
+        Schema::table('paiements', function (Blueprint $table) {
+            $table->float('montant');
+   /*          $table->unsignedBigInteger('id_mois');
+            $table->foreign('id_mois')->references('id')->on('mois')->onUpdate('cascade')->onDelete('cascade'); */
         
 
         });
     }
+
     /**
      * Reverse the migrations.
      */

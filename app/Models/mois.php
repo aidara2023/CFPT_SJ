@@ -12,8 +12,8 @@ class mois extends Model
     protected $fillable =[
         'id',
         'intitule',
-        'statut',
-        'id_annee_academique'
+       /*  'statut', */
+       /*  'id_annee_academique' */
         ];
 
         public function annee_academique(){

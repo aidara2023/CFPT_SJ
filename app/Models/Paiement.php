@@ -11,8 +11,9 @@ class Paiement extends Model
     protected $fillable =[
     'id_eleve',
     'id_caissier',
-    'id_annee_academique',
-    'mois'
+    'montant',
+    /* 'id_annee_academique',
+    'mois' */
   ];
 
       

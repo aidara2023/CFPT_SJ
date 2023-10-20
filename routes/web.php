@@ -60,6 +60,8 @@ use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\livre\livre_view_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\matiere\matiere_view_controller;
+use App\Http\Controllers\mois\mois_controller;
+use App\Http\Controllers\mois\mois_view_controller;
 use App\Http\Controllers\note\note_controller;
 use App\Http\Controllers\organisme\organisme_controller;
 use App\Http\Controllers\organisme\organisme_view_controller;
@@ -312,6 +314,15 @@ Route::put('paiement/update/{id}',[paiement_controller::class, 'update'])->name(
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
 Route::get('/paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
+
+//route mois
+Route::get('mois/index',[mois_controller::class, 'index'])->name('mois_index');
+Route::post('mois/store',[mois_controller::class, 'store'])->name('mois_store');
+Route::get('mois/show/{id}',[mois_controller::class, 'show'])->name('mois_show');
+Route::put('mois/update/{id}',[mois_controller::class, 'update'])->name('mois_update');
+Route::delete('mois/delete/{id}',[mois_controller::class, 'destroy'])->name('mois_delete');
+
+Route::get('/mois/create',[mois_view_controller::class, 'create'])->name('mois_create');
 
 //route livre
 Route::get('livre/index',[livre_controller::class, 'index'])->name('livre_index');
