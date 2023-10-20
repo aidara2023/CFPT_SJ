@@ -1,0 +1,117 @@
+<template>
+    <div class="cote_droit">
+      <form action="" method="">
+          <h1 class="sous_titre">Ajout direction</h1>
+          <!--Informations personnelles-->
+    <div class="personnel">
+              <div>
+                  <input type="text" v-model="form.nom_direction" id="nom" placeholder="Nom de la direction">
+              </div>
+           <div class="roles">
+              <select name="user" id="user" placeholder="Niveau" v-model="form.id_user">
+              <option value="">Chef de direction</option>
+              <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
+              </select>
+             </div>
+
+           <div class="roles">
+                 <select name="service" id="service" v-model="form.id_service">
+                        <option value=""> Service </option>
+                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
+                </select>
+
+            </div>
+      </div>
+      
+  
+          <div class="boutons">
+             <!--  <button type="button">Retourner</button> -->
+              <input type="submit" value="Enregister" @click.prevent="soumettre"> 
+          </div>
+      </form>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import Form from 'vform';
+
+ export default {
+  name:"createDirectionCompenent",
+  data(){
+      return {
+          users:[],
+          form:new Form({
+              'nom_direction':"",
+              'id_service':"",
+              'id_user':"",
+             
+          }),
+          services:[],
+      }
+  },
+  mounted(){
+        this.get_service();
+       
+    },
+  
+  methods:{
+      async soumettre(){
+          const formdata = new FormData();
+          formdata.append('nom_direction', this.form.nom_direction  );
+          formdata.append('id_service', this.form.id_service  );
+          formdata.append('id_user', this.form.id_user  );
+      
+          if(this.form.nom_direction!=="" && this.form.id_user!==""){
+              try{
+                  const create_store=await axios.post('/direction/store', formdata, {});
+                  Swal.fire('Succes!','Direction ajouté avec succés','succes')
+                  this.resetForm();
+              }
+              catch(e){
+                  console.log(e)
+                  Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+              }
+
+          }else{
+              Swal.fire('Erreur!','Veuillez remplir tous les champs ','error')
+          }
+
+
+      },
+
+      resetForm(){
+          this.form.nom_direction="";
+          this.form.id_user="";
+          this.form.nom_service="";
+      },
+
+      get_user(){
+          axios.get('/user/getPersonnel')
+          .then(response => {
+              this.users=response.data.user
+              
+             
+         }).catch(error=>{
+             Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
+         });
+     },
+     get_service(){
+            
+            axios.get('/service/index')
+            .then(response => {
+                this.services=response.data.service
+                
+               
+           }).catch(error=>{
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des services','error')
+           });
+       },
+
+
+  }
+ }
+</script>
+
+<style>
+</style>

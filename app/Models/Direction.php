@@ -11,15 +11,16 @@ class Direction extends Model
     use HasFactory;
     protected $fillable =[
         'nom_direction',
-        'id_user'
+        'id_user',
+        'id_service'
   ];
 
   public function user(){
     return $this->hasOne(User::class);
   }
 
-  public function services(){
-    return $this->hasMany(Service::class);
+  public function service(){
+    return $this->hasOne(Service::class);
   }
   
   public function departements(){
