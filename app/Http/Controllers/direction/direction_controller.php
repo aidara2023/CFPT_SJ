@@ -42,9 +42,9 @@ class direction_controller extends Controller
     public function update(direction_request $request, $id){
         $direction=Direction::find($id);
         if($direction!=null){
-           $direction->intitule=$request['intitule'];
            $direction->nom_direction=$request['nom_direction'];
            $direction->id_user=$request['id_user'];
+           $direction->id_service=$request['id_service'];
           
            $direction->save();
             return response()->json([

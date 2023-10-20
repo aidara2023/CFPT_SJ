@@ -49,6 +49,8 @@ import createAnneeComponent from './components/annee_academique/createAnneeCompo
 import createSeminaireComponent from './components/seminaire/createSeminaireComponent.vue';
 import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
 import createServiceComponent from './components/service/createServiceComponent.vue';
+import createDirectionComponent from './components/direction/createDirectionComponent.vue';
+
 
 
 import Swal from 'sweetalert2';
@@ -106,6 +108,8 @@ app.component("livre-create", createLivreComponent);
 app.component("paiement-create", createPaiementComponent);
 app.component("annee-create", createAnneeComponent);
 app.component("service-create", createServiceComponent);
+app.component("direction-create", createDirectionComponent);
+
 
 
 app.mount('#app')
