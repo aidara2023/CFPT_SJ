@@ -548,7 +548,7 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
-Route::get('service/store' ,[service_controller::class, 'store'])->name('service_store');
+Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 
 //Route pour classe
 

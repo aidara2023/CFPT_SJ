@@ -39,6 +39,12 @@ import Form from 'vform';
             }),
         }
     },
+
+    mounted(){
+        this.get_user();
+       
+
+    },
     
     methods:{
         async soumettre(){

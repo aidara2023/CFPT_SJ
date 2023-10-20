@@ -14,7 +14,7 @@ class Seminaire extends Model
         'date_fin',
         'description',
         'id_direction',
-        'id_user'
+       
         
     ];
 
@@ -30,9 +30,6 @@ class Seminaire extends Model
         
     }
 
-    public function user (){
-        return $this->belongsTo(User::class,'id_user');
-        
-    }
+   
 
 }
