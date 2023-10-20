@@ -24,6 +24,7 @@
                         <option v-for="service in services" :key="service.id">{{ service.nom_service }}</option>
                 </select>
             </div>
+            
 
             
 

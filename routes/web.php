@@ -379,7 +379,7 @@ Route::put('bibliothecaire/update/{id}',[bibliothecaire_controller::class, 'upda
 Route::delete('bibliothecaire/delete/{id}',[bibliothecaire_controller::class, 'delete'])->name('bibliothecaire_delete');
 
 
-Route::get('/bibliothecaire',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
+Route::get('/bibliothecaire/create',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
 
 
 //route exemplaire
