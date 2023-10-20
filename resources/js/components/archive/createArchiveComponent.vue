@@ -14,16 +14,17 @@
             <div class="departements">
                 <select name="departement" id="departement" v-model="form.id_departement">
                         <option value=""> Departement</option>
-                        <option v-for="departement in departements" :value="departement.id">{{ departement.intitule }}</option>
+                        <option v-for="departement in departements" :key="departement.id">{{ departement.intitule }}</option>
                 </select>
             </div>
 
             <div class="services">
                 <select name="service" id="service" v-model="form.id_service">
                         <option value=""> Service</option>
-                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
+                        <option v-for="service in services" :key="service.id">{{ service.nom_service }}</option>
                 </select>
             </div>
+            
 
             
 

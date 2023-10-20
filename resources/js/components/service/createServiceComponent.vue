@@ -1,7 +1,7 @@
 <template>
       <div class="cote_droit">
-        <form action="" method="">
-            <h1 class="sous_titre">Informations Personnelles</h1>
+        <form  @submit.prevent="soumettre" method="dialog">
+            <h1 class="sous_titre">Ajout Services</h1>
             <!--Informations personnelles-->
             <div class="personnel">
                 <div>
@@ -10,7 +10,7 @@
             
             <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user">
                 <option value="">Personnel Administratif</option>
-                <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
+                <option v-for="(user, index) in users" :key="user.id"> {{user.nom}} {{ user.prenom }}</option>
             </select>
         </div>
         
@@ -41,6 +41,11 @@ import Form from 'vform';
     },
 
     mounted(){
+
+        this.get_nom_service();
+        this.get_id_user();
+        this.rafraichissementAutomatique();
+
         this.get_user();
        
 
@@ -60,10 +65,12 @@ import Form from 'vform';
                 }
                 catch(e){
                     console.log(e)
+                    this.resetForm();
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
+                this.resetForm();
                 Swal.fire('Erreur!','Veuillez remplir tous les champs ','error')
             }
 

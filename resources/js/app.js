@@ -50,6 +50,7 @@ import createSeminaireComponent from './components/seminaire/createSeminaireComp
 import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
 import createServiceComponent from './components/service/createServiceComponent.vue';
 import createDirectionComponent from './components/direction/createDirectionComponent.vue';
+import createArchiveComponent from './components/archive/createArchiveComponent.vue';
 
 
 
@@ -109,6 +110,7 @@ app.component("paiement-create", createPaiementComponent);
 app.component("annee-create", createAnneeComponent);
 app.component("service-create", createServiceComponent);
 app.component("direction-create", createDirectionComponent);
+app.component("archive-create",createArchiveComponent );
 
 
 
