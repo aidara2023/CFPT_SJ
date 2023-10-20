@@ -45,10 +45,9 @@ import Form from 'vform';
         this.get_nom_service();
         this.get_id_user();
         this.rafraichissementAutomatique();
-=======
+
         this.get_user();
        
->>>>>>> 28eb0b6507d3e6e99ceb298efbfe0025c44bfa2d
 
     },
     
