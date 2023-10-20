@@ -39,12 +39,12 @@
                 </select>
             </div>   
 
-            <div class="personnel">
+           <!--  <div class="personnel">
                 <select name="annee_academique" id="annee_academique" v-model="form.id_mois">
                         <option value=""> Mois</option>
                         <option v-for="m in mois" :value="m.id">{{ m.intitule }}</option>
                 </select>
-            </div> 
+            </div>  -->
 
             <div class="personnel">
                 <input type="number" v-model="form.montant">
@@ -94,7 +94,7 @@ import Form from 'vform';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('id_mois', this.form.id_mois);
+            /* formdata.append('id_mois', this.form.id_mois); */
             formdata.append('montant', this.form.montant);
             formdata.append('statut', this.form.statut);
             formdata.append('id_annee_academique', this.form.id_annee_academique);
@@ -156,7 +156,7 @@ import Form from 'vform';
                 
                
            }).catch(error=>{
-               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des editions','error')
+               Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des eleves','error')
            });
        },
 
