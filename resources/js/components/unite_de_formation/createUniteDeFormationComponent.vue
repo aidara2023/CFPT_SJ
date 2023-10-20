@@ -9,17 +9,17 @@
             <input type="text" name="nom" id="nom" placeholder="Nom Unite de formation" v-model="form.nom">
         </div>
 
-            <div class="formateurs">
+        <div class="roles">
                 <select name="formateur" id="formateur" v-model="form.id_formateur">
                         <option value=""> Formateur</option>
-                        <option v-for="formateur in formateurs" :value="formateur.id">{{ formateur.type }}</option>
+                        <option v-for="formateur in formateurs" :value="formateur.id">{{ formateur.user.nom }} {{ formateur.user.prenom }}</option>
                 </select>
             </div>
 
-            <div class="departements">
+            <div class="roles">
                 <select name="departement" id="departement" v-model="form.id_departement">
                         <option value=""> departement</option>
-                        <option v-for="departement in departements" :value="departement.id">{{ departement.intitule }}</option>
+                        <option v-for="departement in departements" :value="departement.id">{{ departement.nom_departement }}</option>
                 </select>
             </div>
 
@@ -48,7 +48,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"createUniteDeFormationCompenent",
+    name:"createUniteDeFormationComponent",
     data(){
         return {
             filieres:[],
@@ -74,7 +74,7 @@ import Form from 'vform';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom_caissier', this.form.nom  );
+            formdata.append('nom', this.form.nom  );
             formdata.append('id_formateur', this.form.id_formateur);
             formdata.append('id_departement', this.form.id_departement);
         
@@ -105,7 +105,7 @@ import Form from 'vform';
 
          get_formateur(){
             
-             axios.get('/formateurs/index')
+             axios.get('/formateur/index')
              .then(response => {
                  this.formateurs=response.data.formateur
                  
