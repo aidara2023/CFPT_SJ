@@ -539,6 +539,8 @@ Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
 Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
 Route::put('user/update/{id}',[user_controller::class, 'update'])->name('user_update');
 Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('user_delete');
+Route::get('user/getBibliothecaire',[user_controller::class, 'getBibliothecaire'])->name('user_personnel_bibliothecaire');
+
 
 //Route pour role
 
