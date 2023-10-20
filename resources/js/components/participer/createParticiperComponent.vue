@@ -7,10 +7,10 @@
             <input type="date" name="date" id="date_participation" placeholder="date_participation" v-model="form.date_participation">
         </div>
 
-        <div class="role">
-                <select name="id_seminaire" id="id_seminaire" v-model="form.id_id_seminaire">
-                        <option value=""> Type de formation </option>
-                        <option v-for="id_seminaire in id_seminaires" :value="id_seminaire.id">{{ seminaire.intitule }} </option>
+        <div class="roles">
+                <select name="seminaire" id="seminaire" v-model="form.id_seminaire">
+                        <option value=""> Seminaire </option>
+                        <option v-for="seminaire in seminaires" :value="seminaire.id">{{ seminaire.titre }}</option>
                 </select>
             </div>
 
@@ -35,7 +35,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"participerCompenent",
+    name:"createParticiperComponent",
     data(){
         return {
             form:new Form({
@@ -59,14 +59,14 @@ import Form from 'vform';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('date_participation', this.form.date );
+            formdata.append('date_participation', this.form.date_participation );
             formdata.append('id_seminaire', this.form.id_seminaire );
             formdata.append('id_formateur', this.form.id_formateur );
 
             
-            if(this.form.date_participation!==""  ){
+            if(this.form.date_participation!=="" && this.form.id_formateur!==""  && this.form.id_seminaire!==""  ){
                 try{
-                    const create_store=await axios.post('/participation/store', formdata, {
+                    const create_store=await axios.post('/participer/store', formdata, {
 
                     });
                     Swal.fire('Succes!','participation ajouté avec succés','succes')
@@ -85,7 +85,7 @@ import Form from 'vform';
         },
         
 
-         get_eleve(){
+         get_seminaire(){
             
              axios.get('/seminaire/index')
              .then(response => {
@@ -97,7 +97,7 @@ import Form from 'vform';
             });
         },
         
-        get_cour(){
+        get_formateur(){
             
             axios.get('/formateur/index')
             .then(response => {
