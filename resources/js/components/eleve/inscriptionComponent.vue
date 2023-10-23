@@ -1,7 +1,15 @@
 <template>
       <div class="cote_droit">
-        <form action="" method="">
+        <form @submit.prevent="soumettre()" method="dialog">
             <h1 class="sous_titre">Informations Personnelles</h1>
+            <div>
+                <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
+            </div>
+            <div class="photo">
+                <label for="dossiers">Glissez la photo ici <span></span>
+                    <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
+                </label>
+            </div>
             <!--Informations personnelles-->
             <div class="personnel">
             <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve">
@@ -23,25 +31,26 @@
                 </label>
             </div>
             <div class="num-addr">
-    
+
                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone_eleve">
+                <input type="email" name="mail_eleve" id="mail_eleve" placeholder="Mail" v-model="form.mail_eleve">
                 <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse_eleve">
             </div>
 
             <p><span class="str">*</span> Personnes à contacter en cas d'urgence</p>
             <div class="urgence">
-                <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence_1">
-                <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence_2">
+                <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence1">
+                <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence2">
             </div>
             <!-- Informations sur le tuteur -->
 
             <h1 class="sous_titre">Informations sur le tuteur</h1>
             <div class="tuteur">
-                
+
                 <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur" v-model="form.nom_tuteur">
                 <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur" v-model="form.prenom_tuteur">
                 <input type="text" name="adresse_tuteur" id="adresse_tuteur" placeholder="Adresse tuteur" v-model="form.adresse_tuteur">
-                <input type="mail" name="mail_tuteur" id="mail_tuteur" placeholder="Mail tuteur" v-model="form.mail_tuteur">
+                <input type="email" name="mail_tuteur" id="mail_tuteur" placeholder="Mail tuteur" v-model="form.mail_tuteur">
                 <input type="tel" name="telephone_tuteur" id="telephone_tuteur" placeholder="Telephone tuteur" v-model="form.telephone_tuteur">
 
             </div>
@@ -58,19 +67,28 @@
                 </div>
 
                 <div>
-                
+
 
                 <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_tuteur">
             <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_tuteur">
             <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_tuteur">
 
                 </div>
-          
+
 
             <h1 class="sous_titre">Informations Académiques</h1>
             <!--Informations académiques-->
             <div class="academiques">
-                    <select name="niveau" id="niveau" v-model="form.niveau">
+                <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique">
+                        <option value=""> Annee accademique </option>
+                        <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
+                </select>
+
+                <select name="classe" id="classe" v-model="form.id_classe">
+                        <option value=""> Classe </option>
+                        <option v-for="classe in classes" :value="classe.id">{{ classe.nom_classe }} - {{ classe.niveau }} - {{ classe.type_classe }}</option>
+                </select>
+                    <!-- <select name="niveau" id="niveau" v-model="form.niveau">
                         <optgroup label="Niveau">
                             <optgroup label="BTI">
                             <option value="">Niveau</option>
@@ -85,16 +103,16 @@
                             <option value=""></option>
                         </optgroup>
                         </optgroup>
-                    </select>
+                    </select> -->
 
-                <select name="classe" id="classe" >
+                <!-- <select name="classe" id="classe" >
                         <optgroup label="Classes">
                             <option value="prive"> Privée</option>
                         <option value="public"> Publique</option>
                         </optgroup>
 
-                </select>
-
+                </select> -->
+<!--
                 <select name="filiere" id="filiere" >
                     <optgroup label="Filières">
                         <optgroup label="Département Informatique">
@@ -108,8 +126,8 @@
                         <option value=""></option>
                     </optgroup>
                     </optgroup>
-                </select>
-
+                </select> -->
+<!--
                 <select name="annee_academique" id="annee_academique" placeholder="Niveau">
                     <optgroup label="Année académique">
                         <optgroup label="BTI">
@@ -121,31 +139,31 @@
                         <option value=""></option>
                     </optgroup>
                     </optgroup>
-                </select>
+                </select> -->
             </div>
-            
+
             <div class="fichiers">
                 <p><span class="str">*</span> Photocopie diplôme (Bac ou BFEM) </p>
                 <p><span class="str">*</span> Photocopie carte nationale d'identité</p>
                 <p><span class="str">*</span> Extrait de naissance</p>
                 <label for="dossiers">Glissez vos fichiers ici <span> ( en pdf )</span>
-                    <input type="file" name="dossiers" id="dossiers">
+                    <input type="file" name="dossiers" id="dossiers" @change="ajoutDossier" accept=".pdf">
                 </label>
             </div>
             <!--paiement-->
 
-            <p><span class="str">Valider <i>votre inscription</i></span> en choisissant votre moyen de paiement</p>
+            <!-- <p><span class="str">Valider <i>votre inscription</i></span> en choisissant votre moyen de paiement</p>
             <div class="paiement">
                 <button>Wave</button>
                 <button>Orange Money</button>
                 <button>Mastercard</button>
                 <button>Visa</button>
-            </div>
-    
-    
+            </div> -->
+
+
             <div class="boutons">
-                <button type="button">Retourner</button><!-- 
-                <input type="submit" value="Continuer"> -->
+                <button type="button">Retourner</button>
+                <input type="submit" value="Valider">
             </div>
         </form>
     </div>
@@ -154,19 +172,25 @@
 <script>
 import axios from 'axios';
 import Form from 'vform';
-import { shallowReadonly } from 'vue';
    export default {
     name:"inscriptionCompenent",
     data(){
         return {
             filieres:[],
+            type_formations:[],
+            annee_accademiques:[],
+            classes:[],
+            photo:"",
+            dossier:"",
             form:new Form({
-                'id_tuteur':0,
+                'id_tuteur':"",
                 'montant':"",
+                'mail_tuteur':"",
+                'mail_eleve':"",
                 'date_inscription':"",
-                'id_eleve':0,
-                'id_classe':0,
-                'id_annee_accademique':0,
+                'id_eleve':"",
+                'id_classe':"",
+                'id_annee_accademique':"",
                 'nom_eleve':"",
                 'prenom_eleve':"",
                 'date_naissance':"",
@@ -181,8 +205,8 @@ import { shallowReadonly } from 'vue';
                 'genre_tuteur':"",
                 'telephone_eleve':"",
                 'telephone_tuteur':"",
-                'contact_urgence_1':"",
-                'contact_urgence_2':"",
+                'contact_urgence1':"",
+                'contact_urgence2':"",
                 'telephone_tuteur':"",
                 'adresse_eleve':"",
                 'adresse_tuteur':"",
@@ -192,6 +216,15 @@ import { shallowReadonly } from 'vue';
 
         }
     },
+
+    mounted(){
+        // this.get_filiere();
+        this.get_classe();
+        this.get_annee();
+        // this.get_type_formation();
+
+    },
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
@@ -202,11 +235,14 @@ import { shallowReadonly } from 'vue';
             formdata.append('genre_tuteur', this.form.genre_tuteur);
             formdata.append('adresse_tuteur', this.form.adresse_tuteur);
             formdata.append('telephone_tuteur', this.form.telephone_tuteur);
+            formdata.append('mail_tuteur', this.form.mail_tuteur);
+            formdata.append('mail_eleve', this.form.mail_eleve);
             formdata.append('nationalite_tuteur', this.form.nationalite_tuteur);
-            
+            formdata.append('photo', this.photo);
+            formdata.append('dossier', this.dossier);
+
 
             formdata.append('nom_eleve', this.form.nom_eleve  );
-            formdata.append('id_classe', this.form.id_classe );
             formdata.append('prenom_eleve', this.form.prenom_eleve  );
             formdata.append('lieu_naissance_eleve', this.form.lieu_naissance_eleve );
             formdata.append('date_naissance_eleve', this.form.date_naissance_eleve  );
@@ -214,27 +250,40 @@ import { shallowReadonly } from 'vue';
             formdata.append('genre_eleve', this.form.genre_eleve  );
             formdata.append('adresse_eleve', this.form.adresse_eleve);
             formdata.append('telephone_eleve', this.form.telephone_eleve  );
-            formdata.append('nationalite', this.form.nationalite_eleve );
+            formdata.append('mail_tuteur', this.form.mail_tuteur  );
+            formdata.append('nationalite_eleve', this.form.nationalite_eleve );
 
 
-            formdata.append('montant', this.form.montant);
+            // formdata.append('montant', this.form.montant);
             formdata.append('date_inscription', this.form.date_inscription);
             formdata.append('id_classe', this.form.id_classe);
             formdata.append('id_annee_accademique', this.form.id_annee_accademique);
-            formdata.append('contact_urgence_1', this.form.contact_urgence_1);
-            formdata.append('contact_urgence_2', this.form.contact_urgence_2);
-            formdata.append('niveau', this.form.niveau);
-            formdata.append('filiere', this.form.filiere);
+            formdata.append('contact_urgence1', this.form.contact_urgence1);
+            formdata.append('contact_urgence2', this.form.contact_urgence2);
+            // formdata.append('niveau', this.form.niveau);
+            // formdata.append('filiere', this.form.filiere);
 
             if(this.form.nom_tuteur!=="" && this.form.prenom_tuteur!=="" && this.form.telephone_tuteur!=="" && this.form.date_naissance_tuteur!==""){
                 try{
-                    const inscription_store=await axios.post('/inscription/store', formdata, {
+                    await axios.post('/inscription/store', formdata, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
 
                     });
+                    Swal.fire('Succes!','Inscription validé avec succés','success')
+                    if(data==1){
+                        Swal.fire('Erreur!','La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo','error');
+
+                    }else if(data==2){
+                        Swal.fire('Erreur!','Seuls les fichiers PDF sont autorisés','error');
+                    }else{
+                        Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error');
+                    }
                 }
                 catch(e){
                     console.log(e)
-                    Swal.fire('Erreur!','une erreur est survenue lors de l\'enregistrement','error')
+                    Swal.fire('Erreur!','Une erreur est survenue lors du téléchargement du fichier','error')
                 }
 
             }else{
@@ -243,15 +292,76 @@ import { shallowReadonly } from 'vue';
 
 
         },
-        async get_filiere(){
-            
-            await axios.get('/unite_de_formation/index').then(response=>{
-                 this.filieres=response.data;
-                
+
+
+       // Méthode pour ajouter l'image
+ajoutImage(event) {
+    const file = event.target.files[0];
+    // Vérification du type de fichier pour s'assurer qu'il s'agit d'une image
+    if (file.type.includes('image')) {
+        this.photo = file;
+    }
+    // else {
+    //     // Gérer les types de fichiers non autorisés
+    //     alert("Veuillez sélectionner un fichier image.");
+    // }
+},
+
+// Méthode pour ajouter le dossier
+ajoutDossier(event) {
+    const file = event.target.files[0];
+    // Vérification du type de fichier pour s'assurer qu'il s'agit d'un fichier PDF
+    if (file.type === 'application/pdf') {
+        this.dossier = file;
+    }
+    // else {
+    //     // Gérer les types de fichiers non autorisés
+    //     alert("Veuillez sélectionner un fichier PDF.");
+    // }
+},
+
+
+        // async get_filiere(){
+
+        //     await axios.get('/unite_de_formation/all').then(response=>{
+        //          this.filieres=response.data.unite_de_formation;
+
+        //     }).catch(error=>{
+        //             Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des filieres','error')
+        //     });
+        // },
+
+        async get_annee(){
+
+            await axios.get('/annee_academique/index').then(response=>{
+                 this.annee_accademiques=response.data.annee_academique;
+
             }).catch(error=>{
-                    Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des filieres','error')
+                    Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des annee','error')
             });
-        }
+        },
+
+
+
+        async get_classe(){
+
+            await axios.get('/classe/all').then(response=>{
+                 this.classes=response.data.classe;
+
+            }).catch(error=>{
+                    Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des classes','error')
+            });
+        },
+
+        // async get_type_formation(){
+
+        //     await axios.get('/type_formation/index').then(response=>{
+        //          this.type_formations=response.data.type_formation;
+
+        //     }).catch(error=>{
+        //             Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des type de formation','error')
+        //     });
+        // }
 
     }
    }

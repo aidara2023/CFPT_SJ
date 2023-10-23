@@ -4,7 +4,9 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
+use App\Models\Formateur;
 use App\Models\Role;
+use App\Models\Tuteur;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -26,22 +28,47 @@ class user_controller extends Controller
         }
     }
 
-    public function getPersonnelAdministratif() {
-        $roles= Role::where('intitule', "Personnel Administratif")->get();
-        foreach($roles as $role){
-            $user=User::where('id_role', $role->id)->get();
-            if($user!=null){
-                return response()->json([
-                    'statut'=>200,
-                    'user'=>$user
-                ],200)  ;
-            }else{
-                return response()->json([
-                    'statut'=>500,
-                    'message'=>'Aucune donnée trouvée',
-                ],500 );
-            }
+    // public function getPersonnelAdministratif() {
+    //     $roles= Role::whereNotIn('intitule', ['Eleve'])->get();
+    //     foreach($roles as $role){
+    //         $user=User::where('id_role', $role->id)->get();
+    //         if($user!=null){
+    //             return response()->json([
+    //                 'statut'=>200,
+    //                 'user'=>$user
+    //             ],200)  ;
+    //         }else{
+    //             return response()->json([
+    //                 'statut'=>500,
+    //                 'message'=>'Aucune donnée trouvée',
+    //             ],500 );
+    //         }
 
+    //     }
+    // }
+
+    public function getPersonnelAdministratif() {
+        $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
+
+        if ($roles->isNotEmpty()) {
+            $users = User::whereIn('id_role', $roles->pluck('id'))->get();
+
+            if ($users->isNotEmpty()) {
+                return response()->json([
+                    'status' => 200,
+                    'user' => $users,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+                ], 500);
+            }
+        }else{
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun rôle "Eleve" trouvé.',
+            ],500);
         }
     }
 
@@ -96,6 +123,20 @@ class user_controller extends Controller
         $user->id_role=$request['id_role'];
         $user->save();
 
+        if($request['id_role']==6){
+            $formateur= new Formateur();
+            $formateur->situation_matrimoniale= $request['situation_matrimoniale'];
+            $formateur->type= $request['type'];
+            $formateur->id_specialite= $request['id_specialite'];
+            $formateur->id_departement= $request['id_departement'];
+            $formateur->id_user= $user->id;
+            $formateur->save();
+        }elseif($request['id_role']==2){
+            $tuteur=new Tuteur();
+            $tuteur->id_user= $user->id;
+            $tuteur->save();
+        }
+
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -128,7 +169,7 @@ class user_controller extends Controller
             $image->move(public_path('image'), $imageName);
             $user->photo=$imageName;
            }
-           
+
            $user->date_naissance=$request['date_naissance'];
            $user->lieu_naissance=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];

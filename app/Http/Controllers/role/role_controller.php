@@ -10,14 +10,14 @@ use Illuminate\Http\Request;
 class role_controller extends Controller
 {
     public function index() {
-        $role=Role::all();
+        $role=Role::where('intitule', '!=', 'Eleve')->get();
         if($role!=null){
             return response()->json([
                 'statut'=>200,
                 'role'=>$role
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Auncune donnée trouvée',
             ],500 );
@@ -33,7 +33,7 @@ class role_controller extends Controller
                 'role'=>$role
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
@@ -43,14 +43,14 @@ class role_controller extends Controller
         $role=role::find($id);
         if($role!=null){
            $role->intitule=$request['intitule'];
-          
+
            $role->save();
             return response()->json([
                 'statut'=>200,
                 'role'=>$role
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
@@ -65,14 +65,14 @@ class role_controller extends Controller
                 'message'=>'Role supprimer avec succes',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Le role n\'a pas été supprimé',
             ],500 );
         }
-       
+
     }
-    
+
     public function show($id){
         $role=Role::find($id);
         if($role!=null){
@@ -81,11 +81,11 @@ class role_controller extends Controller
                 'role'=>$role
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Ce role n\'existe pas',
             ],500 );
         }
-       
+
     }
 }

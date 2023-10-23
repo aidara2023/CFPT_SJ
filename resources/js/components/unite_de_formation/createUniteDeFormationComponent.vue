@@ -6,7 +6,7 @@
 
             </div>
             <div class="personnel">
-            <input type="text" name="nom" id="nom" placeholder="Nom Unite de formation" v-model="form.nom">
+            <input type="text" name="nom_unite_formation" id="nom_unite_formation" placeholder="Nom Unite de formation" v-model="form.nom_unite_formation">
         </div>
 
         <div class="roles">
@@ -18,23 +18,23 @@
 
             <div class="roles">
                 <select name="departement" id="departement" v-model="form.id_departement">
-                        <option value=""> departement</option>
+                        <option value=""> Departement</option>
                         <option v-for="departement in departements" :value="departement.id">{{ departement.nom_departement }}</option>
                 </select>
             </div>
 
-            
+
 
              <!-- <div class="identifiants">
                 <input type="text" name="matricule" id="matricule" placeholder="Matricule" v-model="form.contact_urgence_2">
                 <input type="password" name="mot_de_passe" id="mot_de_passe" placeholder="Mot de passe" v-model="form.contact_urgence_2">
-            </div> --> 
+            </div> -->
 
-            
-            
+
+
             <!--paiement-->
-    
-    
+
+
             <div class="boutons">
                 <input  type="submit" data-close-modal  value="Ajouter">
                 <button type="button" data-close-modal class="texte annuler" >Annuler</button>
@@ -53,7 +53,7 @@ import Form from 'vform';
         return {
             filieres:[],
             form:new Form({
-                'nom':"",
+                'nom_unite_formation':"",
                 'id_formateur':"",
                 'id_departement':""
             }),
@@ -70,66 +70,66 @@ import Form from 'vform';
         this.rafraichissementAutomatique();
 
     },
-    
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom', this.form.nom  );
+            formdata.append('nom_unite_formation', this.form.nom_unite_formation  );
             formdata.append('id_formateur', this.form.id_formateur);
             formdata.append('id_departement', this.form.id_departement);
-        
 
-            if(this.form.nom!=="" ){
+
+            if(this.form.nom_unite_formation!=="" ){
                 try{
                     const create_store=await axios.post('/unite_de_formation/store', formdata, {
 
                     });
                     this.resetForm();
-                    Swal.fire('Succes!','unite de formation ajoutée avec succées','succes')
-                    
+                    Swal.fire('Succes!','unite de formation ajoutée avec succées','success')
+
                 }
                 catch(e){
                     console.log(e)
-                    this.resetForm();
+                    // this.resetForm();
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
-                this.resetForm();
+                // this.resetForm();
                 Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
             }
 
 
         },
-        
+
 
          get_formateur(){
-            
+
              axios.get('/formateur/index')
              .then(response => {
                  this.formateurs=response.data.formateur
-                 
-                
+
+
             }).catch(error=>{
-                this.resetForm();
+                // this.resetForm();
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formateurs','error')
             });
         },
 
         get_departement(){
-            
-            axios.get('/departement/index')
+
+            axios.get('/departement/all')
             .then(response => {
                 this.departements=response.data.departement
-                
-               
+
+
            }).catch(error=>{
-            this.resetForm();
+            // this.resetForm();
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des departements','error')
            });
        },
 
-        
+
         resetForm(){
 
             var ajout = document.querySelector("[data-modal-ajout]");
@@ -143,18 +143,18 @@ import Form from 'vform';
                     });
                         ajout.close();
                         modification.close();
-                        suppression.close(); 
-                    
+                        suppression.close();
+
             })
        /*    ajout.remove("active");  */
-           
+
             });
-            this.form.nom="";
+            this.form.nom_unite_formation="";
             this.form.id_formateur="";
             this.form.id_departement="";
-           
+
         },
-        
+
         rafraichissementAutomatique() {
             document.addEventListener("DOMContentLoaded", this.resetForm());
     },

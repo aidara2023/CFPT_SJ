@@ -16,9 +16,9 @@
             <p>Veuillez remplir ce formulaire</p>
         </div>
     </div>
-    <div class="cote_droit">
+    {{-- <div class="cote_droit"> --}}
 
-        <utilisateur-create class="form"></utilisateur-create>
-    </div>
+        <utilisateur-create></utilisateur-create>
+    {{-- </div> --}}
 </body>
 </html>

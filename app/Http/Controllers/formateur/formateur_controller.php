@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\formateur;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\formateur\formateur_request;
@@ -18,7 +18,7 @@ class formateur_controller extends Controller
                 'formateur'=>$formateur
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Aucune donnée trouvée',
             ],500 );
@@ -41,7 +41,7 @@ class formateur_controller extends Controller
                 'formateur'=>$formateur
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
@@ -55,14 +55,14 @@ class formateur_controller extends Controller
            $formateur->id_specialite=$request['id_specialite'];
            $formateur->id_departement=$request['id_departement'];
            $formateur->id_user=$request['id_user'];
-          
+
            $formateur->save();
             return response()->json([
                 'statut'=>200,
                 'formateur'=>$formateur
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
@@ -77,14 +77,14 @@ class formateur_controller extends Controller
                 'message'=>'Formateur supprimer avec succes',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Le formateur n\'est pas supprimer',
             ],500 );
         }
-       
+
     }
-    
+
     public function show($id){
         $formateur=Formateur::find($id);
         if($formateur!=null){
@@ -93,11 +93,11 @@ class formateur_controller extends Controller
                 'formateur'=>$formateur
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Le formateur n\'existe pas',
             ],500 );
         }
-       
+
     }
 }

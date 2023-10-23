@@ -25,16 +25,16 @@ class Unite_de_formation extends Model
 
     public function materiels (){
         return $this->hasMany(Materiel::class,'id');
-        
+
     }
 
     public function formateur (){
         return $this->belongsTo(Formateur::class,'id_formateur');
-        
+
     }
 
     public function ressource_pedagogique (){
         return $this->hasMany(Ressource_pedagogique::class,'id');
-        
+
     }
 }

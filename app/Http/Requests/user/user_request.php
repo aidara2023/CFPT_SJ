@@ -33,7 +33,11 @@ class user_request extends FormRequest
             'lieu_naissance'=>'required',
             'nationalite'=>'required',
             'photo'=>'',
-            'id_role'=>'required'
+            'id_role'=>'required',
+            'situation_matrimoniale'=>'',
+            'id_specialite'=>'',
+            'id_departement'=>'',
+            'type'=>'',
         ];
     }
 }

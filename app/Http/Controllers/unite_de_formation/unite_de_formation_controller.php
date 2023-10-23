@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class unite_de_formation_controller extends Controller
 {
-    public function index() {
+    public function all() {
         $unite_de_formation=Unite_de_formation::all();
         if($unite_de_formation!=null){
             return response()->json([
@@ -17,7 +17,7 @@ class unite_de_formation_controller extends Controller
                 'unite_de_formation'=>$unite_de_formation
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Aucune donnée trouvée',
             ],500 );
@@ -33,7 +33,7 @@ class unite_de_formation_controller extends Controller
                 'unite_de_formation'=>$unite_de_formation
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
@@ -52,7 +52,7 @@ class unite_de_formation_controller extends Controller
                 'unite_de_formation'=>$unite_de_formation
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
@@ -68,12 +68,12 @@ class unite_de_formation_controller extends Controller
                 'message'=>'L\'unite de formation a été supprimée avec succes',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Echec suppression de l\'unite de formation',
             ],500 );
         }
-       
+
     }
 
 
@@ -85,11 +85,11 @@ class unite_de_formation_controller extends Controller
                 'unite_de_formation'=>$unite_de_formation
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'unite_de_formation n\'existe pas ',
             ],500 );
         }
-       
+
     }
 }

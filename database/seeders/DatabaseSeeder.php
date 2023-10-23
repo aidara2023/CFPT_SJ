@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatutMatSeeder::class);
         $this->call(MoisSeeder::class);
         $this->call(AnneeSeeder::class);
+        $this->call(TypeFormationSeeder::class);
+        $this->call(SpecialiteSeeder::class);
     }
 }

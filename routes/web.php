@@ -148,6 +148,8 @@ Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
 Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
+Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
+
 //Route de Organisme
 
 Route::get('organisme/index', [organisme_controller::class, 'index'])->name('organisme_index');
@@ -159,7 +161,7 @@ Route::get('organisme/get/{id}',[organisme_controller::class, 'get'])->name('org
 Route::get('/organisme/create',[organisme_view_controller::class, 'create'])->name('organisme_create');
 
 
-//Route de dossier medical 
+//Route de dossier medical
 
 Route::get('dossier_medical/index', [dossier_medical_controller::class, 'index'])->name('dossier_medical_index');
 Route::post('dossier_medical/store',[dossier_medical_controller::class, 'store'])->name('dossier_medical_store');
@@ -182,7 +184,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 
 //Route unite de formation
 
-Route::get('unite_de_formation/index', [unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index');
+Route::get('unite_de_formation/all', [unite_de_formation_controller::class, 'all'])->name('unite_de_formation_all');
 Route::post('unite_de_formation/store',[unite_de_formation_controller::class, 'store'])->name('unite_de_formation_store');
 Route::put('unite_de_formation/update/{id}', [unite_de_formation_controller::class, 'update'])->name('unite_de_formation_update');
 Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::class, 'delete'])->name('unite_de_formation_delete');
@@ -192,7 +194,7 @@ Route::get('/unite_de_formation/create',[unite_de_formation_view_controller::cla
 Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class, 'index'])->name('unite_de_formation_index');
 
 
-//route eleve 
+//route eleve
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
 Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store');
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
@@ -202,7 +204,7 @@ Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('e
 Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
 Route::get('/eleve/create',[eleve_view_controller::class, 'create'])->name('eleve_create');
 
-//route emprunter livre 
+//route emprunter livre
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');
 Route::post('emprunter_livre/store',[emprunter_livre_controller::class, 'store'])->name('emprunter_livre_store');
 Route::get('emprunter_livre/show/{id}',[emprunter_livre_controller::class, 'show'])->name('emprunter_livre_show');
@@ -231,7 +233,7 @@ Route::delete('type_evaluation/delete/{id}',[type_evaluation_controller::class, 
 Route::get('/type_evaluation/create',[type_evaluation_view_controller::class, 'create'])->name('evaluation_create');
 
 
-//route partenaire 
+//route partenaire
 Route::get('partenaire/index',[partenaire_controller::class, 'index'])->name('partenaire_index');
 Route::post('partenaire/store',[partenaire_controller::class, 'store'])->name('partenaire_store');
 Route::get('partenaire/show/{id}',[partenaire_controller::class, 'show'])->name('partenaire_show');
@@ -276,17 +278,11 @@ Route::delete('specialite/delete/{id}',[specialite_controller::class, 'destroy']
 
 Route::get('/specialite/create',[specialite_view_controller::class, 'create'])->name('specialite_create');
 
-//route annee_academique
-Route::get('annee_academique/index',[annee_academique_controller::class, 'index'])->name('annee_academique_index');
-Route::post('annee_academique/store',[annee_academique_controller::class, 'store'])->name('annee_academique_store');
-Route::get('annee_academique/show/{id}',[annee_academique_controller::class, 'show'])->name('annee_academique_show');
-Route::put('annee_academique/update/{id}',[annee_academique_controller::class, 'update'])->name('annee_academique_update');
-Route::delete('annee_academique/delete/{id}',[annee_academique_controller::class, 'destroy'])->name('annee_academique_delete');
 
-Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
+
 
 //route departement
-Route::get('departement/index',[departement_controller::class, 'index'])->name('departement_index');
+Route::get('departement/all',[departement_controller::class, 'all'])->name('departement_all');
 Route::post('departement/store',[departement_controller::class, 'store'])->name('departement_store');
 Route::get('departement/show/{id}',[departement_controller::class, 'show'])->name('departement_show');
 Route::put('departement/update/{id}',[departement_controller::class, 'update'])->name('departement_update');
@@ -554,7 +550,7 @@ Route::post('service/store' ,[service_controller::class, 'store'])->name('servic
 
 //Route pour classe
 
-Route::get('classe/index',[classe_controller::class, 'index'])->name('classe_index');
+Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
 Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_show');
 Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Formateur;
+namespace App\Http\Controllers\formateur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

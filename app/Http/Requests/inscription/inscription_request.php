@@ -22,12 +22,36 @@ class inscription_request extends FormRequest
     public function rules(): array
     {
         return [
-            'montant' => 'required',
-            'date_inscription' => 'required',
-            'id_eleve' => 'required',
+            'montant' => '',
+            'id_eleve' => '',
             'id_classe' => 'required',
-            'id_annee_academique' => 'required',
-           
+            'id_annee_accademique' => 'required',
+            'photo' => '',
+            'dossier' => '',
+
+            'nom_tuteur'=> 'required',
+            'prenom_tuteur'=> 'required',
+            'genre_tuteur'=> 'required',
+            'adresse_tuteur'=> 'required',
+            'telephone_tuteur'=> 'required',
+            'date_naissance_tuteur'=> 'required',
+            'lieu_naissance_tuteur'=> 'required',
+            'nationalite_tuteur'=> 'required',
+            'mail_tuteur'=> 'required',
+
+            'nom_eleve'=> 'required',
+            'prenom_eleve'=> 'required',
+            'genre_eleve'=> 'required',
+            'adresse_eleve'=> 'required',
+            'telephone_eleve'=> 'required',
+            'date_naissance_eleve'=> 'required',
+            'lieu_naissance_eleve'=> 'required',
+            'nationalite_eleve'=> 'required',
+            'mail_eleve'=> 'required',
+
+            'contact_urgence1'=> 'required',
+            'contact_urgence2'=> 'required',
+
         ];
     }
 }

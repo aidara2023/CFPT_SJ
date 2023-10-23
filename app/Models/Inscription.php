@@ -15,10 +15,10 @@ class Inscription extends Model
         'id eleve',
         'id_classe',
         'id_annee_academique',
-        'diplome',
-        'acte_naissance',
-        'cni'
-        
+        'photo',
+        'dossier',
+
+
 
     ];
 
@@ -33,5 +33,5 @@ class Inscription extends Model
       public function annee_academique() {
         return $this->belongsTo(Annee_academique::class,'id_annee_academique');
       }
-    
+
 }

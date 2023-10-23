@@ -1,5 +1,5 @@
 <template>
-    <div class="contenu">
+    <div class=" cote_droit">
         <form @submit.prevent="soumettre()" method="dialog">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
             <!--Informations personnelles-->
@@ -13,12 +13,12 @@
             </div>
 
             <div class="personnel">
-            <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom">
-            <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom">
-            <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance">
-            <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance">
-            <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite">
-        </div>
+                <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom">
+                <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom">
+                <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance">
+                <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance">
+                <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite">
+            </div>
 
             <div class="sexe">
                 <span class="b">Sexe</span>
@@ -32,7 +32,7 @@
                 </label>
             </div>
             <div class="num-addr">
-    
+
                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone">
                 <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse">
                 <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email">
@@ -40,19 +40,41 @@
 
 
             <div class="roles">
-                <select name="role" id="role" v-model="form.id_role">
+                <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)">
                         <option value=""> Role</option>
                         <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
                 </select>
             </div>
 
-            
-<!-- 
+            <div class="personnel" v-if="this.interesser=== 6">
+                <input type="text" name="type" id="type" placeholder="Type" v-model="form.type">
+
+                <select name="" id="" v-model="form.situation_matrimoniale">
+                    <option value="">Selectioner Statut</option>
+                    <option  value="Niveau 1">Célibataire</option>
+                    <option  value="Niveau 2">Marié</option>
+                    <option  value="Niveau 2">Divorsé</option>
+                </select>
+
+                <select name="id_specialite" id="id_specialite" v-model="form.id_specialite">
+                        <option value=""> Spécialite</option>
+                        <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
+                </select>
+
+                <select name="id_departement" id="id_departement" v-model="form.id_departement">
+                        <option value=""> Departement</option>
+                        <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
+                </select>
+
+            </div>
+
+
+            <!--
             <div class="identifiants">
                 <input type="text" placeholder="Contact urgence 1" v-model="form.contact_urgence_2">
                 <input type="password"  placeholder="Contact urgence 2" v-model="form.contact_urgence_2">
             </div>  -->
-    
+
             <div class="boutons">
                 <input  type="submit" data-close-modal  value="Ajouter">
                 <button type="button" data-close-modal class="texte annuler" >Annuler</button>
@@ -82,19 +104,29 @@ import Form from 'vform';
                 'lieu_naissance':"",
                 'nationalite':"",
                 'id_role':"",
+                'id_specialite':"",
+                'id_departement':"",
+                'type':"",
+                'situation_matrimoniale':"",
+
             }),
             photo:"",
+            interesser:"",
             roles:[],
+            departements:[],
+            specialites:[],
 
         }
     },
 
     mounted(){
         this.get_role();
+        this.get_specialite();
+        this.get_departement();
         this.rafraichissementAutomatique();
 
     },
-    
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
@@ -108,11 +140,15 @@ import Form from 'vform';
             formdata.append('telephone', this.form.telephone);
             formdata.append('nationalite', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
+            formdata.append('type', this.form.type);
+            formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
+            formdata.append('id_specialite', this.form.id_specialite);
+            formdata.append('id_departement', this.form.id_departement);
             formdata.append('photo', this.photo);
 
-            
 
-            
+
+
 
             if(this.form.nom!=="" && this.form.prenom!=="" && this.form.telephone!=="" && this.form.date_naissance!==""){
                 try{
@@ -120,44 +156,72 @@ import Form from 'vform';
 
                     });
                     this.resetForm();
-                    Swal.fire('Succes!','utilisateur ajouté avec succés','succes')
-                    
+                    Swal.fire('Succes!','utilisateur ajouté avec succés','success')
+
                 }
                 catch(e){
-                    this.resetForm();
+                    // this.resetForm();
                     console.log(e)
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
-                    
+
                 }
 
             }else{
-               
-                this.resetForm();
+
+                // this.resetForm();
                 Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error');
-              
-                
+
+
             }
 
 
         },
-        
 
-         get_role(){
-            
+        changement(event){
+            this.interesser= event;
+        },
+
+
+        get_role(){
+
              axios.get('/roles/index')
              .then(response => {
                  this.roles=response.data.role
-                 
-                
+
+
             }).catch(error=>{
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
+            });
+        },
+
+        get_specialite(){
+
+             axios.get('/specialite/index')
+             .then(response => {
+                 this.specialites=response.data.specialite
+
+
+            }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des specialite','error')
+            });
+        },
+
+        get_departement(){
+
+             axios.get('/departement/all')
+             .then(response => {
+                 this.departements=response.data.departement
+
+
+            }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des departements','error')
             });
         },
 
         ajoutimage(event){
             this.photo=event.target.files[0];
         },
-        
+
         resetForm(){
             var ajout = document.querySelector("[data-modal-ajout]");
             var fermemod = document.querySelectorAll('[data-close-modal]');
@@ -170,11 +234,11 @@ import Form from 'vform';
                     });
                         ajout.close();
                         modification.close();
-                        suppression.close(); 
-                    
+                        suppression.close();
+
             })
        /*    ajout.remove("active");  */
-           
+
             });
 
             this.form.nom="";
@@ -187,16 +251,20 @@ import Form from 'vform';
             this.form.lieu_naissance="";
             this.form.nationalite="";
             this.form.id_role="";
-           
+            this.form.type="";
+            this.form.situation_matrimoniale="";
+            this.form.id_specialite="";
+            this.form.id_departement="";
+
         },
 
         rafraichissementAutomatique() {
             document.addEventListener("DOMContentLoaded", this.resetForm());
     },
 
-    
 
-    
+
+
 
 
     }

@@ -22,11 +22,11 @@
 
             </div>
       </div>
-      
-  
+
+
           <div class="boutons">
              <!--  <button type="button">Retourner</button> -->
-              <input type="submit" value="Enregister" @click.prevent="soumettre"> 
+              <input type="submit" value="Enregister" @click.prevent="soumettre">
           </div>
       </form>
   </div>
@@ -45,7 +45,7 @@ import Form from 'vform';
               'nom_direction':"",
               'id_service':"",
               'id_user':"",
-             
+
           }),
           services:[],
       }
@@ -53,20 +53,20 @@ import Form from 'vform';
   mounted(){
         this.get_service();
         this.get_user();
-       
+
     },
-  
+
   methods:{
       async soumettre(){
           const formdata = new FormData();
           formdata.append('nom_direction', this.form.nom_direction  );
           formdata.append('id_service', this.form.id_service  );
           formdata.append('id_user', this.form.id_user  );
-      
+
           if(this.form.nom_direction!=="" && this.form.id_user!==""){
               try{
                   const create_store=await axios.post('/direction/store', formdata, {});
-                  Swal.fire('Succes!','Direction ajouté avec succés','succes')
+                  Swal.fire('Succes!','Direction ajouté avec succés','success')
                   this.resetForm();
               }
               catch(e){
@@ -91,19 +91,19 @@ import Form from 'vform';
           axios.get('/user/getPersonnel')
           .then(response => {
               this.users=response.data.user
-              
-             
+
+
          }).catch(error=>{
              Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
          });
      },
      get_service(){
-            
+
             axios.get('/service/index')
             .then(response => {
                 this.services=response.data.service
-                
-               
+
+
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des services','error')
            });

@@ -22,8 +22,9 @@ class unite_de_formation_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom_unite_de_formation'=>'required',
-            'id_formateur'=>'required'
+            'nom_unite_formation'=>'required',
+            'id_formateur'=>'required',
+            'id_departement'=>'required'
         ];
     }
 }

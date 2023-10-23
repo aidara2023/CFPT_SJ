@@ -9,7 +9,7 @@ use App\Models\Departement;
 
 class departement_controller extends Controller
 {
-    public function index(){
+    public function all(){
         $departement = Departement::all();
         if($departement != null){
             return response()->json([

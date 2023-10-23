@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class classe_controller extends Controller
 {
-    public function index() {
+    public function all() {
         $classe=Classe::all();
         if($classe!=null){
             return response()->json([
@@ -17,7 +17,7 @@ class classe_controller extends Controller
                 'classe'=>$classe
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
@@ -33,7 +33,7 @@ class classe_controller extends Controller
                 'classe'=>$classe
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
@@ -48,14 +48,14 @@ class classe_controller extends Controller
            $classe->id_type_formation=$request['id_type_formation'];
            $classe->id_unite_de_formation=$request['id_unite_de_formation'];
            $classe->niveau=$request['niveau'];
-          
+
            $classe->save();
             return response()->json([
                 'statut'=>200,
                 'classe'=>$classe
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
@@ -70,14 +70,14 @@ class classe_controller extends Controller
                 'message'=>'La classe a été supprimé avec succes',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'La classe n\'a pas été supprimé',
             ],500 );
         }
-       
+
     }
-    
+
     public function show($id){
         $classe=classe::find($id);
         if($classe!=null){
@@ -86,11 +86,11 @@ class classe_controller extends Controller
                 'classe'=>$classe
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Classe n\'a pas été trouvé',
             ],500 );
         }
-       
+
     }
 }
