@@ -22,11 +22,11 @@ class classe_request extends FormRequest
     public function rules(): array
     {
         return [
-            'type_classe'=>'required',
             'nom_classe'=>'required',
+            'type_classe'=>'',
             'niveau'=>'required',
-            'id_type_formation'=>'required',
-            'id_unite_de_formation'=>'required'
+            'id_type_formation'=>'',
+            'id_unite_de_formation'=>''
         ];
     }
 }

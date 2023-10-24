@@ -131,6 +131,8 @@ Route::delete('direction/delete/{id}',[direction_controller::class, 'delete'])->
 Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('direction_get');
 
 Route::get('/direction/create',[direction_view_controller::class, 'create'])->name('direction_create');
+Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
+
 
 //Route de matiere
 
@@ -475,7 +477,7 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 
 
 //Route pourinscription
-
+ 
 Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
@@ -549,6 +551,9 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
+Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
+Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
+
 
 //Route pour classe
 
@@ -592,6 +597,7 @@ Route::get('retard/show/{$id}',[retard_controller::class,'show'])->name('retard_
 Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('retard_update');
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
+
 
 Route::get('service/create', [service_view_controller::class, 'create'])->name('create_service');
 

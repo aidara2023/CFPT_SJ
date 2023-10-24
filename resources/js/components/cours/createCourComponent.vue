@@ -167,7 +167,7 @@ import Swal from 'sweetalert2';
 
        get_classe(){
             
-            axios.get('/classe/index')
+            axios.get('/classe/all')
             .then(response => {
                 this.classes=response.data.classe
                 

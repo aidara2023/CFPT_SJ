@@ -15,6 +15,7 @@
                 </select>
            </div>
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
+
                 <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>

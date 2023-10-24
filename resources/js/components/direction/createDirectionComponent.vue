@@ -1,6 +1,6 @@
 <template>
-    <div class="cote_droit">
-      <form action="" method="">
+    <div class="cote_droit contenu">
+        <form  @submit.prevent="soumettre" method="dialog">
           <h1 class="sous_titre">Ajout direction</h1>
           <!--Informations personnelles-->
     <div class="personnel">
@@ -24,10 +24,10 @@
       </div>
 
 
-          <div class="boutons">
-             <!--  <button type="button">Retourner</button> -->
-              <input type="submit" value="Enregister" @click.prevent="soumettre">
-          </div>
+      <div class="boutons">
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+            </div>
       </form>
   </div>
 </template>
@@ -53,6 +53,8 @@ import Form from 'vform';
   mounted(){
         this.get_service();
         this.get_user();
+        this.rafraichissementAutomatique();
+
 
     },
 
@@ -65,13 +67,19 @@ import Form from 'vform';
 
           if(this.form.nom_direction!=="" && this.form.id_user!==""){
               try{
-                  const create_store=await axios.post('/direction/store', formdata, {});
+                  const create_store=await axios.post('/direction/store', formdata);
                   Swal.fire('Succes!','Direction ajouté avec succés','success')
                   this.resetForm();
               }
               catch(e){
-                  console.log(e)
-                  Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                  console.log(e.request.status)
+                  if(e.request.status===404){
+                    Swal.fire('Erreur!','Cette direction existe déjà','error')
+                  }
+                  else{
+                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                  }
+                
               }
 
           }else{
@@ -82,6 +90,23 @@ import Form from 'vform';
       },
 
       resetForm(){
+        var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close();
+
+            })
+       /*    ajout.remove("active");  */
+
+            });
           this.form.nom_direction="";
           this.form.id_user="";
           this.form.nom_service="";
@@ -108,6 +133,9 @@ import Form from 'vform';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des services','error')
            });
        },
+       rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
 
 
   }
