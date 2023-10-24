@@ -4,15 +4,24 @@
             <h1 class="sous_titre">Ajout classe</h1>
 
             <div class="personnel">
-                <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe">
+             <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
                 <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe">
+            </div>
+           <div>
+            <select name="type_formation" id="type_formation" v-model="form.type_classe">
+                    <option value="">Type Classe</option>
+                    <option  value="Public">Public</option>
+                    <option  value="Privé">Privé</option>
+                </select>
+           </div>
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
-                </div>
+
                 <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
                     <option  value="Niveau 1">Niveau 1</option>
                     <option  value="Niveau 2">Niveau 2</option>
+                    <option  value="Niveau 2">Niveau 3</option>
                 </select>
             </div>
 

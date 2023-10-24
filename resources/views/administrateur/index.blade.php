@@ -184,7 +184,6 @@
 {{--  Fin modal pour ajouter utilisateur --}}
 
 
-
  {{--  Debut modal pour supprimer utilisateur --}}
 <dialog data-modal-suppression class="modal">
     <h1>Suppression</h1>
