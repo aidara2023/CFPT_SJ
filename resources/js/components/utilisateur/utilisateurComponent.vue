@@ -47,24 +47,35 @@
             </div>
 
             <div class="personnel" v-if="this.interesser=== 6">
-                <input type="text" name="type" id="type" placeholder="Type" v-model="form.type">
+                <div>
+                    <!-- <input type="text" name="type" id="type" placeholder="Type" v-model="form.type"> -->
+                    <select name="" id="" v-model="form.type">
+                        <option value="">Type Professeur</option>
+                        <option  value="Etat">Fonctionnaire</option>
+                        <option  value="Recruter">Recruter</option>
+                    </select>
 
-                <select name="" id="" v-model="form.situation_matrimoniale">
-                    <option value="">Selectioner Statut</option>
-                    <option  value="Niveau 1">Célibataire</option>
-                    <option  value="Niveau 2">Marié</option>
-                    <option  value="Niveau 2">Divorsé</option>
-                </select>
+                    <select name="" id="" v-model="form.situation_matrimoniale">
+                        <option value="">Selectioner Statut</option>
+                        <option  value="Niveau 1">Célibataire</option>
+                        <option  value="Niveau 2">Marié</option>
+                        <option  value="Niveau 2">Divorsé</option>
+                    </select>
+                </div>
 
-                <select name="id_specialite" id="id_specialite" v-model="form.id_specialite">
-                        <option value=""> Spécialite</option>
-                        <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
-                </select>
+                <div>
+                    <select name="id_specialite" id="id_specialite" v-model="form.id_specialite">
+                            <option value=""> Spécialite</option>
+                            <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
+                    </select>
+                
+        
 
-                <select name="id_departement" id="id_departement" v-model="form.id_departement">
-                        <option value=""> Departement</option>
-                        <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
-                </select>
+                    <select name="id_departement" id="id_departement" v-model="form.id_departement">
+                            <option value=""> Departement</option>
+                            <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
+                    </select>
+                </div>
 
             </div>
 

@@ -38,6 +38,12 @@ class RoleSeeder extends Seeder
             [
                 'intitule' => 'Personnel Administratif',
             ],
+            [
+                'intitule' => 'Surveillant',
+            ],
+            [
+                'intitule' => 'Comptable',
+            ],
         ]);
     }
 }
