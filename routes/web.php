@@ -34,6 +34,7 @@ use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
+use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
@@ -606,4 +607,10 @@ Route::get('/role/home',[role_controller::class, 'index']);
 Route::get('surveillant/index',[surveillant_view_controller::class, 'index'])->name('surveillant_index');
 
 
+
+//Route pour Comptable
+Route::get('comptable/index',[comptable_controller::class, 'index'])->name('comptable_index');
+
+
+Route::get('/role/home',[role_controller::class, 'index']);
 

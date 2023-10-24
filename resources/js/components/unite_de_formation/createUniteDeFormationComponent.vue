@@ -12,14 +12,16 @@
         <div class="roles">
                 <select name="formateur" id="formateur" v-model="form.id_formateur">
                         <option value=""> Formateur</option>
-                        <option v-for="formateur in formateurs" :value="formateur.id">{{ formateur.user.nom }} {{ formateur.user.prenom }}</option>
+                        <option v-for="formateur in formateurs" :key="formateur.id" :value="formateur.id">{{ formateur.user.nom }} {{ formateur.user.prenom }}</option>
+
                 </select>
             </div>
 
             <div class="roles">
                 <select name="departement" id="departement" v-model="form.id_departement">
                         <option value=""> Departement</option>
-                        <option v-for="departement in departements" :value="departement.id">{{ departement.nom_departement }}</option>
+                        <option v-for="departement in departements" :key="departement.id" :value="departement.id">{{ departement.nom_departement }}</option>
+
                 </select>
             </div>
 

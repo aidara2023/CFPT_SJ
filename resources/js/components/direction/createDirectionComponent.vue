@@ -10,14 +10,14 @@
            <div class="roles">
               <select name="user" id="user" placeholder="Niveau" v-model="form.id_user">
               <option value="">Chef de direction</option>
-              <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
+              <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
               </select>
              </div>
 
            <div class="roles">
                  <select name="service" id="service" v-model="form.id_service">
                         <option value=""> Service </option>
-                        <option v-for="service in services" :value="service.id">{{ service.nom_service }}</option>
+                        <option v-for="(service, index) in services" :key="index" :value="service.id">{{ service.nom_service }}</option>
                 </select>
 
             </div>
