@@ -606,5 +606,5 @@ Route::get('surveillant/index',[surveillant_view_controller::class, 'index'])->n
 Route::get('comptable/index',[comptable_controller::class, 'index'])->name('comptable_index');
 
 
-Route::get('/role/home',[roleController::class, 'index']);
+Route::get('/role/home',[role_controller::class, 'index']);
 
