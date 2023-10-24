@@ -32,7 +32,11 @@ import createRetardComponent from './components/retard/createRetardComponent.vue
 import createParticiperComponent from './components/participer/createParticiperComponent.vue';
 import createFinancerBourseComponent from './components/financer_bourse/createFinancerBourseComponent.vue';
 import createUniteDeFormationComponent from './components/unite_de_formation/createUniteDeFormationComponent.vue';
+
 import createTypeFormationComponent from './components/type_formation/createTypeFormationComponent.vue';
+import listeTypeFormationComponent from './components/type_formation/listeTypeFormationComponent.vue';
+
+
 import createTypeEvaluationComponent from './components/type_evaluation/createTypeEvaluationComponent.vue';
 import createTypeMaterielComponent from './components/type_materiel/createTypeMaterielComponent.vue';
 import createEmprunterLivreComponent from './components/emprunter_livre/createEmprunterLivreComponent.vue';
@@ -51,6 +55,7 @@ import createDossierMedicalComponent from './components/dossier_medical/createDo
 import createServiceComponent from './components/service/createServiceComponent.vue';
 import createDirectionComponent from './components/direction/createDirectionComponent.vue';
 import createArchiveComponent from './components/archive/createArchiveComponent.vue';
+
 
 
 
@@ -88,7 +93,10 @@ app.component("ressource-pedagogique-create", createRessourcePedagogiqueComponen
 app.component("participer-create", createParticiperComponent);
 app.component("partenaire-create", createPartenaireComponent);
 app.component("seminaire-create", createSeminaireComponent);
+
 app.component("type-formation-create", createTypeFormationComponent);
+app.component("type-formation-liste",listeTypeFormationComponent);
+
 app.component("type-materiel-create", createTypeMaterielComponent);
 app.component("unite-de-formation-create", createUniteDeFormationComponent);
 app.component("dossier-medical-create", createDossierMedicalComponent);
@@ -111,6 +119,7 @@ app.component("annee-create", createAnneeComponent);
 app.component("service-create", createServiceComponent);
 app.component("direction-create", createDirectionComponent);
 app.component("archive-create",createArchiveComponent );
+// app.compenent("comptable-create",createComptableComponent);
 
 
 

@@ -15,14 +15,18 @@ class TypeFormationSeeder extends Seeder
     {
         DB::table('type_formations')->insert([
             [
-                'intitule' => 'BTI',
+                'intitule' => 'BTI Jour',
             ],
             [
-                'intitule' => 'BTS',
+                'intitule' => 'BTI Soir',
             ],
             [
-                'intitule' => 'BT',
+                'intitule' => 'BTS Jour',
             ],
+            [
+                'intitule' => 'BTS Soir',
+            ],
+         
         ]);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-      <div class="cote_droit">
+      <div class="cote_droit contenu">
         <form  @submit.prevent="soumettre" method="dialog">
             <h1 class="sous_titre">Ajout Services</h1>
             <!--Informations personnelles-->
@@ -15,9 +15,9 @@
         </div>
 
 
-            <div class="boutons">
-               <!--  <button type="button">Retourner</button> -->
-                <input type="submit" value="Enregister" @click.prevent="soumettre">
+        <div class="boutons">
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
         </form>
     </div>
@@ -43,6 +43,8 @@ import Form from 'vform';
     mounted(){
 
         this.get_user();
+        this.rafraichissementAutomatique();
+
 
     },
 
@@ -55,17 +57,18 @@ import Form from 'vform';
             if(this.form.nom_service!=="" && this.form.id_user!==""){
                 try{
                     const create_store=await axios.post('/service/store', formdata, {});
-                    Swal.fire('Succes!','Service ajouté avec succés','success')
                     this.resetForm();
+                    Swal.fire('Succes!','Service ajouté avec succés','success')
+                   
                 }
                 catch(e){
                     console.log(e)
-                    // this.resetForm();
+            
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
-                // this.resetForm();
+               
                 Swal.fire('Erreur!','Veuillez remplir tous les champs ','error')
             }
 
@@ -73,6 +76,23 @@ import Form from 'vform';
         },
 
         resetForm(){
+            var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close();
+
+            })
+       /*    ajout.remove("active");  */
+
+            });
             this.form.nom_service="";
             this.form.id_user="";
         },
@@ -87,6 +107,9 @@ import Form from 'vform';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
            });
        },
+       rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
 
 
     }

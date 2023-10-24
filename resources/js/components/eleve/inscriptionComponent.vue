@@ -142,14 +142,14 @@
                 </select> -->
             </div>
 
-            <div class="fichiers">
+           <!--  <div class="fichiers">
                 <p><span class="str">*</span> Photocopie diplôme (Bac ou BFEM) </p>
                 <p><span class="str">*</span> Photocopie carte nationale d'identité</p>
                 <p><span class="str">*</span> Extrait de naissance</p>
                 <label for="dossiers">Glissez vos fichiers ici <span> ( en pdf )</span>
                     <input type="file" name="dossier" id="dossier" @change="ajoutDossier" accept=".pdf">
                 </label>
-            </div>
+            </div> -->
             <!--paiement-->
 
             <!-- <p><span class="str">Valider <i>votre inscription</i></span> en choisissant votre moyen de paiement</p>
@@ -271,14 +271,14 @@ import Form from 'vform';
 
                     });
                     Swal.fire('Succes!','Inscription validé avec succés','success')
-                    if(data==1){
+                    /* if(data==1){
                         Swal.fire('Erreur!','La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo','error');
 
                     }else if(data==2){
                         Swal.fire('Erreur!','Seuls les fichiers PDF sont autorisés','error');
                     }else{
                         Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error');
-                    }
+                    } */
                 }
                 catch(e){
                     console.log(e)
