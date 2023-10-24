@@ -26,9 +26,9 @@ class direction_controller extends Controller
 
     public function store(direction_request $request){
         $data=$request->validated();
-        $verification =Direction::where('nom_direction', $request['nom_direction']);
+        $verification =Direction::where('nom_direction', $request['nom_direction'])->get();
        
-        if($verification){
+        if($verification->count()!=0){
             return response()->json([ 
                 'statut'=>404,
                 'message'=>'Cette direction existe déja',
