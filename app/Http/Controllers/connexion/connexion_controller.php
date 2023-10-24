@@ -40,6 +40,22 @@ class connexion_controller extends Controller
              ]);
 
         } 
+        elseif($role=="Surveillant"){
+            $url='/surveillant/index';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
+
+        }
+        elseif($role=="Comptable"){
+            $url='/comptable/index';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
+
+        }
         elseif($role=="Caissier"){
             $url='/caissier/index';
             return response([

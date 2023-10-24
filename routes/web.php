@@ -109,6 +109,7 @@ use App\Http\Controllers\user\userViewController;
 
 
 use App\Http\Controllers\roleController;
+use App\Http\Controllers\surveillant\surveillant_view_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -592,7 +593,14 @@ Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('ret
 Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
-Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
+Route::get('service/create', [service_view_controller::class, 'create'])->name('create_service');
+
+Route::get('/role/home',[role_controller::class, 'index']);
+
+//Surveillant
+Route::get('surveillant/index',[surveillant_view_controller::class, 'index'])->name('surveillant_index');
+
+
 
 //Route pour Comptable
 Route::get('comptable/index',[comptable_controller::class, 'index'])->name('comptable_index');
