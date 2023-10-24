@@ -26,6 +26,14 @@ class classe_controller extends Controller
 
     public function store(classe_request $request){
         $data=$request->validated();
+        $verification =Classe::where('nom_classe', $request['nom_classe'])->get();
+       
+        if($verification->count()!=0){
+            return response()->json([ 
+                'statut'=>404,
+                'message'=>'Cette classe existe déja',
+            ],404 );
+        }else{
         $classe=Classe::create($data);
         if($classe!=null){
             return response()->json([
@@ -39,6 +47,7 @@ class classe_controller extends Controller
             ],500 );
         }
     }
+}
     public function update(classe_request $request, $id){
         $classe=classe::find($id);
         if($classe!=null){
