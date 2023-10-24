@@ -15,30 +15,19 @@
     <title>Utilisateurs</title>
     @vite('resources/js/app.js')
 </head>
-<body>
-    <!-- 
-        <i class="fi fi-rr-user"></i>
-        <i class="fi fi-rr-graduation-cap"></i>
-        <i class="fi fi-rr-money-bill-wave"></i>
-        <i class="fi fi-rs-book-bookmark"></i>
-        <i class="fi fi-ss-pharmacy"></i>
-        <i class="fi fi-rs-building"></i>
-        <i class="fi fi-rr-tools"></i>
-        <i class="fi fi-rs-folder-minus"></i>
-        <i class="fi fi-ss-sign-out-alt"></i>
-
-        <i class="fi fi-br-check"></i>
-
-     -->
+<body >
+  
      
-
-        
+<div id="app">
     @include('layout.left_bar')
 
-   @yield('content')
+    @yield('content')
+</div>
+        
+  
 
   
-     <script src="/assetsCFPT/js/dashboard.js"></script>
+<script src="/assetsCFPT/js/dashboard.js"></script>
 </body>
 
 </html>

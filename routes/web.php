@@ -226,6 +226,7 @@ Route::put('type_formation/update/{id}',[type_formation_controller::class, 'upda
 Route::delete('type_formation/delete/{id}',[type_formation_controller::class, 'destroy'])->name('type_formation_delete');
 
 Route::get('/type_formation/create',[type_formation_view_controller::class, 'create'])->name('type_formation_create');
+Route::get('/type_formation/index',[type_formation_view_controller::class, 'index'])->name('type_formation_index');
 
 //route evaluation
 Route::get('type_evaluation/index',[type_evaluation_controller::class, 'index'])->name('type_evaluation_index');
