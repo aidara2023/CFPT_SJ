@@ -29,6 +29,15 @@ class type_formation_controller extends Controller
     public function store(type_formation_request $request)
     {
         $data = $request->validated();
+        $verification =Type_formation::where('nom_type', $request['nom_type'])->get();
+       
+        if($verification->count()!=0){
+            return response()->json([ 
+                'statut'=>404,
+                'message'=>'Ce type_formation existe déja',
+            ],404 );
+        }else{
+        
 
         $Type_Formation = Type_formation::create($data);
         if ($Type_Formation) {
@@ -43,6 +52,7 @@ class type_formation_controller extends Controller
             ], 500);
         }
     }
+}
 
     public function update(type_formation_request $request, $id)
     {

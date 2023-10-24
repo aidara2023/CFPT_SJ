@@ -26,6 +26,14 @@ class departement_controller extends Controller
 
     public function store(departement_request $request) {
         $data = $request -> validated();
+        $verification =Departement::where('nom_departement', $request['nom_departement'])->get();
+       
+        if($verification->count()!=0){
+            return response()->json([ 
+                'statut'=>404,
+                'message'=>'Cette departement existe déja',
+            ],404 );
+        }else{
 
         $departement = Departement::create($data);
         if($departement != null){
@@ -40,11 +48,11 @@ class departement_controller extends Controller
             ],500);
         }
     }
+}
 
     public function update(departement_request $request, $id) {
         $departement = Departement::find($id);
         if($departement != null){
-            $departement -> intitule = $request['intitule'];
             $departement -> nom_departement = $request['nom_departement'];
             $departement -> id_departement = $request['id_departement'];
             $departement -> save();

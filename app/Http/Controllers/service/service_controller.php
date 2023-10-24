@@ -26,6 +26,14 @@ class service_controller extends Controller
 
     public function store(service_request $request){
         $data=$request->validated();
+        $verification =Service::where('nom_service', $request['nom_service'])->get();
+       
+        if($verification->count()!=0){
+            return response()->json([ 
+                'statut'=>404,
+                'message'=>'Ce service existe déja',
+            ],404 );
+        }else{
         $service=Service::create($data);
         if($service!=null){
             return response()->json([
@@ -39,10 +47,10 @@ class service_controller extends Controller
             ],500 );
         }
     }
+}
     public function update(service_request $request, $id){
         $service=Service::find($id);
         if($service!=null){
-           $service->intitule=$request['intitule'];
            $service->nom_service=$request['nom_service'];
            $service->id_user=$request['id_user'];
           
