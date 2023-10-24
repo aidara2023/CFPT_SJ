@@ -23,11 +23,11 @@
                 <span class="b">Sexe</span>
                 <label for="masculin">Masculin
                    <span></span>
-                    <input type="radio" name="sexe" id="masculin" value="masculin" v-model="form.genre_eleve">
+                    <input type="radio" name="sexe" id="masculin" value="Masculin" v-model="form.genre_eleve">
                 </label>
                 <label for="feminin">Feminin
                    <span></span>
-                    <input type="radio" name="sexe" id="feminin" value="feminin" v-model="form.genre_eleve">
+                    <input type="radio" name="sexe" id="feminin" value="Feminin" v-model="form.genre_eleve">
                 </label>
             </div>
             <div class="num-addr">
@@ -58,11 +58,11 @@
                 <span class="b">Sexe tuteur</span>
                 <label for="masculin_tuteur">Masculin
                    <span></span>
-                    <input type="radio" name="sexe_tuteur" id="masculin_tuteur" value="masculin_tuteur" v-model="form.genre_tuteur">
+                    <input type="radio" name="sexe_tuteur" id="masculin_tuteur" value="Masculin" v-model="form.genre_tuteur">
                 </label>
                 <label for="feminin_tuteur">Feminin
                    <span></span>
-                    <input type="radio" name="sexe_tuteur" id="feminin_tuteur" value="feminin_tuteur" v-model="form.genre_tuteur">
+                    <input type="radio" name="sexe_tuteur" id="feminin_tuteur" value="Feminin" v-model="form.genre_tuteur">
                 </label>
                 </div>
 
@@ -147,7 +147,7 @@
                 <p><span class="str">*</span> Photocopie carte nationale d'identité</p>
                 <p><span class="str">*</span> Extrait de naissance</p>
                 <label for="dossiers">Glissez vos fichiers ici <span> ( en pdf )</span>
-                    <input type="file" name="dossiers" id="dossiers" @change="ajoutDossier" accept=".pdf">
+                    <input type="file" name="dossier" id="dossier" @change="ajoutDossier" accept=".pdf">
                 </label>
             </div>
             <!--paiement-->
@@ -250,7 +250,6 @@ import Form from 'vform';
             formdata.append('genre_eleve', this.form.genre_eleve  );
             formdata.append('adresse_eleve', this.form.adresse_eleve);
             formdata.append('telephone_eleve', this.form.telephone_eleve  );
-            formdata.append('mail_tuteur', this.form.mail_tuteur  );
             formdata.append('nationalite_eleve', this.form.nationalite_eleve );
 
 
@@ -300,6 +299,7 @@ ajoutImage(event) {
     // Vérification du type de fichier pour s'assurer qu'il s'agit d'une image
     if (file.type.includes('image')) {
         this.photo = file;
+        console.log(this.photo);
     }
     // else {
     //     // Gérer les types de fichiers non autorisés
@@ -310,14 +310,10 @@ ajoutImage(event) {
 // Méthode pour ajouter le dossier
 ajoutDossier(event) {
     const file = event.target.files[0];
-    // Vérification du type de fichier pour s'assurer qu'il s'agit d'un fichier PDF
-    if (file.type === 'application/pdf') {
+    if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
         this.dossier = file;
+        console.log(this.dossier);
     }
-    // else {
-    //     // Gérer les types de fichiers non autorisés
-    //     alert("Veuillez sélectionner un fichier PDF.");
-    // }
 },
 
 

@@ -59,7 +59,7 @@ class inscription_controller extends Controller
          $tuteur_user->prenom=$request->prenom_tuteur;
          $tuteur_user->genre=$request->genre_tuteur;
          $tuteur_user->adresse=$request->adresse_tuteur;
-         $tuteur_user->email=$request['mail_tuteur'];
+         $tuteur_user->email=$request->mail_tuteur;
          $tuteur_user->telephone=$request->telephone_tuteur;
          $tuteur_user->password=Hash::make("CFPT2018");
          $tuteur_user->date_naissance=$request->date_naissance_tuteur;
@@ -73,8 +73,8 @@ class inscription_controller extends Controller
         //  $tuteur_user->photo=$image;
         //  /* Fin upload */
         $role= Role::where('intitule', 'Tuteur')->first();
-         $tuteur_user->id_role=$role->id;
-         $tuteur_user->save();
+        $tuteur_user->id_role=$role->id;
+        $tuteur_user->save();
 
         //   /*  Creation de matricule */
         //   $matriculeTueur= User::generateur_matricule();
@@ -107,7 +107,7 @@ class inscription_controller extends Controller
          $eleve_user->prenom=$request->prenom_eleve;
          $eleve_user->genre=$request->genre_eleve;
          $eleve_user->adresse=$request->adresse_eleve;
-         $eleve_user->email=$request['mail_eleve'];
+         $eleve_user->email=$request->mail_eleve;
          $eleve_user->telephone=$request->telephone_eleve;
          $eleve_user->password=Hash::make("CFPT2018");
          $eleve_user->date_naissance=$request->date_naissance_eleve;
@@ -121,8 +121,8 @@ class inscription_controller extends Controller
          $eleve_user->photo=$image;
          /* Fin upload */
 
-        $role= Role::where('intitule', 'Eleve')->first();
-         $eleve_user->id_role=$role->id;
+        $roleEleve= Role::where('intitule', 'Eleve')->first();
+         $eleve_user->id_role=$roleEleve->id;
          $eleve_user->save();
 
         // /* Uploader une image */
@@ -165,48 +165,58 @@ class inscription_controller extends Controller
 
             // Vérification du type de fichier
             if ($dossier->getClientOriginalExtension() === 'pdf') {
-                // Validation de la taille du fichier (exemple : limite de 5 Mo)
                 if ($dossier->getClientSize() < 5000000) {
                     $dossierName = time() . '_' . $dossier->getClientOriginalName();
                     $dossier->move(public_path('dossier'), $dossierName);
-                    // Ajouter ici le code pour enregistrer le nom du fichier dans la base de données ou effectuer d'autres opérations nécessaires
-                } else {
-                    // Gérer la taille de fichier invalide
-                    // return back()->with('error', 'La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo.');
-                    return 1;
+                    
+                    $inscription=Inscription::create([
+                        'montant'=>$request->montant,
+                        'date_inscription'=>now(),
+                        'id_eleve'=>$eleve->id,
+                        'id_classe'=>$request->id_classe,
+                        'id_annee_academique'=>$request->id_annee_accademique,
+                        'dossier'=>$dossier
+                    ]);
+                    if($inscription!=null){
+                        return response()->json([
+                            'statut'=>200,
+                            'inscription'=>$inscription
+                        ],200)  ;
+                    }else{
+                        return response()->json([
+                            'statut'=>500,
+                            'message'=>'L\'inscription est introuvable',
+                        ],500 );
+                    }
                 }
             } else {
-                // Gérer les types de fichiers non autorisés
-                // return back()->with('error', 'Seuls les fichiers PDF sont autorisés.');
                 return 2;
             }
         } else {
-            // Gérer les erreurs d'upload
-            // return back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier. Veuillez réessayer.');
             return 3;
         }
 
         /* Fin upload */
 
-        $inscription=Inscription::create([
-            'montant'=>$request->montant,
-            'date_inscription'=>now(),
-            'id_eleve'=>$eleve->id,
-            'id_classe'=>$request->id_classe,
-            'id_annee_academique'=>$request->id_annee_accademique,
-            'dossier'=>$dossier
-        ]);
-        if($inscription!=null){
-            return response()->json([
-                'statut'=>200,
-                'inscription'=>$inscription
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L\'inscription est introuvable',
-            ],500 );
-        }
+        // $inscription=Inscription::create([
+        //     'montant'=>$request->montant,
+        //     'date_inscription'=>now(),
+        //     'id_eleve'=>$eleve->id,
+        //     'id_classe'=>$request->id_classe,
+        //     'id_annee_academique'=>$request->id_annee_accademique,
+        //     'dossier'=>$dossier
+        // ]);
+        // if($inscription!=null){
+        //     return response()->json([
+        //         'statut'=>200,
+        //         'inscription'=>$inscription
+        //     ],200)  ;
+        // }else{
+        //     return response()->json([
+        //         'statut'=>500,
+        //         'message'=>'L\'inscription est introuvable',
+        //     ],500 );
+        // }
     }
 
     public function update(inscription_request $request, $id)

@@ -15,7 +15,6 @@ class Inscription extends Model
         'id eleve',
         'id_classe',
         'id_annee_academique',
-        'photo',
         'dossier',
 
 
