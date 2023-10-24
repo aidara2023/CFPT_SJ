@@ -34,6 +34,7 @@ use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
+use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
@@ -592,6 +593,10 @@ Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name(
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
+
+//Route pour Comptable
+Route::get('comptable/index',[comptable_controller::class, 'index'])->name('comptable_index');
+
 
 Route::get('/role/home',[roleController::class, 'index']);
 

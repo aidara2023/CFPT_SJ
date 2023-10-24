@@ -28,5 +28,17 @@
         </nav>
     @endif
 
+    @if (Auth::user()->id_role==10)
+        <nav class="flou">
+            <ul>
+                <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Inscription</span></a></li>
+                <li class="fntr"><a href="{{route('paiement_create')}}"><i class="fi fi-rr-user"></i><span >inscription</span></a></li>
+                <li class="fntr"><a href="#"><i class="fi fi-rr-graduation-cap"></i><span>Inscription</span></a></li>
+
+                <li class="fntr"><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>inscription</span></a></li>
+            </ul>
+        </nav>
+    @endif
+
 @endif
 

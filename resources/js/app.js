@@ -111,6 +111,7 @@ app.component("annee-create", createAnneeComponent);
 app.component("service-create", createServiceComponent);
 app.component("direction-create", createDirectionComponent);
 app.component("archive-create",createArchiveComponent );
+// app.compenent("comptable-create",createComptableComponent);
 
 
 
