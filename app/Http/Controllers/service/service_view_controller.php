@@ -10,4 +10,8 @@ class service_view_controller extends Controller
     public function create(){
         return view('service.createService');
     }
+
+    public function accueil(){
+        return view('service.accueil');
+    }
 }
