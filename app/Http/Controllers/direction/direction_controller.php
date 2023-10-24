@@ -26,17 +26,26 @@ class direction_controller extends Controller
 
     public function store(direction_request $request){
         $data=$request->validated();
-        $direction=Direction::create($data);
-        if($direction!=null){
-            return response()->json([
-                'statut'=>200,
-                'direction'=>$direction
-            ],200)  ;
-        }else{
+        $verification =Direction::where('nom_direction', $request['nom_direction']);
+       
+        if($verification){
             return response()->json([ 
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
-            ],500 );
+                'statut'=>404,
+                'message'=>'Cette direction existe déja',
+            ],404 );
+        }else{
+            $direction=Direction::create($data);
+            if($direction!=null){
+                return response()->json([
+                    'statut'=>200,
+                    'direction'=>$direction
+                ],200)  ;
+            }else{
+                return response()->json([ 
+                    'statut'=>500,
+                    'message'=>'L\'enregistrement n\'a pas été éffectué',
+                ],500 );
+            }
         }
     }
     public function update(direction_request $request, $id){

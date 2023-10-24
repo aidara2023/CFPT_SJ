@@ -1,7 +1,7 @@
 <template>
 <form>
     <div class="connexion">
-        <input type="text"  v-model="form.matricule" id="matricule" placeholder="Matricule">
+        <input type=""  v-model="form.matricule" id="matricule" placeholder="Matricule">
         <input type="password"  v-model="form.password" id="mot_de_passe" placeholder="Mot de passe">
     </div>
 

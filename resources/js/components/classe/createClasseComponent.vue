@@ -7,6 +7,8 @@
                 <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe">
                 <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe">
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
+                </div>
+                <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
                     <option  value="Niveau 1">Niveau 1</option>

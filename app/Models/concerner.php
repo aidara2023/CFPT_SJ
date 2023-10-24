@@ -12,7 +12,8 @@ class concerner extends Model
         'id',
         'id_paiement',
         'id_mois',
-        'statut'
+        'statut',
+        'id_annee_academique'
     ];
 
     public function paiements(){
@@ -20,5 +21,8 @@ class concerner extends Model
     }
     public function mois(){
         return $this->belongsToMany(mois::class,'id_mois');
+    }
+    public function annee(){
+        return $this->belongsToMany(mois::class,'id_annee_academique');
     }
 }

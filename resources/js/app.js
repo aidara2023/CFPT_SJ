@@ -54,6 +54,7 @@ import createArchiveComponent from './components/archive/createArchiveComponent.
 
 
 
+
 import Swal from 'sweetalert2';
 window.Form=Form;
 window.Swal=Swal;
