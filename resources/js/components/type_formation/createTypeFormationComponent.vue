@@ -1,16 +1,16 @@
 <template>
     <div class="cote_droit">
-        <form @submit.prevent="soumettre">
+        <form @submit.prevent="soumettre()" method="dialog">
+
             <h1 class="sous_titre">Ajout Type Formation</h1>
            
             <div class="personnel">
             <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule">
         </div>
 
-    
-            <div class="boutons">
-                <input type="submit" value="Ajouter">
-                <button type="button">Annuler</button>
+        <div class="boutons">
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
         </form>
     </div>
@@ -31,6 +31,13 @@ import Form from 'vform';
         
 
         }
+    },
+    mounted(
+
+    ){
+    
+        this.rafraichissementAutomatique();
+
     },
 
     
@@ -60,15 +67,39 @@ import Form from 'vform';
 
 
         },
+        changement(event){
+            this.interesser= event;
+        },
         
 
 
         resetForm(){
+            var ajout = document.querySelector("[data-modal-ajout]");
+            var fermemod = document.querySelectorAll('[data-close-modal]');
+            //Fermeture des modals
+            fermemod.forEach(item => {
+                item.addEventListener('click', () => {
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                        ajout.close();
+                        modification.close();
+                        suppression.close();
+
+            })
+       /*    ajout.remove("active");  */
+
+            });
             this.form.input="";
             this.form.intitule="";
             
            
-        }
+        },
+        rafraichissementAutomatique() {
+            document.addEventListener("DOMContentLoaded", this.resetForm());
+    },
+
 
 
     }

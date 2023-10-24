@@ -14,62 +14,15 @@
      </div>
      <div class="affichage">
         <div class="avant">
-            <h1 class="texte">Personnel Administratif</h1>
+            <h1 class="texte">Type De Formation </h1>
             <a href="#">
                 <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
             </a>
         </div>
-        <div class="sections">
-            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-            <div class="utilisateur">
-                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-                <p class="texte" id="n">Mariama BA</p>
-                <div  class="presences">
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-edit"></i>
-                        <span class="modifier mdl">Modifier</span>
-                    </a>
-                    <a href="" class="texte b">
-                        <i class="fi fi-rr-comment-alt-dots"></i>
-                        <span class="details">Détails</span>
-                    </a>
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-cross"></i>
-                        <span class="supprimer mdl">Supprimer</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="affichage">
-            <div class="avant">
-                <h1 class="texte">Formateurs</h1>
-                <a href="#">
-                    <button class="texte ajout  mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-                </a>
-            </div>
-            <div class="sections">
-                <!-- Répéter la div utilisateur pour un autre utilisateur -->
-                <div class="utilisateur">
-                    <img src="/assetsCFPT/image/professeur.png" alt="Etu" class="petite">
-                    <p class="texte" id="n">Amadou GUEYE</p>
-                    <div  class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-edit"></i>
-                            <span class="modifier mdl">Modifier</span>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-cross"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
+            <type-formation-liste></type-formation-liste>
+       
+        
     </div>
 </div>
 
@@ -176,16 +129,22 @@
 
  
  {{--  Debut modal pour ajouter utilisateur --}}
-<dialog data-modal-ajout class="modal">
-        <div id="app">
-            <utilisateur-create></utilisateur-create>
-        </div>
+ <dialog data-modal-ajout class="modal" >
+  
+            <type-formation-create  ></type-formation-create>
+              
+
 </dialog>
+{{-- <dialog data-modal-ajout class="modal">
+        <div id="">
+            <type-formation-create></type-formation-create>
+        </div>
+</dialog> --}}
 {{--  Fin modal pour ajouter utilisateur --}}
 
 
  {{--  Debut modal pour supprimer utilisateur --}}
-<dialog data-modal-suppression class="modal">
+<dialog data-modal-suppression class="modal" >
     <h1>Suppression</h1>
     <div class="contenu">
         <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
@@ -196,6 +155,7 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+
 
 
 @endsection

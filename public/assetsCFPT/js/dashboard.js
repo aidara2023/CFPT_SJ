@@ -1,4 +1,4 @@
-var fond = document.querySelector('.fond');
+/* var fond = document.querySelector('.fond');
 var flou = document.querySelectorAll('.flou');
 
 var mdl = document.querySelectorAll('.mdl');
@@ -98,7 +98,7 @@ li.forEach( liste => {
             this.classList.add('actif');
         });
     });
-
+ */
 /*  Script channgment de jour
 
 var jour = new Date;
@@ -121,5 +121,91 @@ if(jour.getDay() > 1){
     console.log('on est pas dans la semaine');
 }
 */
+
+// Sélectionnez les éléments nécessaires
+// Sélectionnez les éléments nécessaires à partir de l'élément avec l'id "app"
+// Gestion de l'ouverture des modales
+// Sélectionnez les éléments nécessaires à partir de l'élément avec l'id "app"
+var appElement = document.getElementById('app');
+var flou = appElement.querySelectorAll('.flou');
+var mdl = appElement.querySelectorAll('.mdl');
+
+var ajout = appElement.querySelector("[data-modal-ajout]");
+var modification = appElement.querySelector("[data-modal-modification]");
+var suppression = appElement.querySelector("[data-modal-suppression]");
+var fermemod = appElement.querySelectorAll('[data-close-modal]');
+
+// Le reste du code reste inchangé...
+
+mdl.forEach(item => {
+    console.log(item);
+    item.addEventListener('click', function () {
+        var index = Array.from(mdl).indexOf(this);
+        var contenu = mdl[index].textContent.trim();
+       
+        flou.forEach(item => {
+            item.classList.add("actif");
+        });
+
+        console.log('Le bouton a été cliqué !');
+        console.log('Contenu : ', contenu);
+
+        if (contenu == "Ajouter") {
+            setTimeout(function () {
+                ajout.showModal();
+                ajout.classList.add("actif");
+            }, 20);
+        }
+
+        if (contenu == "Modifier") {
+            setTimeout(function () {
+                modification.showModal();
+                modification.classList.add("actif");
+            }, 20);
+        }
+
+        if (contenu == "Supprimer") {
+            suppression.style.backgroundColor = 'var(--rouge)';
+            setTimeout(function () {
+                suppression.showModal();
+                suppression.classList.add("actif");
+            }, 20);
+        }
+
+        if (item.classList.contains("prescription")) {
+            setTimeout(function () {
+                prescription_med.style.backgroundColor = '#f3f3f3';
+                prescription_med.style.color = 'black';
+                prescription_med.showModal();
+                prescription_med.classList.add("actif");
+            }, 20);
+        }
+    });
+});
+
+// Gestion de la fermeture des modales
+fermemod.forEach(item => {
+    item.addEventListener('click', () => {
+        var actif = document.querySelectorAll('.actif');
+        actif.forEach(item => {
+            item.classList.remove("actif");
+        });
+        ajout.close();
+        modification.close();
+        suppression.close();
+    });
+});
+
+// Gestion de la fenêtre active
+var li = document.querySelectorAll('.fntr');
+li.forEach(liste => {
+    liste.addEventListener('click', function () {
+        li.forEach(item => {
+            item.classList.remove('actif');
+        });
+        this.classList.add('actif');
+    });
+});
+
 
 
