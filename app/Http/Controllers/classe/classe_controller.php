@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class classe_controller extends Controller
 {
     public function all() {
-        $classe=Classe::all();
+        $classe=Classe::with('type_formation')->get();
         if($classe!=null){
             return response()->json([
                 'statut'=>200,
@@ -26,7 +26,7 @@ class classe_controller extends Controller
 
     public function store(classe_request $request){
         $data=$request->validated();
-        $verification =Classe::where('nom_classe', $request['nom_classe'])->get();
+        $verification =Classe::where([['nom_classe','=', $request['nom_classe']],['type_classe','=', $request['type_classe']],['niveau','=', $request['niveau']]])->get();
        
         if($verification->count()!=0){
             return response()->json([ 
