@@ -8,10 +8,10 @@
      </div>
      <div class="affichage">
         <div class="avant">
-            <h1 class="texte">unite de formation</h1>
-            <a href="#">
+            <h1 class="texte">La liste des eleves</h1>
+            {{-- <a href="#">
                 <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-            </a>
+            </a> --}}
         </div>
         <div class="sections">
             <!-- Répéter la div utilisateur pour un autre utilisateur -->
