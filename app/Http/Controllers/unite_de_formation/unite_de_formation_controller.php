@@ -26,12 +26,12 @@ class unite_de_formation_controller extends Controller
 
      public function store (unite_de_formation_request $request){
         $data=$request->validated();
-        $verification =Unite_de_formation::where('nom_unite_de_formation', $request['nom_unite_de_formation'])->get();
+        $verification =Unite_de_formation::where('nom_unite_formation', $request['nom_unite_formation'])->get();
        
         if($verification->count()!=0){
             return response()->json([ 
                 'statut'=>404,
-                'message'=>'Cette unite_de_formation existe déja',
+                'message'=>'Cette unite de formation existe déja',
             ],404 );
         }else{
         $unite_de_formation=Unite_de_formation::create($data);
