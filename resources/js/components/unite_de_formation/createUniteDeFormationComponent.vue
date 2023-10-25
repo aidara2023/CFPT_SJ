@@ -92,8 +92,12 @@ import Form from 'vform';
                 }
                 catch(e){
                     console.log(e)
-                    // this.resetForm();
+                    if(e.request.status===404){
+                    Swal.fire('Erreur!','Cette classe existe déjà','error')
+                  }
+                  else{
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                  }
                 }
 
             }else{
