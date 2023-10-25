@@ -286,6 +286,7 @@ class paiement_controller extends Controller
     public function processBTSFormation($request, $caissiers, $montantSaisi, $annee)
     {
         $latestPayment = Paiement::where('id_eleve', $request)->latest('created_at')->get();
+
         // dd($annee);
         // dd($latestPayment);
         if ($latestPayment->count()!=0) {
@@ -302,28 +303,28 @@ class paiement_controller extends Controller
                 $j = $moisNext->id;
 
                 while ($differenceMontant >= 70000) {
-                    $montant = $differenceMontant - 70000;
+                    $differenceMontant = $differenceMontant - 70000;
                     $j++;
-                    return $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $request['id_annee_academique']);
+                    return $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $annee);
                 }
 
-                if ($montant < 70000 && $montant != 0) {
-                    return $this->createPaiementAndConcerner($caissiers, $request, $montant, $j, 2, $request['id_annee_academique']);
+                if ($differenceMontant < 70000 && $differenceMontant != 0) {
+                    return $this->createPaiementAndConcerner($caissiers, $request, $montant, $j, 2, $annee);
                 }
             }else {
                 // Process BTS formation when montant >= 70000
                 // return 0;
             }
         }else{
-            $j=1;
+            $j=0;
             while ($montantSaisi >= 70000) {
-                $montant = $montantSaisi - 70000;
+                $montantSaisi = $montantSaisi - 70000;
                 $j++;
-                return $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $annee);
+                 $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $annee);
             }
 
-            if ($montant < 70000 && $montant != 0) {
-                return $this->createPaiementAndConcerner($caissiers, $request, $montant, $j, 2, $annee);
+            if ($montantSaisi < 70000 && $montantSaisi != 0) {
+                 $this->createPaiementAndConcerner($caissiers, $request, $montantSaisi, $j+1, 2, $annee);
             }
         }
     }
@@ -342,8 +343,21 @@ class paiement_controller extends Controller
 
             foreach ($classes as $classe) {
 
-                if ($classe->type_formation->intitule == "BTI") {
+                if ($classe->type_formation->intitule == "BTS Jour" OR $classe->type_formation->intitule == "BTS Soir") {
+                    /* dd($caissiers); */
                     $paiement=$this->processBTSFormation($request['id_eleve'], $caissiers, $request['montant'], $request['id_annee_academique']);
+
+                    if ($paiement != null) {
+                        return response()->json([
+                            'statut' => 200,
+                            'paiement' => $paiement
+                        ], 200);
+                    } else {
+                        return response()->json([
+                            'statut' => 500,
+                            'message' => 'L\'enregistrement n\'a pas été effectué'
+                        ], 500);
+                    }
 
                 } else {
                     /* $paiement=$this->processOtherFormation($request, $caissiers); */
@@ -352,17 +366,7 @@ class paiement_controller extends Controller
             }
         }
 
-        if ($paiement != null) {
-            return response()->json([
-                'statut' => 200,
-                'paiement' => $paiement
-            ], 200);
-        } else {
-            return response()->json([
-                'statut' => 500,
-                'message' => 'L\'enregistrement n\'a pas été effectué'
-            ], 500);
-        }
+      
     }
 
     public function update(paiement_request $request, $id) {
