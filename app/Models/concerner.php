@@ -5,24 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class concerner extends Model
+class Concerner extends Model
 {
     use HasFactory;
-    protected $fillable =[
-        'id',
-        'id_paiement',
-        'id_mois',
+    protected $fillable=[
         'statut',
-        'id_annee_academique'
+        'id_mois',
+        'id_annee_academique',
+        'id_paiement',
     ];
-
-    public function paiements(){
-        return $this->belongsToMany(paiement::class,'id_paiement');
-    }
-    public function mois(){
-        return $this->belongsToMany(mois::class,'id_mois');
-    }
-    public function annee(){
-        return $this->belongsToMany(mois::class,'id_annee_academique');
-    }
 }

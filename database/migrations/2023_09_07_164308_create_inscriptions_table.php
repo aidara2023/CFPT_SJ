@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_classe')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('dossier');
+            $table->string('dossier')->nullable();
             // $table->string('acte_naissance');
             // $table->string('cni');
 

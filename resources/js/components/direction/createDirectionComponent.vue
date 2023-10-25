@@ -53,7 +53,7 @@ import Form from 'vform';
   mounted(){
         this.get_service();
         this.get_user();
-        this.rafraichissementAutomatique();
+        // this.rafraichissementAutomatique();
 
 
     },
@@ -79,7 +79,7 @@ import Form from 'vform';
                   else{
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                   }
-                
+
               }
 
           }else{
@@ -90,23 +90,23 @@ import Form from 'vform';
       },
 
       resetForm(){
-        var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+    //     var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
 
-            })
-       /*    ajout.remove("active");  */
+    //         })
+    //    /*    ajout.remove("active");  */
 
-            });
+    //         });
           this.form.nom_direction="";
           this.form.id_user="";
           this.form.nom_service="";
@@ -133,9 +133,9 @@ import Form from 'vform';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des services','error')
            });
        },
-       rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+    //    rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
 
   }

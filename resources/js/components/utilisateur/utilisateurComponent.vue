@@ -68,13 +68,25 @@
                             <option value=""> Spécialite</option>
                             <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
                     </select>
-                
-        
+
+
 
                     <select name="id_departement" id="id_departement" v-model="form.id_departement">
                             <option value=""> Departement</option>
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
+                </div>
+
+            </div>
+            <div class="personnel" v-if="this.interesser=== 4">
+
+
+                <div>
+                    <select name="id_specialite" id="id_specialite" v-model="form.id_service">
+                            <option value=""> Service</option>
+                            <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
+                    </select>
+
                 </div>
 
             </div>
@@ -117,6 +129,7 @@ import Form from 'vform';
                 'id_role':"",
                 'id_specialite':"",
                 'id_departement':"",
+                'id_service':"",
                 'type':"",
                 'situation_matrimoniale':"",
 
@@ -124,6 +137,7 @@ import Form from 'vform';
             photo:"",
             interesser:"",
             roles:[],
+            services:[],
             departements:[],
             specialites:[],
 
@@ -134,7 +148,8 @@ import Form from 'vform';
         this.get_role();
         this.get_specialite();
         this.get_departement();
-        this.rafraichissementAutomatique();
+        this.get_service();
+        // this.rafraichissementAutomatique();
 
     },
 
@@ -154,6 +169,7 @@ import Form from 'vform';
             formdata.append('type', this.form.type);
             formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
             formdata.append('id_specialite', this.form.id_specialite);
+            formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('photo', this.photo);
 
@@ -205,6 +221,18 @@ import Form from 'vform';
             });
         },
 
+        get_service(){
+
+             axios.get('/service/index')
+             .then(response => {
+                 this.services=response.data.service
+
+
+            }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+            });
+        },
+
         get_specialite(){
 
              axios.get('/specialite/index')
@@ -234,23 +262,23 @@ import Form from 'vform';
         },
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+    //         var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
 
-            })
-       /*    ajout.remove("active");  */
+    //         })
+    //    /*    ajout.remove("active");  */
 
-            });
+    //         });
 
             this.form.nom="";
             this.form.prenom="";
@@ -269,9 +297,9 @@ import Form from 'vform';
 
         },
 
-        rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+    //     rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
 
 

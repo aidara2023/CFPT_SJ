@@ -2,7 +2,7 @@
     <div class="cote_droit contenu">
         <form @submit.prevent="soumettre" method="dialog">
             <h1 class="sous_titre">Ajout de departement</h1>
-            
+
             <div class="personnel">
             <input type="text" name="nom" id="nom" placeholder="Nom departement" v-model="form.nom">
         </div>
@@ -14,19 +14,19 @@
                 </select>
             </div>
 
-           
-            
+
+
 
              <!-- <div class="identifiants">
                 <input type="text" name="matricule" id="matricule" placeholder="Matricule" v-model="form.contact_urgence_2">
                 <input type="password" name="mot_de_passe" id="mot_de_passe" placeholder="Mot de passe" v-model="form.contact_urgence_2">
-            </div> --> 
+            </div> -->
 
-            
-            
+
+
             <!--paiement-->
-    
-    
+
+
             <div class="boutons">
                 <input  type="submit" data-close-modal  value="Ajouter">
                 <button type="button" data-close-modal class="texte annuler" >Annuler</button>
@@ -50,26 +50,26 @@ import Form from 'vform';
             }),
 
             directions:[],
-            
+
         }
     },
 
     mounted(){
         this.get_direction();
-        this.rafraichissementAutomatique();
+        // this.rafraichissementAutomatique();
 
     },
-    
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom_departement', this.form.nom  );        
+            formdata.append('nom_departement', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
-           
 
-            
 
-            
+
+
+
 
             if(this.form.nom!==""){
                 try{
@@ -93,15 +93,15 @@ import Form from 'vform';
 
 
         },
-        
+
 
          get_direction(){
-            
+
              axios.get('/direction/index')
              .then(response => {
                  this.directions=response.data.direction
-                 
-                
+
+
             }).catch(error=>{
                 this.resetForm();
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de la direction','error')
@@ -110,29 +110,29 @@ import Form from 'vform';
 
         resetForm(){
 
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close(); 
-                    
-            })
-       /*    ajout.remove("active");  */
-           
-            });
+    //         var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
+
+    //         })
+    //    /*    ajout.remove("active");  */
+
+    //         });
             this.form.nom="";
             this.form.id_direction="";
         },
-            rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+    //         rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
     }
 

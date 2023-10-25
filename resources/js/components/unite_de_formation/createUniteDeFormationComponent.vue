@@ -69,7 +69,7 @@ import Form from 'vform';
     mounted(){
         this.get_formateur();
         this.get_departement();
-        this.rafraichissementAutomatique();
+        // this.rafraichissementAutomatique();
 
     },
 
@@ -134,32 +134,32 @@ import Form from 'vform';
 
         resetForm(){
 
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+    //         var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
 
-            })
-       /*    ajout.remove("active");  */
+    //         })
+    //    /*    ajout.remove("active");  */
 
-            });
+    //         });
             this.form.nom_unite_formation="";
             this.form.id_formateur="";
             this.form.id_departement="";
 
         },
 
-        rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+    //     rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
 
     }

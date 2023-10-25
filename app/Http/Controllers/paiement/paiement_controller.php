@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\paiement\paiement_request;
 use App\Models\Caissier;
 use App\Models\Classe;
-use App\Models\concerner;
+use App\Models\Concerner;
 use App\Models\Inscription;
 use App\Models\mois;
 use Illuminate\Http\Request;
@@ -58,21 +58,21 @@ class paiement_controller extends Controller
                             $j=$moisNext->id + 1;
                             while($differenceMontant >= 70000){
                                 $montant= $differenceMontant - 70000;
-                                
+
                                 foreach($caissiers as $caissier){
                                     if($caissier->id_user == Auth::user()->id){
                                         $paiement->id_caissier=$caissier->id;
                                         $paiement->montant=70000;
                                         $paiement->id_eleve=$request['id_eleve'];
                                         $paiement->save();
-                            
+
                                         $concerner= new concerner();
                                         $concerner->id_paiement=$paiement->id;
                                         $concerner->id_mois=$j;
                                         $concerner->statut=1;
                                         $concerner->id_annee_academique=$request['id_annee_academique'];
                                         $concerner->save();
-                                
+
                                       }
                                 }
                                 $j++;
@@ -84,14 +84,14 @@ class paiement_controller extends Controller
                                         $paiement->montant=$montant;
                                         $paiement->id_eleve=$request['id_eleve'];
                                         $paiement->save();
-                            
+
                                         $concerner= new concerner();
                                         $concerner->id_paiement=$paiement->id;
                                         $concerner->id_mois=$j;
                                         $concerner->statut=2;
                                         $concerner->id_annee_academique=$request['id_annee_academique'];
                                         $concerner->save();
-                                
+
                                       }
                                 }
                             }
@@ -108,14 +108,14 @@ class paiement_controller extends Controller
                                     $paiement->montant=70000;
                                     $paiement->id_eleve=$request['id_eleve'];
                                     $paiement->save();
-                        
+
                                     $concerner= new concerner();
                                     $concerner->id_paiement=$paiement->id;
                                     $concerner->id_mois=$i + 1;
                                     $concerner->statut=1;
                                     $concerner->id_annee_academique=$request['id_annee_academique'];
                                     $concerner->save();
-                            
+
                                   }
                             }
                         }
@@ -126,14 +126,14 @@ class paiement_controller extends Controller
                                     $paiement->montant=$montant;
                                     $paiement->id_eleve=$request['id_eleve'];
                                     $paiement->save();
-                        
+
                                     $concerner= new concerner();
                                     $concerner->id_paiement=$paiement->id;
                                     $concerner->id_mois=$i + 1;
                                     $concerner->statut=2;
                                     $concerner->id_annee_academique=$request['id_annee_academique'];
                                     $concerner->save();
-                            
+
                                   }
                             }
                         }
@@ -154,21 +154,21 @@ class paiement_controller extends Controller
                             $j=$moisNext->id + 1;
                             while($differenceMontant >= 50000){
                                 $montant= $differenceMontant - 50000;
-                                
+
                                 foreach($caissiers as $caissier){
                                     if($caissier->id_user == Auth::user()->id){
                                         $paiement->id_caissier=$caissier->id;
                                         $paiement->montant=50000;
                                         $paiement->id_eleve=$request['id_eleve'];
                                         $paiement->save();
-                            
+
                                         $concerner= new concerner();
                                         $concerner->id_paiement=$paiement->id;
                                         $concerner->id_mois=$j;
                                         $concerner->statut=1;
                                         $concerner->id_annee_academique=$request['id_annee_academique'];
                                         $concerner->save();
-                                
+
                                       }
                                 }
                                 $j++;
@@ -180,14 +180,14 @@ class paiement_controller extends Controller
                                         $paiement->montant=$montant;
                                         $paiement->id_eleve=$request['id_eleve'];
                                         $paiement->save();
-                            
+
                                         $concerner= new concerner();
                                         $concerner->id_paiement=$paiement->id;
                                         $concerner->id_mois=$j;
                                         $concerner->statut=2;
                                         $concerner->id_annee_academique=$request['id_annee_academique'];
                                         $concerner->save();
-                                
+
                                       }
                                 }
                             }
@@ -204,14 +204,14 @@ class paiement_controller extends Controller
                                     $paiement->montant=50000;
                                     $paiement->id_eleve=$request['id_eleve'];
                                     $paiement->save();
-                        
+
                                     $concerner= new concerner();
                                     $concerner->id_paiement=$paiement->id;
                                     $concerner->id_mois=$i + 1;
                                     $concerner->statut=1;
                                     $concerner->id_annee_academique=$request['id_annee_academique'];
                                     $concerner->save();
-                            
+
                                   }
                             }
                         }
@@ -222,14 +222,14 @@ class paiement_controller extends Controller
                                     $paiement->montant=$montant;
                                     $paiement->id_eleve=$request['id_eleve'];
                                     $paiement->save();
-                        
+
                                     $concerner= new concerner();
                                     $concerner->id_paiement=$paiement->id;
                                     $concerner->id_mois=$i + 1;
                                     $concerner->statut=2;
                                     $concerner->id_annee_academique=$request['id_annee_academique'];
                                     $concerner->save();
-                            
+
                                   }
                             }
                         }
@@ -251,7 +251,7 @@ class paiement_controller extends Controller
         }
     } */
 
- 
+
 
 
 
@@ -262,16 +262,17 @@ class paiement_controller extends Controller
 
     public function createPaiementAndConcerner($caissiers, $idEleve, $montant, $mois, $statut, $idAnneeAcademique)
     {
-        $paiement = new Paiement();
-        
+
+
         foreach ($caissiers as $caissier) {
             if ($caissier->id_user == Auth::user()->id) {
+                $paiement = new Paiement();
                 $paiement->id_caissier = $caissier->id;
                 $paiement->montant = $montant;
                 $paiement->id_eleve = $idEleve;
                 $paiement->save();
-                
-                $concerner = new concerner();
+
+                $concerner = new Concerner();
                 $concerner->id_paiement = $paiement->id;
                 $concerner->id_mois = $mois;
                 $concerner->statut = $statut;
@@ -279,36 +280,51 @@ class paiement_controller extends Controller
                 $concerner->save();
             }
         }
-        
+
     }
 
-    public function processBTSFormation($request, $caissiers)
+    public function processBTSFormation($request, $caissiers, $montantSaisi, $annee)
     {
-        $latestPayment = Paiement::where('id_eleve', $request['id_eleve'])->latest('created_at')->first();
-        
-        if ($latestPayment->montant < 70000) {
-            $montant = $request['montant'];
-            $differenceMontant = $montant - $latestPayment->montant;
-            $latestPayment->montant = $latestPayment->montant + $differenceMontant;
-            $latestPayment->save();
-            
-            $latestConcern = Concerner::where('id_paiement', $latestPayment->id)->latest('created_at')->first();
-            $moisRegler = $latestConcern->id_mois;
-            $moisNext = Mois::find($moisRegler);
-            $j = $moisNext->id;
-            
-            while ($differenceMontant >= 70000) {
-                $montant = $differenceMontant - 70000;
+        $latestPayment = Paiement::where('id_eleve', $request)->latest('created_at')->get();
+        // dd($annee);
+        // dd($latestPayment);
+        if ($latestPayment->count()!=0) {
+
+            if($latestPayment->montant < 70000){
+                $montant = $montantSaisi;
+                $differenceMontant = $montant - $latestPayment->montant;
+                $latestPayment->montant = $latestPayment->montant + $differenceMontant;
+                $latestPayment->save();
+
+                $latestConcern = Concerner::where('id_paiement', $latestPayment->id)->latest('created_at')->first();
+                $moisRegler = $latestConcern->id_mois;
+                $moisNext = Mois::find($moisRegler);
+                $j = $moisNext->id;
+
+                while ($differenceMontant >= 70000) {
+                    $montant = $differenceMontant - 70000;
+                    $j++;
+                    return $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $request['id_annee_academique']);
+                }
+
+                if ($montant < 70000 && $montant != 0) {
+                    return $this->createPaiementAndConcerner($caissiers, $request, $montant, $j, 2, $request['id_annee_academique']);
+                }
+            }else {
+                // Process BTS formation when montant >= 70000
+                // return 0;
+            }
+        }else{
+            $j=1;
+            while ($montantSaisi >= 70000) {
+                $montant = $montantSaisi - 70000;
                 $j++;
-                return $this->createPaiementAndConcerner($caissiers, $request['id_eleve'], 70000, $j, 1, $request['id_annee_academique']);
+                return $this->createPaiementAndConcerner($caissiers, $request, 70000, $j, 1, $annee);
             }
-            
+
             if ($montant < 70000 && $montant != 0) {
-                return $this->createPaiementAndConcerner($caissiers, $request['id_eleve'], $montant, $j, 2, $request['id_annee_academique']);
+                return $this->createPaiementAndConcerner($caissiers, $request, $montant, $j, 2, $annee);
             }
-        } else {
-            // Process BTS formation when montant >= 70000
-            return 0;
         }
     }
 
@@ -316,20 +332,26 @@ class paiement_controller extends Controller
     {
         $data = $request->validated();
         $caissiers = Caissier::all();
+        // dd($caissiers);
         $inscriptions = Inscription::where('id_eleve', $request['id_eleve'])->get();
-        
+
         foreach ($inscriptions as $inscription) {
             $classes = Classe::with('type_formation')->where('id', $inscription->id_classe)->get();
-            
+
+
+
             foreach ($classes as $classe) {
-                if ($classe->type_formation->intitule == "BTS") {
-                    $paiement=$this->processBTSFormation($request, $caissiers);
+
+                if ($classe->type_formation->intitule == "BTI") {
+                    $paiement=$this->processBTSFormation($request['id_eleve'], $caissiers, $request['montant'], $request['id_annee_academique']);
+
                 } else {
                     /* $paiement=$this->processOtherFormation($request, $caissiers); */
+                    // dd("erreur");
                 }
             }
         }
-        
+
         if ($paiement != null) {
             return response()->json([
                 'statut' => 200,

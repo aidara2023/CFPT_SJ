@@ -16,17 +16,17 @@
     @vite('resources/js/app.js')
 </head>
 <body >
-  
-     
+
+
 <div id="app">
     @include('layout.left_bar')
 
     @yield('content')
 </div>
-        
-  
 
-  
+
+
+
 <script src="/assetsCFPT/js/dashboard.js"></script>
 </body>
 

@@ -114,7 +114,7 @@ import Form from 'vform';
 
          get_type_formation(){
 
-             axios.get('/type_formation/index')
+             axios.get('/type_formation/all')
              .then(response => {
                  this.type_formations=response.data.type_formation
 

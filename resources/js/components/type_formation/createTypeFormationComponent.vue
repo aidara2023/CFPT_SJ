@@ -3,7 +3,7 @@
         <form @submit.prevent="soumettre()" method="dialog">
 
             <h1 class="sous_titre">Ajout Type Formation</h1>
-           
+
             <div class="personnel">
             <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule">
         </div>
@@ -26,27 +26,27 @@ import Form from 'vform';
         return {
             form:new Form({
                 'intitule':""
-                
+
             }),
-        
+
 
         }
     },
-    mounted(
+    // mounted(
 
-    ){
-    
-        this.rafraichissementAutomatique();
+    // ){
 
-    },
+    //     this.rafraichissementAutomatique();
 
-    
+    // },
+
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
             formdata.append('intitule', this.form.intitule );
-          
-        
+
+
 
             if(this.form.intitule!=="" ){
                 try{
@@ -70,35 +70,35 @@ import Form from 'vform';
         changement(event){
             this.interesser= event;
         },
-        
+
 
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+            // var ajout = document.querySelector("[data-modal-ajout]");
+            // var fermemod = document.querySelectorAll('[data-close-modal]');
+            // //Fermeture des modals
+            // fermemod.forEach(item => {
+            //     item.addEventListener('click', () => {
+            //     var actif = document.querySelectorAll('.actif');
+            //         actif.forEach(item => {
+            //             item.classList.remove("actif");
+            //         });
+            //             ajout.close();
+            //             modification.close();
+            //             suppression.close();
 
-            })
+            // })
        /*    ajout.remove("active");  */
 
-            });
+            // });
             this.form.input="";
             this.form.intitule="";
-            
-           
+
+
         },
-        rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+    //     rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
 
 

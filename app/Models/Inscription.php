@@ -12,7 +12,7 @@ class Inscription extends Model
         'id',
         'montant',
         'date_inscription',
-        'id eleve',
+        'id_eleve',
         'id_classe',
         'id_annee_academique',
         'dossier',

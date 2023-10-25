@@ -36,6 +36,7 @@ class user_request extends FormRequest
             'id_role'=>'required',
             'situation_matrimoniale'=>'',
             'id_specialite'=>'',
+            'id_service'=>'',
             'id_departement'=>'',
             'type'=>'',
         ];

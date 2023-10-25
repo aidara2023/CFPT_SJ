@@ -29,16 +29,16 @@
                 <select name="eleve" id="eleve" v-model="form.id_eleve">
                         <option value=""> Eleve</option>
 
-                        <option v-for="eleve in eleves" :key="eleve.id">{{ eleve.user.nom }}</option>
+                        <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</option>
                 </select>
             </div>
 
             <div class="annee_academiques">
                 <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
                         <option value=""> Annee_academique</option>
-                        <option v-for="annee_academique in annee_academiques" :key="annee_academique.id">{{ annee_academique.intitule }}</option>
+                        <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
                 </select>
-            </div>   
+            </div>
 
            <!--  <div class="personnel">
                 <select name="annee_academique" id="annee_academique" v-model="form.id_mois">
@@ -49,10 +49,10 @@
 
             <div class="personnel">
                 <input type="number" v-model="form.montant">
-            </div>                                                    
-                                                            
+            </div>
 
-    
+
+
             <div class="boutons">
                 <input  type="submit" data-close-modal  value="Ajouter">
                 <button type="button" data-close-modal class="texte annuler" >Annuler</button>
@@ -91,7 +91,7 @@ import Form from 'vform';
         this.rafraichissementAutomatique();
 
     },
-    
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
@@ -100,19 +100,19 @@ import Form from 'vform';
             formdata.append('statut', this.form.statut);
             formdata.append('id_annee_academique', this.form.id_annee_academique);
             formdata.append('id_eleve', this.form.id_eleve);
-            
+
             if(this.form.titre!==""){
                 try{
                     const create_store=await axios.post('/paiement/store', formdata, {
 
                     });
                     this.resetForm();
-                    Swal.fire('Succes!','paiement ajouté avec succés','succes')
-                   
+                    Swal.fire('Succes!','paiement ajouté avec succes','success')
+
                 }
                 catch(e){
                     console.log(e)
-                    this.resetForm();
+                    // this.resetForm();
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
@@ -123,39 +123,39 @@ import Form from 'vform';
 
 
         },
-        
+
 
         get_annee_academique(){
-            
+
             axios.get('/annee_academique/index')
             .then(response => {
                 this.annee_academiques=response.data.annee_academique
-                
-               
+
+
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des année_academiques','error')
            });
        },
 
         get_mois(){
-            
+
             axios.get('/mois/index')
             .then(response => {
                 this.mois=response.data.mois
-                
-               
+
+
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des mois','error')
            });
        },
 
        get_eleve(){
-            
+
             axios.get('/eleve/index')
             .then(response => {
                 this.eleves=response.data.eleve
-                
-               
+
+
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des eleves','error')
            });
@@ -173,19 +173,19 @@ import Form from 'vform';
                     });
                         ajout.close();
                         modification.close();
-                        suppression.close(); 
-                    
+                        suppression.close();
+
             })
        /*    ajout.remove("active");  */
-           
+
             });
             this.form.mois="";
             this.form.id_eleve="";
             this.form.id_annee_academique="";
 
-            
-            
-           
+
+
+
         },
 
         rafraichissementAutomatique() {

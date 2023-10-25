@@ -219,7 +219,7 @@ Route::put('emprunter_livre/rendre/{id}',[emprunter_livre_controller::class, 're
 Route::get('/emprunter_livre/create',[emprunter_livre_view_controller::class, 'create'])->name('emprunter_livre_create');
 
 //route type de formation
-Route::get('type_formation/index',[type_formation_controller::class, 'index'])->name('type_formation_index');
+Route::get('type_formation/all',[type_formation_controller::class, 'index'])->name('type_formation_all');
 Route::post('type_formation/store',[type_formation_controller::class, 'store'])->name('type_formation_store');
 Route::get('type_formation/show/{id}',[type_formation_controller::class, 'show'])->name('type_formation_show');
 Route::put('type_formation/update/{id}',[type_formation_controller::class, 'update'])->name('type_formation_update');
@@ -478,7 +478,7 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 
 
 //Route pourinscription
- 
+
 Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');

@@ -6,7 +6,9 @@ body{
     font-weight: 300;
     display: flex;
     overflow: hidden;
+    transition: none;
 }
+
 
 .flou.actif{
     filter: blur(6px);
@@ -31,7 +33,7 @@ body{
     width: max-content;
     height: fit-content;
     margin-left: 20px;
-    margin-top: min(8%, 55px); 
+    margin-top: min(8%, 55px);
 }
 /*  */
 .titre{
@@ -47,7 +49,7 @@ body{
 
 
     }
-    
+
 /* tres_gros */
 .sous_titre{
 width: auto;
@@ -126,10 +128,10 @@ li{
 }
 
 ul li a{
-    color: white;  
+    color: white;
     width: 20px;
     height: 20px;
-    padding: 15px 15px; 
+    padding: 15px 15px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -269,16 +271,16 @@ div{
     font-size: clamp(0.7rem,1.9vw, 1.1rem);
     margin: 0;
     margin: 0 min(4%, 40px);
-    /* border: 1px solid rebeccapurple; */ 
+    /* border: 1px solid rebeccapurple; */
 }
- 
+
 
 .sections{
     width: auto;
     margin-top: min(2%, 30px);
-    
-    /*  border: 1px solid rebeccapurple;  */   
-    
+
+    /*  border: 1px solid rebeccapurple;  */
+
 }
 
 .sections > *{
@@ -296,19 +298,19 @@ p .texte{
     padding: .9vw 3px;
     border-width: min(0.3vw, 1.5px);
     border-bottom: 1px solid var(--clr);
-    
+
     display: flex;
     align-items: center;
 }
 .utilisateur:first-child{
     border-top: 1px solid var(--clr);
-    
+
 }
 .presences{
     position: relative;
     width:fit-content;
     display: flex;
-    justify-content: right; 
+    justify-content: right;
     align-items: center;
     gap: min(20px, 2%);
     margin: 0;
@@ -316,7 +318,7 @@ p .texte{
 }
 
 input{
-    width: min(20px, 8%); 
+    width: min(20px, 8%);
     border: none;
     padding: 0;
     padding: 0 2px;
@@ -338,12 +340,12 @@ input{
 }
  */
 
- 
-.presences a.texte, button 
+
+.presences a.texte, button
 {
     position: relative;
     width: fit-content;
-    margin: 0; 
+    margin: 0;
     padding : 4px 15px;
     cursor: pointer;
 
@@ -352,7 +354,7 @@ input{
     gap: 3px;
     /* display: none; */
     border: 1px solid var(--clr);
-    border-radius: 4vw; 
+    border-radius: 4vw;
     transition: .5s;
 }
 
@@ -407,7 +409,7 @@ input{
     position: absolute;
     width: 80%;
     height: 70%;
-    
+
     background-color: var(--clr2);
     background-image: url(logo_cfpt.png);
     background-size: 90%;
@@ -571,8 +573,8 @@ input[type="submit"]:hover{
 
 
 
-/* Formulaire d'inscription 
-pour  le modal d'ajout */   
+/* Formulaire d'inscription
+pour  le modal d'ajout */
 
 form{
     position: relative;
@@ -638,7 +640,7 @@ input, select{
 
 
   }
- 
+
   .academiques, .paiement{
     width: fit-content;
     display: flex;
@@ -650,7 +652,7 @@ input, select{
 
   select{
     width: clamp(140px, 19vw, 250px);
-    
+
   }
   input:focus, select:focus{
     outline:0px dashed red;
@@ -662,10 +664,10 @@ input, select{
     color: #9c9c9C;
     font-size: clamp(1rem, 2vw, 1.5rem);
     /* font-size: 3.75rem; */
-    
+
   }
 
-  
+
 input[type="radio"]{
     margin: 0;
     width: fit-content;
@@ -714,3 +716,9 @@ input[type="file"]{
 .nouveau{
     color: black;
 }
+
+
+
+
+
+

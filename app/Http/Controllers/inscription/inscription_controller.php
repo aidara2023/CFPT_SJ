@@ -116,38 +116,6 @@ class inscription_controller extends Controller
 
         ]);
 
-        /* Uploader les dossiers */
-        // $dossier= $request->file('dossier');
-        // $dossierName=time() . '_' . $dossier->getClientOriginalName();
-        // $dossier->move(public_path('dossier'), $dossierName);
-        /* if ($request->hasFile('dossier') && $request->file('dossier')->isValid()) {
-            $dossier = $request->file('dossier'); */
-
-            // Vérification du type de fichier
-            if ($dossier->getClientOriginalExtension() === 'pdf') {
-       /*      if ($dossier->getClientOriginalExtension() === 'pdf') {
-                // Validation de la taille du fichier (exemple : limite de 5 Mo)
-                if ($dossier->getClientSize() < 5000000) {
-                    $dossierName = time() . '_' . $dossier->getClientOriginalName();
-                    $dossier->move(public_path('dossier'), $dossierName);
-                    // Ajouter ici le code pour enregistrer le nom du fichier dans la base de données ou effectuer d'autres opérations nécessaires
-                } else {
-                    // Gérer la taille de fichier invalide
-                    // return back()->with('error', 'La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo.');
-                    return 1;
-                }
-            } else {
-                // Gérer les types de fichiers non autorisés
-                // return back()->with('error', 'Seuls les fichiers PDF sont autorisés.');
-                return 2;
-            }
-        } else {
-            // Gérer les erreurs d'upload
-            // return back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier. Veuillez réessayer.');
-            return 3;
-        } */
-
-        /* Fin upload */
 
         $inscription=Inscription::create([
             'montant'=>$request->montant,
@@ -157,6 +125,7 @@ class inscription_controller extends Controller
             'id_annee_academique'=>$request->id_annee_accademique,
             /* 'dossier'=>$dossier */
         ]);
+
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,

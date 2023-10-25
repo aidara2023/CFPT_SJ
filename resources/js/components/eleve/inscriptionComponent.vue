@@ -239,7 +239,7 @@ import Form from 'vform';
             formdata.append('mail_eleve', this.form.mail_eleve);
             formdata.append('nationalite_tuteur', this.form.nationalite_tuteur);
             formdata.append('photo', this.photo);
-            formdata.append('dossier', this.dossier);
+            // formdata.append('dossier', this.dossier);
 
 
             formdata.append('nom_eleve', this.form.nom_eleve  );
@@ -271,6 +271,7 @@ import Form from 'vform';
 
                     });
                     Swal.fire('Succes!','Inscription validé avec succés','success')
+                    this.form.reset();
                     /* if(data==1){
                         Swal.fire('Erreur!','La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo','error');
 
@@ -282,7 +283,7 @@ import Form from 'vform';
                 }
                 catch(e){
                     console.log(e)
-                    Swal.fire('Erreur!','Une erreur est survenue lors du téléchargement du fichier','error')
+                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
@@ -294,38 +295,24 @@ import Form from 'vform';
 
 
        // Méthode pour ajouter l'image
-ajoutImage(event) {
-    const file = event.target.files[0];
-    // Vérification du type de fichier pour s'assurer qu'il s'agit d'une image
-    if (file.type.includes('image')) {
-        this.photo = file;
-        console.log(this.photo);
-    }
-    // else {
-    //     // Gérer les types de fichiers non autorisés
-    //     alert("Veuillez sélectionner un fichier image.");
-    // }
-},
+        ajoutimage(event) {
+            const file = event.target.files[0];
+             console.log(file.type.includes('image'));
+            // Vérification du type de fichier pour s'assurer qu'il s'agit d'une image
+            if (file.type.includes('image')) {
+                this.photo = file;
+                console.log(this.photo);
+            }
+        },
 
-// Méthode pour ajouter le dossier
-ajoutDossier(event) {
-    const file = event.target.files[0];
-    if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-        this.dossier = file;
-        console.log(this.dossier);
-    }
-},
-
-
-        // async get_filiere(){
-
-        //     await axios.get('/unite_de_formation/all').then(response=>{
-        //          this.filieres=response.data.unite_de_formation;
-
-        //     }).catch(error=>{
-        //             Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des filieres','error')
-        //     });
-        // },
+        // Méthode pour ajouter le dossier
+        ajoutDossier(event) {
+            const file = event.target.files[0];
+            if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                this.dossier = file;
+                console.log(this.dossier);
+            }
+        },
 
         async get_annee(){
 
@@ -348,16 +335,6 @@ ajoutDossier(event) {
                     Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des classes','error')
             });
         },
-
-        // async get_type_formation(){
-
-        //     await axios.get('/type_formation/index').then(response=>{
-        //          this.type_formations=response.data.type_formation;
-
-        //     }).catch(error=>{
-        //             Swal.fire('Erreur!','une erreur est survenue lors de la recuperation des type de formation','error')
-        //     });
-        // }
 
     }
    }

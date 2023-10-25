@@ -25,8 +25,8 @@ class paiement_request extends FormRequest
             'id_eleve' => 'required',
             'id_caissier' => '',
             'id_annee_academique' => 'required',
-            'id_mois' => '', 
-            'montant' => 'required',
+            'id_mois' => '',
+            'montant' => '',
             'statut' => ''
         ];
     }

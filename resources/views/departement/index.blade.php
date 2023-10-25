@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        
+
     </div>
 </div>
 
@@ -47,7 +47,7 @@
     <div class="contenu">
         <form action="" method="dialog" >
             <h1 class="sous_titre">Informations Personnelles</h1>
-            
+
             <div class="personnel">
                 <input type="text" name="nom" id="nom" placeholder="Nom">
                 <input type="text" name="prenom" id="prenom" placeholder="Prenom">
@@ -134,18 +134,18 @@
         </form>
     </div>
     <div class="boutons">
-        <button type="button" data-close-modal class="texte">Annuler</button> 
+        <button type="button" data-close-modal class="texte">Annuler</button>
     </div>
-</dialog> 
+</dialog>
  {{--  Fin modal pour modifier utilisateur --}}
 
 
- 
+
  {{--  Debut modal pour ajouter utilisateur --}}
 <dialog data-modal-ajout class="modal">
-        <div id="app">
+        {{-- <div id="app"> --}}
             <departement-create></departement-create>
-        </div>
+        {{-- </div> --}}
 </dialog>
 {{--  Fin modal pour ajouter utilisateur --}}
 
@@ -159,7 +159,7 @@
     </div>
     <div class="boutons">
         <button type="button" data-close-modal class="texte">Annuler</button>
-        <input type="submit" value="Confirmer"> 
+        <input type="submit" value="Confirmer">
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}

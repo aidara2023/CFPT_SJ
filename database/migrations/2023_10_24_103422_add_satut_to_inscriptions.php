@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('inscriptions', function (Blueprint $table) {
             $table->integer('statut')->default(0);
+
         });
     }
 

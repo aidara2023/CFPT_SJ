@@ -43,7 +43,7 @@ import Form from 'vform';
     mounted(){
 
         this.get_user();
-        this.rafraichissementAutomatique();
+        // this.rafraichissementAutomatique();
 
 
     },
@@ -59,16 +59,16 @@ import Form from 'vform';
                     const create_store=await axios.post('/service/store', formdata, {});
                     this.resetForm();
                     Swal.fire('Succes!','Service ajouté avec succés','success')
-                   
+
                 }
                 catch(e){
                     console.log(e)
-            
+
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
                 }
 
             }else{
-               
+
                 Swal.fire('Erreur!','Veuillez remplir tous les champs ','error')
             }
 
@@ -76,23 +76,23 @@ import Form from 'vform';
         },
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+    //         var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
 
-            })
-       /*    ajout.remove("active");  */
+    //         })
+    //    /*    ajout.remove("active");  */
 
-            });
+    //         });
             this.form.nom_service="";
             this.form.id_user="";
         },
@@ -107,9 +107,10 @@ import Form from 'vform';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
            });
        },
-       rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+
+    //    rafraichissementAutomatique() {
+    //         document.addEventListener("DOMContentLoaded", this.resetForm());
+    // },
 
 
     }

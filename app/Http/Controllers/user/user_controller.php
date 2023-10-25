@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
+use App\Models\Caissier;
 use App\Models\Formateur;
 use App\Models\Role;
 use App\Models\Tuteur;
@@ -131,10 +132,17 @@ class user_controller extends Controller
             $formateur->id_departement= $request['id_departement'];
             $formateur->id_user= $user->id;
             $formateur->save();
-        }elseif($request['id_role']==2){
+        }
+        elseif($request['id_role']==2){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
+        }
+        elseif($request['id_role']==4){
+            $caissier=new Caissier();
+            $caissier->id_user= $user->id;
+            $caissier->id_service= $request->id_service;
+            $caissier->save();
         }
 
         if($user!=null){
