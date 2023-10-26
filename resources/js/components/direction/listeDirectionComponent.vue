@@ -16,6 +16,10 @@
                <p class="texte" id="n">{{ direction.nom_direction}} {{ direction.service.nom_service }}</p>
                <p class="texte" id="n">{{ direction.user.nom }}</p>
                <div  class="presences">
+                    <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>

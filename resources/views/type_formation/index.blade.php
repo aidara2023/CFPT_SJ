@@ -1,45 +1,11 @@
 @extends('layout.app')
 @section('content')
-<div class="elements flou ">
+<div class="elements flou " id="app">
         @include('layout.header')
-
-{{-- <div class="elements flou ">
-    <div class="entete">
-        <h1 class="titre">Surveillant</h1>
-         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
-         <div class="recherche">
-            <i class="fi fi-rr-search"></i>
-            <input  type="text" name="" placeholder="Rechercher">
-        </div>
-         </div>
-     </div>
-     <div class="affichage">
-        <div class="avant">
-            <h1 class="texte">Type De Formation </h1>
-            <a href="#">
-                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-            </a>
-
-        </div>
-       
-            <type-formation-liste></type-formation-liste>
-       
-        
-    </div>
-
-        </div> --}}
-        <div id="app">
 
             <type-formation-liste></type-formation-liste>
             
 
-{{-- 
-    </div>--}}
-
-
-
- <span class="fond "></span> 
 
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
@@ -143,13 +109,7 @@
  
  {{--  Debut modal pour ajouter utilisateur --}}
  <dialog data-modal-ajout class="modal" >
-
-  
-            <type-formation-create  ></type-formation-create>
-              
-
     <type-formation-create  ></type-formation-create>
-
 
 </dialog>
 {{-- <dialog data-modal-ajout class="modal">
@@ -172,8 +132,6 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
- </div>
-
-
+ <span class="fond "></span> 
 
 @endsection
