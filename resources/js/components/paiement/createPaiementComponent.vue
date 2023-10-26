@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -108,6 +109,7 @@ import Form from 'vform';
                     });
                     this.resetForm();
                     Swal.fire('Succes!','paiement ajouté avec succes','success')
+                    bus.emit('formationAjoutee');
 
                 }
                 catch(e){

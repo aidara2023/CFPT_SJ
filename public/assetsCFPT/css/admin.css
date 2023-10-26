@@ -144,9 +144,9 @@ ul li a:hover, ul li.actif{
     transition: .4s;
 }
 
-div{
+/* div{
     margin: 5vw 0;
-}
+} */
 .elements{
     position: relative;
     right: 0;
@@ -226,7 +226,9 @@ div{
     display: block;
     width: 100%;
     height: 70vh;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
+    overflow-y: auto;
+    max-height: 70vh;
     margin-top: min(6vw, 50px);
 }
 
@@ -276,9 +278,18 @@ div{
 .sections{
     width: auto;
     margin-top: min(2%, 30px);
-    
-     
-    
+
+    /* margin-top: 2%; */
+
+    /*  border: 1px solid rebeccapurple;  */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px; /* Ajustez cet espacement en fonction de vos besoins */
+    max-height: 70vh; /* Ajustez la hauteur maximale ici pour rendre la liste scrollable */
+    overflow-y: auto;
+
 }
 
 .sections > *{
@@ -294,11 +305,15 @@ p .texte{
     position: relative;
     margin-top: 0;
     padding: .9vw 3px;
+    /* padding: 0.5em 3px; */
+    padding: 10px;
     border-width: min(0.3vw, 1.5px);
     border-bottom: 1px solid var(--clr);
     
     display: flex;
     align-items: center;
+
+    gap: 20px;
 }
 .utilisateur:first-child{
     border-top: 1px solid var(--clr);

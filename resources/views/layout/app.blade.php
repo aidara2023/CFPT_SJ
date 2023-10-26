@@ -18,11 +18,11 @@
 <body >
 
 
-<div id="app">
+{{-- <div id="app"> --}}
     @include('layout.left_bar')
 
     @yield('content')
-</div>
+{{-- </div> --}}
 
 
 

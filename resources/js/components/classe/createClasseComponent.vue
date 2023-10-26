@@ -10,8 +10,8 @@
            <div>
             <select name="type_formation" id="type_formation" v-model="form.type_classe">
                     <option value="">Type Classe</option>
-                    <option  value="Public">Public</option>
-                    <option  value="Privé">Privé</option>
+                    <option  value="Non payant">Public</option>
+                    <option  value="Payant">Privé</option>
                 </select>
            </div>
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
@@ -19,9 +19,9 @@
                 <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
-                    <option  value="Niveau 1">Niveau 1</option>
-                    <option  value="Niveau 2">Niveau 2</option>
-                    <option  value="Niveau 2">Niveau 3</option>
+                    <option  value="Niveau 1 ">1 </option>
+                    <option  value="Niveau 2 ">2 </option>
+                    <option  value="Niveau 3">3</option>
                 </select>
             </div>
 
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -73,8 +74,6 @@ import Form from 'vform';
     mounted(){
         this.get_type_formation();
         this.get_unite_de_formation();
-        this.rafraichissementAutomatique();
-
     },
 
 
@@ -96,11 +95,17 @@ import Form from 'vform';
                     this.resetForm();
                     Swal.fire('Succes!','classe ajouté avec succés','success')
                     this.resetForm();
+                    bus.emit('classeAjoutee');
+
                 }
                 catch(e){
                     console.log(e)
-                    this.resetForm();
+                    if(e.request.status===404){
+                    Swal.fire('Erreur!','Cette classe existe déjà','error')
+                  }
+                  else{
                     Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                  }
                 }
 
             }else{
@@ -140,23 +145,6 @@ import Form from 'vform';
 
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
-
-            })
-       /*    ajout.remove("active");  */
-
-            });
 
             this.nom_classe="";
             this.type_classe="";
@@ -166,9 +154,7 @@ import Form from 'vform';
 
 
         },
-        rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+
 
 
     }

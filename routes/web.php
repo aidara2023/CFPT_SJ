@@ -95,6 +95,7 @@ use App\Http\Controllers\type_evaluation\type_evaluation_view_controller;
 use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\type_formation\type_formation_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
+use App\Http\Controllers\inscription\inscription_view_controller;
 use Illuminate\Support\Facades\Route;
 
 
@@ -479,11 +480,13 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 
 //Route pourinscription
 
-Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::get('inscription/all',[inscription_controller::class, 'index'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::put('inscription/update/{$id}',[inscription_controller::class,'update'])->name('inscription_update');
 Route::delete('inscription/delete/{$id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+
+Route::get('inscription/index', [inscription_view_controller::class, 'index'])->name('inscription_accueil');
 
 //Route pour emprunter materiel
 
@@ -505,13 +508,6 @@ Route::delete('consultation/delete/{$id}',[consultation_controller::class, 'dele
 
 Route::get('/consultation/create',[consultation_view_controller::class, 'create'])->name('consultation_create');
 
-//Route pour inscription
-
-Route::get('inscription/index',[inscription_controller::class, 'index'])->name('inscription_index');
-Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
-Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
-Route::put('inscription/update/{$id}',[inscription_controller::class,'update'])->name('inscription_update');
-Route::delete('inscription/delete/{$id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
 
 //Route pour formateur
 
@@ -533,13 +529,14 @@ Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
 
 
 Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
+Route::get('utilisateur/index', [user_view_controller::class, 'index'])->name('utilisateur_index');
 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
 Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
 Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
 Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
 Route::put('user/update/{id}',[user_controller::class, 'update'])->name('user_update');
-Route::delete('user/delete/{id}',[user_controller::class, 'destroy'])->name('user_delete');
+Route::delete('user/delete/{id}',[user_controller::class, 'delete'])->name('user_delete');
 Route::get('user/getBibliothecaire',[user_controller::class, 'getBibliothecaire'])->name('user_personnel_bibliothecaire');
 
 
@@ -554,7 +551,6 @@ Route::get('service/index' ,[service_controller::class, 'index'])->name('service
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
-
 
 //Route pour classe
 

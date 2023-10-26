@@ -17,8 +17,10 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+
 
    export default {
     name:"createTypeFormationCompenent",
@@ -32,14 +34,6 @@ import Form from 'vform';
 
         }
     },
-    // mounted(
-
-    // ){
-
-    //     this.rafraichissementAutomatique();
-
-    // },
-
 
     methods:{
         async soumettre(){
@@ -53,8 +47,12 @@ import Form from 'vform';
                     const create_store=await axios.post('/type_formation/store', formdata, {
 
                     });
-                    Swal.fire('Succes!','type_formation ajouté avec succés','succes')
+
+                    Swal.fire('Succes!','Type de formation ajouté avec succés','success')
                     this.resetForm();
+                    bus.emit('formationAjoutee');
+
+
                 }
                 catch(e){
                     console.log(e)
@@ -71,36 +69,10 @@ import Form from 'vform';
             this.interesser= event;
         },
 
-
-
         resetForm(){
-            // var ajout = document.querySelector("[data-modal-ajout]");
-            // var fermemod = document.querySelectorAll('[data-close-modal]');
-            // //Fermeture des modals
-            // fermemod.forEach(item => {
-            //     item.addEventListener('click', () => {
-            //     var actif = document.querySelectorAll('.actif');
-            //         actif.forEach(item => {
-            //             item.classList.remove("actif");
-            //         });
-            //             ajout.close();
-            //             modification.close();
-            //             suppression.close();
-
-            // })
-       /*    ajout.remove("active");  */
-
-            // });
             this.form.input="";
             this.form.intitule="";
-
-
         },
-    //     rafraichissementAutomatique() {
-    //         document.addEventListener("DOMContentLoaded", this.resetForm());
-    // },
-
-
 
     }
    }

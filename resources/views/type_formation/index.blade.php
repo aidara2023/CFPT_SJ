@@ -1,7 +1,9 @@
 @extends('layout.app')
 @section('content')
-
 <div class="elements flou ">
+        @include('layout.header')
+
+{{-- <div class="elements flou ">
     <div class="entete">
         <h1 class="titre">Surveillant</h1>
          <div class="bloc">
@@ -18,15 +20,26 @@
             <a href="#">
                 <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
             </a>
+
         </div>
        
             <type-formation-liste></type-formation-liste>
        
         
     </div>
+
+        </div> --}}
+        <div id="app">
+
+            <type-formation-liste></type-formation-liste>
+            
+
+{{-- 
+    </div>--}}
+
 </div>
 
- <span class="fond "></span>
+ <span class="fond "></span> 
 
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
@@ -130,9 +143,13 @@
  
  {{--  Debut modal pour ajouter utilisateur --}}
  <dialog data-modal-ajout class="modal" >
+
   
             <type-formation-create  ></type-formation-create>
               
+
+    <type-formation-create  ></type-formation-create>
+
 
 </dialog>
 {{-- <dialog data-modal-ajout class="modal">
@@ -155,6 +172,7 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+ </div>
 
 
 

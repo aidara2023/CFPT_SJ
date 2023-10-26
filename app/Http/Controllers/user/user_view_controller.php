@@ -10,4 +10,8 @@ class user_view_controller extends Controller
     public function create(){
         return view('utilisateur.create');
     }
+
+    public function index(){
+        return view('utilisateur.index');
+    }
 }

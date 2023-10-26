@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -56,7 +57,7 @@ import Form from 'vform';
 
     mounted(){
         this.get_direction();
-        // this.rafraichissementAutomatique();
+
 
     },
 
@@ -66,19 +67,15 @@ import Form from 'vform';
             formdata.append('nom_departement', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
 
-
-
-
-
-
             if(this.form.nom!==""){
                 try{
                     const create_store=await axios.post('/departement/store', formdata, {
 
                     });
                     this.resetForm();
-                    Swal.fire('Succes!','departement ajouté avec succés','succes')
+                    Swal.fire('Succes!','departement ajouté avec succés','success')
                     this.resetForm();
+                    bus.emit('departementAjoutee');
                 }
                 catch(e){
                     console.log(e)
@@ -109,30 +106,9 @@ import Form from 'vform';
         },
 
         resetForm(){
-
-    //         var ajout = document.querySelector("[data-modal-ajout]");
-    //         var fermemod = document.querySelectorAll('[data-close-modal]');
-    //         //Fermeture des modals
-    //         fermemod.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //             var actif = document.querySelectorAll('.actif');
-    //                 actif.forEach(item => {
-    //                     item.classList.remove("actif");
-    //                 });
-    //                     ajout.close();
-    //                     modification.close();
-    //                     suppression.close();
-
-    //         })
-    //    /*    ajout.remove("active");  */
-
-    //         });
             this.form.nom="";
             this.form.id_direction="";
         },
-    //         rafraichissementAutomatique() {
-    //         document.addEventListener("DOMContentLoaded", this.resetForm());
-    // },
 
     }
 

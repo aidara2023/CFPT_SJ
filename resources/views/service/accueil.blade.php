@@ -3,8 +3,7 @@
 
 <div class="elements flou ">
     <div class="entete">
-        <h1 class="titre">Administrateur</h1>
-         <h1 class="sous_titre">Utilisateurs</h1>
+        @include('layout.header')
      </div>
      <div class="affichage">
         <div class="avant">
@@ -41,6 +40,7 @@
 
  <span class="fond "></span>
 
+ <div id="app">
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>
@@ -163,4 +163,5 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+</div>
 @endsection
