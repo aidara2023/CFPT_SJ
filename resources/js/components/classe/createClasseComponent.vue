@@ -94,12 +94,9 @@ import Form from 'vform';
                     });
                     this.resetForm();
                     Swal.fire('Succes!','classe ajouté avec succés','success')
-<<<<<<< HEAD
                     this.resetForm();
                     bus.emit('classeAjoutee');
-=======
-                    
->>>>>>> b2d7930b54e39bdd1ec28590d387fbe04542d322
+
                 }
                 catch(e){
                     console.log(e)
