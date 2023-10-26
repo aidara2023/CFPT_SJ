@@ -19,10 +19,8 @@
                 <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
-                    <option  value="1 jour">1 jour</option>
-                    <option  value="1 soir">1 soir</option>
-                    <option  value="2 jour">2 jour</option>
-                    <option  value="2 soir">2 soir</option>
+                    <option  value="1 jour">1 </option>                    <option  value="2 jour">2 jour</option>
+                    <option  value="2 soir">2 </option>
                     <option  value="3">3</option>
                 </select>
             </div>
@@ -30,14 +28,14 @@
         <div class="type_formation">
                 <select name="type_formation" id="type_formation" v-model="form.id_type_formation">
                         <option value=""> Type de formation </option>
-                        <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
+                        <option v-for="type_formation in type_formations" :key="type_formation.id">{{ type_formation.intitule }}</option>
                 </select>
             </div>
 
             <div class="unite_de_formation">
                 <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation">
                         <option value=""> Unite de formation </option>
-                        <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
+                        <option v-for="unite_de_formation in unite_de_formations" :key="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
                 </select>
             </div>
 
