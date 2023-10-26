@@ -21,7 +21,7 @@
             <li class="fntr menu"><a href="#">
                 <div>
                     <i class="fi fi-rr-graduation-cap"></i>
-                    <span>Gestion pédagogique</span>
+                    <span>Pédagogique</span>
                 </div>
             </a>
             <ul class="deroulante">

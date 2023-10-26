@@ -12,14 +12,14 @@
    <div class="sections" v-for="(departement, index) in departements" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
+               <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ departement.nom_departement }} </p>
                <p class="texte" id="n">{{ departement.direction.nom_direction }}</p>
                <div  class="presences">
-              <!--   <a href="#" class="texte b">
+                <a href="#" class="texte b">
                             <i class="fi fi-rr-bars-sort"></i>
                             <span class="modifier">Actions</span>
-                    </a> -->
+                    </a>
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
