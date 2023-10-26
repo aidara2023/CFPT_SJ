@@ -16,6 +16,10 @@
                <p class="texte" id="n">{{ utilisateur.nom }} {{ utilisateur.prenom }}</p>
                <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
                <div  class="presences">
+                    <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>

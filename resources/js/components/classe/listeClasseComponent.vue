@@ -16,6 +16,10 @@
                <p class="texte" id="n">{{ classe.nom_classe }} {{ classe.type_classe }}</p>
                <p class="texte" id="n">{{ classe.type_formation.intitule }} {{ classe.unite_de_formation.nom_unite_formation }}</p>
                <div  class="presences">
+                <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
