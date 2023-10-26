@@ -80,13 +80,13 @@
             <!--Informations académiques-->
             <div class="academiques">
                 <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique">
-                        <option value=""> Annee accademique </option>
+                        <option value=""> Annee academique </option>
                         <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
                 </select>
 
                 <select name="classe" id="classe" v-model="form.id_classe">
                         <option value=""> Classe </option>
-                        <option v-for="classe in classes" :value="classe.id">{{ classe.nom_classe }} - {{ classe.niveau }} - {{ classe.type_classe }}</option>
+                        <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
                 </select>
                     <!-- <select name="niveau" id="niveau" v-model="form.niveau">
                         <optgroup label="Niveau">
