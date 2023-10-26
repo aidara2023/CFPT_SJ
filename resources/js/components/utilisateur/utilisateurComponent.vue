@@ -1,5 +1,5 @@
 <template>
-    <div class=" cote_droit">
+    <div class=" cote_droit contenu">
         <form @submit.prevent="soumettre()" method="dialog">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
             <!--Informations personnelles-->
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -184,6 +185,7 @@ import Form from 'vform';
                     });
                     this.resetForm();
                     Swal.fire('Succes!','utilisateur ajouté avec succés','success')
+                    bus.emit('formationAjoutee');
 
                 }
                 catch(e){

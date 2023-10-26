@@ -33,32 +33,30 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
  export default {
   name:"createDirectionCompenent",
-  data(){
-      return {
-          users:[],
-          form:new Form({
-              'nom_direction':"",
-              'id_service':"",
-              'id_user':"",
+    data(){
+        return {
+            users:[],
+            form:new Form({
+                'nom_direction':"",
+                'id_service':"",
+                'id_user':"",
 
-          }),
-          services:[],
-      }
-  },
-  mounted(){
+            }),
+            services:[],
+        }
+    },
+    mounted(){
         this.get_service();
         this.get_user();
-        // this.rafraichissementAutomatique();
-
-
     },
 
-  methods:{
+    methods:{
       async soumettre(){
           const formdata = new FormData();
           formdata.append('nom_direction', this.form.nom_direction  );
@@ -70,6 +68,7 @@ import Form from 'vform';
                   const create_store=await axios.post('/direction/store', formdata);
                   Swal.fire('Succes!','Direction ajouté avec succés','success')
                   this.resetForm();
+                  bus.emit('directionAjoutee');
               }
               catch(e){
                   console.log(e.request.status)

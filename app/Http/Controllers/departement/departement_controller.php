@@ -10,7 +10,7 @@ use App\Models\Departement;
 class departement_controller extends Controller
 {
     public function all(){
-        $departement = Departement::all();
+        $departement = Departement::with('direction')->get();
         if($departement != null){
             return response()->json([
                 'statut' => 200,
@@ -27,9 +27,9 @@ class departement_controller extends Controller
     public function store(departement_request $request) {
         $data = $request -> validated();
         $verification =Departement::where('nom_departement', $request['nom_departement'])->get();
-       
+
         if($verification->count()!=0){
-            return response()->json([ 
+            return response()->json([
                 'statut'=>404,
                 'message'=>'Cette departement existe déja',
             ],404 );
@@ -69,7 +69,7 @@ class departement_controller extends Controller
         }
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         $departement = Departement::find($id);
         if($departement != null){
             $departement -> delete();

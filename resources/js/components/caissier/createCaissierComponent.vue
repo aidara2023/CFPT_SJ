@@ -33,7 +33,7 @@
                 </label>
             </div>
             <div class="num-addr">
-    
+
                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone">
                 <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse">
                 <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email">
@@ -54,18 +54,18 @@
                 </select>
             </div>
 
-            
+
 
              <!-- <div class="identifiants">
                 <input type="text" name="matricule" id="matricule" placeholder="Matricule" v-model="form.contact_urgence_2">
                 <input type="password" name="mot_de_passe" id="mot_de_passe" placeholder="Mot de passe" v-model="form.contact_urgence_2">
-            </div> --> 
+            </div> -->
 
-            
-            
+
+
             <!--paiement-->
-    
-    
+
+
             <div class="boutons">
                 <input type="submit" value="Ajouter">
                 <button type="button">Annuler</button>
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -108,7 +109,7 @@ import Form from 'vform';
         this.get_service();
 
     },
-    
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
@@ -125,9 +126,9 @@ import Form from 'vform';
             formdata.append('id_service', this.form.id_service);
             formdata.append('photo', this.photo);
 
-            
 
-            
+
+
 
             if(this.form.nom!=="" && this.form.prenom!=="" && this.form.telephone!=="" && this.form.date_naissance!==""){
                 try{
@@ -136,6 +137,7 @@ import Form from 'vform';
                     });
                     Swal.fire('Succes!','caissier ajouté avec succés','succes')
                     this.resetForm();
+                    bus.emit('formationAjoutee');
                 }
                 catch(e){
                     console.log(e)
@@ -148,27 +150,27 @@ import Form from 'vform';
 
 
         },
-        
+
 
          get_role(){
-            
+
              axios.get('/roles/index')
              .then(response => {
                  this.roles=response.data.role
-                 
-                
+
+
             }).catch(error=>{
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
             });
         },
 
         get_service(){
-            
+
             axios.get('/service/index')
             .then(response => {
                 this.services=response.data.service
-                
-               
+
+
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
            });
@@ -189,7 +191,7 @@ import Form from 'vform';
             this.form.nationalite="";
             this.form.id_role="";
             this.form.id_service="";
-           
+
         }
 
 

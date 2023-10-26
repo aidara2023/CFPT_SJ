@@ -1,5 +1,5 @@
 <template>
-      <div class="cote_droit">
+      <div class="cote_droit contenu">
         <form @submit.prevent="soumettre()" method="dialog">
             <h1 class="sous_titre">Informations Personnelles</h1>
             <div>
@@ -161,15 +161,20 @@
             </div> -->
 
 
-            <div class="boutons">
+            <!-- <div class="boutons">
                 <button type="button">Retourner</button>
                 <input type="submit" value="Valider">
+            </div> -->
+             <div class="boutons">
+                <input  type="submit" data-close-modal  value="Ajouter">
+                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
    export default {
@@ -272,14 +277,7 @@ import Form from 'vform';
                     });
                     Swal.fire('Succes!','Inscription validé avec succés','success')
                     this.form.reset();
-                    /* if(data==1){
-                        Swal.fire('Erreur!','La taille du fichier est trop importante. Veuillez télécharger un fichier PDF de taille inférieure à 5 Mo','error');
-
-                    }else if(data==2){
-                        Swal.fire('Erreur!','Seuls les fichiers PDF sont autorisés','error');
-                    }else{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error');
-                    } */
+                    bus.emit('inscriptionAjoutee');
                 }
                 catch(e){
                     console.log(e)

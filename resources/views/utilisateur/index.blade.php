@@ -2,12 +2,10 @@
 @section('content')
 
 <div class="elements flou ">
-    <div class="entete">
-        @include('layout.header')
-     </div>
-     <div class="affichage">
+       @include('layout.header')
+     {{-- <div class="affichage">
         <div class="avant">
-            <h1 class="texte">Service</h1>
+            <h1 class="texte">Utilisateur</h1>
             <a href="#">
                 <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
             </a>
@@ -35,12 +33,17 @@
         </div>
 
 
-    </div>
-</div>
+    </div> --}}
+
+
+    <div id="app">
+
+        <liste-utilisateur></liste-utilisateur>
+{{-- </div> --}}
 
  <span class="fond "></span>
 
- <div id="app">
+
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>
@@ -144,7 +147,7 @@
  {{--  Debut modal pour ajouter utilisateur --}}
 <dialog data-modal-ajout class="modal">
         {{-- <div id="app"> --}}
-            <service-create></service-create>
+            <utilisateur-create></utilisateur-create>
         {{-- </div> --}}
 </dialog>
 {{--  Fin modal pour ajouter utilisateur --}}

@@ -2,42 +2,34 @@
 @section('content')
 
 <div class="elements flou ">
-    <div class="entete">
-        <h1 class="titre">Administrateur</h1>
-         <h1 class="sous_titre">Utilisateurs</h1>
-     </div>
-     <div class="affichage">
-        <div class="avant">
-            <h1 class="texte">Departement</h1>
-            <a href="#">
-                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-            </a>
-        </div>
-        <div class="sections">
-            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-            <div class="utilisateur">
-                <img src="image1.png" alt="Etu" class="petite">
-                <p class="texte" id="n">Info</p>
-                <div  class="presences">
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-edit"></i>
-                        <span class="modifier mdl">Modifier</span>
-                    </a>
-                    <a href="" class="texte b">
-                        <i class="fi fi-rr-comment-alt-dots"></i>
-                        <span class="details">Détails</span>
-                    </a>
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-cross"></i>
-                        <span class="supprimer mdl">Supprimer</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    @include('layout.header')
 
-
+{{-- <div class="elements flou ">
+<div class="entete">
+    <h1 class="titre">Surveillant</h1>
+     <div class="bloc">
+        <h1 class="sous_titre">Departement</h1>
+     <div class="recherche">
+        <i class="fi fi-rr-search"></i>
+        <input  type="text" name="" placeholder="Rechercher">
     </div>
-</div>
+     </div>
+ </div>
+ <div class="affichage">
+    <div class="avant">
+        <h1 class="texte">Type De Formation </h1>
+        <a href="#">
+            <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
+        </a>
+    </div> --}}
+    <div id="app">
+
+        <liste-departement></liste-departement>
+
+
+{{--
+</div>--}}
+{{-- </div> --}}
 
  <span class="fond "></span>
 
@@ -163,4 +155,5 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+</div>
 @endsection

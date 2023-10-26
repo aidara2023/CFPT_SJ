@@ -2,15 +2,7 @@
 @section('content')
 
 <div class="elements flou ">
-    <div class="entete">
-        <h1 class="titre">Surveillant</h1>
-         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
-         <div class="recherche">
-            <i class="fi fi-rr-search"></i>
-            <input  type="text" name="" placeholder="Rechercher">
-        </div>
-         </div>
+    @include('layout.header')
      </div>
      <div class="affichage">
         <div class="avant">
@@ -75,6 +67,7 @@
 
  <span class="fond "></span>
 
+ <div id="app">
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>
@@ -177,9 +170,9 @@
  
  {{--  Debut modal pour ajouter utilisateur --}}
 <dialog data-modal-ajout class="modal">
-        <div id="app">
+        {{-- <div id="app"> --}}
             <utilisateur-create></utilisateur-create>
-        </div>
+        {{-- </div> --}}
 </dialog>
 {{--  Fin modal pour ajouter utilisateur --}}
 
@@ -196,6 +189,6 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
-
+</div>
 
 @endsection

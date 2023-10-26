@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class classe_controller extends Controller
 {
     public function all() {
-        $classe=Classe::all();
+        $classe=Classe::with('unite_de_formation', 'type_formation')->get();
         if($classe!=null){
             return response()->json([
                 'statut'=>200,
@@ -27,9 +27,9 @@ class classe_controller extends Controller
     public function store(classe_request $request){
         $data=$request->validated();
         $verification =Classe::where('nom_classe', $request['nom_classe'])->get();
-       
+
         if($verification->count()!=0){
-            return response()->json([ 
+            return response()->json([
                 'statut'=>404,
                 'message'=>'Cette classe existe déja',
             ],404 );

@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -59,6 +60,7 @@ import Form from 'vform';
                     const create_store=await axios.post('/service/store', formdata, {});
                     this.resetForm();
                     Swal.fire('Succes!','Service ajouté avec succés','success')
+                    bus.emit('formationAjoutee');
 
                 }
                 catch(e){

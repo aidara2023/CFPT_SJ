@@ -76,7 +76,7 @@ class type_formation_controller extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {

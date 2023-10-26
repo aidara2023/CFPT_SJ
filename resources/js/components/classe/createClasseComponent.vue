@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
@@ -73,8 +74,6 @@ import Form from 'vform';
     mounted(){
         this.get_type_formation();
         this.get_unite_de_formation();
-        this.rafraichissementAutomatique();
-
     },
 
 
@@ -96,6 +95,7 @@ import Form from 'vform';
                     this.resetForm();
                     Swal.fire('Succes!','classe ajouté avec succés','success')
                     this.resetForm();
+                    bus.emit('classeAjoutee');
                 }
                 catch(e){
                     console.log(e)
@@ -140,23 +140,6 @@ import Form from 'vform';
 
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
-
-            })
-       /*    ajout.remove("active");  */
-
-            });
 
             this.nom_classe="";
             this.type_classe="";
@@ -166,9 +149,7 @@ import Form from 'vform';
 
 
         },
-        rafraichissementAutomatique() {
-            document.addEventListener("DOMContentLoaded", this.resetForm());
-    },
+
 
 
     }

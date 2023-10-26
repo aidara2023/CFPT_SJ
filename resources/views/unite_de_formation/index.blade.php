@@ -2,10 +2,7 @@
 @section('content')
 
 <div class="elements flou ">
-    <div class="entete">
-        <h1 class="titre">Administrateur</h1>
-         <h1 class="sous_titre">Utilisateurs</h1>
-     </div>
+    @include('layout.header')
      <div class="affichage">
         <div class="avant">
             <h1 class="texte">unite de formation</h1>

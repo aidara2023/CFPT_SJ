@@ -1,4 +1,14 @@
 <template>
+    
+     <div class="affichage">
+        <div class="avant">
+            <h1 class="texte">Type De Formation </h1>
+            <a href="#">
+                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
+            </a>
+        </div>
+
+
     <div class="sections" v-for="(formation, index) in formations" :key="index">
             <!-- Répéter la div utilisateur pour un autre utilisateur -->
             <div class="utilisateur">
@@ -13,21 +23,32 @@
                         <i class="fi fi-rr-comment-alt-dots"></i>
                         <span class="details">Détails</span>
                     </a>
-                    <a href="#" class="texte b">
+                    <a href="#" class="texte b" @click="deleteTypeFormation(formation)">
                         <i class="fi fi-rr-cross"></i>
                         <span class="supprimer mdl">Supprimer</span>
                     </a>
                 </div>
             </div>
         </div>
+
+
+
+    </div>
+
+
+ <span class="fond "></span>
+
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 
+
+
    export default {
-    name:"createTypeFormationCompenent",
+    name:"listeTypeFormationCompenent",
     data(){
         return {
             form:new Form({
@@ -41,8 +62,10 @@ import Form from 'vform';
     },
     mounted(){
         this.get_formation();
+        bus.on('formationAjoutee', () => { // Écouter l'événement de nouvelle formation ajoutée
+            this.get_formation(); // Mettre à jour la liste des formations
+        });
     },
-
 
     methods:{
         get_formation(){
@@ -61,11 +84,35 @@ import Form from 'vform';
         },
 
         resetForm(){
-
             this.form.input="";
             this.form.intitule="";
+        },
 
+        async deleteTypeFormation(type) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/type_formation/delete/${type.id}`).then(resp => {
+                        this.get_formation();
 
+                        Swal.fire(
+                            'Supprimé!',
+                            'La formation a été supprimé avec succès.',
+                            'success',
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
         },
 
 
