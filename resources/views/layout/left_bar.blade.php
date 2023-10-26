@@ -18,7 +18,8 @@
                 </div>
             </a></li>
 
-            <li class="fntr menu"><a href="#">
+            <li class="fntr menu">
+            <a href="#">
                 <div>
                     <i class="fi fi-rr-graduation-cap"></i>
                     <span>Pédagogique</span>
@@ -28,20 +29,46 @@
                 <li class="fntr" ><a href="{{route('departement_index')}}">
                     <i class="fi fi-rr-home"></i>
                     <span>Departement</span>
-                </a>
-            </li>
-                <li class="fntr" ><a href="#">
+                    </a>
+                </li>
+                <li class="fntr" ><a href="{{route('classe_index')}}">
                     <i class="fi fi-rr-home"></i>
-                    <span>option 2</span>
-                </a>
-            </li>
-                <li class="fntr" ><a href="#">
+                    <span>Classe</span>
+                    </a>
+                </li>
+                <li class="fntr" ><a href="{{route('unite_de_formation_index')}}">
                     <i class="fi fi-rr-home"></i>
-                    <span>option 3</span>
-                </a>
-            </li>
+                    <span>Filière</span>
+                    </a>
+                </li>
+                <li class="fntr" ><a href="{{route('type_formation_index')}}">
+                    <i class="fi fi-rr-home"></i>
+                    <span>Type Formation</span>
+                    </a>
+                </li>
             </ul>
         </li>
+
+            <li class="fntr"><a href="{{route('utilisateur_index')}}">
+                <div>
+                    <i class="fi fi-rr-money-bill-wave"></i>
+                    <span>Utilisateur</span>
+                </div>
+            </a></li>
+
+            <li class="fntr"><a href="{{route('service_accueil')}}">
+                <div>
+                    <i class="fi fi-rr-money-bill-wave"></i>
+                    <span>Service</span>
+                </div>
+            </a></li>
+            
+            <li class="fntr"><a href="{{route('inscription_accueil')}}">
+                <div>
+                    <i class="fi fi-rr-money-bill-wave"></i>
+                    <span>Inscription</span>
+                </div>
+            </a></li>
 
             <li class="fntr"><a href="#">
                 <div>
@@ -85,7 +112,7 @@
                 </div>
             </a></li>
 
-            <li class="fntr"><a href="#">
+            <li class="fntr"><a href="{{route('logout')}}">
                 <div>
                     <i class="fi fi-rr-sign-out-alt"></i>
                     <span>Me déconnecter</span>
