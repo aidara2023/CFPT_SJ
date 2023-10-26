@@ -16,8 +16,6 @@
                <p class="texte" id="n">{{ departement.nom_departement }} </p>
                <p class="texte" id="n">{{ departement.direction.nom_direction }}</p>
                <div  class="presences">
-
-               
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
