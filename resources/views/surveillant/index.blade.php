@@ -177,7 +177,7 @@
  
  {{--  Debut modal pour ajouter utilisateur --}}
 <dialog data-modal-ajout class="modal">
-        <div id="app">
+        <div >
             <utilisateur-create></utilisateur-create>
         </div>
 </dialog>
