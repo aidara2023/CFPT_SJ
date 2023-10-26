@@ -18,8 +18,16 @@
         <div class="avant">
             <h1 class="texte">Type De Formation </h1>
             <a href="#">
-                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
+                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
             </a>
+
+        </div>
+       
+            <type-formation-liste></type-formation-liste>
+       
+        
+    </div>
+
         </div> --}}
         <div id="app">
 
@@ -28,7 +36,8 @@
 
 {{-- 
     </div>--}}
-</div>
+
+
 
  <span class="fond "></span> 
 
@@ -38,7 +47,7 @@
     <div class="contenu">
         <form action="" method="dialog" >
             <h1 class="sous_titre">Informations Personnelles</h1>
-
+            
             <div class="personnel">
                 <input type="text" name="nom" id="nom" placeholder="Nom">
                 <input type="text" name="prenom" id="prenom" placeholder="Prenom">
@@ -125,15 +134,19 @@
         </form>
     </div>
     <div class="boutons">
-        <button type="button" data-close-modal class="texte">Annuler</button>
+        <button type="button" data-close-modal class="texte">Annuler</button> 
     </div>
-</dialog>
+</dialog> 
  {{--  Fin modal pour modifier utilisateur --}}
 
 
-
+ 
  {{--  Debut modal pour ajouter utilisateur --}}
  <dialog data-modal-ajout class="modal" >
+
+  
+            <type-formation-create  ></type-formation-create>
+              
 
     <type-formation-create  ></type-formation-create>
 
@@ -155,7 +168,7 @@
     </div>
     <div class="boutons">
         <button type="button" data-close-modal class="texte">Annuler</button>
-        <input type="submit" value="Confirmer">
+        <input type="submit" value="Confirmer"> 
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}

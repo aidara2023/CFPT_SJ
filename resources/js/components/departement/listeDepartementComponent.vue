@@ -4,7 +4,7 @@
        <div class="avant">
            <h1 class="texte">Departement</h1>
            <a href="#">
-               <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
+               <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
 
@@ -16,6 +16,10 @@
                <p class="texte" id="n">{{ departement.nom_departement }} </p>
                <p class="texte" id="n">{{ departement.direction.nom_direction }}</p>
                <div  class="presences">
+              <!--   <a href="#" class="texte b">
+                            <i class="fi fi-rr-bars-sort"></i>
+                            <span class="modifier">Actions</span>
+                    </a> -->
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>

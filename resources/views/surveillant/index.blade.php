@@ -67,7 +67,7 @@
 
  <span class="fond "></span>
 
- <div id="app">
+
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>
@@ -170,6 +170,7 @@
  
  {{--  Debut modal pour ajouter utilisateur --}}
 <dialog data-modal-ajout class="modal">
+       
         {{-- <div id="app"> --}}
             <utilisateur-create></utilisateur-create>
         {{-- </div> --}}
