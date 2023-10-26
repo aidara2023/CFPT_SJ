@@ -26,7 +26,7 @@
   </template>
 
     
-     <div class="affichage">
+    <!--  <div class="affichage">
         <div class="avant">
             <h1 class="texte">Type De Formation </h1>
             <a href="#">
@@ -36,7 +36,7 @@
 
 
     <div class="sections" v-for="(formation, index) in formations" :key="index">
-            <!-- Répéter la div utilisateur pour un autre utilisateur -->
+        
             <div class="utilisateur">
                 <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                 <p class="texte" id="n">{{ formation.intitule }}</p>
@@ -60,12 +60,12 @@
 
 
     </div>
+ -->
 
+<!--  <span class="fond "></span>
 
- <span class="fond "></span>
+</template> -->
 
-</template>
->>>>>>> 78412742992960e43c3ad8e0a363e68632b88957
 
 <script>
 import bus from '../../eventBus';

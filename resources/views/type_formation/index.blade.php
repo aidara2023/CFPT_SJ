@@ -37,7 +37,7 @@
 {{-- 
     </div>--}}
 
-</div>
+
 
  <span class="fond "></span> 
 

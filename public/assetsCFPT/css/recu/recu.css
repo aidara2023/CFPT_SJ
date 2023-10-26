@@ -1,0 +1,51 @@
+body{
+    margin: O;
+    padding: 0 5vw;
+    font-family: 'Open Sans';
+    display: flex;
+    flex-direction: column;
+
+}
+
+img{
+    width: min(10vw, 80px);
+    height: min(10vw, 80px);
+}
+
+h1{
+    text-align:center;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: clamp(0.7rem,3vw,2rem);
+    padding: 0.6vw; 
+}
+
+h3{
+    text-align: center;
+}
+
+
+
+div{
+    display: flex;
+    gap: 1vw;
+}
+
+div div{
+    flex-direction: column;
+    width: 50%;
+    gap: 1%;
+}
+
+p{
+    font-size: clamp(0.6rem,1.5vw, 0.9rem);
+    
+}
+
+p span{
+    font-weight: 700;
+}
+
+.basdepage{
+    justify-content: space-between;
+}
