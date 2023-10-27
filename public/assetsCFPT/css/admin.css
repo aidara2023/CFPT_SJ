@@ -96,8 +96,8 @@ nav{
     background-color: var(--clr2);
     overflow-x: hidden;
     display: flex;
-    justify-content: left;
-    align-items: center;
+    justify-content: left;/* 
+    align-items: center; */
     border: 30px solid white;
     border-radius:50px ;
     transition: .6s;
@@ -216,6 +216,7 @@ div{
 .recherche{
     background-color: transparent;
     padding: max(1vw, 9px) max(2vw, 5px);
+    border: min(0.3vw, 1.5px) solid var(--clr);
     border-radius: 40px;
     border: min(1px, 0.3vw) solid var(--clr);/* 
     border-image-slice: 1;
@@ -243,7 +244,7 @@ div{
 }
 
 .recherche input::placeholder{
-    color: var(--clr2);
+    color: black;
     font-weight: 300;
     text-align: left;
 
@@ -520,6 +521,23 @@ input{
     color: white;
     margin: 0;
     margin-top: min(40px,3vw);
+}
+
+.modal .fermer{
+    position: absolute;
+    right: 3vw;
+    top: 3vh;
+
+    width: 20px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(45deg);
+    border-radius: 40px;
+
+}
+
+.modal .fermer:first-child{
+    transform: rotate(-45deg);
 }
 
 .contenu{

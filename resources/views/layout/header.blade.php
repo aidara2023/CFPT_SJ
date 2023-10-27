@@ -5,7 +5,7 @@
         <h1 class="sous_titre">Utilisateurs</h1>
     <div class="recherche">
         <i class="fi fi-rr-search"></i>
-        <input  type="text" name="" placeholder="Rechercher">
+        <input  type="text" name="" placeholder="Rechercher un utilisateur">
     </div>
     </div>
 </div>

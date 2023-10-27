@@ -1,9 +1,9 @@
 <template>
   <!--  <div class="scrollable-container" > -->
-      <div class="sections" v-for="(formation, index) in formations" :key="index">
+      <div class="sections" >
         <!-- Répéter la div utilisateur pour un autre utilisateur -->
         
-        <div class="utilisateur">
+        <div class="utilisateur" v-for="(formation, index) in formations" :key="index">
           <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
           <p class="texte" id="n">{{ formation.intitule }}</p>
           <div class="presences">
@@ -11,8 +11,8 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-            <a href="#" class="texte b">
-              <i class="fi fi-rr-edit"></i>
+            <a href="#" class="texte b" title="Modifier" >
+              <i class="fi fi-rr-edit" ></i>
               <span class="modifier mdl">Modifier</span>
             </a>
             <a href="" class="texte b">

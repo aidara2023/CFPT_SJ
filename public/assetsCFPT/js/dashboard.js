@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", function()  {
 
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
+
     var bouton_fermeture = document.querySelectorAll('.fermer');
+
 
 
     mdl.forEach(item => {
@@ -75,6 +77,20 @@ document.addEventListener("DOMContentLoaded", function()  {
 
     })
     });
+    bouton_fermeture.forEach(item => {
+        item.addEventListener('click', () => {
+            //console.log(fermemod[0].textContent);
+        var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+                ajout.close();
+                modification.close();
+                suppression.close();
+
+    })
+    });
+
     bouton_fermeture.forEach(item => {
         item.addEventListener('click', () => {
             //console.log(fermemod[0].textContent);
