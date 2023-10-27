@@ -21,9 +21,9 @@
                          <i class="fi fi-rr-bars-sort"></i>
                          <span class="modifier">Actions</span>
                  </a>
-                     <a href="#" class="texte b">
+                     <a href="#" class="texte b modifier mdl">
                          <i class="fi fi-rr-edit"></i>
-                         <span class="modifier mdl">Modifier</span>
+                         <span class="">Modifier</span>
                  </a>
          
                      <a href="" class="texte b">
@@ -31,9 +31,9 @@
                          <span class="details">Détails</span>
                  </a>
          
-                     <a href="#" class="texte b">
+                     <a href="#" class="texte b supprimer mdl">
                          <i class="fi fi-rr-cross"></i>
-                         <span class="supprimer mdl">Supprimer</span></a>
+                         <span class="">Supprimer</span></a>
          
                  </div>
  
@@ -57,9 +57,9 @@
                          <i class="fi fi-rr-bars-sort"></i>
                          <span class="modifier">Actions</span>
                  </a>
-                     <a href="#" class="texte b">
+                     <a href="#" class="texte b modifier mdl">
                          <i class="fi fi-rr-edit"></i>
-                         <span class="modifier mdl">Modifier</span>
+                         <span class="">Modifier</span>
                  </a>
          
                      <a href="" class="texte b">
@@ -67,9 +67,9 @@
                          <span class="details">Détails</span>
                  </a>
          
-                     <a href="#" class="texte b">
+                     <a href="#" class="texte b supprimer mdl">
                          <i class="fi fi-rr-cross"></i>
-                         <span class="supprimer mdl">Supprimer</span></a>
+                         <span class="">Supprimer</span></a>
          
                  </div>
  
@@ -90,7 +90,11 @@
      <div class="contenu">
          <form action="" method="">
              <h1 class="sous_titre">Informations Personnelles</h1>
-             
+
+             {{-- Bouton Fermeture --}}
+             <span class="fermer"></span>
+             <span class="fermer"></span>
+              {{-- Fin Bouton Fermeture --}}
 
              <div class="personnel">
              <input type="text" name="nom" id="nom" placeholder="Nom">
@@ -201,15 +205,33 @@
     
     {{-- fin bouton fermeture --}}
      <h1>Ajout</h1>
+
+
+     <span class="fermer"></span>
+     <span class="fermer"></span>
+
+
      <div class="contenu">
          <form action="" method="dialog" >
              <h1 class="sous_titre">Informations Personnelles</h1>
              
 
              <div class="personnel">
-             <input type="text" name="nom" id="nom" placeholder="Nom">
-             <input type="text" name="prenom" id="prenom" placeholder="Prenom">
-             <input type="date" name="date_naissance" id="date_naissance" placeholder="Jour/Mois/Annee">
+                <div>
+                    <input type="text" name="nom" id="nom" placeholder="Nom">
+                    <span class="erreur">message erreur</span>
+                </div>
+
+                <div>
+                    <input type="text" name="prenom" id="prenom" placeholder="Prenom">
+                    <span class="erreur"></span>
+
+                </div>
+                <div>
+                    <input type="date" name="date_naissance" id="date_naissance" placeholder="Jour/Mois/Annee">
+                    <span class="erreur"></span>
+                </div>
+                <div><span class="erreur"></span></div>
              <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance">
          </div>
              <div class="sexe">
@@ -307,6 +329,10 @@
 <!-- class="modal actif" -->
  <dialog data-modal-modification class="modal">
      <h1>Modification</h1>
+
+     <span class="fermer"></span>
+     <span class="fermer"></span>
+     
      <div class="contenu">
 
          <form action="" method="dialog" >
@@ -322,7 +348,7 @@
              <div class="sexe">
                  <span class="b2">Sexe</span>
                  <label for="masculin">Masculin
-                    <span></span>
+                    
                      <input type="radio" name="sexe" id="masculin" value="masculin">
                  </label>
                  <label for="feminin">Feminin

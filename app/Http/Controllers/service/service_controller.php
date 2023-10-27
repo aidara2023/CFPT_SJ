@@ -26,6 +26,7 @@ class service_controller extends Controller
 
     public function store(service_request $request){
         $data=$request->validated();
+        
         $verification =Service::where('nom_service', $request['nom_service'])->get();
        
         if($verification->count()!=0){

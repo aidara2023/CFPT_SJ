@@ -70,7 +70,7 @@ import Form from 'vform';
             if(this.form.nom!==""){
                 try{
                     const create_store=await axios.post('/departement/store', formdata, {
-
+                        
                     });
                     this.resetForm();
                     Swal.fire('Succes!','departement ajouté avec succés','success')

@@ -35,9 +35,6 @@
                </div>
            </div>
        </div>
-
-
-
    </div>
 
 
@@ -84,10 +81,6 @@ import Form from 'vform';
            });
        },
 
-       changement(event){
-           this.interesser= event;
-       },
-
        resetForm(){
            this.form.input="";
            this.form.intitule="";
@@ -110,7 +103,7 @@ import Form from 'vform';
 
                        Swal.fire(
                            'Supprimé!',
-                           'La direction a été supprimé avec succès.',
+                           'La direction a été supprimée avec succès.',
                            'success',
                        )
                    }).catch(function (error) {

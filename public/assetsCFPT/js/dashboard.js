@@ -13,69 +13,71 @@ document.addEventListener("DOMContentLoaded", function()  {
 
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
-    var bouton_fermeture = document.querySelectorAll('.fermer')
+
+    var bouton_fermeture = document.querySelectorAll('.fermer');
 
 
-    // Ouverture des modals
+
     mdl.forEach(item => {
         item.addEventListener('click', function(){
             var index = Array.from(mdl).indexOf(this);
             contenu = mdl[index].textContent;
-            contenu = contenu.trim();
+            contenu = contenu.trim(); 
 
-            //console.log(contenu == "Modifier")
-
+            console.log(mdl[index].classList.contains("modifier"));
+            
             flou.forEach(item => {
                 item.classList.add("actif");
             });
             fond.classList.add("actif");
-
+            
             if(contenu == "Ajouter"){
-                //console.log(contenu);
+                console.log(contenu);
 
                 setTimeout(function(){
                 ajout.showModal();
                 ajout.classList.add("actif");
-                }, 20);
+                }, 20); 
             }
 
-            if(contenu == "Modifier"){
-                //console.log(contenu);
+            if(mdl[index].classList.contains("modifier")){
+                console.log(contenu);
                 //modification.style.backgroundColor = 'var(--clr)';
 
                 setTimeout(function(){
                 modification.showModal();
                 modification.classList.add("actif");
-                }, 20);
+                }, 20); 
             }
 
-            if(contenu == "Supprimer"){
-                //console.log(contenu);
+            if(mdl[index].classList.contains("supprimer")){
+                console.log(contenu);
 
                 suppression.style.backgroundColor = 'var(--rouge)';
+                suppression.style.color = 'var(--clr2)';
                 setTimeout(function(){
                 suppression.showModal();
                 suppression.classList.add("actif");
-                }, 20);
+                }, 20); 
             }
-
-
-            if(item.classList.contains("prescription")){
-                ////console.log(contenu);
-
-                setTimeout(function(){
-                prescription_med.style.backgroundColor = '#f3f3f3';
-                prescription_med.style.Color = 'black';
-                prescription_med.showModal();
-                prescription_med.classList.add("actif");
-                }, 20);
-            }
-
         });
-    });
+        });
 
     //Fermeture des modals
     fermemod.forEach(item => {
+        item.addEventListener('click', () => {
+            //console.log(fermemod[0].textContent);
+        var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+                ajout.close();
+                modification.close();
+                suppression.close();
+
+    })
+    });
+    bouton_fermeture.forEach(item => {
         item.addEventListener('click', () => {
             //console.log(fermemod[0].textContent);
         var actif = document.querySelectorAll('.actif');
@@ -115,6 +117,13 @@ document.addEventListener("DOMContentLoaded", function()  {
             this.classList.add('actif');
         });
     });
+
+     //Petit message d'erreur sous les inputs
+     var erreur = document.querySelectorAll('.erreur');
+
+
+     erreur[1].textContent = "A remplir"; //Message à afficher
+     erreur[1].previousElementSibling.style.borderColor = 'red';  //Trait rouge
 
 });
 
