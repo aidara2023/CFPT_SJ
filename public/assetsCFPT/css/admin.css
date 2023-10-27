@@ -155,7 +155,6 @@ ul li.menu:hover{
     height: 200px;
     transition: .6s;
     padding:5% 10%;
-    overflow-y: auto;
 } 
 
 ul li a div{
@@ -215,9 +214,12 @@ div{
 }
 
 .recherche{
-    background-color: var(--clr);
+    background-color: transparent;
     padding: max(1vw, 9px) max(2vw, 5px);
     border-radius: 40px;
+    border: min(1px, 0.3vw) solid var(--clr);/* 
+    border-image-slice: 1;
+    border-image-source: linear-gradient(-45deg, var(--clr2), var(--clr)); */
     width: 50%;
     margin: 0;
     display: flex;
@@ -257,7 +259,7 @@ div{
     height: fit-content;
     font-size: clamp(0.5rem,1.9vw, 1.1rem);
     border-radius: 50%;
-    color: white;
+    color: var(--clr);
 }
 
 
@@ -338,21 +340,32 @@ p .texte{
     width: auto;
     position: relative;
     margin: 0;
-    padding: .9vw 3px;
-    border-width: min(0.3vw, 1.5px);
-    border-bottom: 1px solid var(--clr);
+    padding: .9vw 3px;/* 
+    border-width: max(0.2vw, 1px); */
+    border-bottom: min(1px, 0.3vw) solid var(--clr);
     
     display: flex;
     align-items: center;
 }
-.utilisateur:first-child{
-    border-top: 1px solid var(--clr);
+.utilisateur:nth-child(1){
+    border-top: min(1px, 0.3vw) solid var(--clr);
     
+}/* 
+.utilisateur:first-child .presences{
+    overflow: visible;
+    justify-content: center;
 }
+
+.utilisateur:first-child .presences:hover{
+    height: min(3.5vmax,  45px);
+} */
+
+
+
 .presences{
     position: relative;
     width:fit-content;
-    height: min(3.5vmax,  45px);
+    height: 38px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -366,8 +379,9 @@ p .texte{
 }
 
 .presences:hover{
-    height: 17vh;
+    height:200px;
     transition: .6s;
+    overflow: auto;
 }
 
 input{
@@ -517,6 +531,40 @@ input{
 
     color: white;
 }
+.modal .fermer{
+    position: absolute;
+    right: 3vw;
+    top: 3vh;
+
+    width: 20px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(45deg);
+    border-radius: 40px;
+
+    cursor: pointer;
+
+}
+
+.modal .fermer:first-child{
+    transform: rotate(-45deg);
+}
+
+.erreur{
+    color: var(--rouge);
+    font-size: 12px;
+
+    text-wrap:wrap;
+    max-width: 140px;
+}
+.contenu div div{
+    width: 19vw;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin: 0;
+    width: fit-content;
+}
 
 .contenu p{
     text-align: center;
@@ -615,10 +663,15 @@ input[type="submit"]:hover{
     .presences{
         gap: 8%;
         flex-direction: row;
-        width: 6.5vw;
+        width: max(6.5vw, 30px);
         justify-content: left;
         height:auto;
-    }
+    }/* 
+
+    .utilisateur:first-child .presences:hover{
+        height:auto;
+        width: 6.5vw;
+    } */
 
     .presences:hover{
         width: 50%;
