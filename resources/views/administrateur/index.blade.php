@@ -111,7 +111,7 @@
              </div>
              <div class="num-addr">
      
-                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43">
+                 <input type="tel" name="telephone" id="telephone" placeholder="77 XXX XX XX">
                  <input type="text" name="adresse" id="adresse" placeholder="Adresse">
                  <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur">
                  <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur">
@@ -194,6 +194,12 @@
  </div>
 
  <dialog data-modal-ajout class="modal">
+ {{-- Bouton de fermeture --}}
+
+    <span class="fermer"></span>
+    <span class="fermer"></span>
+    
+    {{-- fin bouton fermeture --}}
      <h1>Ajout</h1>
      <div class="contenu">
          <form action="" method="dialog" >
@@ -219,7 +225,7 @@
              </div>
              <div class="num-addr">
      
-                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43">
+                 <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 XXX XX XX">
                  <input type="text" name="adresse" id="adresse" placeholder="Adresse">
                  <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur">
                  <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur">

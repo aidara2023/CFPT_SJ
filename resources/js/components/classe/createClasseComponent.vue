@@ -19,9 +19,9 @@
                 <div>
                 <select name="type_formation" id="type_formation" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
-                    <option  value="Niveau 1 ">1 </option>
-                    <option  value="Niveau 2 ">2 </option>
-                    <option  value="Niveau 3">3</option>
+                    <option  value=" 1 ">1 </option>
+                    <option  value=" 2 ">2 </option>
+                    <option  value=" 3">3</option>
                 </select>
             </div>
 

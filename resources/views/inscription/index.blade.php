@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-
+ <span class="fond "></span>
 <div class="elements flou " id="app">
     @include('layout.header')
 
@@ -31,7 +31,7 @@
                 </label>
             </div>
             <div class="num-addr">
-                <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43">
+                <input type="tel" name="telephone" id="telephone" placeholder="77 XXX XX XX">
                 <input type="text" name="adresse" id="adresse" placeholder="Adresse">
                 <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur">
                 <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur">
@@ -128,5 +128,6 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
- <span class="fond "></span>
+
 @endsection
+
