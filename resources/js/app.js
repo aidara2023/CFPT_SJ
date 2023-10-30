@@ -70,6 +70,9 @@ import listeDirectionComponent from './components/direction/listeDirectionCompon
 
 import createArchiveComponent from './components/archive/createArchiveComponent.vue';
 
+import listeUniteDeFormationComponent from './components/unite_de_formation/listeUniteDeFormationComponent.vue';
+
+
 
 
 
@@ -148,6 +151,8 @@ app.component("liste-direction", listeDirectionComponent);
 
 app.component("archive-create",createArchiveComponent );
 // app.compenent("comptable-create",createComptableComponent);
+
+app.component("liste-unite-de-formation", listeUniteDeFormationComponent);
 
 
 
