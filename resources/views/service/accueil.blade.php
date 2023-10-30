@@ -142,11 +142,11 @@
 
 
  {{--  Debut modal pour ajouter utilisateur --}}
-<dialog data-modal-ajout class="modal">
+{{-- <dialog data-modal-ajout class="modal"> --}}
         {{-- <div id="app"> --}}
             <service-create></service-create>
         {{-- </div> --}}
-</dialog>
+{{-- </dialog> --}}
 {{--  Fin modal pour ajouter utilisateur --}}
 
 

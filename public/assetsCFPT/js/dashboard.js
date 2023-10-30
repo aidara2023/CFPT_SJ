@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function()  {
 
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
+    var fermemod_class = document.querySelectorAll('.data-close-modal');
     var bouton_fermeture = document.querySelectorAll('.fermer');
 
 
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             contenu = mdl[index].textContent;
             contenu = contenu.trim(); 
 
-            console.log(mdl[index].classList.contains("modifier"));
+            /* console.log(mdl[index].classList.contains("modifier")); */
             
             flou.forEach(item => {
                 item.classList.add("actif");
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             fond.classList.add("actif");
             
             if(contenu == "Ajouter"){
-                console.log(contenu);
+                /* console.log(contenu); */
 
                 setTimeout(function(){
                 ajout.showModal();
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             }
 
             if(mdl[index].classList.contains("modifier")){
-                console.log(contenu);
+                /* console.log(contenu); */
                 //modification.style.backgroundColor = 'var(--clr)';
 
                 setTimeout(function(){
@@ -63,6 +64,19 @@ document.addEventListener("DOMContentLoaded", function()  {
 
     //Fermeture des modals
     fermemod.forEach(item => {
+        item.addEventListener('click', () => {
+            //console.log(fermemod[0].textContent);
+        var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+                ajout.close();
+                modification.close();
+                suppression.close();
+
+    })
+    });
+    fermemod_class.forEach(item => {
         item.addEventListener('click', () => {
             //console.log(fermemod[0].textContent);
         var actif = document.querySelectorAll('.actif');
@@ -106,8 +120,8 @@ document.addEventListener("DOMContentLoaded", function()  {
      var erreur = document.querySelectorAll('.erreur');
 
 
-     erreur[1].textContent = "A remplir"; //Message à afficher
-     erreur[1].previousElementSibling.style.borderColor = 'red';  //Trait rouge
+   /*   erreur[1].textContent = "A remplir"; //Message à afficher */
+    /*  erreur[1].previousElementSibling.style.borderColor = 'red'; */  //Trait rouge
 
 });
 

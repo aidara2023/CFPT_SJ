@@ -1,36 +1,39 @@
 <template>
+    <dialog data-modal-ajout class="modal">
       <div class="cote_droit contenu">
-        <form  @submit.prevent="soumettre" method="dialog">
+        <form @submit="validerAvantAjout()" method="dialog">
             <h1 class="sous_titre">Ajout Service</h1>
             <!--Informations personnelles-->
             <div class="personnel">
                 <div>
-                    <input type="text" v-model="form.nom_service" @input="validatedata()" id="nom" placeholder="Nom du Service" spellcheck="true">
-                    <span class="erreur" v-if="this.nom_service_erreur !== 0 ">{{this.nom_service_erreur}}</span>
+                    <input type="text" v-model="form.nom_service" id="nom" placeholder="Nom du Service" @input="validatedata()">
+                    <span class="erreur" v-if="this.nom_service_erreur !== ''">{{this.nom_service_erreur}}</span>
                 </div>
 
                 <div>
-                    <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @click="verifIdUser()">
+                    <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="verifIdUser()">
                         <option value="">Personnel Administratif</option>
                         <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
                     </select>
-                    <span class="erreur" v-if="id_user_erreur">{{id_user_erreur}}</span>
+                    <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
                 </div>
         </div>
 
 
-        <div class="boutons">
-                <input  type="submit" data-close-modal  value="Ajouter" :disabled="!validatedata() && !verifIdUser()">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+            <div class="boutons">
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': !(this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
     </div>
+</dialog>
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
 
    export default {
     name:"createServiceCompenent",
@@ -41,8 +44,9 @@ import Form from 'vform';
                 'nom_service':"",
                 'id_user':"",
             }),
-            nom_service_erreur:0,
-            id_user_erreur:0,
+            nom_service_erreur:"",
+            id_user_erreur:"",
+            etatForm: true,
         }
     },
 
@@ -57,33 +61,56 @@ import Form from 'vform';
             const formdata = new FormData();
             formdata.append('nom_service', this.form.nom_service  );
             formdata.append('id_user', this.form.id_user  );
+            console.log(this.verifIdUser);
+            console.log(this.validatedata);
 
-            if(this.form.nom_service!=="" && this.form.id_user!==""){
+       /*      if(this.form.nom_service!=="" && this.form.id_user!==""){ */
+           /*  if(this.validatedata()!==true && this.verifIdUser()!==true){ */
                 try{
-                    const create_store=await axios.post('/service/store', formdata, {});
+                    await axios.post('/service/store', formdata, {});
+                   
+                Swal.fire('Réussi !', 'Service ajouté avec succès', 'success');
                     this.resetForm();
-                    Swal.fire('Réussi!','Service ajouté avec succés','success')
                     bus.emit('formationAjoutee');
+                    var ajout = document.querySelector('[data-modal-ajout]');
+
+                    var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                    console.log(ajout);
+                    ajout.close();
 
                 }
                 catch(e){
-                    console.log(e.request.status)
+                    /* console.log(e.request.status) */
                   if(e.request.status===404){
-                    Swal.fire('Erreur!','Ce service existe déjà','error')
+                    Swal.fire('Erreur !','Ce service existe déjà','error')
                   }
                   else{
-                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
                   }
 
                 }
 
-            }else{
-
-                Swal.fire('Erreur!','Veuillez remplir tous les champs ','error')
-            }
-
+         /*    } */
 
         },
+
+        validerAvantAjout() {
+            // Exécutez la validation des champs
+            const isNomServiceValid = this.validatedata();
+            const isIdUserValid = this.verifIdUser();
+
+            console.log(isNomServiceValid);
+            if (isNomServiceValid || isIdUserValid) {
+                return 0;
+            }else{
+                this.soumettre();
+                this.etatForm= true;
+            }
+           
+        }, 
 
         resetForm(){
     
@@ -101,27 +128,28 @@ import Form from 'vform';
         
         if(this.form.nom_service=== ""){
             this.nom_service_erreur= "Ce champ est obligatoire"
-            /* console.log(this.nom_service_erreur); */
-            return ;
+            return true;
         }
         if(!this.verifCaratere(this.form.nom_service)){
             this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-            return ;
+            return true;
         }
         if(this.form.nom_service.length < 12){
             this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
-            return ;
+            return true;
         }
 
+        return false;
        
     },
     verifIdUser(){
         this.id_user_erreur= "";
 
-        if(!this.form.id_user){
+        if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
-            return ;
+            return true;
         }
+        return false;
     },
 
         get_user(){
@@ -136,8 +164,5 @@ import Form from 'vform';
        },
 
     }
-   }
+}
 </script>
-
-<style>
-</style>
