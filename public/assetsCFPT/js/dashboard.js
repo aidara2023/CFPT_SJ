@@ -13,8 +13,13 @@ document.addEventListener("DOMContentLoaded", function()  {
 
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
+<<<<<<< HEAD
     var fermemod_class = document.querySelectorAll('.data-close-modal');
+=======
+
+>>>>>>> c6201005c5d04f5d916cee9d3e700c336370ecb1
     var bouton_fermeture = document.querySelectorAll('.fermer');
+
 
 
     mdl.forEach(item => {
@@ -89,6 +94,20 @@ document.addEventListener("DOMContentLoaded", function()  {
 
     })
     });
+    bouton_fermeture.forEach(item => {
+        item.addEventListener('click', () => {
+            //console.log(fermemod[0].textContent);
+        var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+                ajout.close();
+                modification.close();
+                suppression.close();
+
+    })
+    });
+
     bouton_fermeture.forEach(item => {
         item.addEventListener('click', () => {
             //console.log(fermemod[0].textContent);
