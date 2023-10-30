@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class unite_de_formation_controller extends Controller
 {
     public function all() {
-        $unite_de_formation=Unite_de_formation::all();
+        $unite_de_formation=Unite_de_formation::with('departement')->get();
         if($unite_de_formation!=null){
             return response()->json([
                 'statut'=>200,
