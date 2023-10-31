@@ -61,17 +61,18 @@ import Swal from 'sweetalert2';
             const formdata = new FormData();
             formdata.append('nom_service', this.form.nom_service  );
             formdata.append('id_user', this.form.id_user  );
-            console.log(this.verifIdUser);
-            console.log(this.validatedata);
+           /*  console.log(this.verifIdUser);
+            console.log(this.validatedata); */
 
        /*      if(this.form.nom_service!=="" && this.form.id_user!==""){ */
            /*  if(this.validatedata()!==true && this.verifIdUser()!==true){ */
                 try{
                     await axios.post('/service/store', formdata, {});
                    
-                Swal.fire('Réussi !', 'Service ajouté avec succès', 'success');
+                
                     this.resetForm();
                     bus.emit('formationAjoutee');
+                    
                     var ajout = document.querySelector('[data-modal-ajout]');
 
                     var actif = document.querySelectorAll('.actif');
@@ -80,6 +81,7 @@ import Swal from 'sweetalert2';
                     });
                     console.log(ajout);
                     ajout.close();
+                    Swal.fire('Réussi !', 'Service ajouté avec succès','success');
 
                 }
                 catch(e){

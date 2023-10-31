@@ -13,11 +13,9 @@ document.addEventListener("DOMContentLoaded", function()  {
 
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
-<<<<<<< HEAD
-    var fermemod_class = document.querySelectorAll('.data-close-modal');
-=======
 
->>>>>>> c6201005c5d04f5d916cee9d3e700c336370ecb1
+    var fermemod_class = document.querySelectorAll('.data-close-modal');
+
     var bouton_fermeture = document.querySelectorAll('.fermer');
 
 
