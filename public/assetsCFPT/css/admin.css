@@ -718,6 +718,7 @@ input[type="submit"]:hover{
         width: 200px;
         transition: .6s;
         padding:0;
+        overflow-y: auto;
     } 
 
    }
