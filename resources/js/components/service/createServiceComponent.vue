@@ -1,6 +1,6 @@
 <template>
-    <dialog data-modal-ajout class="modal">
-      <div class="cote_droit contenu">
+<dialog data-modal-ajout class="modal">
+    <div class="cote_droit contenu">
         <form @submit="validerAvantAjout()" method="dialog">
             <h1 class="sous_titre">Ajout Service</h1>
             <!--Informations personnelles-->
@@ -17,11 +17,10 @@
                     </select>
                     <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
                 </div>
-        </div>
-
+            </div>
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': !(this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': !(this.etatForm) } ">
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
@@ -68,20 +67,49 @@ import Swal from 'sweetalert2';
            /*  if(this.validatedata()!==true && this.verifIdUser()!==true){ */
                 try{
                     await axios.post('/service/store', formdata, {});
+                    //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
                    
                 
                     this.resetForm();
                     bus.emit('formationAjoutee');
                     
                     var ajout = document.querySelector('[data-modal-ajout]');
+                    var confirmation = document.querySelector('[data-modal-confirmation]');
 
+                   
+                    /* console.log(ajout); */
                     var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
+                        actif.forEach(item => {
                         item.classList.remove("actif");
-                    });
-                    console.log(ajout);
+                    }); 
+                    //ajout.classList.remove("actif");
                     ajout.close();
-                    Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+
+
+                    confirmation.style.backgroundColor = 'white';
+                    confirmation.style.color = 'var(--clr)';
+
+                        
+
+                    //setTimeout(function(){
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        //confirmation.close();  
+                    //}, 1000);  
+                     
+                    setTimeout(function(){     
+                        confirmation.close();  
+
+                        setTimeout(function(){     
+                            confirmation.classList.remove("actif");   
+                    }, 100); 
+
+                    }, 1700);  
+                       
+
+
+                               
+                    
 
                 }
                 catch(e){
@@ -104,7 +132,7 @@ import Swal from 'sweetalert2';
             const isNomServiceValid = this.validatedata();
             const isIdUserValid = this.verifIdUser();
 
-            console.log(isNomServiceValid);
+          /*   console.log(isNomServiceValid); */
             if (isNomServiceValid || isIdUserValid) {
                 return 0;
             }else{
@@ -115,7 +143,6 @@ import Swal from 'sweetalert2';
         }, 
 
         resetForm(){
-    
             this.form.nom_service="";
             this.form.id_user="";
         },
@@ -157,8 +184,8 @@ import Swal from 'sweetalert2';
         get_user(){
             axios.get('/user/getPersonnel')
             .then(response => {
-                this.users=response.data.user
-
+                this.user=response.data.user
+s
 
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
