@@ -82,6 +82,11 @@ img{
     margin-right: 10px;
 }
 
+.anime{
+    width: 10vw;
+
+}
+
 a{
     text-decoration: none;
 }
@@ -474,6 +479,7 @@ input{
 
 .fond.actif{
     visibility: visible;
+    z-index: 1;
 }
 
 
@@ -503,6 +509,22 @@ input{
     justify-content: center;
     align-items: center;
     transition: .6s all ease;
+}
+
+.modal[data-modal-confirmation]{
+    width: 50%;
+    height: 30%;
+    color: var(--clr);
+
+    background-color: white;
+    background-image: url(../image/logo_cfpt_bleu.png);
+    background-blend-mode:soft-light;
+    
+    /* transform: /* translate(-50%,-50%) scale(1); */
+}
+
+.modal[data-modal-confirmation] h1{
+    color: var(--clr);
 }
 
 
