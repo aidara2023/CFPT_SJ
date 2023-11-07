@@ -164,6 +164,7 @@
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
 </div>
+
 <dialog data-modal-confirmation class="modal">
     <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
     <h1>Réussi !</h1>
