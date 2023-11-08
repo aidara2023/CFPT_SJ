@@ -1,7 +1,8 @@
 
 @extends('layout.app')
+
 @section('content')
-<span class="fond"></span>
+
 <div class="elements flou " id="app">
 
     <div class="entete">
@@ -135,6 +136,10 @@
         <p class="">departement ajouté avec succès</p>
     </dialog>
 
+</div>
+
+<span class="fond"></span>
+    
 @endsection
 
 

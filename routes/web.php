@@ -549,6 +549,7 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
+Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
 
@@ -556,9 +557,9 @@ Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name
 
 Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
-Route::get('classe/show/{$id}',[classe_controller::class,'show'])->name('classe_show');
-Route::put('classe/update/{$id}',[classe_controller::class,'update'])->name('classe_update');
-Route::delete('classe/delete/{$id}',[classe_controller::class, 'delete'])->name('classe_delete');
+Route::get('classe/show/{id}',[classe_controller::class,'show'])->name('classe_show');
+Route::put('classe/update/{id}',[classe_controller::class,'update'])->name('classe_update');
+Route::delete('classe/delete/{id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
 Route::get('classe/index' ,[classe_view_controller::class, 'index'])->name('classe_index');
 
@@ -597,6 +598,8 @@ Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('re
 
 
 Route::get('service/create', [service_view_controller::class, 'create'])->name('create_service');
+Route::get('service/all',[service_controller::class, 'all'])->name('service_all');
+
 
 Route::get('/role/home',[role_controller::class, 'index']);
 

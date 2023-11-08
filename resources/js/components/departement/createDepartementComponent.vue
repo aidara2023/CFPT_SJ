@@ -1,7 +1,7 @@
 <template>
     <dialog data-modal-ajout class="modal">
       <div class="cote_droit contenu">
-        <form @submit="validerAvantAjout()">
+        <form @submit.prevent="validerAvantAjout()">
             <h1 class="sous_titre">Ajout de departement</h1>
 
             <div class="personnel">
@@ -23,7 +23,7 @@
 
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': !(this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
@@ -50,7 +50,7 @@ import Form from 'vform';
             directions:[],
             nom_departement_erreur:"",
             id_direction_erreur:"",
-            etatForm: true,
+            etatForm: false,
             
 
         }
@@ -73,25 +73,26 @@ import Form from 'vform';
                    
                 
                     this.resetForm();
-                    bus.emit('formationAjoutee');
-                    /* 
-                    var ajout = document.querySelector('[data-modal-ajout]'); */
+                    bus.emit('departementAjoutee');
+
+                    var ajout = document.querySelector('[data-modal-ajout]');
                     var confirmation = document.querySelector('[data-modal-confirmation]');
 
                    
-                    /* console.log(ajout);*/
+                    /* console.log(ajout); */
                     var actif = document.querySelectorAll('.actif');
                         actif.forEach(item => {
                         item.classList.remove("actif");
                     }); 
                     //ajout.classList.remove("actif");
-                    ajout.close(); 
+                    ajout.close();
 
 
                     confirmation.style.backgroundColor = 'white';
                     confirmation.style.color = 'var(--clr)';
 
                         
+
                     //setTimeout(function(){
                         confirmation.showModal();
                         confirmation.classList.add("actif");
@@ -106,44 +107,15 @@ import Form from 'vform';
                     }, 100); 
 
                     }, 1700);  
+                       
 
-/* 
-    var fermemod = document.querySelectorAll('[data-close-modal]');
 
-    var fermemod_class = document.querySelectorAll('.data-close-modal');
-    //Fermeture des modals
-    fermemod.forEach(item => {
-        item.addEventListener('click', () => {
-            //console.log(fermemod[0].textContent);
-        var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-                ajout.close();
-                modification.close();
-                suppression.close();
-
-    })
-    });
-    fermemod_class.forEach(item => {
-        item.addEventListener('click', () => {
-            //console.log(fermemod[0].textContent);
-        var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-                ajout.close();
-                modification.close();
-                suppression.close();
-
-    })
-    }); */
                        
                 }
                 catch(e){
                     console.log(e)
                     this.resetForm();
-                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                 /*    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error') */
                 }
 
             
@@ -159,6 +131,7 @@ import Form from 'vform';
 
             console.log(isNomDepartementValid);
             if (isNomDepartementValid || isIdDirectionValid) {
+                this.etatForm= true;
                 return 0;
             }else{
                 this.soumettre();

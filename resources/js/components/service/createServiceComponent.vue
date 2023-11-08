@@ -1,7 +1,7 @@
 <template>
 <dialog data-modal-ajout class="modal">
     <div class="cote_droit contenu">
-        <form @submit="validerAvantAjout()" method="dialog">
+        <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout Service</h1>
             <!--Informations personnelles-->
             <div class="personnel">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': !(this.etatForm) } ">
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
@@ -45,7 +45,7 @@ import Swal from 'sweetalert2';
             }),
             nom_service_erreur:"",
             id_user_erreur:"",
-            etatForm: true,
+            etatForm: false,
         }
     },
 
@@ -134,6 +134,7 @@ import Swal from 'sweetalert2';
 
           /*   console.log(isNomServiceValid); */
             if (isNomServiceValid || isIdUserValid) {
+                this.etatForm= false;
                 return 0;
             }else{
                 this.soumettre();
@@ -184,10 +185,8 @@ import Swal from 'sweetalert2';
         get_user(){
             axios.get('/user/getPersonnel')
             .then(response => {
-                this.user=response.data.user
-s
-
-           }).catch(error=>{
+                this.users=response.data.user
+             }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
            });
        },
