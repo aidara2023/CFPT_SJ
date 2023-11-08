@@ -141,6 +141,23 @@ import Form from 'vform';
             services:[],
             departements:[],
             specialites:[],
+            nom_user_erreur:"",
+            prenom_user_erreur:"",
+            date_erreur:"",
+            lieu_naissance_erreur:"",
+            genre_erreur:"",
+            adresse_erreur:"",
+            telephone_erreur:"",
+            email_user_erreur:"",
+            nationalite_erreur:"",
+            id_role_erreur:"",
+            id_specialite_erreur:"",
+            id_departement_erreur:"",
+            id_service_erreur:"",
+            type_erreur:"",
+            situation_matrimoniale_erreur:"",
+
+
 
         }
     },
@@ -298,6 +315,100 @@ import Form from 'vform';
             this.form.id_departement="";
 
         },
+        verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
+        },
+
+        validateEmail(email) {
+    // Utilisez une expression régulière pour vérifier si l'email est au bon format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+},
+
+    validatedata(){
+        this.nom_user_erreur= "";
+        this.prenom_user_erreur="";
+        this.nationalite_erreur="";
+        this.lieu_naissance_erreur="";
+        this.adresse_erreur="";
+        this.date_erreur="";
+        this.email_user_erreur="";
+        this.telephone_erreur="";
+        // pour nom
+
+        if(this.form.nom=== ""){
+            this.nom_user_erreur= "Ce champ est obligatoire"
+            return true;
+        }
+        if(!this.verifCaratere(this.form.nom)){
+            this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+            return true;
+        }
+       
+        //pour prenom
+        if(this.form.prenom=== ""){
+            this.prenom_user_erreur= "Ce champ est obligatoire"
+            return true;
+        }
+        if(!this.verifCaratere(this.form.prenom)){
+            this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+            return true;
+        }
+       
+        //pour lieu de naissance
+        if(this.form.lieu_naissance=== ""){
+            this.lieu_naissance_erreur= "Ce champ est obligatoire"
+            return true;
+        }
+        if(!this.verifCaratere(this.form.lieu_naissance)){
+            this.lieu_naissance_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+            return true;
+        }
+        
+        //pour nationalite
+        if(this.form.nationalite=== ""){
+            this.nationalite_erreur= "Ce champ est obligatoire"
+            return true;
+        }
+        if(!this.verifCaratere(this.form.nationalite)){
+            this.nationalite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+            return true;
+        }
+       
+        //pour email
+        if(this.form.email=== ""){
+            this.email_user_erreur= "L'email est obligatoire"
+            return true;
+        }
+        if(!this.validateEmail(this.form.email)) {
+        this.email_user_erreur = "L'email n'est pas valide";
+        return true;
+    }
+     // Vérification de la date de naissance
+     if(this.form.date_naissance === null){
+        this.date_naissance_erreur = "La date de naissance est obligatoire";
+        return true;
+    } else {
+        const dateNaissance = new Date(this.form.date_naissance);
+        const dateLimite = new Date();
+        dateLimite.setFullYear(dateLimite.getFullYear() - 18); // 18 ans avant la date actuelle
+
+        if(dateNaissance > dateLimite) {
+            this.date_naissance_erreur = "La date de naissance ne peut pas être récente";
+            return true;
+        }if(dateNaissance > dateLimite) {
+            this.date_naissance_erreur = "La date de naissance ne peut pas être dans le futur";
+            return true;
+        }
+    }
+        
+        
+        return false;
+
+       
+    },
+    
 
     //     rafraichissementAutomatique() {
     //         document.addEventListener("DOMContentLoaded", this.resetForm());
