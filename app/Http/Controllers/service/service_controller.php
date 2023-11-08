@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class service_controller extends Controller
 {
     public function index() {
-        $service=Service::all();
+        $service=Service::with('user')->get();
         if($service!=null){
             return response()->json([
                 'statut'=>200,
@@ -67,7 +67,7 @@ class service_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $service=Service::find($id);
         if($service!=null){
             $service->delete();
