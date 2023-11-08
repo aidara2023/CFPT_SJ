@@ -5,7 +5,9 @@
     @include('layout.header')
      
       <liste-unite-de-formation> </liste-unite-de-formation>
+<span class="fond "></span>
 
+ {{-- <div id="app"> --}}
 
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
@@ -108,11 +110,11 @@
 
 
  {{--  Debut modal pour ajouter utilisateur --}}
-<dialog data-modal-ajout class="modal">
+{{-- <dialog data-modal-ajout class="modal"> --}}
         {{-- <div id="app"> --}}
             <unite-de-formation-create></unite-de-formation-create>
         {{-- </div> --}}
-</dialog>
+{{-- </dialog> --}}
 {{--  Fin modal pour ajouter utilisateur --}}
 
 
@@ -130,6 +132,12 @@
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
 
-  <span class="fond "></span>
+  
+  <dialog data-modal-confirmation class="modal">
+    <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+    <h1>Réussi !</h1>
+    <br>
+    <p class="">Unité de formation ajoutée avec succès</p>
+</dialog>
 @endsection
 
