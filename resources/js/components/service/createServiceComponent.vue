@@ -11,6 +11,7 @@
                 </div>
 
                 <div>
+                    
                     <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="verifIdUser()">
                         <option value="">Personnel Administratif</option>
                         <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
