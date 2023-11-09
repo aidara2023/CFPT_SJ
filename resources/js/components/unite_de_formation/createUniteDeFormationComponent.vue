@@ -1,33 +1,35 @@
 <template>
     <dialog data-modal-ajout class="modal">
     <div class="cote_droit contenu">
-        <form @submit="validerAvantAjout()" method="dialog">
-            <h1 class="sous_titre">Ajout de unite de formation</h1>
+        <form @submit.prevent="validerAvantAjout()" method="">
+            <h1 class="sous_titre">Ajout  unite de formation</h1>
         
         <div class="personnel">
            <div>
-              <input type="text" name="nom_unite_formation" id="nom_unite_formation" placeholder="Nom Unite de formation" @input="validatedata()">``
+              <input type="text" v-model="form.nom_unite_formation" id="nom_unite_formation" placeholder="Nom Unite de formation" @input="validatedata()">
               <span class="erreur" v-if="this.nom_unite_erreur !== ''">{{this.nom_unite_erreur}}</span>
             </div>
 
-        <div class="roles">
-                <select name="formateur" id="formateur" v-model="form.id_formateur" @change="verifIdFormateur()">
-                        <option value=""> Formateur</option>
-                        <option v-for="formateur in formateurs" :key="formateur.id" :value="formateur.id">{{ formateur.user.nom }} {{ formateur.user.prenom }}</option>
+            <div class="roles">
+           
+                    <select name="formateur" id="formateur" v-model="form.id_formateur" @change="verifId()">
+                            <option value=""> Formateur</option>
+                            <option v-for="formateur in formateurs" :key="formateur.id" :value="formateur.id">{{ formateur.user.nom }} {{ formateur.user.prenom }}</option>
 
-                </select>
-                <span class="erreur" v-if="id_formateur_erreur !== ''">{{id_formateur_erreur}}</span>
-
+                    </select>
+                    <span class="erreur" v-if="id_formateur_erreur !== ''">{{id_formateur_erreur}}</span>
+                
             </div>
 
             <div class="roles">
-                <select name="departement" id="departement" v-model="form.id_departement" @change="verifIdDepartement()">
-                        <option value=""> Departement</option>
-                        <option v-for="departement in departements" :key="departement.id" :value="departement.id">{{ departement.nom_departement }}</option>
+                
+                    <select name="departement" id="departement" v-model="form.id_departement" @change="verifId()">
+                            <option value=""> Departement</option>
+                            <option v-for="departement in departements" :key="departement.id" :value="departement.id">{{ departement.nom_departement }}</option>
 
-                </select>
-                <span class="erreur" v-if="id_departement_erreur !== ''">{{id_departement_erreur}}</span>
-
+                    </select>
+                    <span class="erreur" v-if="id_departement_erreur !== ''">{{id_departement_erreur}}</span>
+                
             </div>
         </div>
 
@@ -44,12 +46,12 @@
 
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': !(this.etatForm) } ">
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">{{ this.etatForm }} <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
     </div>
-</dialog>
+  </dialog>
 </template>
 
 <script>
@@ -72,7 +74,7 @@ import Form from 'vform';
             nom_unite_erreur:"",
             id_formateur_erreur:"",
             id_departement_erreur:"",
-            etatForm: true,
+            etatForm: false,
 
         }
         
@@ -93,16 +95,15 @@ import Form from 'vform';
             formdata.append('id_departement', this.form.id_departement);
 
 
-            if(this.form.nom_unite_formation!=="" ){
+            /* if(this.form.nom_unite_formation!=="" ){ */
                 try{
-                    const create_store=await axios.post('/unite_de_formation/store', formdata, {
-
-                    });
-                    /* this.resetForm(); */
-                    //Swal.fire('Succes!','unite de formation ajoutée avec succées','success')
-
-                     this.resetForm();
+                    await axios.post('/unite_de_formation/store', formdata, {});
+                    //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+                   
+                
+                    this.resetForm();
                     bus.emit('formationAjoutee');
+                    
                     var ajout = document.querySelector('[data-modal-ajout]');
                     var confirmation = document.querySelector('[data-modal-confirmation]');
 
@@ -135,23 +136,25 @@ import Form from 'vform';
                     }, 100); 
 
                     }, 1700);  
+                       
+
+
+                               
+                    
 
                 }
                 catch(e){
-                    console.log(e)
-                    if(e.request.status===404){
-                    Swal.fire('Erreur!','Cette unite de formation existe déjà','error')
+                    /* console.log(e.request.status) */
+                  if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette unite de formation existe déjà','error')
                   }
                   else{
-                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
                   }
+
                 }
 
-            }else{
-                // this.resetForm();
-                Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
-            }
-
+         /*    } */
 
         },
 
@@ -184,11 +187,11 @@ import Form from 'vform';
        validerAvantAjout() {
             // Exécutez la validation des champs
             const isNomUniteValid = this.validatedata();
-            const isIdFormateurValid = this.verifIdFormateur();
-            const isIdDepartementValid = this.verifIdDepartement();
+            const isIdFormateurValid = this.verifId();
 
           /*   console.log(isNomUniteValid); */
-            if (isNomUniteValid || isIdFormateurValid || isIdDepartementValid ) {
+            if (isNomUniteValid || isIdFormateurValid ) {
+                this.etatForm= false;
                 return 0;
             }else{
                 this.soumettre();
@@ -200,23 +203,6 @@ import Form from 'vform';
 
         resetForm(){
 
-    //         var ajout = document.querySelector("[data-modal-ajout]");
-    //         var fermemod = document.querySelectorAll('[data-close-modal]');
-    //         //Fermeture des modals
-    //         fermemod.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //             var actif = document.querySelectorAll('.actif');
-    //                 actif.forEach(item => {
-    //                     item.classList.remove("actif");
-    //                 });
-    //                     ajout.close();
-    //                     modification.close();
-    //                     suppression.close();
-
-    //         })
-    //    /*    ajout.remove("active");  */
-
-    //         });
             this.form.nom_unite_formation="";
             this.form.id_formateur="";
             this.form.id_departement="";
@@ -246,24 +232,25 @@ import Form from 'vform';
         return false;
        
     },
-    verifIdFormateur(){
+    verifId(){
         this.id_formateur_erreur= "";
+        this.id_departement_erreur= "";
+        var i=0;
 
         if(this.form.id_formateur=== ""){
             this.id_formateur_erreur= "Vous avez oublié de sélectionner le formateur responsable"
-            return true;
+            i=1;
         }
-        return false;
-    },
-    verifIdDepartement(){
-        this.id_departement_erreur= "";
-
         if(this.form.id_departement=== ""){
             this.id_departement_erreur= "Vous avez oublié de sélectionner le departement"
-            return true;
+            i=1;
         }
+        if(i===1)return true;
+        
         return false;
+        
     },
+    
 
     //     rafraichissementAutomatique() {
     //         document.addEventListener("DOMContentLoaded", this.resetForm());
