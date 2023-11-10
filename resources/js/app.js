@@ -59,7 +59,10 @@ import createCategorieComponent from './components/categorie/createCategorieComp
 import createAuteurComponent from './components/auteur/createAuteurComponent.vue';
 import createRayonComponent from './components/rayon/createRayonComponent.vue';
 import createLivreComponent from './components/livre/createLivreComponent.vue';
+
 import createPaiementComponent from './components/paiement/createPaiementComponent.vue';
+import listePaiementComponent from './components/paiement/listePaiementComponent.vue';
+
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
 import createSeminaireComponent from './components/seminaire/createSeminaireComponent.vue';
 import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
@@ -146,7 +149,9 @@ app.component("categorie-create", createCategorieComponent);
 app.component("auteur-create", createAuteurComponent);
 app.component("rayon-create", createRayonComponent);
 app.component("livre-create", createLivreComponent);
+
 app.component("paiement-create", createPaiementComponent);
+app.component("paiement-liste", listePaiementComponent);
 app.component("annee-create", createAnneeComponent);
 
 app.component("service-create", createServiceComponent);
