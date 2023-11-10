@@ -523,7 +523,7 @@ input{
     /* transform: /* translate(-50%,-50%) scale(1); */
 }
 
-.modal[data-modal-confirmation] h1{
+.modal[data-modal-confirmation] h1,.modal[data-modal-confirmation-sup] h1{
     color: var(--clr);
 }
 

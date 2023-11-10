@@ -12,6 +12,13 @@
         </li>
         
             <li class="fntr"><a href="{{route('direction_accueil')}}">
+   <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >Direction</span>
+                </div>
+            </a></li>
+
+             <li class="fntr"><a href="{{route('direction_accueil')}}">
                 <div>
                     <i class="fi fi-rr-user"></i>
                     <span >Direction</span>

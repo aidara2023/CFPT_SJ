@@ -30,7 +30,7 @@ class Service extends Model
       }
 
       public function direction(){
-        return $this->hasOne(Direction::class);
+        return $this->hasOne(Direction::class, 'id','id_direction');
       }
 
       public function formateurs(){
