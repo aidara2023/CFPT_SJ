@@ -167,6 +167,4 @@ app.component("liste-unite-de-formation", listeUniteDeFormationComponent);
 app.component("liste-batiment", listeBatimentComponent);
 
 
-
-
 app.mount('#app')

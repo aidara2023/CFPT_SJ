@@ -128,5 +128,20 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+
+  <dialog data-modal-confirmation class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Direction ajoutée avec succès</p>
+    </dialog>
+
+    <dialog data-modal-confirmation-sup class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Direction supprimée avec succès</p>
+    </dialog>
  <span class="fond "></span>
+ </div>
 @endsection

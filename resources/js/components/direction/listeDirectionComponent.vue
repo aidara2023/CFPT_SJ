@@ -13,8 +13,10 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ direction.nom_direction}} {{ direction.service.nom_service }}</p>
-               <p class="texte" id="n">{{ direction.user.nom }}</p>
+               <p class="texte" id="n">{{ direction.nom_direction}} </p>
+               <p class="texte" id="n">{{ direction.service.nom_service }}</p>
+               <p class="texte" id="n">{{ direction.user.prenom }} {{ direction.user.nom }} </p>
+               
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
@@ -50,11 +52,11 @@ import Form from 'vform';
 
 
   export default {
-   name:"listeDirectionCompenent",
+   name:"listeDirectionComponent",
    data(){
        return {
            form:new Form({
-               'intitule':""
+               'nom_direction':""
 
            }),
            directions: [],
@@ -73,9 +75,8 @@ import Form from 'vform';
        get_direction(){
            axios.get('/direction/index')
            .then(response => {
-               this.directions=response.data.direction
-
-
+               this.directions=response.data.direction;
+    
            }).catch(error=>{
            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des directions','error')
            });
@@ -83,7 +84,7 @@ import Form from 'vform';
 
        resetForm(){
            this.form.input="";
-           this.form.intitule="";
+           this.form.nom_direction="";
        },
 
        async deleteDirection(type) {
@@ -101,11 +102,31 @@ import Form from 'vform';
                    axios.delete(`/direction/delete/${type.id}`).then(resp => {
                        this.get_direction();
 
-                       Swal.fire(
+                  /*      Swal.fire(
                            'Supprimé!',
                            'La direction a été supprimée avec succès.',
                            'success',
-                       )
+                       ) */
+
+                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+
+confirmation.style.backgroundColor = 'white';
+confirmation.style.color = 'var(--clr)';
+
+//setTimeout(function(){
+    confirmation.showModal();
+    confirmation.classList.add("actif");
+    //confirmation.close();  
+//}, 1000);  
+
+setTimeout(function(){     
+    confirmation.close();  
+
+    setTimeout(function(){     
+        confirmation.classList.remove("actif");   
+}, 100); 
+
+}, 2000);  
                    }).catch(function (error) {
                        console.log(error);
                    })
