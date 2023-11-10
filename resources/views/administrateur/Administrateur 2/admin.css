@@ -600,6 +600,35 @@ input[type="submit"]:hover{
   transition: .5s;
 }
 
+p .fi-rr-angle-small-down{
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateY(0, -50%);
+}
+
+.fi-rr-angle-small-down{
+    transform: translateY(0);
+    transition: .4s;
+    animation: dropdown 2s forwards infinite ;
+}
+
+@keyframes dropdown {
+    0%{
+        transform: translateY(-20%);
+    }
+    50%{
+        transform: translateY(20%);
+    }
+    100%{
+        transform: translateY(-20%);
+    }
+}
+
+.actions:hover  .fi-rr-angle-small-down , 
+ .deroulant:hover  .fi-rr-angle-small-down {
+    animation: 0s;
+}
 
 @media(max-width:550px){
     body{
