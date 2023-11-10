@@ -11,7 +11,14 @@
      
         </li>
         
-            <li class="fntr"><a href="{{route('direction_accueil')}}">
+            <li class="fntr"><a href="{{route('utilisateur_index')}}">
+                <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >Utilisateurs</span>
+                </div>
+            </a></li>
+
+             <li class="fntr"><a href="{{route('direction_accueil')}}">
                 <div>
                     <i class="fi fi-rr-user"></i>
                     <span >Direction</span>
@@ -52,7 +59,7 @@
             <li class="fntr"><a href="{{route('utilisateur_index')}}">
                 <div>
                     <i class="fi fi-rr-money-bill-wave"></i>
-                    <span>Utilisateurs</span>
+                    <span>Utilisateur</span>
                 </div>
             </a></li>
 
