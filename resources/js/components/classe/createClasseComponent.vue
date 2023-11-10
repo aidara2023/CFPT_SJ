@@ -1,34 +1,38 @@
 <template>
     <div class="cote_droit contenu">
-        <form @submit.prevent="soumettre" method="dialog">
+        <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout classe</h1>
 
             <div class="personnel">
              <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
-                <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe">
+                <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata()">
+                <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
             </div>
            <div>
-            <select name="type_formation" id="type_formation" v-model="form.type_classe">
+            <select name="type_classe" id="type_classe" v-model="form.type_classe">
                     <option value="">Type Classe</option>
                     <option  value="Non payant">Public</option>
                     <option  value="Payant">Privé</option>
                 </select>
+                <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
            </div>
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
 
                 <div>
-                <select name="type_formation" id="type_formation" v-model="form.niveau">
+                <select name="niveau" id="niveau" v-model="form.niveau">
                     <option value="">Selectioner Niveau</option>
                     <option  value=" 1 ">1 </option>
                     <option  value=" 2 ">2 </option>
                     <option  value=" 3">3</option>
                 </select>
+                <span class="erreur" v-if="niveau_erreur !== ''">{{niveau_erreur}}</span>
             </div>
 
         <div class="type_formation">
                 <select name="type_formation" id="type_formation" v-model="form.id_type_formation">
                         <option value=""> Type de formation </option>
                         <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
+                        <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
                 </select>
             </div>
 
@@ -36,13 +40,14 @@
                 <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation">
                         <option value=""> Unite de formation </option>
                         <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
+                        <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
                 </select>
             </div>
 
 
             <div class="boutons">
-                <input  type="submit" data-close-modal  value="Ajouter">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
     </div>
@@ -66,7 +71,12 @@ import Form from 'vform';
 
             }),
             type_formations:[],
-          unite_de_formations:[]
+          unite_de_formations:[],
+          nom_classe_erreur:"",
+          id_type_formation_erreur:"",
+          id_unite_de_formation_erreur:"",
+          type_classe_erreur:"",
+          niveau_erreur:"",
 
 
         }
