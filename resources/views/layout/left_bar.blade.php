@@ -129,6 +129,43 @@
         </ul>
      </nav>
     @endif
+    @if (Auth::user()->id_role==4)
+    <nav class="flou ">
+        <ul >
+            <li class="fntr"><a href="{{route('caissier_index')}}">
+                <div>
+                    <i class="fi fi-rr-home"></i>
+                    <span>Accueil</span>
+                </div>
+            </a>
+     
+        </li>
+        
+            <li class="fntr"><a href="{{route('paiement_create')}}">
+                <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >Paiment</span>
+                </div>
+            </a></li>
+
+            <li class="fntr"><a href="#">
+                <div>
+                    <i class="fi fi-rr-money-bill-wave"></i>
+                    <span>Recouvrement</span>
+                </div>
+            </a></li>
+
+
+            <li class="fntr"><a href="{{route('logout')}}">
+                <div>
+                    <i class="fi fi-rr-sign-out-alt"></i>
+                    <span>Me déconnecter</span>
+                </div>
+            </a></li>
+
+        </ul>
+     </nav>
+    @endif
     @if (Auth::user()->id_role==9)
         <nav class="flou">
             <ul>
@@ -136,17 +173,6 @@
                 <li class="fntr"><a href="{{route('inscription_accueil')}}"><i class="fi fi-rr-user"></i><span >Inscription</span></a></li>
                 <li class="fntr"><a href="#"><i class="fi fi-rr-graduation-cap"></i><span>Bulletin</span></a></li>
                 <li class="fntr"><a href="#"><i class="fi fi-rr-graduation-cap"></i><span>Attestation</span></a></li>
-                <li class="fntr"><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>Me déconnecter</span></a></li>
-            </ul>
-        </nav>
-    @endif
-    @if (Auth::user()->id_role==4)
-        <nav class="flou">
-            <ul>
-                <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
-                <li class="fntr"><a href="{{route('paiement_create')}}"><i class="fi fi-rr-user"></i><span >Paiement</span></a></li>
-                <li class="fntr"><a href="{{route('inscription_accueil')}}"><i class="fi fi-rr-graduation-cap"></i><span>Inscription</span></a></li>
-
                 <li class="fntr"><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>Me déconnecter</span></a></li>
             </ul>
         </nav>
