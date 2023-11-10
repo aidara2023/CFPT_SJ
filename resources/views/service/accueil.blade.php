@@ -1,5 +1,6 @@
 
 @extends('layout.app')
+@section('page', 'Service')
 
 @section('content')
 
@@ -146,7 +147,7 @@
 </div>
 
 <span class="fond"></span>
-    
+
 @endsection
 
 

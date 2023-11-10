@@ -316,6 +316,7 @@ Route::put('paiement/update/{id}',[paiement_controller::class, 'update'])->name(
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
 Route::get('/paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
+Route::get('/paiement/accueil',[paiement_view_controller::class, 'accueil'])->name('paiement_accueil');
 
 //route mois
 Route::get('mois/index',[mois_controller::class, 'index'])->name('mois_index');

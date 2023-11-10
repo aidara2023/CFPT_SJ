@@ -1,6 +1,7 @@
 
 @extends('layout.app')
 
+@section('page', 'Departement')
 @section('content')
 
 <div class="elements flou " id="app">
@@ -139,7 +140,7 @@
 </div>
 
 <span class="fond"></span>
-    
+
 @endsection
 
 

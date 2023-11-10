@@ -12,11 +12,11 @@
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel="stylesheet" href="/assetsCFPT/css/admin.css">
-    <title>Utilisateurs</title>
+    {{-- <title>@yield('page')</title> --}}
     @vite('resources/js/app.js')
 </head>
 <body >
-    <!-- 
+    <!--
         <i class="fi fi-rr-user"></i>
         <i class="fi fi-rr-graduation-cap"></i>
         <i class="fi fi-rr-money-bill-wave"></i>
@@ -30,14 +30,14 @@
         <i class="fi fi-br-check"></i>
 
      -->
-     
 
-        
+
+
 @include('layout.left_bar')
 
    @yield('content')
 
-  
+
      <script src="/assetsCFPT/js/dashboard.js">
      </script>
 </body>

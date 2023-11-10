@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('page', 'Inscription')
 @section('content')
  <span class="fond "></span>
 <div class="elements flou " id="app">

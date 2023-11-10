@@ -1,4 +1,7 @@
 @extends('layout.app')
+
+@section('page', 'Direction')
+
 @section('content')
 
 <div class="elements flou " id="app">

@@ -1,64 +1,38 @@
 <template>
-    <div class="cote_droit contenu">
-        <form @submit.prevent="soumettre" method="dialog">
-            <h1 class="sous_titre">Ajout de paiement</h1>
-            <div>
+    <dialog data-modal-ajout class="modal">
+        <div class="cote_droit contenu">
+            <form @submit.prevent="soumettre" method="">
+                <h1 class="sous_titre">Ajout de paiement</h1>
 
-            </div>
+                <div class="personnel">
+                    <div class="eleves">
+                        <select name="eleve" id="eleve" v-model="form.id_eleve">
+                                <option value=""> Eleve</option>
 
-          <!--   <div class="personnel">
-                <select id="mois" name="mois" placeholder="Mois" v-model="form.mois">
-                    <option value="">Mois</option>
-                    <option value="janvier">Janvier</option>
-                    <option value="février">Février</option>
-                    <option value="mars">Mars</option>
-                    <option value="avril">Avril</option>
-                    <option value="mai">Mai</option>
-                    <option value="juin">Juin</option>
-                    <option value="juillet">Juillet</option>
-                    <option value="août">Août</option>
-                    <option value="septembre">Septembre</option>
-                    <option value="octobre">Octobre</option>
-                    <option value="novembre">Novembre</option>
-                    <option value="décembre">Décembre</option>
-                </select>
+                                <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</option>
+                        </select>
+                    </div>
 
-            </div> -->
+                    <div class="annee_academiques">
+                        <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
+                                <option value=""> Annee_academique</option>
+                                <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
+                        </select>
+                    </div>
 
-            <div class="eleves">
-                <select name="eleve" id="eleve" v-model="form.id_eleve">
-                        <option value=""> Eleve</option>
+                    <div class="personnel">
+                        <input type="number" v-model="form.montant">
+                    </div>
+                </div>
 
-                        <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</option>
-                </select>
-            </div>
+                <div class="boutons">
+                    <input  type="submit" data-close-modal  value="Ajouter">
+                    <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+                </div>
 
-            <div class="annee_academiques">
-                <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
-                        <option value=""> Annee_academique</option>
-                        <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
-                </select>
-            </div>
-
-           <!--  <div class="personnel">
-                <select name="annee_academique" id="annee_academique" v-model="form.id_mois">
-                        <option value=""> Mois</option>
-                        <option v-for="m in mois" :value="m.id">{{ m.intitule }}</option>
-                </select>
-            </div>  -->
-
-            <div class="personnel">
-                <input type="number" v-model="form.montant">
-            </div>
-
-
-
-            <div class="boutons">
-                <input  type="submit" data-close-modal  value="Ajouter">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </dialog>
 </template>
 
 <script>
@@ -90,7 +64,6 @@ import Form from 'vform';
         this.get_mois();
         this.get_eleve();
         this.rafraichissementAutomatique();
-
     },
 
     methods:{
@@ -121,9 +94,7 @@ import Form from 'vform';
             }else{
                 this.resetForm();
                 Swal.fire('Erreur!','Veillez remplir tous les champs obligatoires','error')
-                }
-
-
+            }
         },
 
 
@@ -137,7 +108,7 @@ import Form from 'vform';
            }).catch(error=>{
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des année_academiques','error')
            });
-       },
+        },
 
         get_mois(){
 

@@ -2,7 +2,7 @@
 <div class="entete">
     <h1 class="titre">Administrateur</h1>
     <div class="bloc">
-        <h1 class="sous_titre">Utilisateurs</h1>
+        <h1 class="sous_titre">@yield('page')</h1>
     <div class="recherche">
         <i class="fi fi-rr-search"></i>
         <input  type="text" name="" placeholder="Rechercher un utilisateur">
@@ -16,7 +16,7 @@
 <div class="entete">
     <h1 class="titre">Eleve</h1>
     <div class="bloc">
-        <h1 class="sous_titre">Utilisateurs</h1>
+        <h1 class="sous_titre">@yield('page')</h1>
     <div class="recherche">
         <i class="fi fi-rr-search"></i>
         <input  type="text" name="" placeholder="Rechercher">
@@ -30,7 +30,7 @@
     <div class="entete">
         <h1 class="titre">Tuteur</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
@@ -44,7 +44,7 @@
     <div class="entete">
         <h1 class="titre">Bibliothécaire</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
@@ -58,7 +58,7 @@
     <div class="entete">
         <h1 class="titre">Caissiere</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
@@ -72,7 +72,7 @@
     <div class="entete">
         <h1 class="titre">Formateur</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
@@ -86,7 +86,7 @@
     <div class="entete">
         <h1 class="titre">Infirmier</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
@@ -100,7 +100,7 @@
     <div class="entete">
         <h1 class="titre">Comptable</h1>
         <div class="bloc">
-            <h1 class="sous_titre">Utilisateurs</h1>
+            <h1 class="sous_titre">@yield('page')</h1>
         <div class="recherche">
             <i class="fi fi-rr-search"></i>
             <input  type="text" name="" placeholder="Rechercher">
