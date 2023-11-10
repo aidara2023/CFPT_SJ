@@ -1,55 +1,35 @@
 <template>
+    <dialog data-modal-ajout class="modal">
     <div class="cote_droit contenu">
-        <form @submit.prevent="soumettre" method="dialog">
+        <form @submit.prevent="soumettre" method="">
             <h1 class="sous_titre">Ajout de paiement</h1>
-            <div>
-
-            </div>
-
-          <!--   <div class="personnel">
-                <select id="mois" name="mois" placeholder="Mois" v-model="form.mois">
-                    <option value="">Mois</option>
-                    <option value="janvier">Janvier</option>
-                    <option value="février">Février</option>
-                    <option value="mars">Mars</option>
-                    <option value="avril">Avril</option>
-                    <option value="mai">Mai</option>
-                    <option value="juin">Juin</option>
-                    <option value="juillet">Juillet</option>
-                    <option value="août">Août</option>
-                    <option value="septembre">Septembre</option>
-                    <option value="octobre">Octobre</option>
-                    <option value="novembre">Novembre</option>
-                    <option value="décembre">Décembre</option>
-                </select>
-
-            </div> -->
 
             <div class="eleves">
-                <select name="eleve" id="eleve" v-model="form.id_eleve">
+             <!--    <select name="eleve" id="eleve" v-model="form.id_eleve">
                         <option value=""> Eleve</option>
-
                         <option v-for="eleve in eleves" :value="eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</option>
-                </select>
+                </select> -->
+                <input type="text" v-model="form.id_eleve" @input="performSearch()">
+                <ul>
+                    <li v-for="(eleve, key) in eleves" :key="key" :value="eleve.id">{{ eleve.user.nom }} {{ eleve.user.prenom }}</li>
+                </ul>
             </div>
 
-            <div class="annee_academiques">
-                <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
-                        <option value=""> Annee_academique</option>
-                        <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
-                </select>
-            </div>
+            <div v-if="form.id_eleve!==''">
+                <div class="annee_academiques">
+                    <select name="annee_academique" id="annee_academique" v-model="form.id_annee_academique">
+                            <option value=""> Annee_academique</option>
+                            <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
+                    </select>
+                </div>
 
-           <!--  <div class="personnel">
-                <select name="annee_academique" id="annee_academique" v-model="form.id_mois">
-                        <option value=""> Mois</option>
-                        <option v-for="m in mois" :value="m.id">{{ m.intitule }}</option>
-                </select>
-            </div>  -->
 
-            <div class="personnel">
-                <input type="number" v-model="form.montant">
+                <div class="personnel">
+                    <input type="number" v-model="form.montant">
+                </div>
+
             </div>
+         
 
 
 
@@ -59,6 +39,7 @@
             </div>
         </form>
     </div>
+</dialog>
 </template>
 
 <script>
@@ -125,6 +106,16 @@ import Form from 'vform';
 
 
         },
+
+        async performSearch(){
+            try{
+                const response= await axios.get('',{
+                    params:{
+                        query: this.form.
+                    }
+                })
+            }
+        }
 
 
         get_annee_academique(){

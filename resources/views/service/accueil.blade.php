@@ -107,15 +107,15 @@
             <button type="button" data-close-modal class="texte">Annuler</button>
         </div>
     </dialog>
-    {{--  Fin modal pour modifier utilisateur --}}
+    <!-- {{--  Fin modal pour modifier utilisateur --}} -->
 
 
-    {{--  Debut modal pour ajouter utilisateur --}}
+  <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
         <service-create></service-create>
-    {{--  Fin modal pour ajouter utilisateur --}}
+   <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
-    {{--  Debut modal pour supprimer utilisateur --}}
+   <!--  {{--  Debut modal pour supprimer utilisateur --}} -->
     <dialog data-modal-suppression class="modal">
         <h1>Suppression</h1>
         <div class="contenu">
@@ -126,7 +126,7 @@
             <input type="submit" value="Confirmer">
         </div>
     </dialog>
-    {{--  Fin modal pour supprimer utilisateur --}}
+   <!--  {{--  Fin modal pour supprimer utilisateur --}} -->
 
 
     <dialog data-modal-confirmation class="modal">
