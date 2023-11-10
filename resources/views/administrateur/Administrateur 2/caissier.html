@@ -165,12 +165,12 @@
                         <p class="texte prenom-nom">Prénom Nom </p>
                         <p class="texte matricule">Matricule</p>
                         <div class="texte classe deroulant">
-                            <p>Classe</p><br>
-                            <p>Toutes</p>
-                            <p>IIR 2</p>
-                            <p>MEl 1</p>
-                            <p>MA 1</p>
-                            <p>ET 3</p>
+                            <p>Classe <i class="fi fi-rr-angle-small-down"></i></p><br>
+                            <p class="filtre">Toutes</p>
+                            <p class="filtre">IIR 2</p>
+                            <p class="filtre">MEL 1</p>
+                            <p class="filtre">MA 1</p>
+                            <p class="filtre">ET 3</p>
                         </div>
                     </div>
 
@@ -178,7 +178,7 @@
                     <div class="paiement">
                         <p class="texte montant">Montant</p>
                         <div class="texte statut deroulant" style="background-color: transparent;">
-                            <p>Statut</p><br>
+                            <p>Statut<i class="fi fi-rr-angle-small-down"></i></p><br>
                             <p class="filtre">Tous</p>
                             <p class="filtre" style="color: lime;">Payé</p>
                             <p class="filtre" style="color: var(--rouge);">Impayé</p>
@@ -208,7 +208,7 @@
                     <!-- actions -->
                     <div class="actions">
                         <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
+                            <i class="fi fi-rr-angle-small-down"></i>
                             <span class="modifier">Actions</span>
                     </a>
                         <a href="#" class="texte b modifier mdl">
@@ -589,7 +589,16 @@
             filtre.forEach(item => {
                 item.addEventListener('click', function(){
                     var titre = item.parentElement;
-                    console.log(titre);
+                    titre = titre.firstElementChild;
+
+                    titre.textContent = item.textContent;
+
+                });
+            });
+
+            deroulant.forEach(item => {
+                item.addEventListener('mouseleave', function(){
+                    item.scrollTo(0,-1);
                 });
             });
             /* deroulant.forEach(item => (){
