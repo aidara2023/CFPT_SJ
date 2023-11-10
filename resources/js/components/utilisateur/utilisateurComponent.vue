@@ -68,7 +68,7 @@
 
                 <div>
                     <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse"  @input="validatedata()">
-                    <span class="erreur" v-if="this.adresse_erreur !== ''">{{this.adresse_erreur}}</span>
+                    <span class="erreur" v-if="this.adresse_user_erreur !== ''">{{this.adresse_user_erreur}}</span>
                 </div>
 
                 <div>
@@ -386,7 +386,11 @@ import Form from 'vform';
            
         }, 
 
-        
+        controleDeSaisie(){
+            var champ = this.value;
+            console.log(champ);
+            this.erreur = champ;
+        },
 
         resetForm(){
     //         var ajout = document.querySelector("[data-modal-ajout]");
@@ -437,7 +441,7 @@ import Form from 'vform';
 
 validatePhoneNumber(phoneNumber) {
     // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
-    const phoneRegex = /^\d{9}$/; // Format : 10 chiffres
+    const phoneRegex = /^\d{10}$/; // Format : 10 chiffres
 
     return phoneRegex.test(phoneNumber);
 },
@@ -482,7 +486,7 @@ validatePhoneNumber(phoneNumber) {
 
         //pour adresse
         if(this.form.adresse=== ""){
-            this.adresse_erreur= "Ce champ est obligatoire"
+            this.adresse_user_erreur= "Ce champ est obligatoire"
             i= 1;
            
         }
