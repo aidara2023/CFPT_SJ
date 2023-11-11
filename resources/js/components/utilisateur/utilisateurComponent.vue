@@ -6,9 +6,16 @@
          <div>
                 <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
             </div>
+            <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
             <div class="photo">
+               
                 <label for="dossiers">Glissez la photo ici <span></span>
+                    <!-- <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
+                    <img :src="getImageUrl(this.photo)"> -->
+                   
                     <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
+                    
+
                 </label>
             </div>
 
@@ -232,6 +239,11 @@ import Form from 'vform';
         // this.rafraichissementAutomatique();
 
     },
+    computed: {
+        photoUrl() {
+        return this.photo ? URL.createObjectURL(this.photo) : '';
+        },
+    },
 
     methods:{
         async soumettre(){
@@ -370,8 +382,20 @@ import Form from 'vform';
             });
         },
 
-        ajoutimage(event){
+    /*     ajoutimage(event){
             this.photo=event.target.files[0];
+        },
+
+        getImageUrl(url){
+            const timestamp= new Date().getTime;
+            return url ? `${window.location.origin}/image/${nom}?t=${timestamp} ` : '';
+        }, */
+        ajoutimage(event) {
+            this.photo = event.target.files[0];
+        },
+        getImageUrl() {
+            const timestamp = new Date().getTime();
+            return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
         },
         validerAvantAjout() {
             // Exécutez la validation des champs
@@ -411,12 +435,6 @@ import Form from 'vform';
            
         }, 
 
-        controleDeSaisie(){
-            var champ = this.value;
-            console.log(champ);
-            this.erreur = champ;
-        },
-
         resetForm(){
 
             this.form.nom="";
@@ -441,369 +459,370 @@ import Form from 'vform';
         },
 
         validateEmail(email) {
-    // Utilisez une expression régulière pour vérifier si l'email est au bon format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-    
-},
+            // Utilisez une expression régulière pour vérifier si l'email est au bon format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+            
+        },
 
 validatePhoneNumber(phoneNumber) {
     // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
     const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
 
-    return phoneRegex.test(phoneNumber);
-},
+            return phoneRegex.test(phoneNumber);
+        },
 
-validatedata(champ) {
-    // Réinitialiser les erreurs pour le champ actuel
-        this.nom_user_erreur= "";
-        this.prenom_user_erreur="";
-        this.nationalite_erreur="";
-        this.lieu_naissance_erreur="";
-        this.adresse_erreur="";
-        this.date_erreur="";
-        this.email_user_erreur="";
-        this.telephone_erreur=""; 
-        this.erreur = "";
-        this.id_role_erreur = "";
-        this.genre_erreur = "";
-        
-        var i= 0;
+        validatedata(champ) {
+            // Réinitialiser les erreurs pour le champ actuel
+                this.nom_user_erreur= "";
+                this.prenom_user_erreur="";
+                this.nationalite_erreur="";
+                this.lieu_naissance_erreur="";
+                this.adresse_erreur="";
+                this.date_erreur="";
+                this.email_user_erreur="";
+                this.telephone_erreur=""; 
+                this.erreur = "";
+                this.id_role_erreur = "";
+                this.genre_erreur = "";
+                
+                var i= 0;
 
-    switch (champ) {
-        case 'nom':
-            // Effectuez la validation pour le champ 'nom'
+            switch (champ) {
+                case 'nom':
+                    // Effectuez la validation pour le champ 'nom'
+                    if(this.form.nom=== ""){
+                    this.nom_user_erreur= "Ce champ est obligatoire"
+                    i= 1;
+                    return true
+                    
+                    }
+                    if(!this.verifCaratere(this.form.nom)){
+                        this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                        /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                        i= 1;
+                        return true
+                    }
+                    // Ajoutez d'autres validations si nécessaire
+                    break;
+                case 'prenom':
+                    //pour prenom
+                    if(this.form.prenom=== ""){
+                    this.prenom_user_erreur= "Ce champ est obligatoire" 
+                    i= 1;
+                    return true
+                    }
+                    if(!this.verifCaratere(this.form.prenom)){
+                        this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                    /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                    i= 1;
+                    return true
+                    }
+                    break;
+                case 'adresse':
+                    //pour adresse
+                    if(this.form.adresse=== ""){
+                        this.adresse_erreur= "Ce champ est obligatoire"
+                        i= 1;
+                        return true
+                    
+                    }
+                    break;
+                case 'naissance':
+                    //pour lieu de naissance
+                    if(this.form.lieu_naissance=== ""){
+                        this.lieu_naissance_erreur= "Ce champ est obligatoire"
+                        i= 1;
+                        return true
+                    } 
+                    if(!this.verifCaratere(this.form.lieu_naissance)){
+                        this.lieu_naissance_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                        i= 1;
+                        return true
+                    }
+                    break;
+                case 'nationalite':
+                    //pour nationalite
+                    if(this.form.nationalite=== ""){
+                        this.nationalite_erreur= "Ce champ est obligatoire"
+                        i= 1;
+                        return true
+                    } 
+                    if(!this.verifCaratere(this.form.nationalite)){
+                        this.nationalite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                        i= 1;
+                        return true
+                    }
+                    break;
+                case 'email':
+                //Vérification de l' email
+                    if(this.form.email=== ""){
+                        this.email_user_erreur= "L'email est obligatoire"
+                        i= 1;
+                        return true
+                    }else{
+                        if(!this.validateEmail(this.form.email)) {
+                            this.email_user_erreur = "L'email n'est pas valide";
+                            i= 1;
+                            return true 
+                        }
+                    } 
+                    break;
+                case 'date_naissance': 
+                // Vérification de la date de naissance
+                    if(this.form.date_naissance === ""){
+                        this.date_erreur = "La date de naissance est obligatoire";
+                        i= 1;
+                        return true
+                    } else {
+                    const dateNaissance = new Date(this.form.date_naissance);
+                    const dateLimite = new Date();
+                    const dateActuelle = new Date(); 
+                    dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+                    let annee = dateLimite.getFullYear();
+                    console.log(annee);
+
+                    if(dateNaissance > dateLimite) {
+                        this.date_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
+                    i=1;
+                    return true
+                    }if(dateNaissance > dateActuelle) {
+                    this.date_erreur = "La date de naissance ne peut pas être dans le futur";
+                        i=1;
+                        return true
+                        }   
+                        
+                    }  
+                    break;
+                case 'telephone': 
+                    //Vérification du numero de telephone
+                    if(this.form.telephone === ""){
+                        this.telephone_erreur = "Le numéro de téléphone est obligatoire";
+                        i= 1;
+                        return true
+                    } else if(!this.validatePhoneNumber(this.form.telephone)) {
+                        this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
+                        i= 1;
+                        return true
+                    } 
+                    break;
+                    case 'role':
+                        //Vérification de role
+                        if(this.form.id_role=== ""){
+                        this.id_role_erreur= "Vous avez oublié de sélectionner le role "
+                        i=1;
+                        return true
+                }
+                    break;
+
+                    case 'genre': 
+                    //Vérification de matrimoniale
+                    if(this.form.genre=== ""){
+                    this.genre_erreur= "Vous avez oublié de sélectionner le genre "
+                    i=1;
+                    return true
+                }
+                    break;
+
+                    case 'type':
+                        //Vérification de type
+                        if(this.form.id_type=== ""){
+                        this.id_type_erreur= "Vous avez oublié de sélectionner le type "
+                        i=1;
+                        return true
+                }
+                    break;
+
+                case 'service': 
+                    //Vérification deservice
+                    
+                    if(this.form.id_service=== ""){
+                        this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                        i=1;
+                        return true
+                        }
+                
+                    break;
+                    
+                case 'specialite': 
+                    //Vérification de spécialité
+                    if(this.form.id_specialite=== ""){
+                    this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
+                    i=1;
+                    return true
+                }
+                    break;
+                case 'situation_matrimoniale': 
+                    //Vérification de matrimoniale
+                    if(this.form.situation_matrimoniale=== ""){
+                    this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
+                    i=1;
+                    return true
+                }
+                    break;
+                case 'departement': 
+                    //Vérification de departement
+                    if(this.form.id_departement=== ""){
+                    this.id_departement_erreur= "Vous avez oublié de sélectionner le départrement"
+                    i=1;
+                    return true
+                }
+                break;
+
+                default:
+                break;
+            }
+        },
+
+
+        validatedataold(){
+            this.nom_user_erreur= "";
+            this.prenom_user_erreur="";
+            this.nationalite_erreur="";
+            this.lieu_naissance_erreur="";
+            this.adresse_erreur="";
+            this.date_erreur="";
+            this.email_user_erreur="";
+            this.telephone_erreur=""; 
+            this.erreur = "";
+            this.id_service_erreur= "";
+            this.id_specialite_erreur="";
+            this.situation_matrimoniale_erreur="";
+            this.id_departement_erreur="";
+            this.type_erreur="";
+            this.id_role_erreur="";
+            var i= 0;
+            // pour nom
+
             if(this.form.nom=== ""){
-            this.nom_user_erreur= "Ce champ est obligatoire"
-            i= 1;
-            return true
-            
+                this.nom_user_erreur= "Ce champ est obligatoire"
+            /*   this.erreur= "Ce champ est obligatoire" */
+                i= 1;
+                
             }
             if(!this.verifCaratere(this.form.nom)){
                 this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                 i= 1;
-                return true
             }
-            // Ajoutez d'autres validations si nécessaire
-            break;
-        case 'prenom':
+        
             //pour prenom
             if(this.form.prenom=== ""){
-            this.prenom_user_erreur= "Ce champ est obligatoire" 
+                this.prenom_user_erreur= "Ce champ est obligatoire" 
+            /*     this.erreur= "Ce champ est obligatoire" */
             i= 1;
-            return true
             }
             if(!this.verifCaratere(this.form.prenom)){
                 this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
             /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
             i= 1;
-            return true
             }
-            break;
-        case 'adresse':
+
+
             //pour adresse
             if(this.form.adresse=== ""){
                 this.adresse_erreur= "Ce champ est obligatoire"
                 i= 1;
-                return true
-            
             }
-            break;
-        case 'naissance':
-             //pour lieu de naissance
+        
+        
+            //pour lieu de naissance
             if(this.form.lieu_naissance=== ""){
                 this.lieu_naissance_erreur= "Ce champ est obligatoire"
                 i= 1;
-                return true
-            } 
+            }
             if(!this.verifCaratere(this.form.lieu_naissance)){
                 this.lieu_naissance_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 i= 1;
-                return true
             }
-            break;
-        case 'nationalite':
+            
             //pour nationalite
             if(this.form.nationalite=== ""){
                 this.nationalite_erreur= "Ce champ est obligatoire"
                 i= 1;
-                return true
-            } 
+            }
             if(!this.verifCaratere(this.form.nationalite)){
                 this.nationalite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 i= 1;
-                return true
             }
-            break;
-        case 'email':
-           //Vérification de l' email
+        
+            //Vérification de l' email
             if(this.form.email=== ""){
                 this.email_user_erreur= "L'email est obligatoire"
                 i= 1;
-                return true
             }else{
                 if(!this.validateEmail(this.form.email)) {
-                    this.email_user_erreur = "L'email n'est pas valide";
-                    i= 1;
-                    return true 
-                }
-            } 
-            break;
-        case 'date_naissance': 
-           // Vérification de la date de naissance
+            this.email_user_erreur = "L'email n'est pas valide";
+            i= 1; 
+            }
+            }
+            
+            // Vérification de la date de naissance
             if(this.form.date_naissance === ""){
                 this.date_erreur = "La date de naissance est obligatoire";
                 i= 1;
-                return true
             } else {
-            const dateNaissance = new Date(this.form.date_naissance);
-            const dateLimite = new Date();
-            const dateActuelle = new Date(); 
-            dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-            let annee = dateLimite.getFullYear();
-            console.log(annee);
+                const dateNaissance = new Date(this.form.date_naissance);
+                const dateLimite = new Date();
+                const dateActuelle = new Date();
+                dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+                let annee = dateLimite.getFullYear();
+                console.log(annee);
 
-            if(dateNaissance > dateLimite) {
-                this.date_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
-            i=1;
-            return true
-            }if(dateNaissance > dateActuelle) {
-               this.date_erreur = "La date de naissance ne peut pas être dans le futur";
+                if(dateNaissance > dateLimite) {
+                    this.date_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
                 i=1;
-                return true
-                }   
+                }if(dateNaissance > dateActuelle) {
+                    this.date_erreur = "La date de naissance ne peut pas être dans le futur";
+                i=1;
+                }
                 
-            }  
-            break;
-        case 'telephone': 
+            }
+
+            if(this.form.id_role=== ""){
+                    this.id_role_erreur= "Vous avez oublié de sélectionner le role "
+                    i=1;
+            }
+
             //Vérification du numero de telephone
             if(this.form.telephone === ""){
                 this.telephone_erreur = "Le numéro de téléphone est obligatoire";
                 i= 1;
-                return true
             } else if(!this.validatePhoneNumber(this.form.telephone)) {
                 this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
                 i= 1;
-                return true
-            } 
-            break;
-            case 'role':
-                //Vérification de role
-                if(this.form.id_role=== ""){
-                this.id_role_erreur= "Vous avez oublié de sélectionner le role "
+            }
+
+            if(this.interesser== 4){
+            if(this.form.id_service=== ""){
+                this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
                 i=1;
-                return true
-        }
-            break;
-
-            case 'genre': 
-            //Vérification de matrimoniale
-            if(this.form.genre=== ""){
-            this.genre_erreur= "Vous avez oublié de sélectionner le genre "
-            i=1;
-            return true
-        }
-            break;
-
-            case 'type':
-                //Vérification de type
-                if(this.form.id_type=== ""){
-                this.id_type_erreur= "Vous avez oublié de sélectionner le type "
-                i=1;
-                return true
-        }
-            break;
-
-        case 'service': 
-            //Vérification deservice
-            
-              if(this.form.id_service=== ""){
-                 this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                 i=1;
-                 return true
                 }
-           
-            break;
-            
-        case 'specialite': 
-            //Vérification de spécialité
-            if(this.form.id_specialite=== ""){
-            this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
-            i=1;
-            return true
-        }
-            break;
-        case 'situation_matrimoniale': 
-            //Vérification de matrimoniale
-            if(this.form.situation_matrimoniale=== ""){
-            this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
-            i=1;
-            return true
-        }
-            break;
-        case 'departement': 
-            //Vérification de departement
-            if(this.form.id_departement=== ""){
-            this.id_departement_erreur= "Vous avez oublié de sélectionner le départrement"
-            i=1;
-            return true
-        }
-        break;
+            }
+            if(this.interesser== 6){
+                if(this.form.id_specialite=== ""){
+                        this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
+                        i=1;
+                    }
+                    if(this.form.situation_matrimoniale=== ""){
+                        this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
+                        i=1;
+                    }
+                    if(this.form.id_departement=== ""){
+                        this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
+                        i=1;
+                    }
+                    if(this.form.type=== ""){
+                        this.type_erreur= "Vous avez oublié de sélectionner le type "
+                        i=1;
+                    }
+            }
 
-        default:
-           break;
-    }
-},
+            if(i==1) return true;
 
+                return false;
 
-    validatedataold(){
-        this.nom_user_erreur= "";
-        this.prenom_user_erreur="";
-        this.nationalite_erreur="";
-        this.lieu_naissance_erreur="";
-        this.adresse_erreur="";
-        this.date_erreur="";
-        this.email_user_erreur="";
-        this.telephone_erreur=""; 
-        this.erreur = "";
-        this.id_service_erreur= "";
-        this.id_specialite_erreur="";
-        this.situation_matrimoniale_erreur="";
-        this.id_departement_erreur="";
-        this.type_erreur="";
-        this.id_role_erreur="";
-        var i= 0;
-        // pour nom
-
-        if(this.form.nom=== ""){
-            this.nom_user_erreur= "Ce champ est obligatoire"
-          /*   this.erreur= "Ce champ est obligatoire" */
-            i= 1;
-            
-        }
-        if(!this.verifCaratere(this.form.nom)){
-            this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-            /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-            i= 1;
-        }
-       
-        //pour prenom
-        if(this.form.prenom=== ""){
-            this.prenom_user_erreur= "Ce champ est obligatoire" 
-        /*     this.erreur= "Ce champ est obligatoire" */
-        i= 1;
-        }
-        if(!this.verifCaratere(this.form.prenom)){
-            this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-           /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-           i= 1;
-        }
-
-
-        //pour adresse
-        if(this.form.adresse=== ""){
-            this.adresse_erreur= "Ce champ est obligatoire"
-            i= 1;
-        }
-    
-       
-        //pour lieu de naissance
-        if(this.form.lieu_naissance=== ""){
-            this.lieu_naissance_erreur= "Ce champ est obligatoire"
-            i= 1;
-        }
-        if(!this.verifCaratere(this.form.lieu_naissance)){
-            this.lieu_naissance_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-            i= 1;
-        }
-        
-        //pour nationalite
-        if(this.form.nationalite=== ""){
-            this.nationalite_erreur= "Ce champ est obligatoire"
-            i= 1;
-        }
-        if(!this.verifCaratere(this.form.nationalite)){
-            this.nationalite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-            i= 1;
-        }
-       
-        //Vérification de l' email
-        if(this.form.email=== ""){
-            this.email_user_erreur= "L'email est obligatoire"
-            i= 1;
-        }else{
-            if(!this.validateEmail(this.form.email)) {
-        this.email_user_erreur = "L'email n'est pas valide";
-        i= 1; 
-        }
-        }
-        
-     // Vérification de la date de naissance
-     if(this.form.date_naissance === ""){
-        this.date_erreur = "La date de naissance est obligatoire";
-        i= 1;
-    } else {
-        const dateNaissance = new Date(this.form.date_naissance);
-        const dateLimite = new Date();
-        const dateActuelle = new Date();
-        dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-        let annee = dateLimite.getFullYear();
-        console.log(annee);
-
-        if(dateNaissance > dateLimite) {
-            this.date_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
-           i=1;
-        }if(dateNaissance > dateActuelle) {
-            this.date_erreur = "La date de naissance ne peut pas être dans le futur";
-          i=1;
-        }
-        
-    }
-
-    if(this.form.id_role=== ""){
-            this.id_role_erreur= "Vous avez oublié de sélectionner le role "
-             i=1;
-        }
-
-    //Vérification du numero de telephone
-    if(this.form.telephone === ""){
-        this.telephone_erreur = "Le numéro de téléphone est obligatoire";
-        i= 1;
-    } else if(!this.validatePhoneNumber(this.form.telephone)) {
-        this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
-        i= 1;
-    }
-
-    if(this.interesser== 4){
-    if(this.form.id_service=== ""){
-            this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-            i=1;
-        }
-}if(this.interesser== 6){
-    if(this.form.id_specialite=== ""){
-            this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
-            i=1;
-        }
-        if(this.form.situation_matrimoniale=== ""){
-            this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
-            i=1;
-        }
-        if(this.form.id_departement=== ""){
-            this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
-            i=1;
-        }
-        if(this.form.type=== ""){
-            this.type_erreur= "Vous avez oublié de sélectionner le type "
-             i=1;
-        }
-}
-
-    if(i==1) return true;
-
-        return false;
-
-    },
+        },
 
     Uniquevalidate(donnee){
         this.nom_user_erreur= "";
@@ -857,7 +876,7 @@ validatedata(champ) {
            this.validerAvantAjout();
         }
     },
-  verifId(){
+    verifId(){
         this.id_service_erreur= "";
         this.id_specialite_erreur="";
         this.situation_matrimoniale_erreur="";
@@ -866,7 +885,7 @@ validatedata(champ) {
         this.type_erreur="";
         this.genre_erreur="";
         var i= 0;
-/* //pour genre
+        /* //pour genre
         if(this.form.genre=== ""){
             this.genre_erreur= "Vous avez oublié de sélectionner le genre"
              i=1;
@@ -877,42 +896,34 @@ validatedata(champ) {
              i=1;
         } */
 
-if(this.interesser== 4){
-    if(this.form.id_service=== ""){
-            this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-            i=1;
+        if(this.interesser== 4){
+            if(this.form.id_service=== ""){
+                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                    i=1;
+                }
+        }if(this.interesser== 6){
+            if(this.form.id_specialite=== ""){
+                    this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
+                    i=1;
+                }
+                if(this.form.situation_matrimoniale=== ""){
+                    this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
+                    i=1;
+                }
+                if(this.form.id_departement=== ""){
+                    this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
+                    i=1;
+                }
+                if(this.form.type=== ""){
+                    this.type_erreur= "Vous avez oublié de sélectionner le type "
+                    i=1;
+                }
         }
-}if(this.interesser== 6){
-    if(this.form.id_specialite=== ""){
-            this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
-            i=1;
-        }
-        if(this.form.situation_matrimoniale=== ""){
-            this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
-            i=1;
-        }
-        if(this.form.id_departement=== ""){
-            this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
-            i=1;
-        }
-        if(this.form.type=== ""){
-            this.type_erreur= "Vous avez oublié de sélectionner le type "
-             i=1;
-        }
-}
-    if(i==1) return true;
+            if(i==1) return true;
 
-        return false;
-}, 
+                return false;
+        }, 
        
-       
-       
-    
-
-    //     rafraichissementAutomatique() {
-    //         document.addEventListener("DOMContentLoaded", this.resetForm());
-    // },
-
 
     }
    }
