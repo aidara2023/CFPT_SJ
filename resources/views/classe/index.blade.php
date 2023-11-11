@@ -107,9 +107,9 @@
 
 
  {{--  Debut modal pour ajouter utilisateur --}}
-<dialog data-modal-ajout class="modal">
+{{-- <dialog data-modal-ajout class="modal"> --}}
     <create-classe></create-classe>
-</dialog>
+{{-- </dialog> --}}
 {{--  Fin modal pour ajouter utilisateur --}}
 
 
@@ -126,5 +126,19 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+ <dialog data-modal-confirmation class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Classe ajoutée avec succès</p>
+    </dialog>
+
+    <dialog data-modal-confirmation-sup class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Classe supprimée avec succès</p>
+    </dialog>
+    </div>
  <span class="fond "></span>
 @endsection

@@ -142,6 +142,8 @@
         <br>
         <p class="">Direction supprimée avec succès</p>
     </dialog>
+    </div>
+
  <span class="fond "></span>
- </div>
+ 
 @endsection
