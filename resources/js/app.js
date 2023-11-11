@@ -26,7 +26,11 @@ import createClasseComponent from './components/classe/createClasseComponent.vue
 import listeClasseComponent from './components/classe/listeClasseComponent.vue';
 
 import createBatimentComponent from './components/batiment/createBatimentComponent.vue';
+
 import createSalleComponent from './components/salle/createSalleComponent.vue';
+import listeSalleComponent from './components/salle/listeSalleComponent.vue';
+
+
 import createCourComponent from './components/cours/createCourComponent.vue';
 
 import createSpecialiteComponent from './components/specialite/createSpecialiteComponent.vue';
@@ -112,7 +116,10 @@ app.component("create-classe", createClasseComponent);
 app.component("liste-classe", listeClasseComponent);
 
 app.component("create-batiment", createBatimentComponent);
-app.component("create-salle", createSalleComponent);
+
+app.component("create-salle", createSalleComponent)
+app.component("liste-salle", listeSalleComponent);
+
 app.component("create-cours", createCourComponent);
 
 
