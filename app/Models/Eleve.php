@@ -16,9 +16,9 @@ class Eleve extends Model
         'id'
 
     ];
-    
+
     public function user() {
-    return $this->belongsTo(User::class,'id_user');   
+    return $this->belongsTo(User::class,'id_user');
     }
     public function assister() {
         return $this -> hasMany(assister::class);
@@ -36,15 +36,15 @@ class Eleve extends Model
     public function financer_bource(){
         return $this->belongsTo(financer_bourse::class,'id_financer_bourse');
     }
-    public function inscriptions() {
-        return $this -> hasMany(Inscription::class);
+    public function inscription() {
+        return $this->hasMany(Inscription::class, 'id_eleve', 'id');
     }
     public function cours() {
-        return $this -> hasMany(Cour::class);
+        return $this -> hasMany(Cour::class, 'id');
     }
     public function paiements() {
         return $this -> hasMany(Paiement::class);
     }
 
-    
+
 }

@@ -7,11 +7,13 @@ use App\Http\Requests\paiement\paiement_request;
 use App\Models\Caissier;
 use App\Models\Classe;
 use App\Models\Concerner;
+use App\Models\Eleve;
 use App\Models\Inscription;
 use App\Models\mois;
 use Illuminate\Http\Request;
 use App\Models\Paiement;
 use App\Models\Type_formation;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class paiement_controller extends Controller
@@ -366,7 +368,7 @@ class paiement_controller extends Controller
             }
         }
 
-      
+
     }
 
     public function update(paiement_request $request, $id) {
@@ -420,4 +422,36 @@ class paiement_controller extends Controller
             ],500);
         }
     }
+
+    public function recherche_eleve(Request $request){
+        $valeur=$request->input('query');
+
+            $user= User::with('eleves.inscription.classe')->where('matricule','LIKE', "%$valeur%")->get();
+            // .inscriptions.classe
+        if($user != null){
+            return response()->json( $user);
+        } else{
+            return response() -> json([
+                'statut' => 500,
+                'eleve' => 'Ce matricule n\'existe pas'
+            ],500);
+        }
+    }
+    // public function recherche_eleve(Request $request){
+    //     $valeur = $request->input('query');
+
+    //     $eleves = Eleve::whereHas('user', function ($query) use ($valeur) {
+    //         $query->where('matricule', 'LIKE', "%$valeur%");
+    //     })->with('cours.Classe')->get();
+
+    //     if($eleves->isNotEmpty()){
+    //         return response()->json($eleves);
+    //     } else {
+    //         return response()->json([
+    //             'statut' => 500,
+    //             'eleve' => 'Ce matricule n\'existe pas'
+    //         ], 500);
+    //     }
+    // }
+
 }
