@@ -108,11 +108,30 @@ import Form from 'vform';
                    axios.delete(`/classe/delete/${type.id}`).then(resp => {
                        this.get_classe();
 
-                       Swal.fire(
+                       /* Swal.fire(
                            'Supprimé!',
                            'La classe a été supprimé avec succès.',
                            'success',
-                       )
+                       ) */
+                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+
+                    confirmation.style.backgroundColor = 'white';
+                    confirmation.style.color = 'var(--clr)';
+
+                    //setTimeout(function(){
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        //confirmation.close();  
+                    //}, 1000);  
+
+                    setTimeout(function(){     
+                        confirmation.close();  
+
+                        setTimeout(function(){     
+                            confirmation.classList.remove("actif");   
+                    }, 100); 
+
+                    }, 2000); 
                    }).catch(function (error) {
                        console.log(error);
                    })

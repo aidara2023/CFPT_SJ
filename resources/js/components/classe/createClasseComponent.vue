@@ -1,15 +1,16 @@
 <template>
+      <dialog data-modal-ajout class="modal">
     <div class="cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout classe</h1>
 
             <div class="personnel">
              <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
-                <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata()">
+                <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata('nom_classe')">
                 <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
             </div>
            <div>
-            <select name="type_classe" id="type_classe" v-model="form.type_classe">
+            <select name="type_classe" id="type_classe" v-model="form.type_classe " @change="validatedata('type_classe')">
                     <option value="">Type Classe</option>
                     <option  value="Non payant">Public</option>
                     <option  value="Payant">Privé</option>
@@ -19,7 +20,7 @@
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
 
                 <div>
-                <select name="niveau" id="niveau" v-model="form.niveau">
+                <select name="niveau" id="niveau" v-model="form.niveau" @change="validatedata('niveau')">
                     <option value="">Selectioner Niveau</option>
                     <option  value=" 1 ">1 </option>
                     <option  value=" 2 ">2 </option>
@@ -29,19 +30,19 @@
             </div>
 
         <div class="type_formation">
-                <select name="type_formation" id="type_formation" v-model="form.id_type_formation">
+                <select name="type_formation" id="type_formation" v-model="form.id_type_formation " @change="validatedata('type_formation')">
                         <option value=""> Type de formation </option>
                         <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
-                        <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
                 </select>
+                <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
             </div>
 
             <div class="unite_de_formation">
-                <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation">
+                <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')">
                         <option value=""> Unite de formation </option>
                         <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
-                        <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
                 </select>
+                <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
             </div>
 
 
@@ -51,6 +52,7 @@
             </div>
         </form>
     </div>
+</dialog>
 </template>
 
 <script>
@@ -77,6 +79,10 @@ import Form from 'vform';
           id_unite_de_formation_erreur:"",
           type_classe_erreur:"",
           niveau_erreur:"",
+          etatForm: false,
+
+
+          
 
 
         }
@@ -85,6 +91,7 @@ import Form from 'vform';
         this.get_type_formation();
         this.get_unite_de_formation();
     },
+    
 
 
     methods:{
@@ -97,15 +104,45 @@ import Form from 'vform';
             formdata.append('id_unite_de_formation', this.form.id_unite_de_formation );
 
 
-            if(this.form.nom_classe!=="" && this.form.type_classe!==""  && this.form.niveau!==""){
+            /* if(this.form.nom_classe!=="" && this.form.type_classe!==""  && this.form.niveau!==""){ */
                 try{
                     const create_store=await axios.post('/classe/store', formdata, {
 
                     });
                     this.resetForm();
-                    Swal.fire('Succes!','classe ajouté avec succés','success')
-                    this.resetForm();
-                    bus.emit('classeAjoutee');
+                    bus.emit('classeAjoutee'); 
+                    var ajout = document.querySelector('[data-modal-ajout]');
+                    var confirmation = document.querySelector('[data-modal-confirmation]');
+
+                   
+                    /* console.log(ajout); */
+                    var actif = document.querySelectorAll('.actif');
+                        actif.forEach(item => {
+                        item.classList.remove("actif");
+                    }); 
+                    //ajout.classList.remove("actif");
+                    ajout.close();
+
+
+                    confirmation.style.backgroundColor = 'white';
+                    confirmation.style.color = 'var(--clr)';
+
+                        
+
+                    //setTimeout(function(){
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        //confirmation.close();  
+                    //}, 1000);  
+                     
+                    setTimeout(function(){     
+                        confirmation.close();  
+
+                        setTimeout(function(){     
+                            confirmation.classList.remove("actif");   
+                    }, 100); 
+
+                    }, 1700);  
 
                 }
                 catch(e){
@@ -118,10 +155,10 @@ import Form from 'vform';
                   }
                 }
 
-            }else{
+           /*  }else{
                 this.resetForm();
                 Swal.fire('Erreur!','Veuillez remplir tous les champs obligatoires','error')
-            }
+            } */
 
 
         },
@@ -152,7 +189,170 @@ import Form from 'vform';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de lunite de formation','error')
            });
        },
+       verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
+        },
 
+    validatedata(champ){
+        this.nom_classe_erreur= "";
+        this.id_type_formation_erreur="";
+          this.id_unite_de_formation_erreur="";
+          this.type_classe_erreur="";
+          this.niveau_erreur="";
+        var i=0;
+        
+    switch (champ) {
+        case 'nom_classe':
+            // Effectuez la validation pour le champ 'nom'
+            if(this.form.nom_classe=== ""){
+            this.nom_classe_erreur= "Ce champ est obligatoire"
+            i= 1;
+            return true
+            
+            }
+            if(!this.verifCaratere(this.form.nom_classe)){
+                this.nom_classe_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                i= 1;
+                return true
+            }
+            // Ajoutez d'autres validations si nécessaire
+            break;
+        case 'niveau':
+            //pour niveau
+            if(this.form.niveau=== ""){
+            this.niveau_erreur= "Vous avez oublié de sélectionner le niveau " 
+            i= 1;
+            return true
+            }
+            
+            break;
+        case 'unite_de_formation':
+            //pour unite_de_formation
+            if(this.form.unite_de_formation=== ""){
+                this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner  l'unite de formation'"
+                i= 1;
+                return true
+            
+            }
+            break;
+        case 'type_formation':
+             //pour type de formation
+            if(this.form.type_formation=== ""){
+                this.type_formation_erreur= "Vous avez oublié de sélectionner le type de formation "
+                i= 1;
+                return true
+            } 
+            
+            break;
+        case 'type_classe':
+            //pour type classe
+            if(this.form.type_classe=== ""){
+                this.type_classe_erreur= "Vous avez oublié de sélectionner le type de classe "
+                i= 1;
+                return true
+            } 
+           
+            break;
+
+            default:
+           break;
+        }
+    },
+
+    verifId(){
+        this.id_type_formation_erreur="";
+          this.id_unite_de_formation_erreur="";
+          this.type_classe_erreur="";
+          this.niveau_erreur="";
+        var i=0;
+
+        if(this.form.id_type_formation=== ""){
+            this.id_type_formation_erreur= "Vous avez oublié de sélectionner le type de formation"
+             i=1;
+             return true
+        }
+       
+        if(this.form.type_classe=== ""){
+            this.type_classe_erreur= "Vous avez oublié de sélectionner le type de la classe "
+             i=1;
+             return true
+        }
+        if(this.form.niveau=== ""){
+            this.niveau_erreur= "Vous avez oublié de sélectionner le niveau "
+             i=1;
+             return true
+        }
+        if(this.form.id_unite_de_formation=== ""){
+            this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner l'unité de formation' "
+             i=1;
+             return true
+        }
+
+    if(i==1) return true;
+
+        return false;
+    
+    },
+    validatedataOld(){
+        this.nom_classe_erreur= "";
+        this.id_type_formation_erreur="";
+          this.id_unite_de_formation_erreur="";
+          this.type_classe_erreur="";
+          this.niveau_erreur="";
+        var i=0;
+        
+        if(this.form.nom_classe=== ""){
+            this.nom_classe_erreur= "Ce champ est obligatoire"
+            i=1;
+        }else{
+            if(!this.verifCaratere(this.form.nom_classe)){
+            this.nom_classe_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+           i=1;
+        }
+
+        }
+
+        if(this.form.id_type_formation=== ""){
+            this.id_type_formation_erreur= "Vous avez oublié de sélectionner le type de formation"
+             i=1;
+        }
+       
+        if(this.form.type_classe=== ""){
+            this.type_classe_erreur= "Vous avez oublié de sélectionner le type de la classe "
+             i=1;
+        }
+        if(this.form.niveau=== ""){
+            this.niveau_erreur= "Vous avez oublié de sélectionner le niveau "
+             i=1;
+        }
+        if(this.form.id_unite_de_formation=== ""){
+            this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner l'unité de formation' "
+             i=1;
+        }
+       
+
+    if(i==1) return true;
+
+        return false;
+    },
+
+    validerAvantAjout() {
+            // Exécutez la validation des champs
+           /*  const isNomChampValid = this.validatedata(); */
+            const isIdChampValid = this.validatedataOld();
+
+          /*   console.log(isNomChampValid); */
+            if ( isIdChampValid) {
+                this.etatForm= false;
+                return 0;
+            }else{
+                this.soumettre();
+                this.etatForm= true;
+            }
+           
+        }, 
 
         resetForm(){
 

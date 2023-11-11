@@ -394,10 +394,9 @@ import Form from 'vform';
             /* const isNomChampValid = this.Uniquevalidate('nom');
             const isPrenomChampValid = this.Uniquevalidate('prenom'); */
             const isRoleValid = this.validatedata('role');
-            const isVerifIdValid = this.verifId();
             const isGenreValid =this.validatedata('genre'); 
              
-
+            const isVerifIdValid = this.verifId();
             const isIdChampValid = this.validatedataold();
           /*   console.log(isNomChampValid); */
             if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
