@@ -4,15 +4,23 @@
             <h1 class="sous_titre">Ajout salle</h1>
            
             <div class="personnel">
-            <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule">
-            <input type="text" name="nombre_place" id="nombre_place" placeholder="nombre_place" v-model="form.nombre_place">
-        </div>
+                <div>
+                    <input type="text" v-model="form.intitule" placeholder="Intitule"  @input="validatedata()">
+                    <span class="erreur" v-if="this.nom_salle_erreur !== ''">{{this.nom_salle_erreur}}</span>
+               </div>
+
+               <div>
+                    <input type="text" placeholder="nombre_place" v-model="form.nombre_place"  @input="validatedata()">
+                    <span class="erreur" v-if="this.nom_salle_erreur !== ''">{{this.nom_salle_erreur}}</span>
+               </div>
+    </div>
 
         <div class="type_formation">
-                <select name="batiment" id="batiment" v-model="form.id_batiment">
+                <select name="batiment" id="batiment" v-model="form.id_batiment"  @change="verifIdSalle()">
                         <option value=""> Batiment </option>
                         <option v-for="batiment in batiments" :value="batiment.id">{{ batiment.intitule }}</option>
                 </select>
+                <span class="erreur" v-if="id_batiment_erreur !== ''">{{id_batiment_erreur}}</span>
             </div>
 
 
@@ -40,6 +48,10 @@ import Form from 'vform';
                 
             }),
             batiments:[],
+            nom_salle_erreur:"",
+
+            id_batiment_erreur:"",
+            etatForm: false,
           
         
 

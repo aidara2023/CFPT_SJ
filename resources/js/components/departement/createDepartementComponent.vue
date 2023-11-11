@@ -15,7 +15,7 @@
                 <div>
                     <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
                         <option value=""> Direction</option>
-                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }}</option>
+                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
                     </select>
                     <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
                 </div>

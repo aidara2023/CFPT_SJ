@@ -53,6 +53,7 @@
                     <span>Type Formation</span>
                     </a>
                 </li>
+                
             </ul>
         </li>
 
@@ -82,6 +83,13 @@
                 <div>
                     <i class="fi fi-rr-book-bookmark"></i>
                     <span>Bibliothèque</span>
+                </div>
+            </a></li>
+
+            <li class="fntr"><a href="{{route('salle_accueil')}}">
+                <div>
+                    <i class="fi fi-rr-bank"></i>
+                    <span>Salle</span>
                 </div>
             </a></li>
 

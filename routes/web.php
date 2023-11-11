@@ -584,7 +584,11 @@ Route::put('salle/update/{$id}',[salle_controller::class,'update'])->name('salle
 Route::delete('salle/delete/{$id}',[salle_controller::class, 'delete'])->name('salle_delete');
 Route::get('salle/create' ,[salle_view_controller::class, 'create'])->name('salle_create');
 
-//ROUTE POUR SEMESTRE
+Route::get('salle/all',[salle_controller::class, 'all'])->name('salle_all');
+Route::get('salle/accueil',[salle_view_controller::class, 'accueil'])->name('salle_accueil');
+
+
+//ROUTE POUR SEMESTRe
 
 Route::get('semestre/index',[semestre_controller::class, 'index'])->name('semestre_index');
 
