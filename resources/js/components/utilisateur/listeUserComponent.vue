@@ -13,7 +13,7 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ utilisateur.nom }} {{ utilisateur.prenom }}</p>
+               <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
                <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
@@ -80,7 +80,7 @@ import Form from 'vform';
 
 
            }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des utilisateur','error')
+           Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des utilisateurs','error')
            });
        },
 
