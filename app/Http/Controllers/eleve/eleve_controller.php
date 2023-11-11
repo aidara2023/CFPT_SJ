@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class eleve_controller extends Controller
 {
-        
+
     public function index()
     {
         $eleves = Eleve::with('user')->get();
@@ -23,11 +23,11 @@ class eleve_controller extends Controller
                 'eleve'=>$eleves
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Aucun donnée trouvée',
             ],500 );
-        } 
+        }
     }
 
     public function show($id)
@@ -39,15 +39,31 @@ class eleve_controller extends Controller
                 'eleve'=>$eleves
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Aucune donnee trouvée',
             ],500 );
-        } 
+        }
+
+    }
+    public function show_by_where($id)
+    {
+        $eleves = Eleve::with('inscription')->where('id_user', $id)->firstOrFail();
+        if($eleves!=null){
+            return response()->json([
+                'statut'=>200,
+                'eleve'=>$eleves
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnee trouvée',
+            ],500 );
+        }
 
     }
 
-  
+
     public function store(eleve_request $request)
     {
         $request->validated();
@@ -57,7 +73,7 @@ class eleve_controller extends Controller
          $matricule= User::generateur_matricule();
          $tuteurUser->matricule=$matricule;
        /*   Fin attribution */
- 
+
          $tuteurUser->nom=$request['nom_tuteur'];
          $tuteurUser->prenom=$request['prenom_tuteur'];
          $tuteurUser->genre=$request['genre_tuteur'];
@@ -70,7 +86,7 @@ class eleve_controller extends Controller
          $tuteurUser->nationalite=$request['nationalite_tuteur'];
 
          $role= Role::where('intitule', "Tuteur")->first();
- 
+
          $tuteurUser->id_role=2;
          $tuteurUser->save();
 
@@ -85,7 +101,7 @@ class eleve_controller extends Controller
          $matricule= User::generateur_matricule();
          $eleveUser->matricule=$matricule;
        /*   Fin attribution */
- 
+
          $eleveUser->nom=$request['nom_eleve'];
          $eleveUser->prenom=$request['prenom_eleve'];
          $eleveUser->genre=$request['genre_eleve'];
@@ -96,7 +112,7 @@ class eleve_controller extends Controller
          $eleveUser->date_naissance=$request['date_naissance_eleve'];
          $eleveUser->lieu_naissance=$request['lieu_naissance_eleve'];
          $eleveUser->nationalite=$request['nationalite_eleve'];
- 
+
          /* Uploader une image */
          $image= $request->file('photo');
          $imageName=time() . '_' . $image->getClientOriginalName();
@@ -105,7 +121,7 @@ class eleve_controller extends Controller
          /* Fin upload */
 
          $role= Role::where('intitule', "Eleve")->first();
- 
+
          $eleveUser->id_role=1;
          $eleveUser->save();
 
@@ -115,7 +131,7 @@ class eleve_controller extends Controller
          $ideleve=$eleveUser->id;
          $idtuteur=$tuteur->id;
 
-         
+
 
         $eleves= new Eleve();
         $eleves->id_user=$ideleve;
@@ -131,12 +147,12 @@ class eleve_controller extends Controller
                 'message'=>'eleve enregistrer avec succés',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'Aucune donnee enregistrer',
             ],500 );
-        } 
-        
+        }
+
     }
 
 
@@ -165,13 +181,13 @@ class eleve_controller extends Controller
             $user->id_role =$request['id_role'];
             $user -> save();
 
-            
+
 
             $eleves -> id_user  = $user -> id;
-            $eleves->contact_urgence1=$request['contact_urgence1']; 
-            $eleves->contact_urgence2=$request['contact_urgence2']; 
-           
-            $eleves->id_tuteur=$request['id_tuteur']; 
+            $eleves->contact_urgence1=$request['contact_urgence1'];
+            $eleves->contact_urgence2=$request['contact_urgence2'];
+
+            $eleves->id_tuteur=$request['id_tuteur'];
             $eleves->save();
             return response()->json([
                 'statut'=>200,
@@ -179,13 +195,13 @@ class eleve_controller extends Controller
                 'message'=>'Élève mis à jour avec succès',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'aucun donner modifier',
             ],500 );
         };
 
-       
+
     }
 
     public function delete($id)
@@ -198,13 +214,13 @@ class eleve_controller extends Controller
                 'message'=>'eleve supprimé avec succés',
             ],200)  ;
         }else{
-            return response()->json([ 
+            return response()->json([
                 'statut'=>500,
                 'message'=>'eleve non supprimer',
             ],500 );
         }
-        
-        
+
+
     }
 
 }

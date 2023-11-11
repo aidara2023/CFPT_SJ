@@ -32,6 +32,7 @@ class User extends Authenticatable
         'photo',
         'id_role',
         'matricule_nombre',
+        'matricule',
 
     ];
    /*  protected $primaryKey= 'matricule'; */
@@ -94,7 +95,7 @@ class User extends Authenticatable
     }
 
     public function eleves(){
-        return $this->hasMany(Eleve::class);
+        return $this->hasMany(Eleve::class, 'id_user', 'id');
     }
 
     public function formateurs(){
@@ -119,7 +120,7 @@ class User extends Authenticatable
 
     public static function generateur_matricule($prefix = 'M') {
         $dernier_user = self::orderBy('matricule_nombre', 'desc')->first();
-        
+
         if ($dernier_user) {
             $prochain_nombre = $dernier_user->matricule_nombre + 1;
             $dernier_user->matricule_nombre = $prochain_nombre;
@@ -128,12 +129,12 @@ class User extends Authenticatable
             // Si aucun utilisateur existant, commencez à partir de 10066
             $prochain_nombre = 10066;
         }
-        
+
         $matricule = $prefix . $prochain_nombre;
         return $matricule;
     }
-    
-    
+
+
 
     public static function getId($user){
         return $user->id;

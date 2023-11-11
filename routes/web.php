@@ -203,6 +203,7 @@ Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
 Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store');
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
+Route::get('eleve/show_by_where/{id}',[eleve_controller::class, 'show_by_where'])->name('eleve_search');
 Route::put('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve_update');
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
 
@@ -310,6 +311,7 @@ Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tu
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
+Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
 Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('paiement_show');
 Route::put('paiement/update/{id}',[paiement_controller::class, 'update'])->name('paiement_update');
