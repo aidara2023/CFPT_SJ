@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class salle_controller extends Controller
 {
     public function index() {
-        $salle=Salle::all();
+        $salle=Salle::with('batiment')->get();
         if($salle!=null){
             return response()->json([
                 'statut'=>200,
@@ -58,7 +58,7 @@ class salle_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $salle=Salle::find($id);
         if($salle!=null){
             $salle->delete();
