@@ -72,7 +72,7 @@ import Swal from 'sweetalert2';
                    
                 
                     this.resetForm();
-                    bus.emit('serviceAjoutee');
+                    bus.emit('serAjoutee');
                     
                     var ajout = document.querySelector('[data-modal-ajout]');
                     var confirmation = document.querySelector('[data-modal-confirmation]');

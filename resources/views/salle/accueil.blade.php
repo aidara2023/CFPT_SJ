@@ -137,7 +137,7 @@
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
-        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <img src="../assetsCFPT/image/ v" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
         <p class="">Salle supprimé avec succès</p>

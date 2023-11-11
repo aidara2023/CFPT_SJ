@@ -579,9 +579,9 @@ Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name
 
 Route::get('salle/index',[salle_controller::class, 'index'])->name('salle_index');
 Route::post('salle/store',[salle_controller::class, 'store'])->name('salle_store');
-Route::get('salle/show/{$id}',[salle_controller::class,'show'])->name('salle_show');
-Route::put('salle/update/{$id}',[salle_controller::class,'update'])->name('salle_update');
-Route::delete('salle/delete/{$id}',[salle_controller::class, 'delete'])->name('salle_delete');
+Route::get('salle/show/{id}',[salle_controller::class,'show'])->name('salle_show');
+Route::put('salle/update/{id}',[salle_controller::class,'update'])->name('salle_update');
+Route::delete('salle/delete/{id}',[salle_controller::class, 'delete'])->name('salle_delete');
 Route::get('salle/create' ,[salle_view_controller::class, 'create'])->name('salle_create');
 
 Route::get('salle/all',[salle_controller::class, 'all'])->name('salle_all');

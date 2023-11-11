@@ -13,8 +13,9 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
-               <p class="texte" id="n">{{ salle.nom_salle }} </p>
-               <p class="texte" id="n">{{ salle.batiment.nom_batiment }}</p>
+               <p class="texte" id="n">{{ salle.intitule }}</p>
+               <p class="texte" id="n">{{ salle.nombre_place }} </p>
+               <p class="texte" id="n" v-if="salle.batiment.intitule">{{ salle.batiment.intitule}}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
@@ -25,19 +26,20 @@
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
-                   <a href="" class="texte b">
+                   <a href="#" class="texte b">
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deleteSalle(salle)">
+                   <a href="#" class="texte b" @click="deleteSalle(salle)" > 
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
+                   <!-- <a href="#" class="texte b supprimer mdl">
+                         <i class="fi fi-rr-cross"></i>
+                         <span class="">Supprimer</span></a> -->
                </div>
            </div>
        </div>
-
-
 
    </div>
 
@@ -54,12 +56,11 @@ import Form from 'vform';
 
 
   export default {
-   name:"listeSalleCompenent",
+   name:"listeUserCompenent",
    data(){
        return {
            form:new Form({
                'intitule':""
-              
 
            }),
            salles: [],
@@ -76,7 +77,7 @@ import Form from 'vform';
 
    methods:{
        get_salle(){
-           axios.get('/salle/all')
+           axios.get('/salle/index')
            .then(response => {
                this.salles=response.data.salle
 
@@ -108,13 +109,33 @@ import Form from 'vform';
            }).then((result) => {
                if (result.isConfirmed) {
                    axios.delete(`/salle/delete/${type.id}`).then(resp => {
-                       this.get_dsalle();
+                       this.get_salle();
 
-                       Swal.fire(
+                   /*     Swal.fire(
                            'Supprimé!',
-                           'La salle a été supprimée avec succès.',
+                           'Le salle a été supprimé avec succès.',
                            'success',
-                       )
+                       ) */
+                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
+
+                        //setTimeout(function(){
+                            confirmation.showModal();
+                            confirmation.classList.add("actif");
+                            //confirmation.close();  
+                        //}, 1000);  
+                        
+                        setTimeout(function(){     
+                            confirmation.close();  
+
+                            setTimeout(function(){     
+                                confirmation.classList.remove("actif");   
+                        }, 100); 
+
+                        }, 2000);  
+
                    }).catch(function (error) {
                        console.log(error);
                    })
