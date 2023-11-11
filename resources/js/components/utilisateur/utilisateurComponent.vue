@@ -1,6 +1,6 @@
 <template>
     <div class=" cote_droit contenu">
-        <form @submit.prevent="Uniquevalidate('soumettre')" method="">
+        <form @submit.prevent="validerAvantAjout('soumettre')" method="">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
             <!--Informations personnelles-->
          <div>
@@ -15,13 +15,13 @@
             <div class="personnel">
 
              <div>
-                    <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom" @input="Uniquevalidate( 'nom')">
+                    <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom" @input="validatedata('nom')">
                     <span class="erreur" v-if="this.nom_user_erreur !== ''">{{this.nom_user_erreur}}</span>
                     <!-- <span class="erreur" >{{this.erreur}}</span> --><!-- v-if="this.erreur !== ''" -->
              </div>
 
              <div>
-                    <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom"  @input="Uniquevalidate('prenom')">
+                    <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom"  @input="validatedata('prenom')">
                     <span class="erreur" v-if="this.prenom_user_erreur !== ''">{{this.prenom_user_erreur}}</span>
                     <!-- <span class="erreur" v-if="this.erreur !== ''">{{this.erreur}}</span> -->
             </div>
@@ -67,10 +67,8 @@
                 </div>
 
                 <div>
-
                     <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse"  @input="validatedata('adresse')">
-                    <span class="erreur" v-if="this.adresse_erreur !== ''">{{this.adresse_erreur}}</span>
-
+                    <span class="erreur" v-if="this.adresse_user_erreur !== ''">{{this.adresse_user_erreur}}</span>
                 </div>
 
                 <div>
@@ -99,7 +97,7 @@
                     <!-- <input type="text" name="type" id="type" placeholder="Type" v-model="form.type"> -->
                     
                         <div>
-                            <select name="" id="" v-model="form.type" @change="validatedata('type')">
+                            <select name="" id="" v-model="form.type" @change="verifId()">
                                 <option value="">Type Professeur</option>
                                 <option  value="Etat">Fonctionnaire</option>
                                 <option  value="Recruter">Recruter</option>
@@ -110,7 +108,7 @@
 
                 
                     <div>
-                        <select name="" id="" v-model="form.situation_matrimoniale"  @change="validatedata('situation_matrimoniale')">
+                        <select name="" id="" v-model="form.situation_matrimoniale"  @change="verifId()">
                             <option value="">Selectioner Statut</option>
                             <option  value="Niveau 1">Célibataire</option>
                             <option  value="Niveau 2">Marié</option>
@@ -120,7 +118,7 @@
                     </div>
                 
                 <div>
-                    <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"  @change="validatedata('specialite')">
+                    <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"  @change="verifId()">
                             <option value=""> Spécialite</option>
                             <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
                     </select>
@@ -129,7 +127,7 @@
                 </div>
 
                 <div>
-                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="validatedata('departement')">
+                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="verifId()">
                             <option value=""> Departement</option>
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
@@ -141,7 +139,7 @@
 
 
                 <div>
-                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')">
+                    <select name="id_service" id="id_service" v-model="form.id_service" @change="verifId()">
                             <option value=""> Service</option>
                             <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
                     </select>
@@ -320,6 +318,7 @@ import Form from 'vform';
 
         changement(event){
             this.interesser= event;
+            this.id_role_erreur = "";
         },
 
 
@@ -385,28 +384,30 @@ import Form from 'vform';
             const isEmailValid = this.validatedata('email');
             const isDateNaissanceValid = this.validatedata('date_naissance');
             const isTelephoneValid = this.validatedata('telephone');
-          const isRoleValid = this.validatedata('role');
+            const isRoleValid = this.validatedata('role'); */
             const isServiceValid = this.validatedata('service');
             const isSpecialiteValid = this.validatedata('specialite');
-            const isSituationValid = this.validatedata('situation');
+            const isSituationValid = this.validatedata('situation_matrimoniale');
             const isDepartementValid = this.validatedata('departement');
             const isTypeValid = this.validatedata('type');
-            const isGenreValid =this.validatedata('genre');  */
-            const isNomChampValid = this.Uniquevalidate('nom');
-           
-            const isPrenomChampValid = this.Uniquevalidate('prenom');/* 
+
+            /* const isNomChampValid = this.Uniquevalidate('nom');
+            const isPrenomChampValid = this.Uniquevalidate('prenom'); */
             const isRoleValid = this.validatedata('role');
-            const isGenreValid =this.validatedata('genre');  
+            const isVerifIdValid = this.verifId();
+            const isGenreValid =this.validatedata('genre'); 
+             
 
-            const isIdChampValid = this.validatedataold();*/
-
+            const isIdChampValid = this.validatedataold();
           /*   console.log(isNomChampValid); */
-            if (/* isIdChampValid || isRoleValid || isGenreValid */ isNomChampValid || isPrenomChampValid) {
+            if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
                 this.etatForm = false;
+                console.log(erreur);
                 return 0;
             }else{
-                this.soumettre();
+                this.soumettre();    
                 this.etatForm = true;
+                console.log(Tokkos);
             }
            
         }, 
@@ -467,6 +468,7 @@ validatedata(champ) {
         this.erreur = "";
         this.id_role_erreur = "";
         this.genre_erreur = "";
+        
         var i= 0;
 
     switch (champ) {
@@ -671,6 +673,7 @@ validatedata(champ) {
         this.situation_matrimoniale_erreur="";
         this.id_departement_erreur="";
         this.type_erreur="";
+        this.id_role_erreur="";
         var i= 0;
         // pour nom
 
@@ -701,7 +704,7 @@ validatedata(champ) {
 
         //pour adresse
         if(this.form.adresse=== ""){
-            this.adresse_user_erreur= "Ce champ est obligatoire"
+            this.adresse_erreur= "Ce champ est obligatoire"
             i= 1;
         }
     
@@ -759,6 +762,11 @@ validatedata(champ) {
         
     }
 
+    if(this.form.id_role=== ""){
+            this.id_role_erreur= "Vous avez oublié de sélectionner le role "
+             i=1;
+        }
+
     //Vérification du numero de telephone
     if(this.form.telephone === ""){
         this.telephone_erreur = "Le numéro de téléphone est obligatoire";
@@ -767,6 +775,30 @@ validatedata(champ) {
         this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
         i= 1;
     }
+
+    if(this.interesser== 4){
+    if(this.form.id_service=== ""){
+            this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+            i=1;
+        }
+}if(this.interesser== 6){
+    if(this.form.id_specialite=== ""){
+            this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
+            i=1;
+        }
+        if(this.form.situation_matrimoniale=== ""){
+            this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
+            i=1;
+        }
+        if(this.form.id_departement=== ""){
+            this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
+            i=1;
+        }
+        if(this.form.type=== ""){
+            this.type_erreur= "Vous avez oublié de sélectionner le type "
+             i=1;
+        }
+}
 
     if(i==1) return true;
 
@@ -826,7 +858,7 @@ validatedata(champ) {
            this.validerAvantAjout();
         }
     },
-   /*  verifId(){
+  verifId(){
         this.id_service_erreur= "";
         this.id_specialite_erreur="";
         this.situation_matrimoniale_erreur="";
@@ -835,7 +867,7 @@ validatedata(champ) {
         this.type_erreur="";
         this.genre_erreur="";
         var i= 0;
-//pour genre
+/* //pour genre
         if(this.form.genre=== ""){
             this.genre_erreur= "Vous avez oublié de sélectionner le genre"
              i=1;
@@ -844,7 +876,7 @@ validatedata(champ) {
         if(this.form.id_role=== ""){
             this.id_role_erreur= "Vous avez oublié de sélectionner le role "
              i=1;
-        }
+        } */
 
 if(this.interesser== 4){
     if(this.form.id_service=== ""){
@@ -872,7 +904,7 @@ if(this.interesser== 4){
     if(i==1) return true;
 
         return false;
-}, */
+}, 
        
        
        
