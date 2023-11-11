@@ -107,11 +107,11 @@
 
 
  {{--  Debut modal pour ajouter utilisateur --}}
-<dialog data-modal-ajout class="modal">
+
         {{-- <div id="app"> --}}
             <direction-create></direction-create>
         {{-- </div> --}}
-</dialog>
+
 {{--  Fin modal pour ajouter utilisateur --}}
 
 

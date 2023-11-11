@@ -1,15 +1,16 @@
 <template>
+    <dialog data-modal-ajout class="modal">
     <div class="cote_droit contenu">
         <form  @submit.prevent="validerAvantAjout()" method="">
           <h1 class="sous_titre">Ajout direction</h1>
           <!--Informations personnelles-->
     <div class="personnel">
               <div>
-                  <input type="text" v-model="form.nom_direction" id="nom" placeholder="Nom de la direction" @input="validatedata()"> 
+                  <input type="text" v-model="form.nom_direction" id="nom" placeholder="Nom de la direction" @input="validatedata('nom_direction')"> 
                   <span class="erreur" v-if="this.nom_direction_erreur !== ''">{{this.nom_direction_erreur}}</span>
               </div>
            <div class="roles">
-              <select name="user" id="user" placeholder="Niveau" v-model="form.id_user" @change="verifId()" >
+              <select name="user" id="user" placeholder="Niveau" v-model="form.id_user" @change="validatedata('user')" >
               <option value="">Chef de direction</option>
               <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
               </select>
@@ -17,7 +18,7 @@
              </div>
 
            <div class="roles">
-                 <select name="service" id="service" v-model="form.id_service"  @change="verifId()">
+                 <select name="service" id="service" v-model="form.id_service"  @change="validatedata('service')">
                         <option value=""> Service </option>
                         <option v-for="(service, index) in services" :key="index" :value="service.id">{{ service.nom_service }}</option>
                 </select>
@@ -33,6 +34,7 @@
             </div>
       </form>
   </div>
+</dialog>
 </template>
 
 <script>
@@ -134,8 +136,62 @@ import Form from 'vform';
             return valeur.test(nom);
         },
 
-    validatedata(){
+
+        validatedata(champ){
+            this.nom_direction_erreur= "";
+        this.id_service_erreur= "";
+        this.id_user_erreur="";
+        var i=0;
+
+            switch (champ) {
+        case 'nom_direction':
+            // Effectuez la validation pour le champ 'nom'
+            if(this.form.nom_direction=== ""){
+            this.nom_direction_erreur= "Ce champ est obligatoire"
+            i= 1;
+            return true
+            
+            }
+            if(!this.verifCaratere(this.form.nom_direction)){
+                this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                i= 1;
+                return true
+            } 
+            
+
+    
+            // Ajoutez d'autres validations si nécessaire
+            break;
+        case 'service':
+            //pour service
+            if(this.form.id_service=== ""){
+            this.service_erreur= "Vous avez oublié de sélectionner le service " 
+            i= 1;
+            return true
+            }
+            break;
+        case 'user':
+            //pour user
+            if(this.form.id_user=== ""){
+                this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
+                i= 1;
+                return true
+            
+            }
+            break;
+
+
+            default:
+           break;
+        }
+    },
+
+
+    validatedataOld(){
         this.nom_direction_erreur= "";
+        this.id_service_erreur= "";
+        this.id_user_erreur="";
         var i=0;
         
         if(this.form.nom_direction=== ""){
@@ -146,13 +202,19 @@ import Form from 'vform';
             this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
            i=1;
         }
-        if(this.form.nom_direction.length < 15){
-            this.nom_direction_erreur= "Ce champ doit contenir au moins 15 Caratères"
-           i=1;
-        }
-
+    }
+    
+        if(this.form.id_service=== ""){
+            this.id_service_erreur= "Vous avez oublié de sélectionner le service"
+             i=1;
         }
        
+        if(this.form.id_user=== ""){
+            this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
+             i=1;
+        }
+
+        
 
     if(i==1) return true;
 
@@ -166,11 +228,13 @@ import Form from 'vform';
         if(this.form.id_service=== ""){
             this.id_service_erreur= "Vous avez oublié de sélectionner le service"
              i=1;
+             return true
         }
        
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
              i=1;
+             return true
         }
 
     if(i==1) return true;
@@ -179,20 +243,20 @@ import Form from 'vform';
     
     },
     validerAvantAjout() {
-            // Exécutez la validation des champs
-            const isNomChampValid = this.validatedata();
-            const isIdChampValid = this.verifId();
+              // Exécutez la validation des champs
+           /*  const isNomChampValid = this.validatedata(); */
+           const isIdChampValid = this.validatedataOld();
 
-          /*   console.log(isNomChampValid); */
-            if (isNomChampValid || isIdChampValid) {
-                this.etatForm= false;
-                return 0;
-            }else{
-                this.soumettre();
-                this.etatForm= true;
-            }
-           
-        }, 
+/*   console.log(isNomChampValid); */
+  if ( isIdChampValid) {
+      this.etatForm= false;
+      return 0;
+  }else{
+      this.soumettre();
+      this.etatForm= true;
+  }
+ 
+}, 
 
       resetForm(){
     //     var ajout = document.querySelector("[data-modal-ajout]");
@@ -214,7 +278,7 @@ import Form from 'vform';
     //         });
           this.form.nom_direction="";
           this.form.id_user="";
-          this.form.nom_service="";
+          this.form.id_service="";
       },
 
       get_user(){
