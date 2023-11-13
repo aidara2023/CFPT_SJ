@@ -144,6 +144,8 @@
 
 <span class="fond"></span>
 
-
+<<<<<<< HEAD
 @endsection
-
+=======
+@endsection
+>>>>>>> 2166b76633fd2d95e8d8cd6f24f84decd5daac1c

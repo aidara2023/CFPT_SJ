@@ -17,14 +17,7 @@
               <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
              </div>
 
-           <div class="roles">
-                 <select name="service" id="service" v-model="form.id_service"  @change="validatedata('service')">
-                        <option value=""> Service </option>
-                        <option v-for="(service, index) in services" :key="index" :value="service.id">{{ service.nom_service }}</option>
-                </select>
-                <span class="erreur" v-if="id_service_erreur !== ''">{{id_service_erreur}}</span>
-
-            </div>
+          
       </div>
 
 
@@ -49,19 +42,18 @@ import Form from 'vform';
             users:[],
             form:new Form({
                 'nom_direction':"",
-                'id_service':"",
                 'id_user':"",
 
             }),
-            services:[],
+           
             nom_direction_erreur:"",
-            id_service_erreur:"",
+           
             id_user_erreur:"",
             etatForm:false,
         }
     },
     mounted(){
-        this.get_service();
+       
         this.get_user();
     },
 
@@ -69,7 +61,7 @@ import Form from 'vform';
         async soumettre(){
           const formdata = new FormData();
           formdata.append('nom_direction', this.form.nom_direction  );
-          formdata.append('id_service', this.form.id_service  );
+         
           formdata.append('id_user', this.form.id_user  );
 
             try{
@@ -106,8 +98,7 @@ import Form from 'vform';
 
         validatedata(champ){
             this.nom_direction_erreur= "";
-            this.id_service_erreur= "";
-            this.id_user_erreur="";
+            
             var i=0;
 
                 switch (champ) {
@@ -127,14 +118,7 @@ import Form from 'vform';
                 }
 
                 break;
-            case 'service':
-                //pour service
-                if(this.form.id_service=== ""){
-                this.service_erreur= "Vous avez oublié de sélectionner le service "
-                i= 1;
-                return true
-                }
-                break;
+            
             case 'user':
                 //pour user
                 if(this.form.id_user=== ""){
@@ -154,7 +138,7 @@ import Form from 'vform';
 
     validatedataOld(){
         this.nom_direction_erreur= "";
-        this.id_service_erreur= "";
+      
         this.id_user_erreur="";
         var i=0;
 
@@ -168,10 +152,7 @@ import Form from 'vform';
         }
     }
 
-        if(this.form.id_service=== ""){
-            this.id_service_erreur= "Vous avez oublié de sélectionner le service"
-             i=1;
-        }
+       
 
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
@@ -185,15 +166,11 @@ import Form from 'vform';
         return false;
     },
     verifId(){
-        this.id_service_erreur= "";
+       
         this.id_user_erreur="";
         var i=0;
 
-        if(this.form.id_service=== ""){
-            this.id_service_erreur= "Vous avez oublié de sélectionner le service"
-             i=1;
-             return true
-        }
+       
 
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
@@ -242,7 +219,7 @@ import Form from 'vform';
     //         });
           this.form.nom_direction="";
           this.form.id_user="";
-          this.form.id_service="";
+         
       },
 
       get_user(){
@@ -255,17 +232,7 @@ import Form from 'vform';
              Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
          });
      },
-     get_service(){
-
-            axios.get('/service/index')
-            .then(response => {
-                this.services=response.data.service
-
-
-           }).catch(error=>{
-               Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des services','error')
-           });
-       },
+     
     //    rafraichissementAutomatique() {
     //         document.addEventListener("DOMContentLoaded", this.resetForm());
     // },

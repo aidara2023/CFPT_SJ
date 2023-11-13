@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class service_controller extends Controller
 {
     public function index() {
-        $service=Service::with('user')->get();
+        $service=Service::with('user', 'direction')->get();
         if($service!=null){
             return response()->json([
                 'statut'=>200,
@@ -54,6 +54,7 @@ class service_controller extends Controller
         if($service!=null){
            $service->nom_service=$request['nom_service'];
            $service->id_user=$request['id_user'];
+           $service->id_direction=$request['id_direction'];
           
            $service->save();
             return response()->json([

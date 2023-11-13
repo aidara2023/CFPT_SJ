@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class direction_controller extends Controller
 {
     public function index() {
-        $direction=Direction::with('user', 'service')->get();
+        $direction=Direction::with('user')->get();
         if($direction!=null){
             return response()->json([
                 'statut'=>200,
@@ -53,7 +53,7 @@ class direction_controller extends Controller
         if($direction!=null){
            $direction->nom_direction=$request['nom_direction'];
            $direction->id_user=$request['id_user'];
-           $direction->id_service=$request['id_service'];
+         
 
            $direction->save();
             return response()->json([

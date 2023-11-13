@@ -23,7 +23,8 @@ class service_request extends FormRequest
     {
         return [
             'nom_service'=>'required',
-            'id_user'=>'required'
+            'id_user'=>'required',
+            'id_direction'=>'required'
         ];
     }
 }

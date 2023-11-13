@@ -12,19 +12,21 @@ class Direction extends Model
     protected $fillable =[
         'nom_direction',
         'id_user',
-        'id_service'
+        
   ];
 
   public function user(){
     return $this->belongsTo(User::class, 'id_user');
   }
 
-  public function service(){
-    return $this->belongsTo(Service::class, 'id_service');
+  
+
+  public function formateurs(){
+    return $this->hasMany(Formateur::class);
   }
 
-  public function departements(){
-    return $this->hasMany(Departement::class);
+  public function services(){
+    return $this->hasMany(Service::class);
   }
 
 
