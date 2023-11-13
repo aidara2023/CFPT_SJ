@@ -23,9 +23,10 @@ class concerner_request extends FormRequest
     {
         return [
 
-                'id_concerner'=>'required',
-                'id_paiement'=>'required',
-                'id_mois'=>'required'
+                'id_annee_academique'=>'required',
+                'id_paiement'=>'',
+                'id_mois'=>'required',
+                'statut'=>''
 
             ];  
     }

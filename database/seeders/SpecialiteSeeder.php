@@ -17,6 +17,18 @@ class SpecialiteSeeder extends Seeder
             [
                 'intitule' => 'Programmation',
             ],
+            [
+                'intitule' => 'Base de Données',
+            ],
+            [
+                'intitule' => 'Developpement',
+            ],
+            [
+                'intitule' => 'Multimedia',
+            ],
+            [
+                'intitule' => 'Français',
+            ],
          
             [
                 'intitule' => 'Electronique',
