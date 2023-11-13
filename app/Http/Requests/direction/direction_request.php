@@ -23,8 +23,8 @@ class direction_request extends FormRequest
     {
         return [
             'nom_direction' => 'required',
-            'id_user' => 'required',
-            'id_service' => ''
+            'id_user' => 'required'
+            
         ];
     }
 }

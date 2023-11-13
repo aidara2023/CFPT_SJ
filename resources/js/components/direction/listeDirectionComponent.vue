@@ -14,7 +14,7 @@
            <div class="utilisateur">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                <p class="texte" id="n">{{ direction.nom_direction}} </p>
-               <p class="texte" id="n">{{ direction.service.nom_service }}</p>
+              
                <p class="texte" id="n">{{ direction.user.prenom }} {{ direction.user.nom }} </p>
 
                <div  class="presences">

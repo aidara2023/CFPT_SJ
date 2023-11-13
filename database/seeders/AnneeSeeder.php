@@ -15,16 +15,16 @@ class AnneeSeeder extends Seeder
     {
         DB::table('annee_academiques')->insert([
             [
-                'intitule' => '2023',
+                'intitule' => '2023 - 2024',
             ],
             [
-                'intitule' => '2024',
+                'intitule' => '2024-2025',
             ],
             [
-                'intitule' => '2025',
+                'intitule' => '2025_2026',
             ],
             [
-                'intitule' => '2026',
+                'intitule' => '2026_2027',
             ],
         ]);
     }

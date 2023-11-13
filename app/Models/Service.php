@@ -10,7 +10,8 @@ class Service extends Model
     use HasFactory;
     protected $fillable = [
         'nom_service',
-        'id_user'   
+        'id_user'   ,
+        'id_direction' ,
     ];
 
     public function user(){
@@ -29,11 +30,13 @@ class Service extends Model
         return $this->hasMany(Infirmier::class);
       }
 
-      public function direction(){
-        return $this->hasOne(Direction::class, 'id','id_direction');
-      }
+      
 
       public function formateurs(){
         return $this->hasMany(Formateur::class);
+      }
+
+      public function directions(){
+        return $this->belongsTo(Direction::class, 'id_direction');
       }
 }

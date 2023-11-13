@@ -18,6 +18,17 @@
                     </select>
                     <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
                 </div>
+
+                
+        
+                <div>
+                    <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="verifId()">
+                            <option value=""> Direction</option>
+                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
+                </div>
+
             </div>
 
             <div class="boutons">
@@ -43,15 +54,18 @@ import Swal from 'sweetalert2';
             form:new Form({
                 'nom_service':"",
                 'id_user':"",
+                'id_direction':""
             }),
             nom_service_erreur:"",
             id_user_erreur:"",
+            id_direction_erreur:"",
             etatForm: false,
         }
     },
 
     mounted(){
         this.get_user();
+        this.get_direction();
     },
 
 
@@ -61,6 +75,7 @@ import Swal from 'sweetalert2';
             const formdata = new FormData();
             formdata.append('nom_service', this.form.nom_service  );
             formdata.append('id_user', this.form.id_user  );
+            formdata.append('id_direction', this.form.id_direction  );
                 try{
                     await axios.post('/service/store', formdata, {});
                     //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
@@ -114,6 +129,7 @@ import Swal from 'sweetalert2';
         resetForm(){
             this.form.nom_service="";
             this.form.id_user="";
+            this.form.id_direction=""
         },
 
         verifCaratere(nom){
@@ -142,11 +158,17 @@ import Swal from 'sweetalert2';
     },
     verifIdUser(){
         this.id_user_erreur= "";
+        this.id_direction_erreur= "";
 
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
             return true;
         }
+        if(this.form.id_direction=== ""){
+            this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
+            return true;
+        }
+
         return false;
     },
 
@@ -158,6 +180,18 @@ import Swal from 'sweetalert2';
                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
            });
        },
+
+       get_direction(){
+
+axios.get('/direction/index')
+.then(response => {
+    this.directions=response.data.direction
+
+
+}).catch(error=>{
+   Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
+});
+},
 
     }
 }
