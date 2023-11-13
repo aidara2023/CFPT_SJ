@@ -15,6 +15,22 @@ class SpecialiteSeeder extends Seeder
     {
         DB::table('specialites')->insert([
             [
+                'intitule' => 'Programmation',
+            ],
+            [
+                'intitule' => 'Base de Données',
+            ],
+            [
+                'intitule' => 'Developpement',
+            ],
+            [
+                'intitule' => 'Multimedia',
+            ],
+            [
+                'intitule' => 'Français',
+            ],
+         
+            [
                 'intitule' => 'Electronique',
             ],
             [
