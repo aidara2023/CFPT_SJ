@@ -15,7 +15,7 @@
                 <div>
                     <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
                         <option value=""> Direction</option>
-                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }}</option>
+                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
                     </select>
                     <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
                 </div>
@@ -51,7 +51,7 @@ import Form from 'vform';
             nom_departement_erreur:"",
             id_direction_erreur:"",
             etatForm: false,
-            
+
 
         }
     },
@@ -67,59 +67,29 @@ import Form from 'vform';
             formdata.append('id_direction', this.form.id_direction);
 
              //if(this.form.nom!==""){
-                try{
-                    await axios.post('/departement/store', formdata, {});
-                    //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
-                   
-                
-                    this.resetForm();
-                    bus.emit('departementAjoutee');
-
-                    var ajout = document.querySelector('[data-modal-ajout]');
-                    var confirmation = document.querySelector('[data-modal-confirmation]');
-
-                   
-                    /* console.log(ajout); */
-                    var actif = document.querySelectorAll('.actif');
-                        actif.forEach(item => {
-                        item.classList.remove("actif");
-                    }); 
-                    //ajout.classList.remove("actif");
-                    ajout.close();
+            try{
+                await axios.post('/departement/store', formdata, {});
+                //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
 
 
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
+                this.resetForm();
+                bus.emit('departementAjoutee');
 
-                        
+                var ajout = document.querySelector('[data-modal-ajout]');
+                /* console.log(ajout); */
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                    item.classList.remove("actif");
+                });
+                //ajout.classList.remove("actif");
+                ajout.close();
 
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-                     
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 1700);  
-                       
-
-
-                       
-                }
-                catch(e){
-                    console.log(e)
-                    this.resetForm();
-                 /*    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error') */
-                }
-
-            
-
+            }
+            catch(e){
+                console.log(e)
+                this.resetForm();
+                /*    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error') */
+            }
 
         },
 
@@ -137,8 +107,8 @@ import Form from 'vform';
                 this.soumettre();
                 this.etatForm= true;
             }
-           
-        }, 
+
+        },
 
         resetForm(){
             this.form.nom="";
@@ -152,7 +122,7 @@ import Form from 'vform';
 
     validatedata(){
         this.nom_departement_erreur= "";
-        
+
         if(this.form.nom=== ""){
             this.nom_departement_erreur= "Ce champ est obligatoire"
             return true;
@@ -167,7 +137,7 @@ import Form from 'vform';
         }
 
         return false;
-       
+
     },
     verifIdDirection(){
         this.id_direction_erreur= "";

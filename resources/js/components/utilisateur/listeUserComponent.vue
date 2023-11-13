@@ -108,6 +108,7 @@ import Form from 'vform';
                    axios.delete(`/user/delete/${type.id}`).then(resp => {
                        this.get_utilisateur();
 
+
                        /* Swal.fire(
                            'Supprimé!',
                            'L\'utilisateur a été supprimé avec succès.',
@@ -125,6 +126,7 @@ import Form from 'vform';
                         }, 100);
                     }, 2000);
                
+
                    }).catch(function (error) {
                        console.log(error);
                    })

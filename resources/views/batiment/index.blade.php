@@ -125,6 +125,20 @@
         <input type="submit" value="Confirmer">
     </div>
 </dialog>
+
+<dialog data-modal-confirmation class="modal">
+    <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+    <h1>Réussi !</h1>
+    <br>
+    <p class="">Batiment ajouté avec succès</p>
+</dialog>
+
+<dialog data-modal-confirmation-sup class="modal">
+    <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+    <h1>Réussi !</h1>
+    <br>
+    <p class="">Batiment supprimé avec succès</p>
+</dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
  <span class="fond "></span>
 @endsection

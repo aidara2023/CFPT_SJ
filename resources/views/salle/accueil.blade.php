@@ -9,7 +9,7 @@
         @include('layout.header')
     </div>
 
-     <liste-departement></liste-departement>
+     <liste-salle></liste-salle>
 
     <!-- debut modal pour modifier utilisateur -->
     <dialog data-modal-modification class="modal">
@@ -107,15 +107,15 @@
             <button type="button" data-close-modal class="texte">Annuler</button>
         </div>
     </dialog>
-    {{--  Fin modal pour modifier utilisateur --}}
+    <!-- {{--  Fin modal pour modifier utilisateur --}} -->
 
 
-    {{--  Debut modal pour ajouter utilisateur --}}
-        <departement-create></departement-create>
-    {{--  Fin modal pour ajouter utilisateur --}}
+  <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
+        <create-salle></create-salle>
+   <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
-    {{--  Debut modal pour supprimer utilisateur --}}
+   <!--  {{--  Debut modal pour supprimer utilisateur --}} -->
     <dialog data-modal-suppression class="modal">
         <h1>Suppression</h1>
         <div class="contenu">
@@ -126,27 +126,27 @@
             <input type="submit" value="Confirmer">
         </div>
     </dialog>
-    {{--  Fin modal pour supprimer utilisateur --}}
+   <!--  {{--  Fin modal pour supprimer utilisateur --}} -->
 
 
     <dialog data-modal-confirmation class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Departement ajouté avec succès</p>
+        <p class="">Salle ajouté avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
-        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <img src="../assetsCFPT/image/ v" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Departement supprimé avec succès</p>
+        <p class="">Salle supprimé avec succès</p>
     </dialog>
 
 </div>
 
 <span class="fond"></span>
-
+    
 @endsection
 
 

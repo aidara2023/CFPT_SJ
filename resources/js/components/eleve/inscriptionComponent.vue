@@ -1,4 +1,5 @@
 <template>
+
     <div class="cote_droit contenu">
       <form @submit.prevent="validerAvantAjout()" method="dialog">
           <h1 class="sous_titre">Informations Personnelles</h1>
@@ -178,12 +179,14 @@
           </div>
       </form>
   </div>
+
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+
  export default {
   name:"inscriptionCompenent",
   data(){
@@ -1020,6 +1023,8 @@ import Form from 'vform';
 
   }
  }
+
+  
 </script>
 
 <style></style>

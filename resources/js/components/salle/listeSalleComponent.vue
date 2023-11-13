@@ -2,19 +2,20 @@
 
     <div class="affichage">
        <div class="avant">
-           <h1 class="texte">Service</h1>
+           <h1 class="texte">Salle</h1>
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
 
 
-        <div class="sections" v-for="(service, index) in services" :key="index">
+   <div class="sections" v-for="(salle, index) in salles" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
-               <p class="texte" id="n">{{ service.nom_service }} </p>
-               <p class="texte" id="n">{{ service.user.nom }}</p>
+               <p class="texte" id="n">{{ salle.intitule }}</p>
+               <p class="texte" id="n">{{ salle.nombre_place }} </p>
+               <p class="texte" id="n" v-if="salle.batiment.intitule">{{ salle.batiment.intitule}}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
@@ -29,7 +30,7 @@
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deleteService(service)" >
+                   <a href="#" class="texte b" @click="deleteSalle(salle)" > 
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
@@ -59,30 +60,30 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'nom_service':""
+               'intitule':""
 
            }),
-           services: [],
+           salles: [],
 
 
        }
    },
    mounted(){
-       this.get_service();
-       bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_service(); // Mettre à jour la liste des utilisateurs
+       this.get_salle();
+       bus.on('salleAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+           this.get_salle(); // Mettre à jour la liste des utilisateurs
        });
    },
 
    methods:{
-       get_service(){
-           axios.get('/service/index')
+       get_salle(){
+           axios.get('/salle/index')
            .then(response => {
-               this.services=response.data.service
+               this.salles=response.data.salle
 
 
            }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des salles','error')
            });
        },
 
@@ -92,10 +93,10 @@ import Form from 'vform';
 
        resetForm(){
            this.form.input="";
-           this.form.nom_service="";
+           this.form.intitule="";
        },
 
-       async deleteService(type) {
+       async deleteSalle(type) {
            Swal.fire({
                title: 'Êtes-vous sûr?',
                text: "Cette action sera irréversible!",
@@ -107,12 +108,12 @@ import Form from 'vform';
                cancelButtonText: 'Annuler'
            }).then((result) => {
                if (result.isConfirmed) {
-                   axios.delete(`/service/delete/${type.id}`).then(resp => {
-                       this.get_service();
+                   axios.delete(`/salle/delete/${type.id}`).then(resp => {
+                       this.get_salle();
 
                    /*     Swal.fire(
                            'Supprimé!',
-                           'Le service a été supprimé avec succès.',
+                           'Le salle a été supprimé avec succès.',
                            'success',
                        ) */
                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
@@ -123,17 +124,17 @@ import Form from 'vform';
                         //setTimeout(function(){
                             confirmation.showModal();
                             confirmation.classList.add("actif");
-                            //confirmation.close();
-                        //}, 1000);
+                            //confirmation.close();  
+                        //}, 1000);  
+                        
+                        setTimeout(function(){     
+                            confirmation.close();  
 
-                        setTimeout(function(){
-                            confirmation.close();
+                            setTimeout(function(){     
+                                confirmation.classList.remove("actif");   
+                        }, 100); 
 
-                            setTimeout(function(){
-                                confirmation.classList.remove("actif");
-                        }, 100);
-
-                        }, 2000);
+                        }, 2000);  
 
                    }).catch(function (error) {
                        console.log(error);
