@@ -23,10 +23,17 @@ class concerner_request extends FormRequest
     {
         return [
 
+<<<<<<< HEAD
                 'id_annee_academique'=>'',
                 'id_paiement'=>'',
                 'id_mois'=>'required',
                 'statut'=>'',
+=======
+                'id_annee_academique'=>'required',
+                'id_paiement'=>'',
+                'id_mois'=>'required',
+                'statut'=>''
+>>>>>>> 2166b76633fd2d95e8d8cd6f24f84decd5daac1c
 
 
             ];

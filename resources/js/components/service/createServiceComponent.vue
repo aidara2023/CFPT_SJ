@@ -79,6 +79,16 @@ import Swal from 'sweetalert2';
                 try{
                     await axios.post('/service/store', formdata, {});
                     //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+<<<<<<< HEAD
+=======
+                   
+                
+                    this.resetForm();
+                    bus.emit('serviceAjoutee');
+                    
+                    var ajout = document.querySelector('[data-modal-ajout]');
+                    var confirmation = document.querySelector('[data-modal-confirmation]');
+>>>>>>> 2166b76633fd2d95e8d8cd6f24f84decd5daac1c
 
 
                     this.resetForm();
