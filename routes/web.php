@@ -515,9 +515,9 @@ Route::get('/consultation/create',[consultation_view_controller::class, 'create'
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
 Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
-Route::get('formateur/show/{$id}',[formateur_controller::class,'show'])->name('formateur_show');
-Route::put('formateur/update/{$id}',[formateur_controller::class,'update'])->name('formateur_update');
-Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
+Route::get('formateur/show/{id}',[formateur_controller::class,'show'])->name('formateur_show');
+Route::put('formateur/update/{id}',[formateur_controller::class,'update'])->name('formateur_update');
+Route::delete('formateur/delete/{id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
 
 Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
 Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
