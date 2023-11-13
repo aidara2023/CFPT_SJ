@@ -1,8 +1,8 @@
-<template>
-  <!--  <div class="scrollable-container" > -->
+<!-- <template>
+
       <div class="sections" >
-        <!-- Répéter la div utilisateur pour un autre utilisateur -->
-        
+
+
         <div class="utilisateur" v-for="(formation, index) in formations" :key="index">
           <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
           <p class="texte" id="n">{{ formation.intitule }}</p>
@@ -23,14 +23,14 @@
               <i class="fi fi-rr-cross"></i>
               <span class="supprimer mdl">Supprimer</span>
             </a>
-          <!-- </div> -->
+
         </div>
       </div>
     </div>
-  </template>
+  </template> -->
 
-    
-    <!--  <div class="affichage">
+<template>
+    <div class="affichage">
         <div class="avant">
             <h1 class="texte">Type De Formation </h1>
             <a href="#">
@@ -40,9 +40,9 @@
 
 
     <div class="sections" v-for="(formation, index) in formations" :key="index">
-        
+
             <div class="utilisateur">
-                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
+                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                 <p class="texte" id="n">{{ formation.intitule }}</p>
                 <div  class="presences">
                     <a href="#" class="texte b">
@@ -64,11 +64,9 @@
 
 
     </div>
- -->
+ <span class="fond "></span>
 
-<!--  <span class="fond "></span>
-
-</template> -->
+</template>
 
 
 <script>
@@ -133,12 +131,20 @@ import Form from 'vform';
                 if (result.isConfirmed) {
                     axios.delete(`/type_formation/delete/${type.id}`).then(resp => {
                         this.get_formation();
+                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
 
-                        Swal.fire(
-                            'Supprimé!',
-                            'La formation a été supprimé avec succès.',
-                            'success',
-                        )
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        setTimeout(function(){
+                        confirmation.close();
+
+                        setTimeout(function(){
+                            confirmation.classList.remove("actif");
+                        }, 100);
+
+                        }, 2000);
                     }).catch(function (error) {
                         console.log(error);
                     })

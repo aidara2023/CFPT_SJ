@@ -445,18 +445,18 @@ Route::get('admin/index',[administrateur_view_controller::class, 'index'])->midd
 
 Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
 Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');
-Route::get('type_materiel/show/{$id}',[type_materiel_controller::class,'show'])->name('type_materiel_show');
-Route::put('type_materiel/update/{$id}',[type_materiel_controller::class,'update'])->name('type_materiel_update');
-Route::delete('type_materiel/delete/{$id}',[type_materiel_controller::class, 'delete'])->name('type_materiel_delete');
+Route::get('type_materiel/show/{id}',[type_materiel_controller::class,'show'])->name('type_materiel_show');
+Route::put('type_materiel/update/{id}',[type_materiel_controller::class,'update'])->name('type_materiel_update');
+Route::delete('type_materiel/delete/{id}',[type_materiel_controller::class, 'delete'])->name('type_materiel_delete');
 
 Route::get('/type_materiel/create',[type_materiel_view_controller::class, 'create'])->name('type_materiel_create');
 
 //Route pour caissier
 Route::get('caissier/index',[caissier_controller::class, 'index'])->name('caissier_index');
 Route::post('caissier/store',[caissier_controller::class, 'store'])->name('caissier_store');
-Route::get('caissier/show/{$id}',[caissier_controller::class,'show'])->name('caissier_show');
-Route::put('caissier/update/{$id}',[caissier_controller::class,'update'])->name('caissier_update');
-Route::delete('caissier/delete/{$id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
+Route::get('caissier/show/{id}',[caissier_controller::class,'show'])->name('caissier_show');
+Route::put('caissier/update/{id}',[caissier_controller::class,'update'])->name('caissier_update');
+Route::delete('caissier/delete/{id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
 
 Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
 Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('caissier_index');
@@ -465,17 +465,17 @@ Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('
 
 Route::get('note/index',[note_controller::class, 'index'])->name('note_index');
 Route::post('note/store',[note_controller::class, 'store'])->name('note_store');
-Route::get('note/show/{$id}',[note_controller::class,'show'])->name('note_show');
-Route::put('note/update/{$id}',[note_controller::class,'update'])->name('note_update');
-Route::delete('note/delete/{$id}',[note_controller::class, 'delete'])->name('note_delete');
+Route::get('note/show/{id}',[note_controller::class,'show'])->name('note_show');
+Route::put('note/update/{id}',[note_controller::class,'update'])->name('note_update');
+Route::delete('note/delete/{id}',[note_controller::class, 'delete'])->name('note_delete');
 
 //Route pour cour
 
 Route::get('cour/index',[cours_controller::class, 'index'])->name('cour_index');
 Route::post('cour/store',[cours_controller::class, 'store'])->name('cour_store');
-Route::get('cour/show/{$id}',[cours_controller::class,'show'])->name('cour_show');
-Route::put('cour/update/{$id}',[cours_controller::class,'update'])->name('cour_update');
-Route::delete('cour/delete/{$id}',[cours_controller::class, 'delete'])->name('cour_delete');
+Route::get('cour/show/{id}',[cours_controller::class,'show'])->name('cour_show');
+Route::put('cour/update/{id}',[cours_controller::class,'update'])->name('cour_update');
+Route::delete('cour/delete/{id}',[cours_controller::class, 'delete'])->name('cour_delete');
 
 Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_create');
 
@@ -484,9 +484,9 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 
 Route::get('inscription/all',[inscription_controller::class, 'index'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
-Route::get('inscription/show/{$id}',[inscription_controller::class,'show'])->name('inscription_show');
-Route::put('inscription/update/{$id}',[inscription_controller::class,'update'])->name('inscription_update');
-Route::delete('inscription/delete/{$id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
+Route::put('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
+Route::delete('inscription/delete/{id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
 
 Route::get('inscription/index', [inscription_view_controller::class, 'index'])->name('inscription_accueil');
 
@@ -494,9 +494,9 @@ Route::get('inscription/index', [inscription_view_controller::class, 'index'])->
 
 Route::get('emprunter_materiel/index',[emprunter_materiel_controller::class, 'index'])->name('emprunter_materiel_index');
 Route::post('emprunter_materiel/store',[emprunter_materiel_controller::class, 'store'])->name('emprunter_materiel_store');
-Route::get('emprunter_materiel/show/{$id}',[emprunter_materiel_controller::class,'show'])->name('emprunter_materiel_show');
-Route::put('emprunter_materiel/update/{$id}',[emprunter_materiel_controller::class,'update'])->name('emprunter_materiel_update');
-Route::delete('emprunter_materiel/delete/{$id}',[emprunter_materiel_controller::class, 'delete'])->name('emprunter_materiel_delete');
+Route::get('emprunter_materiel/show/{id}',[emprunter_materiel_controller::class,'show'])->name('emprunter_materiel_show');
+Route::put('emprunter_materiel/update/{id}',[emprunter_materiel_controller::class,'update'])->name('emprunter_materiel_update');
+Route::delete('emprunter_materiel/delete/{id}',[emprunter_materiel_controller::class, 'delete'])->name('emprunter_materiel_delete');
 
 Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::class, 'create'])->name('emprunter_materiel_create');
 
@@ -504,9 +504,9 @@ Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::cla
 
 Route::get('consultation/index',[consultation_controller::class, 'index'])->name('consultation_index');
 Route::post('consultation/store',[consultation_controller::class, 'store'])->name('consultation_store');
-Route::get('consultation/show/{$id}',[consultation_controller::class,'show'])->name('consultation_show');
-Route::put('consultation/update/{$id}',[consultation_controller::class,'update'])->name('consultation_update');
-Route::delete('consultation/delete/{$id}',[consultation_controller::class, 'delete'])->name('consultation_delete');
+Route::get('consultation/show/{id}',[consultation_controller::class,'show'])->name('consultation_show');
+Route::put('consultation/update/{id}',[consultation_controller::class,'update'])->name('consultation_update');
+Route::delete('consultation/delete/{id}',[consultation_controller::class, 'delete'])->name('consultation_delete');
 
 Route::get('/consultation/create',[consultation_view_controller::class, 'create'])->name('consultation_create');
 
@@ -515,9 +515,9 @@ Route::get('/consultation/create',[consultation_view_controller::class, 'create'
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
 Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
-Route::get('formateur/show/{$id}',[formateur_controller::class,'show'])->name('formateur_show');
-Route::put('formateur/update/{$id}',[formateur_controller::class,'update'])->name('formateur_update');
-Route::delete('formateur/delete/{$id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
+Route::get('formateur/show/{id}',[formateur_controller::class,'show'])->name('formateur_show');
+Route::put('formateur/update/{id}',[formateur_controller::class,'update'])->name('formateur_update');
+Route::delete('formateur/delete/{id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
 
 Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('formateur_accueil');
 Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
@@ -570,9 +570,9 @@ Route::get('classe/index' ,[classe_view_controller::class, 'index'])->name('clas
 
 Route::get('batiment/index',[batiment_controller::class, 'index'])->name('batiment_index');
 Route::post('batiment/store',[batiment_controller::class, 'store'])->name('batiment_store');
-Route::get('batiment/show/{$id}',[batiment_controller::class,'show'])->name('batiment_show');
-Route::put('batiment/update/{$id}',[batiment_controller::class,'update'])->name('batiment_update');
-Route::delete('batiment/delete/{$id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
+Route::get('batiment/show/{id}',[batiment_controller::class,'show'])->name('batiment_show');
+Route::put('batiment/update/{id}',[batiment_controller::class,'update'])->name('batiment_update');
+Route::delete('batiment/delete/{id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
 Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
 
 //Route pour salle
@@ -597,9 +597,9 @@ Route::get('semestre/index',[semestre_controller::class, 'index'])->name('semest
 
 Route::get('retard/index',[retard_controller::class, 'index'])->name('retard_index');
 Route::post('retard/store',[retard_controller::class, 'store'])->name('retard_store');
-Route::get('retard/show/{$id}',[retard_controller::class,'show'])->name('retard_show');
-Route::put('retard/update/{$id}',[retard_controller::class,'update'])->name('retard_update');
-Route::delete('retard/delete/{$id}',[retard_controller::class, 'delete'])->name('retard_delete');
+Route::get('retard/show/{id}',[retard_controller::class,'show'])->name('retard_show');
+Route::put('retard/update/{id}',[retard_controller::class,'update'])->name('retard_update');
+Route::delete('retard/delete/{id}',[retard_controller::class, 'delete'])->name('retard_delete');
 Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('retard_create');
 
 

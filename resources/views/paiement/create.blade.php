@@ -110,7 +110,7 @@
     <!-- {{--  Fin modal pour modifier utilisateur --}} -->
 
     <paiement-create></paiement-create>
-    
+
 
    <!--  {{--  Debut modal pour supprimer utilisateur --}} -->
    <dialog data-modal-suppression class="modal">
@@ -130,18 +130,18 @@
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service ajouté avec succès</p>
+        <p class="">Paiement ajouté avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service supprimé avec succès</p>
+        <p class="">Paiement supprimé avec succès</p>
     </dialog>
 
 </div>
 
 <span class="fond"></span>
-    
+
 @endsection

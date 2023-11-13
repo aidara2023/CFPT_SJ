@@ -8,13 +8,14 @@
            </a>
        </div>
 
-   <div class="sections" v-for="(paiement, index) in paiements" :key="index">
+        <div class="sections" v-for="(paiement, index) in paiements" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-           <div class="utilisateur">
+            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
-               <p class="texte" id="n">{{ paiement.id }} </p>
+               <p class="texte" id="n">{{ paiement.eleve.user.nom }} {{ paiement.eleve.user.prenom }} </p>
+               <p class="texte" id="n" v-if="paiement.annee_academique">{{ paiement.eleve.inscription.classe }} {{ paiement.annee_academique.id}} </p>
               <!--  <p class="texte" id="n">{{ paiement.user.nom }}</p> -->
-               <div  class="presences">
+                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
@@ -28,7 +29,7 @@
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deletepaiement(paiement)" > 
+                   <a href="#" class="texte b" @click="deletepaiement(paiement)" >
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
@@ -78,6 +79,7 @@ import Form from 'vform';
            axios.get('/paiement/index')
            .then(response => {
                this.paiements=response.data.paiement
+               console.log( this.paiements);
 
 
            }).catch(error=>{
@@ -122,17 +124,17 @@ import Form from 'vform';
                         //setTimeout(function(){
                             confirmation.showModal();
                             confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                        
-                        setTimeout(function(){     
-                            confirmation.close();  
+                            //confirmation.close();
+                        //}, 1000);
 
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
+                        setTimeout(function(){
+                            confirmation.close();
 
-                        }, 2000);  
+                            setTimeout(function(){
+                                confirmation.classList.remove("actif");
+                        }, 100);
+
+                        }, 2000);
 
                    }).catch(function (error) {
                        console.log(error);

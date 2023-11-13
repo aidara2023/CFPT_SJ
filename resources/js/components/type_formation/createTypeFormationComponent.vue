@@ -40,30 +40,28 @@ import Form from 'vform';
             const formdata = new FormData();
             formdata.append('intitule', this.form.intitule );
 
+            try{
+                const create_store=await axios.post('/type_formation/store', formdata, {
 
+                });
 
-            if(this.form.intitule!=="" ){
-                try{
-                    const create_store=await axios.post('/type_formation/store', formdata, {
+                // Swal.fire('Succes!','Type de formation ajouté avec succés','success')
+                this.resetForm();
+                bus.emit('formationAjoutee');
+                var ajout = document.querySelector('[data-modal-ajout]');
 
-                    });
-
-                    Swal.fire('Succes!','Type de formation ajouté avec succés','success')
-                    this.resetForm();
-                    bus.emit('formationAjoutee');
-
-
-                }
-                catch(e){
-                    console.log(e)
-                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
-                }
-
-            }else{
-                Swal.fire('Erreur!','Veuillez remplir le champs obligatoirement','error')
+                /* console.log(ajout); */
+                var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                    item.classList.remove("actif");
+                });
+                //ajout.classList.remove("actif");
+                ajout.close();
             }
-
-
+            catch(e){
+                console.log(e)
+                Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+            }
         },
         changement(event){
             this.interesser= event;

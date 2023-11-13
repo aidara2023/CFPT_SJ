@@ -9,7 +9,7 @@
        </div>
 
 
-   <div class="sections" v-for="(service, index) in services" :key="index">
+        <div class="sections" v-for="(service, index) in services" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
@@ -29,7 +29,7 @@
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deleteService(service)" > 
+                   <a href="#" class="texte b" @click="deleteService(service)" >
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
@@ -123,17 +123,17 @@ import Form from 'vform';
                         //setTimeout(function(){
                             confirmation.showModal();
                             confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                        
-                        setTimeout(function(){     
-                            confirmation.close();  
+                            //confirmation.close();
+                        //}, 1000);
 
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
+                        setTimeout(function(){
+                            confirmation.close();
 
-                        }, 2000);  
+                            setTimeout(function(){
+                                confirmation.classList.remove("actif");
+                        }, 100);
+
+                        }, 2000);
 
                    }).catch(function (error) {
                        console.log(error);

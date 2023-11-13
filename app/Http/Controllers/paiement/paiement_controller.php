@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 class paiement_controller extends Controller
 {
     public function index(){
-        $paiement = Paiement::all();
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'annee_academique')->get();
         if($paiement != null){
             return response()->json([
                 'statut' => 200,
@@ -29,6 +29,61 @@ class paiement_controller extends Controller
             return response()->json([
                 'statut' => 500,
                 'message' => 'Aucune donnée trouvée'
+            ],500);
+        }
+    }
+
+    public function store(paiement_request $request) {
+        $request -> validated();
+        $paiements= $request->input('paiements');
+        $caissiers=Caissier::all();
+        $eleves=Eleve::all();
+        if(!empty($paiements)){
+            $paiements= json_decode($paiements, true);
+            foreach($caissiers as $caissier){
+                if($caissier->id_user == Auth::user()->id){
+                    foreach($paiements as $paiement){
+                        foreach($eleves as $eleve){
+                            if($eleve->id_user==$request['id_eleve']){
+                                $dataPaiement= [
+                                    'id_caissier'=>$caissier->id,
+                                    'montant'=>$paiement['montant'],
+                                    'id_eleve'=>$eleve->id,
+                                ];
+
+                                $paiementValid= Paiement::create($dataPaiement);
+
+                                $dataConcerner= [
+                                    'id_paiement'=>$paiementValid->id,
+                                    'id_mois'=>$paiement['id_mois'],
+                                    'id_annee_academique'=>$paiement['id_annee_academique'],
+                                    'statut'=>1,
+                                ];
+
+                                $concerner=Concerner::create($dataConcerner);
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            if($concerner != null){
+                return response()->json([
+                    'statut' => 200,
+                    'paiement' => $concerner
+                ],200);
+            } else {
+                return response()->json([
+                    'statut' => 500,
+                    'message' => 'L\'enregistrement n\'a pas été éffectué'
+                ],500);
+            }
+        }
+        else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'L\'enregistrement n\'a pas été éffectué'
             ],500);
         }
     }
@@ -264,8 +319,6 @@ class paiement_controller extends Controller
 
     public function createPaiementAndConcerner($caissiers, $idEleve, $montant, $mois, $statut, $idAnneeAcademique)
     {
-
-
         foreach ($caissiers as $caissier) {
             if ($caissier->id_user == Auth::user()->id) {
                 $paiement = new Paiement();
@@ -331,45 +384,45 @@ class paiement_controller extends Controller
         }
     }
 
-    public function store(paiement_request $request)
-    {
-        $data = $request->validated();
-        $caissiers = Caissier::all();
-        // dd($caissiers);
-        $inscriptions = Inscription::where('id_eleve', $request['id_eleve'])->get();
+    // public function store(paiement_request $request)
+    // {
+    //     $data = $request->validated();
+    //     $caissiers = Caissier::all();
+    //     // dd($caissiers);
+    //     $inscriptions = Inscription::where('id_eleve', $request['id_eleve'])->get();
 
-        foreach ($inscriptions as $inscription) {
-            $classes = Classe::with('type_formation')->where('id', $inscription->id_classe)->get();
-
-
-
-            foreach ($classes as $classe) {
-
-                if ($classe->type_formation->intitule == "BTS Jour" OR $classe->type_formation->intitule == "BTS Soir") {
-                    /* dd($caissiers); */
-                    $paiement=$this->processBTSFormation($request['id_eleve'], $caissiers, $request['montant'], $request['id_annee_academique']);
-
-                    if ($paiement != null) {
-                        return response()->json([
-                            'statut' => 200,
-                            'paiement' => $paiement
-                        ], 200);
-                    } else {
-                        return response()->json([
-                            'statut' => 500,
-                            'message' => 'L\'enregistrement n\'a pas été effectué'
-                        ], 500);
-                    }
-
-                } else {
-                    /* $paiement=$this->processOtherFormation($request, $caissiers); */
-                    // dd("erreur");
-                }
-            }
-        }
+    //     foreach ($inscriptions as $inscription) {
+    //         $classes = Classe::with('type_formation')->where('id', $inscription->id_classe)->get();
 
 
-    }
+
+    //         foreach ($classes as $classe) {
+
+    //             if ($classe->type_formation->intitule == "BTS Jour" OR $classe->type_formation->intitule == "BTS Soir") {
+    //                 /* dd($caissiers); */
+    //                 $paiement=$this->processBTSFormation($request['id_eleve'], $caissiers, $request['montant'], $request['id_annee_academique']);
+
+    //                 if ($paiement != null) {
+    //                     return response()->json([
+    //                         'statut' => 200,
+    //                         'paiement' => $paiement
+    //                     ], 200);
+    //                 } else {
+    //                     return response()->json([
+    //                         'statut' => 500,
+    //                         'message' => 'L\'enregistrement n\'a pas été effectué'
+    //                     ], 500);
+    //                 }
+
+    //             } else {
+    //                 /* $paiement=$this->processOtherFormation($request, $caissiers); */
+    //                 // dd("erreur");
+    //             }
+    //         }
+    //     }
+
+
+    // }
 
     public function update(paiement_request $request, $id) {
         $paiement = Paiement::find($id);
@@ -392,7 +445,7 @@ class paiement_controller extends Controller
             ],500);
         }
     }
-    public function delete($id) {
+    public function destroy($id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
             $paiement -> delete();

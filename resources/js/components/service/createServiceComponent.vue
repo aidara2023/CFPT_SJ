@@ -11,7 +11,7 @@
                 </div>
 
                 <div>
-                    
+
                     <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="verifIdUser()">
                         <option value="">Personnel Administratif</option>
                         <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
@@ -54,73 +54,40 @@ import Swal from 'sweetalert2';
         this.get_user();
     },
 
-    
+
 
     methods:{
         async soumettre(){
             const formdata = new FormData();
             formdata.append('nom_service', this.form.nom_service  );
             formdata.append('id_user', this.form.id_user  );
-           /*  console.log(this.verifIdUser);
-            console.log(this.validatedata); */
-
-       /*      if(this.form.nom_service!=="" && this.form.id_user!==""){ */
-           /*  if(this.validatedata()!==true && this.verifIdUser()!==true){ */
                 try{
                     await axios.post('/service/store', formdata, {});
                     //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
-                   
-                
-                    this.resetForm();
-                    bus.emit('serAjoutee');
-                    
-                    var ajout = document.querySelector('[data-modal-ajout]');
-                    var confirmation = document.querySelector('[data-modal-confirmation]');
 
-                   
+
+                    this.resetForm();
+                    bus.emit('serviceAjoutee');
+
+                    var ajout = document.querySelector('[data-modal-ajout]');
+
+
                     /* console.log(ajout); */
                     var actif = document.querySelectorAll('.actif');
                         actif.forEach(item => {
                         item.classList.remove("actif");
-                    }); 
+                    });
                     //ajout.classList.remove("actif");
                     ajout.close();
-
-
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
-
-                        
-
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-                     
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 1700);  
-                       
-
-
-                               
-                    
-
                 }
                 catch(e){
                     /* console.log(e.request.status) */
-                  if(e.request.status===404){
-                    Swal.fire('Erreur !','Ce service existe déjà','error')
-                  }
-                  else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                  }
+                    if(e.request.status===404){
+                        Swal.fire('Erreur !','Ce service existe déjà','error')
+                    }
+                    else{
+                        Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                    }
 
                 }
 
@@ -141,8 +108,8 @@ import Swal from 'sweetalert2';
                 this.soumettre();
                 this.etatForm= true;
             }
-           
-        }, 
+
+        },
 
         resetForm(){
             this.form.nom_service="";
@@ -156,7 +123,7 @@ import Swal from 'sweetalert2';
 
     validatedata(){
         this.nom_service_erreur= "";
-        
+
         if(this.form.nom_service=== ""){
             this.nom_service_erreur= "Ce champ est obligatoire"
             return true;
@@ -171,7 +138,7 @@ import Swal from 'sweetalert2';
         }
 
         return false;
-       
+
     },
     verifIdUser(){
         this.id_user_erreur= "";

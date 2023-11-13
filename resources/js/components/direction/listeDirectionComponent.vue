@@ -16,7 +16,7 @@
                <p class="texte" id="n">{{ direction.nom_direction}} </p>
                <p class="texte" id="n">{{ direction.service.nom_service }}</p>
                <p class="texte" id="n">{{ direction.user.prenom }} {{ direction.user.nom }} </p>
-               
+
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
@@ -76,7 +76,7 @@ import Form from 'vform';
            axios.get('/direction/index')
            .then(response => {
                this.directions=response.data.direction;
-    
+
            }).catch(error=>{
            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des directions','error')
            });
@@ -110,23 +110,23 @@ import Form from 'vform';
 
                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
 
-confirmation.style.backgroundColor = 'white';
-confirmation.style.color = 'var(--clr)';
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
 
-//setTimeout(function(){
-    confirmation.showModal();
-    confirmation.classList.add("actif");
-    //confirmation.close();  
-//}, 1000);  
+                        //setTimeout(function(){
+                            confirmation.showModal();
+                            confirmation.classList.add("actif");
+                            //confirmation.close();
+                        //}, 1000);
 
-setTimeout(function(){     
-    confirmation.close();  
+                        setTimeout(function(){
+                            confirmation.close();
 
-    setTimeout(function(){     
-        confirmation.classList.remove("actif");   
-}, 100); 
+                            setTimeout(function(){
+                                confirmation.classList.remove("actif");
+                        }, 100);
 
-}, 2000);  
+                        }, 2000);
                    }).catch(function (error) {
                        console.log(error);
                    })

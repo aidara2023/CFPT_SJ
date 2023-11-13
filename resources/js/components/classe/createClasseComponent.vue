@@ -82,7 +82,7 @@ import Form from 'vform';
           etatForm: false,
 
 
-          
+
 
 
         }
@@ -91,7 +91,7 @@ import Form from 'vform';
         this.get_type_formation();
         this.get_unite_de_formation();
     },
-    
+
 
 
     methods:{
@@ -110,39 +110,15 @@ import Form from 'vform';
 
                     });
                     this.resetForm();
-                    bus.emit('classeAjoutee'); 
+                    bus.emit('classeAjoutee');
                     var ajout = document.querySelector('[data-modal-ajout]');
-                    var confirmation = document.querySelector('[data-modal-confirmation]');
-
-                   
                     /* console.log(ajout); */
                     var actif = document.querySelectorAll('.actif');
                         actif.forEach(item => {
                         item.classList.remove("actif");
-                    }); 
+                    });
                     //ajout.classList.remove("actif");
                     ajout.close();
-
-
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
-
-                        
-
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-                     
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 1700);  
 
                 }
                 catch(e){
@@ -201,7 +177,7 @@ import Form from 'vform';
           this.type_classe_erreur="";
           this.niveau_erreur="";
         var i=0;
-        
+
     switch (champ) {
         case 'nom_classe':
             // Effectuez la validation pour le champ 'nom'
@@ -209,7 +185,7 @@ import Form from 'vform';
             this.nom_classe_erreur= "Ce champ est obligatoire"
             i= 1;
             return true
-            
+
             }
             if(!this.verifCaratere(this.form.nom_classe)){
                 this.nom_classe_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
@@ -222,11 +198,11 @@ import Form from 'vform';
         case 'niveau':
             //pour niveau
             if(this.form.niveau=== ""){
-            this.niveau_erreur= "Vous avez oublié de sélectionner le niveau " 
+            this.niveau_erreur= "Vous avez oublié de sélectionner le niveau "
             i= 1;
             return true
             }
-            
+
             break;
         case 'unite_de_formation':
             //pour unite_de_formation
@@ -234,7 +210,7 @@ import Form from 'vform';
                 this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner  l'unite de formation'"
                 i= 1;
                 return true
-            
+
             }
             break;
         case 'type_formation':
@@ -243,8 +219,8 @@ import Form from 'vform';
                 this.type_formation_erreur= "Vous avez oublié de sélectionner le type de formation "
                 i= 1;
                 return true
-            } 
-            
+            }
+
             break;
         case 'type_classe':
             //pour type classe
@@ -252,8 +228,8 @@ import Form from 'vform';
                 this.type_classe_erreur= "Vous avez oublié de sélectionner le type de classe "
                 i= 1;
                 return true
-            } 
-           
+            }
+
             break;
 
             default:
@@ -273,7 +249,7 @@ import Form from 'vform';
              i=1;
              return true
         }
-       
+
         if(this.form.type_classe=== ""){
             this.type_classe_erreur= "Vous avez oublié de sélectionner le type de la classe "
              i=1;
@@ -293,7 +269,7 @@ import Form from 'vform';
     if(i==1) return true;
 
         return false;
-    
+
     },
     validatedataOld(){
         this.nom_classe_erreur= "";
@@ -302,7 +278,7 @@ import Form from 'vform';
           this.type_classe_erreur="";
           this.niveau_erreur="";
         var i=0;
-        
+
         if(this.form.nom_classe=== ""){
             this.nom_classe_erreur= "Ce champ est obligatoire"
             i=1;
@@ -318,7 +294,7 @@ import Form from 'vform';
             this.id_type_formation_erreur= "Vous avez oublié de sélectionner le type de formation"
              i=1;
         }
-       
+
         if(this.form.type_classe=== ""){
             this.type_classe_erreur= "Vous avez oublié de sélectionner le type de la classe "
              i=1;
@@ -331,7 +307,7 @@ import Form from 'vform';
             this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner l'unité de formation' "
              i=1;
         }
-       
+
 
     if(i==1) return true;
 
@@ -351,8 +327,8 @@ import Form from 'vform';
                 this.soumettre();
                 this.etatForm= true;
             }
-           
-        }, 
+
+        },
 
         resetForm(){
 

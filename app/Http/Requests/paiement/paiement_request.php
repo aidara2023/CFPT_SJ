@@ -24,7 +24,7 @@ class paiement_request extends FormRequest
         return [
             'id_eleve' => 'required',
             'id_caissier' => '',
-            'id_annee_academique' => 'required',
+            'id_annee_academique' => '',
             'id_mois' => '',
             'montant' => '',
             'statut' => ''
