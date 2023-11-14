@@ -20,6 +20,7 @@
                     </a>
                     <a href="" class="texte b">
                         <i class="fi fi-rr-comment-alt-dots"></i>
+                  
                         <span class="details">Détails</span>
                     </a>
                         <a href="#" class="texte b" @click="deleteUniteDeFormation(unite_de_formation)">

@@ -18,15 +18,7 @@ class AnneeSeeder extends Seeder
                 'intitule' => '2023 - 2024',
             ],
             [
-<<<<<<< HEAD
-                'intitule' => '2024-2025',
-            ],
-            [
-                'intitule' => '2025_2026',
-            ],
-            [
-                'intitule' => '2026_2027',
-=======
+
                 'intitule' => '2024 - 2025',
             ],
             [
@@ -34,7 +26,7 @@ class AnneeSeeder extends Seeder
             ],
             [
                 'intitule' => '2026 - 2027',
->>>>>>> 2166b76633fd2d95e8d8cd6f24f84decd5daac1c
+
             ],
         ]);
     }

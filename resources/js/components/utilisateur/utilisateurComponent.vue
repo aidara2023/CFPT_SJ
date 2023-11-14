@@ -75,7 +75,7 @@
 
                 <div>
                     <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse"  @input="validatedata('adresse')">
-                    <span class="erreur" v-if="this.adresse_user_erreur !== ''">{{this.adresse_user_erreur}}</span>
+                    <span class="erreur" v-if="this.adresse_erreur !== ''">{{this.adresse_erreur}}</span>
                 </div>
 
                 <div>
@@ -309,7 +309,7 @@ import Form from 'vform';
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Ce service existe déjà','error')
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
                 }
                 else{
                 Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -381,7 +381,7 @@ import Form from 'vform';
         validerAvantAjout() {
 
             const isVerifIdValid = this.verifId();
-            const isIdChampValid = this.validatedataOld();
+            const isIdChampValid = this.validatedataold();
           /*   console.log(isNomChampValid); */
             if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
                 this.etatForm = false;
