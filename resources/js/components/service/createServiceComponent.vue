@@ -88,12 +88,39 @@ import Swal from 'sweetalert2';
 
 
                     /* console.log(ajout); */
-                    var actif = document.querySelectorAll('.actif');
-                        actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                    //ajout.classList.remove("actif");
-                    ajout.close();
+                    var ajout = document.querySelector('[data-modal-ajout]');
+                        var confirmation = document.querySelector('[data-modal-confirmation]');
+    
+                       
+                        /* console.log(ajout); */
+                        var actif = document.querySelectorAll('.actif');
+                            actif.forEach(item => {
+                            item.classList.remove("actif");
+                        }); 
+                        //ajout.classList.remove("actif");
+                        ajout.close();
+    
+    
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
+    
+                            
+    
+                        //setTimeout(function(){
+                            confirmation.showModal();
+                            confirmation.classList.add("actif");
+                            //confirmation.close();  
+                        //}, 1000);  
+                         
+                        setTimeout(function(){     
+                            confirmation.close();  
+    
+                            setTimeout(function(){     
+                                confirmation.classList.remove("actif");   
+                        }, 100); 
+    
+                        }, 1700);  
+                           
                 }
                 catch(e){
                     /* console.log(e.request.status) */
