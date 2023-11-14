@@ -6,7 +6,7 @@
             <!--Informations personnelles-->
             <div class="personnel">
                 <div>
-                    <input type="text" v-model="form.nom_service" id="nom" placeholder="Nom du Service" @input="validatedata()">
+                    <input type="text" v-model="form.nom_service" id="nom" placeholder="Nom du Service" @input="validatedata('nom_service')">
                     <span class="erreur" v-if="this.nom_service_erreur !== ''">{{this.nom_service_erreur}}</span>
                 </div>
 
@@ -22,7 +22,7 @@
                 
         
                 <div>
-                    <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="verifId()">
+                    <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="verifIdUser()">
                             <option value=""> Direction</option>
                             <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
                     </select>
@@ -110,21 +110,22 @@ import Swal from 'sweetalert2';
 
         },
 
-        validerAvantAjout() {
-            // Exécutez la validation des champs
-            const isNomServiceValid = this.validatedata();
-            const isIdUserValid = this.verifIdUser();
+validerAvantAjout() {
 
-          /*   console.log(isNomServiceValid); */
-            if (isNomServiceValid || isIdUserValid) {
-                this.etatForm= false;
-                return 0;
-            }else{
-                this.soumettre();
-                this.etatForm= true;
-            }
+const isVerifIdValid = this.verifIdUser();
+const isIdChampValid = this.validatedataOld();
+/*   console.log(isNomChampValid); */
+if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
+    this.etatForm = false;
+    // console.log(erreur);
+    return 0;
+}else{
+    this.soumettre();
+    this.etatForm = true;
+    // console.log(Tokkos);
+}
 
-        },
+},
 
         resetForm(){
             this.form.nom_service="";
@@ -136,24 +137,94 @@ import Swal from 'sweetalert2';
             const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
         },
+        validatedata(champ){
+            var i=0;
+            this.nom_service_erreur= "";
+            this.id_user_erreur= "";
+            this.id_direction_erreur= "";
 
-    validatedata(){
+
+
+switch (champ) {
+case 'nom_service':
+// Effectuez la validation pour le champ 'nom'
+if(this.form.nom_service=== ""){
+this.nom_service_erreur= "Ce champ est obligatoire"
+i= 1;
+return true
+
+}
+if(!this.verifCaratere(this.form.nom_service)){
+    this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+    /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+    i= 1;
+    return true
+}
+
+break;
+
+case 'user':
+//pour user
+if(this.form.id_user=== ""){
+    this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de service'"
+    i= 1;
+    return true
+
+}
+break;
+
+case 'direction':
+//pour direction
+if(this.form.id_direction=== ""){
+    this.id_direction_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
+    i= 1;
+    return true
+
+}
+break;
+
+    default:
+    break;
+}
+        },
+
+    validatedataOld(){
         this.nom_service_erreur= "";
+        this.id_user_erreur= "";
+        this.id_direction_erreur= "";
+        var i=0;
+
 
         if(this.form.nom_service=== ""){
             this.nom_service_erreur= "Ce champ est obligatoire"
-            return true;
+            
+            i=1;
         }
         if(!this.verifCaratere(this.form.nom_service)){
             this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-            return true;
+            ;
+            i=1;
         }
         if(this.form.nom_service.length < 12){
             this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
-            return true;
+            ;
+            i=1;
         }
+        if(this.form.id_user=== ""){
+            this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
+            ;
+            i=1;
+        }
+        if(this.form.id_direction=== ""){
+            this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
+            ;
+            i=1;
+        }
+        if(i==1) return true;       
 
         return false;
+
+        
 
     },
     verifIdUser(){

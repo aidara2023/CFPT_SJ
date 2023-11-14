@@ -354,7 +354,7 @@ import Form from 'vform';
         validerAvantAjout() {
 
             const isVerifIdValid = this.verifId();
-            const isIdChampValid = this.validatedataold();
+            const isIdChampValid = this.validatedataOld();
           /*   console.log(isNomChampValid); */
             if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
                 this.etatForm = false;

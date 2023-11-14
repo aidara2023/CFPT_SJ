@@ -87,7 +87,7 @@
           </div>
           <!-- Informations sur le tuteur -->
 
-          <h1 class="sous_titre">Informations sur le tuteur</h1>
+          <!-- <h1 class="sous_titre">Informations sur le tuteur</h1>
           <div class="tuteur">
 
               <div>
@@ -159,7 +159,7 @@
                   <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence2" @input="validatedata('telephone_urgence_2')">
                   <span class="erreur" v-if="this.telephone_urgence_2_erreur !== ''">{{this.telephone_urgence_2_erreur}}</span>
               </div>
-          </div>
+          </div> -->
           <!-- Informations sur le tuteur -->
 
           <h1 class="sous_titre">Informations sur le tuteur</h1>
@@ -174,49 +174,18 @@
                   <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur" v-model="form.prenom_tuteur" @input="validatedata('prenom_tuteur')">
                   <span class="erreur" v-if="this.prenom_tuteur_erreur !== ''">{{this.prenom_tuteur_erreur}}</span>
               </div>
-
-              <div>
-                  <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_tuteur" @input="validatedata('date_naissance_tuteur')">
-                  <span class="erreur" v-if="this.date_naissance_tuteur_erreur !== ''">{{this.date_naissance_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_tuteur" @input="validatedata('lieu_naissance_tuteur')">
-                  <span class="erreur" v-if="this.lieu_naissance_tuteur_erreur !== ''">{{this.lieu_naissance_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_tuteur" @input="validatedata('nationalite_tuteur')">
-                  <span class="erreur" v-if="this.nationalite_tuteur_erreur !== ''">{{this.nationalite_tuteur_erreur}}</span>
-              </div>
               <div>
                   <input type="text" name="adresse_tuteur" id="adresse_tuteur" placeholder="Adresse tuteur" v-model="form.adresse_tuteur" @input="validatedata('adresse_tuteur')">
                   <span class="erreur" v-if="this.adresse_tuteur_erreur !== ''">{{this.adresse_tuteur_erreur}}</span>
               </div>
 
+              <div>
+                  <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
+                  <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
+              </div>
+              
 </div>
-            <h1 class="sous_titre">Informations Académiques</h1>
-            <!--Informations académiques-->
-            <div class="academiques">
-                <div>
-                    <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique" @change="validatedata('id_annee_accademique')">
-                        <option value=""> Annee academique </option>
-                        <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_annee_accademique_erreur !== ''">{{id_annee_accademique_erreur}}</span>
-                </div>
-
-                <div>
-                    <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
-                        <option value=""> Classe </option>
-                        <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_classe_erreur !== ''">{{id_classe_erreur}}</span>
-                </div>
-
-
-
-            </div>
+           
 
              <div class="boutons">
                 <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">

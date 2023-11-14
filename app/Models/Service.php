@@ -36,7 +36,7 @@ class Service extends Model
         return $this->hasMany(Formateur::class);
       }
 
-      public function directions(){
+      public function direction(){
         return $this->belongsTo(Direction::class, 'id_direction');
       }
 }
