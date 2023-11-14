@@ -309,7 +309,7 @@ import Form from 'vform';
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Ce service existe déjà','error')
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
                 }
                 else{
                 Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
