@@ -10,4 +10,8 @@ class paiement_view_controller extends Controller
     public function create(){
         return view('paiement.create');
     }
+
+    public function reçu(){
+        return view('reçu.index');
+    }
 }

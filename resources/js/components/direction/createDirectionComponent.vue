@@ -71,7 +71,7 @@ import Form from 'vform';
                 bus.emit('directionAjoutee');
 
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
