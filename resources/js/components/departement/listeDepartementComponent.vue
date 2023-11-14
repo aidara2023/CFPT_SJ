@@ -21,9 +21,9 @@
                         <span class="modifier">Actions</span>
 
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(departement)">
                        <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
+                       <span class="modifier mdl" >Modifier</span>
                    </a>
                    <a href="" class="texte b">
                        <i class="fi fi-rr-comment-alt-dots"></i>
@@ -43,6 +43,38 @@
 
 
 <!-- <span class="fond "></span> -->
+<dialog data-modal-modification class="modal">
+        <h1>Modification</h1>
+        <div class="contenu">
+            <form action="" method="dialog" >
+                <h1 class="sous_titre">Ajout de departement</h1>
+
+            <div class="personnel">
+                <div>
+                    <input type="text" v-model="form.nom" id="nom"  @input="validatedata()">
+                    <span class="erreur" v-if="this.nom_departement_erreur !== ''">{{this.nom_departement_erreur}}</span>
+                </div>
+            </div>
+
+            <div class="directions">
+                <div>
+                    <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
+                        <option value=""> Direction</option>
+                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
+                    </select>
+                    <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
+                </div>
+            </div>
+
+
+            <div class="boutons">
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+            </div>
+            </form>
+        </div>
+    </dialog>
+   <!--  {{--  Fin modal pour modifier utilisateur --}} -->
 
 </template>
 
@@ -57,10 +89,10 @@ import Form from 'vform';
    name:"listeUserCompenent",
    data(){
        return {
-           form:new Form({
-               'intitule':""
-
-           }),
+        form:new Form({
+                'nom':"",
+                'id_direction':""
+            }),
            departements: [],
 
 
@@ -90,8 +122,8 @@ import Form from 'vform';
        },
 
        resetForm(){
-           this.form.input="";
-           this.form.intitule="";
+           this.form.nom="";
+           this.form.id_direction="";
        },
 
        async deleteDepartement(type) {
@@ -135,6 +167,25 @@ import Form from 'vform';
                }
            });
        },
+
+        openModal(departement) {
+            this.form.nom=departement.nom_departement;
+            this.form.id_direction=departement.id_direction;
+
+            var fond = document.querySelector('.fond');
+            var flou = document.querySelectorAll('.flou');
+            var modification = document.querySelector("[data-modal-modification]");
+
+            flou.forEach(item => {
+                item.classList.add("actif");
+            });
+
+            fond.classList.add("actif");
+            modification.showModal();
+            modification.classList.add("actif");
+
+         
+        },
 
 
 

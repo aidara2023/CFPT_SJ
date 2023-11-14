@@ -73,7 +73,7 @@ import Form from 'vform';
                 bus.emit('departementAjoutee');
 
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                        var confirmation = document.querySelector('[data-modal-mofication]');
     
                        
                         /* console.log(ajout); */
