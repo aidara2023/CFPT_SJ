@@ -83,6 +83,27 @@ import Form from 'vform';
                 });
                 //ajout.classList.remove("actif");
                 ajout.close();
+                confirmation.style.backgroundColor = 'white';
+                     confirmation.style.color = 'var(--clr)';
+
+                         
+
+                     //setTimeout(function(){
+                         confirmation.showModal();
+                         confirmation.classList.add("actif");
+                         //confirmation.close();  
+                     //}, 1000);  
+                      
+                     setTimeout(function(){     
+                         confirmation.close();  
+
+                         setTimeout(function(){     
+                             confirmation.classList.remove("actif");   
+                     }, 100); 
+
+                     }, 1700);  
+
+
 
             }
             catch(e){
