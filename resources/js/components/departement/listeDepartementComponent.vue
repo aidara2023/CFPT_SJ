@@ -115,23 +115,20 @@ import Form from 'vform';
                     //        'success',
                     //    )
                     var confirmation = document.querySelector('[data-modal-confirmation-sup]');
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
 
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();
-                        //}, 1000);
+                    confirmation.style.backgroundColor = 'white';
+                    confirmation.style.color = 'var(--clr)';
+
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                    setTimeout(function(){
+                        confirmation.close();
 
                         setTimeout(function(){
-                            confirmation.close();
+                            confirmation.classList.remove("actif");
+                    }, 100);
 
-                            setTimeout(function(){
-                                confirmation.classList.remove("actif");
-                        }, 100);
-
-                        }, 2000);
+                    }, 2000);
                    }).catch(function (error) {
                        console.log(error);
                    })

@@ -133,20 +133,17 @@
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Departement ajouté avec succès</p>
+        <p class="">Département ajouté avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Departement supprimé avec succès</p>
+        <p class="">Département supprimé avec succès</p>
     </dialog>
-
 </div>
-
-<span class="fond"></span>
-
-@endsection
+ <span class="fond "></span>
+@endsection 
 
 
