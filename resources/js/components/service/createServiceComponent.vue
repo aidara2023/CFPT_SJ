@@ -89,7 +89,7 @@ import Swal from 'sweetalert2';
 
                     /* console.log(ajout); */
                     var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                    var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
