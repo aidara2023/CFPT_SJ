@@ -364,7 +364,7 @@ import Form from 'vform';
                 this.form.reset();
                 bus.emit('inscriptionAjoutee');
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
