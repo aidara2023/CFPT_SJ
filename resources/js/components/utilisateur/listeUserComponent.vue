@@ -108,7 +108,6 @@ import Form from 'vform';
                    axios.delete(`/user/delete/${type.id}`).then(resp => {
                        this.get_utilisateur();
 
-<<<<<<< HEAD
                     var confirmation = document.querySelector('[data-modal-confirmation-sup]');
 
                     confirmation.style.backgroundColor = 'white';
@@ -124,25 +123,6 @@ import Form from 'vform';
                     }, 100);
 
                     }, 2000);
-=======
-                       /* Swal.fire(
-                           'Supprimé!',
-                           'L\'utilisateur a été supprimé avec succès.',
-                           'success',
-                       ) */
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
-                       confirmation.style.backgroundColor = 'white';
-                       confirmation.style.color = 'var(--clr)';
-                       confirmation.showModal();
-                       confirmation.classList.add("actif");
-                       setTimeout(function(){
-                        confirmation.close();
-                        setTimeout(function(){
-                            confirmation.classList.remove("actif");
-                        }, 100);
-                    }, 2000);
-               
->>>>>>> 2166b76633fd2d95e8d8cd6f24f84decd5daac1c
                    }).catch(function (error) {
                        console.log(error);
                    })
