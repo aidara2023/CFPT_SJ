@@ -63,8 +63,6 @@ import Form from 'vform';
 
            }),
            services: [],
-
-
        }
    },
    mounted(){
@@ -74,7 +72,7 @@ import Form from 'vform';
        });
    },
 
-   methods:{
+methods:{       
        get_service(){
            axios.get('/service/index')
            .then(response => {

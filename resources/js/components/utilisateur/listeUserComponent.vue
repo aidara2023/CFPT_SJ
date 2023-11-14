@@ -28,7 +28,7 @@
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deleteTypeutilisateur(utilisateur)">
+                   <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
@@ -93,7 +93,7 @@ import Form from 'vform';
            this.form.intitule="";
        },
 
-       async deleteTypeutilisateur(type) {
+       async deleteUtilisateur(user) {
            Swal.fire({
                title: 'Êtes-vous sûr?',
                text: "Cette action sera irréversible!",
@@ -105,7 +105,7 @@ import Form from 'vform';
                cancelButtonText: 'Annuler'
            }).then((result) => {
                if (result.isConfirmed) {
-                   axios.delete(`/user/delete/${type.id}`).then(resp => {
+                   axios.delete(`/user/delete/${user.id}`).then(resp => {
                        this.get_utilisateur();
 
                     var confirmation = document.querySelector('[data-modal-confirmation-sup]');
