@@ -44,6 +44,10 @@ class RoleSeeder extends Seeder
             [
                 'intitule' => 'Comptable',
             ],
+
+            [
+                'intitule' => 'teste',
+            ],
         ]);
     }
 }
