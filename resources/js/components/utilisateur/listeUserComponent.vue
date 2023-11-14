@@ -22,7 +22,7 @@
                     </a>
                    <a href="#" class="texte b">
                        <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
+                       <button class="modifier mdl">Modifier</button>
                    </a>
                    <a href="" class="texte b">
                        <i class="fi fi-rr-comment-alt-dots"></i>
