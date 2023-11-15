@@ -68,10 +68,10 @@
 
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> 
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
-            </form>
+            </form>                                                                                                                                                                                                                                                                                                                                   
         </div>
     </dialog>
    <!--  {{--  Fin modal pour modifier utilisateur --}} -->
@@ -100,8 +100,8 @@ import Form from 'vform';
    },
    mounted(){
        this.get_departement();
-       bus.on('departementAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_departement(); // Mettre à jour la liste des utilisateurs
+       bus.on('departementAjoutee', () => { 
+           this.get_departement(); 
        });
    },
 
