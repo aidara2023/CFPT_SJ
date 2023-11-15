@@ -23,7 +23,8 @@
 
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input v-if="this.editModal===false" type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
@@ -51,14 +52,28 @@ import Form from 'vform';
             nom_departement_erreur:"",
             id_direction_erreur:"",
             etatForm: false,
+            editModal: false,
+            idDepartement: "",
 
 
         }
     },
 
     mounted(){
+
         this.get_direction();
+        bus.on('departementAjoutee', (eventData) => {
+
+        this.idDepartement = eventData.idDepartement;
+        this.editModal = eventData.editModal;
+        // Accédez à d'autres propriétés si nécessaire
+
+        // Faites quelque chose avec les données, par exemple, mettez à jour le formulaire
+        this.form.nom = eventData.nom;
+        this.form.id_direction = eventData.id_direction;
+    });
     },
+    
 
     methods:{
         async soumettre(){
@@ -73,7 +88,7 @@ import Form from 'vform';
                 bus.emit('departementAjoutee');
 
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-mofication]');
+                        var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
@@ -131,8 +146,14 @@ import Form from 'vform';
                 this.etatForm= true;
                 return 0;
             }else{
-                this.soumettre();
-                this.etatForm= true;
+               
+                if(this.editModal===true){
+                    this.update_departement(this.idDepartement);
+                    this.etatForm= true;
+                }else{
+                    this.soumettre();
+                    this.etatForm= true;
+                }
             }
 
         },
@@ -186,6 +207,64 @@ import Form from 'vform';
         Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de la direction','error')
         });
     },
+
+    async update_departement(id){
+         const formdata = new FormData();
+            formdata.append('nom_departement', this.form.nom  );
+            formdata.append('id_direction', this.form.id_direction);
+
+             //if(this.form.nom!==""){
+            try{
+                await axios.post('/departement/update/'+id, formdata, {});
+                bus.emit('departementAjoutee');
+                this.resetForm();
+
+                var ajout = document.querySelector('[data-modal-ajout]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
+    
+                       
+                        /* console.log(ajout); */
+                        var actif = document.querySelectorAll('.actif');
+                            actif.forEach(item => {
+                            item.classList.remove("actif");
+                        }); 
+                        //ajout.classList.remove("actif");
+                        ajout.close();
+    
+    
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
+    
+                            
+    
+                        //setTimeout(function(){
+                            confirmation.showModal();
+                            confirmation.classList.add("actif");
+                            //confirmation.close();  
+                        //}, 1000);  
+                         
+                        setTimeout(function(){     
+                            confirmation.close();  
+    
+                            setTimeout(function(){     
+                                confirmation.classList.remove("actif");   
+                        }, 100); 
+    
+                        }, 1700);  
+                           
+
+
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                Swal.fire('Erreur !','Ce département existe déjà','error')
+                }
+                else{
+                Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+    }
 
     }
 
