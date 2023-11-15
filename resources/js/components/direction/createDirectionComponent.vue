@@ -215,16 +215,16 @@ import Form from 'vform';
            /*  const isNomChampValid = this.validatedata(); */
            const isIdChampValid = this.validatedataOld();
 
-/*   console.log(isNomChampValid); */
-  if ( isIdChampValid) {
-      this.etatForm= false;
-      return 0;
-  }else{
-      this.soumettre();
-      this.etatForm= true;
-  }
+            /*   console.log(isNomChampValid); */
+            if ( isIdChampValid) {
+                this.etatForm= false;
+                return 0;
+            }else{
+                this.soumettre();
+                this.etatForm= true;
+            }
 
-},
+            },
 
       resetForm(){
     //     var ajout = document.querySelector("[data-modal-ajout]");

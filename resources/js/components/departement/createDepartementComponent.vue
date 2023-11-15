@@ -24,7 +24,7 @@
 
             <div class="boutons">
                 <input v-if="this.editModal===false" type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <input v-if="this.editModal===true" type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
         </form>
@@ -88,7 +88,7 @@ import Form from 'vform';
                 bus.emit('departementAjoutee');
 
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
