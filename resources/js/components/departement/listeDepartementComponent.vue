@@ -42,39 +42,6 @@
    </div>
 
 
-<!-- <span class="fond "></span> -->
-<dialog data-modal-modification class="modal">
-        <h1>Modification</h1>
-        <div class="contenu">
-            <form action="" method="dialog" >
-                <h1 class="sous_titre">Ajout de departement</h1>
-
-            <div class="personnel">
-                <div>
-                    <input type="text" v-model="form.nom" id="nom"  @input="validatedata()">
-                    <span class="erreur" v-if="this.nom_departement_erreur !== ''">{{this.nom_departement_erreur}}</span>
-                </div>
-            </div>
-
-            <div class="directions">
-                <div>
-                    <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
-                        <option value=""> Direction</option>
-                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
-                    </select>
-                    <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
-                </div>
-            </div>
-
-
-            <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> 
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
-            </div>
-            </form>                                                                                                                                                                                                                                                                                                                                   
-        </div>
-    </dialog>
-   <!--  {{--  Fin modal pour modifier utilisateur --}} -->
 
 </template>
 
@@ -94,6 +61,8 @@ import Form from 'vform';
                 'id_direction':""
             }),
            departements: [],
+           idDepartement: "",
+           editModal: false,
 
 
        }
@@ -169,12 +138,25 @@ import Form from 'vform';
        },
 
         openModal(departement) {
-            this.form.nom=departement.nom_departement;
-            this.form.id_direction=departement.id_direction;
+          
+            this.idDepartement=departement.id;
+
+            this.editModal = true;
+
+            // Créez un objet avec les données à envoyer
+            const eventData = {
+                idDepartement: this.idDepartement,
+                nom: departement.nom_departement,
+                id_direction: departement.id_direction,
+                editModal: this.editModal,
+                // Ajoutez d'autres propriétés si nécessaire
+            };
+
+            bus.emit('departementAjoutee', eventData);
 
             var fond = document.querySelector('.fond');
             var flou = document.querySelectorAll('.flou');
-            var modification = document.querySelector("[data-modal-modification]");
+            var modification = document.querySelector("[data-modal-ajout]");
 
             flou.forEach(item => {
                 item.classList.add("actif");
