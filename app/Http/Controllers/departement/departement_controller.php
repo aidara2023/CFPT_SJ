@@ -54,7 +54,7 @@ class departement_controller extends Controller
         $departement = Departement::find($id);
         if($departement != null){
             $departement -> nom_departement = $request['nom_departement'];
-            $departement -> id_departement = $request['id_departement'];
+            $departement -> id_direction = $request['id_direction'];
             $departement -> save();
 
             return response()->json([
