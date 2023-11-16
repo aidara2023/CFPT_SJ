@@ -183,6 +183,25 @@
                   <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
                   <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
               </div>
+            </div>
+            <h1 class="sous_titre">Informations Académiques</h1>
+            <!--Informations académiques-->
+            <div class="academiques">
+                <div>
+                    <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique" @change="validatedata('id_annee_accademique')">
+                        <option value=""> Annee academique </option>
+                        <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_annee_accademique_erreur !== ''">{{id_annee_accademique_erreur}}</span>
+                </div>
+
+                <div>
+                    <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
+                        <option value=""> Classe </option>
+                        <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_classe_erreur !== ''">{{id_classe_erreur}}</span>
+                </div>
               
 </div>
            

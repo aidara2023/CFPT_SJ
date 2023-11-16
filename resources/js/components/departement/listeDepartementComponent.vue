@@ -69,8 +69,8 @@ import Form from 'vform';
    },
    mounted(){
        this.get_departement();
-       bus.on('departementAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_departement(); // Mettre à jour la liste des utilisateurs
+       bus.on('departementAjoutee', () => { 
+           this.get_departement(); 
        });
    },
 
