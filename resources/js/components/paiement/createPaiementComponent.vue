@@ -169,22 +169,22 @@ import Form from 'vform';
                 confirmation.style.backgroundColor = 'white';
                      confirmation.style.color = 'var(--clr)';
 
-                         
+
 
                      //setTimeout(function(){
                          confirmation.showModal();
                          confirmation.classList.add("actif");
-                         //confirmation.close();  
-                     //}, 1000);  
-                      
-                     setTimeout(function(){     
-                         confirmation.close();  
+                         //confirmation.close();
+                     //}, 1000);
 
-                         setTimeout(function(){     
-                             confirmation.classList.remove("actif");   
-                     }, 100); 
+                     setTimeout(function(){
+                         confirmation.close();
 
-                     }, 1700);  
+                         setTimeout(function(){
+                             confirmation.classList.remove("actif");
+                     }, 100);
+
+                     }, 1700);
 
 
             }
@@ -279,30 +279,26 @@ import Form from 'vform';
     //    },
 
         resetForm(){
-            var ajout = document.querySelector("[data-modal-ajout]");
-            var fermemod = document.querySelectorAll('[data-close-modal]');
-            //Fermeture des modals
-            fermemod.forEach(item => {
-                item.addEventListener('click', () => {
-                var actif = document.querySelectorAll('.actif');
-                    actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                        ajout.close();
-                        modification.close();
-                        suppression.close();
+    //         var ajout = document.querySelector("[data-modal-ajout]");
+    //         var fermemod = document.querySelectorAll('[data-close-modal]');
+    //         //Fermeture des modals
+    //         fermemod.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //             var actif = document.querySelectorAll('.actif');
+    //                 actif.forEach(item => {
+    //                     item.classList.remove("actif");
+    //                 });
+    //                     ajout.close();
+    //                     modification.close();
+    //                     suppression.close();
 
-            })
-       /*    ajout.remove("active");  */
+    //         })
+    //    /*    ajout.remove("active");  */
 
-            });
+    //         });
             this.form.mois="";
             this.form.id_eleve="";
             this.form.id_annee_academique="";
-
-
-
-
         },
 
         rafraichissementAutomatique() {

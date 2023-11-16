@@ -12,14 +12,15 @@ class Paiement extends Model
     'id_eleve',
     'id_caissier',
     'montant',
-    // 'id_annee_academique',
-   /* 'mois' */
+    'mode_paiement',
+    'reference'
   ];
 
 
     public function caissier() {
       return $this->belongsTo(Caissier::class,'id_caissier');
     }
+
     public function annee_academique() {
       return $this->belongsTo(Annee_academique::class,'id_annee_academique');
     }

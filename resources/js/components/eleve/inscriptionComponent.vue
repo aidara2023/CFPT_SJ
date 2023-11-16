@@ -1,51 +1,54 @@
 <template>
 
     <div class="cote_droit contenu">
-      <form @submit.prevent="validerAvantAjout()" method="dialog">
+        <form @submit.prevent="validerAvantAjout()" method="dialog">
           <h1 class="sous_titre">Informations Personnelles</h1>
-          <div>
+          <div v-if="activePhase==1 || activePhase==2">
               <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
           </div>
-          <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
-          <div class="photo">
-              <label for="dossiers">Glissez la photo ici <span></span>
-                  <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-              </label>
-          </div>
-          <!--Informations personnelles-->
-          <div class="personnel">
-              <div>
-                  <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve" @input="validatedata('nom_eleve')">
-                  <span class="erreur" v-if="this.nom_eleve_erreur !== ''">{{this.nom_eleve_erreur}}</span>
-              </div>
+            <div v-if="activePhase==1">
+                <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
+                <div class="photo">
+                <label for="dossiers">Glissez la photo ici <span></span>
+                    <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
+                </label>
+                </div>
+                <!--Informations personnelles-->
+                <div class="personnel">
+                    <div>
+                        <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve" @input="validatedata('nom_eleve')">
+                        <span class="erreur" v-if="this.nom_eleve_erreur !== ''">{{this.nom_eleve_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom_eleve" @input="validatedata('prenom_eleve')">
-                  <span class="erreur" v-if="this.prenom_eleve_erreur !== ''">{{this.prenom_eleve_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom_eleve" @input="validatedata('prenom_eleve')">
+                        <span class="erreur" v-if="this.prenom_eleve_erreur !== ''">{{this.prenom_eleve_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_eleve" @input="validatedata('date_naissance_eleve')">
-                  <span class="erreur" v-if="this.date_naissance_eleve_erreur !== ''">{{this.date_naissance_eleve_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_eleve" @input="validatedata('date_naissance_eleve')">
+                        <span class="erreur" v-if="this.date_naissance_eleve_erreur !== ''">{{this.date_naissance_eleve_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_eleve" @input="validatedata('lieu_naissance_eleve')">
-                  <span class="erreur" v-if="this.lieu_naissance_eleve_erreur !== ''">{{this.lieu_naissance_eleve_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_eleve" @input="validatedata('lieu_naissance_eleve')">
+                        <span class="erreur" v-if="this.lieu_naissance_eleve_erreur !== ''">{{this.lieu_naissance_eleve_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_eleve" @input="validatedata('nationalite_eleve')">
-                  <span class="erreur" v-if="this.nationalite_eleve_erreur !== ''">{{this.nationalite_eleve_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_eleve" @input="validatedata('nationalite_eleve')">
+                        <span class="erreur" v-if="this.nationalite_eleve_erreur !== ''">{{this.nationalite_eleve_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse_eleve" @input="validatedata('adresse_eleve')">
-                  <span class="erreur" v-if="this.adresse_eleve_erreur !== ''">{{this.adresse_eleve_erreur}}</span>
-              </div>
-      </div>
+                    <div>
+                        <input type="text" name="adresse" id="adresse" placeholder="Adresse" v-model="form.adresse_eleve" @input="validatedata('adresse_eleve')">
+                        <span class="erreur" v-if="this.adresse_eleve_erreur !== ''">{{this.adresse_eleve_erreur}}</span>
+                    </div>
+                </div>
+            </div>
 
-          <div class="sexe">
+            <div v-if="activePhase==2">
+                <div class="sexe">
               <span class="b">Sexe</span>
               <label for="masculin">Masculin
                  <span></span>
@@ -85,6 +88,7 @@
                   <span class="erreur" v-if="this.telephone_urgence_2_erreur !== ''">{{this.telephone_urgence_2_erreur}}</span>
               </div>
           </div>
+            </div>
           <!-- Informations sur le tuteur -->
 
           <!-- <h1 class="sous_titre">Informations sur le tuteur</h1>
@@ -144,7 +148,7 @@
               <span class="erreur" v-if="genre_tuteur_erreur !== ''">{{this.genre_tuteur_erreur}}</span>
               </div>
 
-           
+
 
 
 
@@ -183,9 +187,9 @@
                   <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
                   <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
               </div>
-              
+
 </div>
-           
+
 
              <div class="boutons">
                 <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
@@ -335,37 +339,37 @@ import Form from 'vform';
                 bus.emit('inscriptionAjoutee');
                 var ajout = document.querySelector('[data-modal-ajout]');
                 var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                       
+
+
                         /* console.log(ajout); */
                         var actif = document.querySelectorAll('.actif');
                             actif.forEach(item => {
                             item.classList.remove("actif");
-                        }); 
+                        });
                         //ajout.classList.remove("actif");
                         ajout.close();
-    
-    
+
+
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
-    
-                            
-    
+
+
+
                         //setTimeout(function(){
                             confirmation.showModal();
                             confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                         
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                           
+                            //confirmation.close();
+                        //}, 1000);
+
+                        setTimeout(function(){
+                            confirmation.close();
+
+                            setTimeout(function(){
+                                confirmation.classList.remove("actif");
+                        }, 100);
+
+                        }, 1700);
+
 
 
 
