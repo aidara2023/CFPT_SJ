@@ -111,14 +111,14 @@ import Form from 'vform';
                     });
                     this.resetForm();
                     bus.emit('classeAjoutee');
-                    var ajout = document.querySelector('[data-modal-ajout]');
-                    /* console.log(ajout); */
-                    var actif = document.querySelectorAll('.actif');
-                        actif.forEach(item => {
-                        item.classList.remove("actif");
-                    });
-                    //ajout.classList.remove("actif");
-                    ajout.close();
+                    // var ajout = document.querySelector('[data-modal-ajout]');
+                    // /* console.log(ajout); */
+                    // var actif = document.querySelectorAll('.actif');
+                    //     actif.forEach(item => {
+                    //     item.classList.remove("actif");
+                    // });
+                    // //ajout.classList.remove("actif");
+                    // ajout.close();
 
                 }
                 catch(e){
@@ -151,6 +151,33 @@ import Form from 'vform';
                 this.resetForm();
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation du type de formation','error')
             });
+        },
+
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
         },
 
         get_unite_de_formation(){
@@ -326,6 +353,7 @@ import Form from 'vform';
             }else{
                 this.soumettre();
                 this.etatForm= true;
+                this.closeModal('[data-modal-confirmation]')
             }
 
         },

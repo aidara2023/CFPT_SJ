@@ -196,6 +196,10 @@ import Form from 'vform';
 
         },
 
+        goToStep: function(step){
+            this.activePhase= step;
+        },
+
         async performSearch(){
             try{
                 const response= await axios.get('/recherche/eleve', {

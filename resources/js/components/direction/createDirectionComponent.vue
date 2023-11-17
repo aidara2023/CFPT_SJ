@@ -11,8 +11,8 @@
               </div>
            <div class="roles">
               <select name="user" id="user" placeholder="Niveau" v-model="form.id_user" @change="validatedata('user')" >
-              <option value="">Chef de direction</option>
-              <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
+                <option value="">Chef de direction</option>
+                <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
               </select>
               <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
              </div>

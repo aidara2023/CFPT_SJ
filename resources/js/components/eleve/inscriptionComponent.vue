@@ -2,19 +2,20 @@
 
     <div class="cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="dialog">
-          <h1 class="sous_titre">Informations Personnelles</h1>
-          <div v-if="activePhase==1 || activePhase==2">
-              <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
-          </div>
-            <div v-if="activePhase==1">
-                <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
-                <div class="photo">
-                <label for="dossiers">Glissez la photo ici <span></span>
-                    <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-                </label>
+            <h1 class="sous_titre" v-if="activePhase===1">Informations Personnelles</h1>
+            <div v-if="activePhase===1">
+                <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
+            </div>
+            <!-- <div v-if="activePhase===1"> -->
+                <img v-if="photo && activePhase===1" :src="photoUrl"  alt="Etu" width="200" height="200">
+
+                <div class="photo" v-if="activePhase===1">
+                    <label for="dossiers">Glissez la photo ici <span></span>
+                        <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
+                    </label>
                 </div>
                 <!--Informations personnelles-->
-                <div class="personnel">
+                <div class="personnel" v-if="activePhase===1">
                     <div>
                         <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom_eleve" @input="validatedata('nom_eleve')">
                         <span class="erreur" v-if="this.nom_eleve_erreur !== ''">{{this.nom_eleve_erreur}}</span>
@@ -45,181 +46,160 @@
                         <span class="erreur" v-if="this.adresse_eleve_erreur !== ''">{{this.adresse_eleve_erreur}}</span>
                     </div>
                 </div>
-            </div>
 
-            <div v-if="activePhase==2">
-                <div class="sexe">
-              <span class="b">Sexe</span>
-              <label for="masculin">Masculin
-                 <span></span>
-                  <input type="radio" name="sexe" id="masculin" value="Masculin" v-model="form.genre_eleve" @change="validatedata('genre_eleve')">
-              </label>
-              <label for="feminin">Feminin
-                 <span></span>
-                  <input type="radio" name="sexe" id="feminin" value="Feminin" v-model="form.genre_eleve" @change="validatedata('genre_eleve')">
-              </label>
-              <span class="erreur" v-if="genre_eleve_erreur !== ''">{{this.genre_eleve_erreur}}</span>
-          </div>
+            <!-- </div> -->
 
-          <div class="num-addr">
-              <div>
-                  <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_eleve"  @input="validatedata('telephone_eleve')">
-                  <span class="erreur" v-if="this.telephone_eleve_erreur !== ''">{{this.telephone_eleve_erreur}}</span>
-              </div>
+            <!-- <div v-if="activePhase===2"> -->
+                <div class="sexe" v-if="activePhase===1">
+                    <span class="b">Sexe</span>
 
-              <div>
-                  <input type="email" name="mail_eleve" id="mail_eleve" placeholder="Mail" v-model="form.mail_eleve" @input="validatedata('mail_eleve')">
-                  <span class="erreur" v-if="this.mail_eleve_erreur !== ''">{{this.mail_eleve_erreur}}</span>
-              </div>
+                    <label for="masculin">Masculin
+                        <span></span>
+                        <input type="radio" name="sexe" id="masculin" value="Masculin" v-model="form.genre_eleve" @change="validatedata('genre_eleve')">
+                    </label>
 
-          </div>
+                    <label for="feminin">Feminin
+                        <span></span>
+                        <input type="radio" name="sexe" id="feminin" value="Feminin" v-model="form.genre_eleve" @change="validatedata('genre_eleve')">
+                    </label>
+
+                    <span class="erreur" v-if="genre_eleve_erreur !== ''">{{this.genre_eleve_erreur}}</span>
+                </div>
+
+                <div class="num-addr" v-if="activePhase===1">
+                    <div>
+                        <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_eleve"  @input="validatedata('telephone_eleve')">
+                        <span class="erreur" v-if="this.telephone_eleve_erreur !== ''">{{this.telephone_eleve_erreur}}</span>
+                    </div>
+
+                    <div>
+                        <input type="email" name="mail_eleve" id="mail_eleve" placeholder="Mail" v-model="form.mail_eleve" @input="validatedata('mail_eleve')">
+                        <span class="erreur" v-if="this.mail_eleve_erreur !== ''">{{this.mail_eleve_erreur}}</span>
+                    </div>
+                </div>
+
+                <div class="boutons" v-if="activePhase===1">
+                    <button type="button" @click="closeModal()" class="texte annuler" >Annuler</button>
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(2)">Suivant</button>
+                </div>
 
 
 
-          <p><span class="str">*</span> Personnes à contacter en cas d'urgence</p>
-          <div class="urgence">
+                <p v-if="activePhase===2"><span class="str">*</span> Personnes à contacter en cas d'urgence</p>
+                <div class="urgence" v-if="activePhase===2">
+                    <div>
+                        <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence1" @input="validatedata('telephone_urgence_1')">
+                        <span class="erreur" v-if="this.telephone_urgence_1_erreur !== ''">{{this.telephone_urgence_1_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence1" @input="validatedata('telephone_urgence_1')">
-                  <span class="erreur" v-if="this.telephone_urgence_1_erreur !== ''">{{this.telephone_urgence_1_erreur}}</span>
-              </div>
-              <div>
-                  <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence2" @input="validatedata('telephone_urgence_2')">
-                  <span class="erreur" v-if="this.telephone_urgence_2_erreur !== ''">{{this.telephone_urgence_2_erreur}}</span>
-              </div>
-          </div>
-            </div>
+                    <div>
+                        <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence2" @input="validatedata('telephone_urgence_2')">
+                        <span class="erreur" v-if="this.telephone_urgence_2_erreur !== ''">{{this.telephone_urgence_2_erreur}}</span>
+                    </div>
+
+                </div>
+
+                <div class="boutons" v-if="activePhase===2">
+                    <button type="button"  @click="closeModal()" class="texte annuler" >Annuler</button>
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(1)">Precedent</button>
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(3)">Suivant</button>
+                </div>
+
+
+            <!-- </div> -->
           <!-- Informations sur le tuteur -->
+            <!-- <div v-if="activePhase===3"> -->
+                <h1 class="sous_titre" v-if="activePhase===3">Informations sur le tuteur</h1>
+                <div class="tuteur" v-if="activePhase===3">
+                    <div>
+                        <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur" v-model="form.nom_tuteur" @input="validatedata('nom_tuteur')">
+                        <span class="erreur" v-if="this.nom_tuteur_erreur !== ''">{{this.nom_tuteur_erreur}}</span>
+                    </div>
 
-          <!-- <h1 class="sous_titre">Informations sur le tuteur</h1>
-          <div class="tuteur">
+                    <div>
+                        <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur" v-model="form.prenom_tuteur" @input="validatedata('prenom_tuteur')">
+                        <span class="erreur" v-if="this.prenom_tuteur_erreur !== ''">{{this.prenom_tuteur_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur" v-model="form.nom_tuteur" @input="validatedata('nom_tuteur')">
-                  <span class="erreur" v-if="this.nom_tuteur_erreur !== ''">{{this.nom_tuteur_erreur}}</span>
-              </div>
+                    <!-- <div>
+                        <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_tuteur" @input="validatedata('date_naissance_tuteur')">
+                        <span class="erreur" v-if="this.date_naissance_tuteur_erreur !== ''">{{this.date_naissance_tuteur_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur" v-model="form.prenom_tuteur" @input="validatedata('prenom_tuteur')">
-                  <span class="erreur" v-if="this.prenom_tuteur_erreur !== ''">{{this.prenom_tuteur_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_tuteur" @input="validatedata('lieu_naissance_tuteur')">
+                        <span class="erreur" v-if="this.lieu_naissance_tuteur_erreur !== ''">{{this.lieu_naissance_tuteur_erreur}}</span>
+                    </div> -->
 
-              <div>
-                  <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance_tuteur" @input="validatedata('date_naissance_tuteur')">
-                  <span class="erreur" v-if="this.date_naissance_tuteur_erreur !== ''">{{this.date_naissance_tuteur_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_tuteur" @input="validatedata('nationalite_tuteur')">
+                        <span class="erreur" v-if="this.nationalite_tuteur_erreur !== ''">{{this.nationalite_tuteur_erreur}}</span>
+                    </div>
 
-              <div>
-                  <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_tuteur" @input="validatedata('lieu_naissance_tuteur')">
-                  <span class="erreur" v-if="this.lieu_naissance_tuteur_erreur !== ''">{{this.lieu_naissance_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite_tuteur" @input="validatedata('nationalite_tuteur')">
-                  <span class="erreur" v-if="this.nationalite_tuteur_erreur !== ''">{{this.nationalite_tuteur_erreur}}</span>
-              </div>
-              <div>
-                  <input type="text" name="adresse_tuteur" id="adresse_tuteur" placeholder="Adresse tuteur" v-model="form.adresse_tuteur" @input="validatedata('adresse_tuteur')">
-                  <span class="erreur" v-if="this.adresse_tuteur_erreur !== ''">{{this.adresse_tuteur_erreur}}</span>
-              </div>
-
-
-              <div>
-                  <input type="email" name="email" id="email" placeholder="Mail" v-model="form.mail_tuteur" @input="validatedata('mail_tuteur')">
-                  <span class="erreur" v-if="this.mail_tuteur_erreur !== ''">{{this.mail_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
-                  <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
-              </div>
-
-          </div>
-          <div class="sexe">
-              <span class="b">Sexe tuteur</span>
-              <label for="masculin_tuteur">Masculin
-                 <span></span>
-                  <input type="radio" name="sexe_tuteur" id="masculin_tuteur" value="Masculin" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')">
-              </label>
-              <label for="feminin_tuteur">Feminin
-                 <span></span>
-                  <input type="radio" name="sexe_tuteur" id="feminin_tuteur" value="Feminin" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')">
-              </label>
-              <span class="erreur" v-if="genre_tuteur_erreur !== ''">{{this.genre_tuteur_erreur}}</span>
-              </div>
+                    <div>
+                        <input type="text" name="adresse_tuteur" id="adresse_tuteur" placeholder="Adresse tuteur" v-model="form.adresse_tuteur" @input="validatedata('adresse_tuteur')">
+                        <span class="erreur" v-if="this.adresse_tuteur_erreur !== ''">{{this.adresse_tuteur_erreur}}</span>
+                    </div>
 
 
+                    <div>
+                        <input type="email" name="email" id="email" placeholder="Mail" v-model="form.mail_tuteur" @input="validatedata('mail_tuteur')">
+                        <span class="erreur" v-if="this.mail_tuteur_erreur !== ''">{{this.mail_tuteur_erreur}}</span>
+                    </div>
 
-
-
-          <p><span class="str">*</span> Personnes à contacter en cas d'urgence</p>
-          <div class="urgence">
-
-              <div>
-                  <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1" v-model="form.contact_urgence1" @input="validatedata('telephone_urgence_1')">
-                  <span class="erreur" v-if="this.telephone_urgence_1_erreur !== ''">{{this.telephone_urgence_1_erreur}}</span>
-              </div>
-              <div>
-                  <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2" v-model="form.contact_urgence2" @input="validatedata('telephone_urgence_2')">
-                  <span class="erreur" v-if="this.telephone_urgence_2_erreur !== ''">{{this.telephone_urgence_2_erreur}}</span>
-              </div>
-          </div> -->
-          <!-- Informations sur le tuteur -->
-
-          <h1 class="sous_titre">Informations sur le tuteur</h1>
-          <div class="tuteur">
-
-              <div>
-                  <input type="text" name="nom_tuteur" id="nom_tuteur" placeholder="Nom tuteur" v-model="form.nom_tuteur" @input="validatedata('nom_tuteur')">
-                  <span class="erreur" v-if="this.nom_tuteur_erreur !== ''">{{this.nom_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="text" name="prenom_tuteur" id="prenom_tuteur" placeholder="Prénom tuteur" v-model="form.prenom_tuteur" @input="validatedata('prenom_tuteur')">
-                  <span class="erreur" v-if="this.prenom_tuteur_erreur !== ''">{{this.prenom_tuteur_erreur}}</span>
-              </div>
-              <div>
-                  <input type="text" name="adresse_tuteur" id="adresse_tuteur" placeholder="Adresse tuteur" v-model="form.adresse_tuteur" @input="validatedata('adresse_tuteur')">
-                  <span class="erreur" v-if="this.adresse_tuteur_erreur !== ''">{{this.adresse_tuteur_erreur}}</span>
-              </div>
-
-              <div>
-                  <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
-                  <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
-              </div>
-
-                <div>
-                    <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
-                        <option value=""> Classe </option>
-                        <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_classe_erreur !== ''">{{id_classe_erreur}}</span>
-                </div>
-                <div class="academiques">
-                <div>
-                    <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique" @change="validatedata('id_annee_accademique')">
-                        <option value=""> Annee academique </option>
-                        <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_annee_accademique_erreur !== ''">{{id_annee_accademique_erreur}}</span>
+                    <div>
+                        <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX" v-model="form.telephone_tuteur"  @input="validatedata('telephone_tuteur')">
+                        <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{this.telephone_tuteur_erreur}}</span>
+                    </div>
                 </div>
 
-                <div>
-                    <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
-                        <option value=""> Classe </option>
-                        <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_classe_erreur !== ''">{{id_classe_erreur}}</span>
+                <div class="sexe" v-if="activePhase===3">
+                    <span class="b">Sexe tuteur</span>
+                    <label for="masculin_tuteur">Masculin
+                        <span></span>
+                        <input type="radio" name="sexe_tuteur" id="masculin_tuteur" value="Masculin" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')">
+                    </label>
+
+                    <label for="feminin_tuteur">Feminin
+                        <span></span>
+                        <input type="radio" name="sexe_tuteur" id="feminin_tuteur" value="Feminin" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')">
+                    </label>
+
+                    <span class="erreur" v-if="genre_tuteur_erreur !== ''">{{this.genre_tuteur_erreur}}</span>
                 </div>
+
+                 <div class="boutons" v-if="activePhase===3">
+                    <button type="button" @click="closeModal()" class="texte annuler data-close-modal" >Annuler</button>
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(2)">Precedent</button>
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(4)">Suivant</button>
+                </div>
+            <!-- </div> -->
+
+            <!-- <div v-if="activePhase===4"> -->
+                <div class="academiques" v-if="activePhase===4">
+                    <div>
+                        <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique" @change="validatedata('id_annee_accademique')">
+                            <option value=""> Annee academique </option>
+                            <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{ annee_accademique.intitule }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_annee_accademique_erreur !== ''">{{id_annee_accademique_erreur}}</span>
+                    </div>
+
+                    <div>
+                        <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
+                            <option value=""> Classe </option>
+                            <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{ classe.nom_classe }} {{ classe.niveau }}  {{ classe.type_classe }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_classe_erreur !== ''">{{id_classe_erreur}}</span>
+                    </div>
                 </div>
 
-</div>
-
-
-             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
-            </div>
+                <div class="boutons" v-if="activePhase===4">
+                    <button type="button" class="texte annuler" @click.prevent="goToStep(3)">Precedent</button>
+                    <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <button type="button" @click="closeModal()" class="texte annuler" >Annuler</button>
+                </div>
+            <!-- </div> -->
         </form>
     </div>
 </template>
@@ -303,6 +283,7 @@ import Form from 'vform';
             champ:"",
             i:0,
             etatForm: false,
+            activePhase: 1,
 
         }
     },
@@ -362,6 +343,7 @@ import Form from 'vform';
                 });
                 this.form.reset();
                 bus.emit('inscriptionAjoutee');
+                this.resetForm();
                 var ajout = document.querySelector('[data-modal-ajout]');
                 var confirmation = document.querySelector('[data-modal-confirmation]');
 
@@ -395,9 +377,6 @@ import Form from 'vform';
 
                         }, 1700);
 
-
-
-
             }
             catch(e){
                 console.log(e)
@@ -406,6 +385,59 @@ import Form from 'vform';
 
         },
 
+        resetForm() {
+            this.form.id_tuteur = "";
+            this.form.montant = "";
+            this.form.mail_tuteur = "";
+            this.form.mail_eleve = "";
+            this.form.date_inscription = "";
+            this.form.id_eleve = "";
+            this.form.id_classe = "";
+            this.form.id_annee_accademique = "";
+            this.form.nom_eleve = "";
+            this.form.prenom_eleve = "";
+            this.form.date_naissance = "";
+            this.form.lieu_naissance = "";
+            this.form.nationalite_eleve = "";
+            this.form.nationalite_tuteur = "";
+            this.form.nom_tuteur = "";
+            this.form.prenom_tuteur = "";
+            this.form.lieu_naissance_tuteur = "";
+            this.form.lieu_naissance_eleve = "";
+            this.form.date_naissance_tuteur = "";
+            this.form.genre_eleve = "";
+            this.form.genre_tuteur = "";
+            this.form.telephone_eleve = "";
+            this.form.telephone_tuteur = "";
+            this.form.contact_urgence1 = "";
+            this.form.contact_urgence2 = "";
+            this.form.telephone_tuteur = "";
+            this.form.adresse_eleve = "";
+            this.form.adresse_tuteur = "";
+            this.form.niveau = "";
+            this.form.filiere = "";
+            this.photo = "";
+            this.i=0;
+            this.etatForm= false;
+            this.activePhase= 1;
+        },
+
+        goToStep: function(step){
+            this.activePhase= step;
+        },
+
+        closeModal(){
+            var ajout=document.querySelector('[data-modal-ajout]');
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.resetForm();
+        },
 
        // Méthode pour ajouter l'image
         ajoutimage(event) {
@@ -613,19 +645,19 @@ import Form from 'vform';
                         return true
                     }
                     break;
-                case 'lieu_naissance_tuteur':
-                    //pour lieu de naissance
-                    if(this.form.lieu_naissance_tuteur=== ""){
-                        this.lieu_naissance_tuteur_erreur= "Ce champ est obligatoire"
-                        i= 1;
-                        return true
-                    }
-                    if(!this.verifCaratere(this.form.lieu_naissance_tuteur)){
-                        this.lieu_naissance_tuteur_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                        i= 1;
-                        return true
-                    }
-                    break;
+                // case 'lieu_naissance_tuteur':
+                //     //pour lieu de naissance
+                //     if(this.form.lieu_naissance_tuteur=== ""){
+                //         this.lieu_naissance_tuteur_erreur= "Ce champ est obligatoire"
+                //         i= 1;
+                //         return true
+                //     }
+                //     if(!this.verifCaratere(this.form.lieu_naissance_tuteur)){
+                //         this.lieu_naissance_tuteur_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                //         i= 1;
+                //         return true
+                //     }
+                //     break;
                 case 'nationalite_eleve':
                     //pour nationalite
                     if(this.form.nationalite_eleve=== ""){
@@ -706,32 +738,32 @@ import Form from 'vform';
                         }
                     }
                     break;
-                case 'date_naissance_tuteur':
-                // Vérification de la date de naissance
-                    if(this.form.date_naissance_tuteur === ""){
-                        this.date_naissance_tuteur_erreur = "La date de naissance est obligatoire";
-                        i= 1;
-                        return true
-                    } else {
-                        const dateNaissance = new Date(this.form.date_naissance_tuteur);
-                        const dateLimite = new Date();
-                        const dateActuelle = new Date();
-                        dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-                        let annee = dateLimite.getFullYear();
-                        console.log(annee);
+                // case 'date_naissance_tuteur':
+                // // Vérification de la date de naissance
+                //     if(this.form.date_naissance_tuteur === ""){
+                //         this.date_naissance_tuteur_erreur = "La date de naissance est obligatoire";
+                //         i= 1;
+                //         return true
+                //     } else {
+                //         const dateNaissance = new Date(this.form.date_naissance_tuteur);
+                //         const dateLimite = new Date();
+                //         const dateActuelle = new Date();
+                //         dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+                //         let annee = dateLimite.getFullYear();
+                //         console.log(annee);
 
-                        if(dateNaissance > dateLimite) {
-                            this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
-                            i=1;
-                            return true
-                        }if(dateNaissance > dateActuelle) {
-                            this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être dans le futur";
-                            i=1;
-                            return true
-                        }
+                //         if(dateNaissance > dateLimite) {
+                //             this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
+                //             i=1;
+                //             return true
+                //         }if(dateNaissance > dateActuelle) {
+                //             this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être dans le futur";
+                //             i=1;
+                //             return true
+                //         }
 
-                    }
-                    break;
+                //     }
+                //     break;
                 case 'telephone_eleve':
                     //Vérification du numero de telephone
                     if(this.form.telephone_eleve === ""){
@@ -912,16 +944,16 @@ import Form from 'vform';
                 console.log("lieunaisseleve="+ i);
             }
             //pour lieu de naissance
-            if(this.form.lieu_naissance_tuteur=== ""){
-                this.lieu_naissance_tuteur_erreur= "Ce champ est obligatoire"
-                i= 1;
-                console.log("videlieunaisstutetur="+ i);
-            }
-            if(!this.verifCaratere(this.form.lieu_naissance_tuteur)){
-                this.lieu_naissance_tuteur_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                i= 1;
-                console.log("lieunaisstutetur="+ i);
-            }
+            // if(this.form.lieu_naissance_tuteur=== ""){
+            //     this.lieu_naissance_tuteur_erreur= "Ce champ est obligatoire"
+            //     i= 1;
+            //     console.log("videlieunaisstutetur="+ i);
+            // }
+            // if(!this.verifCaratere(this.form.lieu_naissance_tuteur)){
+            //     this.lieu_naissance_tuteur_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+            //     i= 1;
+            //     console.log("lieunaisstutetur="+ i);
+            // }
             //pour nationalite
             if(this.form.nationalite_eleve=== ""){
                 this.nationalite_eleve_erreur= "Ce champ est obligatoire"
@@ -992,28 +1024,28 @@ import Form from 'vform';
                 }
             }
             // Vérification de la date de naissance
-            if(this.form.date_naissance_tuteur === ""){
-                this.date_naissance_tuteur_erreur = "La date de naissance est obligatoire";
-                i= 1;
-                console.log("videdatenaisstutetur="+ i);
-            } else {
-                const dateNaissance = new Date(this.form.date_naissance_tuteur);
-                const dateLimite = new Date();
-                const dateActuelle = new Date();
-                dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-                let annee = dateLimite.getFullYear();
+            // if(this.form.date_naissance_tuteur === ""){
+            //     this.date_naissance_tuteur_erreur = "La date de naissance est obligatoire";
+            //     i= 1;
+            //     console.log("videdatenaisstutetur="+ i);
+            // } else {
+            //     const dateNaissance = new Date(this.form.date_naissance_tuteur);
+            //     const dateLimite = new Date();
+            //     const dateActuelle = new Date();
+            //     dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+            //     let annee = dateLimite.getFullYear();
 
-                if(dateNaissance > dateLimite) {
-                    this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
-                    i=1;
-                    console.log("datenaisstutetur="+ i);
-                }if(dateNaissance > dateActuelle) {
-                    this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être dans le futur";
-                    i=1;
-                    console.log("datenaisstutetur="+ i);
-                }
+            //     if(dateNaissance > dateLimite) {
+            //         this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être supérieure à "+ annee;
+            //         i=1;
+            //         console.log("datenaisstutetur="+ i);
+            //     }if(dateNaissance > dateActuelle) {
+            //         this.date_naissance_tuteur_erreur = "La date de naissance ne peut pas être dans le futur";
+            //         i=1;
+            //         console.log("datenaisstutetur="+ i);
+            //     }
 
-            }
+            // }
             //Vérification du numero de telephone
             if(this.form.telephone_eleve === ""){
                 this.telephone_eleve_erreur = "Le numéro de téléphone est obligatoire";

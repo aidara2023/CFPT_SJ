@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('paiements', function (Blueprint $table) {
             $table->string('mode_paiement')->nullable();
             $table->string('reference')->nullable();
+            $table->unsignedBigInteger('id_quittance')->nullable();
+            $table->foreign('id_quittance')->references('id')->on('quittances')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

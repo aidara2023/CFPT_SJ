@@ -20,7 +20,7 @@
                     </a>
                     <a href="" class="texte b">
                         <i class="fi fi-rr-comment-alt-dots"></i>
-                  
+
                         <span class="details">Détails</span>
                     </a>
                         <a href="#" class="texte b" @click="deleteUniteDeFormation(unite_de_formation)">
@@ -59,7 +59,7 @@ import Form from 'vform';
    },
    mounted(){
        this.get_unite_de_formation();
-       bus.on('uniteDeFormationAjoutee', () => { // Écouter l'événement de nouvelle unite de formation
+       bus.on('unite_formationAjoutee', () => { // Écouter l'événement de nouvelle unite de formation
            this.get_unite_de_formation(); // Mettre à jour la liste des unites de formations
        });
    },

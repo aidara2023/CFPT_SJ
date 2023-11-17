@@ -16,10 +16,13 @@ return new class extends Migration
             $table->string('date_emis');
             $table->string('date_imprime');
             $table->string('status')->nullable();
+            $table->string('reference')->nullable();
             $table->float('montant');
             $table->string('numero')->unique();
             $table->unsignedBigInteger('id_eleve');
             $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('id_mois');
+            $table->foreign('id_mois')->references('id')->on('mois')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

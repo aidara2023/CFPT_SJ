@@ -3,9 +3,7 @@
 
 <div class="elements flou " id="app">
     @include('layout.header')
-
         <liste-direction></liste-direction>
-
 <!-- debut modal pour modifier utilisateur -->
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('date_emis');
             $table->string('date_imprime');
             $table->string('status')->nullable();
+            $table->string('reference')->nullable();
             $table->float('relliquat');
             $table->string('numero_operation')->unique();
             $table->unsignedBigInteger('id_paiement');

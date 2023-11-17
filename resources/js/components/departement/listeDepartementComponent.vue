@@ -152,7 +152,7 @@ import Form from 'vform';
                 // Ajoutez d'autres propriétés si nécessaire
             };
 
-            bus.emit('departementAjoutee', eventData);
+            bus.emit('departementModifier', eventData);
 
             var fond = document.querySelector('.fond');
             var flou = document.querySelectorAll('.flou');

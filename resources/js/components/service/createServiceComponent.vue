@@ -76,144 +76,137 @@
                 formdata.append('nom_service', this.form.nom_service  );
                 formdata.append('id_user', this.form.id_user  );
                 formdata.append('id_direction', this.form.id_direction  );
-                    try{
-                        await axios.post('/service/store', formdata, {});
-                        //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+                try{
+                    await axios.post('/service/store', formdata, {});
+                    //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+                    this.resetForm();
+                    bus.emit('serviceAjoutee');
+
+                    var ajout = document.querySelector('[data-modal-ajout]');
+
+
+                    /* console.log(ajout); */
+                    var ajout = document.querySelector('[data-modal-ajout]');
+                        var confirmation = document.querySelector('[data-modal-confirmation]');
     
-    
-                        this.resetForm();
-                        bus.emit('serviceAjoutee');
-    
-                        var ajout = document.querySelector('[data-modal-ajout]');
-    
-    
+                        
                         /* console.log(ajout); */
-                        var ajout = document.querySelector('[data-modal-ajout]');
-                            var confirmation = document.querySelector('[data-modal-confirmation]');
-        
-                           
-                            /* console.log(ajout); */
-                            var actif = document.querySelectorAll('.actif');
-                                actif.forEach(item => {
-                                item.classList.remove("actif");
-                            }); 
-                            //ajout.classList.remove("actif");
-                            ajout.close();
-        
-        
-                            confirmation.style.backgroundColor = 'white';
-                            confirmation.style.color = 'var(--clr)';
-        
-                                
-        
-                            //setTimeout(function(){
-                                confirmation.showModal();
-                                confirmation.classList.add("actif");
-                                //confirmation.close();  
-                            //}, 1000);  
-                             
+                        var actif = document.querySelectorAll('.actif');
+                            actif.forEach(item => {
+                            item.classList.remove("actif");
+                        }); 
+                        //ajout.classList.remove("actif");
+                        ajout.close();
+    
+    
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
+    
+                            
+    
+                        //setTimeout(function(){
+                            confirmation.showModal();
+                            confirmation.classList.add("actif");
+                            //confirmation.close();  
+                        //}, 1000);  
+                            
+                        setTimeout(function(){     
+                            confirmation.close();  
+    
                             setTimeout(function(){     
-                                confirmation.close();  
-        
-                                setTimeout(function(){     
-                                    confirmation.classList.remove("actif");   
-                            }, 100); 
-        
-                            }, 1700);  
-                               
+                                confirmation.classList.remove("actif");   
+                        }, 100); 
+    
+                        }, 1700);  
+                            
+                }
+                catch(e){
+                    /* console.log(e.request.status) */
+                    if(e.request.status===404){
+                        Swal.fire('Erreur !','Ce service existe déjà','error')
                     }
-                    catch(e){
-                        /* console.log(e.request.status) */
-                        if(e.request.status===404){
-                            Swal.fire('Erreur !','Ce service existe déjà','error')
-                        }
-                        else{
-                            Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                        }
-    
+                    else{
+                        Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
                     }
-    
-             /*    } */
+
+                }
     
             },
     
-    validerAvantAjout() {
+        validerAvantAjout() {
+            const isVerifIdValid = this.verifIdUser();
+            const isIdChampValid = this.validatedataOld();
+            /*   console.log(isNomChampValid); */
+            if ( isIdChampValid || isVerifIdValid) {
+                this.etatForm = false;
+                // console.log(erreur);
+                return 0;
+            }else{
+                this.soumettre();
+                this.etatForm = true;
+                // console.log(Tokkos);
+            }
+        },
     
-    const isVerifIdValid = this.verifIdUser();
-    const isIdChampValid = this.validatedataOld();
-    /*   console.log(isNomChampValid); */
-    if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
-        this.etatForm = false;
-        // console.log(erreur);
-        return 0;
-    }else{
-        this.soumettre();
-        this.etatForm = true;
-        // console.log(Tokkos);
-    }
-    
-    },
-    
-            resetForm(){
-                this.form.nom_service="";
-                this.form.id_user="";
-                this.form.id_direction=""
-            },
-    
-            verifCaratere(nom){
-                const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
-                return valeur.test(nom);
-            },
-            validatedata(champ){
-                var i=0;
-                this.nom_service_erreur= "";
-                this.id_user_erreur= "";
-                this.id_direction_erreur= "";
-    
-    
-    
-    switch (champ) {
-    case 'nom_service':
-    // Effectuez la validation pour le champ 'nom'
-    if(this.form.nom_service=== ""){
-    this.nom_service_erreur= "Ce champ est obligatoire"
-    i= 1;
-    return true
-    
-    }
-    if(!this.verifCaratere(this.form.nom_service)){
-        this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-        /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-        i= 1;
-        return true
-    }
-    
-    break;
-    
-    case 'user':
-    //pour user
-    if(this.form.id_user=== ""){
-        this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de service'"
-        i= 1;
-        return true
-    
-    }
-    break;
-    
-    case 'direction':
-    //pour direction
-    if(this.form.id_direction=== ""){
-        this.id_direction_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
-        i= 1;
-        return true
-    
-    }
-    break;
-    
-        default:
-        break;
-    }
-            },
+        resetForm(){
+            this.form.nom_service="";
+            this.form.id_user="";
+            this.form.id_direction=""
+        },
+
+        verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
+        },
+
+        validatedata(champ){
+            var i=0;
+            this.nom_service_erreur= "";
+            this.id_user_erreur= "";
+            this.id_direction_erreur= "";
+
+            switch (champ) {
+            case 'nom_service':
+            // Effectuez la validation pour le champ 'nom'
+            if(this.form.nom_service=== ""){
+            this.nom_service_erreur= "Ce champ est obligatoire"
+            i= 1;
+            return true
+            
+            }
+            if(!this.verifCaratere(this.form.nom_service)){
+                this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                i= 1;
+                return true
+            }
+            
+            break;
+            
+            case 'user':
+            //pour user
+            if(this.form.id_user=== ""){
+                this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de service'"
+                i= 1;
+                return true
+            
+            }
+            break;
+            
+            case 'direction':
+            //pour direction
+            if(this.form.id_direction=== ""){
+                this.id_direction_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
+                i= 1;
+                return true
+            
+            }
+            break;
+            
+                default:
+                break;
+            }
+        },
     
         validatedataOld(){
             this.nom_service_erreur= "";
@@ -250,10 +243,8 @@
             if(i==1) return true;       
     
             return false;
-    
-            
-    
         },
+
         verifIdUser(){
             this.id_user_erreur= "";
             this.id_direction_erreur= "";
@@ -279,17 +270,16 @@
                });
            },
     
-           get_direction(){
-    
-    axios.get('/direction/index')
-    .then(response => {
-        this.directions=response.data.direction
-    
-    
-    }).catch(error=>{
-       Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
-    });
-    },
+            get_direction(){
+                axios.get('/direction/index')
+                .then(response => {
+                    this.directions=response.data.direction
+                
+                
+                }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
+                });
+            },
     
         }
     }
