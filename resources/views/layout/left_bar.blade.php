@@ -1,5 +1,5 @@
 @if (Auth::user())
-    @if (Auth::user()->id_role==5)
+    @if (Auth::user()->id_role==3)
     <nav class="flou ">
         <ul >
             <li class="fntr"><a href="{{route('admin_index')}}">
@@ -131,7 +131,8 @@
         </ul>
      </nav>
     @endif
-    @if (Auth::user()->id_role==4)
+    @if (Auth::user()->id_role==5)
+        @if(Auth::user()->role()->admin()->id_personnel_administratif==1)
     <nav class="flou ">
         <ul >
             <li class="fntr"><a href="{{route('caissier_index')}}">
@@ -167,8 +168,9 @@
 
         </ul>
      </nav>
-    @endif
-    @if (Auth::user()->id_role==9)
+     @endif
+
+     @if(Auth::user()->role()->admin()->id_personnel_administratif==4)
         <nav class="flou">
             <ul>
                 <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
@@ -179,8 +181,7 @@
             </ul>
         </nav>
     @endif
-
-    @if (Auth::user()->id_role==10)
+     @if(Auth::user()->role()->admin()->id_personnel_administratif==2)
         <nav class="flou">
             <ul>
                 <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Inscription</span></a></li>
@@ -191,6 +192,8 @@
             </ul>
         </nav>
     @endif
+    @endif
+    
 
 @endif
 

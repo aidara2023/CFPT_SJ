@@ -25,5 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AnneeSeeder::class);
         $this->call(TypeFormationSeeder::class);
         $this->call(SpecialiteSeeder::class);
+        $this->call(PersonnelAdministratifSeeder::class);
+        $this->call(PersonnelAppuiSeeder::class);
+
     }
 }
