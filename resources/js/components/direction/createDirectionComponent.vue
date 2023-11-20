@@ -22,7 +22,9 @@
 
 
       <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
                 <button type="button" class="texte annuler data-close-modal" >Annuler</button>
             </div>
       </form>
@@ -47,21 +49,28 @@ import Form from 'vform';
             }),
            
             nom_direction_erreur:"",
-           
             id_user_erreur:"",
             etatForm:false,
+            editModal: false,
+            idDirection: "",
+
         }
     },
     mounted(){
        
         this.get_user();
+        bus.on('directionModifier', (eventData) => {
+            this.idDirection = eventData.idDirection;
+            this.editModal = eventData.editModal;
+            this.form.nom = eventData.nom;
+            this.form.id_user = eventData.id_user;
+        });
     },
 
     methods:{
         async soumettre(){
           const formdata = new FormData();
           formdata.append('nom_direction', this.form.nom_direction  );
-         
           formdata.append('id_user', this.form.id_user  );
 
             try{
@@ -69,44 +78,8 @@ import Form from 'vform';
 
                 this.resetForm();
                 bus.emit('directionAjoutee');
-
-                var ajout = document.querySelector('[data-modal-ajout]');
-                var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                       
-                        /* console.log(ajout); */
-                        var actif = document.querySelectorAll('.actif');
-                            actif.forEach(item => {
-                            item.classList.remove("actif");
-                        }); 
-                        //ajout.classList.remove("actif");
-                        ajout.close();
-    
-    
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-    
-                            
-    
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                         
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                           
-
-
-            }
-            catch(e){
+                 } 
+                 catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
                     Swal.fire('Erreur !','Ce service existe déjà','error')
@@ -213,41 +186,76 @@ import Form from 'vform';
     validerAvantAjout() {
               // Exécutez la validation des champs
            /*  const isNomChampValid = this.validatedata(); */
-           const isIdChampValid = this.validatedataOld();
+           //const isIdChampValid = this.validatedataOld();
 
             /*   console.log(isNomChampValid); */
-            if ( isIdChampValid) {
+            /* if ( isIdChampValid) {
                 this.etatForm= false;
                 return 0;
             }else{
                 this.soumettre();
                 this.etatForm= true;
+                
+            } */
+
+            const isNomDirectionValid = this.validatedata();
+            const isIdDirectionValid = this.verifId();
+
+            console.log(isNomDirectionValid);
+            console.log(isIdDirectionValid);
+
+            if ( isNomDirectionValid===true || isIdDirectionValid===true ) {
+                this.etatForm= false;
+                return 0;
+            }else{
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_direction(this.idDirection);
+                    this.closeModal('[data-modal-confirmation-modifier]');
+                    
+                }
+                else{
+                    this.etatForm= true;
+                    this.soumettre();
+                    this.closeModal('[data-modal-confirmation]');
+                }
             }
 
             },
 
       resetForm(){
-    //     var ajout = document.querySelector("[data-modal-ajout]");
-    //         var fermemod = document.querySelectorAll('[data-close-modal]');
-    //         //Fermeture des modals
-    //         fermemod.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //             var actif = document.querySelectorAll('.actif');
-    //                 actif.forEach(item => {
-    //                     item.classList.remove("actif");
-    //                 });
-    //                     ajout.close();
-    //                     modification.close();
-    //                     suppression.close();
-
-    //         })
-    //    /*    ajout.remove("active");  */
-
-    //         });
           this.form.nom_direction="";
           this.form.id_user="";
+          this.editModal===false;
          
       },
+      closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
 
       get_user(){
           axios.get('/user/getPersonnel')
@@ -260,11 +268,6 @@ import Form from 'vform';
          });
      },
      
-    //    rafraichissementAutomatique() {
-    //         document.addEventListener("DOMContentLoaded", this.resetForm());
-    // },
-
-
   }
  }
 </script>
