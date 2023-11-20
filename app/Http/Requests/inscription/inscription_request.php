@@ -34,8 +34,8 @@ class inscription_request extends FormRequest
             'genre_tuteur'=> 'required',
             'adresse_tuteur'=> 'required',
             'telephone_tuteur'=> 'required',
-            'date_naissance_tuteur'=> 'required',
-            'lieu_naissance_tuteur'=> 'required',
+            'date_naissance_tuteur'=> '',
+            'lieu_naissance_tuteur'=> '',
             'nationalite_tuteur'=> 'required',
             'mail_tuteur'=> 'required',
 

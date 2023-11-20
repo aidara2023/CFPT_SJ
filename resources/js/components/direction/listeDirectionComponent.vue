@@ -146,7 +146,7 @@ import Form from 'vform';
           const eventData = {
               idDirection: this.idDirection,
               nom: direction.nom_direction,
-              id_direction: direction.id_direction,
+              id_user: direction.id_user,
               editModal: this.editModal,
               // Ajoutez d'autres propriétés si nécessaire
           };

@@ -512,7 +512,7 @@ import Form from 'vform';
 
         validatePhoneNumber(phoneNumber) {
             // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
-            const phoneRegex = /^\d{10}$/; // Format : 10 chiffres
+            const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
 
             return phoneRegex.test(phoneNumber);
         },

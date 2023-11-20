@@ -25,7 +25,7 @@
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
             </div>
       </form>
   </div>
@@ -98,7 +98,7 @@ import Form from 'vform';
 
         validatedata(champ){
             this.nom_direction_erreur= "";
-            
+            this.id_user_erreur="";
             var i=0;
 
                 switch (champ) {
@@ -149,11 +149,8 @@ import Form from 'vform';
             if(!this.verifCaratere(this.form.nom_direction)){
             this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
            i=1;
-        }
+        } 
     }
-
-       
-
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
              i=1;
@@ -186,7 +183,7 @@ import Form from 'vform';
     validerAvantAjout() {
               // Exécutez la validation des champs
            /*  const isNomChampValid = this.validatedata(); */
-           //const isIdChampValid = this.validatedataOld();
+           const isIdChampValid = this.validatedataOld();
 
             /*   console.log(isNomChampValid); */
             /* if ( isIdChampValid) {
@@ -198,7 +195,7 @@ import Form from 'vform';
                 
             } */
 
-            const isNomDirectionValid = this.validatedata();
+            const isNomDirectionValid = this.validatedataOld();
             const isIdDirectionValid = this.verifId();
 
             console.log(isNomDirectionValid);
@@ -228,6 +225,8 @@ import Form from 'vform';
           this.form.nom_direction="";
           this.form.id_user="";
           this.editModal===false;
+          this.nom_direction_erreur= "";
+          this.id_user_erreur="";
          
       },
       closeModal(selector){

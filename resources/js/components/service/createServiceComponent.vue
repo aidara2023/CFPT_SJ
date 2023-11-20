@@ -33,7 +33,7 @@
     
                 <div class="boutons">
                     <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                    <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                    <button type="button" class="texte annuler data-close-modal" @click="resetForm" >Annuler</button>
                 </div>
             </form>
         </div>
@@ -152,6 +152,9 @@
             this.form.nom_service="";
             this.form.id_user="";
             this.form.id_direction=""
+            this.nom_service_erreur= "";
+            this.id_user_erreur= "";
+            this.id_direction_erreur= "";
         },
 
         verifCaratere(nom){

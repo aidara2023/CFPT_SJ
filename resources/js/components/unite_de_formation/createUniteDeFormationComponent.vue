@@ -34,7 +34,7 @@
 
             <div class="boutons">
                 <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -189,6 +189,9 @@ import Form from 'vform';
             this.form.nom_unite_formation="";
             this.form.id_departement="";
             this.form.id_formateur="";
+            this.nom_unite_erreur= "";
+            this.id_departement_erreur= "";
+            this.id_formateur_erreur= "";
         },
 
         verifCaratere(nom_unite_formation){

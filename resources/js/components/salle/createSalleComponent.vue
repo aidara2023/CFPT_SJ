@@ -28,7 +28,7 @@
     
                 <div class="boutons">
                     <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                    <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                    <button type="button" class="texte annuler data-close-modal" @click="resetForm"  >Annuler</button>
                 </div>
             </form>
         </div>
@@ -135,8 +135,8 @@
     
             validerAvantAjout() {
                 // Exécutez la validation des champs
-                const isNomSalleValid = this.validatedataold();
-                const isIdBatimentValid = this.verifIdBatiment();
+                const isNomSalleValid = this.verifIdBatiment();
+                const isIdBatimentValid = this.validatedataold();
     
               /*   console.log(isNomSalleValid); */
                 if (isNomSalleValid || isIdBatimentValid) {
@@ -153,6 +153,9 @@
                 this.form.intitule="";
                 this.form.nombre_place="";
                 this.form.id_batiment="";
+                this.nom_salle_erreur= "";
+                this.nombre_place_erreur="";
+                this.id_batiment_erreur= "";
             },
     
             verifCaratere(nom){
