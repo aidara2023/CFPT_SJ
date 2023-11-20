@@ -1,19 +1,22 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre()" method="dialog">
+    <dialog data-modal-ajout class="modal" >
+        <div class="cote_droit">
+            <form @submit.prevent="validerAvantAjout()" method="dialog">
 
-            <h1 class="sous_titre">Ajout Type Formation</h1>
+                <h1 class="sous_titre">Ajout Type Formation</h1>
 
-            <div class="personnel">
-            <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule">
-        </div>
-
-        <div class="boutons">
-                <input  type="submit" data-close-modal  value="Ajouter">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+                <div class="personnel">
+                <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule"  @input="validatedata('intitule')">
+                <span class="erreur" v-if="this.intitule_erreur !== ''">{{this.intitule_erreur}}</span>
             </div>
-        </form>
-    </div>
+
+            <div class="boutons">
+                        <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
+                        <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
+                    </div>
+            </form>
+        </div>
+    </dialog>
 </template>
 
 <script>
@@ -30,6 +33,8 @@ import Form from 'vform';
                 'intitule':""
 
             }),
+            intitule_erreur:"",
+            etatForm: false,
 
 
         }
@@ -49,7 +54,7 @@ import Form from 'vform';
                 this.resetForm();
                 bus.emit('formationAjoutee');
                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
@@ -93,9 +98,76 @@ import Form from 'vform';
             this.interesser= event;
         },
 
+        verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
+        },
+
+        validatedata(champ){
+            var i=0;
+            this.intitule_erreur= "";
+        
+
+            switch (champ) {
+            case 'intitule':
+            // Effectuez la validation pour le champ 'nom'
+            if(this.form.intitule=== ""){
+            this.intitule_erreur= "Ce champ est obligatoire"
+            i= 1;
+            return true
+            
+            }
+            if(!this.verifCaratere(this.form.intitule)){
+                this.intitule_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                i= 1;
+                return true
+            }
+            
+            break;
+
+            default:
+                break;
+            }
+        },
+
+        validatedataOld(){
+            this.intitule_erreur= "";
+            var i=0;
+    
+    
+            if(this.form.intitule=== ""){
+                this.intitule_erreur= "Ce champ est obligatoire"
+                
+                i=1;
+            }
+            if(!this.verifCaratere(this.form.intitule)){
+                this.intitule_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                ;
+                i=1;
+            }
+            if(i==1) return true;       
+    
+    return false;
+},
+
+validerAvantAjout() {
+           
+            const isIdChampValid = this.validatedataOld();
+            if ( isIdChampValid ) {
+                this.etatForm = false;
+                // console.log(erreur);
+                return 0;
+            }else{
+                this.soumettre();
+                this.etatForm = true;
+                // console.log(Tokkos);
+            }
+        },
         resetForm(){
             this.form.input="";
             this.form.intitule="";
+            this.form.intitule_erreur="";
         },
 
     }
