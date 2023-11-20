@@ -26,7 +26,7 @@
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -129,6 +129,8 @@ import Form from 'vform';
             this.form.nom="";
             this.form.id_direction="";
             this.editModal===false;
+            this.nom_departement_erreur="";
+            this.id_direction_erreur=""
         },
 
         closeModal(selector){
