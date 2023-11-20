@@ -23,6 +23,8 @@ class role_request extends FormRequest
     {
         return [
             'intitule'=>'required',
+            'id_personnel_administratif'=>'required',
+            'id_personnel_appui'=>'required'
         ];
     }
 }

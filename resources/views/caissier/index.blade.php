@@ -111,7 +111,7 @@
 
 
     {{--  Debut modal pour ajouter utilisateur --}}
-    <paiement-create></paiement-create>
+    <personnel-administratif-create></personnel-administratif-create>
     {{--  Fin modal pour ajouter utilisateur --}}
 
 

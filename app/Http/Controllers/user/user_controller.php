@@ -52,7 +52,7 @@ class user_controller extends Controller
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::whereIn('id_role', $roles->pluck('id'))->get();
+            $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
@@ -124,7 +124,7 @@ class user_controller extends Controller
         $user->id_role=$request['id_role'];
         $user->save();
 
-        if($request['id_role']==6){
+        if($request['id_role']==2){
             $formateur= new Formateur();
             $formateur->situation_matrimoniale= $request['situation_matrimoniale'];
             $formateur->type= $request['type'];
@@ -133,16 +133,18 @@ class user_controller extends Controller
             $formateur->id_user= $user->id;
             $formateur->save();
         }
-        elseif($request['id_role']==2){
+        elseif($request['id_role']==6){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==4){
-            $caissier=new Caissier();
-            $caissier->id_user= $user->id;
-            $caissier->id_service= $request->id_service;
-            $caissier->save();
+        elseif($request['id_role']==5){
+            if($request['id_personnel_administratif']==1){
+                $caissier=new Caissier();
+                $caissier->id_user= $user->id;
+                $caissier->id_service= $request->id_service;
+                $caissier->save();
+            }
         }
 
         if($user!=null){

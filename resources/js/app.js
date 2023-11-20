@@ -83,6 +83,12 @@ import listeUniteDeFormationComponent from './components/unite_de_formation/list
 import listeBatimentComponent from './components/batiment/listeBatimentComponent.vue';
 
 
+import createPersonnelAdministratifComponent from './components/personnel_administratif/createPersonnelAdministratifComponent.vue';
+
+import createPersonnelAppuiComponent from './components/personnel_appui/createPersonnelAppuiComponent.vue';
+
+import listePersonnelAdministratifComponent from './components/personnel_administratif/listePersonnelAdministratifComponent.vue';
+import listePersonnelAppuiComponent from './components/personnel_appui/listePersonnelAppuiComponent.vue';
 
 
 
@@ -168,10 +174,15 @@ app.component("direction-create", createDirectionComponent);
 app.component("liste-direction", listeDirectionComponent);
 
 app.component("archive-create",createArchiveComponent );
+app.component("personnel-administratif-create",createPersonnelAdministratifComponent );
+app.component("personnel-appui-create",createPersonnelAppuiComponent );
 // app.compenent("comptable-create",createComptableComponent);
 
 app.component("liste-unite-de-formation", listeUniteDeFormationComponent);
 app.component("liste-batiment", listeBatimentComponent);
+
+app.component("liste-personnel-administratif", listePersonnelAdministratifComponent);
+app.component("liste-personnel-appui", listePersonnelAppuiComponent);
 
 
 app.mount('#app')
