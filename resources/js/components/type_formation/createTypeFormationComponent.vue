@@ -7,8 +7,10 @@
 
                 <div class="personnel">
                 <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule"  @input="validatedata('intitule')">
-                <span class="erreur" v-if="this.intitule_erreur !== ''">{{this.intitule_erreur}}</span>
-            </div>
+                <div>
+                    <span class="erreur" v-if="this.intitule_erreur !== ''">{{this.intitule_erreur}}</span>
+                </div>
+        </div>
 
             <div class="boutons">
                         <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
