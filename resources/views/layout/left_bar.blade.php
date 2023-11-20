@@ -151,7 +151,7 @@
                 </div>
             </a></li>
 
-            <li class="fntr"><a href="#">
+            <li class="fntr"><a href="{{route('recouvrement_index')}}">
                 <div>
                     <i class="fi fi-rr-money-bill-wave"></i>
                     <span>Recouvrement</span>

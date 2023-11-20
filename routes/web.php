@@ -100,6 +100,7 @@ use App\Http\Controllers\personnel_administratif\personnel_administratif_control
 use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_view_controller;
+use App\Http\Controllers\recouvrement\recouvrement_view_controller;
 use Illuminate\Support\Facades\Route;
 
 
@@ -644,3 +645,7 @@ Route::get('personnel_appui/show/{id}',[personnel_appui_controller::class,'show'
 Route::put('personnel_appui/update/{id}',[personnel_appui_controller::class,'update'])->name('personnel_appui_update');
 Route::delete('personnel_appui/delete/{id}',[personnel_appui_controller::class, 'delete'])->name('personnel_appui_delete');
 Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'create'])->name('personnel_appui_create');
+
+//Route pour recouvrement
+Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
+
