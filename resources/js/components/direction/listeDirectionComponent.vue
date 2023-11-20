@@ -22,7 +22,7 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(direction)">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
@@ -60,6 +60,8 @@ import Form from 'vform';
 
            }),
            directions: [],
+           idDirection: "",
+           editModal: false,
 
 
        }
@@ -85,6 +87,7 @@ import Form from 'vform';
        resetForm(){
            this.form.input="";
            this.form.nom_direction="";
+           this.form.id_user="";
        },
 
        async deleteDirection(type) {
@@ -133,6 +136,37 @@ import Form from 'vform';
                }
            });
        },
+       openModal(direction) {
+          
+          this.idDirection=direction.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idDirection: this.idDirection,
+              nom: direction.nom_direction,
+              id_direction: direction.id_direction,
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('directionModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 
