@@ -43,6 +43,7 @@ class connexion_controller extends Controller
            
         
         elseif($role=="Personnel Administratif"){
+          
             if($user->role->admin->intitule=="Caissier"){
             $url='/caissier/index';
             return response([

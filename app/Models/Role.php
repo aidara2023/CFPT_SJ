@@ -19,7 +19,7 @@ class Role extends Model
     }
 
     public function admin(){
-        return $this->belongsTo(Personnel_administratif::class, 'id_personnel_administratif',);
+        return $this->belongsTo(Personnel_administratif::class, 'id_personnel_administratif');
     }
 
     public function appui(){
