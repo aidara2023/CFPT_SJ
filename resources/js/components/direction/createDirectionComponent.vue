@@ -62,7 +62,7 @@ import Form from 'vform';
         bus.on('directionModifier', (eventData) => {
             this.idDirection = eventData.idDirection;
             this.editModal = eventData.editModal;
-            this.form.nom = eventData.nom;
+            this.form.nom_direction = eventData.nom;
             this.form.id_user = eventData.id_user;
         });
     },
@@ -82,7 +82,7 @@ import Form from 'vform';
                  catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                    Swal.fire('Erreur !','Ce service existe déjà','error')
+                    Swal.fire('Erreur !','Cette direction existe déjà','error')
                 }
                 else{
                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -181,22 +181,13 @@ import Form from 'vform';
 
     },
     validerAvantAjout() {
-              // Exécutez la validation des champs
-           /*  const isNomChampValid = this.validatedata(); */
-           const isIdChampValid = this.validatedataOld();
+            
+           //const isIdChampValid = this.validatedataOld();
 
-            /*   console.log(isNomChampValid); */
-            /* if ( isIdChampValid) {
-                this.etatForm= false;
-                return 0;
-            }else{
-                this.soumettre();
-                this.etatForm= true;
-                
-            } */
 
             const isNomDirectionValid = this.validatedataOld();
             const isIdDirectionValid = this.verifId();
+        
 
             console.log(isNomDirectionValid);
             console.log(isIdDirectionValid);
@@ -207,7 +198,7 @@ import Form from 'vform';
             }else{
 
                 if(this.editModal===true){
-                    this.etatForm= true;
+                    this.etatForm= false;
                     this.update_direction(this.idDirection);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     
@@ -240,6 +231,7 @@ import Form from 'vform';
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -266,6 +258,28 @@ import Form from 'vform';
              Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
          });
      },
+
+     async update_direction(id){
+         const formdata = new FormData();
+            formdata.append('nom_direction', this.form.nom_direction  );
+            formdata.append('id_user', this.form.id_user);
+
+             //if(this.form.nom!==""){
+            try{
+                await axios.post('/direction/update/'+id, formdata);
+                bus.emit('directionAjoutee');
+                this.resetForm();
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette direction existe déjà','error')
+                }
+                else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+    }
      
   }
  }

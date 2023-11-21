@@ -22,7 +22,7 @@
                         <span class="modifier">Actions</span>
 
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(salle)">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
@@ -60,10 +60,14 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'intitule':""
+               'intitule':"",
+               'nombre_place':"",
+               'id_batiment':"",
 
            }),
            salles: [],
+           editModal: false,
+           idSalle: "",
 
 
        }
@@ -142,6 +146,38 @@ import Form from 'vform';
                }
            });
        },
+       openModal(salle) {
+          
+          this.idSalle=salle.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idSalle: this.idSalle,
+              nom: salle.intitule,
+              nombre_place: salle.nombre_place,
+              id_batiment: salle.id_batiment,
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('salleModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 

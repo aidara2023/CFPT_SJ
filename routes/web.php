@@ -558,6 +558,7 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
+Route::post('service/update/{id}',[service_controller::class, 'update'])->name('service_update');
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
 
