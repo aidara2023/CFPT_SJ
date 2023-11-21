@@ -21,7 +21,7 @@
                         <span class="modifier">Actions</span>
 
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(service)">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
@@ -59,10 +59,14 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'nom_service':""
+               'nom_service':"",
+               'id_user':"",
+               'id_direction':""
 
            }),
            services: [],
+           editModal: false,
+           idService: "",
        }
    },
    mounted(){
@@ -139,6 +143,38 @@ methods:{
                }
            });
        },
+       openModal(service) {
+          
+          this.idService=service.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idService: this.idService,
+              nom: service.nom_service,
+              id_user: service.id_user,
+              id_direction: service.id_direction,
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('serviceModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 
