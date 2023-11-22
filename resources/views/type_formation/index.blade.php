@@ -108,10 +108,10 @@
 
  
  {{--  Debut modal pour ajouter utilisateur --}}
- <dialog data-modal-ajout class="modal" >
+
     <type-formation-create  ></type-formation-create>
 
-</dialog>
+
 {{-- <dialog data-modal-ajout class="modal">
         <div id="">
             <type-formation-create></type-formation-create>
@@ -132,6 +132,28 @@
     </div>
 </dialog>
  {{--  Fin modal pour supprimer utilisateur --}}
+
+  <dialog data-modal-confirmation class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Type de formation ajouté avec succès</p>
+    </dialog>
+
+    <dialog data-modal-confirmation-sup class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Type de formation supprimé avec succès</p>
+    </dialog>
+    <dialog data-modal-confirmation-modifier class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Type de formation modifier avec succès</p>
+    </dialog>
+
+</div>
  <span class="fond "></span> 
 
 @endsection

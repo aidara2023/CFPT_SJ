@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('matricule')->unique();
             $table->integer('matricule_nombre')->default(10066);
             $table->string('adresse');
-            $table->date('date_naissance');
-            $table->string('lieu_naissance');
-            $table->string('nationalite');
+            $table->string('date_naissance')->nullable();
+            $table->string('lieu_naissance')->nullable();
+            $table->string('nationalite')->nullable();
             $table->string('telephone');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();

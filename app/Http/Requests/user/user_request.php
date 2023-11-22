@@ -29,8 +29,8 @@ class user_request extends FormRequest
             'email'=>'',
             'telephone'=>'required',
             'password'=>'',
-            'date_naissance'=>'required',
-            'lieu_naissance'=>'required',
+            'date_naissance'=>'',
+            'lieu_naissance'=>'',
             'nationalite'=>'required',
             'photo'=>'',
             'id_role'=>'required',
@@ -39,6 +39,7 @@ class user_request extends FormRequest
             'id_service'=>'',
             'id_departement'=>'',
             'type'=>'',
+            'id_personnel_administratif'=>'',
         ];
     }
 }

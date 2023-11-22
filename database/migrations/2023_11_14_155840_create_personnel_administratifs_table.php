@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('directions', function (Blueprint $table) {
-            $table->dropColumn('id_service');
-
+        Schema::create('personnel_administratifs', function (Blueprint $table) {
+            $table->id();
+            $table->string('intitule');
+            $table->timestamps();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('personnel_administratifs');
     }
 };

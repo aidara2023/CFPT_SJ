@@ -22,8 +22,10 @@
 
 
       <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
             </div>
       </form>
   </div>
@@ -47,21 +49,28 @@ import Form from 'vform';
             }),
            
             nom_direction_erreur:"",
-           
             id_user_erreur:"",
             etatForm:false,
+            editModal: false,
+            idDirection: "",
+
         }
     },
     mounted(){
        
         this.get_user();
+        bus.on('directionModifier', (eventData) => {
+            this.idDirection = eventData.idDirection;
+            this.editModal = eventData.editModal;
+            this.form.nom_direction = eventData.nom;
+            this.form.id_user = eventData.id_user;
+        });
     },
 
     methods:{
         async soumettre(){
           const formdata = new FormData();
           formdata.append('nom_direction', this.form.nom_direction  );
-         
           formdata.append('id_user', this.form.id_user  );
 
             try{
@@ -70,40 +79,12 @@ import Form from 'vform';
                 this.resetForm();
                 bus.emit('directionAjoutee');
 
-                var ajout = document.querySelector('[data-modal-ajout]');
-                var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                    /* console.log(ajout); */
-                    var actif = document.querySelectorAll('.actif');
-                        actif.forEach(item => {
-                        item.classList.remove("actif");
-                    }); 
-                    //ajout.classList.remove("actif");
-                    ajout.close();
+                 } 
+                 catch(e){
 
-
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
-
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-                        
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 1700);  
-            }
-            catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                    Swal.fire('Erreur !','Ce service existe déjà','error')
+                    Swal.fire('Erreur !','Cette direction existe déjà','error')
                 }
                 else{
                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -119,7 +100,7 @@ import Form from 'vform';
 
         validatedata(champ){
             this.nom_direction_erreur= "";
-            
+            this.id_user_erreur="";
             var i=0;
 
                 switch (champ) {
@@ -170,11 +151,8 @@ import Form from 'vform';
             if(!this.verifCaratere(this.form.nom_direction)){
             this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
            i=1;
-        }
+        } 
     }
-
-       
-
         if(this.form.id_user=== ""){
             this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
              i=1;
@@ -205,43 +183,72 @@ import Form from 'vform';
 
     },
     validerAvantAjout() {
-              // Exécutez la validation des champs
-           /*  const isNomChampValid = this.validatedata(); */
-           const isIdChampValid = this.validatedataOld();
+            
+           //const isIdChampValid = this.validatedataOld();
 
-            /*   console.log(isNomChampValid); */
-            if ( isIdChampValid) {
+
+            const isNomDirectionValid = this.validatedataOld();
+            const isIdDirectionValid = this.verifId();
+        
+
+            console.log(isNomDirectionValid);
+            console.log(isIdDirectionValid);
+
+            if ( isNomDirectionValid===true || isIdDirectionValid===true ) {
                 this.etatForm= false;
                 return 0;
             }else{
-                this.soumettre();
-                this.etatForm= true;
+
+                if(this.editModal===true){
+                    this.etatForm= false;
+                    this.update_direction(this.idDirection);
+                    this.closeModal('[data-modal-confirmation-modifier]');
+                    
+                }
+                else{
+                    this.etatForm= true;
+                    this.soumettre();
+                    this.closeModal('[data-modal-confirmation]');
+                }
             }
 
             },
 
       resetForm(){
-    //     var ajout = document.querySelector("[data-modal-ajout]");
-    //         var fermemod = document.querySelectorAll('[data-close-modal]');
-    //         //Fermeture des modals
-    //         fermemod.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //             var actif = document.querySelectorAll('.actif');
-    //                 actif.forEach(item => {
-    //                     item.classList.remove("actif");
-    //                 });
-    //                     ajout.close();
-    //                     modification.close();
-    //                     suppression.close();
-
-    //         })
-    //    /*    ajout.remove("active");  */
-
-    //         });
           this.form.nom_direction="";
           this.form.id_user="";
+          this.editModal===false;
+          this.nom_direction_erreur= "";
+          this.id_user_erreur="";
          
       },
+      closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal===false;
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
 
       get_user(){
           axios.get('/user/getPersonnel')
@@ -253,12 +260,29 @@ import Form from 'vform';
              Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
          });
      },
+
+     async update_direction(id){
+         const formdata = new FormData();
+            formdata.append('nom_direction', this.form.nom_direction  );
+            formdata.append('id_user', this.form.id_user);
+
+             //if(this.form.nom!==""){
+            try{
+                await axios.post('/direction/update/'+id, formdata);
+                bus.emit('directionAjoutee');
+                this.resetForm();
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette direction existe déjà','error')
+                }
+                else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+    }
      
-    //    rafraichissementAutomatique() {
-    //         document.addEventListener("DOMContentLoaded", this.resetForm());
-    // },
-
-
   }
  }
 </script>

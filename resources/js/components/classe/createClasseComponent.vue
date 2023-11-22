@@ -4,52 +4,56 @@
         <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout classe</h1>
 
-            <div class="personnel">
+                <div class="personnel">
+                
              <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
-                <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata('nom_classe')">
-                <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
-            </div>
-           <div>
-            <select name="type_classe" id="type_classe" v-model="form.type_classe " @change="validatedata('type_classe')">
-                    <option value="">Type Classe</option>
-                    <option  value="Non payant">Public</option>
-                    <option  value="Payant">Privé</option>
-                </select>
-                <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
-           </div>
+                    <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata('nom_classe')">
+                    <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
+                </div>
+
+                <div>
+                    <select name="type_classe" id="type_classe" v-model="form.type_classe " @change="validatedata('type_classe')">
+                            <option value="">Type Classe</option>
+                            <option  value="Non payant">Public</option>
+                            <option  value="Payant">Privé</option>
+                        </select>
+                        <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
+                </div>
                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
 
                 <div>
-                <select name="niveau" id="niveau" v-model="form.niveau" @change="validatedata('niveau')">
-                    <option value="">Selectioner Niveau</option>
-                    <option  value=" 1 ">1 </option>
-                    <option  value=" 2 ">2 </option>
-                    <option  value=" 3">3</option>
-                </select>
-                <span class="erreur" v-if="niveau_erreur !== ''">{{niveau_erreur}}</span>
-            </div>
+                    <select name="niveau" id="niveau" v-model="form.niveau" @change="validatedata('niveau')">
+                        <option value="">Selectioner Niveau</option>
+                        <option  value=" 1 ">1 </option>
+                        <option  value=" 2 ">2 </option>
+                        <option  value=" 3">3</option>
+                    </select>
+                    <span class="erreur" v-if="niveau_erreur !== ''">{{niveau_erreur}}</span>
+                </div>
 
-        <div class="type_formation">
-                <select name="type_formation" id="type_formation" v-model="form.id_type_formation " @change="validatedata('type_formation')">
-                        <option value=""> Type de formation </option>
-                        <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
-                </select>
-                <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
-            </div>
+                <div class="type_formation">
+                    <select name="type_formation" id="type_formation" v-model="form.id_type_formation " @change="validatedata('type_formation')">
+                            <option value=""> Type de formation </option>
+                            <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
+                </div>
 
-            <div class="unite_de_formation">
-                <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')">
-                        <option value=""> Unite de formation </option>
-                        <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
-                </select>
-                <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
-            </div>
+                <div class="unite_de_formation">
+                    <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')">
+                            <option value=""> Unite de formation </option>
+                            <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
+               
+                </div>
 
 
             <div class="boutons">
                 <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm" >Annuler</button>
             </div>
+        
         </form>
     </div>
 </dialog>
@@ -360,11 +364,16 @@ import Form from 'vform';
 
         resetForm(){
 
-            this.nom_classe="";
-            this.type_classe="";
-            this.niveau="";
+            this.form.nom_classe="";
+            this.form.type_classe="";
+            this.form.niveau="";
             this.form.id_type_formation="";
-            this.form.id_unite_de_formation="";
+            this.form.id_unite_de_formation=""; 
+            this.nom_classe_erreur="";
+            this.id_type_formation_erreur="";
+            this.id_unite_de_formation_erreur="";
+            this.type_classe_erreur="";
+            this.niveau_erreur=""
 
 
         },

@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            <div class="personnel" v-if="this.interesser=== 6">
+            <div class="personnel" v-if="this.interesser=== 2">
 
                     <!-- <input type="text" name="type" id="type" placeholder="Type" v-model="form.type"> -->
 
@@ -142,8 +142,20 @@
                 </div>
 
             </div>
-            <div class="personnel" v-if="this.interesser=== 4">
+            <div class="personnel" v-if="this.interesser=== 5">
 
+
+                <div>
+                    <select name="id_personnel_administratif" id="id_personnel_administratif" v-model="form.id_personnel_administratif" @change="personnel_administratif(form.id_personnel_administratif)">
+                            <option value=""> Fonction</option>
+                            <option v-for="(personnel_administratif, index) in personnel_administratifs" :value="personnel_administratif.id" :key="index">{{ personnel_administratif.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_personnel_administratif_erreur !== ''">{{id_personnel_administratif_erreur}}</span>
+
+                </div>
+            </div>
+
+                <div class="personnel" v-if="this.get_id_perso_admin=== 1">
 
                 <div>
                     <select name="id_service" id="id_service" v-model="form.id_service" @change="verifId()">
@@ -155,7 +167,21 @@
                 </div>
 
             </div>
+            
+            <div class="personnel" v-if="this.interesser=== 4">
 
+
+            <div>
+                <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
+                        <option value=""> Fonction</option>
+                        <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
+                </select>
+                <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
+           
+            </div>
+            </div>
+
+             
 
             <!--
             <div class="identifiants">
@@ -198,6 +224,8 @@ import Form from 'vform';
                 'id_service':"",
                 'type':"",
                 'situation_matrimoniale':"",
+                'id_personnel_administratif':"",
+                'id_personnel_appui':"",
 
             }),
             photo:"",
@@ -206,6 +234,8 @@ import Form from 'vform';
             services:[],
             departements:[],
             specialites:[],
+            personnel_administratifs:[],
+            personnel_appuis:[],
             nom_user_erreur:"",
             prenom_user_erreur:"",
             date_erreur:"",
@@ -223,6 +253,10 @@ import Form from 'vform';
             situation_matrimoniale_erreur:"",
             erreur:"",
             champ:"",
+            get_id_perso_admin:"",
+            get_id_perso_appui:"",
+            id_personnel_appui_erreur:"",
+            id_personnel_administratif_erreur:"",
             i:0,
             etatForm: false,
 
@@ -236,6 +270,8 @@ import Form from 'vform';
         this.get_specialite();
         this.get_departement();
         this.get_service();
+        this.get_personnel_administratif();
+        this.get_personnel_appui();
         // this.rafraichissementAutomatique();
 
     },
@@ -265,13 +301,17 @@ import Form from 'vform';
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('photo', this.photo);
 
+            if(this.form.id_personnel_administratif){
+                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            }
+
             try{
                 const user_store=await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
 
-                var ajout = document.querySelector('[data-modal-ajout]');
-                 var confirmation = document.querySelector('[data-modal-confirmation]');
+                 var ajout = document.querySelector('[data-modal-ajout]');
+                        var confirmation = document.querySelector('[data-modal-confirmation]');
     
                        
                         /* console.log(ajout); */
@@ -309,7 +349,7 @@ import Form from 'vform';
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
+                Swal.fire('Erreur !','Ce service existe déjà','error')
                 }
                 else{
                 Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -323,6 +363,16 @@ import Form from 'vform';
             this.id_role_erreur = "";
         },
 
+       personnel_administratif(event){
+            this.get_id_perso_admin= event;
+            this.id_personnel_administratif_erreur = "";
+           
+        },
+        personnel_appui(event){
+            this.get_id_perso_appui= event;
+            this.id_personnel_appui_erreur = "";
+           
+        },
 
         get_role(){
             axios.get('/roles/index')
@@ -340,6 +390,23 @@ import Form from 'vform';
             this.services=response.data.service
             }).catch(error=>{
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+            });
+        },
+
+        get_personnel_administratif(){
+            axios.get('/personnel_administratif/index').then(response => {
+            this.personnel_administratifs=response.data.personnel_administratifs
+            console.log(this.personnel_administratifs)
+            }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
+            });
+        },
+        get_personnel_appui(){
+            axios.get('/personnel_appui/index').then(response => {
+            this.personnel_appuis=response.data.personnel_appuis
+            console.log(this.personnel_appuis)
+            }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
             });
         },
 
@@ -381,16 +448,16 @@ import Form from 'vform';
         validerAvantAjout() {
 
             const isVerifIdValid = this.verifId();
-            const isIdChampValid = this.validatedataold();
+            const isIdChampValid = this.validatedataOld();
           /*   console.log(isNomChampValid); */
             if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
                 this.etatForm = false;
-                // console.log(erreur);
+                console.log("erreur");
                 return 0;
             }else{
                 this.soumettre();
                 this.etatForm = true;
-                // console.log(Tokkos);
+                console.log("Tokkos");
             }
 
         },
@@ -411,6 +478,8 @@ import Form from 'vform';
             this.form.situation_matrimoniale="";
             this.form.id_specialite="";
             this.form.id_departement="";
+            this.form.id_personnel_administratif="";
+            this.id_personnel_appui="";
 
         },
         verifCaratere(nom){
@@ -445,6 +514,8 @@ validatePhoneNumber(phoneNumber) {
                 this.erreur = "";
                 this.id_role_erreur = "";
                 this.genre_erreur = "";
+                this.id_personnel_administratif_erreur = "";
+                this.id_personnel_appui_erreur = "";
 
                 var i= 0;
 
@@ -629,13 +700,31 @@ validatePhoneNumber(phoneNumber) {
                 }
                 break;
 
+                case 'personnel_administratif':
+                    //Vérification de personnel_administratif
+                    if(this.form.id_personnel_administratif=== ""){
+                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                    i=1;
+                    return true
+                }
+                break;
+
+                case 'personnel_appui':
+                    //Vérification de personnel_appui
+                    if(this.form.id_personnel_appui=== ""){
+                    this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                    i=1;
+                    return true
+                }
+                break;
+
                 default:
                 break;
             }
         },
 
 
-        validatedataold(){
+        validatedataOld(){
             this.nom_user_erreur= "";
             this.prenom_user_erreur="";
             this.nationalite_erreur="";
@@ -651,6 +740,8 @@ validatePhoneNumber(phoneNumber) {
             this.id_departement_erreur="";
             this.type_erreur="";
             this.id_role_erreur="";
+            this.id_personnel_administratif_erreur = "";
+            this.id_personnel_appui_erreur = "";
             var i= 0;
             // pour nom
 
@@ -753,13 +844,24 @@ validatePhoneNumber(phoneNumber) {
                 i= 1;
             }
 
-            if(this.interesser== 4){
-            if(this.form.id_service=== ""){
-                this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                i=1;
+            if(this.interesser== 5){
+                if(this.form.id_service=== ""){
+                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                    i=1;
+                }
+                if(this.form.id_personnel_administratif=== ""){
+                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                    i=1;
                 }
             }
-            if(this.interesser== 6){
+            if(this.interesser== 4){
+           
+                if(this.form.id_personnel_appui=== ""){
+                    this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                    i=1;
+                }
+            }
+            if(this.interesser== 2){
                 if(this.form.id_specialite=== ""){
                         this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
                         i=1;
@@ -827,6 +929,8 @@ validatePhoneNumber(phoneNumber) {
                 /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
             }
 
+            
+
             if(i !== 1) return true;
         }
 
@@ -844,6 +948,8 @@ validatePhoneNumber(phoneNumber) {
         this.id_role_erreur="";
         this.type_erreur="";
         this.genre_erreur="";
+        this.id_personnel_administratif_erreur = "";
+        this.id_personnel_appui_erreur = "";
         var i= 0;
         /* //pour genre
         if(this.form.genre=== ""){
@@ -860,6 +966,16 @@ validatePhoneNumber(phoneNumber) {
             if(this.form.id_service=== ""){
                     this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
                     i=1;
+                }
+                if(this.form.id_personnel_administratif=== ""){
+                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                    i=1;
+                    return true
+                }
+                if(this.form.id_personnel_appui=== ""){
+                    this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                    i=1;
+                    return true
                 }
         }if(this.interesser== 6){
             if(this.form.id_specialite=== ""){
@@ -878,6 +994,7 @@ validatePhoneNumber(phoneNumber) {
                     this.type_erreur= "Vous avez oublié de sélectionner le type "
                     i=1;
                 }
+               
         }
             if(i==1) return true;
 

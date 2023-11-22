@@ -96,6 +96,11 @@ use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\type_formation\type_formation_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use App\Http\Controllers\inscription\inscription_view_controller;
+use App\Http\Controllers\personnel_administratif\personnel_administratif_controller;
+use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
+use App\Http\Controllers\personnel_appui\personnel_appui_controller;
+use App\Http\Controllers\personnel_appui\personnel_appui_view_controller;
+use App\Http\Controllers\recouvrement\recouvrement_view_controller;
 use Illuminate\Support\Facades\Route;
 
 
@@ -553,6 +558,7 @@ Route::get('roles/index', [role_controller::class, 'index'])->name('role_index')
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
+Route::post('service/update/{id}',[service_controller::class, 'update'])->name('service_update');
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
 
@@ -620,4 +626,27 @@ Route::get('comptable/index',[comptable_controller::class, 'index'])->name('comp
 
 
 Route::get('/role/home',[role_controller::class, 'index']);
+
+
+
+//Route pour personnel administratif
+
+Route::get('personnel_administratif/index',[personnel_administratif_controller::class, 'index'])->name('personnel_administratif_index');
+Route::post('personnel_administratif/store',[personnel_administratif_controller::class, 'store'])->name('personnel_administratif_store');
+Route::get('personnel_administratif/show/{id}',[personnel_administratif_controller::class,'show'])->name('personnel_administratif_show');
+Route::put('personnel_administratif/update/{id}',[personnel_administratif_controller::class,'update'])->name('personnel_administratif_update');
+Route::delete('personnel_administratif/delete/{id}',[personnel_administratif_controller::class, 'delete'])->name('personnel_administratif_delete');
+Route::get('personnel_administratif/create' ,[personnel_administratif_view_controller::class, 'create'])->name('personnel_administratif_create');
+
+//Route pour personnel appui
+
+Route::get('personnel_appui/index',[personnel_appui_controller::class, 'index'])->name('personnel_appui_index');
+Route::post('personnel_appui/store',[personnel_appui_controller::class, 'store'])->name('personnel_appui_store');
+Route::get('personnel_appui/show/{id}',[personnel_appui_controller::class,'show'])->name('personnel_appui_show');
+Route::put('personnel_appui/update/{id}',[personnel_appui_controller::class,'update'])->name('personnel_appui_update');
+Route::delete('personnel_appui/delete/{id}',[personnel_appui_controller::class, 'delete'])->name('personnel_appui_delete');
+Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'create'])->name('personnel_appui_create');
+
+//Route pour recouvrement
+Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 

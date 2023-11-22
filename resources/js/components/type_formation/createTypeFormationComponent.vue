@@ -1,19 +1,22 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre()" method="dialog">
-
+     <dialog data-modal-ajout class="modal">
+        <div class="cote_droit contenu">
+            <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout Type Formation</h1>
 
             <div class="personnel">
-            <input type="text" name="intitule" id="intitule" placeholder="intitule" v-model="form.intitule">
-        </div>
+                     <input type="text" v-model="form.intitule" id="nom" placeholder="Intitule" @input="validatedata('intitule')">
+                     <span class="erreur" v-if="this.nom_formation_erreur !== ''">{{this.nom_formation_erreur}}</span>
+            </div>
 
         <div class="boutons">
-                <input  type="submit" data-close-modal  value="Ajouter">
-                <button type="button" data-close-modal class="texte annuler" >Annuler</button>
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
+    </dialog>
 </template>
 
 <script>
@@ -28,12 +31,23 @@ import Form from 'vform';
         return {
             form:new Form({
                 'intitule':""
-
             }),
+            nom_formation_erreur:"",
+            editModal: false,
+            idTypeformation: "",
+            
 
 
         }
     },
+    mounted(){
+            bus.on('typeformationeModifier', (eventData) => {
+            this.idTypeformation= eventData.idTypeformation;
+            this.editModal = eventData.editModal;
+            this.form.intitule = eventData.nom;
+            
+        });
+        },
 
     methods:{
         async soumettre(){
@@ -41,54 +55,69 @@ import Form from 'vform';
             formdata.append('intitule', this.form.intitule );
 
             try{
-                const create_store=await axios.post('/type_formation/store', formdata, {
-
-                });
-
-                // Swal.fire('Succes!','Type de formation ajouté avec succés','success')
+                const create_store=await axios.post('/type_formation/store', formdata, {});
                 this.resetForm();
                 bus.emit('formationAjoutee');
-                var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                       
-                        /* console.log(ajout); */
-                        var actif = document.querySelectorAll('.actif');
-                            actif.forEach(item => {
-                            item.classList.remove("actif");
-                        }); 
-                        //ajout.classList.remove("actif");
-                        ajout.close();
-    
-    
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-    
-                            
-    
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                         
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                           
-
-
+            
             }
             catch(e){
-                console.log(e)
-                Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
+                    /* console.log(e.request.status) */
+                    if(e.request.status===404){
+                        Swal.fire('Erreur !','Ce type de formation existe déjà','error')
+                    }
+                    else{
+                        Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                    }
+
+                }
+        },
+        validerAvantAjout() {
+            const isVerifIdValid = this.validatedata();
+            /*   console.log(isNomChampValid); */
+            if ( isVerifIdValid===true) {
+                this.etatForm = false;
+                return 0;
+            }else{
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_typeformation(this.idTypeformation);
+                    this.closeModal('[data-modal-confirmation-modifier]');  
+                }
+            
+            else{
+                this.soumettre();
+                this.etatForm = true;
+                this.closeModal('[data-modal-confirmation]');
+                // console.log(Tokkos);
+            }
+            
             }
         },
+
+        verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
+        },
+        validatedata(){
+            this.nom_formation_erreur= "";
+
+            if(this.form.intitule=== ""){
+                this.nom_formation_erreur= "Ce champ est obligatoire"
+                return true;
+            }
+            if(!this.verifCaratere(this.form.intitule)){
+                this.nom_formation_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                return true;
+            }
+            if(this.form.intitule.length <10 ){
+                this.nom_formation_erreur= "Ce champ doit contenir au moins 10 Caratères"
+                return true;
+            }
+            return false;
+
+        },
+
         changement(event){
             this.interesser= event;
         },
@@ -96,7 +125,55 @@ import Form from 'vform';
         resetForm(){
             this.form.input="";
             this.form.intitule="";
+            this.nom_formation_erreur="";
         },
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
+        async update_typeformation(id){
+         const formdata = new FormData();
+            formdata.append('intitule', this.form.intitule  );
+             //if(this.form.nom!==""){
+            try{
+                await axios.post('/type_formation/update/'+id, formdata);
+                bus.emit('formationAjoutee');
+                this.resetForm();
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette type de formation existe déjà','error')
+                }
+                else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+    }
+
 
     }
    }

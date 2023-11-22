@@ -17,6 +17,7 @@ class connexion_controller extends Controller
         }
         $user=Auth::user();
         $role=$user->role->intitule ;
+        
         $url='';
         if($role=="Etudiant"){
             $url='eleve/index';
@@ -33,37 +34,75 @@ class connexion_controller extends Controller
 
         } 
         elseif($role=="Administrateur"){
-            $url='/admin/index';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-
-        } 
-        elseif($role=="Surveillant"){
-            $url='/surveillant/index';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-
-        }
-        elseif($role=="Comptable"){
-            $url='/comptable/index';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-
-        }
-        elseif($role=="Caissier"){
+                $url='/admin/index';
+                return response([
+                    'url'=>$url, 
+                    'user'=>$user
+                 ]);
+            }
+           
+        
+        elseif($role=="Personnel Administratif"){
+          
+            if($user->role->admin->intitule=="Caissier"){
             $url='/caissier/index';
             return response([
                 'url'=>$url, 
                 'user'=>$user
              ]);
+            }
 
-        } 
+            elseif($user->role->admin->intitule=="Comptable"){
+                $url='/comptable/index';
+                return response([
+                    'url'=>$url, 
+                    'user'=>$user
+                 ]);
+    
+            }
+            elseif($user->role->admin->intitule=="Infirmier"){
+                $url='/infirmier/index';
+                return response([
+                    'url'=>$url, 
+                    'user'=>$user
+                 ]);
+    
+            }
+            elseif($user->role->admin->intitule=="Bibliothecaire"){
+                $url='/bibliothecaire/index';
+                return response([
+                    'url'=>$url, 
+                    'user'=>$user
+                 ]);
+    
+            }
+            elseif($user->role->admin->intitule=="Surveillant"){
+                $url='/surveillant/index';
+                return response([
+                    'url'=>$url, 
+                    'user'=>$user
+                 ]);
+    
+            }
+
+        }
+         
+   /*  elseif($role=="Personnel Appui"){
+
+        if($user->role->appui->intitule=="Vigile"){
+            //a creer
+            $url='/vigile/index';
+            return response([
+                'url'=>$url, 
+                'user'=>$user
+             ]);
+            }
+            elseif($user->role->appui->intitule=="Femme de menage"){
+                //continuer le nom des personnel d'appui
+
+            }
+    } */
+        
         else{
             $url='/login';
             return response([
@@ -73,10 +112,13 @@ class connexion_controller extends Controller
 
         }
 
-    }
+       
+   
+}
 
     public function logout(){
         Auth::logout();
         return view('auth.login');
     }
 }
+

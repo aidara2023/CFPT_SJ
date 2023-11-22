@@ -32,9 +32,10 @@
                 </div>
     
                 <div class="boutons">
-                    <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                    <button type="button" class="texte annuler data-close-modal" >Annuler</button>
-                </div>
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+            </div>
             </form>
         </div>
     </dialog>
@@ -60,12 +61,21 @@
                 id_user_erreur:"",
                 id_direction_erreur:"",
                 etatForm: false,
+                editModal: false,
+                idService: "",
             }
         },
     
         mounted(){
             this.get_user();
             this.get_direction();
+            bus.on('serviceModifier', (eventData) => {
+            this.idService = eventData.idService;
+            this.editModal = eventData.editModal;
+            this.form.nom_service = eventData.nom;
+            this.form.id_user = eventData.id_user;
+            this.form.id_direction = eventData.id_direction;
+        });
         },
     
     
@@ -82,43 +92,6 @@
                     this.resetForm();
                     bus.emit('serviceAjoutee');
 
-                    var ajout = document.querySelector('[data-modal-ajout]');
-
-
-                    /* console.log(ajout); */
-                    var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                        
-                        /* console.log(ajout); */
-                        var actif = document.querySelectorAll('.actif');
-                            actif.forEach(item => {
-                            item.classList.remove("actif");
-                        }); 
-                        //ajout.classList.remove("actif");
-                        ajout.close();
-    
-    
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-    
-                            
-    
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                            
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                            
                 }
                 catch(e){
                     /* console.log(e.request.status) */
@@ -134,17 +107,27 @@
             },
     
         validerAvantAjout() {
-            const isVerifIdValid = this.verifIdUser();
-            const isIdChampValid = this.validatedataOld();
+            const isVerifIdValid = this.validatedataOld();
+            const isIdChampValid = this.verifIdUser();
             /*   console.log(isNomChampValid); */
-            if ( isIdChampValid || isVerifIdValid) {
+            if ( isIdChampValid===true || isVerifIdValid===true) {
                 this.etatForm = false;
-                // console.log(erreur);
                 return 0;
             }else{
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_service(this.idService);
+                    this.closeModal('[data-modal-confirmation-modifier]');  
+                }
+            
+            else{
                 this.soumettre();
                 this.etatForm = true;
+                this.closeModal('[data-modal-confirmation]');
                 // console.log(Tokkos);
+            }
+            
             }
         },
     
@@ -152,6 +135,36 @@
             this.form.nom_service="";
             this.form.id_user="";
             this.form.id_direction=""
+            this.nom_service_erreur= "";
+            this.id_user_erreur= "";
+            this.id_direction_erreur= "";
+        },
+
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
         },
 
         verifCaratere(nom){
@@ -248,14 +261,15 @@
         verifIdUser(){
             this.id_user_erreur= "";
             this.id_direction_erreur= "";
+            var i=0;
     
             if(this.form.id_user=== ""){
                 this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
-                return true;
+                i=1;
             }
             if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
-                return true;
+                i=1;
             }
     
             return false;
@@ -280,6 +294,29 @@
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
                 });
             },
+
+        async update_service(id){
+         const formdata = new FormData();
+            formdata.append('nom_service', this.form.nom_service  );
+            formdata.append('id_user', this.form.id_user);
+            formdata.append('id_direction', this.form.id_direction);
+
+             //if(this.form.nom!==""){
+            try{
+                await axios.post('/service/update/'+id, formdata);
+                bus.emit('serviceAjoutee');
+                this.resetForm();
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                    Swal.fire('Erreur !','Ce service existe déjà','error')
+                }
+                else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+        }
     
         }
     }

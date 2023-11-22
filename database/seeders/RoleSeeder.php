@@ -17,37 +17,29 @@ class RoleSeeder extends Seeder
             [
                 'intitule' => 'Eleve',
             ],
-            [
-                'intitule' => 'Tuteur',
-            ],
-            [
-                'intitule' => 'Bibliothécaire',
-            ],
-            [
-                'intitule' => 'Caissier',
-            ],
-            [
-                'intitule' => 'Administrateur',
-            ],
+
             [
                 'intitule' => 'Formateur',
             ],
+            
             [
-                'intitule' => 'Infirmier',
-            ],
-            [
-                'intitule' => 'Personnel Administratif',
-            ],
-            [
-                'intitule' => 'Surveillant',
-            ],
-            [
-                'intitule' => 'Comptable',
+                'intitule' => 'Administrateur',
             ],
 
             [
-                'intitule' => 'teste',
+                'intitule' => 'Personnel Appui',
             ],
+           
+            [
+                'intitule' => 'Personnel Administratif',
+            ],
+
+            [
+                'intitule' => 'Tuteur',
+            ],
+           
+            
+            
         ]);
     }
 }

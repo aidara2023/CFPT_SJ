@@ -11,7 +11,7 @@
              <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
          </a>
          </div>
-         <div class="sections">
+        <div class="sections">
              <!-- Répéter la div utilisateur pour un autre utilisateur -->
              <div class="utilisateur">
                  <img src="image1.png" alt="Etu" class="petite">
@@ -41,41 +41,42 @@
       </div>
 
       <div class="affichage">
-         <div class="avant">
-             <h1 class="texte">Formateurs</h1>
-         <a href="#">
-             <button class="texte ajout  mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-         </a>
-         </div>
-         <div class="sections">
+        <div class="avant">
+            <h1 class="texte">Formateurs</h1>
+            <a href="#">
+                <button class="texte ajout  mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
+            </a>
+        </div>
+        <div class="sections">
              <!-- Répéter la div utilisateur pour un autre utilisateur -->
-             <div class="utilisateur">
-                 <img src="professeur.png" alt="Etu" class="petite">
-                 <p class="texte" id="n">Amadou GUEYE</p>
-                 <div  class="presences">
-                     <a href="#" class="texte b">
-                         <i class="fi fi-rr-bars-sort"></i>
-                         <span class="modifier">Actions</span>
-                 </a>
-                     <a href="#" class="texte b modifier mdl">
-                         <i class="fi fi-rr-edit"></i>
-                         <span class="">Modifier</span>
-                 </a>
-         
-                     <a href="" class="texte b">
-                         <i class="fi fi-rr-comment-alt-dots"></i>
-                         <span class="details">Détails</span>
-                 </a>
-         
-                     <a href="#" class="texte b supprimer mdl">
-                         <i class="fi fi-rr-cross"></i>
-                         <span class="">Supprimer</span></a>
-         
-                 </div>
- 
-             </div>
+            <div class="utilisateur">
+                <img src="professeur.png" alt="Etu" class="petite">
+                <p class="texte" id="n">Amadou GUEYE</p>
+                <div  class="presences">
 
-      </div>
+                    <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
+                    <a href="#" class="texte b modifier mdl">
+                        <i class="fi fi-rr-edit"></i>
+                        <span class="">Modifier</span>
+                    </a>
+         
+                    <a href="" class="texte b">
+                        <i class="fi fi-rr-comment-alt-dots"></i>
+                        <span class="details">Détails</span>
+                    </a>
+         
+                    <a href="#" class="texte b supprimer mdl">
+                        <i class="fi fi-rr-cross"></i>
+                        <span class="">Supprimer</span>
+                    </a>
+         
+                </div>
+ 
+            </div>
+        </div>
   </div>
      
   </div>

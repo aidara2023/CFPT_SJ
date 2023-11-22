@@ -140,6 +140,16 @@
         <p class="">Unite de formation supprimée avec succès</p>
     </dialog>
 
+    <dialog data-modal-confirmation-modifier class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Unité de formation modifier avec succès</p>
+    </dialog>
+
+
+    
+
 </div>
 
 <span class="fond"></span>
