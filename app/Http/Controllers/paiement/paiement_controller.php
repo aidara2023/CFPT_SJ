@@ -33,60 +33,60 @@ class paiement_controller extends Controller
         }
     }
 
-    // public function store(paiement_request $request) {
-    //     $request -> validated();
-    //     $paiements= $request->input('paiements');
-    //     $caissiers=Caissier::all();
-    //     $eleves=Eleve::all();
-    //     if(!empty($paiements)){
-    //         $paiements= json_decode($paiements, true);
-    //         foreach($caissiers as $caissier){
-    //             if($caissier->id_user == Auth::user()->id){
-    //                 foreach($paiements as $paiement){
-    //                     foreach($eleves as $eleve){
-    //                         if($eleve->id_user==$request['id_eleve']){
-    //                             $dataPaiement= [
-    //                                 'id_caissier'=>$caissier->id,
-    //                                 'montant'=>$paiement['montant'],
-    //                                 'id_eleve'=>$eleve->id,
-    //                             ];
+     public function store(paiement_request $request) {
+         $request -> validated();
+         $paiements= $request->input('paiements');
+         $caissiers=Caissier::all();
+         $eleves=Eleve::all();
+         if(!empty($paiements)){
+             $paiements= json_decode($paiements, true);
+             foreach($caissiers as $caissier){
+                 if($caissier->id_user == Auth::user()->id){
+                     foreach($paiements as $paiement){
+                         foreach($eleves as $eleve){
+                             if($eleve->id_user==$request['id_eleve']){
+                                 $dataPaiement= [
+                                     'id_caissier'=>$caissier->id,
+                                     'montant'=>$paiement['montant'],
+                                     'id_eleve'=>$eleve->id,
+                                 ];
 
-    //                             $paiementValid= Paiement::create($dataPaiement);
+                                 $paiementValid= Paiement::create($dataPaiement);
 
-    //                             $dataConcerner= [
-    //                                 'id_paiement'=>$paiementValid->id,
-    //                                 'id_mois'=>$paiement['id_mois'],
-    //                                 'id_annee_academique'=>$paiement['id_annee_academique'],
-    //                                 'statut'=>1,
-    //                             ];
+                                 $dataConcerner= [
+                                     'id_paiement'=>$paiementValid->id,
+                                     'id_mois'=>$paiement['id_mois'],
+                                     'id_annee_academique'=>$paiement['id_annee_academique'],
+                                     'statut'=>1,
+                                 ];
 
-    //                             $concerner=Concerner::create($dataConcerner);
-    //                         }
-    //                     }
+                                 $concerner=Concerner::create($dataConcerner);
+                             }
+                         }
 
-    //                 }
+                     }
 
-    //             }
-    //         }
-    //         if($concerner != null){
-    //             return response()->json([
-    //                 'statut' => 200,
-    //                 'paiement' => $concerner
-    //             ],200);
-    //         } else {
-    //             return response()->json([
-    //                 'statut' => 500,
-    //                 'message' => 'L\'enregistrement n\'a pas été éffectué'
-    //             ],500);
-    //         }
-    //     }
-    //     else {
-    //         return response()->json([
-    //             'statut' => 500,
-    //             'message' => 'L\'enregistrement n\'a pas été éffectué'
-    //         ],500);
-    //     }
-    // }
+                 }
+             }
+             if($concerner != null){
+                 return response()->json([
+                     'statut' => 200,
+                     'paiement' => $concerner
+                 ],200);
+             } else {
+                 return response()->json([
+                     'statut' => 500,
+                     'message' => 'L\'enregistrement n\'a pas été éffectué'
+                 ],500);
+             }
+         }
+         else {
+             return response()->json([
+                 'statut' => 500,
+                 'message' => 'L\'enregistrement n\'a pas été éffectué'
+             ],500);
+        }
+    }
 
   /*   public function store(paiement_request $request) {
         $data = $request -> validated();
@@ -310,8 +310,6 @@ class paiement_controller extends Controller
 
 
 
-
-
     public function processOtherFormation($request, $caissiers)
     {
         // Implement the logic for other formation types here
@@ -384,8 +382,8 @@ class paiement_controller extends Controller
         }
     }
 
-    public function store(paiement_request $request)
-    {
+
+    public function storeOld(paiement_request $request){
         $data = $request->validated();
         $caissiers = Caissier::all();
         // dd($caissiers);
@@ -424,6 +422,7 @@ class paiement_controller extends Controller
 
     }
 
+
     public function update(paiement_request $request, $id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
@@ -445,6 +444,8 @@ class paiement_controller extends Controller
             ],500);
         }
     }
+
+
     public function destroy($id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
@@ -461,6 +462,7 @@ class paiement_controller extends Controller
         }
     }
 
+
     public function show($id) {
         $paiement = Paiement::find($id);
         if($paiement != null){
@@ -476,35 +478,42 @@ class paiement_controller extends Controller
         }
     }
 
-    public function recherche_eleve(Request $request){
+
+/*     public function recherche_eleve(Request $request){
         $valeur=$request->input('query');
 
             $user= User::with('eleves.inscription.classe')->where('matricule','LIKE', "%$valeur%")->get();
             // .inscriptions.classe
         if($user != null){
             return response()->json( $user);
-        } else{
+        }else{
             return response() -> json([
                 'statut' => 500,
                 'eleve' => 'Ce matricule n\'existe pas'
             ],500);
         }
+    } */
+
+    public function recherche_eleve(Request $request){
+        $valeur = $request->input('query');
+    
+        $users = User::with('eleves.inscription.classe')
+            ->whereHas('role', function ($query) {
+                // Filtrer les utilisateurs ayant un rôle avec id_role élevé
+                $query->where('id_role', 1); // Assurez-vous de remplacer $valeur par la valeur souhaitée
+            })
+            ->where('matricule', 'LIKE', "%$valeur%")
+            ->get();
+    
+        if ($users->isNotEmpty()) {
+            return response()->json($users);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'eleve' => 'Aucun utilisateur ne correspond à la recherche',
+            ], 500);
+        }
     }
-    // public function recherche_eleve(Request $request){
-    //     $valeur = $request->input('query');
-
-    //     $eleves = Eleve::whereHas('user', function ($query) use ($valeur) {
-    //         $query->where('matricule', 'LIKE', "%$valeur%");
-    //     })->with('cours.Classe')->get();
-
-    //     if($eleves->isNotEmpty()){
-    //         return response()->json($eleves);
-    //     } else {
-    //         return response()->json([
-    //             'statut' => 500,
-    //             'eleve' => 'Ce matricule n\'existe pas'
-    //         ], 500);
-    //     }
-    // }
+    
 
 }
