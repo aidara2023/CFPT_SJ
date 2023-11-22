@@ -196,6 +196,7 @@ import Form from 'vform';
 
             if ( isNomDirectionValid===true || isIdDirectionValid===true ) {
                 this.etatForm= false;
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -203,12 +204,13 @@ import Form from 'vform';
                     this.etatForm= false;
                     this.update_direction(this.idDirection);
                     this.closeModal('[data-modal-confirmation-modifier]');
-                    
+                    this.editModal=false;
                 }
                 else{
                     this.etatForm= true;
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 }
             }
 
@@ -217,7 +219,7 @@ import Form from 'vform';
       resetForm(){
           this.form.nom_direction="";
           this.form.id_user="";
-          this.editModal===false;
+          this.editModal=false;
           this.nom_direction_erreur= "";
           this.id_user_erreur="";
          
@@ -233,7 +235,7 @@ import Form from 'vform';
             });
             //ajout.classList.remove("actif");
             ajout.close();
-            this.editModal===false;
+            this.editModal=false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -271,6 +273,7 @@ import Form from 'vform';
                 await axios.post('/direction/update/'+id, formdata);
                 bus.emit('directionAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 /* console.log(e.request.status) */

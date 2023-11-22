@@ -26,11 +26,11 @@
                     </div>
                
     
-                <div class="boutons">
-                    <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                    <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                    <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
-                </div>
+                    <div class="boutons">
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+            </div>
             </form>
         </div>
     </dialog>
@@ -103,7 +103,8 @@
                 const isNomSalleValid = this.validatedataold();
                 const isIdBatimentValid = this.verifIdBatiment();
     
-              /*   console.log(isNomSalleValid); */
+                //console.log(isNomSalleValid);
+
                 if (isNomSalleValid===true || isIdBatimentValid===true ) {
                     this.etatForm= false;
                     return 0;
@@ -119,7 +120,7 @@
                     this.soumettre();
                     this.etatForm = true;
                     this.closeModal('[data-modal-confirmation]');
-                    // console.log(Tokkos);
+                
                     }
                 }
             }, 
@@ -131,6 +132,7 @@
                 this.nom_salle_erreur= "";
                 this.nombre_place_erreur="";
                 this.id_batiment_erreur= "";
+                this.editModal===false;
             },
     
             verifCaratere(nom){
@@ -154,16 +156,16 @@
                 i=1;
                  
             }
-            if(!this.verifCaratere(this.form.intitule)){
+             if(!this.verifCaratere(this.form.intitule)){
                 this.nom_salle_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 i=1;
                 
-            }
+            } 
             if(this.form.intitule.length < 12){
                 this.nom_salle_erreur= "Ce champ doit contenir au moins 12 Caratères"
                 i=1;
                 
-            }
+            } 
             if(this.form.id_batiment=== ""){
                 this.id_batiment_erreur= "Vous avez oublié de sélectionner le batiment"
                 ;
@@ -196,12 +198,11 @@
             return true
             
             }
-            if(!this.verifCaratere(this.form.intitule)){
+             if(!this.verifCaratere(this.form.intitule)){
                 this.nom_salle_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                 i= 1;
                 return true
-            }
+            } 
             // Ajoutez d'autres validations si nécessaire
             break;
         case 'nombre_place':
@@ -251,6 +252,7 @@
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -267,26 +269,27 @@
             }, 1700);
         },
 
-        async update_sale(id){
+       
+        async update_salle(id){
          const formdata = new FormData();
-            formdata.append('intitule', this.form.intitule  );
+            formdata.append('intitule', this.form.intitule );
             formdata.append('nombre_place', this.form.nombre_place);
             formdata.append('id_batiment', this.form.id_batiment);
 
              //if(this.form.nom!==""){
             try{
-                await axios.post('/sale/update/'+id, formdata);
+                await axios.post('/salle/update/'+id, formdata);
                 bus.emit('salleAjoutee');
                 this.resetForm();
             }
             catch(e){
-                /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette sale existe déjà','error')
+                console.log(e)
+           /*      if(e.request.status===404){
+                    Swal.fire('Erreur !','Ce salle existe déjà','error')
                 }
                 else{
                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                }
+                } */
             }
         }
     

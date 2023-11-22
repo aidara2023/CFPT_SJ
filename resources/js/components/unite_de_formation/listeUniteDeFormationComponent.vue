@@ -15,6 +15,11 @@
                <!--  <p class="texte" id="n">Info</p> -->
                 <div  class="presences">
                     <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
+
+                    <a href="#" class="texte b" @click="openModal(unite_de_formation)">
                         <i class="fi fi-rr-edit"></i>
                         <span class="modifier mdl">Modifier</span>
                     </a>
@@ -53,6 +58,8 @@ import Form from 'vform';
 
            }),
            unite_de_formations: [],
+           editModal: false,
+           idFormation: "",
 
 
        }
@@ -114,6 +121,38 @@ import Form from 'vform';
                }
            });
        },
+       openModal(unite_de_formation) {
+          
+          this.idFormation=unite_de_formation.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idFormation: this.idFormation,
+              nom: unite_de_formation.nom_unite_formation,
+              id_formateur: unite_de_formation.id_formateur,
+              id_departement: unite_de_formation.id_departement,
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('formationModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 

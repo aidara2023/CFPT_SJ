@@ -138,6 +138,7 @@
             this.nom_service_erreur= "";
             this.id_user_erreur= "";
             this.id_direction_erreur= "";
+            this.editModal===false;
         },
 
         closeModal(selector){
@@ -151,6 +152,7 @@
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';

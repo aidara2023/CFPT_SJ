@@ -272,8 +272,29 @@ import Form from 'vform';
         this.get_service();
         this.get_personnel_administratif();
         this.get_personnel_appui();
-        // this.rafraichissementAutomatique();
 
+        bus.on('utilisateurModifier', (eventData) => {
+            this.idUser = eventData.idUser;
+            this.editModal = eventData.editModal;
+            this.form.nom = eventData.nom;
+            this.form.prenom = eventData.prenom;
+            this.form.genre = eventData.genre;
+            this.form.adresse = eventData.adresse;
+            this.form.telephone = eventData.telephone;
+            this.form.email = eventData.email;
+            this.form.lieu_naissance = eventData.lieu_naissance;
+            this.form.nationalite = eventData.nationalite;
+            this.form.type = eventData.type;
+            this.form.situation_matrimoniale = eventData.situation_matrimoniale;
+            this.form.id_role = eventData.id_role;
+            this.form.id_departement = eventData.id_departement;
+            this.form.id_service = eventData.id_service;
+            this.form.id_specialite = eventData.id_specialite;
+            this.form.id_personnel_administratif = eventData.id_personnel_administratif;
+            this.form.id_personnel_appui = eventData.id_personnel_appui;
+    
+        }); 
+        
     },
     computed: {
         photoUrl() {
@@ -301,55 +322,20 @@ import Form from 'vform';
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('photo', this.photo);
 
-            if(this.form.id_personnel_administratif){
+            /* if(this.form.id_personnel_administratif){
                 formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            }
+            } */
 
             try{
                 const user_store=await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
 
-                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                       
-                        /* console.log(ajout); */
-                        var actif = document.querySelectorAll('.actif');
-                            actif.forEach(item => {
-                            item.classList.remove("actif");
-                        }); 
-                        //ajout.classList.remove("actif");
-                        ajout.close();
-    
-    
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-    
-                            
-    
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                         
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                           
-
-
             }
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Ce service existe déjà','error')
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
                 }
                 else{
                 Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -455,10 +441,20 @@ import Form from 'vform';
                 console.log("erreur");
                 return 0;
             }else{
-                this.soumettre();
-                this.etatForm = true;
-                console.log("Tokkos");
-            }
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_utilisateur(this.idUser);
+                    this.closeModal('[data-modal-confirmation-modifier]');
+                    
+                }
+                else{
+                    this.etatForm= true;
+                    this.soumettre();
+                    this.closeModal('[data-modal-confirmation]');
+                }
+                }
+
 
         },
 
