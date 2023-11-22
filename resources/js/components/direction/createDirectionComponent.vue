@@ -78,8 +78,10 @@ import Form from 'vform';
 
                 this.resetForm();
                 bus.emit('directionAjoutee');
+
                  } 
                  catch(e){
+
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
                     Swal.fire('Erreur !','Cette direction existe déjà','error')
