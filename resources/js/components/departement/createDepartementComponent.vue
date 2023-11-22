@@ -144,6 +144,7 @@ import Form from 'vform';
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';

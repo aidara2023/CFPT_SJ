@@ -49,6 +49,7 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
+
                     <a href="#" class="texte b"  @click="openModal(formation)">
                         <i class="fi fi-rr-edit"></i>
                         <span class="modifier mdl">Modifier</span>
@@ -110,7 +111,7 @@ import Form from 'vform';
 
 
             }).catch(error=>{
-            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formation','error')
+            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formations','error')
             });
         },
 
@@ -157,21 +158,21 @@ import Form from 'vform';
                 }
             });
         },
-        openModal(typeformation) {
+        openModal(formation) {
           
-          this.idTypeformation=typeformation.id;
+          this.idTypeformation=formation.id;
 
           this.editModal = true;
 
           // Créez un objet avec les données à envoyer
           const eventData = {
               idTypeformation: this.idTypeformation,
-              nom: typeformation.intitule,
-              editModal: true,
+              nom: formation.intitule,
+              editModal: this.editModal,
               // Ajoutez d'autres propriétés si nécessaire
           };
 
-          bus.emit('typeformationModifier', eventData);
+          bus.emit('formationModifier', eventData);
 
           var fond = document.querySelector('.fond');
           var flou = document.querySelectorAll('.flou');
