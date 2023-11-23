@@ -31,7 +31,7 @@ class departement_controller extends Controller
         if($verification->count()!=0){
             return response()->json([
                 'statut'=>404,
-                'message'=>'Cette departement existe déja',
+                'message'=>'Ce departement existe déja',
             ],404 );
         }else{
 

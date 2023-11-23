@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function()  {
     var ajout = document.querySelector("[data-modal-ajout]");
     var modification = document.querySelector("[data-modal-modification]");
     var suppression = document.querySelector("[data-modal-suppression]");
+    var filtre = document.querySelector("[data-modal-filtre]");
 
     var fermemod = document.querySelectorAll('[data-close-modal]');
     var fermemod_class = document.querySelectorAll('.data-close-modal');
@@ -57,6 +58,15 @@ document.addEventListener("DOMContentLoaded", function()  {
                 setTimeout(function(){
                 suppression.showModal();
                 suppression.classList.add("actif");
+                }, 20); 
+            }
+
+            if(mdl[index].classList.contains("filtrer")){
+                console.log(contenu);
+
+                setTimeout(function(){
+                filtre.showModal();
+                filtre.classList.add("actif");
                 }, 20); 
             }
         });

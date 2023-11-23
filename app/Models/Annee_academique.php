@@ -24,5 +24,9 @@ class Annee_academique extends Model
     public function mois() {
         return $this->hasMany(Mois::class); 
     }
+
+    public function concerner() {
+        return $this->hasMany(Concerner::class); 
+    }
 }
 
