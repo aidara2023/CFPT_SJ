@@ -1,4 +1,5 @@
 <template>
+    <dialog data-modal-ajout class="modal">
     <div class=" cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
@@ -190,12 +191,15 @@
             </div>  -->
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                    <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                    <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
 
         </form>
     </div>
+    </dialog>
 </template>
 
 <script>
@@ -259,9 +263,8 @@ import Form from 'vform';
             id_personnel_administratif_erreur:"",
             i:0,
             etatForm: false,
-
-
-
+            editModal: false,
+            idUser: "",
         }
     },
 
@@ -320,7 +323,10 @@ import Form from 'vform';
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
+            formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui);
             formdata.append('photo', this.photo);
+           
 
             /* if(this.form.id_personnel_administratif){
                 formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
@@ -433,12 +439,13 @@ import Form from 'vform';
         },
         validerAvantAjout() {
 
-            const isVerifIdValid = this.verifId();
-            const isIdChampValid = this.validatedataOld();
+            const isVerifIdValid = this.validatedataOld();
+            const isIdChampValid = this.verifId();
           /*   console.log(isNomChampValid); */
-            if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
+            if ( isIdChampValid===true || isVerifIdValid===true) {
                 this.etatForm = false;
-                console.log("erreur");
+               /*  console.log("erreur"); */
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -446,12 +453,14 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.update_utilisateur(this.idUser);
                     this.closeModal('[data-modal-confirmation-modifier]');
+                    this.editModal=false;
                     
                 }
                 else{
                     this.etatForm= true;
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 }
                 }
 
@@ -476,6 +485,27 @@ import Form from 'vform';
             this.form.id_departement="";
             this.form.id_personnel_administratif="";
             this.id_personnel_appui="";
+            this.editModal===false;
+
+            this.nom_user_erreur="";
+            this.prenom_user_erreur="";
+            this.date_erreur="";
+            this.lieu_naissance_erreur="";
+            this.genre_erreur="";
+            this.adresse_erreur="";
+            this.telephone_erreur="";
+            this.email_user_erreur="";
+            this.nationalite_erreur="";
+            this.id_role_erreur="";
+            this.id_specialite_erreur="";
+            this.id_departement_erreur="";
+            this.id_service_erreur="";
+            this.type_erreur="";
+            this.situation_matrimoniale_erreur="";
+            this.erreur="";
+            this.id_personnel_appui_erreur="";
+            this.id_personnel_administratif_erreur="";
+
 
         },
         verifCaratere(nom){
@@ -995,6 +1025,76 @@ validatePhoneNumber(phoneNumber) {
             if(i==1) return true;
 
                 return false;
+        },
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal===false;
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
+        async update_utilisateur(id){
+            const formdata = new FormData();
+            formdata.append('nom', this.form.nom  );
+            formdata.append('prenom', this.form.prenom  );
+            formdata.append('lieu_naissance', this.form.lieu_naissance);
+            formdata.append('date_naissance', this.form.date_naissance);
+            formdata.append('genre', this.form.genre);
+            formdata.append('adresse', this.form.adresse);
+            formdata.append('email', this.form.email);
+            formdata.append('telephone', this.form.telephone);
+            formdata.append('nationalite', this.form.nationalite);
+            formdata.append('id_role', this.form.id_role);
+            formdata.append('type', this.form.type);
+            formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
+            formdata.append('id_specialite', this.form.id_specialite);
+            formdata.append('id_service', this.form.id_service);
+            formdata.append('id_departement', this.form.id_departement);
+            formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui);
+            formdata.append('photo', this.photo);
+            formdata.append('photo', this.photo);
+
+            /* if(this.form.id_personnel_administratif){
+                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            } */
+
+            try{
+                const user_store=await axios.post('/user/update/'+id, formdata);
+                this.resetForm();
+                bus.emit('utilisateurAjoutee');
+
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
+                }
+                else{
+                Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
         },
 
 

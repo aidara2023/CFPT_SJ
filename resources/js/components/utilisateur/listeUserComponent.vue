@@ -175,9 +175,25 @@ import Form from 'vform';
 
           // Créez un objet avec les données à envoyer
           const eventData = {
-              idUser: this.idUser,
-              nom: departement.nom_departement,
-              id_direction: departement.id_direction,
+              idUser: this.idUser, 
+              nom: utilisateur.nom,
+              prenom: utilisateur.prenom,
+              genre: utilisateur.genre,
+              adresse: utilisateur.adresse,
+              telephone: utilisateur.telephone,
+              email: utilisateur.email,
+              date_naissance: utilisateur.date_naissance,
+              lieu_naissance: utilisateur.lieu_naissance,
+              nationalite: utilisateur.nationalite,
+              type: utilisateur.type,
+              situation_matrimonial: utilisateur.situation_matrimonial,
+              id_role: utilisateur.id_role,
+              id_specialite: utilisateur.id_specialite,
+              id_departement: utilisateur.id_departement,
+              id_service: utilisateur.id_service,
+              id_personnel_administratif: utilisateur.id_personnel_administratif,
+              id_personnel_appui: utilisateur.id_personnel_appui,
+              
               editModal: this.editModal,
               // Ajoutez d'autres propriétés si nécessaire
           };

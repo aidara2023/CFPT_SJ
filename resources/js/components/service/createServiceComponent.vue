@@ -112,6 +112,7 @@
             /*   console.log(isNomChampValid); */
             if ( isIdChampValid===true || isVerifIdValid===true) {
                 this.etatForm = false;
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -119,12 +120,14 @@
                     this.etatForm= true;
                     this.update_service(this.idService);
                     this.closeModal('[data-modal-confirmation-modifier]');  
+                    this.editModal=false;
                 }
             
             else{
                 this.soumettre();
                 this.etatForm = true;
                 this.closeModal('[data-modal-confirmation]');
+                this.editModal=false;
                 // console.log(Tokkos);
             }
             
@@ -308,6 +311,7 @@
                 await axios.post('/service/update/'+id, formdata);
                 bus.emit('serviceAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 /* console.log(e.request.status) */

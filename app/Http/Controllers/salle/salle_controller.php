@@ -42,7 +42,7 @@ class salle_controller extends Controller
     public function update(salle_request $request, $id){
         $salle=salle::find($id);
         if($salle!=null){
-           $salle->intitule=$request['type_salle'];
+           $salle->intitule=$request['intitule'];
            $salle->nombre_place=$request['nombre_place'];
            $salle->id_batiment=$request['id_batiment'];
           

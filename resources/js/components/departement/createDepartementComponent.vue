@@ -107,6 +107,7 @@ import Form from 'vform';
 
             if ( isNomDepartementValid===true || isIdDirectionValid===true ) {
                 this.etatForm= false;
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -114,12 +115,14 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.update_departement(this.idDepartement);
                     this.closeModal('[data-modal-confirmation-modifier]');
+                    this.editModal=false;
                     
                 }
                 else{
                     this.etatForm= true;
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 }
             }
 
@@ -215,6 +218,7 @@ import Form from 'vform';
                 await axios.post('/departement/update/'+id, formdata);
                 bus.emit('departementAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 /* console.log(e.request.status) */

@@ -106,9 +106,9 @@
     {{--  Fin modal pour modifier utilisateur --}}
 
       {{--  Debut modal pour ajouter utilisateur --}}
-    <dialog data-modal-ajout class="modal">
+   
     <utilisateur-create></utilisateur-create>
-    </dialog>
+    
       {{--  Fin modal pour ajouter utilisateur --}}
 
       {{--  Debut modal pour supprimer utilisateur --}}
@@ -137,6 +137,13 @@
         <h1>Réussi !</h1>
         <br>
         <p class="">Utilisateur supprimé avec succès</p>
+    </dialog>
+    
+    <dialog data-modal-confirmation-modifier class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Réussi !</h1>
+        <br>
+        <p class="">Unité de formation modifier avec succès</p>
     </dialog>
 </div>
  <span class="fond "></span>
