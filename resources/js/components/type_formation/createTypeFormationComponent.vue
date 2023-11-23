@@ -13,7 +13,7 @@
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -42,7 +42,7 @@ import Form from 'vform';
         }
     },
     mounted(){
-            bus.on('formationeModifier', (eventData) => {
+            bus.on('formationModifier', (eventData) => {
             this.idTypeformation= eventData.idTypeformation;
             this.editModal = eventData.editModal;
             this.form.intitule = eventData.nom;
@@ -77,19 +77,22 @@ import Form from 'vform';
             /*   console.log(isNomChampValid); */
             if ( isVerifIdValid===true) {
                 this.etatForm = false;
+                this.editModal=false;
                 return 0;
             }else{
 
                 if(this.editModal===true){
                     this.etatForm= true;
                     this.update_formation(this.idTypeformation);
-                    this.closeModal('[data-modal-confirmation-modifier]');  
+                    this.closeModal('[data-modal-confirmation-modifier]'); 
+                    this.editModal=false; 
                 }
             
             else{
                 this.soumettre();
                 this.etatForm = true;
                 this.closeModal('[data-modal-confirmation]');
+                this.editModal=false;
                 // console.log(Tokkos);
             }
             
@@ -164,8 +167,9 @@ import Form from 'vform';
                 await axios.post('/type_formation/update/'+id, formdata);
                 bus.emit('formationAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
-            catch(e){
+            catch(e){     
                 console.log(e) 
                 /* if(e.request.status===404){
                     Swal.fire('Erreur !','Cette type de formation existe déjà','error')

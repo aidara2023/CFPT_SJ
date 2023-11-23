@@ -35,7 +35,7 @@
             <div class="boutons">
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -141,6 +141,7 @@ import Form from 'vform';
             console.log(isNomUniteValid);
             if (isNomUniteValid===true || isIdValid===true) {
                 this.etatForm= true;
+                this.editModal=false;
                 return 0;
             }
             else{
@@ -149,11 +150,13 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.update_formation(this.idFormation);
                     this.closeModal('[data-modal-confirmation-modifier]');  
+                    this.editModal=false;
                 }
             else{
                 this.soumettre();
                 this.etatForm= true;
                 this.closeModal('[data-modal-confirmation]');
+                this.editModal=false;
             }
 
             }
@@ -261,6 +264,7 @@ import Form from 'vform';
                    
                     this.resetForm();
                     bus.emit('unite_formationAjoutee');
+                    this.editModal=false;
      
                 }
                 catch(e){

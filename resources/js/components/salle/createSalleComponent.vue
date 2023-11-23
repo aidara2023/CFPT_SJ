@@ -25,11 +25,11 @@
                         </div>
                     </div>
                
-    
-                    <div class="boutons">
-                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+                <div class="boutons">
+                    <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                    <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
             </form>
         </div>
@@ -107,6 +107,7 @@
 
                 if (isNomSalleValid===true || isIdBatimentValid===true ) {
                     this.etatForm= false;
+                    this.editModal=false;
                     return 0;
                 }else{
 
@@ -114,12 +115,14 @@
                         this.etatForm= true;
                         this.update_salle(this.idSalle);
                         this.closeModal('[data-modal-confirmation-modifier]');  
+                        this.editModal=false;
                     }
 
                     else{
                     this.soumettre();
                     this.etatForm = true;
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 
                     }
                 }
@@ -281,6 +284,7 @@
                 await axios.post('/salle/update/'+id, formdata);
                 bus.emit('salleAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 console.log(e)
