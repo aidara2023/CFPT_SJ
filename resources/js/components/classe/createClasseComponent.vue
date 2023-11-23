@@ -14,8 +14,9 @@
                 <div>
                     <select name="type_classe" id="type_classe" v-model="form.type_classe " @change="validatedata('type_classe')">
                             <option value="">Type Classe</option>
-                            <option  value="Non payant">Public</option>
-                            <option  value="Payant">Privé</option>
+                            <option  value="Non payant">CJ</option>
+                            <option  value="Payant Jour">FPJ</option>
+                            <option  value="Payant soir">CS</option>
                         </select>
                         <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
                 </div>

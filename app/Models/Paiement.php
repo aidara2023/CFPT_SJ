@@ -14,9 +14,9 @@ class Paiement extends Model
     'montant',
     'mode_paiement',
     'reference'
-  ];
+  ]; 
 
-
+ 
     public function caissier() {
       return $this->belongsTo(Caissier::class,'id_caissier');
     }
@@ -32,6 +32,9 @@ class Paiement extends Model
     public function mois() {
       return $this->hasMany(mois::class);
     }
+    public function concerner() {
+      return $this -> hasMany(Concerner::class);
+  }
 
 
 }

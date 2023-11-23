@@ -450,7 +450,7 @@ import Form from 'vform';
             const isVerifIdValid = this.verifId();
             const isIdChampValid = this.validatedataOld();
           /*   console.log(isNomChampValid); */
-            if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
+            if ( isIdChampValid || isVerifIdValid) {
                 this.etatForm = false;
                 console.log("erreur");
                 return 0;
@@ -845,13 +845,18 @@ validatePhoneNumber(phoneNumber) {
             }
 
             if(this.interesser== 5){
-                if(this.form.id_service=== ""){
-                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                    i=1;
-                }
+               
                 if(this.form.id_personnel_administratif=== ""){
                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
                     i=1;
+    
+                }
+                if(this.get_id_perso_admin== 1){
+                    if(this.form.id_service=== ""){
+                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                    i=1;
+                }
+
                 }
             }
             if(this.interesser== 4){
@@ -886,60 +891,7 @@ validatePhoneNumber(phoneNumber) {
 
         },
 
-    Uniquevalidate(donnee){
-        this.nom_user_erreur= "";
-        this.prenom_user_erreur="";
-        this.nationalite_erreur="";
-        this.lieu_naissance_erreur="";
-        this.adresse_erreur="";
-        this.date_erreur="";
-        this.email_user_erreur="";
-        this.telephone_erreur="";
-        this.erreur = "";
-        this.id_role_erreur = "";
-        this.genre_erreur = "";
-
-
-        var i = 0;
-        if(donnee === 'soumettre') i = 1;
-
-        //Pour nom
-        if(donnee === 'nom' || i === 1){
-            // Effectuez la validation pour le champ 'nom'
-            this.nom_user_erreur= ""
-            if(this.form.nom=== ""){
-                this.nom_user_erreur= "Ce champ est obligatoire"
-            }
-            if(!this.verifCaratere(this.form.nom)){
-                this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-            }
-
-            if(i !== 1) return true;
-        }
-        //Pour prénom
-        if(donnee === 'prenom' || i === 1){
-            // Effectuez la validation pour le champ 'nom'
-            this.prenom_user_erreur= ""
-            if(this.form.prenom=== ""){
-                this.prenom_user_erreur= "Ce champ est obligatoire"
-            }
-            if(!this.verifCaratere(this.form.prenom)){
-                this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-            }
-
-            
-
-            if(i !== 1) return true;
-        }
-
-        if(donnee === 'soumettre'){
-            //Code ajout
-            console.log("Tout marche !!!!!!!!");
-           this.validerAvantAjout();
-        }
-    },
+   
     verifId(){
         this.id_service_erreur= "";
         this.id_specialite_erreur="";
@@ -962,22 +914,31 @@ validatePhoneNumber(phoneNumber) {
              i=1;
         } */
 
+        if(this.interesser== 5){
+               
+               if(this.form.id_personnel_administratif=== ""){
+                   this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                   i=1;
+   
+               }
+               if(this.get_id_perso_admin== 1){
+                   if(this.form.id_service=== ""){
+                   this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                   i=1;
+               }
+
+               }
+           }
+        
         if(this.interesser== 4){
-            if(this.form.id_service=== ""){
-                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                    i=1;
-                }
-                if(this.form.id_personnel_administratif=== ""){
-                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                    i=1;
-                    return true
-                }
-                if(this.form.id_personnel_appui=== ""){
-                    this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                    i=1;
-                    return true
-                }
-        }if(this.interesser== 6){
+            if(this.form.id_personnel_appui=== ""){
+                this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                i=1;
+                
+            }
+        }
+        
+        if(this.interesser== 2){
             if(this.form.id_specialite=== ""){
                     this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
                     i=1;
