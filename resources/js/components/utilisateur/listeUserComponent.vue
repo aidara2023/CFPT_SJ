@@ -1,14 +1,22 @@
 <template>
 
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Formateur</h1>
+
+       <div class="avant" style=" margin-left: 80%;">
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
 
+       <div class="avant" style="margin-top: 5%;">
+           <h1 class="texte"><a href="#" @click="goToStep(1)">Formateur</a></h1>
+           <h1 class="texte"><a href="#" @click="goToStep(2)">Personnel Administratif</a></h1>
+           <h1 class="texte"><a href="#" @click="goToStep(3)">Personnel d'appui</a></h1>
+       </div>
 
+
+        <div v-if="activePhase==1">
+            
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur" v-if="utilisateur.role.id===2">
@@ -35,16 +43,8 @@
                </div>
            </div>
         </div>
-
-        <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Personnel Administratif</h1>
-           <a href="#">
-              
-           </a>
-       </div>
-
-
+    </div>
+        <div v-if="activePhase==2">
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur" v-if="utilisateur.role.id===5">
@@ -58,7 +58,7 @@
                     </a>
                    <a href="#" class="texte b" @click="openModal(utilisateur)">
                        <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
+                       <button class="modifier mdl">Modifier</button>
                    </a>
                    <a href="" class="texte b">
                        <i class="fi fi-rr-comment-alt-dots"></i>
@@ -72,9 +72,37 @@
            </div>
         </div>
     </div>
+        <div v-if="activePhase==3">
+        <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
+           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+           <div class="utilisateur" v-if="utilisateur.role.id===4">
+               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
+               <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+               <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
+               <div  class="presences">
+                    <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
+                       <i class="fi fi-rr-edit"></i>
+                       <button class="modifier mdl">Modifier</button>
+                   </a>
+                   <a href="" class="texte b">
+                       <i class="fi fi-rr-comment-alt-dots"></i>
+                       <span class="details">Détails</span>
+                   </a>
+                   <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
+                       <i class="fi fi-rr-cross"></i>
+                       <span class="supprimer mdl">Supprimer</span>
+                   </a>
+               </div>
+           </div>
+        </div>
     </div>
 
-  
+    
+</div>
 
 
 <!-- <span class="fond "></span> -->
@@ -99,6 +127,7 @@ import Form from 'vform';
            utilisateurs: [],
            idUser: "",
            editModal: false,
+           activePhase:1,
 
 
        }
@@ -126,10 +155,9 @@ import Form from 'vform';
            this.interesser= event;
        },
 
-       resetForm(){
-           this.form.input="";
-           this.form.intitule="";
-       },
+       goToStep: function(step){
+            this.activePhase= step;
+        },
 
        async deleteUtilisateur(user) {
            Swal.fire({

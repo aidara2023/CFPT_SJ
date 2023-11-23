@@ -2,14 +2,14 @@
     @if (Auth::user()->id_role==3)
     <nav class="flou ">
         <ul >
-            <li class="fntr"><a href="{{route('admin_index')}}">
-                <div>
-                    <i class="fi fi-rr-home"></i>
-                    <span>Accueil</span>
-                </div>
-            </a>
-     
-        </li>
+            <li class="fntr">
+                <a href="{{route('admin_index')}}">
+                    <div>
+                        <i class="fi fi-rr-home"></i>
+                        <span>Accueil</span>
+                    </div>
+                </a>
+            </li>
         
             <li class="fntr"><a href="{{route('utilisateur_index')}}">
                 <div>
