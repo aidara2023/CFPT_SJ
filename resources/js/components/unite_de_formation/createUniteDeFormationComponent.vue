@@ -33,8 +33,9 @@
 
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -64,6 +65,8 @@ import Form from 'vform';
             id_departement_erreur:"",
             id_formateur_erreur:"",
             etatForm: false,
+            editModal: false,
+            idFormation: "",
             
 
         }
@@ -72,6 +75,13 @@ import Form from 'vform';
     mounted(){
         this.get_departement();
         this.get_formateur();
+        bus.on('formationModifier', (eventData) => {
+            this.idFormation = eventData.idFormation;
+            this.editModal = eventData.editModal;
+            this.form.nom_unite_formation = eventData.nom;
+            this.form.id_departement = eventData.id_departement;
+            this.form.id_formateur = eventData.id_formateur;
+        });
     },
 
     methods:{
@@ -84,48 +94,11 @@ import Form from 'vform';
              //if(this.form.nom!==""){
                 try{
                     await axios.post('/unite_de_formation/store', formdata, {});
-                    //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+                    //Swal.fire('Réussi !', 'formation ajouté avec succès','success');
                    
-                
                     this.resetForm();
                     bus.emit('unite_formationAjoutee');
-
-                    var ajout = document.querySelector('[data-modal-ajout]');
-                    var confirmation = document.querySelector('[data-modal-confirmation]');
-
-                   
-                    /* console.log(ajout); */
-                    var actif = document.querySelectorAll('.actif');
-                        actif.forEach(item => {
-                        item.classList.remove("actif");
-                    }); 
-                    //ajout.classList.remove("actif");
-                    ajout.close();
-
-
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
-
-                        
-
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-                     
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 1700);  
-                       
-
-
-                       
+     
                 }
                 catch(e){
                     /* console.log(e.request.status) */
@@ -137,12 +110,8 @@ import Form from 'vform';
                   }
 
                 }
-
-
-            
-
-
         },
+
         get_departement(){
 
             axios.get('/departement/all')
@@ -170,15 +139,30 @@ import Form from 'vform';
             const isIdValid = this.verifId();
 
             console.log(isNomUniteValid);
-            if (isNomUniteValid || isIdValid) {
+            if (isNomUniteValid===true || isIdValid===true) {
                 this.etatForm= true;
+                this.editModal=false;
                 return 0;
-            }else{
+            }
+            else{
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_formation(this.idFormation);
+                    this.closeModal('[data-modal-confirmation-modifier]');  
+                    this.editModal=false;
+                }
+            else{
                 this.soumettre();
                 this.etatForm= true;
+                this.closeModal('[data-modal-confirmation]');
+                this.editModal=false;
+            }
+
             }
            
         }, 
+
         controleDeSaisie(){
             var champ = this.value;
             console.log(champ);
@@ -192,6 +176,7 @@ import Form from 'vform';
             this.nom_unite_erreur= "";
             this.id_departement_erreur= "";
             this.id_formateur_erreur= "";
+            this.editModal===false;
         },
 
         verifCaratere(nom_unite_formation){
@@ -239,6 +224,60 @@ import Form from 'vform';
         return false;
         
     },
+    closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
+    async update_formation(id){
+            const formdata = new FormData();
+            formdata.append('nom_unite_formation', this.form.nom_unite_formation );
+            formdata.append('id_departement', this.form.id_departement);
+            formdata.append('id_formateur', this.form.id_formateur);
+
+             //if(this.form.nom!==""){
+                try{
+                    await axios.post('/unite_de_formation/update/'+id, formdata, {});
+                    //Swal.fire('Réussi !', 'formation ajouté avec succès','success');
+                   
+                    this.resetForm();
+                    bus.emit('unite_formationAjoutee');
+                    this.editModal=false;
+     
+                }
+                catch(e){
+                 console.log(e) 
+                  /* if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette unité existe déjà','error')
+                  }
+                  else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                  } */
+
+                }
+        },
 
    
 

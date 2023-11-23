@@ -46,6 +46,11 @@
                 <p class="texte" id="n">{{ formation.intitule }}</p>
                 <div  class="presences">
                     <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
+
+                    <a href="#" class="texte b"  @click="openModal(formation)">
                         <i class="fi fi-rr-edit"></i>
                         <span class="modifier mdl">Modifier</span>
                     </a>
@@ -85,6 +90,8 @@ import Form from 'vform';
 
             }),
             formations: [],
+            editModal: false,
+            idTypeformation: "",
 
 
         }
@@ -104,7 +111,7 @@ import Form from 'vform';
 
 
             }).catch(error=>{
-            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formation','error')
+            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formations','error')
             });
         },
 
@@ -151,6 +158,36 @@ import Form from 'vform';
                 }
             });
         },
+        openModal(formation) {
+          
+          this.idTypeformation=formation.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idTypeformation: this.idTypeformation,
+              nom: formation.intitule,
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('formationModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
     }
 }

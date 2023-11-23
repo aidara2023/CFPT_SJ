@@ -20,7 +20,7 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
                        <i class="fi fi-rr-edit"></i>
                        <button class="modifier mdl">Modifier</button>
                    </a>
@@ -56,7 +56,7 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
@@ -97,6 +97,8 @@ import Form from 'vform';
 
            }),
            utilisateurs: [],
+           idUser: "",
+           editModal: false,
 
 
        }
@@ -165,6 +167,53 @@ import Form from 'vform';
                }
            });
        },
+       openModal(utilisateur) {
+          
+          this.idUser=utilisateur.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idUser: this.idUser, 
+              nom: utilisateur.nom,
+              prenom: utilisateur.prenom,
+              genre: utilisateur.genre,
+              adresse: utilisateur.adresse,
+              telephone: utilisateur.telephone,
+              email: utilisateur.email,
+              date_naissance: utilisateur.date_naissance,
+              lieu_naissance: utilisateur.lieu_naissance,
+              nationalite: utilisateur.nationalite,
+              type: utilisateur.type,
+              situation_matrimonial: utilisateur.situation_matrimonial,
+              id_role: utilisateur.id_role,
+              id_specialite: utilisateur.id_specialite,
+              id_departement: utilisateur.id_departement,
+              id_service: utilisateur.id_service,
+              id_personnel_administratif: utilisateur.id_personnel_administratif,
+              id_personnel_appui: utilisateur.id_personnel_appui,
+              
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('departementModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 

@@ -56,7 +56,8 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'nom_direction':""
+               'nom_direction':"",
+               'id_user':""
 
            }),
            directions: [],

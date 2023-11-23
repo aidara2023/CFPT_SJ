@@ -52,8 +52,9 @@ class unite_de_formation_controller extends Controller
     public function update(unite_de_formation_request $request, $id){
         $unite_de_formation=Unite_de_formation::find($id);
         if($unite_de_formation!=null){
-           $unite_de_formation->nom_unite_de_formation=$request['nom_unite_de_formation'];
-           $unite_de_formation->id_user=$request['id_user'];
+           $unite_de_formation->nom_unite_formation=$request['nom_unite_formation'];
+           $unite_de_formation->id_formateur=$request['id_formateur'];
+           $unite_de_formation->id_departement=$request['id_departement'];
            $unite_de_formation->save();
             return response()->json([
                 'statut'=>200,
