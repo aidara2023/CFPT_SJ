@@ -533,24 +533,13 @@ import Form from 'vform';
 
         validatedata(champ) {
             // Réinitialiser les erreurs pour le champ actuel
-                this.nom_user_erreur= "";
-                this.prenom_user_erreur="";
-                this.nationalite_erreur="";
-                this.lieu_naissance_erreur="";
-                this.adresse_erreur="";
-                this.date_erreur="";
-                this.email_user_erreur="";
-                this.telephone_erreur="";
                 this.erreur = "";
-                this.id_role_erreur = "";
-                this.genre_erreur = "";
-                this.id_personnel_administratif_erreur = "";
-                this.id_personnel_appui_erreur = "";
-
                 var i= 0;
 
             switch (champ) {
+
                 case 'nom':
+                this.nom_user_erreur= "";
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.nom=== ""){
                     this.nom_user_erreur= "Ce champ est obligatoire"
@@ -567,6 +556,7 @@ import Form from 'vform';
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'prenom':
+                this.prenom_user_erreur="";
                     //pour prenom
                     if(this.form.prenom=== ""){
                     this.prenom_user_erreur= "Ce champ est obligatoire"
@@ -581,6 +571,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'adresse':
+                this.adresse_erreur="";
                     //pour adresse
                     if(this.form.adresse=== ""){
                         this.adresse_erreur= "Ce champ est obligatoire"
@@ -590,6 +581,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'naissance':
+                this.lieu_naissance_erreur="";
                     //pour lieu de naissance
                     if(this.form.lieu_naissance=== ""){
                         this.lieu_naissance_erreur= "Ce champ est obligatoire"
@@ -603,6 +595,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'nationalite':
+                this.nationalite_erreur="";
                     //pour nationalite
                     if(this.form.nationalite=== ""){
                         this.nationalite_erreur= "Ce champ est obligatoire"
@@ -616,6 +609,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'email':
+                this.email_user_erreur="";
                 //Vérification de l' email
                     if(this.form.email=== ""){
                         this.email_user_erreur= "L'email est obligatoire"
@@ -630,6 +624,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'date_naissance':
+                this.date_erreur="";
                 // Vérification de la date de naissance
                     if(this.form.date_naissance === ""){
                         this.date_erreur = "La date de naissance est obligatoire";
@@ -656,6 +651,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'telephone':
+                this.telephone_erreur="";
                     //Vérification du numero de telephone
                     if(this.form.telephone === ""){
                         this.telephone_erreur = "Le numéro de téléphone est obligatoire";
@@ -668,6 +664,7 @@ import Form from 'vform';
                     }
                     break;
                     case 'role':
+                    this.id_role_erreur = "";
                         //Vérification de role
                         if(this.form.id_role=== ""){
                         this.id_role_erreur= "Vous avez oublié de sélectionner le role "
@@ -677,6 +674,7 @@ import Form from 'vform';
                     break;
 
                     case 'genre':
+                    this.genre_erreur = "";
                     //Vérification de matrimoniale
                     if(this.form.genre=== ""){
                     this.genre_erreur= "Vous avez oublié de sélectionner le genre "
@@ -686,9 +684,10 @@ import Form from 'vform';
                     break;
 
                     case 'type':
+                    this.type_erreur= "";
                         //Vérification de type
-                        if(this.form.id_type=== ""){
-                        this.id_type_erreur= "Vous avez oublié de sélectionner le type "
+                        if(this.form.type=== ""){
+                        this.type_erreur= "Vous avez oublié de sélectionner le type "
                         i=1;
                         return true
                 }
@@ -696,7 +695,7 @@ import Form from 'vform';
 
                 case 'service':
                     //Vérification deservice
-
+                    this.id_service_erreur="";
                     if(this.form.id_service=== ""){
                         this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
                         i=1;
@@ -706,6 +705,7 @@ import Form from 'vform';
                     break;
 
                 case 'specialite':
+                this.id_specialite_erreur="";
                     //Vérification de spécialité
                     if(this.form.id_specialite=== ""){
                     this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
@@ -714,6 +714,7 @@ import Form from 'vform';
                 }
                     break;
                 case 'situation_matrimoniale':
+                this.situation_matrimoniale_erreur="";
                     //Vérification de matrimoniale
                     if(this.form.situation_matrimoniale=== ""){
                     this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
@@ -722,6 +723,7 @@ import Form from 'vform';
                 }
                     break;
                 case 'departement':
+                this.id_departement_erreur="";
                     //Vérification de departement
                     if(this.form.id_departement=== ""){
                     this.id_departement_erreur= "Vous avez oublié de sélectionner le départrement"
@@ -731,6 +733,7 @@ import Form from 'vform';
                 break;
 
                 case 'personnel_administratif':
+                this.id_personnel_administratif_erreur = "";
                     //Vérification de personnel_administratif
                     if(this.form.id_personnel_administratif=== ""){
                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
@@ -740,6 +743,7 @@ import Form from 'vform';
                 break;
 
                 case 'personnel_appui':
+                this.id_personnel_appui_erreur = "";
                     //Vérification de personnel_appui
                     if(this.form.id_personnel_appui=== ""){
                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"

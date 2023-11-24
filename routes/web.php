@@ -650,3 +650,6 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 //Route pour recouvrement
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 
+
+
+Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
