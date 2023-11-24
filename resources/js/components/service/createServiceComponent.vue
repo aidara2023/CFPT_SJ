@@ -213,11 +213,10 @@
             this.id_direction_erreur= "";
             if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
-    
                 return true
-            
             }
             break;
+
             case 'id_user':
             //pour direction
             this.id_user_erreur= "";
@@ -226,6 +225,7 @@
                return true
             }
             break;
+
             case 'id_direction':
             //pour direction
             this.id_direction_erreur= "";
@@ -235,7 +235,7 @@
             }
             break;
             
-                default:
+            default:
                 break;
             }
             return false;
@@ -278,44 +278,25 @@
             return false;
         },
 
-        verifIdUser(){
-            this.id_user_erreur= "";
-            this.id_direction_erreur= "";
-            var i=0;
-    
-            if(this.form.id_user=== ""){
-                this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
-                i=1;
-            }
-            if(this.form.id_direction=== ""){
-                this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
-                i=1;
-            }
-
-            if(i===1)return true;
-    
-            return false;
-        },
-    
-            get_user(){
-                axios.get('/user/getPersonnel')
-                .then(response => {
-                    this.users=response.data.user
-                 }).catch(error=>{
-                   Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
-               });
-           },
-    
-            get_direction(){
-                axios.get('/direction/index')
-                .then(response => {
-                    this.directions=response.data.direction
-                
-                
+        get_user(){
+            axios.get('/user/getPersonnel')
+            .then(response => {
+                this.users=response.data.user
                 }).catch(error=>{
-                Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
-                });
-            },
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
+            });
+        },
+
+        get_direction(){
+            axios.get('/direction/index')
+            .then(response => {
+                this.directions=response.data.direction
+            
+            
+            }).catch(error=>{
+            Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
+            });
+        },
 
         async update_service(id){
          const formdata = new FormData();
