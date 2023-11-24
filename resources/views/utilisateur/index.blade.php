@@ -106,9 +106,9 @@
     {{--  Fin modal pour modifier utilisateur --}}
 
       {{--  Debut modal pour ajouter utilisateur --}}
-   
+    <dialog data-modal-ajout class="modal">
     <utilisateur-create></utilisateur-create>
-    
+</dialog>
       {{--  Fin modal pour ajouter utilisateur --}}
 
       {{--  Debut modal pour supprimer utilisateur --}}

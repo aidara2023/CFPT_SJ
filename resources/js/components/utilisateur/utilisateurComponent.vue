@@ -1,5 +1,5 @@
 <template>
-    <dialog data-modal-ajout class="modal">
+  <!--   <dialog data-modal-ajout class="modal"> -->
     <div class=" cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="">
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
@@ -199,7 +199,7 @@
 
         </form>
     </div>
-    </dialog>
+   <!--  </dialog> -->
 </template>
 
 <script>
