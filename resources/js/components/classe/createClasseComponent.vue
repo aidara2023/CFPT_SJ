@@ -203,15 +203,12 @@ import Form from 'vform';
         },
 
     validatedata(champ){
-        this.nom_classe_erreur= "";
-        this.id_type_formation_erreur="";
-          this.id_unite_de_formation_erreur="";
-          this.type_classe_erreur="";
-          this.niveau_erreur="";
+       
         var i=0;
 
     switch (champ) {
         case 'nom_classe':
+        this.nom_classe_erreur= "";
             // Effectuez la validation pour le champ 'nom'
             if(this.form.nom_classe=== ""){
             this.nom_classe_erreur= "Ce champ est obligatoire"
@@ -228,6 +225,7 @@ import Form from 'vform';
             // Ajoutez d'autres validations si nécessaire
             break;
         case 'niveau':
+        this.niveau_erreur="";
             //pour niveau
             if(this.form.niveau=== ""){
             this.niveau_erreur= "Vous avez oublié de sélectionner le niveau "
@@ -237,6 +235,7 @@ import Form from 'vform';
 
             break;
         case 'unite_de_formation':
+        this.id_unite_de_formation_erreur="";
             //pour unite_de_formation
             if(this.form.unite_de_formation=== ""){
                 this.id_unite_de_formation_erreur= "Vous avez oublié de sélectionner  l'unite de formation'"
@@ -246,6 +245,7 @@ import Form from 'vform';
             }
             break;
         case 'type_formation':
+        this.id_type_formation_erreur="";
              //pour type de formation
             if(this.form.type_formation=== ""){
                 this.type_formation_erreur= "Vous avez oublié de sélectionner le type de formation "
@@ -255,6 +255,7 @@ import Form from 'vform';
 
             break;
         case 'type_classe':
+        this.type_classe_erreur="";
             //pour type classe
             if(this.form.type_classe=== ""){
                 this.type_classe_erreur= "Vous avez oublié de sélectionner le type de classe "

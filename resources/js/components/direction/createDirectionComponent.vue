@@ -99,12 +99,13 @@ import Form from 'vform';
 
 
         validatedata(champ){
-            this.nom_direction_erreur= "";
-            this.id_user_erreur="";
+           
+            
             var i=0;
 
                 switch (champ) {
             case 'nom_direction':
+            this.nom_direction_erreur= "";
                 // Effectuez la validation pour le champ 'nom'
                 if(this.form.nom_direction=== ""){
                 this.nom_direction_erreur= "Ce champ est obligatoire"
@@ -122,6 +123,7 @@ import Form from 'vform';
                 break;
             
             case 'user':
+            this.id_user_erreur="";
                 //pour user
                 if(this.form.id_user=== ""){
                     this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
