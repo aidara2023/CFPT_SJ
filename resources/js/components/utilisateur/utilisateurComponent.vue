@@ -2,73 +2,62 @@
   <!--   <dialog data-modal-ajout class="modal"> -->
     <div class=" cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="">
+
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
+
             <!--Informations personnelles-->
-         <div>
+            <div>
                 <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
             </div>
+
             <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
+
             <div class="photo">
-
                 <label for="dossiers">Glissez la photo ici <span></span>
-                    <!-- <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-                    <img :src="getImageUrl(this.photo)"> -->
-
                     <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-
-
                 </label>
             </div>
 
             <div class="personnel">
-
-             <div>
+                <div>
                     <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom" @input="validatedata('nom')">
                     <span class="erreur" v-if="this.nom_user_erreur !== ''">{{this.nom_user_erreur}}</span>
-                    <!-- <span class="erreur" >{{this.erreur}}</span> --><!-- v-if="this.erreur !== ''" -->
-             </div>
+                </div>
 
-             <div>
+                <div>
                     <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom"  @input="validatedata('prenom')">
                     <span class="erreur" v-if="this.prenom_user_erreur !== ''">{{this.prenom_user_erreur}}</span>
-                    <!-- <span class="erreur" v-if="this.erreur !== ''">{{this.erreur}}</span> -->
-            </div>
+                </div>
 
-            <div>
+                <div>
                     <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance"  @input="validatedata('date_naissance')" >
                     <span class="erreur" v-if="this.date_erreur !== ''">{{this.date_erreur}}</span>
-            </div>
+                </div>
 
-            <div>
+                <div>
                     <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance"  @input="validatedata('naissance')">
                     <span class="erreur" v-if="this.lieu_naissance_erreur !== ''">{{this.lieu_naissance_erreur}}</span>
-            </div>
+                </div>
 
-            <div>
-                   <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite"  @input="validatedata('nationalite')">
-                   <span class="erreur" v-if="this.nationalite_erreur !== ''">{{this.nationalite_erreur}}</span>
+                <div>
+                    <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite"  @input="validatedata('nationalite')">
+                    <span class="erreur" v-if="this.nationalite_erreur !== ''">{{this.nationalite_erreur}}</span>
+                </div>
             </div>
-
-          </div>
 
             <div class="sexe">
                 <span class="b">Sexe</span>
+                <label for="masculin">Masculin
+                    <input type="radio" name="sexe" id="masculin" value="masculin" v-model="form.genre" @change="validatedata('genre')">
+                </label>
 
-                    <label for="masculin">Masculin
-                        <input type="radio" name="sexe" id="masculin" value="masculin" v-model="form.genre" @change="validatedata('genre')">
-
-                    </label>
-
-                    <label for="feminin">Feminin
-
-                        <input type="radio" name="sexe" id="feminin" value="feminin" v-model="form.genre" @change="validatedata('genre')">
-
-                    </label>
-                    <span class="erreur" v-if="genre_erreur !== ''">{{this.genre_erreur}}</span>
-
+                <label for="feminin">Feminin
+                    <input type="radio" name="sexe" id="feminin" value="feminin" v-model="form.genre" @change="validatedata('genre')">
+                </label>
+                <span class="erreur" v-if="genre_erreur !== ''">{{this.genre_erreur}}</span>
             </div>
-            <div class="num-addr">
 
+            <div class="num-addr">
                 <div>
                     <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone"  @input="validatedata('telephone')">
                     <span class="erreur" v-if="this.telephone_erreur !== ''">{{this.telephone_erreur}}</span>
@@ -83,103 +72,83 @@
                     <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email"  @input="validatedata('email')">
                     <span class="erreur" v-if="this.email_user_erreur !== ''">{{this.email_user_erreur}}</span>
                 </div>
-
-
             </div>
-
 
             <div class="roles">
                 <div>
                     <select name="role" id="role" v-model="form.id_role"  @change="changement(form.id_role)" >
                             <option value=""> Role</option>
-
                             <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
-
                         </select>
                     <span class="erreur" v-if="id_role_erreur !== ''">{{id_role_erreur}}</span>
                 </div>
             </div>
 
             <div class="personnel" v-if="this.interesser=== 2">
+                <div>
+                    <select name="" id="" v-model="form.type" @change="validatedata('type')">
+                        <option value="">Type Professeur</option>
+                        <option  value="Etat">Fonctionnaire</option>
+                        <option  value="Recruter">Recruter</option>
+                    </select>
+                    <span class="erreur" v-if="type_erreur !== ''">{{type_erreur}}</span>
+                </div>
 
-                    <!-- <input type="text" name="type" id="type" placeholder="Type" v-model="form.type"> -->
-
-                        <div>
-                            <select name="" id="" v-model="form.type" @change="validatedata('type')">
-                                <option value="">Type Professeur</option>
-                                <option  value="Etat">Fonctionnaire</option>
-                                <option  value="Recruter">Recruter</option>
-                            </select>
-                            <span class="erreur" v-if="type_erreur !== ''">{{type_erreur}}</span>
-                        </div>
-
-
-
-                    <div>
-                        <select name="" id="" v-model="form.situation_matrimoniale"  @change="validatedata('situation_matrimoniale')">
-                            <option value="">Selectioner Statut</option>
-                            <option  value="Niveau 1">Célibataire</option>
-                            <option  value="Niveau 2">Marié</option>
-                            <option  value="Niveau 2">Divorcé</option>
-                        </select>
-                        <span class="erreur" v-if="situation_matrimoniale_erreur !== ''">{{situation_matrimoniale_erreur}}</span>
-                    </div>
+                <div>
+                    <select name="" id="" v-model="form.situation_matrimoniale"  @change="validatedata('situation_matrimoniale')">
+                        <option value="">Selectioner Statut</option>
+                        <option  value="Niveau 1">Célibataire</option>
+                        <option  value="Niveau 2">Marié</option>
+                        <option  value="Niveau 2">Divorcé</option>
+                    </select>
+                    <span class="erreur" v-if="situation_matrimoniale_erreur !== ''">{{situation_matrimoniale_erreur}}</span>
+                </div>
 
                 <div>
                     <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"  @change="validatedata('specialite')">
-                            <option value=""> Spécialite</option>
-                            <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
+                        <option value=""> Spécialite</option>
+                        <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
                     </select>
                     <span class="erreur" v-if="id_specialite_erreur !== ''">{{id_specialite_erreur}}</span>
-
                 </div>
 
                 <div>
                     <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="validatedata('departement')">
-                            <option value=""> Departement</option>
-                            <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
+                        <option value=""> Departement</option>
+                        <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
                     <span class="erreur" v-if="id_departement_erreur !== ''">{{id_departement_erreur}}</span>
                 </div>
-
             </div>
+
             <div class="personnel" v-if="this.interesser=== 5">
-
-
                 <div>
                     <select name="id_personnel_administratif" id="id_personnel_administratif" v-model="form.id_personnel_administratif" @change="personnel_administratif(form.id_personnel_administratif)">
                             <option value=""> Fonction</option>
                             <option v-for="(personnel_administratif, index) in personnel_administratifs" :value="personnel_administratif.id" :key="index">{{ personnel_administratif.intitule }}</option>
                     </select>
                     <span class="erreur" v-if="id_personnel_administratif_erreur !== ''">{{id_personnel_administratif_erreur}}</span>
-
                 </div>
             </div>
 
-                <div class="personnel" v-if="this.get_id_perso_admin=== 1">
-
+            <div class="personnel" v-if="this.get_id_perso_admin=== 1 || this.get_id_perso_admin=== 3 || this.get_id_perso_admin=== 5">
                 <div>
                     <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')">
-                            <option value=""> Service</option>
-                            <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
+                        <option value=""> Service</option>
+                        <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
                     </select>
                     <span class="erreur" v-if="id_service_erreur !== ''">{{id_service_erreur}}</span>
-
                 </div>
-
             </div>
             
             <div class="personnel" v-if="this.interesser=== 4">
-
-
-            <div>
-                <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
-                        <option value=""> Fonction</option>
-                        <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
-                </select>
-                <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
-           
-            </div>
+                <div>
+                    <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
+                            <option value=""> Fonction</option>
+                            <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
+                </div>
             </div>
 
              
@@ -411,7 +380,6 @@ import Form from 'vform';
         },
 
         get_departement(){
-
              axios.get('/departement/all')
              .then(response => {
                  this.departements=response.data.departement
