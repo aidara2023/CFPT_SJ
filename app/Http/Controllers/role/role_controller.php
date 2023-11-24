@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class role_controller extends Controller
 {
     public function index() {
-        $role=Role::where('intitule', '!=', 'Eleve')->get();
+        $role=Role::where('intitule', '!=', 'Eleve') ->distinct()->get();
         if($role!=null){
             return response()->json([
                 'statut'=>200,

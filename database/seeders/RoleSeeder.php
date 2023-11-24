@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'intitule' => 'Eleve',
+                
             ],
 
             [
@@ -26,13 +27,48 @@ class RoleSeeder extends Seeder
                 'intitule' => 'Administrateur',
             ],
 
+            [  'id_personnel_appui' => 1,
+                'intitule' => 'Personnel Appui',
+              
+               
+            ],
             [
                 'intitule' => 'Personnel Appui',
+                'id_personnel_appui' => 2
             ],
+            [
+                'intitule' => 'Personnel Appui',
+                'id_personnel_appui' => 3
+            ],
+
            
             [
                 'intitule' => 'Personnel Administratif',
+                'id_personnel_administratif' => 1
+    
             ],
+            [
+                'intitule' => 'Personnel Administratif',
+                'id_personnel_administratif' => 2
+    
+            ],
+            [
+                'intitule' => 'Personnel Administratif',
+                'id_personnel_administratif' => 3
+    
+            ],
+            [
+                'intitule' => 'Personnel Administratif',
+                'id_personnel_administratif' => 4
+    
+            ],
+            [
+                'intitule' => 'Personnel Administratif',
+                'id_personnel_administratif' => 5
+    
+            ],
+            
+
 
             [
                 'intitule' => 'Tuteur',
