@@ -10,7 +10,8 @@ class Departement extends Model
     use HasFactory;
     protected $fillable =[
         'nom_departement',
-        'id_direction'
+        'id_direction',
+        'id_user',
 
     ];
     public function direction (){

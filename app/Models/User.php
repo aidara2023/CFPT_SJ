@@ -33,6 +33,7 @@ class User extends Authenticatable
         'id_role',
         'matricule_nombre',
         'matricule',
+        'status',
 
     ];
    /*  protected $primaryKey= 'matricule'; */

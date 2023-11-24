@@ -55,6 +55,7 @@ class departement_controller extends Controller
         if($departement != null){
             $departement -> nom_departement = $request['nom_departement'];
             $departement -> id_direction = $request['id_direction'];
+            $departement -> id_user = $request['id_user'];
             $departement -> save();
 
             return response()->json([

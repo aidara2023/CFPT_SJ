@@ -23,7 +23,8 @@ class departement_request extends FormRequest
     {
         return [
             'nom_departement' => 'required',
-            'id_direction' => 'required'
+            'id_direction' => 'required',
+            'id_user' => 'required'
         ];
     }
 }
