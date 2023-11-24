@@ -12,8 +12,8 @@
     
                     <div>
     
-                        <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="verifIdUser()">
-                            <option value="">Personnel Administratif</option>
+                        <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="validatedata('id_user')">
+                            <option value="">Chef de service</option>
                             <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
                         </select>
                         <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
@@ -22,7 +22,7 @@
                     
             
                     <div>
-                        <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="verifIdUser()">
+                        <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="validatedata('id_direction')">
                                 <option value=""> Direction</option>
                                 <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
                         </select>
@@ -110,7 +110,7 @@
             const isVerifIdValid = this.validatedataOld();
             const isIdChampValid = this.verifIdUser();
             /*   console.log(isNomChampValid); */
-            if ( isIdChampValid===true || isVerifIdValid===true) {
+            if (isVerifIdValid===true) {
                 this.etatForm = false;
                 this.editModal=false;
                 return 0;
@@ -141,7 +141,7 @@
             this.nom_service_erreur= "";
             this.id_user_erreur= "";
             this.id_direction_erreur= "";
-            this.editModal===false;
+            this.editModal=false;
         },
 
         closeModal(selector){
@@ -178,52 +178,67 @@
         },
 
         validatedata(champ){
-            var i=0;
-            this.nom_service_erreur= "";
-            this.id_user_erreur= "";
-            this.id_direction_erreur= "";
 
             switch (champ) {
             case 'nom_service':
+            this.nom_service_erreur= "";
             // Effectuez la validation pour le champ 'nom'
             if(this.form.nom_service=== ""){
-            this.nom_service_erreur= "Ce champ est obligatoire"
-            i= 1;
-            return true
-            
+                this.nom_service_erreur= "Ce champ est obligatoire"
+                return true
             }
             if(!this.verifCaratere(this.form.nom_service)){
                 this.nom_service_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                i= 1;
                 return true
             }
-            
+            if(this.form.nom_service.length < 12){
+                this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
+                ;
+                return true
+            }
             break;
             
             case 'user':
+            this.id_user_erreur= "";
             //pour user
             if(this.form.id_user=== ""){
                 this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de service'"
-                i= 1;
                 return true
-            
             }
             break;
             
             case 'direction':
             //pour direction
+            this.id_direction_erreur= "";
             if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
-                i= 1;
+    
                 return true
             
+            }
+            break;
+            case 'id_user':
+            //pour direction
+            this.id_user_erreur= "";
+            if(this.form.id_user=== ""){
+                this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
+               return true
+            }
+            break;
+            case 'id_direction':
+            //pour direction
+            this.id_direction_erreur= "";
+            if(this.form.id_direction=== ""){
+                this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
+                return true;
             }
             break;
             
                 default:
                 break;
             }
+            return false;
         },
     
         validatedataOld(){
@@ -276,6 +291,8 @@
                 this.id_direction_erreur= "Vous avez oublié de sélectionner la direction concernée"
                 i=1;
             }
+
+            if(i===1)return true;
     
             return false;
         },
