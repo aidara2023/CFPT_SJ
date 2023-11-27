@@ -15,6 +15,7 @@
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ departement.nom_departement }} </p>
                <p class="texte" id="n">{{ departement.direction.nom_direction }}</p>
+               <p class="texte" id="n">{{ departement.user.nom }} {{ departement.user.prenom }}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
@@ -58,7 +59,8 @@ import Form from 'vform';
        return {
         form:new Form({
                 'nom':"",
-                'id_direction':""
+                'id_direction':"",
+                'id_user':""
             }),
            departements: [],
            idDepartement: "",
@@ -93,6 +95,7 @@ import Form from 'vform';
        resetForm(){
            this.form.nom="";
            this.form.id_direction="";
+           this.form.id_user="";
        },
 
        async deleteDepartement(type) {
@@ -109,12 +112,6 @@ import Form from 'vform';
                if (result.isConfirmed) {
                    axios.delete(`/departement/delete/${type.id}`).then(resp => {
                        this.get_departement();
-
-                    //    Swal.fire(
-                    //        'Supprimé!',
-                    //        'Le departement a été supprimé avec succès.',
-                    //        'success',
-                    //    )
                     var confirmation = document.querySelector('[data-modal-confirmation-sup]');
 
                     confirmation.style.backgroundColor = 'white';
@@ -148,6 +145,7 @@ import Form from 'vform';
                 idDepartement: this.idDepartement,
                 nom: departement.nom_departement,
                 id_direction: departement.id_direction,
+                id_user: departement.id_user,
                 editModal: this.editModal,
                 // Ajoutez d'autres propriétés si nécessaire
             };

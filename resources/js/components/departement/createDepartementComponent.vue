@@ -11,6 +11,16 @@
                 </div>
             </div>
 
+            <div class="utilisateur">
+                <div>
+                    <select name="utilisateur" id="utilisateur" v-model="form.id_user"  @change="verifIdDirection()" >
+                        <option value=""> Chef de Departement</option>
+                        <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
+                    </select>
+                    <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
+                </div>
+            </div>
+
             <div class="directions">
                 <div>
                     <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
@@ -46,12 +56,15 @@ import Form from 'vform';
             filieres:[],
             form:new Form({
                 'nom':"",
-                'id_direction':""
+                'id_direction':"",
+                'id_user':""
             }),
 
             directions:[],
+            users:[],
             nom_departement_erreur:"",
             id_direction_erreur:"",
+            id_user_erreur:"",
             etatForm: false,
             editModal: false,
             idDepartement: "",
@@ -68,6 +81,7 @@ import Form from 'vform';
             this.editModal = eventData.editModal;
             this.form.nom = eventData.nom;
             this.form.id_direction = eventData.id_direction;
+            this.form.id_user = eventData.id_user;
         });
     },
 
@@ -126,6 +140,15 @@ import Form from 'vform';
                 }
             }
 
+        },
+
+        get_user(){
+            axios.get('/user/getPersonnel')
+            .then(response => {
+                this.users=response.data.user
+                }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
+            });
         },
 
         resetForm(){
@@ -191,7 +214,11 @@ import Form from 'vform';
         verifIdDirection(){
             this.id_direction_erreur= "";
 
-            if(this.form.id_direction=== ""){
+            if(this.form.id_user=== ""){
+                this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
+                return true;
+            }
+            else if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
                 return true;
             }
@@ -212,6 +239,7 @@ import Form from 'vform';
          const formdata = new FormData();
             formdata.append('nom_departement', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
+            formdata.append('id_user', this.form.id_user);
 
              //if(this.form.nom!==""){
             try{
