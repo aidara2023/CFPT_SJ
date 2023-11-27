@@ -18,6 +18,10 @@ class Departement extends Model
         return $this->belongsTo(Direction::class,'id_direction');
         
     }
+    public function user (){
+        return $this->belongsTo(User::class,'id_user');
+        
+    }
 
     public function unite_de_formations (){
         return $this->hasMany(Unite_de_formation::class,'id');
