@@ -137,25 +137,23 @@ class user_controller extends Controller
             $formateur->save();
         }
         
-        elseif($request['id_role']==6){
+        elseif($request['id_role']=11){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==5){
-            if($request['id_personnel_administratif']==1){
+        elseif($request['id_role']==4){
                 $caissier=new Caissier();
                 $caissier->id_user= $user->id;
                 $caissier->id_service= $request->id_service;
                 $caissier->save();
             }
-            if($request['id_personnel_administratif']==3){
-                $caissier=new Infirmier();
-                $caissier->id_user= $user->id;
-                $caissier->id_service= $request->id_service;
-                $caissier->save();
+            elseif($request['id_role']==3){
+                $infirmier=new Infirmier();
+                $infirmier->id_user= $user->id;
+                $infirmier->save();
             }
-        }
+        
 
         if($user!=null){
             return response()->json([

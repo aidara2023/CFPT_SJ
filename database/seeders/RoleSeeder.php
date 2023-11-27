@@ -16,65 +16,76 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'intitule' => 'Eleve',
+                'categorie_personnel' => 'Simple',
                 
             ],
 
             [
                 'intitule' => 'Formateur',
+                'categorie_personnel' => 'Simple',
             ],
             
             [
                 'intitule' => 'Administrateur',
+                'categorie_personnel' => 'Simple',
             ],
 
-            [  'id_personnel_appui' => 1,
-                'intitule' => 'Personnel Appui',
+            [  
+                'intitule' => 'Caissier',
+                'categorie_personnel' => 'Personnel Administratif',
               
                
             ],
             [
-                'intitule' => 'Personnel Appui',
-                'id_personnel_appui' => 2
+                'intitule' => 'Comptable',
+                'categorie_personnel' => 'Personnel Administratif',
+                
             ],
             [
-                'intitule' => 'Personnel Appui',
-                'id_personnel_appui' => 3
+                'intitule' => 'Infirmier',
+                'categorie_personnel' => 'Personnel Administratif',
+               
             ],
 
            
             [
-                'intitule' => 'Personnel Administratif',
-                'id_personnel_administratif' => 1
+                'intitule' => 'Bibliothecaire',
+                'categorie_personnel' => 'Personnel Administratif',
+                
+    
+            ],
+           
+            [
+                'intitule' => 'femme de menage',
+                'categorie_personnel' => 'Personnel Appui',
+               
     
             ],
             [
-                'intitule' => 'Personnel Administratif',
-                'id_personnel_administratif' => 2
+                'intitule' => 'Jardinier',
+                'categorie_personnel' => 'Personnel Appui',
+                
     
             ],
             [
-                'intitule' => 'Personnel Administratif',
-                'id_personnel_administratif' => 3
+                'intitule' => 'Vigile',
+                'categorie_personnel' => 'Personnel Appui',
+              
     
             ],
-            [
-                'intitule' => 'Personnel Administratif',
-                'id_personnel_administratif' => 4
-    
-            ],
-            [
-                'intitule' => 'Personnel Administratif',
-                'id_personnel_administratif' => 5
-    
-            ],
-            
-
-
+           
             [
                 'intitule' => 'Tuteur',
+                'categorie_personnel' => 'Simple',
             ],
-           
-            
+
+            [
+                'intitule' => 'Surveillant',
+                'categorie_personnel' => 'Personnel Administratif',
+                
+    
+            ],
+
             
         ]);
     }
