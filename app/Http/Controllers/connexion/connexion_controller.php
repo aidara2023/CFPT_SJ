@@ -41,10 +41,7 @@ class connexion_controller extends Controller
                  ]);
             }
            
-        
-        elseif($role=="Personnel Administratif"){
-          
-            if($user->role->admin->intitule=="Caissier"){
+            elseif($role=="Caissier"){
             $url='/caissier/index';
             return response([
                 'url'=>$url, 
@@ -52,7 +49,7 @@ class connexion_controller extends Controller
              ]);
             }
 
-            elseif($user->role->admin->intitule=="Comptable"){
+            elseif($role=="Comptable"){
                 $url='/comptable/index';
                 return response([
                     'url'=>$url, 
@@ -60,7 +57,7 @@ class connexion_controller extends Controller
                  ]);
     
             }
-            elseif($user->role->admin->intitule=="Infirmier"){
+            elseif($role=="Infirmier"){
                 $url='/infirmier/index';
                 return response([
                     'url'=>$url, 
@@ -68,7 +65,7 @@ class connexion_controller extends Controller
                  ]);
     
             }
-            elseif($user->role->admin->intitule=="Bibliothecaire"){
+            elseif($role=="Bibliothecaire"){
                 $url='/bibliothecaire/index';
                 return response([
                     'url'=>$url, 
@@ -76,7 +73,7 @@ class connexion_controller extends Controller
                  ]);
     
             }
-            elseif($user->role->admin->intitule=="Surveillant"){
+            elseif($role=="Surveillant"){
                 $url='/surveillant/index';
                 return response([
                     'url'=>$url, 
@@ -85,7 +82,7 @@ class connexion_controller extends Controller
     
             }
 
-        }
+        
          
    /*  elseif($role=="Personnel Appui"){
 

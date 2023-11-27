@@ -121,17 +121,9 @@
                 </div>
             </div>
 
-            <div class="personnel" v-if="this.interesser=== 5">
-                <div>
-                    <select name="id_personnel_administratif" id="id_personnel_administratif" v-model="form.id_personnel_administratif" @change="personnel_administratif(form.id_personnel_administratif)">
-                            <option value=""> Fonction</option>
-                            <option v-for="(personnel_administratif, index) in personnel_administratifs" :value="personnel_administratif.id" :key="index">{{ personnel_administratif.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_personnel_administratif_erreur !== ''">{{id_personnel_administratif_erreur}}</span>
-                </div>
-            </div>
+            
 
-            <div class="personnel" v-if="this.get_id_perso_admin=== 1 || this.get_id_perso_admin=== 3 || this.get_id_perso_admin=== 5">
+            <div class="personnel" v-if="this.interesser=== 4 ">
                 <div>
                     <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')">
                         <option value=""> Service</option>
@@ -141,18 +133,15 @@
                 </div>
             </div>
             
-            <div class="personnel" v-if="this.interesser=== 4">
-                <div>
+           
+               <!--  <div>
                     <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
                             <option value=""> Fonction</option>
                             <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
                     </select>
                     <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
                 </div>
-            </div>
-
-             
-
+            -->
             <!--
             <div class="identifiants">
                 <input type="text" placeholder="Contact urgence 1" v-model="form.contact_urgence_2">
@@ -197,8 +186,8 @@ import Form from 'vform';
                 'id_service':"",
                 'type':"",
                 'situation_matrimoniale':"",
-                'id_personnel_administratif':"",
-                'id_personnel_appui':"",
+               /*  'id_personnel_administratif':"",
+                'id_personnel_appui':"", */
 
             }),
             photo:"",
@@ -228,8 +217,8 @@ import Form from 'vform';
             champ:"",
             get_id_perso_admin:"",
             get_id_perso_appui:"",
-            id_personnel_appui_erreur:"",
-            id_personnel_administratif_erreur:"",
+           /*  id_personnel_appui_erreur:"",
+            id_personnel_administratif_erreur:"", */
             i:0,
             etatForm: false,
             editModal: false,
@@ -242,8 +231,8 @@ import Form from 'vform';
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        this.get_personnel_administratif();
-        this.get_personnel_appui();
+      /*   this.get_personnel_administratif();
+        this.get_personnel_appui(); */
 
         bus.on('utilisateurModifier', (eventData) => {
             this.idUser = eventData.idUser;
@@ -262,8 +251,8 @@ import Form from 'vform';
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
-            this.form.id_personnel_administratif = eventData.id_personnel_administratif;
-            this.form.id_personnel_appui = eventData.id_personnel_appui;
+           /*  this.form.id_personnel_administratif = eventData.id_personnel_administratif;
+            this.form.id_personnel_appui = eventData.id_personnel_appui; */
     
         }); 
         
@@ -292,8 +281,8 @@ import Form from 'vform';
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
-            formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            formdata.append('id_personnel_appui', this.form.id_personnel_appui);
+           /*  formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
             formdata.append('photo', this.photo);
            
 
@@ -324,7 +313,7 @@ import Form from 'vform';
             this.id_role_erreur = "";
         },
 
-       personnel_administratif(event){
+     /*   personnel_administratif(event){
             this.get_id_perso_admin= event;
             this.id_personnel_administratif_erreur = "";
            
@@ -333,7 +322,7 @@ import Form from 'vform';
             this.get_id_perso_appui= event;
             this.id_personnel_appui_erreur = "";
            
-        },
+        }, */
 
         get_role(){
             axios.get('/roles/index')
@@ -353,7 +342,7 @@ import Form from 'vform';
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
             });
         },
-
+/* 
         get_personnel_administratif(){
             axios.get('/personnel_administratif/index').then(response => {
             this.personnel_administratifs=response.data.personnel_administratifs
@@ -369,7 +358,7 @@ import Form from 'vform';
             }).catch(error=>{
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
             });
-        },
+        }, */
 
         get_specialite(){
             axios.get('/specialite/index').then(response => {
@@ -454,8 +443,8 @@ import Form from 'vform';
             this.form.id_specialite="";
             this.form.id_departement="";
             this.form.id_service="";
-            this.form.id_personnel_administratif="";
-            this.id_personnel_appui="";
+           /*  this.form.id_personnel_administratif="";
+            this.id_personnel_appui=""; */
             this.photo="";
             this.editModal=false;
 
@@ -700,7 +689,7 @@ import Form from 'vform';
                 }
                 break;
 
-                case 'personnel_administratif':
+               /*  case 'personnel_administratif':
                 this.id_personnel_administratif_erreur = "";
                     //Vérification de personnel_administratif
                     if(this.form.id_personnel_administratif=== ""){
@@ -719,7 +708,7 @@ import Form from 'vform';
                     return true
                 }
                 break;
-
+ */
                 default:
                     
                 break;
@@ -743,8 +732,8 @@ import Form from 'vform';
             this.id_departement_erreur="";
             this.type_erreur="";
             this.id_role_erreur="";
-            this.id_personnel_administratif_erreur = "";
-            this.id_personnel_appui_erreur = "";
+          /*   this.id_personnel_administratif_erreur = "";
+            this.id_personnel_appui_erreur = ""; */
             var i= 0;
             // pour nom
 
@@ -848,7 +837,7 @@ import Form from 'vform';
                 i= 1;
             }
 
-            if(this.interesser== 5){
+           /*  if(this.interesser== 5){
                
                 if(this.form.id_personnel_administratif=== ""){
                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
@@ -869,7 +858,7 @@ import Form from 'vform';
                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
                     i=1;
                 }
-            }
+            } */
             if(this.interesser== 2){
                 if(this.form.id_specialite=== ""){
                         this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
@@ -904,8 +893,8 @@ import Form from 'vform';
         this.id_role_erreur="";
         this.type_erreur="";
         this.genre_erreur="";
-        this.id_personnel_administratif_erreur = "";
-        this.id_personnel_appui_erreur = "";
+       /*  this.id_personnel_administratif_erreur = "";
+        this.id_personnel_appui_erreur = ""; */
         var i= 0;
 
          //pour genre
@@ -920,30 +909,30 @@ import Form from 'vform';
              i=1;
         } 
 
-        if(this.interesser== 5){
+       /*  if(this.interesser== 5) *//* { */
                
-            if(this.form.id_personnel_administratif=== ""){
+            /* if(this.form.id_personnel_administratif=== ""){
                 this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
                 i=1;
 
-            }
-            if(this.get_id_perso_admin== 1){
+            } */
+            if(this.interesser== 4){
                 if(this.form.id_service=== ""){
                 this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
                 i=1;
             }
 
             }
-            return false;
-        }
+           /*  return false; */
+       /*  } */
         
-        if(this.interesser== 4){
+       /*  if(this.interesser== 4){
             if(this.form.id_personnel_appui=== ""){
                 this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
                 i=1;
                 
             }
-        }
+        } */
         
         if(this.interesser== 2){
             if(this.form.id_specialite=== ""){
@@ -1014,8 +1003,8 @@ import Form from 'vform';
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
-            formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            formdata.append('id_personnel_appui', this.form.id_personnel_appui);
+          /*   formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
             formdata.append('photo', this.photo);
             formdata.append('photo', this.photo);
 

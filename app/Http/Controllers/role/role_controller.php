@@ -43,6 +43,7 @@ class role_controller extends Controller
         $role=role::find($id);
         if($role!=null){
            $role->intitule=$request['intitule'];
+           $role->intitule=$request['categorie_personnel'];
 
            $role->save();
             return response()->json([
