@@ -10,15 +10,18 @@ class Consultation extends Model
     use HasFactory;
     protected $fillable =[
         'id_consultation',
-        'id_user',
         'id_infirmier',
-        'id_dossier_medical'
+        'id_dossier_medical',
+        'symptomes',
+        'examens_physiques',
+        'ordonnance',
+        'date_consultation'
     ];
-
+/*
     public function user() {
         return $this->belongsTo(User::class, 'id_user');
     }
-
+*/
     public function infirmier() {
         return $this->belongsTo(Infirmier::class, 'id_infirmier');
     }
