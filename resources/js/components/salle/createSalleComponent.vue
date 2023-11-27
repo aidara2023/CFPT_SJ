@@ -48,6 +48,7 @@
         data(){
             return {
                 users:[],
+                batiments:[],
                 form:new Form({
                     'intitule':"",
                     'nombre_place':"",
