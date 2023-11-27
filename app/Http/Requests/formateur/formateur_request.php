@@ -41,6 +41,7 @@ class formateur_request extends FormRequest
             'id_specialite'=>'required',
             'id_departement'=>'required',
             'id_user'=>'required',
+            'id_unite_de_formation'=>'required',
            
         ];
     }

@@ -9,9 +9,12 @@ class Dossier_medical extends Model
 {
     use HasFactory;
     protected $fillable =[
-
-        'id_user'
-
+        'id_user',
+        'id_infirmier',
+        'antecedents',
+        'diagnostics',
+        'traitements',
+        'resultats_tests'
     ];
 
     public function consultation() {
