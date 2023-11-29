@@ -26,7 +26,7 @@ class Direction extends Model
   }
 
   public function services(){
-    return $this->hasMany(Service::class);
+    return $this->hasMany(Service::class, 'id_direction', 'id');
   }
 
 

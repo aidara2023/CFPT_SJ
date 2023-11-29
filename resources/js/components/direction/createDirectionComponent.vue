@@ -255,7 +255,7 @@ import Form from 'vform';
         },
 
       get_user(){
-          axios.get('/user/getPersonnel')
+          axios.get('/user/getpersoadminunique')
           .then(response => {
               this.users=response.data.user
 

@@ -13,7 +13,7 @@
 
             <div class="departement">
                 <div>
-                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="verifId()">
+                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="validatedata('departement')">
                             <option value=""> Département</option>
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
@@ -23,7 +23,7 @@
 
             <div class="user">
                 <div>
-                    <select name="user" id="user" v-model="form.id_user"  @change="verifId()" >
+                    <select name="user" id="user" v-model="form.id_user"  @change="validatedata('user')" >
                         <option value=""> Chef filiére</option>
                         <option v-for="user in users" :value="user.id">{{user.nom }} {{ user.prenom }}</option>
                     </select>
@@ -136,10 +136,10 @@ import Form from 'vform';
         validerAvantAjout() {
             // Exécutez la validation des champs
             const isNomUniteValid = this.validatedataOld();
-            const isIdValid = this.verifId();
-
+          /*   const isIdValid = this.verifId();
+ */
             console.log(isNomUniteValid);
-            if (isNomUniteValid===true || isIdValid===true) {
+            if (isNomUniteValid===true ) {
                 this.etatForm= true;
                 this.editModal=false;
                 return 0;
@@ -163,12 +163,6 @@ import Form from 'vform';
            
         }, 
 
-        controleDeSaisie(){
-            var champ = this.value;
-            console.log(champ);
-            this.erreur = champ;
-        },
-
         resetForm(){
             this.form.nom_unite_formation="";
             this.form.id_departement="";
@@ -191,21 +185,26 @@ import Form from 'vform';
 
                switch (champ) {
            case 'nom_unite_de_formation':
-           this.nom_unite_de_formation_erreur= "";
+           this.nom_unite_erreur= "";
                // Effectuez la validation pour le champ 'nom'
-               if(this.form.nom_unite_de_formation=== ""){
-               this.nom_unite_de_formation_erreur= "Ce champ est obligatoire"
-               i= 1;
-               return true
+               if(this.form.nom_unite_formation=== ""){
+                this.nom_unite_erreur= "Ce champ est obligatoire"
+                i= 1;
+                return true
 
-               }
-               if(!this.verifCaratere(this.form.nom_unite_de_formation)){
-                   this.nom_unite_de_formation_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+               }else{
+                if(this.form.nom_unite_formation.length <14 ){
+                    this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
+                        i=1;
+                        return true
+                }
+                if(!this.verifCaratere(this.form.nom_unite_formation)){
+                   this.nom_unite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                    /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                    i= 1;
                    return true
                }
-
+               }
                break;
            
            case 'user':
@@ -225,11 +224,9 @@ import Form from 'vform';
                   this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
                   i=1;
                   return true
-        } 
-        break;
-
-
-               default:
+                } 
+                break;
+            default:
            break;
        }
    },
@@ -252,15 +249,6 @@ import Form from 'vform';
             this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
            i=1;
         }
-
-        return false;
-       
-    },
-    verifId(){
-        this.id_departement_erreur= "";
-        this.id_user_erreur= "";
-        var i=0;
-
         if(this.form.id_departement=== ""){
             this.id_departement_erreur= "Vous avez oublié de sélectionner le département"
             i=1;
@@ -271,9 +259,11 @@ import Form from 'vform';
         }
         if(i==1)
         return true;
+
         return false;
-        
+       
     },
+ 
     closeModal(selector){
             var ajout=document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
