@@ -17,7 +17,7 @@ body{
     --clr: #2a61e6;
     --clr_clair: #94b4ff;
     --clr_plus_clair: #d2dfff;
-    --clr2:  #0a1639;
+    --clr2:  rgb(10, 22, 56);
 
     --rouge: #ff5252;
     --orange:#ff7e00;
@@ -750,8 +750,8 @@ label.photo i{
 
 
 .informations{
-    width: 100%;
-    padding: 1rem 6rem;
+    width: 30vw;
+    padding: 1rem 2rem;
     
     background-color: white;
 
@@ -994,10 +994,8 @@ button.annuler{
 
 
 button.annuler:hover{
-    
-    transition: .6s;
-    background-color: var(--clr2);
-    color: white;
+    transition: .2s;
+    background-color: rgb(10, 22, 56, .1);
 }
 
 
