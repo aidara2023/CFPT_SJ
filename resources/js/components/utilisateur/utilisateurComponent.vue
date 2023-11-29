@@ -223,6 +223,8 @@ import Form from 'vform';
             etatForm: false,
             editModal: false,
             idUser: "",
+            suivant:"",
+            precedent:""
         }
     },
 
@@ -234,6 +236,12 @@ import Form from 'vform';
       /*   this.get_personnel_administratif();
         this.get_personnel_appui(); */
 
+       /*  this.suivant = document.querySelector('.suivant');
+        this.precedent= document.querySelector('.annuler');
+        this.i_1_2_3 = 1;
+ */
+        this.variables_changement_etape();
+        
         bus.on('utilisateurModifier', (eventData) => {
             this.idUser = eventData.idUser;
             this.editModal = eventData.editModal;
@@ -1028,6 +1036,76 @@ import Form from 'vform';
                 }
             }
         },
+        /* Méthode pour les variables */
+        variables_changement_etape(){
+            this.suivant = document.querySelector('.suivant');
+            this.precedent= document.querySelector('.annuler');
+            this.i_1_2_3 = 1;
+
+            this.etape = document.querySelector('.positions');
+            this.cercles = document.querySelector('.cercles');
+        }, 
+        /* C'est renaud qui a dit ça */
+
+        /* Méthode changement étape */
+            //Pour éffectuer tous les changements à faire 
+            //une fois que l'on passe d'une étape à une autre
+            changement_etape(avancer){
+                if(avancer){ this.i_1_2_3++};
+                if(!avancer){ this.i_1_2_3--};
+
+                if(this.i_1_2_3 > 3) this.i_1_2_3 = 3;
+                if(this.i_1_2_3 < 1) this.i_1_2_3 = 1;
+
+                if(this.i_1_2_3 < 3) {
+                    this.suivant.firstChild.textContent = "Suivant";
+                    this.suivant.dataset.closeModal = "0";
+                }else{
+                    this.suivant.firstChild.textContent = "Ajouter";
+                    this.suivant.dataset.closeModal = "1";
+                }
+                if(this.i_1_2_3 > 1) {
+                    this.precedent.firstChild.textContent = "Précédent";
+                    this.precedent.dataset.closeModal = "0";
+                }else{
+                    this.precedent.firstChild.textContent = "Annuler";
+                    this.precedent.dataset.closeModal = "1";
+                }
+                
+                this.cercles.dataset.etape = this.i_1_2_3 - 1;
+                this.etape.dataset.etape = this.i_1_2_3;
+                this.etape.textContent = "etape " + this.i_1_2_3;
+            }, 
+
+
+            clic_suivant(){
+                this.suivant.firstChild.dataset.statut = "apres";
+
+                setTimeout(function(){
+                    this.suivant.firstChild.dataset.statut = "avant";
+                }, 500);
+
+                setTimeout(function(){
+                    this.suivant.firstChild.dataset.statut = "visible";
+                }, 900);
+                
+                this.changement_etape(true);
+            },
+
+            clic_precedent(){
+                this.precedent.firstChild.dataset.statut = "avant";
+
+                setTimeout(function(){
+                    this.precedent.firstChild.dataset.statut = "apres";
+                }, 500);
+
+                setTimeout(function(){
+                    this.precedent.firstChild.dataset.statut = "visible";
+                }, 900);
+
+                this.changement_etape(false)
+            }
+
 
 
     }
