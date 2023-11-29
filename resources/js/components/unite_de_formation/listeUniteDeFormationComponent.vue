@@ -79,7 +79,7 @@ import Form from 'vform';
 
 
            }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des unites de formationss','error')
+           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des unites de formations','error')
            });
        },
 

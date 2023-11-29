@@ -74,6 +74,31 @@ class user_controller extends Controller
         }
     }
 
+    public function getUniquementPersonnelAdministratif() {
+        $roles = Role::where('categorie_personnel', ['Personnel Administratif'])->get();
+
+        if ($roles->isNotEmpty()) {
+            $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
+
+            if ($users->isNotEmpty()) {
+                return response()->json([
+                    'status' => 200,
+                    'user' => $users,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+                ], 500);
+            }
+        }else{
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun rôle "Eleve" trouvé.',
+            ],500);
+        }
+    }
+
     public function getBibliothecaire() {
         $roles= Role::where('intitule', "Bibliothecaire")->get();
         foreach($roles as $role){

@@ -1,6 +1,6 @@
 <template>
         <div class="cote_droit">
-            <form @submit.prevent="soumettre">
+            <form @submit.prevent="filtre()">
                 <h1 class="sous_titre">Recouvrement</h1>
 
                 <div class="annee_academiques">
@@ -38,16 +38,11 @@
                     </select>
                 </div>
 
-                <div class="personnel">
-                <input type="date" name="date_limite" id="date_limite" placeholder="Date_limite" v-model="form.date">
-                
-            </div>
-
-        
+    
                 <div class="boutons">
                     <input type="submit" value="Appliquer">
-                    <input type="submit" value="OK">
-                    <button type="button">Annuler</button>
+                    <input type="submit" value="OK" @click="closeModal">
+                    <button type="button" @click="resetForm">Annuler</button>
                 </div>
             </form>
         </div>
@@ -98,10 +93,9 @@ import Form from 'vform';
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('id_classe', this.form.id_classe);
-            formdata.append('date_limite', this.form.date_limite);
+            
 
            
-
           
             },
 
@@ -150,13 +144,52 @@ import Form from 'vform';
             });
         },
 
+        async filtre(){
+        try {
+            const response = await axios.post('recouvrement/filtre', this.form.getData());
+            // Traitez la réponse de l'API selon vos besoins
+            console.log(response.data);
+        } catch (error) {
+            console.error('Une erreur s\'est produite lors de la récupération des données filtrées.', error);
+        }
+    
+        },
+
+        closeModal(){
+            var ajout=document.querySelector('[data-modal-filtre]');
+           
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal===false;
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
         resetForm(){
             this.form.id_annee_academique="";
             this.form.id_mois="";
             this.form.id_departement="";
             this.form.id_unite_de_formation="";
             this.form.id_classe="";
-            this.form.date_limite="";
+            this.closeModal();
+           
            
         
     },

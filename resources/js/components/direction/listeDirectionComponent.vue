@@ -12,9 +12,8 @@
    <div class="sections" v-for="(direction, index) in directions" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                <p class="texte" id="n">{{ direction.nom_direction}} </p>
-              
+               <p class="texte" id="n">{{ direction.services.nom_service}} </p>
                <p class="texte" id="n">{{ direction.user.prenom }} {{ direction.user.nom }} </p>
 
                <div  class="presences">

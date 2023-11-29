@@ -47,7 +47,7 @@
         <div v-if="activePhase==2">
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-           <div class="utilisateur" v-if="utilisateur.role.id===5">
+           <div class="utilisateur" v-if="utilisateur.role.categorie_personnel==='Personnel Administratif'">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
                <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
@@ -75,7 +75,7 @@
         <div v-if="activePhase==3">
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-           <div class="utilisateur" v-if="utilisateur.role.id===4">
+           <div class="utilisateur" v-if="utilisateur.role.categorie_personnel==='Personnel Appui'">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
                <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>

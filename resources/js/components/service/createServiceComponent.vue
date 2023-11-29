@@ -108,7 +108,7 @@
     
         validerAvantAjout() {
             const isVerifIdValid = this.validatedataOld();
-            const isIdChampValid = this.verifIdUser();
+           /*  const isIdChampValid = this.verifIdUser(); */
             /*   console.log(isNomChampValid); */
             if (isVerifIdValid===true) {
                 this.etatForm = false;
@@ -279,7 +279,7 @@
         },
 
         get_user(){
-            axios.get('/user/getPersonnel')
+            axios.get('/user/getpersoadminunique')
             .then(response => {
                 this.users=response.data.user
                 }).catch(error=>{
