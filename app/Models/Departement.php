@@ -10,11 +10,16 @@ class Departement extends Model
     use HasFactory;
     protected $fillable =[
         'nom_departement',
-        'id_direction'
+        'id_direction',
+        'id_user',
 
     ];
     public function direction (){
         return $this->belongsTo(Direction::class,'id_direction');
+        
+    }
+    public function user (){
+        return $this->belongsTo(User::class,'id_user');
         
     }
 

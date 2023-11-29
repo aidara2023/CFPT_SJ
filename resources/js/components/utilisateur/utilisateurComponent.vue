@@ -1,73 +1,63 @@
 <template>
+  <!--   <dialog data-modal-ajout class="modal"> -->
     <div class=" cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()" method="">
+
             <h1 class="sous_titre">Ajout d'utilisateur</h1>
+
             <!--Informations personnelles-->
-         <div>
+            <div>
                 <p><span class="str">*</span> Assurez vous que la photo est bien carrée</p>
             </div>
+
             <img v-if="photo" :src="photoUrl"  alt="Etu" width="200" height="200">
+
             <div class="photo">
-
                 <label for="dossiers">Glissez la photo ici <span></span>
-                    <!-- <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-                    <img :src="getImageUrl(this.photo)"> -->
-
                     <input type="file" name="dossiers" id="dossiers" @change="ajoutimage" accept="image/*">
-
-
                 </label>
             </div>
 
             <div class="personnel">
-
-             <div>
+                <div>
                     <input type="text" name="nom" id="nom" placeholder="Nom" v-model="form.nom" @input="validatedata('nom')">
                     <span class="erreur" v-if="this.nom_user_erreur !== ''">{{this.nom_user_erreur}}</span>
-                    <!-- <span class="erreur" >{{this.erreur}}</span> --><!-- v-if="this.erreur !== ''" -->
-             </div>
+                </div>
 
-             <div>
+                <div>
                     <input type="text" name="prenom" id="prenom" placeholder="Prenom" v-model="form.prenom"  @input="validatedata('prenom')">
                     <span class="erreur" v-if="this.prenom_user_erreur !== ''">{{this.prenom_user_erreur}}</span>
-                    <!-- <span class="erreur" v-if="this.erreur !== ''">{{this.erreur}}</span> -->
-            </div>
+                </div>
 
-            <div>
+                <div>
                     <input type="date" name="date_naissance" id="date_naissance" placeholder="Date de naissance" v-model="form.date_naissance"  @input="validatedata('date_naissance')" >
                     <span class="erreur" v-if="this.date_erreur !== ''">{{this.date_erreur}}</span>
-            </div>
+                </div>
 
-            <div>
+                <div>
                     <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance"  @input="validatedata('naissance')">
                     <span class="erreur" v-if="this.lieu_naissance_erreur !== ''">{{this.lieu_naissance_erreur}}</span>
-            </div>
+                </div>
 
-            <div>
-                   <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite"  @input="validatedata('nationalite')">
-                   <span class="erreur" v-if="this.nationalite_erreur !== ''">{{this.nationalite_erreur}}</span>
+                <div>
+                    <input type="text" name="nationalite" id="nationalite" placeholder="Nationalité" v-model="form.nationalite"  @input="validatedata('nationalite')">
+                    <span class="erreur" v-if="this.nationalite_erreur !== ''">{{this.nationalite_erreur}}</span>
+                </div>
             </div>
-
-          </div>
 
             <div class="sexe">
                 <span class="b">Sexe</span>
+                <label for="masculin">Masculin
+                    <input type="radio" name="sexe" id="masculin" value="masculin" v-model="form.genre" @change="validatedata('genre')">
+                </label>
 
-                    <label for="masculin">Masculin
-                        <input type="radio" name="sexe" id="masculin" value="masculin" v-model="form.genre" @change="validatedata('genre')">
-
-                    </label>
-
-                    <label for="feminin">Feminin
-
-                        <input type="radio" name="sexe" id="feminin" value="feminin" v-model="form.genre" @change="validatedata('genre')">
-
-                    </label>
-                    <span class="erreur" v-if="genre_erreur !== ''">{{this.genre_erreur}}</span>
-
+                <label for="feminin">Feminin
+                    <input type="radio" name="sexe" id="feminin" value="feminin" v-model="form.genre" @change="validatedata('genre')">
+                </label>
+                <span class="erreur" v-if="genre_erreur !== ''">{{this.genre_erreur}}</span>
             </div>
-            <div class="num-addr">
 
+            <div class="num-addr">
                 <div>
                     <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43" v-model="form.telephone"  @input="validatedata('telephone')">
                     <span class="erreur" v-if="this.telephone_erreur !== ''">{{this.telephone_erreur}}</span>
@@ -82,107 +72,76 @@
                     <input type="mail" name="email" id="email" placeholder="Email" v-model="form.email"  @input="validatedata('email')">
                     <span class="erreur" v-if="this.email_user_erreur !== ''">{{this.email_user_erreur}}</span>
                 </div>
-
-
             </div>
-
 
             <div class="roles">
                 <div>
                     <select name="role" id="role" v-model="form.id_role"  @change="changement(form.id_role)" >
                             <option value=""> Role</option>
-
                             <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
-
                         </select>
                     <span class="erreur" v-if="id_role_erreur !== ''">{{id_role_erreur}}</span>
                 </div>
             </div>
 
             <div class="personnel" v-if="this.interesser=== 2">
-
-                    <!-- <input type="text" name="type" id="type" placeholder="Type" v-model="form.type"> -->
-
-                        <div>
-                            <select name="" id="" v-model="form.type" @change="verifId()">
-                                <option value="">Type Professeur</option>
-                                <option  value="Etat">Fonctionnaire</option>
-                                <option  value="Recruter">Recruter</option>
-                            </select>
-                            <span class="erreur" v-if="type_erreur !== ''">{{type_erreur}}</span>
-                        </div>
-
-
-
-                    <div>
-                        <select name="" id="" v-model="form.situation_matrimoniale"  @change="verifId()">
-                            <option value="">Selectioner Statut</option>
-                            <option  value="Niveau 1">Célibataire</option>
-                            <option  value="Niveau 2">Marié</option>
-                            <option  value="Niveau 2">Divorcé</option>
-                        </select>
-                        <span class="erreur" v-if="situation_matrimoniale_erreur !== ''">{{situation_matrimoniale_erreur}}</span>
-                    </div>
-
                 <div>
-                    <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"  @change="verifId()">
-                            <option value=""> Spécialite</option>
-                            <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
+                    <select name="" id="" v-model="form.type" @change="validatedata('type')">
+                        <option value="">Type Professeur</option>
+                        <option  value="Etat">Fonctionnaire</option>
+                        <option  value="Recruter">Recruter</option>
                     </select>
-                    <span class="erreur" v-if="id_specialite_erreur !== ''">{{id_specialite_erreur}}</span>
-
+                    <span class="erreur" v-if="type_erreur !== ''">{{type_erreur}}</span>
                 </div>
 
                 <div>
-                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="verifId()">
-                            <option value=""> Departement</option>
-                            <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
+                    <select name="" id="" v-model="form.situation_matrimoniale"  @change="validatedata('situation_matrimoniale')">
+                        <option value="">Selectioner Statut</option>
+                        <option  value="Niveau 1">Célibataire</option>
+                        <option  value="Niveau 2">Marié</option>
+                        <option  value="Niveau 2">Divorcé</option>
+                    </select>
+                    <span class="erreur" v-if="situation_matrimoniale_erreur !== ''">{{situation_matrimoniale_erreur}}</span>
+                </div>
+
+                <div>
+                    <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"  @change="validatedata('specialite')">
+                        <option value=""> Spécialite</option>
+                        <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_specialite_erreur !== ''">{{id_specialite_erreur}}</span>
+                </div>
+
+                <div>
+                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="validatedata('departement')">
+                        <option value=""> Departement</option>
+                        <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
                     <span class="erreur" v-if="id_departement_erreur !== ''">{{id_departement_erreur}}</span>
                 </div>
-
-            </div>
-            <div class="personnel" v-if="this.interesser=== 5">
-
-
-                <div>
-                    <select name="id_personnel_administratif" id="id_personnel_administratif" v-model="form.id_personnel_administratif" @change="personnel_administratif(form.id_personnel_administratif)">
-                            <option value=""> Fonction</option>
-                            <option v-for="(personnel_administratif, index) in personnel_administratifs" :value="personnel_administratif.id" :key="index">{{ personnel_administratif.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_personnel_administratif_erreur !== ''">{{id_personnel_administratif_erreur}}</span>
-
-                </div>
             </div>
 
-                <div class="personnel" v-if="this.get_id_perso_admin=== 1">
+            
 
+            <div class="personnel" v-if="this.interesser=== 4 ">
                 <div>
-                    <select name="id_service" id="id_service" v-model="form.id_service" @change="verifId()">
-                            <option value=""> Service</option>
-                            <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
+                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')">
+                        <option value=""> Service</option>
+                        <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
                     </select>
                     <span class="erreur" v-if="id_service_erreur !== ''">{{id_service_erreur}}</span>
-
                 </div>
-
             </div>
             
-            <div class="personnel" v-if="this.interesser=== 4">
-
-
-            <div>
-                <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
-                        <option value=""> Fonction</option>
-                        <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
-                </select>
-                <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
            
-            </div>
-            </div>
-
-             
-
+               <!--  <div>
+                    <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
+                            <option value=""> Fonction</option>
+                            <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
+                    </select>
+                    <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
+                </div>
+            -->
             <!--
             <div class="identifiants">
                 <input type="text" placeholder="Contact urgence 1" v-model="form.contact_urgence_2">
@@ -190,12 +149,15 @@
             </div>  -->
 
             <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " -->
-                <button type="button" class="texte annuler data-close-modal" >Annuler</button>
+                    <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                    <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
             </div>
 
         </form>
     </div>
+   <!--  </dialog> -->
 </template>
 
 <script>
@@ -224,8 +186,8 @@ import Form from 'vform';
                 'id_service':"",
                 'type':"",
                 'situation_matrimoniale':"",
-                'id_personnel_administratif':"",
-                'id_personnel_appui':"",
+               /*  'id_personnel_administratif':"",
+                'id_personnel_appui':"", */
 
             }),
             photo:"",
@@ -255,13 +217,14 @@ import Form from 'vform';
             champ:"",
             get_id_perso_admin:"",
             get_id_perso_appui:"",
-            id_personnel_appui_erreur:"",
-            id_personnel_administratif_erreur:"",
+           /*  id_personnel_appui_erreur:"",
+            id_personnel_administratif_erreur:"", */
             i:0,
             etatForm: false,
-
-
-
+            editModal: false,
+            idUser: "",
+            suivant:"",
+            precedent:""
         }
     },
 
@@ -270,10 +233,37 @@ import Form from 'vform';
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        this.get_personnel_administratif();
-        this.get_personnel_appui();
-        // this.rafraichissementAutomatique();
+      /*   this.get_personnel_administratif();
+        this.get_personnel_appui(); */
 
+       /*  this.suivant = document.querySelector('.suivant');
+        this.precedent= document.querySelector('.annuler');
+        this.i_1_2_3 = 1;
+ */
+        this.variables_changement_etape();
+        
+        bus.on('utilisateurModifier', (eventData) => {
+            this.idUser = eventData.idUser;
+            this.editModal = eventData.editModal;
+            this.form.nom = eventData.nom;
+            this.form.prenom = eventData.prenom;
+            this.form.genre = eventData.genre;
+            this.form.adresse = eventData.adresse;
+            this.form.telephone = eventData.telephone;
+            this.form.email = eventData.email;
+            this.form.lieu_naissance = eventData.lieu_naissance;
+            this.form.nationalite = eventData.nationalite;
+            this.form.type = eventData.type;
+            this.form.situation_matrimoniale = eventData.situation_matrimoniale;
+            this.form.id_role = eventData.id_role;
+            this.form.id_departement = eventData.id_departement;
+            this.form.id_service = eventData.id_service;
+            this.form.id_specialite = eventData.id_specialite;
+           /*  this.form.id_personnel_administratif = eventData.id_personnel_administratif;
+            this.form.id_personnel_appui = eventData.id_personnel_appui; */
+    
+        }); 
+        
     },
     computed: {
         photoUrl() {
@@ -299,57 +289,25 @@ import Form from 'vform';
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
+           /*  formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
             formdata.append('photo', this.photo);
+           
 
-            if(this.form.id_personnel_administratif){
+            /* if(this.form.id_personnel_administratif){
                 formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            }
+            } */
 
             try{
                 const user_store=await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
 
-                 var ajout = document.querySelector('[data-modal-ajout]');
-                        var confirmation = document.querySelector('[data-modal-confirmation]');
-    
-                       
-                        /* console.log(ajout); */
-                        var actif = document.querySelectorAll('.actif');
-                            actif.forEach(item => {
-                            item.classList.remove("actif");
-                        }); 
-                        //ajout.classList.remove("actif");
-                        ajout.close();
-    
-    
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-    
-                            
-    
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();  
-                        //}, 1000);  
-                         
-                        setTimeout(function(){     
-                            confirmation.close();  
-    
-                            setTimeout(function(){     
-                                confirmation.classList.remove("actif");   
-                        }, 100); 
-    
-                        }, 1700);  
-                           
-
-
             }
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Ce service existe déjà','error')
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
                 }
                 else{
                 Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
@@ -363,7 +321,7 @@ import Form from 'vform';
             this.id_role_erreur = "";
         },
 
-       personnel_administratif(event){
+     /*   personnel_administratif(event){
             this.get_id_perso_admin= event;
             this.id_personnel_administratif_erreur = "";
            
@@ -372,7 +330,7 @@ import Form from 'vform';
             this.get_id_perso_appui= event;
             this.id_personnel_appui_erreur = "";
            
-        },
+        }, */
 
         get_role(){
             axios.get('/roles/index')
@@ -392,7 +350,7 @@ import Form from 'vform';
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
             });
         },
-
+/* 
         get_personnel_administratif(){
             axios.get('/personnel_administratif/index').then(response => {
             this.personnel_administratifs=response.data.personnel_administratifs
@@ -408,7 +366,7 @@ import Form from 'vform';
             }).catch(error=>{
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
             });
-        },
+        }, */
 
         get_specialite(){
             axios.get('/specialite/index').then(response => {
@@ -419,7 +377,6 @@ import Form from 'vform';
         },
 
         get_departement(){
-
              axios.get('/departement/all')
              .then(response => {
                  this.departements=response.data.departement
@@ -450,15 +407,30 @@ import Form from 'vform';
             const isVerifIdValid = this.verifId();
             const isIdChampValid = this.validatedataOld();
           /*   console.log(isNomChampValid); */
-            if ( isIdChampValid /* || isRoleValid || isGenreValid || isServiceValid || isSpecialiteValid || isSituationValid || isDepartementValid || isTypeValid  */|| isVerifIdValid) {
+
+            if ( isIdChampValid || isVerifIdValid) {
+
                 this.etatForm = false;
-                console.log("erreur");
+              console.log("erreur");
+                this.editModal=false;
                 return 0;
             }else{
-                this.soumettre();
-                this.etatForm = true;
-                console.log("Tokkos");
-            }
+
+                if(this.editModal===true){
+                    this.etatForm= true;
+                    this.update_utilisateur(this.idUser);
+                    this.closeModal('[data-modal-confirmation-modifier]');
+                    this.editModal=false;
+                    
+                }
+                else{
+                    this.etatForm= true;
+                    this.soumettre();
+                    this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
+                }
+                }
+
 
         },
 
@@ -478,8 +450,32 @@ import Form from 'vform';
             this.form.situation_matrimoniale="";
             this.form.id_specialite="";
             this.form.id_departement="";
-            this.form.id_personnel_administratif="";
-            this.id_personnel_appui="";
+            this.form.id_service="";
+           /*  this.form.id_personnel_administratif="";
+            this.id_personnel_appui=""; */
+            this.photo="";
+            this.editModal=false;
+
+           this.nom_user_erreur="";
+           this.interesser="";
+           this.get_id_perso_admin="";
+            this.prenom_user_erreur="";
+            this.date_erreur="";
+            this.lieu_naissance_erreur="";
+            this.genre_erreur="";
+            this.adresse_erreur="";
+            this.telephone_erreur="";
+            this.email_user_erreur="";
+            this.nationalite_erreur="";
+            this.id_role_erreur="";
+            this.id_specialite_erreur="";
+            this.id_departement_erreur="";
+            this.id_service_erreur="";
+            this.type_erreur="";
+            this.situation_matrimoniale_erreur="";
+            this.id_personnel_appui_erreur="";
+            this.id_personnel_administratif_erreur="";
+
 
         },
         verifCaratere(nom){
@@ -494,33 +490,21 @@ import Form from 'vform';
 
         },
 
-validatePhoneNumber(phoneNumber) {
-    // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
-    const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
-
+        validatePhoneNumber(phoneNumber) {
+        // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
+        const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
             return phoneRegex.test(phoneNumber);
         },
 
         validatedata(champ) {
             // Réinitialiser les erreurs pour le champ actuel
-                this.nom_user_erreur= "";
-                this.prenom_user_erreur="";
-                this.nationalite_erreur="";
-                this.lieu_naissance_erreur="";
-                this.adresse_erreur="";
-                this.date_erreur="";
-                this.email_user_erreur="";
-                this.telephone_erreur="";
                 this.erreur = "";
-                this.id_role_erreur = "";
-                this.genre_erreur = "";
-                this.id_personnel_administratif_erreur = "";
-                this.id_personnel_appui_erreur = "";
-
                 var i= 0;
 
             switch (champ) {
+
                 case 'nom':
+                this.nom_user_erreur= "";
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.nom=== ""){
                     this.nom_user_erreur= "Ce champ est obligatoire"
@@ -537,6 +521,7 @@ validatePhoneNumber(phoneNumber) {
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'prenom':
+                this.prenom_user_erreur="";
                     //pour prenom
                     if(this.form.prenom=== ""){
                     this.prenom_user_erreur= "Ce champ est obligatoire"
@@ -551,6 +536,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'adresse':
+                this.adresse_erreur="";
                     //pour adresse
                     if(this.form.adresse=== ""){
                         this.adresse_erreur= "Ce champ est obligatoire"
@@ -560,6 +546,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'naissance':
+                this.lieu_naissance_erreur="";
                     //pour lieu de naissance
                     if(this.form.lieu_naissance=== ""){
                         this.lieu_naissance_erreur= "Ce champ est obligatoire"
@@ -573,6 +560,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'nationalite':
+                this.nationalite_erreur="";
                     //pour nationalite
                     if(this.form.nationalite=== ""){
                         this.nationalite_erreur= "Ce champ est obligatoire"
@@ -586,6 +574,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'email':
+                this.email_user_erreur="";
                 //Vérification de l' email
                     if(this.form.email=== ""){
                         this.email_user_erreur= "L'email est obligatoire"
@@ -600,6 +589,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'date_naissance':
+                this.date_erreur="";
                 // Vérification de la date de naissance
                     if(this.form.date_naissance === ""){
                         this.date_erreur = "La date de naissance est obligatoire";
@@ -626,6 +616,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                 case 'telephone':
+                this.telephone_erreur="";
                     //Vérification du numero de telephone
                     if(this.form.telephone === ""){
                         this.telephone_erreur = "Le numéro de téléphone est obligatoire";
@@ -638,6 +629,7 @@ validatePhoneNumber(phoneNumber) {
                     }
                     break;
                     case 'role':
+                    this.id_role_erreur = "";
                         //Vérification de role
                         if(this.form.id_role=== ""){
                         this.id_role_erreur= "Vous avez oublié de sélectionner le role "
@@ -647,6 +639,7 @@ validatePhoneNumber(phoneNumber) {
                     break;
 
                     case 'genre':
+                    this.genre_erreur = "";
                     //Vérification de matrimoniale
                     if(this.form.genre=== ""){
                     this.genre_erreur= "Vous avez oublié de sélectionner le genre "
@@ -656,9 +649,10 @@ validatePhoneNumber(phoneNumber) {
                     break;
 
                     case 'type':
+                    this.type_erreur= "";
                         //Vérification de type
-                        if(this.form.id_type=== ""){
-                        this.id_type_erreur= "Vous avez oublié de sélectionner le type "
+                        if(this.form.type=== ""){
+                        this.type_erreur= "Vous avez oublié de sélectionner le type "
                         i=1;
                         return true
                 }
@@ -666,7 +660,7 @@ validatePhoneNumber(phoneNumber) {
 
                 case 'service':
                     //Vérification deservice
-
+                    this.id_service_erreur="";
                     if(this.form.id_service=== ""){
                         this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
                         i=1;
@@ -676,6 +670,7 @@ validatePhoneNumber(phoneNumber) {
                     break;
 
                 case 'specialite':
+                this.id_specialite_erreur="";
                     //Vérification de spécialité
                     if(this.form.id_specialite=== ""){
                     this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
@@ -684,6 +679,7 @@ validatePhoneNumber(phoneNumber) {
                 }
                     break;
                 case 'situation_matrimoniale':
+                this.situation_matrimoniale_erreur="";
                     //Vérification de matrimoniale
                     if(this.form.situation_matrimoniale=== ""){
                     this.situation_matrimoniale_erreur= "Vous avez oublié de sélectionner le statut "
@@ -692,6 +688,7 @@ validatePhoneNumber(phoneNumber) {
                 }
                     break;
                 case 'departement':
+                this.id_departement_erreur="";
                     //Vérification de departement
                     if(this.form.id_departement=== ""){
                     this.id_departement_erreur= "Vous avez oublié de sélectionner le départrement"
@@ -700,7 +697,8 @@ validatePhoneNumber(phoneNumber) {
                 }
                 break;
 
-                case 'personnel_administratif':
+               /*  case 'personnel_administratif':
+                this.id_personnel_administratif_erreur = "";
                     //Vérification de personnel_administratif
                     if(this.form.id_personnel_administratif=== ""){
                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
@@ -710,6 +708,7 @@ validatePhoneNumber(phoneNumber) {
                 break;
 
                 case 'personnel_appui':
+                this.id_personnel_appui_erreur = "";
                     //Vérification de personnel_appui
                     if(this.form.id_personnel_appui=== ""){
                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
@@ -717,8 +716,9 @@ validatePhoneNumber(phoneNumber) {
                     return true
                 }
                 break;
-
+ */
                 default:
+                    
                 break;
             }
         },
@@ -740,8 +740,8 @@ validatePhoneNumber(phoneNumber) {
             this.id_departement_erreur="";
             this.type_erreur="";
             this.id_role_erreur="";
-            this.id_personnel_administratif_erreur = "";
-            this.id_personnel_appui_erreur = "";
+          /*   this.id_personnel_administratif_erreur = "";
+            this.id_personnel_appui_erreur = ""; */
             var i= 0;
             // pour nom
 
@@ -829,6 +829,7 @@ validatePhoneNumber(phoneNumber) {
                 }
 
             }
+            //Verification pour role
 
             if(this.form.id_role=== ""){
                     this.id_role_erreur= "Vous avez oublié de sélectionner le role "
@@ -844,14 +845,19 @@ validatePhoneNumber(phoneNumber) {
                 i= 1;
             }
 
-            if(this.interesser== 5){
-                if(this.form.id_service=== ""){
-                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                    i=1;
-                }
+           /*  if(this.interesser== 5){
+               
                 if(this.form.id_personnel_administratif=== ""){
                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
                     i=1;
+    
+                }
+                if(this.get_id_perso_admin== 1){
+                    if(this.form.id_service=== ""){
+                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                    i=1;
+                }
+
                 }
             }
             if(this.interesser== 4){
@@ -860,7 +866,7 @@ validatePhoneNumber(phoneNumber) {
                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
                     i=1;
                 }
-            }
+            } */
             if(this.interesser== 2){
                 if(this.form.id_specialite=== ""){
                         this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
@@ -886,60 +892,7 @@ validatePhoneNumber(phoneNumber) {
 
         },
 
-    Uniquevalidate(donnee){
-        this.nom_user_erreur= "";
-        this.prenom_user_erreur="";
-        this.nationalite_erreur="";
-        this.lieu_naissance_erreur="";
-        this.adresse_erreur="";
-        this.date_erreur="";
-        this.email_user_erreur="";
-        this.telephone_erreur="";
-        this.erreur = "";
-        this.id_role_erreur = "";
-        this.genre_erreur = "";
-
-
-        var i = 0;
-        if(donnee === 'soumettre') i = 1;
-
-        //Pour nom
-        if(donnee === 'nom' || i === 1){
-            // Effectuez la validation pour le champ 'nom'
-            this.nom_user_erreur= ""
-            if(this.form.nom=== ""){
-                this.nom_user_erreur= "Ce champ est obligatoire"
-            }
-            if(!this.verifCaratere(this.form.nom)){
-                this.nom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-            }
-
-            if(i !== 1) return true;
-        }
-        //Pour prénom
-        if(donnee === 'prenom' || i === 1){
-            // Effectuez la validation pour le champ 'nom'
-            this.prenom_user_erreur= ""
-            if(this.form.prenom=== ""){
-                this.prenom_user_erreur= "Ce champ est obligatoire"
-            }
-            if(!this.verifCaratere(this.form.prenom)){
-                this.prenom_user_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-            }
-
-            
-
-            if(i !== 1) return true;
-        }
-
-        if(donnee === 'soumettre'){
-            //Code ajout
-            console.log("Tout marche !!!!!!!!");
-           this.validerAvantAjout();
-        }
-    },
+   
     verifId(){
         this.id_service_erreur= "";
         this.id_specialite_erreur="";
@@ -948,36 +901,48 @@ validatePhoneNumber(phoneNumber) {
         this.id_role_erreur="";
         this.type_erreur="";
         this.genre_erreur="";
-        this.id_personnel_administratif_erreur = "";
-        this.id_personnel_appui_erreur = "";
+       /*  this.id_personnel_administratif_erreur = "";
+        this.id_personnel_appui_erreur = ""; */
         var i= 0;
-        /* //pour genre
+
+         //pour genre
         if(this.form.genre=== ""){
             this.genre_erreur= "Vous avez oublié de sélectionner le genre"
              i=1;
         }
-       //pour role
+
+       // pour role
         if(this.form.id_role=== ""){
             this.id_role_erreur= "Vous avez oublié de sélectionner le role "
              i=1;
-        } */
+        } 
 
-        if(this.interesser== 4){
-            if(this.form.id_service=== ""){
-                    this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                    i=1;
-                }
-                if(this.form.id_personnel_administratif=== ""){
-                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                    i=1;
-                    return true
-                }
-                if(this.form.id_personnel_appui=== ""){
-                    this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                    i=1;
-                    return true
-                }
-        }if(this.interesser== 6){
+       /*  if(this.interesser== 5) *//* { */
+               
+            /* if(this.form.id_personnel_administratif=== ""){
+                this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                i=1;
+
+            } */
+            if(this.interesser== 4){
+                if(this.form.id_service=== ""){
+                this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                i=1;
+            }
+
+            }
+           /*  return false; */
+       /*  } */
+        
+       /*  if(this.interesser== 4){
+            if(this.form.id_personnel_appui=== ""){
+                this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                i=1;
+                
+            }
+        } */
+        
+        if(this.interesser== 2){
             if(this.form.id_specialite=== ""){
                     this.id_specialite_erreur= "Vous avez oublié de sélectionner la specialité"
                     i=1;
@@ -1000,6 +965,147 @@ validatePhoneNumber(phoneNumber) {
 
                 return false;
         },
+        
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal=false;
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
+        async update_utilisateur(id){
+            const formdata = new FormData();
+            formdata.append('nom', this.form.nom  );
+            formdata.append('prenom', this.form.prenom  );
+            formdata.append('lieu_naissance', this.form.lieu_naissance);
+            formdata.append('date_naissance', this.form.date_naissance);
+            formdata.append('genre', this.form.genre);
+            formdata.append('adresse', this.form.adresse);
+            formdata.append('email', this.form.email);
+            formdata.append('telephone', this.form.telephone);
+            formdata.append('nationalite', this.form.nationalite);
+            formdata.append('id_role', this.form.id_role);
+            formdata.append('type', this.form.type);
+            formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
+            formdata.append('id_specialite', this.form.id_specialite);
+            formdata.append('id_service', this.form.id_service);
+            formdata.append('id_departement', this.form.id_departement);
+          /*   formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
+            formdata.append('photo', this.photo);
+            formdata.append('photo', this.photo);
+
+            /* if(this.form.id_personnel_administratif){
+                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+            } */
+
+            try{
+                const user_store=await axios.post('/user/update/'+id, formdata);
+                this.resetForm();
+                bus.emit('utilisateurAjoutee');
+
+            }
+            catch(e){
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                Swal.fire('Erreur !','Cet utilisateur existe déjà','error')
+                }
+                else{
+                Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
+            }
+        },
+        /* Méthode pour les variables */
+        variables_changement_etape(){
+            this.suivant = document.querySelector('.suivant');
+            this.precedent= document.querySelector('.annuler');
+            this.i_1_2_3 = 1;
+
+            this.etape = document.querySelector('.positions');
+            this.cercles = document.querySelector('.cercles');
+        }, 
+        /* C'est renaud qui a dit ça */
+
+        /* Méthode changement étape */
+            //Pour éffectuer tous les changements à faire 
+            //une fois que l'on passe d'une étape à une autre
+            changement_etape(avancer){
+                if(avancer){ this.i_1_2_3++};
+                if(!avancer){ this.i_1_2_3--};
+
+                if(this.i_1_2_3 > 3) this.i_1_2_3 = 3;
+                if(this.i_1_2_3 < 1) this.i_1_2_3 = 1;
+
+                if(this.i_1_2_3 < 3) {
+                    this.suivant.firstChild.textContent = "Suivant";
+                    this.suivant.dataset.closeModal = "0";
+                }else{
+                    this.suivant.firstChild.textContent = "Ajouter";
+                    this.suivant.dataset.closeModal = "1";
+                }
+                if(this.i_1_2_3 > 1) {
+                    this.precedent.firstChild.textContent = "Précédent";
+                    this.precedent.dataset.closeModal = "0";
+                }else{
+                    this.precedent.firstChild.textContent = "Annuler";
+                    this.precedent.dataset.closeModal = "1";
+                }
+                
+                this.cercles.dataset.etape = this.i_1_2_3 - 1;
+                this.etape.dataset.etape = this.i_1_2_3;
+                this.etape.textContent = "etape " + this.i_1_2_3;
+            }, 
+
+
+            clic_suivant(){
+                this.suivant.firstChild.dataset.statut = "apres";
+
+                setTimeout(function(){
+                    this.suivant.firstChild.dataset.statut = "avant";
+                }, 500);
+
+                setTimeout(function(){
+                    this.suivant.firstChild.dataset.statut = "visible";
+                }, 900);
+                
+                this.changement_etape(true);
+            },
+
+            clic_precedent(){
+                this.precedent.firstChild.dataset.statut = "avant";
+
+                setTimeout(function(){
+                    this.precedent.firstChild.dataset.statut = "apres";
+                }, 500);
+
+                setTimeout(function(){
+                    this.precedent.firstChild.dataset.statut = "visible";
+                }, 900);
+
+                this.changement_etape(false)
+            }
+
 
 
     }

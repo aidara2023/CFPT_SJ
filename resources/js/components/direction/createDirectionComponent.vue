@@ -78,8 +78,10 @@ import Form from 'vform';
 
                 this.resetForm();
                 bus.emit('directionAjoutee');
+
                  } 
                  catch(e){
+
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
                     Swal.fire('Erreur !','Cette direction existe déjà','error')
@@ -97,12 +99,13 @@ import Form from 'vform';
 
 
         validatedata(champ){
-            this.nom_direction_erreur= "";
-            this.id_user_erreur="";
+           
+            
             var i=0;
 
                 switch (champ) {
             case 'nom_direction':
+            this.nom_direction_erreur= "";
                 // Effectuez la validation pour le champ 'nom'
                 if(this.form.nom_direction=== ""){
                 this.nom_direction_erreur= "Ce champ est obligatoire"
@@ -120,6 +123,7 @@ import Form from 'vform';
                 break;
             
             case 'user':
+            this.id_user_erreur="";
                 //pour user
                 if(this.form.id_user=== ""){
                     this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
@@ -194,6 +198,7 @@ import Form from 'vform';
 
             if ( isNomDirectionValid===true || isIdDirectionValid===true ) {
                 this.etatForm= false;
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -201,12 +206,13 @@ import Form from 'vform';
                     this.etatForm= false;
                     this.update_direction(this.idDirection);
                     this.closeModal('[data-modal-confirmation-modifier]');
-                    
+                    this.editModal=false;
                 }
                 else{
                     this.etatForm= true;
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 }
             }
 
@@ -215,7 +221,7 @@ import Form from 'vform';
       resetForm(){
           this.form.nom_direction="";
           this.form.id_user="";
-          this.editModal===false;
+          this.editModal=false;
           this.nom_direction_erreur= "";
           this.id_user_erreur="";
          
@@ -231,7 +237,7 @@ import Form from 'vform';
             });
             //ajout.classList.remove("actif");
             ajout.close();
-            this.editModal===false;
+            this.editModal=false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -249,7 +255,7 @@ import Form from 'vform';
         },
 
       get_user(){
-          axios.get('/user/getPersonnel')
+          axios.get('/user/getpersoadminunique')
           .then(response => {
               this.users=response.data.user
 
@@ -269,6 +275,7 @@ import Form from 'vform';
                 await axios.post('/direction/update/'+id, formdata);
                 bus.emit('directionAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 /* console.log(e.request.status) */

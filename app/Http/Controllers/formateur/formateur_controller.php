@@ -32,7 +32,7 @@ class formateur_controller extends Controller
             'type'=>$request->type,
             'situation_matrimoniale'=>$request->situation_matrimoniale,
             'id_specialite'=>$request->id_specialite,
-            'id_departement'=>$request->id_departement,
+            'id_unite_de_formation'=>$request->id_unite_de_formation,
             'id_user'=>$user->id
         ]);
         if($formateur!=null){
@@ -53,7 +53,7 @@ class formateur_controller extends Controller
            $formateur->type=$request['type'];
            $formateur->situation_matrimoniale=$request['situation_matrimoniale'];
            $formateur->id_specialite=$request['id_specialite'];
-           $formateur->id_departement=$request['id_departement'];
+           $formateur->id_unite_de_formation=$request['id_unite_de_formation'];
            $formateur->id_user=$request['id_user'];
 
            $formateur->save();

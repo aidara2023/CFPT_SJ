@@ -10,7 +10,7 @@ use App\Models\Departement;
 class departement_controller extends Controller
 {
     public function all(){
-        $departement = Departement::with('direction')->get();
+        $departement = Departement::with('direction' , 'user')->get();
         if($departement != null){
             return response()->json([
                 'statut' => 200,
@@ -31,7 +31,7 @@ class departement_controller extends Controller
         if($verification->count()!=0){
             return response()->json([
                 'statut'=>404,
-                'message'=>'Cette departement existe déja',
+                'message'=>'Ce departement existe déja',
             ],404 );
         }else{
 
@@ -55,6 +55,7 @@ class departement_controller extends Controller
         if($departement != null){
             $departement -> nom_departement = $request['nom_departement'];
             $departement -> id_direction = $request['id_direction'];
+            $departement -> id_user = $request['id_user'];
             $departement -> save();
 
             return response()->json([

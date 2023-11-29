@@ -39,7 +39,7 @@ class user_request extends FormRequest
             'id_service'=>'',
             'id_departement'=>'',
             'type'=>'',
-            'id_personnel_administratif'=>'',
+            'id_unite_de_formation'=>'',
         ];
     }
 }

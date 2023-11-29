@@ -1,14 +1,22 @@
 <template>
 
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Formateur</h1>
+
+       <div class="avant" style=" margin-left: 80%;">
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
 
+       <div class="avant" style="margin-top: 5%;">
+           <h1 class="texte"><a href="#" @click="goToStep(1)">Formateur</a></h1>
+           <h1 class="texte"><a href="#" @click="goToStep(2)">Personnel Administratif</a></h1>
+           <h1 class="texte"><a href="#" @click="goToStep(3)">Personnel d'appui</a></h1>
+       </div>
 
+
+        <div v-if="activePhase==1">
+            
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur" v-if="utilisateur.role.id===2">
@@ -20,7 +28,7 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
                        <i class="fi fi-rr-edit"></i>
                        <button class="modifier mdl">Modifier</button>
                    </a>
@@ -35,19 +43,11 @@
                </div>
            </div>
         </div>
-
-        <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Personnel Administratif</h1>
-           <a href="#">
-              
-           </a>
-       </div>
-
-
+    </div>
+        <div v-if="activePhase==2">
         <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
-           <div class="utilisateur" v-if="utilisateur.role.id===5">
+           <div class="utilisateur" v-if="utilisateur.role.categorie_personnel==='Personnel Administratif'">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
                <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
                <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
@@ -56,9 +56,9 @@
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
                     </a>
-                   <a href="#" class="texte b">
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
                        <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
+                       <button class="modifier mdl">Modifier</button>
                    </a>
                    <a href="" class="texte b">
                        <i class="fi fi-rr-comment-alt-dots"></i>
@@ -72,9 +72,37 @@
            </div>
         </div>
     </div>
+        <div v-if="activePhase==3">
+        <div class="sections" v-for="(utilisateur, index) in utilisateurs" :key="index">
+           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+           <div class="utilisateur" v-if="utilisateur.role.categorie_personnel==='Personnel Appui'">
+               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
+               <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+               <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
+               <div  class="presences">
+                    <a href="#" class="texte b">
+                        <i class="fi fi-rr-bars-sort"></i>
+                        <span class="modifier">Actions</span>
+                    </a>
+                   <a href="#" class="texte b" @click="openModal(utilisateur)">
+                       <i class="fi fi-rr-edit"></i>
+                       <button class="modifier mdl">Modifier</button>
+                   </a>
+                   <a href="" class="texte b">
+                       <i class="fi fi-rr-comment-alt-dots"></i>
+                       <span class="details">Détails</span>
+                   </a>
+                   <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
+                       <i class="fi fi-rr-cross"></i>
+                       <span class="supprimer mdl">Supprimer</span>
+                   </a>
+               </div>
+           </div>
+        </div>
     </div>
 
-  
+    
+</div>
 
 
 <!-- <span class="fond "></span> -->
@@ -97,6 +125,9 @@ import Form from 'vform';
 
            }),
            utilisateurs: [],
+           idUser: "",
+           editModal: false,
+           activePhase:1,
 
 
        }
@@ -124,10 +155,9 @@ import Form from 'vform';
            this.interesser= event;
        },
 
-       resetForm(){
-           this.form.input="";
-           this.form.intitule="";
-       },
+       goToStep: function(step){
+            this.activePhase= step;
+        },
 
        async deleteUtilisateur(user) {
            Swal.fire({
@@ -165,6 +195,53 @@ import Form from 'vform';
                }
            });
        },
+       openModal(utilisateur) {
+          
+          this.idUser=utilisateur.id;
+
+          this.editModal = true;
+
+          // Créez un objet avec les données à envoyer
+          const eventData = {
+              idUser: this.idUser, 
+              nom: utilisateur.nom,
+              prenom: utilisateur.prenom,
+              genre: utilisateur.genre,
+              adresse: utilisateur.adresse,
+              telephone: utilisateur.telephone,
+              email: utilisateur.email,
+              date_naissance: utilisateur.date_naissance,
+              lieu_naissance: utilisateur.lieu_naissance,
+              nationalite: utilisateur.nationalite,
+              type: utilisateur.type,
+              situation_matrimonial: utilisateur.situation_matrimonial,
+              id_role: utilisateur.id_role,
+              id_specialite: utilisateur.id_specialite,
+              id_departement: utilisateur.id_departement,
+              id_service: utilisateur.id_service,
+              id_personnel_administratif: utilisateur.id_personnel_administratif,
+              id_personnel_appui: utilisateur.id_personnel_appui,
+              
+              editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('departementModifier', eventData);
+
+          var fond = document.querySelector('.fond');
+          var flou = document.querySelectorAll('.flou');
+          var modification = document.querySelector("[data-modal-ajout]");
+
+          flou.forEach(item => {
+              item.classList.add("actif");
+          });
+
+          fond.classList.add("actif");
+          modification.showModal();
+          modification.classList.add("actif");
+
+       
+      },
 
 
 

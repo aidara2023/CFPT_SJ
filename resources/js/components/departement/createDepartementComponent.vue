@@ -6,14 +6,24 @@
 
             <div class="personnel">
                 <div>
-                    <input type="text" v-model="form.nom" id="nom" placeholder="Nom du Departement" @input="validatedata()">
+                    <input type="text" v-model="form.nom" id="nom" placeholder="Nom du Departement" @input="validatedata('nom_departement')">
                     <span class="erreur" v-if="this.nom_departement_erreur !== ''">{{this.nom_departement_erreur}}</span>
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    <select name="utilisateur" id="utilisateur" v-model="form.id_user"  @change="validatedata('user')" >
+                        <option value=""> Chef de Departement</option>
+                        <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
+                    </select>
+                    <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
                 </div>
             </div>
 
             <div class="directions">
                 <div>
-                    <select name="direction" id="direction" v-model="form.id_direction"  @change="verifIdDirection()" >
+                    <select name="direction" id="direction" v-model="form.id_direction"  @change="validatedata('id_direction')" >
                         <option value=""> Direction</option>
                         <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
                     </select>
@@ -45,12 +55,15 @@ import Form from 'vform';
             filieres:[],
             form:new Form({
                 'nom':"",
-                'id_direction':""
+                'id_direction':"",
+                'id_user':""
             }),
 
             directions:[],
+            users:[],
             nom_departement_erreur:"",
             id_direction_erreur:"",
+            id_user_erreur:"",
             etatForm: false,
             editModal: false,
             idDepartement: "",
@@ -62,11 +75,13 @@ import Form from 'vform';
     mounted(){
 
         this.get_direction();
+        this.get_user();
         bus.on('departementModifier', (eventData) => {
             this.idDepartement = eventData.idDepartement;
             this.editModal = eventData.editModal;
             this.form.nom = eventData.nom;
             this.form.id_direction = eventData.id_direction;
+            this.form.id_user = eventData.id_user;
         });
     },
 
@@ -76,6 +91,7 @@ import Form from 'vform';
             const formdata = new FormData();
             formdata.append('nom_departement', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
+            formdata.append('id_user', this.form.id_user);
 
              //if(this.form.nom!==""){
             try{
@@ -98,14 +114,14 @@ import Form from 'vform';
 
 
         validerAvantAjout() {
-            const isNomDepartementValid = this.validatedata();
-            const isIdDirectionValid = this.verifIdDirection();
-
+            const isNomDepartementValid = this.validatedataOld();
+          /*   const isIdDirectionValid = this.verifIdDirection();
+ */
             console.log(isNomDepartementValid);
-            console.log(isIdDirectionValid);
 
-            if ( isNomDepartementValid===true || isIdDirectionValid===true ) {
+            if ( isNomDepartementValid===true  ) {
                 this.etatForm= false;
+                this.editModal=false;
                 return 0;
             }else{
 
@@ -113,23 +129,36 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.update_departement(this.idDepartement);
                     this.closeModal('[data-modal-confirmation-modifier]');
+                    this.editModal=false;
                     
                 }
                 else{
                     this.etatForm= true;
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
+                    this.editModal=false;
                 }
             }
 
         },
 
+        get_user(){
+            axios.get('/user/getPersonnel')
+            .then(response => {
+                this.users=response.data.user
+                }).catch(error=>{
+                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
+            });
+        },
+
         resetForm(){
             this.form.nom="";
             this.form.id_direction="";
+            this.form.id_user="";
             this.editModal===false;
             this.nom_departement_erreur="";
             this.id_direction_erreur=""
+            this.id_user_erreur=""
         },
 
         closeModal(selector){
@@ -143,6 +172,7 @@ import Form from 'vform';
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -163,10 +193,12 @@ import Form from 'vform';
             const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
         },
-
-        validatedata(){
+        validatedata(champ){
+            var i=0;
+        switch (champ) {
+            case 'nom_departement':
             this.nom_departement_erreur= "";
-
+            // Effectuez la validation pour le champ 'nom'
             if(this.form.nom=== ""){
                 this.nom_departement_erreur= "Ce champ est obligatoire"
                 return true;
@@ -179,19 +211,66 @@ import Form from 'vform';
                 this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
                 return true;
             }
-            return false;
 
-        },
+            break;
 
-        verifIdDirection(){
+            case 'user':
+            this.id_user_erreur="";
+            //pour user
+            if(this.form.id_user=== ""){
+                this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
+                i= 1;
+                return true
+
+            }
+            break;
+
+            case 'id_direction' :  
             this.id_direction_erreur= "";
-
             if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
                 return true;
             }
-            return false;
+            break;
+            default:
+                break;
+}
+
+
         },
+
+        validatedataOld(){
+            this.nom_departement_erreur= "";
+            var i= 0;
+
+            if(this.form.nom=== ""){
+                this.nom_departement_erreur= "Ce champ est obligatoire"
+                 i=1;
+            }
+            if(!this.verifCaratere(this.form.nom)){
+                this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                 i=1;
+            }
+            if(this.form.nom.length <14 ){
+                this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
+                 i=1;
+            }
+            if(this.form.id_user=== ""){
+              this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
+                i=1;
+            }
+            if(this.form.id_direction=== ""){
+                this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
+                i=1;
+            }
+            if(i==1) return true;
+
+            return false;
+          
+
+        },
+
+       
 
         get_direction(){
             axios.get('/direction/index')
@@ -207,12 +286,14 @@ import Form from 'vform';
          const formdata = new FormData();
             formdata.append('nom_departement', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
+            formdata.append('id_user', this.form.id_user);
 
              //if(this.form.nom!==""){
             try{
                 await axios.post('/departement/update/'+id, formdata);
                 bus.emit('departementAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
                 /* console.log(e.request.status) */

@@ -91,7 +91,7 @@ import listePersonnelAdministratifComponent from './components/personnel_adminis
 import listePersonnelAppuiComponent from './components/personnel_appui/listePersonnelAppuiComponent.vue';
 
 
-
+import createRecouvrementComponent from './components/recouvrement/createRecouvrementComponent.vue';
 
 import Swal from 'sweetalert2';
 window.Form=Form;
@@ -183,6 +183,8 @@ app.component("liste-batiment", listeBatimentComponent);
 
 app.component("liste-personnel-administratif", listePersonnelAdministratifComponent);
 app.component("liste-personnel-appui", listePersonnelAppuiComponent);
+
+app.component("recouvrement-create", createRecouvrementComponent);
 
 
 app.mount('#app')

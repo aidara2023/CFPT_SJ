@@ -9,10 +9,11 @@
                      <span class="erreur" v-if="this.nom_formation_erreur !== ''">{{this.nom_formation_erreur}}</span>
             </div>
 
-        <div class="boutons">
+            <div class="boutons">
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+                <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
+                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
             </div>
         </form>
     </div>
@@ -41,7 +42,7 @@ import Form from 'vform';
         }
     },
     mounted(){
-            bus.on('typeformationeModifier', (eventData) => {
+            bus.on('formationModifier', (eventData) => {
             this.idTypeformation= eventData.idTypeformation;
             this.editModal = eventData.editModal;
             this.form.intitule = eventData.nom;
@@ -76,19 +77,22 @@ import Form from 'vform';
             /*   console.log(isNomChampValid); */
             if ( isVerifIdValid===true) {
                 this.etatForm = false;
+                this.editModal=false;
                 return 0;
             }else{
 
                 if(this.editModal===true){
                     this.etatForm= true;
-                    this.update_typeformation(this.idTypeformation);
-                    this.closeModal('[data-modal-confirmation-modifier]');  
+                    this.update_formation(this.idTypeformation);
+                    this.closeModal('[data-modal-confirmation-modifier]'); 
+                    this.editModal=false; 
                 }
             
             else{
                 this.soumettre();
                 this.etatForm = true;
                 this.closeModal('[data-modal-confirmation]');
+                this.editModal=false;
                 // console.log(Tokkos);
             }
             
@@ -110,10 +114,10 @@ import Form from 'vform';
                 this.nom_formation_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 return true;
             }
-            if(this.form.intitule.length <10 ){
+            /* if(this.form.intitule.length <10 ){
                 this.nom_formation_erreur= "Ce champ doit contenir au moins 10 Caratères"
                 return true;
-            }
+            } */
             return false;
 
         },
@@ -125,6 +129,7 @@ import Form from 'vform';
         resetForm(){
             this.form.input="";
             this.form.intitule="";
+            this.editModal===false;
             this.nom_formation_erreur="";
         },
         closeModal(selector){
@@ -154,7 +159,7 @@ import Form from 'vform';
             }, 1700);
         },
 
-        async update_typeformation(id){
+        async update_formation(id){
          const formdata = new FormData();
             formdata.append('intitule', this.form.intitule  );
              //if(this.form.nom!==""){
@@ -162,15 +167,16 @@ import Form from 'vform';
                 await axios.post('/type_formation/update/'+id, formdata);
                 bus.emit('formationAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
-            catch(e){
-                /* console.log(e.request.status) */
-                if(e.request.status===404){
+            catch(e){     
+                console.log(e) 
+                /* if(e.request.status===404){
                     Swal.fire('Erreur !','Cette type de formation existe déjà','error')
                 }
                 else{
                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                }
+                } */
             }
     }
 

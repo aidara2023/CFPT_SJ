@@ -16,29 +16,76 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'intitule' => 'Eleve',
+                'categorie_personnel' => 'Simple',
+                
             ],
 
             [
                 'intitule' => 'Formateur',
+                'categorie_personnel' => 'Simple',
             ],
             
             [
                 'intitule' => 'Administrateur',
+                'categorie_personnel' => 'Simple',
             ],
 
+            [  
+                'intitule' => 'Caissier',
+                'categorie_personnel' => 'Personnel Administratif',
+              
+               
+            ],
             [
-                'intitule' => 'Personnel Appui',
+                'intitule' => 'Comptable',
+                'categorie_personnel' => 'Personnel Administratif',
+                
+            ],
+            [
+                'intitule' => 'Infirmier',
+                'categorie_personnel' => 'Personnel Administratif',
+               
+            ],
+
+           
+            [
+                'intitule' => 'Bibliothecaire',
+                'categorie_personnel' => 'Personnel Administratif',
+                
+    
             ],
            
             [
-                'intitule' => 'Personnel Administratif',
+                'intitule' => 'femme de menage',
+                'categorie_personnel' => 'Personnel Appui',
+               
+    
             ],
-
+            [
+                'intitule' => 'Jardinier',
+                'categorie_personnel' => 'Personnel Appui',
+                
+    
+            ],
+            [
+                'intitule' => 'Vigile',
+                'categorie_personnel' => 'Personnel Appui',
+              
+    
+            ],
+           
             [
                 'intitule' => 'Tuteur',
+                'categorie_personnel' => 'Simple',
             ],
-           
-            
+
+            [
+                'intitule' => 'Surveillant',
+                'categorie_personnel' => 'Personnel Administratif',
+                
+    
+            ],
+
             
         ]);
     }

@@ -14,7 +14,8 @@
            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ service.nom_service }} </p>
-               <p class="texte" id="n">{{ service.user.nom }}</p>
+               <p class="texte" id="n">{{ service.direction.nom_direction }} </p>
+               <p class="texte" id="n">{{ service.user.prenom }} {{ service.user.nom }}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>

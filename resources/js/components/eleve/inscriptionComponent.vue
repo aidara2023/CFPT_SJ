@@ -520,39 +520,17 @@ import Form from 'vform';
         validatedata(champ) {
             // Réinitialiser les erreurs pour le champ actuel
 
-                this.nom_tuteur_erreur= "";
-                this.prenom_tuteur_erreur= "";
-                this.date_naissance_tuteur_erreur= "";
                 this.lieu_naissance_tuteur_erreur= "";
-                this.nationalite_tuteur_erreur= "";
-                this.adresse_tuteur_erreur= "";
-                this.genre_tuteur_erreur= "";
-
-                this.nom_eleve_erreur= "";
-                this.prenom_eleve_erreur= "";
-                this.date_naissance_eleve_erreur= "";
-                this.lieu_naissance_eleve_erreur= "";
-                this.nationalite_eleve_erreur= "";
-                this.genre_eleve_erreur= "";
-                this.adresse_eleve_erreur= "";
-
-                this.telephone_tuteur_erreur= "";
-                this.telephone_eleve_erreur= "";
-                this.telephone_urgence_1_erreur= "";
-                this.telephone_urgence_2_erreur= "";
-                this.mail_eleve_erreur= "";
-                this.mail_tuteur_erreur= "";
-
-                this.id_annee_accademique_erreur= "";
-                this.id_classe_erreur= "";
 
                 var i= 0;
 
             switch (champ) {
                 case 'nom_eleve':
+                this.nom_eleve_erreur= "";
+               
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.nom_eleve=== ""){
-                    this.nom_eleve_erreur= "Ce champ est obligatoire"
+                    this.nom_eleve_erreur= "Ce champ est obligatoire" 
                     i= 1;
                     return true
 
@@ -566,6 +544,7 @@ import Form from 'vform';
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'nom_tuteur':
+                this.nom_tuteur_erreur= "";
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.nom_tuteur=== ""){
                     this.nom_tuteur_erreur= "Ce champ est obligatoire"
@@ -582,6 +561,7 @@ import Form from 'vform';
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'prenom_eleve':
+                this.prenom_eleve_erreur= "";
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.prenom_eleve=== ""){
                     this.prenom_eleve_erreur= "Ce champ est obligatoire"
@@ -598,6 +578,7 @@ import Form from 'vform';
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'prenom_tuteur':
+                this.prenom_tuteur_erreur= "";
                     // Effectuez la validation pour le champ 'nom'
                     if(this.form.prenom_tuteur=== ""){
                     this.prenom_tuteur_erreur= "Ce champ est obligatoire"
@@ -615,6 +596,8 @@ import Form from 'vform';
                     break;
 
                 case 'adresse_eleve':
+                this.adresse_eleve_erreur= "";
+
                     //pour adresse
                     if(this.form.adresse_eleve=== ""){
                         this.adresse_eleve_erreur= "Ce champ est obligatoire"
@@ -624,6 +607,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'adresse_tuteur':
+                this.adresse_tuteur_erreur= "";
                     //pour adresse
                     if(this.form.adresse_tuteur=== ""){
                         this.adresse_tuteur_erreur= "Ce champ est obligatoire"
@@ -633,6 +617,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'lieu_naissance_eleve':
+                this.lieu_naissance_eleve_erreur= "";
                     //pour lieu de naissance
                     if(this.form.lieu_naissance_eleve=== ""){
                         this.lieu_naissance_eleve_erreur= "Ce champ est obligatoire"
@@ -659,6 +644,7 @@ import Form from 'vform';
                 //     }
                 //     break;
                 case 'nationalite_eleve':
+                this.nationalite_eleve_erreur= "";
                     //pour nationalite
                     if(this.form.nationalite_eleve=== ""){
                         this.nationalite_eleve_erreur= "Ce champ est obligatoire"
@@ -672,6 +658,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'nationalite_tuteur':
+                this.nationalite_tuteur_erreur= "";
                     //pour nationalite
                     if(this.form.nationalite_tuteur=== ""){
                         this.nationalite_tuteur_erreur= "Ce champ est obligatoire"
@@ -685,9 +672,10 @@ import Form from 'vform';
                     }
                     break;
                 case 'mail_eleve':
+                this.mail_eleve_erreur="";
                 //Vérification de l' email
                     if(this.form.mail_eleve=== ""){
-                        this.mail_eleve_erreur= "L'email est obligatoire"
+                        "L'email est obligatoire"
                         i= 1;
                         return true
                     }else{
@@ -699,6 +687,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'mail_tuteur':
+                this.mail_tuteur_erreur="";
                 //Vérification de l' email
                     if(this.form.mail_tuteur=== ""){
                         this.mail_tuteur_erreur= "L'email est obligatoire"
@@ -713,6 +702,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'date_naissance_eleve':
+                this.date_naissance_eleve_erreur= "";
                 // Vérification de la date de naissance
                     if(this.form.date_naissance_eleve === ""){
                         this.date_naissance_eleve_erreur = "La date de naissance est obligatoire";
@@ -739,6 +729,7 @@ import Form from 'vform';
                     }
                     break;
                 // case 'date_naissance_tuteur':
+               /*  this.date_naissance_tuteur_erreur= ""; */
                 // // Vérification de la date de naissance
                 //     if(this.form.date_naissance_tuteur === ""){
                 //         this.date_naissance_tuteur_erreur = "La date de naissance est obligatoire";
@@ -765,6 +756,7 @@ import Form from 'vform';
                 //     }
                 //     break;
                 case 'telephone_eleve':
+                this.telephone_eleve_erreur ="";
                     //Vérification du numero de telephone
                     if(this.form.telephone_eleve === ""){
                         this.telephone_eleve_erreur = "Le numéro de téléphone est obligatoire";
@@ -777,6 +769,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'telephone_tuteur':
+                this.telephone_tuteur_erreur ="";
                     //Vérification du numero de telephone
                     if(this.form.telephone_tuteur === ""){
                         this.telephone_tuteur_erreur = "Le numéro de téléphone est obligatoire";
@@ -789,6 +782,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'telephone_urgence_1':
+                this.telephone_urgence_1_erreur ="";
                     //Vérification du numero de telephone
                     if(this.form.contact_urgence1 === ""){
                         this.telephone_urgence_1_erreur = "Le numéro de téléphone est obligatoire";
@@ -801,6 +795,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'telephone_urgence_2':
+                this.telephone_urgence_2_erreur ="";
                     //Vérification du numero de telephone
                     if(this.form.contact_urgence2 === ""){
                         this.telephone_urgence_2_erreur = "Le numéro de téléphone est obligatoire";
@@ -814,6 +809,7 @@ import Form from 'vform';
                     break;
 
                 case 'genre_eleve':
+                this.genre_eleve_erreur= "";
                     //Vérification de matrimoniale
                     if(this.form.genre_eleve=== ""){
                         this.genre_eleve_erreur= "Vous avez oublié de sélectionner le genre "
@@ -822,6 +818,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'genre_tuteur':
+                this.genre_tuteur_erreur= "";
                     //Vérification de matrimoniale
                     if(this.form.genre_tuteur=== ""){
                         this.genre_tuteur_erreur= "Vous avez oublié de sélectionner le genre "
@@ -830,6 +827,7 @@ import Form from 'vform';
                     }
                     break;
                 case 'id_annee_accademique':
+                this.id_annee_accademique_erreur="";
                     //Vérification de annee academique
                     if(this.form.id_annee_accademique=== ""){
                     this.id_annee_accademique_erreur= "Vous avez oublié de sélectionner l'\Annee Academique "
@@ -837,6 +835,7 @@ import Form from 'vform';
                     return true
                 }
                 case 'id_classe':
+                this.id_classe_erreur= "";
                     //Vérification de annee academique
                     if(this.form.id_classe=== ""){
                     this.id_classe_erreur= "Vous avez oublié de sélectionner le statut "

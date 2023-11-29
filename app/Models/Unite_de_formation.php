@@ -10,7 +10,7 @@ class Unite_de_formation extends Model
     use HasFactory;
     protected $fillable = [
         'nom_unite_formation',
-        'id_formateur',
+        'id_user',
         'id_departement'
     ];
 
@@ -28,8 +28,8 @@ class Unite_de_formation extends Model
 
     }
 
-    public function formateur (){
-        return $this->belongsTo(Formateur::class,'id_formateur');
+    public function user (){
+        return $this->belongsTo(User::class,'id_user');
 
     }
 

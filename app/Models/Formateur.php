@@ -13,7 +13,7 @@ class Formateur extends Model
         'Type',
         'Situation_matrimoniale',
         'id_specialite',
-        'id_departement',
+        'id_unite_de_formation',
         'id_user'
     ];
     public function user() {

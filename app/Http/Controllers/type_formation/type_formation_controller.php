@@ -59,7 +59,7 @@ class type_formation_controller extends Controller
         $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {
             $data = $request->validate([
-                'nom_type' => 'required',
+                'intitule' => 'required',
             ]);
 
             $Type_Formation->update($data);

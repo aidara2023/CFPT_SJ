@@ -12,6 +12,8 @@
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel="stylesheet" href="/assetsCFPT/css/admin.css">
+    <link rel="stylesheet" href="/assestsCFPT/recouvrementCss/caissier.css">
+    
     <title>Utilisateurs</title>
     @vite('resources/js/app.js')
 </head>

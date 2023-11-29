@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use App\Models\Caissier;
 use App\Models\Formateur;
+use App\Models\Infirmier;
 use App\Models\Role;
 use App\Models\Tuteur;
 use Illuminate\Http\Request;
@@ -73,6 +74,31 @@ class user_controller extends Controller
         }
     }
 
+    public function getUniquementPersonnelAdministratif() {
+        $roles = Role::where('categorie_personnel', ['Personnel Administratif'])->get();
+
+        if ($roles->isNotEmpty()) {
+            $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
+
+            if ($users->isNotEmpty()) {
+                return response()->json([
+                    'status' => 200,
+                    'user' => $users,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+                ], 500);
+            }
+        }else{
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun rôle "Eleve" trouvé.',
+            ],500);
+        }
+    }
+
     public function getBibliothecaire() {
         $roles= Role::where('intitule', "Bibliothecaire")->get();
         foreach($roles as $role){
@@ -113,6 +139,7 @@ class user_controller extends Controller
         $user->date_naissance=$request['date_naissance'];
         $user->lieu_naissance=$request['lieu_naissance'];
         $user->nationalite=$request['nationalite'];
+        $user->status=1;
 
         /* Uploader une image */
         $image= $request->file('photo');
@@ -129,23 +156,29 @@ class user_controller extends Controller
             $formateur->situation_matrimoniale= $request['situation_matrimoniale'];
             $formateur->type= $request['type'];
             $formateur->id_specialite= $request['id_specialite'];
-            $formateur->id_departement= $request['id_departement'];
-            $formateur->id_user= $user->id;
+/*             $formateur->id_departement= $request['id_departement'];
+ */         $formateur->id_user= $user->id;
+            $formateur->id_unite_de_formation= $request['id_unite_de_formation'];
             $formateur->save();
         }
-        elseif($request['id_role']==6){
+        
+        elseif($request['id_role']=11){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==5){
-            if($request['id_personnel_administratif']==1){
+        elseif($request['id_role']==4){
                 $caissier=new Caissier();
                 $caissier->id_user= $user->id;
                 $caissier->id_service= $request->id_service;
                 $caissier->save();
             }
-        }
+            elseif($request['id_role']==3){
+                $infirmier=new Infirmier();
+                $infirmier->id_user= $user->id;
+                $infirmier->save();
+            }
+        
 
         if($user!=null){
             return response()->json([

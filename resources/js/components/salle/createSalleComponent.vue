@@ -5,11 +5,11 @@
                 <h1 class="sous_titre">Ajout Salle</h1>
                 <!--Informations personnelles-->
                     <div class="personnel">
-                
-                  
+                        <div>
                        <input type="text" name="nom" id="nom" placeholder="Intitule" v-model="form.intitule"  @input="validatedata('intitule')">
                        <span class="erreur" v-if="this.nom_salle_erreur !== ''">{{this.nom_salle_erreur}}</span>
                    </div>
+
                     <div>
                         <input type="text" v-model="form.nombre_place" id="nom_place" placeholder="Nombre de place" @input="validatedata('nombre_place')">
                         <span class="erreur" v-if="this.nombre_place_erreur !== ''">{{this.nombre_place_erreur}}</span>
@@ -17,18 +17,19 @@
     
                     <div class="batiments">
                         <div>
-                               <select name="batiment" id="batiment" v-model="form.id_batiment"  @change="verifIdBatiment()" >
+                               <select name="batiment" id="batiment" v-model="form.id_batiment"  @change="validatedata('id_batiment')" >
                                     <option value=""> Batiment</option>
                                     <option v-for="batiment in batiments" :value="batiment.id">{{ batiment.intitule }} </option>
                                 </select>
                                 <span class="erreur" v-if="id_batiment_erreur !== ''">{{id_batiment_erreur}}</span>
                         </div>
                     </div>
+                </div>
                
-    
                 <div class="boutons">
                     <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                     <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                    <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
                     <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
                 </div>
             </form>
@@ -47,6 +48,7 @@
         data(){
             return {
                 users:[],
+                batiments:[],
                 form:new Form({
                     'intitule':"",
                     'nombre_place':"",
@@ -101,11 +103,12 @@
             validerAvantAjout() {
                 // Exécutez la validation des champs
                 const isNomSalleValid = this.validatedataold();
-                const isIdBatimentValid = this.verifIdBatiment();
     
-              /*   console.log(isNomSalleValid); */
-                if (isNomSalleValid===true || isIdBatimentValid===true ) {
+                //console.log(isNomSalleValid);
+
+                if (isNomSalleValid===true ) {
                     this.etatForm= false;
+                    this.editModal=false;
                     return 0;
                 }else{
 
@@ -113,13 +116,15 @@
                         this.etatForm= true;
                         this.update_salle(this.idSalle);
                         this.closeModal('[data-modal-confirmation-modifier]');  
+                        this.editModal=false;
                     }
 
                     else{
                     this.soumettre();
                     this.etatForm = true;
                     this.closeModal('[data-modal-confirmation]');
-                    // console.log(Tokkos);
+                    this.editModal=false;
+                
                     }
                 }
             }, 
@@ -131,6 +136,7 @@
                 this.nom_salle_erreur= "";
                 this.nombre_place_erreur="";
                 this.id_batiment_erreur= "";
+                this.editModal===false;
             },
     
             verifCaratere(nom){
@@ -154,16 +160,16 @@
                 i=1;
                  
             }
-            if(!this.verifCaratere(this.form.intitule)){
+             if(!this.verifCaratere(this.form.intitule)){
                 this.nom_salle_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 i=1;
                 
-            }
+            } 
             if(this.form.intitule.length < 12){
                 this.nom_salle_erreur= "Ce champ doit contenir au moins 12 Caratères"
                 i=1;
                 
-            }
+            } 
             if(this.form.id_batiment=== ""){
                 this.id_batiment_erreur= "Vous avez oublié de sélectionner le batiment"
                 ;
@@ -182,55 +188,51 @@
         },
         validatedata(champ) {
     // Réinitialiser les erreurs pour le champ actuel
-        this.nom_salle_erreur= "";
-        this.nombre_place_erreur="";
-        this.id_batiment_erreur="";
-        var i= 0;
 
-    switch (champ) {
+        switch (champ) {
         case 'intitule':
             // Effectuez la validation pour le champ 'nom'
+            this.nom_salle_erreur= "";
+
             if(this.form.intitule=== ""){
             this.nom_salle_erreur= "Ce champ est obligatoire"
-            i= 1;
             return true
             
             }
-            if(!this.verifCaratere(this.form.intitule)){
+             if(!this.verifCaratere(this.form.intitule)){
                 this.nom_salle_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                i= 1;
+
                 return true
-            }
+            } 
             // Ajoutez d'autres validations si nécessaire
             break;
         case 'nombre_place':
             //pour prenom
+            this.nombre_place_erreur="";
+            
             if(this.form.nombre_place=== ""){
             this.nombre_place_erreur= "Ce champ est obligatoire" 
-            i= 1;
             return true
             }
             if(!/^\d+$/.test(this.form.nombre_place)) {
                 this.nombre_place_erreur = "Ce champ ne peut contenir que des chiffres";
                 
-            i= 1;
             return true
             }
             break;
-        default:
-           break;
-    }
-},
-        verifIdBatiment(){
-            this.id_batiment_erreur= "";
-    
+        case 'id_batiment':
+            //pour prenom
+            this.id_batiment_erreur="";
+            
             if(this.form.id_batiment=== ""){
                 this.id_batiment_erreur= "Vous avez oublié de sélectionner la salle"
                 return true;
             }
-            return false;
-        },
+            break;
+        default:
+           break;
+        }
+    },
     
         get_batiment(){
                 axios.get('/batiment/index')
@@ -251,6 +253,7 @@
             });
             //ajout.classList.remove("actif");
             ajout.close();
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -267,26 +270,28 @@
             }, 1700);
         },
 
-        async update_sale(id){
+       
+        async update_salle(id){
          const formdata = new FormData();
-            formdata.append('intitule', this.form.intitule  );
+            formdata.append('intitule', this.form.intitule );
             formdata.append('nombre_place', this.form.nombre_place);
             formdata.append('id_batiment', this.form.id_batiment);
 
              //if(this.form.nom!==""){
             try{
-                await axios.post('/sale/update/'+id, formdata);
+                await axios.post('/salle/update/'+id, formdata);
                 bus.emit('salleAjoutee');
                 this.resetForm();
+                this.editModal=false;
             }
             catch(e){
-                /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette sale existe déjà','error')
+                console.log(e)
+           /*      if(e.request.status===404){
+                    Swal.fire('Erreur !','Ce salle existe déjà','error')
                 }
                 else{
                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                }
+                } */
             }
         }
     

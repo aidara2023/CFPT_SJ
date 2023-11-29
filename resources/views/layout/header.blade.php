@@ -26,7 +26,7 @@
 @endif
 
 
-@if (Auth::user()->id_role==6)
+@if (Auth::user()->id_role==11)
     <div class="entete">
         <h1 class="titre">Tuteur</h1>
         <div class="bloc">
@@ -40,8 +40,7 @@
 @endif
 
 
- @if (Auth::user()->id_role==5)
-    @if(Auth::user()->role->admin->id==5)
+ @if (Auth::user()->id_role==7)
         <div class="entete">
             <h1 class="titre">Bibliothécaire</h1>
             <div class="bloc">
@@ -52,15 +51,14 @@
             </div>
             </div>
         </div>
-    @endif
+    
 @endif
 
 
 
- @if (Auth::user()->id_role==5)
-    @if(Auth::user()->role->admin->id==1)
+ @if (Auth::user()->id_role==4)
         <div class="entete">
-            <h1 class="titre">Caissiere</h1>
+            <h1 class="titre">Caissier</h1>
             <div class="bloc">
                 <h1 class="sous_titre">Utilisateurs</h1>
             <div class="recherche">
@@ -69,7 +67,7 @@
             </div>
             </div>
         </div>
-    @endif
+   
 @endif
 
 
@@ -88,8 +86,8 @@
 
 
 
- @if (Auth::user()->id_role==5)
-    @if(Auth::user()->role->admin->id==3)
+ @if (Auth::user()->id_role==6)
+    
         <div class="entete"> 
             <h1 class="titre">Infirmier</h1>
             <div class="bloc">
@@ -100,13 +98,11 @@
             </div>
             </div>
         </div>
-    @endif
 @endif
 
 
 
  @if (Auth::user()->id_role==5)
-    @if(Auth::user()->role->admin->id==2)
         <div class="entete">
             <h1 class="titre">Comptable</h1>
             <div class="bloc">
@@ -117,5 +113,5 @@
             </div>
             </div>
         </div>
-    @endif
+   
 @endif

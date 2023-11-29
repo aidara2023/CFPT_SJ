@@ -2,14 +2,14 @@
     @if (Auth::user()->id_role==3)
     <nav class="flou ">
         <ul >
-            <li class="fntr"><a href="{{route('admin_index')}}">
-                <div>
-                    <i class="fi fi-rr-home"></i>
-                    <span>Accueil</span>
-                </div>
-            </a>
-     
-        </li>
+            <li class="fntr">
+                <a href="{{route('admin_index')}}">
+                    <div>
+                        <i class="fi fi-rr-home"></i>
+                        <span>Accueil</span>
+                    </div>
+                </a>
+            </li>
         
             <li class="fntr"><a href="{{route('utilisateur_index')}}">
                 <div>
@@ -131,8 +131,8 @@
         </ul>
      </nav>
     @endif
-    @if (Auth::user()->id_role==5)
-        @if(Auth::user()->role->admin->intitule=="Caissier")
+    @if (Auth::user()->id_role==4)
+
     <nav class="flou ">
         <ul >
             <li class="fntr"><a href="{{route('caissier_index')}}">
@@ -170,7 +170,7 @@
      </nav>
      @endif
 
-     @if(Auth::user()->role->admin->id==4)
+     @if(Auth::user()->id_role==12)
         <nav class="flou">
             <ul>
                 <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Accueil</span></a></li>
@@ -181,7 +181,7 @@
             </ul>
         </nav>
     @endif
-     @if(Auth::user()->role->admin->id==2)
+     @if(Auth::user()->id_role==5)
         <nav class="flou">
             <ul>
                 <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Inscription</span></a></li>
@@ -191,7 +191,7 @@
                 <li class="fntr"><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>inscription</span></a></li>
             </ul>
         </nav>
-    @endif
+   
     @endif
     
 
