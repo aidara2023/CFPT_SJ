@@ -248,7 +248,7 @@
     
         validerAvantAjout() {
             const isVerifIdValid = this.validatedataOld();
-           /*  const isIdChampValid = this.verifIdUser(); */
+            
             /*   console.log(isNomChampValid); */
             if (isVerifIdValid===true) {
                 this.etatForm = false;
