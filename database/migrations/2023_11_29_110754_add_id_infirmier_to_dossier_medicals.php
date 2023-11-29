@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consultations', function (Blueprint $table) {
-            $table->id();
-            //$table->unsignedBigInteger('id_user');
+        Schema::table('dossier_medicals', function (Blueprint $table) {
+            //
+            $table->text('antecedents')->nullable();
+            $table->text('diagnostics')->nullable();
+            $table->text('traitements')->nullable();
+            $table->text('resultats_tests')->nullable();
             $table->unsignedBigInteger('id_infirmier');
-            $table->unsignedBigInteger('id_dossier_medical');
-            //$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_infirmier')->references('id')->on('infirmiers')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_dossier_medical')->references('id')->on('dossier_medicals')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
@@ -27,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consultations');
+        Schema::table('dossier_medicals', function (Blueprint $table) {
+            //
+        });
     }
 };
