@@ -53,6 +53,8 @@ import Form from 'vform';
 
            }),
            unite_de_formations: [],
+           editModal: false,
+           idFormation: "",
 
 
        }

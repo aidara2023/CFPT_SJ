@@ -64,6 +64,8 @@ import Form from 'vform';
             id_departement_erreur:"",
             id_formateur_erreur:"",
             etatForm: false,
+            editModal: false,
+            idFormation: "",
             
 
         }
