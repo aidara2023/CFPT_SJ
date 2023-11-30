@@ -350,23 +350,7 @@ import Form from 'vform';
                 Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
             });
         },
-/* 
-        get_personnel_administratif(){
-            axios.get('/personnel_administratif/index').then(response => {
-            this.personnel_administratifs=response.data.personnel_administratifs
-            console.log(this.personnel_administratifs)
-            }).catch(error=>{
-                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
-            });
-        },
-        get_personnel_appui(){
-            axios.get('/personnel_appui/index').then(response => {
-            this.personnel_appuis=response.data.personnel_appuis
-            console.log(this.personnel_appuis)
-            }).catch(error=>{
-                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
-            });
-        }, */
+
 
         get_specialite(){
             axios.get('/specialite/index').then(response => {
@@ -408,7 +392,7 @@ import Form from 'vform';
             const isIdChampValid = this.validatedataOld();
           /*   console.log(isNomChampValid); */
 
-            if ( isIdChampValid || isVerifIdValid) {
+            if ( isIdChampValid===true || isVerifIdValid===true) {
 
                 this.etatForm = false;
               console.log("erreur");
@@ -451,8 +435,7 @@ import Form from 'vform';
             this.form.id_specialite="";
             this.form.id_departement="";
             this.form.id_service="";
-           /*  this.form.id_personnel_administratif="";
-            this.id_personnel_appui=""; */
+
             this.photo="";
             this.editModal=false;
 
@@ -970,14 +953,15 @@ import Form from 'vform';
             var ajout=document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
+            if(this.etatForm==true){
+                var actif = document.querySelectorAll('.actif');
                 actif.forEach(item => {
                 item.classList.remove("actif");
             });
-            //ajout.classList.remove("actif");
-            ajout.close();
-            this.editModal=false;
+                ajout.close();
+            }
+           
+            this.editModal===false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -1024,6 +1008,7 @@ import Form from 'vform';
                 const user_store=await axios.post('/user/update/'+id, formdata);
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
+                this.editModal=false;
 
             }
             catch(e){

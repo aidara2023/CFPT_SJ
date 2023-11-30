@@ -121,13 +121,27 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'intitule':""
-
+            'nom':"",
+                'prenom':"",
+                'genre':"",
+                'adresse':"",
+                'telephone':"",
+                'email':"",
+                'date_naissance':"",
+                'lieu_naissance':"",
+                'nationalite':"",
+                'id_role':"",
+                'id_specialite':"",
+                'id_departement':"",
+                'id_service':"",
+                'type':"",
+                'situation_matrimoniale':""
            }),
            utilisateurs: [],
            idUser: "",
            editModal: false,
            activePhase:1,
+           idUser: "",
 
 
        }
@@ -226,7 +240,7 @@ import Form from 'vform';
               // Ajoutez d'autres propriétés si nécessaire
           };
 
-          bus.emit('departementModifier', eventData);
+          bus.emit('utilisateurModifier', eventData);
 
           var fond = document.querySelector('.fond');
           var flou = document.querySelectorAll('.flou');

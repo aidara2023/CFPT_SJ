@@ -164,7 +164,9 @@
                     <div class="groupe_champs validation">
                         <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
                         <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                        <button type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+
                     </div>
 
                     </div>
@@ -342,12 +344,12 @@
                // this.coloration_erreur_rouge(this.nom_service_erreur);
                 return true
             }
-            if(this.form.nom_service.length < 12){
+           /*  if(this.form.nom_service.length < 12){
                 this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caractères"
                 ;
-               // this.coloration_erreur_rouge(this.nom_service_erreur);
+             
                 return true
-            }
+            } */
             break;
             
             case 'user':
@@ -409,11 +411,11 @@
                 ;
                 i=1;
             }
-            if(this.form.nom_service.length < 12){
+            /* if(this.form.nom_service.length < 12){
                 this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
                 ;
                 i=1;
-            }
+            } */
             if(this.form.id_user=== ""){
                 this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
                 ;
