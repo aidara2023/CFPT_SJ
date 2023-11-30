@@ -265,7 +265,6 @@
         <!-- <div class="contenu"> -->
             <form action="" method="dialog" >
                 
-
                 <div class="droit">
 
                     <div class="image">
