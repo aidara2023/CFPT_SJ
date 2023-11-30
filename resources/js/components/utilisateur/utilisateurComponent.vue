@@ -461,10 +461,26 @@ export default {
             }).catch(error => {
                 Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
             });
+        },
+        /* 
+                get_personnel_administratif(){
+                    axios.get('/personnel_administratif/index').then(response => {
+                    this.personnel_administratifs=response.data.personnel_administratifs
+                    console.log(this.personnel_administratifs)
+                    }).catch(error=>{
+                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
+                    });
+                },
+                get_personnel_appui(){
+                    axios.get('/personnel_appui/index').then(response => {
+                    this.personnel_appuis=response.data.personnel_appuis
+                    console.log(this.personnel_appuis)
+                    }).catch(error=>{
+                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
+                    });
+                }, */
 
-
-        get_specialite(){
-
+        get_specialite() {
             axios.get('/specialite/index').then(response => {
                 this.specialites = response.data.specialite
             }).catch(error => {
@@ -504,8 +520,7 @@ export default {
             const isIdChampValid = this.validatedataOld();
             /*   console.log(isNomChampValid); */
 
-
-            if ( isIdChampValid===true || isVerifIdValid===true) {
+            if (isIdChampValid || isVerifIdValid) {
 
                 this.etatForm = false;
                 console.log("erreur");
@@ -531,48 +546,47 @@ export default {
 
         },
 
+        resetForm() {
 
-        resetForm(){
+            this.form.nom = "";
+            this.form.prenom = "";
+            this.form.genre = "";
+            this.form.adresse = "";
+            this.form.telephone = "";
+            this.form.email = "";
+            this.form.date_naissance = "";
+            this.form.lieu_naissance = "";
+            this.form.nationalite = "";
+            this.form.id_role = "";
+            this.form.type = "";
+            this.form.situation_matrimoniale = "";
+            this.form.id_specialite = "";
+            this.form.id_departement = "";
+            this.form.id_service = "";
+            /*  this.form.id_personnel_administratif="";
+             this.id_personnel_appui=""; */
+            this.photo = "";
+            this.editModal = false;
 
-            this.form.nom="";
-            this.form.prenom="";
-            this.form.genre="";
-            this.form.adresse="";
-            this.form.telephone="";
-            this.form.email="";
-            this.form.date_naissance="";
-            this.form.lieu_naissance="";
-            this.form.nationalite="";
-            this.form.id_role="";
-            this.form.type="";
-            this.form.situation_matrimoniale="";
-            this.form.id_specialite="";
-            this.form.id_departement="";
-            this.form.id_service="";
-
-            this.photo="";
-            this.editModal=false;
-
-           this.nom_user_erreur="";
-           this.interesser="";
-           this.get_id_perso_admin="";
-            this.prenom_user_erreur="";
-            this.date_erreur="";
-            this.lieu_naissance_erreur="";
-            this.genre_erreur="";
-            this.adresse_erreur="";
-            this.telephone_erreur="";
-            this.email_user_erreur="";
-            this.nationalite_erreur="";
-            this.id_role_erreur="";
-            this.id_specialite_erreur="";
-            this.id_departement_erreur="";
-            this.id_service_erreur="";
-            this.type_erreur="";
-            this.situation_matrimoniale_erreur="";
-            this.id_personnel_appui_erreur="";
-            this.id_personnel_administratif_erreur="";
-
+            this.nom_user_erreur = "";
+            this.interesser = "";
+            this.get_id_perso_admin = "";
+            this.prenom_user_erreur = "";
+            this.date_erreur = "";
+            this.lieu_naissance_erreur = "";
+            this.genre_erreur = "";
+            this.adresse_erreur = "";
+            this.telephone_erreur = "";
+            this.email_user_erreur = "";
+            this.nationalite_erreur = "";
+            this.id_role_erreur = "";
+            this.id_specialite_erreur = "";
+            this.id_departement_erreur = "";
+            this.id_service_erreur = "";
+            this.type_erreur = "";
+            this.situation_matrimoniale_erreur = "";
+            this.id_personnel_appui_erreur = "";
+            this.id_personnel_administratif_erreur = "";
 
 
         },
@@ -1068,17 +1082,14 @@ export default {
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
-
-            if(this.etatForm==true){
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
                 item.classList.remove("actif");
             });
-                ajout.close();
-            }
-           
-            this.editModal===false;
-
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal = false;
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -1125,7 +1136,6 @@ export default {
                 const user_store = await axios.post('/user/update/' + id, formdata);
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
-                this.editModal=false;
 
             }
             catch (e) {

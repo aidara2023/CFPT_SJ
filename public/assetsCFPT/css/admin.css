@@ -155,7 +155,6 @@ ul li.menu:hover{
     height: 200px;
     transition: .6s;
     padding:5% 10%;
-    overflow: auto;
 } 
 
 ul li a div{
