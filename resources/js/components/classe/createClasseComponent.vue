@@ -1,11 +1,21 @@
 <template>
       <dialog data-modal-ajout class="modal">
-    <div class="cote_droit contenu">
-        <form @submit.prevent="validerAvantAjout()" method="">
-            <h1 class="sous_titre">Ajout classe</h1>
+        <div class="titres">
+            <h1 class="sous_titre">AJOUT CLASSE</h1>
 
-                <div class="personnel">
+        <form @submit.prevent="validerAvantAjout()" action="" method="">
+           
+
+            <div class="informations">
+                    <div class="titres">
+                        <h1>AJOUT CLASSE</h1>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_service_erreur)} ">Nom Service</label>
+                        <input  v-model="form.nom_service" id="nom"  @input="validatedata('nom_service')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_service_erreur)} ">
                 
+                        </div>
              <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
                     <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata('nom_classe')">
                     <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
