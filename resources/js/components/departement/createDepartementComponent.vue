@@ -1,45 +1,138 @@
 <template>
     <dialog data-modal-ajout class="modal">
-      <div class="cote_droit contenu">
-        <form @submit.prevent="validerAvantAjout()">
-            <h1 class="sous_titre">Ajout de departement</h1>
 
-            <div class="personnel">
-                <div>
-                    <input type="text" v-model="form.nom" id="nom" placeholder="Nom du Departement" @input="validatedata('nom_departement')">
-                    <span class="erreur" v-if="this.nom_departement_erreur !== ''">{{this.nom_departement_erreur}}</span>
+        <div class="titres">
+            <h1>Ajout Service</h1>
+           <!--  <h3>Informations Personnelles</h3> -->
+        </div>
+        
+              <form @submit.prevent="validerAvantAjout()" action="" method="dialog" >
+                
+                    
+                <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
+                Et enlever la div au dessus -->
+                <div class="informations">
+                    <div class="titres">
+                        <h1>Ajout Departement</h1>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
+                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
+                        <span class="erreur" >{{this.nom_departement_erreur}}</span>
+                    </div>
+                
+                    <div class="groupe_champs">
+
+                    
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Service</label>
+                        <select v-model="form.id_user"  @change="validatedata('id_user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
+                            <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
+                        </select>
+                        <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}></span>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_direction_erreur)} ">Direction</label>
+                        <select  v-model="form.id_direction" @change="validatedata('id_direction')" :class="{ 'bordure_rouge': (this.id_direction_erreur)} ">
+                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
+                    </div>
                 </div>
-            </div>
+                  <!--   <div class="champ">
+                        <input type="text" class="select">
+                        <div class="choix">
+                            <p class="option">choix </p>
+                            <p class="option">choix</p>
+                            <p class="option">choix</p>
+                        </div>
+                    </div>
 
-            <div class="">
-                <div>
-                    <select name="utilisateur" id="utilisateur" v-model="form.id_user"  @change="validatedata('user')" >
-                        <option value=""> Chef de Departement</option>
-                        <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
-                    </select>
-                    <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
+                    <div class="champ">
+                            <label for="nom">Sexe</label>
+                            
+                            <input type="text" name="nom" id="nom" class="select">
+                            <span class="erreur"></span>
+                            <div class="choix">
+                                <p class="option">Masculin</p>
+                                <p class="option">Féminin</p>
+                            </div>
+                        </div> -->
+<!-- 
+                    <div class="groupe_champs">     
+
+                        <div class="champ">
+                            <label for="nom">Lieu de Naissance</label>
+                            <input type="text" name="nom" id="nom">
+                            <span class="erreur"></span>
+                        </div>
+
+                        <div class="champ">
+                            <label for="nom">Date de naissance</label>
+                            <input type="text" name="prenom" id="prenom">
+                            <span class="erreur"></span>
+                        </div>
+
+                    </div> -->
+<!--                     <div class="groupe_champs">     
+
+                        <div class="champ">
+                            <label for="nom">Sexe</label>
+                            
+                            <input type="text" name="nom" id="nom" class="select">
+                            <span class="erreur"></span>
+                            <div class="choix">
+                                <p class="option">Masculin</p>
+                                <p class="option">Féminin</p>
+                            </div>
+                        </div>
+
+                        <div class="champ">
+                            <label for="nom">nationalité</label>
+                            <input type="text" name="prenom" id="prenom">
+                            <span class="erreur"></span>
+                        </div>
+
+                    </div> -->
+ <!--                    <div class="groupe_champs">     
+
+                        <div class="champ">
+                            <label for="nom">Adresse</label>
+                            <input type="text" name="nom" id="nom">
+                            <span class="erreur"></span>
+                        </div>
+
+                        <div class="champ">
+                            <label for="nom">telephone</label>
+                            <input type="text" name="prenom" id="prenom">
+                            <span class="erreur"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom">Email</label>
+                        <input type="text" name="prenom" id="prenom">
+                        <span class="erreur"></span>
+                    </div> -->
+
+                    
+
+                    <!-- Le groupe qui contient les boutons -->
+                    <div class="groupe_champs validation">
+                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
+                        <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+                    </div>
+
                 </div>
-            </div>
-
-            <div class="directions">
-                <div>
-                    <select name="direction" id="direction" v-model="form.id_direction"  @change="validatedata('id_direction')" >
-                        <option value=""> Direction</option>
-                        <option v-for="direction in directions" :value="direction.id">{{ direction.nom_direction }} </option>
-                    </select>
-                    <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
-                </div>
-            </div>
-
-
-            <div class="boutons">
-                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
-            </div>
-        </form>
-    </div>
+                
+              
+            </form>
+    
 </dialog>
 </template>
 
