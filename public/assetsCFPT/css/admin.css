@@ -630,7 +630,16 @@ label.photo{
 
 }
 
-label.photo.visible{
+.image img{
+    min-width: 120px;
+    min-height: 120px;
+    width: calc(15vw + 20px);
+    height:calc(15vw + 20px);
+    max-width: 200px;
+    max-height: 200px;
+}
+
+label.photo.visible, .image img{
     visibility: visible;
     position: absolute;
     left: 50%;
