@@ -92,16 +92,15 @@
 
                 <div class="champ">
                     <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_erreur) }">Nationalite</label>
-                    <input type="text" name="nationalite" id="nationalite"
-                        v-model="form.nationalite" @input="validatedata('nationalite')"
-                        :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
+                    <input type="text" name="nationalite" id="nationalite" v-model="form.nationalite"
+                        @input="validatedata('nationalite')" :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
                     <span class="erreur">{{ this.nationalite_erreur }}</span>
                 </div>
 
                 <div class="champ">
                     <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_erreur) }">Sexe</label>
                     <input type="text" name="nom" id="nom" class="select" v-model="form.genre"
-                        @change="validatedata('genre')"  :class="{ 'bordure_rouge': (this.genre_erreur) }">
+                        @change="validatedata('genre')" :class="{ 'bordure_rouge': (this.genre_erreur) }">
                     <div class="choix">
                         <p class="option">Masculin</p>
                         <p class="option">Féminin</p>
@@ -155,7 +154,8 @@
                 <div class="champ">
                     <label for="Role" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Role</label>
 
-                    <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)" :class="{ 'bordure_rouge': (this.id_role_erreur) }">
+                    <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)"
+                        :class="{ 'bordure_rouge': (this.id_role_erreur) }">
                         <!-- <option value=""> Role</option> -->
                         <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
                     </select>
@@ -197,8 +197,7 @@
                 <div class="groupe_champs">
 
                     <div class="champ">
-                        <label for="Spécialite"
-                            :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
+                        <label for="Spécialite" :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
                         <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"
                             @change="validatedata('specialite')" :class="{ 'bordure_rouge': (this.id_specialite_erreur) }">
                             <!-- <option value=""> Spécialite</option> -->
@@ -212,8 +211,9 @@
                         <label for="Departement"
                             :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
                         <select name="id_departement" id="id_departement" v-model="form.id_departement"
-                            @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
-                         <!--    <option value=""> Departement</option> -->
+                            @change="validatedata('departement')"
+                            :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
+                            <!--    <option value=""> Departement</option> -->
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                                 departement.nom_departement }}</option>
                         </select>
@@ -226,9 +226,9 @@
 
             <div class="personnel" v-if="this.interesser === 4">
                 <div class="champ">
-                    <label for="Service"
-                            :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
-                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')" :class="{ 'bordure_rouge': (this.id_service_erreur) }">
+                    <label for="Service" :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
+                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')"
+                        :class="{ 'bordure_rouge': (this.id_service_erreur) }">
                         <!-- <option value=""> Service</option> -->
                         <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service
                         }}</option>
@@ -461,756 +461,758 @@ export default {
             }).catch(error => {
                 Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
             });
+             },
 
 
-        get_specialite(){
+            get_specialite(){
 
-            axios.get('/specialite/index').then(response => {
-                this.specialites = response.data.specialite
-            }).catch(error => {
-                Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des specialite', 'error')
-            });
-        },
-
-        get_departement() {
-            axios.get('/departement/all')
-                .then(response => {
-                    this.departements = response.data.departement
-
-
+                axios.get('/specialite/index').then(response => {
+                    this.specialites = response.data.specialite
                 }).catch(error => {
-                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des specialite', 'error')
                 });
-        },
-
-        /*     ajoutimage(event){
-                this.photo=event.target.files[0];
             },
-    
-            getImageUrl(url){
-                const timestamp= new Date().getTime;
-                return url ? `${window.location.origin}/image/${nom}?t=${timestamp} ` : '';
-            }, */
-        ajoutimage(event) {
-            this.photo = event.target.files[0];
-        },
-        getImageUrl() {
-            const timestamp = new Date().getTime();
-            return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
-        },
-        validerAvantAjout() {
 
-            const isVerifIdValid = this.verifId();
-            const isIdChampValid = this.validatedataOld();
-            /*   console.log(isNomChampValid); */
+            get_departement() {
+                axios.get('/departement/all')
+                    .then(response => {
+                        this.departements = response.data.departement
 
 
-            if ( isIdChampValid===true || isVerifIdValid===true) {
+                    }).catch(error => {
+                        Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
+                    });
+            },
 
-                this.etatForm = false;
-                console.log("erreur");
+            /*     ajoutimage(event){
+                    this.photo=event.target.files[0];
+                },
+        
+                getImageUrl(url){
+                    const timestamp= new Date().getTime;
+                    return url ? `${window.location.origin}/image/${nom}?t=${timestamp} ` : '';
+                }, */
+            ajoutimage(event) {
+                this.photo = event.target.files[0];
+            },
+            getImageUrl() {
+                const timestamp = new Date().getTime();
+                return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
+            },
+            validerAvantAjout() {
+
+                const isVerifIdValid = this.verifId();
+                const isIdChampValid = this.validatedataOld();
+                /*   console.log(isNomChampValid); */
+
+
+                if (isIdChampValid === true || isVerifIdValid === true) {
+
+                    this.etatForm = false;
+                    console.log("erreur");
+                    this.editModal = false;
+                    return 0;
+                } else {
+
+                    if (this.editModal === true) {
+                        this.etatForm = true;
+                        this.update_utilisateur(this.idUser);
+                        this.closeModal('[data-modal-confirmation-modifier]');
+                        this.editModal = false;
+
+                    }
+                    else {
+                        this.etatForm = true;
+                        this.soumettre();
+                        this.closeModal('[data-modal-confirmation]');
+                        this.editModal = false;
+                    }
+                }
+
+
+            },
+
+
+            resetForm(){
+
+                this.form.nom = "";
+                this.form.prenom = "";
+                this.form.genre = "";
+                this.form.adresse = "";
+                this.form.telephone = "";
+                this.form.email = "";
+                this.form.date_naissance = "";
+                this.form.lieu_naissance = "";
+                this.form.nationalite = "";
+                this.form.id_role = "";
+                this.form.type = "";
+                this.form.situation_matrimoniale = "";
+                this.form.id_specialite = "";
+                this.form.id_departement = "";
+                this.form.id_service = "";
+
+                this.photo = "";
                 this.editModal = false;
-                return 0;
-            } else {
 
-                if (this.editModal === true) {
-                    this.etatForm = true;
-                    this.update_utilisateur(this.idUser);
-                    this.closeModal('[data-modal-confirmation-modifier]');
-                    this.editModal = false;
-
-                }
-                else {
-                    this.etatForm = true;
-                    this.soumettre();
-                    this.closeModal('[data-modal-confirmation]');
-                    this.editModal = false;
-                }
-            }
-
-
-        },
-
-
-        resetForm(){
-
-            this.form.nom="";
-            this.form.prenom="";
-            this.form.genre="";
-            this.form.adresse="";
-            this.form.telephone="";
-            this.form.email="";
-            this.form.date_naissance="";
-            this.form.lieu_naissance="";
-            this.form.nationalite="";
-            this.form.id_role="";
-            this.form.type="";
-            this.form.situation_matrimoniale="";
-            this.form.id_specialite="";
-            this.form.id_departement="";
-            this.form.id_service="";
-
-            this.photo="";
-            this.editModal=false;
-
-           this.nom_user_erreur="";
-           this.interesser="";
-           this.get_id_perso_admin="";
-            this.prenom_user_erreur="";
-            this.date_erreur="";
-            this.lieu_naissance_erreur="";
-            this.genre_erreur="";
-            this.adresse_erreur="";
-            this.telephone_erreur="";
-            this.email_user_erreur="";
-            this.nationalite_erreur="";
-            this.id_role_erreur="";
-            this.id_specialite_erreur="";
-            this.id_departement_erreur="";
-            this.id_service_erreur="";
-            this.type_erreur="";
-            this.situation_matrimoniale_erreur="";
-            this.id_personnel_appui_erreur="";
-            this.id_personnel_administratif_erreur="";
+                this.nom_user_erreur = "";
+                this.interesser = "";
+                this.get_id_perso_admin = "";
+                this.prenom_user_erreur = "";
+                this.date_erreur = "";
+                this.lieu_naissance_erreur = "";
+                this.genre_erreur = "";
+                this.adresse_erreur = "";
+                this.telephone_erreur = "";
+                this.email_user_erreur = "";
+                this.nationalite_erreur = "";
+                this.id_role_erreur = "";
+                this.id_specialite_erreur = "";
+                this.id_departement_erreur = "";
+                this.id_service_erreur = "";
+                this.type_erreur = "";
+                this.situation_matrimoniale_erreur = "";
+                this.id_personnel_appui_erreur = "";
+                this.id_personnel_administratif_erreur = "";
 
 
 
-        },
-        verifCaratere(nom) {
-            const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
-            return valeur.test(nom);
-        },
+            },
+            verifCaratere(nom) {
+                const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
+                return valeur.test(nom);
+            },
 
-        validateEmail(email) {
-            // Utilisez une expression régulière pour vérifier si l'email est au bon format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+            validateEmail(email) {
+                // Utilisez une expression régulière pour vérifier si l'email est au bon format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
 
-        },
+            },
 
-        validatePhoneNumber(phoneNumber) {
-            // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
-            const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
-            return phoneRegex.test(phoneNumber);
-        },
+            validatePhoneNumber(phoneNumber) {
+                // Expression régulière pour vérifier le numéro de téléphone (format simple ici)
+                const phoneRegex = /^\d{9}$/; // Format : 9 chiffres
+                return phoneRegex.test(phoneNumber);
+            },
 
-        validatedata(champ) {
-            // Réinitialiser les erreurs pour le champ actuel
-            this.erreur = "";
-            var i = 0;
+            validatedata(champ) {
+                // Réinitialiser les erreurs pour le champ actuel
+                this.erreur = "";
+                var i = 0;
 
-            switch (champ) {
+                switch (champ) {
 
-                case 'nom':
-                    this.nom_user_erreur = "";
-                    // Effectuez la validation pour le champ 'nom'
-                    if (this.form.nom === "") {
-                        this.nom_user_erreur = "Ce champ est obligatoire"
-                        i = 1;
-                        return true
+                    case 'nom':
+                        this.nom_user_erreur = "";
+                        // Effectuez la validation pour le champ 'nom'
+                        if (this.form.nom === "") {
+                            this.nom_user_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true
 
-                    }
-                    if (!this.verifCaratere(this.form.nom)) {
-                        this.nom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                        /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                        i = 1;
-                        return true
-                    }
-                    // Ajoutez d'autres validations si nécessaire
-                    break;
-                case 'prenom':
-                    this.prenom_user_erreur = "";
-                    //pour prenom
-                    if (this.form.prenom === "") {
-                        this.prenom_user_erreur = "Ce champ est obligatoire"
-                        i = 1;
-                        return true
-                    }
-                    if (!this.verifCaratere(this.form.prenom)) {
-                        this.prenom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                        /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                        i = 1;
-                        return true
-                    }
-                    break;
-                case 'adresse':
-                    this.adresse_erreur = "";
-                    //pour adresse
-                    if (this.form.adresse === "") {
-                        this.adresse_erreur = "Ce champ est obligatoire"
-                        i = 1;
-                        return true
-
-                    }
-                    break;
-                case 'naissance':
-                    this.lieu_naissance_erreur = "";
-                    //pour lieu de naissance
-                    if (this.form.lieu_naissance === "") {
-                        this.lieu_naissance_erreur = "Ce champ est obligatoire"
-                        i = 1;
-                        return true
-                    }
-                    if (!this.verifCaratere(this.form.lieu_naissance)) {
-                        this.lieu_naissance_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                        i = 1;
-                        return true
-                    }
-                    break;
-                case 'nationalite':
-                    this.nationalite_erreur = "";
-                    //pour nationalite
-                    if (this.form.nationalite === "") {
-                        this.nationalite_erreur = "Ce champ est obligatoire"
-                        i = 1;
-                        return true
-                    }
-                    if (!this.verifCaratere(this.form.nationalite)) {
-                        this.nationalite_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                        i = 1;
-                        return true
-                    }
-                    break;
-                case 'email':
-                    this.email_user_erreur = "";
-                    //Vérification de l' email
-                    if (this.form.email === "") {
-                        this.email_user_erreur = "L'email est obligatoire"
-                        i = 1;
-                        return true
-                    } else {
-                        if (!this.validateEmail(this.form.email)) {
-                            this.email_user_erreur = "L'email n'est pas valide";
+                        }
+                        if (!this.verifCaratere(this.form.nom)) {
+                            this.nom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                            /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                             i = 1;
                             return true
                         }
-                    }
-                    break;
-                case 'date_naissance':
-                    this.date_erreur = "";
-                    // Vérification de la date de naissance
-                    if (this.form.date_naissance === "") {
-                        this.date_erreur = "La date de naissance est obligatoire";
-                        i = 1;
-                        return true
-                    } else {
-                        const dateNaissance = new Date(this.form.date_naissance);
-                        const dateLimite = new Date();
-                        const dateActuelle = new Date();
-                        dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-                        let annee = dateLimite.getFullYear();
-                        console.log(annee);
-
-                        if (dateNaissance > dateLimite) {
-                            this.date_erreur = "La date de naissance ne peut pas être supérieure à " + annee;
+                        // Ajoutez d'autres validations si nécessaire
+                        break;
+                    case 'prenom':
+                        this.prenom_user_erreur = "";
+                        //pour prenom
+                        if (this.form.prenom === "") {
+                            this.prenom_user_erreur = "Ce champ est obligatoire"
                             i = 1;
                             return true
-                        } if (dateNaissance > dateActuelle) {
-                            this.date_erreur = "La date de naissance ne peut pas être dans le futur";
+                        }
+                        if (!this.verifCaratere(this.form.prenom)) {
+                            this.prenom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                            /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'adresse':
+                        this.adresse_erreur = "";
+                        //pour adresse
+                        if (this.form.adresse === "") {
+                            this.adresse_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true
+
+                        }
+                        break;
+                    case 'naissance':
+                        this.lieu_naissance_erreur = "";
+                        //pour lieu de naissance
+                        if (this.form.lieu_naissance === "") {
+                            this.lieu_naissance_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true
+                        }
+                        if (!this.verifCaratere(this.form.lieu_naissance)) {
+                            this.lieu_naissance_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'nationalite':
+                        this.nationalite_erreur = "";
+                        //pour nationalite
+                        if (this.form.nationalite === "") {
+                            this.nationalite_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true
+                        }
+                        if (!this.verifCaratere(this.form.nationalite)) {
+                            this.nationalite_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'email':
+                        this.email_user_erreur = "";
+                        //Vérification de l' email
+                        if (this.form.email === "") {
+                            this.email_user_erreur = "L'email est obligatoire"
+                            i = 1;
+                            return true
+                        } else {
+                            if (!this.validateEmail(this.form.email)) {
+                                this.email_user_erreur = "L'email n'est pas valide";
+                                i = 1;
+                                return true
+                            }
+                        }
+                        break;
+                    case 'date_naissance':
+                        this.date_erreur = "";
+                        // Vérification de la date de naissance
+                        if (this.form.date_naissance === "") {
+                            this.date_erreur = "La date de naissance est obligatoire";
+                            i = 1;
+                            return true
+                        } else {
+                            const dateNaissance = new Date(this.form.date_naissance);
+                            const dateLimite = new Date();
+                            const dateActuelle = new Date();
+                            dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+                            let annee = dateLimite.getFullYear();
+                            console.log(annee);
+
+                            if (dateNaissance > dateLimite) {
+                                this.date_erreur = "La date de naissance ne peut pas être supérieure à " + annee;
+                                i = 1;
+                                return true
+                            } if (dateNaissance > dateActuelle) {
+                                this.date_erreur = "La date de naissance ne peut pas être dans le futur";
+                                i = 1;
+                                return true
+                            }
+
+                        }
+                        break;
+                    case 'telephone':
+                        this.telephone_erreur = "";
+                        //Vérification du numero de telephone
+                        if (this.form.telephone === "") {
+                            this.telephone_erreur = "Le numéro de téléphone est obligatoire";
+                            i = 1;
+                            return true
+                        } else if (!this.validatePhoneNumber(this.form.telephone)) {
+                            this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'role':
+                        this.id_role_erreur = "";
+                        //Vérification de role
+                        if (this.form.id_role === "") {
+                            this.id_role_erreur = "Vous avez oublié de sélectionner le role "
+                            i = 1;
+                            return true
+                        }
+                        break;
+
+                    case 'genre':
+                        this.genre_erreur = "";
+                        //Vérification de matrimoniale
+                        if (this.form.genre === "") {
+                            this.genre_erreur = "Vous avez oublié de sélectionner le genre "
+                            i = 1;
+                            return true
+                        }
+                        break;
+
+                    case 'type':
+                        this.type_erreur = "";
+                        //Vérification de type
+                        if (this.form.type === "") {
+                            this.type_erreur = "Vous avez oublié de sélectionner le type "
+                            i = 1;
+                            return true
+                        }
+                        break;
+
+                    case 'service':
+                        //Vérification deservice
+                        this.id_service_erreur = "";
+                        if (this.form.id_service === "") {
+                            this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
                             i = 1;
                             return true
                         }
 
-                    }
-                    break;
-                case 'telephone':
-                    this.telephone_erreur = "";
-                    //Vérification du numero de telephone
-                    if (this.form.telephone === "") {
-                        this.telephone_erreur = "Le numéro de téléphone est obligatoire";
-                        i = 1;
-                        return true
-                    } else if (!this.validatePhoneNumber(this.form.telephone)) {
-                        this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
-                        i = 1;
-                        return true
-                    }
-                    break;
-                case 'role':
-                    this.id_role_erreur = "";
-                    //Vérification de role
-                    if (this.form.id_role === "") {
-                        this.id_role_erreur = "Vous avez oublié de sélectionner le role "
-                        i = 1;
-                        return true
-                    }
-                    break;
+                        break;
 
-                case 'genre':
-                    this.genre_erreur = "";
-                    //Vérification de matrimoniale
-                    if (this.form.genre === "") {
-                        this.genre_erreur = "Vous avez oublié de sélectionner le genre "
+                    case 'specialite':
+                        this.id_specialite_erreur = "";
+                        //Vérification de spécialité
+                        if (this.form.id_specialite === "") {
+                            this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'situation_matrimoniale':
+                        this.situation_matrimoniale_erreur = "";
+                        //Vérification de matrimoniale
+                        if (this.form.situation_matrimoniale === "") {
+                            this.situation_matrimoniale_erreur = "Vous avez oublié de sélectionner le statut "
+                            i = 1;
+                            return true
+                        }
+                        break;
+                    case 'departement':
+                        this.id_departement_erreur = "";
+                        //Vérification de departement
+                        if (this.form.id_departement === "") {
+                            this.id_departement_erreur = "Vous avez oublié de sélectionner le départrement"
+                            i = 1;
+                            return true
+                        }
+                        break;
+
+                    /*  case 'personnel_administratif':
+                     this.id_personnel_administratif_erreur = "";
+                         //Vérification de personnel_administratif
+                         if(this.form.id_personnel_administratif=== ""){
+                         this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                         i=1;
+                         return true
+                     }
+                     break;
+     
+                     case 'personnel_appui':
+                     this.id_personnel_appui_erreur = "";
+                         //Vérification de personnel_appui
+                         if(this.form.id_personnel_appui=== ""){
+                         this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                         i=1;
+                         return true
+                     }
+                     break;
+      */
+                    default:
+
+                        break;
+                }
+            },
+
+
+            validatedataOld() {
+                this.nom_user_erreur = "";
+                this.prenom_user_erreur = "";
+                this.nationalite_erreur = "";
+                this.lieu_naissance_erreur = "";
+                this.adresse_erreur = "";
+                this.date_erreur = "";
+                this.email_user_erreur = "";
+                this.telephone_erreur = "";
+                this.erreur = "";
+                this.id_service_erreur = "";
+                this.id_specialite_erreur = "";
+                this.situation_matrimoniale_erreur = "";
+                this.id_departement_erreur = "";
+                this.type_erreur = "";
+                this.id_role_erreur = "";
+                /*   this.id_personnel_administratif_erreur = "";
+                  this.id_personnel_appui_erreur = ""; */
+                var i = 0;
+                // pour nom
+
+                if (this.form.nom === "") {
+                    this.nom_user_erreur = "Ce champ est obligatoire"
+                    /*   this.erreur= "Ce champ est obligatoire" */
+                    i = 1;
+
+                }
+                if (!this.verifCaratere(this.form.nom)) {
+                    this.nom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                    i = 1;
+                }
+
+                //pour prenom
+                if (this.form.prenom === "") {
+                    this.prenom_user_erreur = "Ce champ est obligatoire"
+                    /*     this.erreur= "Ce champ est obligatoire" */
+                    i = 1;
+                }
+                if (!this.verifCaratere(this.form.prenom)) {
+                    this.prenom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                    i = 1;
+                }
+
+
+                //pour adresse
+                if (this.form.adresse === "") {
+                    this.adresse_erreur = "Ce champ est obligatoire"
+                    i = 1;
+                }
+
+
+                //pour lieu de naissance
+                if (this.form.lieu_naissance === "") {
+                    this.lieu_naissance_erreur = "Ce champ est obligatoire"
+                    i = 1;
+                }
+                if (!this.verifCaratere(this.form.lieu_naissance)) {
+                    this.lieu_naissance_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    i = 1;
+                }
+
+                //pour nationalite
+                if (this.form.nationalite === "") {
+                    this.nationalite_erreur = "Ce champ est obligatoire"
+                    i = 1;
+                }
+                if (!this.verifCaratere(this.form.nationalite)) {
+                    this.nationalite_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    i = 1;
+                }
+
+                //Vérification de l' email
+                if (this.form.email === "") {
+                    this.email_user_erreur = "L'email est obligatoire"
+                    i = 1;
+                } else {
+                    if (!this.validateEmail(this.form.email)) {
+                        this.email_user_erreur = "L'email n'est pas valide";
                         i = 1;
-                        return true
                     }
-                    break;
+                }
 
-                case 'type':
-                    this.type_erreur = "";
-                    //Vérification de type
-                    if (this.form.type === "") {
-                        this.type_erreur = "Vous avez oublié de sélectionner le type "
+                // Vérification de la date de naissance
+                if (this.form.date_naissance === "") {
+                    this.date_erreur = "La date de naissance est obligatoire";
+                    i = 1;
+                } else {
+                    const dateNaissance = new Date(this.form.date_naissance);
+                    const dateLimite = new Date();
+                    const dateActuelle = new Date();
+                    dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
+                    let annee = dateLimite.getFullYear();
+                    console.log(annee);
+
+                    if (dateNaissance > dateLimite) {
+                        this.date_erreur = "La date de naissance ne peut pas être supérieure à " + annee;
                         i = 1;
-                        return true
-                    }
-                    break;
-
-                case 'service':
-                    //Vérification deservice
-                    this.id_service_erreur = "";
-                    if (this.form.id_service === "") {
-                        this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
+                    } if (dateNaissance > dateActuelle) {
+                        this.date_erreur = "La date de naissance ne peut pas être dans le futur";
                         i = 1;
-                        return true
                     }
 
-                    break;
+                }
+                //Verification pour role
 
-                case 'specialite':
-                    this.id_specialite_erreur = "";
-                    //Vérification de spécialité
+                if (this.form.id_role === "") {
+                    this.id_role_erreur = "Vous avez oublié de sélectionner le role "
+                    i = 1;
+                }
+
+                //Vérification du numero de telephone
+                if (this.form.telephone === "") {
+                    this.telephone_erreur = "Le numéro de téléphone est obligatoire";
+                    i = 1;
+                } else if (!this.validatePhoneNumber(this.form.telephone)) {
+                    this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
+                    i = 1;
+                }
+
+                /*  if(this.interesser== 5){
+                    
+                     if(this.form.id_personnel_administratif=== ""){
+                         this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                         i=1;
+         
+                     }
+                     if(this.get_id_perso_admin== 1){
+                         if(this.form.id_service=== ""){
+                         this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
+                         i=1;
+                     }
+     
+                     }
+                 }
+                 if(this.interesser== 4){
+                
+                     if(this.form.id_personnel_appui=== ""){
+                         this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                         i=1;
+                     }
+                 } */
+                if (this.interesser == 2) {
                     if (this.form.id_specialite === "") {
                         this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
                         i = 1;
-                        return true
                     }
-                    break;
-                case 'situation_matrimoniale':
-                    this.situation_matrimoniale_erreur = "";
-                    //Vérification de matrimoniale
                     if (this.form.situation_matrimoniale === "") {
                         this.situation_matrimoniale_erreur = "Vous avez oublié de sélectionner le statut "
                         i = 1;
-                        return true
                     }
-                    break;
-                case 'departement':
-                    this.id_departement_erreur = "";
-                    //Vérification de departement
                     if (this.form.id_departement === "") {
-                        this.id_departement_erreur = "Vous avez oublié de sélectionner le départrement"
+                        this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
                         i = 1;
-                        return true
                     }
-                    break;
+                    if (this.form.type === "") {
+                        this.type_erreur = "Vous avez oublié de sélectionner le type "
+                        i = 1;
+                    }
+                }
 
-                /*  case 'personnel_administratif':
-                 this.id_personnel_administratif_erreur = "";
-                     //Vérification de personnel_administratif
-                     if(this.form.id_personnel_administratif=== ""){
-                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                     i=1;
-                     return true
-                 }
-                 break;
- 
-                 case 'personnel_appui':
-                 this.id_personnel_appui_erreur = "";
-                     //Vérification de personnel_appui
+                if (i == 1) return true;
+
+                return false;
+
+            },
+
+
+            verifId() {
+                this.id_service_erreur = "";
+                this.id_specialite_erreur = "";
+                this.situation_matrimoniale_erreur = "";
+                this.id_departement_erreur = "";
+                this.id_role_erreur = "";
+                this.type_erreur = "";
+                this.genre_erreur = "";
+                /*  this.id_personnel_administratif_erreur = "";
+                 this.id_personnel_appui_erreur = ""; */
+                var i = 0;
+
+                //pour genre
+                if (this.form.genre === "") {
+                    this.genre_erreur = "Vous avez oublié de sélectionner le genre"
+                    i = 1;
+                }
+
+                // pour role
+                if (this.form.id_role === "") {
+                    this.id_role_erreur = "Vous avez oublié de sélectionner le role "
+                    i = 1;
+                }
+
+                /*  if(this.interesser== 5) *//* { */
+
+                /* if(this.form.id_personnel_administratif=== ""){
+                    this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
+                    i=1;
+    
+                } */
+                if (this.interesser == 4) {
+                    if (this.form.id_service === "") {
+                        this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
+                        i = 1;
+                    }
+
+                }
+                /*  return false; */
+                /*  } */
+
+                /*  if(this.interesser== 4){
                      if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                     return true
-                 }
-                 break;
-  */
-                default:
+                         this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
+                         i=1;
+                         
+                     }
+                 } */
 
-                    break;
-            }
-        },
+                if (this.interesser == 2) {
+                    if (this.form.id_specialite === "") {
+                        this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
+                        i = 1;
+                    }
+                    if (this.form.situation_matrimoniale === "") {
+                        this.situation_matrimoniale_erreur = "Vous avez oublié de sélectionner le statut "
+                        i = 1;
+                    }
+                    if (this.form.id_departement === "") {
+                        this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
+                        i = 1;
+                    }
+                    if (this.form.type === "") {
+                        this.type_erreur = "Vous avez oublié de sélectionner le type "
+                        i = 1;
+                    }
 
-
-        validatedataOld() {
-            this.nom_user_erreur = "";
-            this.prenom_user_erreur = "";
-            this.nationalite_erreur = "";
-            this.lieu_naissance_erreur = "";
-            this.adresse_erreur = "";
-            this.date_erreur = "";
-            this.email_user_erreur = "";
-            this.telephone_erreur = "";
-            this.erreur = "";
-            this.id_service_erreur = "";
-            this.id_specialite_erreur = "";
-            this.situation_matrimoniale_erreur = "";
-            this.id_departement_erreur = "";
-            this.type_erreur = "";
-            this.id_role_erreur = "";
-            /*   this.id_personnel_administratif_erreur = "";
-              this.id_personnel_appui_erreur = ""; */
-            var i = 0;
-            // pour nom
-
-            if (this.form.nom === "") {
-                this.nom_user_erreur = "Ce champ est obligatoire"
-                /*   this.erreur= "Ce champ est obligatoire" */
-                i = 1;
-
-            }
-            if (!this.verifCaratere(this.form.nom)) {
-                this.nom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                i = 1;
-            }
-
-            //pour prenom
-            if (this.form.prenom === "") {
-                this.prenom_user_erreur = "Ce champ est obligatoire"
-                /*     this.erreur= "Ce champ est obligatoire" */
-                i = 1;
-            }
-            if (!this.verifCaratere(this.form.prenom)) {
-                this.prenom_user_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                /*  this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                i = 1;
-            }
-
-
-            //pour adresse
-            if (this.form.adresse === "") {
-                this.adresse_erreur = "Ce champ est obligatoire"
-                i = 1;
-            }
-
-
-            //pour lieu de naissance
-            if (this.form.lieu_naissance === "") {
-                this.lieu_naissance_erreur = "Ce champ est obligatoire"
-                i = 1;
-            }
-            if (!this.verifCaratere(this.form.lieu_naissance)) {
-                this.lieu_naissance_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                i = 1;
-            }
-
-            //pour nationalite
-            if (this.form.nationalite === "") {
-                this.nationalite_erreur = "Ce champ est obligatoire"
-                i = 1;
-            }
-            if (!this.verifCaratere(this.form.nationalite)) {
-                this.nationalite_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                i = 1;
-            }
-
-            //Vérification de l' email
-            if (this.form.email === "") {
-                this.email_user_erreur = "L'email est obligatoire"
-                i = 1;
-            } else {
-                if (!this.validateEmail(this.form.email)) {
-                    this.email_user_erreur = "L'email n'est pas valide";
-                    i = 1;
                 }
-            }
+                if (i == 1) return true;
 
-            // Vérification de la date de naissance
-            if (this.form.date_naissance === "") {
-                this.date_erreur = "La date de naissance est obligatoire";
-                i = 1;
-            } else {
-                const dateNaissance = new Date(this.form.date_naissance);
-                const dateLimite = new Date();
-                const dateActuelle = new Date();
-                dateLimite.setFullYear(dateLimite.getFullYear() - 19); // 18 ans avant la date actuelle
-                let annee = dateLimite.getFullYear();
-                console.log(annee);
+                return false;
+            },
 
-                if (dateNaissance > dateLimite) {
-                    this.date_erreur = "La date de naissance ne peut pas être supérieure à " + annee;
-                    i = 1;
-                } if (dateNaissance > dateActuelle) {
-                    this.date_erreur = "La date de naissance ne peut pas être dans le futur";
-                    i = 1;
+            closeModal(selector) {
+                var ajout = document.querySelector('[data-modal-ajout]');
+                var confirmation = document.querySelector(selector);
+
+
+                if (this.etatForm == true) {
+                    var actif = document.querySelectorAll('.actif');
+                    actif.forEach(item => {
+                        item.classList.remove("actif");
+                    });
+                    ajout.close();
                 }
 
-            }
-            //Verification pour role
-
-            if (this.form.id_role === "") {
-                this.id_role_erreur = "Vous avez oublié de sélectionner le role "
-                i = 1;
-            }
-
-            //Vérification du numero de telephone
-            if (this.form.telephone === "") {
-                this.telephone_erreur = "Le numéro de téléphone est obligatoire";
-                i = 1;
-            } else if (!this.validatePhoneNumber(this.form.telephone)) {
-                this.telephone_erreur = "Le numéro de téléphone n'est pas valide";
-                i = 1;
-            }
-
-            /*  if(this.interesser== 5){
-                
-                 if(this.form.id_personnel_administratif=== ""){
-                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                     i=1;
-     
-                 }
-                 if(this.get_id_perso_admin== 1){
-                     if(this.form.id_service=== ""){
-                     this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                     i=1;
-                 }
- 
-                 }
-             }
-             if(this.interesser== 4){
-            
-                 if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                 }
-             } */
-            if (this.interesser == 2) {
-                if (this.form.id_specialite === "") {
-                    this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
-                    i = 1;
-                }
-                if (this.form.situation_matrimoniale === "") {
-                    this.situation_matrimoniale_erreur = "Vous avez oublié de sélectionner le statut "
-                    i = 1;
-                }
-                if (this.form.id_departement === "") {
-                    this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
-                    i = 1;
-                }
-                if (this.form.type === "") {
-                    this.type_erreur = "Vous avez oublié de sélectionner le type "
-                    i = 1;
-                }
-            }
-
-            if (i == 1) return true;
-
-            return false;
-
-        },
+                this.editModal === false;
 
 
-        verifId() {
-            this.id_service_erreur = "";
-            this.id_specialite_erreur = "";
-            this.situation_matrimoniale_erreur = "";
-            this.id_departement_erreur = "";
-            this.id_role_erreur = "";
-            this.type_erreur = "";
-            this.genre_erreur = "";
-            /*  this.id_personnel_administratif_erreur = "";
-             this.id_personnel_appui_erreur = ""; */
-            var i = 0;
+                confirmation.style.backgroundColor = 'white';
+                confirmation.style.color = 'var(--clr)';
 
-            //pour genre
-            if (this.form.genre === "") {
-                this.genre_erreur = "Vous avez oublié de sélectionner le genre"
-                i = 1;
-            }
-
-            // pour role
-            if (this.form.id_role === "") {
-                this.id_role_erreur = "Vous avez oublié de sélectionner le role "
-                i = 1;
-            }
-
-            /*  if(this.interesser== 5) *//* { */
-
-            /* if(this.form.id_personnel_administratif=== ""){
-                this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                i=1;
-
-            } */
-            if (this.interesser == 4) {
-                if (this.form.id_service === "") {
-                    this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
-                    i = 1;
-                }
-
-            }
-            /*  return false; */
-            /*  } */
-
-            /*  if(this.interesser== 4){
-                 if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                     
-                 }
-             } */
-
-            if (this.interesser == 2) {
-                if (this.form.id_specialite === "") {
-                    this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
-                    i = 1;
-                }
-                if (this.form.situation_matrimoniale === "") {
-                    this.situation_matrimoniale_erreur = "Vous avez oublié de sélectionner le statut "
-                    i = 1;
-                }
-                if (this.form.id_departement === "") {
-                    this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
-                    i = 1;
-                }
-                if (this.form.type === "") {
-                    this.type_erreur = "Vous avez oublié de sélectionner le type "
-                    i = 1;
-                }
-
-            }
-            if (i == 1) return true;
-
-            return false;
-        },
-
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-
-            if(this.etatForm==true){
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-                ajout.close();
-            }
-           
-            this.editModal===false;
-
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
+                confirmation.showModal();
+                confirmation.classList.add("actif");
                 setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
+                    confirmation.close();
 
-            }, 1700);
-        },
+                    setTimeout(function () {
+                        confirmation.classList.remove("actif");
+                    }, 100);
+
+                }, 1700);
+            },
 
         async update_utilisateur(id) {
-            const formdata = new FormData();
-            formdata.append('nom', this.form.nom);
-            formdata.append('prenom', this.form.prenom);
-            formdata.append('lieu_naissance', this.form.lieu_naissance);
-            formdata.append('date_naissance', this.form.date_naissance);
-            formdata.append('genre', this.form.genre);
-            formdata.append('adresse', this.form.adresse);
-            formdata.append('email', this.form.email);
-            formdata.append('telephone', this.form.telephone);
-            formdata.append('nationalite', this.form.nationalite);
-            formdata.append('id_role', this.form.id_role);
-            formdata.append('type', this.form.type);
-            formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
-            formdata.append('id_specialite', this.form.id_specialite);
-            formdata.append('id_service', this.form.id_service);
-            formdata.append('id_departement', this.form.id_departement);
-            /*   formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-              formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
-            formdata.append('photo', this.photo);
-            formdata.append('photo', this.photo);
+                const formdata = new FormData();
+                formdata.append('nom', this.form.nom);
+                formdata.append('prenom', this.form.prenom);
+                formdata.append('lieu_naissance', this.form.lieu_naissance);
+                formdata.append('date_naissance', this.form.date_naissance);
+                formdata.append('genre', this.form.genre);
+                formdata.append('adresse', this.form.adresse);
+                formdata.append('email', this.form.email);
+                formdata.append('telephone', this.form.telephone);
+                formdata.append('nationalite', this.form.nationalite);
+                formdata.append('id_role', this.form.id_role);
+                formdata.append('type', this.form.type);
+                formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
+                formdata.append('id_specialite', this.form.id_specialite);
+                formdata.append('id_service', this.form.id_service);
+                formdata.append('id_departement', this.form.id_departement);
+                /*   formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+                  formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
+                formdata.append('photo', this.photo);
+                formdata.append('photo', this.photo);
 
-            /* if(this.form.id_personnel_administratif){
-                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            } */
+                /* if(this.form.id_personnel_administratif){
+                    formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
+                } */
 
-            try {
-                const user_store = await axios.post('/user/update/' + id, formdata);
-                this.resetForm();
-                bus.emit('utilisateurAjoutee');
-                this.editModal=false;
+                try {
+                    const user_store = await axios.post('/user/update/' + id, formdata);
+                    this.resetForm();
+                    bus.emit('utilisateurAjoutee');
+                    this.editModal = false;
 
-            }
-            catch (e) {
-                /* console.log(e.request.status) */
-                if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
                 }
-                else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                catch (e) {
+                    /* console.log(e.request.status) */
+                    if (e.request.status === 404) {
+                        Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
+                    }
+                    else {
+                        Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    }
                 }
+            },
+            /* Méthode pour les variables */
+            variables_changement_etape() {
+                this.suivant = document.querySelector('.suivant');
+                this.precedent = document.querySelector('.annuler');
+                this.i_1_2_3 = 1;
+
+                this.etape = document.querySelector('.positions');
+                this.cercles = document.querySelector('.cercles');
+            },
+            /* C'est renaud qui a dit ça */
+
+            /* Méthode changement étape */
+            //Pour éffectuer tous les changements à faire 
+            //une fois que l'on passe d'une étape à une autre
+            changement_etape(avancer) {
+                if (avancer) { this.i_1_2_3++ };
+                if (!avancer) { this.i_1_2_3-- };
+
+                if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
+                if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
+
+                if (this.i_1_2_3 < 3) {
+                    this.suivant.firstChild.textContent = "Suivant";
+                    this.suivant.dataset.closeModal = "0";
+                } else {
+                    this.suivant.firstChild.textContent = "Ajouter";
+                    this.suivant.dataset.closeModal = "1";
+                }
+                if (this.i_1_2_3 > 1) {
+                    this.precedent.firstChild.textContent = "Précédent";
+                    this.precedent.dataset.closeModal = "0";
+                } else {
+                    this.precedent.firstChild.textContent = "Annuler";
+                    this.precedent.dataset.closeModal = "1";
+                }
+
+                this.cercles.dataset.etape = this.i_1_2_3 - 1;
+                this.etape.dataset.etape = this.i_1_2_3;
+                this.etape.textContent = "etape " + this.i_1_2_3;
+            },
+
+
+            clic_suivant() {
+                this.suivant.firstChild.dataset.statut = "apres";
+
+                setTimeout(function () {
+                    this.suivant.firstChild.dataset.statut = "avant";
+                }, 500);
+
+                setTimeout(function () {
+                    this.suivant.firstChild.dataset.statut = "visible";
+                }, 900);
+
+                this.changement_etape(true);
+            },
+
+            clic_precedent() {
+                this.precedent.firstChild.dataset.statut = "avant";
+
+                setTimeout(function () {
+                    this.precedent.firstChild.dataset.statut = "apres";
+                }, 500);
+
+                setTimeout(function () {
+                    this.precedent.firstChild.dataset.statut = "visible";
+                }, 900);
+
+                this.changement_etape(false)
             }
-        },
-        /* Méthode pour les variables */
-        variables_changement_etape() {
-            this.suivant = document.querySelector('.suivant');
-            this.precedent = document.querySelector('.annuler');
-            this.i_1_2_3 = 1;
-
-            this.etape = document.querySelector('.positions');
-            this.cercles = document.querySelector('.cercles');
-        },
-        /* C'est renaud qui a dit ça */
-
-        /* Méthode changement étape */
-        //Pour éffectuer tous les changements à faire 
-        //une fois que l'on passe d'une étape à une autre
-        changement_etape(avancer) {
-            if (avancer) { this.i_1_2_3++ };
-            if (!avancer) { this.i_1_2_3-- };
-
-            if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
-            if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
-
-            if (this.i_1_2_3 < 3) {
-                this.suivant.firstChild.textContent = "Suivant";
-                this.suivant.dataset.closeModal = "0";
-            } else {
-                this.suivant.firstChild.textContent = "Ajouter";
-                this.suivant.dataset.closeModal = "1";
-            }
-            if (this.i_1_2_3 > 1) {
-                this.precedent.firstChild.textContent = "Précédent";
-                this.precedent.dataset.closeModal = "0";
-            } else {
-                this.precedent.firstChild.textContent = "Annuler";
-                this.precedent.dataset.closeModal = "1";
-            }
-
-            this.cercles.dataset.etape = this.i_1_2_3 - 1;
-            this.etape.dataset.etape = this.i_1_2_3;
-            this.etape.textContent = "etape " + this.i_1_2_3;
-        },
 
 
-        clic_suivant() {
-            this.suivant.firstChild.dataset.statut = "apres";
 
-            setTimeout(function () {
-                this.suivant.firstChild.dataset.statut = "avant";
-            }, 500);
-
-            setTimeout(function () {
-                this.suivant.firstChild.dataset.statut = "visible";
-            }, 900);
-
-            this.changement_etape(true);
-        },
-
-        clic_precedent() {
-            this.precedent.firstChild.dataset.statut = "avant";
-
-            setTimeout(function () {
-                this.precedent.firstChild.dataset.statut = "apres";
-            }, 500);
-
-            setTimeout(function () {
-                this.precedent.firstChild.dataset.statut = "visible";
-            }, 900);
-
-            this.changement_etape(false)
         }
-
-
-
     }
-}
+
 </script>
 

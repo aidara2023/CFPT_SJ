@@ -35,10 +35,12 @@
            
                
                     <div class="groupe_champs validation">
-                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                                <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
                         <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                        <button type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                    </div>
+                        <button  v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+
+                </div>
                 </div>
 
         </form>
