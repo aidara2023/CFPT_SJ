@@ -102,16 +102,21 @@ document.addEventListener("DOMContentLoaded", function()  {
             //Fermeture des modals
             fermemod.forEach(item => {
                 item.addEventListener('click', () => {
-                if(item.dataset.closeModal == "0") return;
+                alert(item.dataset.closeModal);
+
+                if(item.dataset.closeModal == "0") {
+                    alert("Suivant");
+                    return;
+                }
                 var actif = document.querySelectorAll('.actif');
                     actif.forEach(item => {
                         item.classList.remove("actif");
                     });
                         ajout.close();
                         modification.close();
-                        suppression.close();
+                        suppression.close();/* 
                         filtre.close();
-                        encaissement.close();
+                        encaissement.close(); */
                     
             })
             });

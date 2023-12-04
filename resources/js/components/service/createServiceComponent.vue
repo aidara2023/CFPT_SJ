@@ -10,7 +10,7 @@
                          <span class="erreur" v-if="this.nom_service_erreur !== ''">{{this.nom_service_erreur}}</span>
                      </div>
      
-                     <div>
+                     <diva>
      
                          <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="validatedata('id_user')">
                              <option value="">Chef de service</option>
