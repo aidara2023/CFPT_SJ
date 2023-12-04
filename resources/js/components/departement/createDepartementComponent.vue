@@ -18,7 +18,7 @@
 
                     <div class="champ">
                         <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
-                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
+                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
                         <span class="erreur" >{{this.nom_departement_erreur}}</span>
                     </div>
                 
@@ -27,7 +27,7 @@
                     
                     <div class="champ">
                         <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Service</label>
-                        <select v-model="form.id_user"  @change="validatedata('id_user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
+                        <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
                             <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
                         </select>
                         <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}></span>
@@ -301,6 +301,10 @@ import Form from 'vform';
                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 return true;
             }
+            if(!this.verifCaratere(this.form.nom)){
+                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                 return true
+             }
             if(this.form.nom.length <14 ){
                 this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
                 return true;
@@ -349,6 +353,11 @@ import Form from 'vform';
                 this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
                  i=1;
             }
+            if(!this.verifCaratere(this.form.nom)){
+                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                 ;
+                 i=1;
+             }
             if(this.form.id_user=== ""){
               this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
                 i=1;
