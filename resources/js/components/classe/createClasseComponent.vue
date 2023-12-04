@@ -1,72 +1,81 @@
 <template>
       <dialog data-modal-ajout class="modal">
-        <div class="titres">
-            <h1 class="sous_titre">AJOUT CLASSE</h1>
 
-        <form @submit.prevent="validerAvantAjout()" action="" method="">
+        <div class="titres">
+            <h1 >Ajout classe</h1>
+        </div>
+
+        <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
            
 
             <div class="informations">
                     <div class="titres">
-                        <h1>AJOUT CLASSE</h1>
+                        <h1>Ajout classe</h1>
                     </div>
 
                     <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_service_erreur)} ">Nom Service</label>
-                        <input  v-model="form.nom_service" id="nom"  @input="validatedata('nom_service')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_service_erreur)} ">
-                
-                        </div>
-             <!--    <input type="text" name="type_classe" id="type_classe" placeholder="Type de classe" v-model="form.type_classe"> -->
-                    <input type="text" name="nom_classe" id="nom_classe" placeholder="Nom classe" v-model="form.nom_classe"  @input="validatedata('nom_classe')">
-                    <span class="erreur" v-if="this.nom_classe_erreur !== ''">{{this.nom_classe_erreur}}</span>
-                </div>
+                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_classe_erreur)} ">Nom classe</label>
+                        <input  v-model="form.nom_classe" id="nom"  @input="validatedata('nom_classe')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_classe_erreur)} ">
+                        <span class="erreur" >{{this.nom_classe_erreur}}</span>
+                    </div>
 
-                <div>
-                    <select name="type_classe" id="type_classe" v-model="form.type_classe " @change="validatedata('type_classe')">
-                            <option value="">Type Classe</option>
-                            <option  value="Non payant">CJ</option>
-                            <option  value="Payant Jour">FPJ</option>
-                            <option  value="Payant soir">CS</option>
+                <div class="groupe_champs">
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.type_classe_erreur)} ">Type classe</label>
+                        <select v-model="form.type_classe " @change="validatedata('type_classe')" :class="{ 'bordure_rouge': (this.type_classe_erreur)} ">
+                                <option  value="Non payant">CJ</option>
+                                <option  value="Payant Jour">FPJ</option>
+                                <option  value="Payant soir">CS</option>
+                            </select>
+                            <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
+                    </div>
+                 <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.niveau_erreur)} ">Niveau</label>
+                        <select v-model="form.niveau" @change="validatedata('niveau')" :class="{ 'bordure_rouge': (this.niveau_erreur)} ">
+                            <option  value=" 1 ">Niveau 1 </option>
+                            <option  value=" 2 ">Niveau 2 </option>
+                            <option  value=" 3">Niveau 3</option>
                         </select>
-                        <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
-                </div>
-                <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
-
-                <div>
-                    <select name="niveau" id="niveau" v-model="form.niveau" @change="validatedata('niveau')">
-                        <option value="">Selectioner Niveau</option>
-                        <option  value=" 1 ">1 </option>
-                        <option  value=" 2 ">2 </option>
-                        <option  value=" 3">3</option>
-                    </select>
-                    <span class="erreur" v-if="niveau_erreur !== ''">{{niveau_erreur}}</span>
+                        <span class="erreur" v-if="niveau_erreur !== ''">{{niveau_erreur}}</span>
+                    </div>
                 </div>
 
-                <div class="type_formation">
-                    <select name="type_formation" id="type_formation" v-model="form.id_type_formation " @change="validatedata('type_formation')">
-                            <option value=""> Type de formation </option>
-                            <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
+                <div class="groupe_champs">
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_type_formation_erreur)} ">Type de formation</label>
+                        <select name="type_formation" id="type_formation" v-model="form.id_type_formation " @change="validatedata('type_formation')" :class="{ 'bordure_rouge': (this.id_type_formation_erreur)}  ">
+                                <option v-for="type_formation in type_formations" :value="type_formation.id">{{ type_formation.intitule }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_type_formation_erreur !== ''">{{id_type_formation_erreur}}</span>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_unite_de_formation_erreur)} ">Unité de formation</label>
+                        <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')" :class="{ 'bordure_rouge': (this.id_unite_de_formation_erreur)}  ">
+                                <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
+                   </div>
+
+                </div>   
+
+
+                <div class="groupe_champs validation">
+                                <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
+                        <button   v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+
                 </div>
-
-                <div class="unite_de_formation">
-                    <select name="unite_de_formation" id="unite_de_formation" v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')">
-                            <option value=""> Unite de formation </option>
-                            <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{ unite_de_formation.nom_unite_formation }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_unite_de_formation_erreur !== ''">{{id_unite_de_formation_erreur}}</span>
-               
-                </div>
-
-
-            <div class="boutons">
-                <input  type="submit" value="Ajouter" :class="{ 'data-close-modaldep': (this.etatForm) } "> <!-- :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" @click="resetForm" >Annuler</button>
             </div>
+       
         
         </form>
-    </div>
+    
 </dialog>
 </template>
 
@@ -95,6 +104,7 @@ import Form from 'vform';
           type_classe_erreur:"",
           niveau_erreur:"",
           etatForm: false,
+          editModal: false
 
 
 
