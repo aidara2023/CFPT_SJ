@@ -20,6 +20,7 @@ body{
     --clr2:  rgb(10, 22, 56);
 
     --rouge: #ff5252;
+    --rouge: rgb(255, 82, 82);
     --orange:#ff7e00;
     --vert:lime;
     --vert_confirmation:#75ccd5;

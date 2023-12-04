@@ -16,7 +16,7 @@
                 <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
+                        <span class="modifier">Actions</span>           
                     </a>
 
                     <a href="#" class="texte b" @click="openModal(unite_de_formation)">
