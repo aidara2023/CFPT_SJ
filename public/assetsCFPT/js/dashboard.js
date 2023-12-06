@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                 item.addEventListener('click', () => {
                 alert(item.dataset.closeModal);
 
-                if(item.dataset.closeModal == "0") {
+                if(item.dataset.closeModal == "0"){
                     alert("Suivant");
                     return;
                 }

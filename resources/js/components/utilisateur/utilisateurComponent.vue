@@ -1,19 +1,13 @@
 <template >
-    <!--   <dialog data-modal-ajout class="modal"> -->
 
     <div class="titres">
         <h1>AJOUT UTILISATEUR</h1>
-        <h3>Infeohf</h3>
     </div>
-    <!--  <div class=" cote_droit contenu"> -->
+
     <form @submit.prevent="validerAvantAjout()" action="" method="">
-
-
-        <div class="droit" v-if="activePhase===1 || activePhase===2">
+        <div class="droit">
 
             <div class="image">
-
-
                 <div class="roue">
                     <div class="roue">
                         <label for="photo" class="photo">
@@ -24,14 +18,12 @@
                     </div>
                 </div>
 
-                <label for="photo" class="photo visible">
+                <label for="photo" class="photo ">
                     <i class="fi fi-rr-picture"></i>
                     téléchargez votre photo ici
                     <input type="file" id="photo" @change="ajoutimage" accept="image/*">
                 </label>
                 <img v-if="photo" :src="photoUrl" alt="Etu">
-
-
             </div>
 
             <label for="">photo</label>
@@ -48,26 +40,25 @@
         </div>
 
         <div class="informations plus">
-            <div class="titres" v-if="activePhase===1">
+            <div class="titres">
                 <h1>AJOUT UTILISATEUR</h1>
             </div>
 
-            <!-- <div class="personnel"> -->
-            <div class="champ" v-if="activePhase===1">
+            <div class="champ " v-show="i_1_2_3 === 1">
                 <label for="nom" :class="{ 'couleur_rouge': (this.nom_user_erreur) }">Nom</label>
                 <input type="text" name="nom" id="nom" v-model="form.nom" @input="validatedata('nom')"
                     :class="{ 'bordure_rouge': (this.nom_user_erreur) }">
                 <span class="erreur">{{ this.nom_user_erreur }}</span>
             </div>
 
-            <div class="champ" v-if="activePhase===1">
+            <div class="champ " v-show="i_1_2_3 === 1">
                 <label for="prenom" :class="{ 'couleur_rouge': (this.prenom_user_erreur) }">Prenom</label>
                 <input type="text" name="prenom" id="prenom" v-model="form.prenom" @input="validatedata('prenom')"
                     :class="{ 'bordure_rouge': (this.prenom_user_erreur) }">
                 <span class="erreur">{{ this.prenom_user_erreur }}</span>
             </div>
 
-            <div class="groupe_champs" v-if="activePhase===1">
+            <div class="groupe_champs " v-show="i_1_2_3 === 1">
                 <div class="champ">
                     <label for="date_naissance" :class="{ 'couleur_rouge': (this.date_erreur) }">Date de naissance</label>
                     <input type="date" name="date_naissance" id="date_naissance" v-model="form.date_naissance"
@@ -75,7 +66,7 @@
                     <span class="erreur">{{ this.date_erreur }}</span>
                 </div>
 
-                <div class="champ" >
+                <div class="champ " >
                     <label for="lieu_naissance" :class="{ 'couleur_rouge': (this.lieu_naissance_erreur) }">Lieu de
                         naissance</label>
                     <input type="text" name="lieu_naissance" id="lieu_naissance" v-model="form.lieu_naissance"
@@ -84,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="groupe_champs" v-if="activePhase===1">
+            <div class="groupe_champs " v-show="i_1_2_3 === 1">
 
                 <div class="champ">
                     <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_erreur) }">Nationalite</label>
@@ -96,14 +87,8 @@
 
                 <div class="champ" >
                     <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_erreur) }">Sexe</label>
-                   <!--  <input type="text" name="nom" id="nom" class="select" v-model="form.genre"
-                        @change="validatedata('genre')"  :class="{ 'bordure_rouge': (this.genre_erreur) }"> -->
-                  <!--   <div class="choix">
-                        <p class="option">Masculin</p>
-                        <p class="option">Féminin</p>
-                    </div> -->
+               
                     <select name="role" id="role" v-model="form.genre" @change="validatedata('genre')"  :class="{ 'bordure_rouge': (this.genre_erreur) }">
-                        <!-- <option value=""> Role</option> -->
                         <option class="option" >Masculin</option>
                         <option class="option" >Féminin</option>
                     </select>
@@ -113,10 +98,10 @@
             </div>
 
 
-            <div class="groupe_champs" v-if="activePhase===1">
+            <div class="groupe_champs  " v-show="i_1_2_3 === 1">
                 <div class="champ">
                     <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_erreur) }">Telephone</label>
-                    <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43"
+                    <input type="tel" name="telephone" id="telephone" 
                         v-model="form.telephone" @input="validatedata('telephone')"
                         :class="{ 'bordure_rouge': (this.telephone_erreur) }">
                     <span class="erreur">{{ this.telephone_erreur }}</span>
@@ -130,30 +115,24 @@
                 </div>
             </div>
 
-            <div class="champ" v-if="activePhase===1">
+            <div class="champ " v-show="i_1_2_3 === 3">
                 <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
-                <input type="mail" name="email" id="email" placeholder="exemple@gmail.com" v-model="form.email"
+                <input type="mail" name="email" id="email"  v-model="form.email"
                     @input="validatedata('email')" :class="{ 'bordure_rouge': (this.email_user_erreur) }">
                 <span class="erreur">{{ this.email_user_erreur }}</span>
             </div>
 
-            <div class="groupe_champs validation" v-if="activePhase===2">
-
-
-                <div class="champ">
-                    <label for="Role" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Role</label>
-
+            <div v-show="i_1_2_3 === 3">
+                <div class="champ" >
+                    <label for="Role" :class="{ 'couleur_rouge': (this.id_role_erreur) }">Role</label>
                     <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)" :class="{ 'bordure_rouge': (this.id_role_erreur) }">
-                        <!-- <option value=""> Role</option> -->
                         <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
                     </select>
-                    <span class="erreur" v-if="id_role_erreur !== ''">{{ id_role_erreur }}</span>
-
+                    <span class="erreur" >{{ id_role_erreur }}</span>
                 </div>
             </div>
-            
 
-            <div v-if="this.interesser === 2 && activePhase===2">
+            <div v-if="this.interesser === 2">
                 <div class="groupe_champs">
                     <div class="champ">
                         <label for="Type Professeur" :class="{ 'couleur_rouge': (this.type_erreur) }">Type
@@ -161,8 +140,9 @@
                         <select name="" id="" v-model="form.type" @change="validatedata('type')"
                             :class="{ 'bordure_rouge': (this.type_erreur) }">
                             <!-- <option value="">Type Professeur</option> -->
-                            <option value="Etat">Fonctionnaire</option>
-                            <option value="Recruter">Recruter</option>
+                            <option value="Etat">Etat</option>
+                            <option value="Etat">Recruté</option>
+                            <option value="Recruter">Prestataire</option>
                         </select>
                         <span class="erreur">{{ type_erreur }}</span>
                     </div>
@@ -176,7 +156,7 @@
                             <!--   <option value="">Selectioner Statut</option> -->
                             <option value="Niveau 1">Célibataire</option>
                             <option value="Niveau 2">Marié</option>
-                            <option value="Niveau 2">Divorcé</option>
+                          
                         </select>
                         <span class="erreur">{{ situation_matrimoniale_erreur
                         }}</span>
@@ -190,7 +170,7 @@
                             :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
                         <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"
                             @change="validatedata('specialite')" :class="{ 'bordure_rouge': (this.id_specialite_erreur) }">
-                            <!-- <option value=""> Spécialite</option> -->
+                        
                             <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
                                 specialite.intitule }}</option>
                         </select>
@@ -202,7 +182,7 @@
                             :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
                         <select name="id_departement" id="id_departement" v-model="form.id_departement"
                             @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
-                         <!--    <option value=""> Departement</option> -->
+                        
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                                 departement.nom_departement }}</option>
                         </select>
@@ -213,12 +193,12 @@
 
 
 
-            <div class="personnel" v-if="this.interesser === 4 && activePhase===2">
+            <div  v-if="this.interesser === 4">
                 <div class="champ">
                     <label for="Service"
                             :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
                     <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')" :class="{ 'bordure_rouge': (this.id_service_erreur) }">
-                        <!-- <option value=""> Service</option> -->
+               
                         <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service
                         }}</option>
                     </select>
@@ -227,21 +207,8 @@
             </div>
 
 
-            <!--  <div>
-                    <select name="id_personnel_appui" id="id_personnel_appui" v-model="form.id_personnel_appui" @change="personnel_appui(form.id_personnel_appui)">
-                            <option value=""> Fonction</option>
-                            <option v-for="(personnel_appui, index) in personnel_appuis" :value="personnel_appui.id" :key="index">{{ personnel_appui.intitule }}</option>
-                    </select>
-                    <span class="erreur" v-if="id_personnel_appui_erreur !== ''">{{id_personnel_appui_erreur}}</span>
-                </div>
-            -->
-            <!--
-            <div class="identifiants">
-                <input type="text" placeholder="Contact urgence 1" v-model="form.contact_urgence_2">
-                <input type="password"  placeholder="Contact urgence 2" v-model="form.contact_urgence_2">
-            </div>  -->
-
-            <div class="groupe_champs validation"><!-- 
+            <div class="groupe_champs validation">
+                <!-- 
                 <input v-if="this.editModal === false" type="submit" value="Ajouter"
                     :class="{ 'data-close-modal': (this.etatForm) }">
                 <input v-if="this.editModal === true" type="submit" value="Modifier"
@@ -249,14 +216,12 @@
                  <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
                 <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
  -->
-                <button type="button" class="annuler" @click="clic_precedent()"><span data-statut="visible">Annuler</span></button>
-                <button type="submit" class="suivant" @click="clic_suivant()"><span data-statut="visible">Suivant</span></button> <!--  v-if="this.editModal === true" -->
+                <button type="button"  class="annuler" @click="clic_precedent()"><span data-statut="visible">Annuler</span></button>
+                <button type="button"  class="suivant" @click ="clic_suivant()"><span data-statut="visible">Suivant</span></button> <!--  v-if="this.editModal === true" -->
 
             </div>
         </div>
     </form>
-
-    <!--  </dialog> -->
 </template>
 
 <script>
@@ -285,10 +250,8 @@ export default {
                 'id_service': "",
                 'type': "",
                 'situation_matrimoniale': "",
-                /*  'id_personnel_administratif':"",
-                 'id_personnel_appui':"", */
-
             }),
+
             photo: "",
             interesser: "",
             roles: [],
@@ -324,8 +287,10 @@ export default {
             idUser: "",
             suivant: "",
             precedent: "",
+            visible: "",
+            invisible: "",
             off: "",
-           activePhase: 1,
+            i_1_2_3:"",
         }
     },
 
@@ -334,13 +299,6 @@ export default {
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        /*   this.get_personnel_administratif();
-          this.get_personnel_appui(); */
-
-        /*  this.suivant = document.querySelector('.suivant');
-         this.precedent= document.querySelector('.annuler');
-         this.i_1_2_3 = 1;
-  */
         this.variables_changement_etape();
 
         bus.on('utilisateurModifier', (eventData) => {
@@ -360,8 +318,6 @@ export default {
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
-            /*  this.form.id_personnel_administratif = eventData.id_personnel_administratif;
-             this.form.id_personnel_appui = eventData.id_personnel_appui; */
 
         });
 
@@ -390,14 +346,7 @@ export default {
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
-            /*  formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-             formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
             formdata.append('photo', this.photo);
-
-
-            /* if(this.form.id_personnel_administratif){
-                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            } */
 
             try {
                 const user_store = await axios.post('/user/store', formdata, {});
@@ -420,22 +369,11 @@ export default {
         changement(event) {
             this.interesser = event;
             this.id_role_erreur = "";
-        },
+        },/* 
 
         goToStep: function(step){
             this.activePhase= step;
-        },
-
-        /*   personnel_administratif(event){
-               this.get_id_perso_admin= event;
-               this.id_personnel_administratif_erreur = "";
-              
-           },
-           personnel_appui(event){
-               this.get_id_perso_appui= event;
-               this.id_personnel_appui_erreur = "";
-              
-           }, */
+        }, */
 
         get_role() {
             axios.get('/roles/index')
@@ -455,23 +393,7 @@ export default {
                 Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
             });
         },
-        /* 
-                get_personnel_administratif(){
-                    axios.get('/personnel_administratif/index').then(response => {
-                    this.personnel_administratifs=response.data.personnel_administratifs
-                    console.log(this.personnel_administratifs)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
-                    });
-                },
-                get_personnel_appui(){
-                    axios.get('/personnel_appui/index').then(response => {
-                    this.personnel_appuis=response.data.personnel_appuis
-                    console.log(this.personnel_appuis)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
-                    });
-                }, */
+        
 
         get_specialite() {
             axios.get('/specialite/index').then(response => {
@@ -492,10 +414,7 @@ export default {
                 });
         },
 
-        /*     ajoutimage(event){
-                this.photo=event.target.files[0];
-            },
-    
+        /*   
             getImageUrl(url){
                 const timestamp= new Date().getTime;
                 return url ? `${window.location.origin}/image/${nom}?t=${timestamp} ` : '';
@@ -503,10 +422,12 @@ export default {
         ajoutimage(event) {
             this.photo = event.target.files[0];
         },
+
         getImageUrl() {
             const timestamp = new Date().getTime();
             return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
         },
+
         validerAvantAjout() {
 
             const isVerifIdValid = this.verifId();
@@ -540,7 +461,6 @@ export default {
         },
 
         resetForm() {
-
             this.form.nom = "";
             this.form.prenom = "";
             this.form.genre = "";
@@ -556,8 +476,6 @@ export default {
             this.form.id_specialite = "";
             this.form.id_departement = "";
             this.form.id_service = "";
-            /*  this.form.id_personnel_administratif="";
-             this.id_personnel_appui=""; */
             this.photo = "";
             this.editModal = false;
 
@@ -580,10 +498,9 @@ export default {
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
-            this.activePhase= 1;
-
-
+            /* this.activePhase= 1; */
         },
+
         verifCaratere(nom) {
             const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
@@ -803,26 +720,6 @@ export default {
                     }
                     break;
 
-                /*  case 'personnel_administratif':
-                 this.id_personnel_administratif_erreur = "";
-                     //Vérification de personnel_administratif
-                     if(this.form.id_personnel_administratif=== ""){
-                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                     i=1;
-                     return true
-                 }
-                 break;
- 
-                 case 'personnel_appui':
-                 this.id_personnel_appui_erreur = "";
-                     //Vérification de personnel_appui
-                     if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                     return true
-                 }
-                 break;
-  */
                 default:
 
                     break;
@@ -846,8 +743,6 @@ export default {
             this.id_departement_erreur = "";
             this.type_erreur = "";
             this.id_role_erreur = "";
-            /*   this.id_personnel_administratif_erreur = "";
-              this.id_personnel_appui_erreur = ""; */
             var i = 0;
             // pour nom
 
@@ -951,28 +846,6 @@ export default {
                 i = 1;
             }
 
-            /*  if(this.interesser== 5){
-                
-                 if(this.form.id_personnel_administratif=== ""){
-                     this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                     i=1;
-     
-                 }
-                 if(this.get_id_perso_admin== 1){
-                     if(this.form.id_service=== ""){
-                     this.id_service_erreur= "Vous avez oublié de sélectionner le chef de service"
-                     i=1;
-                 }
- 
-                 }
-             }
-             if(this.interesser== 4){
-            
-                 if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                 }
-             } */
             if (this.interesser == 2) {
                 if (this.form.id_specialite === "") {
                     this.id_specialite_erreur = "Vous avez oublié de sélectionner la specialité"
@@ -1007,8 +880,6 @@ export default {
             this.id_role_erreur = "";
             this.type_erreur = "";
             this.genre_erreur = "";
-            /*  this.id_personnel_administratif_erreur = "";
-             this.id_personnel_appui_erreur = ""; */
             var i = 0;
 
             //pour genre
@@ -1023,13 +894,6 @@ export default {
                 i = 1;
             }
 
-            /*  if(this.interesser== 5) *//* { */
-
-            /* if(this.form.id_personnel_administratif=== ""){
-                this.id_personnel_administratif_erreur= "Vous avez oublié de sélectionner la fonction du personnel administratif"
-                i=1;
-
-            } */
             if (this.interesser == 4) {
                 if (this.form.id_service === "") {
                     this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
@@ -1037,16 +901,6 @@ export default {
                 }
 
             }
-            /*  return false; */
-            /*  } */
-
-            /*  if(this.interesser== 4){
-                 if(this.form.id_personnel_appui=== ""){
-                     this.id_personnel_appui_erreur= "Vous avez oublié de sélectionner la fonction du personnel d/'appui'"
-                     i=1;
-                     
-                 }
-             } */
 
             if (this.interesser == 2) {
                 if (this.form.id_specialite === "") {
@@ -1072,7 +926,7 @@ export default {
             return false;
         },
 
-        closeModal(selector) {
+        closeModal(selector){
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
@@ -1119,14 +973,8 @@ export default {
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
-            /*   formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-              formdata.append('id_personnel_appui', this.form.id_personnel_appui); */
             formdata.append('photo', this.photo);
             formdata.append('photo', this.photo);
-
-            /* if(this.form.id_personnel_administratif){
-                formdata.append('id_personnel_administratif', this.form.id_personnel_administratif);
-            } */
 
             try {
                 const user_store = await axios.post('/user/update/' + id, formdata);
@@ -1153,6 +1001,8 @@ export default {
 
             this.etape = document.querySelector('.positions');
             this.cercles = document.querySelector('.cercles');
+
+
         },
         /* C'est renaud qui a dit ça */
 
@@ -1160,8 +1010,37 @@ export default {
         //Pour éffectuer tous les changements à faire 
         //une fois que l'on passe d'une étape à une autre
         changement_etape(avancer) {
-            if (avancer)   this.i_1_2_3 = this.i_1_2_3 + 2;
-            if (!avancer)  this.i_1_2_3 = this.i_1_2_3 - 2;
+            if (avancer) {
+                this.i_1_2_3 = this.i_1_2_3 + 2;
+            /*     this.visible = document.querySelectorAll('.visible');
+                this.invisible = document.querySelectorAll('.invisible');
+
+                this.visible.forEach(item => {
+                    item.classList.remove('visible');
+                    item.classList.add('invisible');
+                });
+
+                this.invisible.forEach(item => {
+                    item.classList.remove('invisible');
+                    item.classList.add('visible');
+                }); */
+            }  
+            if (!avancer) {
+                this.i_1_2_3 = this.i_1_2_3 - 2;
+
+          /*       this.visible = document.querySelectorAll('.visible');
+                this.invisible = document.querySelectorAll('.invisible');
+
+                this.visible.forEach(item => {
+                    item.classList.remove('visible');
+                    item.classList.add('invisible');
+                });
+
+                this.invisible.forEach(item => {
+                    item.classList.remove('invisible');
+                    item.classList.add('visible');
+                }); */
+            } 
 
                 
             if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
@@ -1169,18 +1048,18 @@ export default {
 
             if (this.i_1_2_3 < 3) {
                 this.suivant.firstChild.textContent = "Suivant";
-                this.suivant.dataset.closeModal = "0";
+                //this.suivant.dataset.closeModal = "0";
                
             } else {
                 this.suivant.firstChild.textContent = "Ajouter";
-                this.suivant.dataset.closeModal = "1";
+                //this.suivant.dataset.closeModal = "1";
             }
             if (this.i_1_2_3 > 1) {
                 this.precedent.firstChild.textContent = "Précédent";
-                this.precedent.dataset.closeModal = "0";
+                //this.precedent.dataset.closeModal = "0";
             } else {
                 this.precedent.firstChild.textContent = "Annuler";
-                this.precedent.dataset.closeModal = "1";
+               // this.precedent.dataset.closeModal = "1";
             }
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
@@ -1188,40 +1067,21 @@ export default {
             if(this.i_1_2_3 == 3) this.off = 1;
             this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
             this.off = 0
+            
         },
 
 
         clic_suivant() {
-           /*  this.suivant.firstChild.dataset.statut = "apres";
-
-            setTimeout(function () {
-                this.suivant.firstChild.dataset.statut = "avant";
-            }, 500);
-
-            setTimeout(function () {
-                this.suivant.firstChild.dataset.statut = "visible";
-            }, 900); */
-        
-
             this.changement_etape(true);
-            this.goToStep(2)
+            //this.goToStep(2)
+            //this.activePhase=2;
             
        
         },
 
         clic_precedent() {
-            /* this.precedent.firstChild.dataset.statut = "avant";
-
-            setTimeout(function () {
-                this.precedent.firstChild.dataset.statut = "apres";
-            }, 500);
-
-            setTimeout(function () {
-                this.precedent.firstChild.dataset.statut = "visible";
-            }, 900); */
-
             this.changement_etape(false)
-            this.goToStep(1)
+            //this.goToStep(1)
         }
 
 
