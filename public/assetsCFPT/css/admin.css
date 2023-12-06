@@ -810,6 +810,14 @@ label.photo i{
     width: 48%;
     
 }
+
+.champ.invisible, .groupe_champs.invisible{
+    display: none;
+}
+.champ.visible, .groupe_champs.visible{
+    display: flex;
+}
+
 label{
     margin:0 0 1% min(5vw, 40px);
     font-size: clamp(.4rem, 54%, .9rem);
@@ -839,7 +847,6 @@ label{
 
 
 input{
-    
     background-color: transparent;
 
     border: 1.5px solid var(--clr);
