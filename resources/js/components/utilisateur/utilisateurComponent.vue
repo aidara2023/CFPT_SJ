@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <label for="photo" class="photo ">
+                <label for="photo" class="photo visible">
                     <i class="fi fi-rr-picture"></i>
                     téléchargez votre photo ici
                     <input type="file" id="photo" @change="ajoutimage" accept="image/*">
@@ -115,7 +115,7 @@
                 </div>
             </div>
 
-            <div class="champ " v-show="i_1_2_3 === 3">
+            <div class="champ " v-show="i_1_2_3 === 1">
                 <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
                 <input type="mail" name="email" id="email"  v-model="form.email"
                     @input="validatedata('email')" :class="{ 'bordure_rouge': (this.email_user_erreur) }">
@@ -216,8 +216,8 @@
                  <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
                 <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
  -->
-                <button type="button"  class="annuler" @click="clic_precedent()"><span data-statut="visible">Annuler</span></button>
-                <button type="button"  class="suivant" @click ="clic_suivant()"><span data-statut="visible">Suivant</span></button> <!--  v-if="this.editModal === true" -->
+                <button type="button" data-close-modal="1"  class="annuler" @click="clic_precedent()"><span data-statut="visible">Annuler</span></button>
+                <button type="button"  class="suivant" @click="clic_suivant()"><span data-statut="visible" data-close-modal="0">Suivant</span></button> <!--  v-if="this.editModal === true" -->
 
             </div>
         </div>
@@ -930,7 +930,6 @@ export default {
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
-            /* console.log(ajout); */
            if(this.etatForm === false){
             var actif = document.querySelectorAll('.actif');
             actif.forEach(item => {
@@ -1048,18 +1047,18 @@ export default {
 
             if (this.i_1_2_3 < 3) {
                 this.suivant.firstChild.textContent = "Suivant";
-                //this.suivant.dataset.closeModal = "0";
+                this.suivant.dataset.closeModal = "0";
                
             } else {
                 this.suivant.firstChild.textContent = "Ajouter";
-                //this.suivant.dataset.closeModal = "1";
+                this.suivant.dataset.closeModal = "1";
             }
             if (this.i_1_2_3 > 1) {
                 this.precedent.firstChild.textContent = "Précédent";
-                //this.precedent.dataset.closeModal = "0";
+                this.precedent.dataset.closeModal = "0";
             } else {
                 this.precedent.firstChild.textContent = "Annuler";
-               // this.precedent.dataset.closeModal = "1";
+                this.precedent.dataset.closeModal = "1";
             }
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
@@ -1073,15 +1072,10 @@ export default {
 
         clic_suivant() {
             this.changement_etape(true);
-            //this.goToStep(2)
-            //this.activePhase=2;
-            
-       
         },
 
         clic_precedent() {
             this.changement_etape(false)
-            //this.goToStep(1)
         }
 
 
