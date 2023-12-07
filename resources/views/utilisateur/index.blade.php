@@ -3,9 +3,9 @@
 
 <div class="elements flou " id="app">
     <div class="entete">
-            @include('layout.header')
-        </div>
-        <liste-utilisateur></liste-utilisateur>
+        @include('layout.header')
+    </div>
+    <liste-utilisateur></liste-utilisateur>
 
     <!-- debut modal pour modifier utilisateur -->
     <dialog data-modal-modification class="modal">
@@ -107,8 +107,8 @@
 
       {{--  Debut modal pour ajouter utilisateur --}}
     <dialog data-modal-ajout class="modal ">
-    <utilisateur-create></utilisateur-create>
-</dialog>
+       <utilisateur-create></utilisateur-create>
+    </dialog>
       {{--  Fin modal pour ajouter utilisateur --}}
 
       {{--  Debut modal pour supprimer utilisateur --}}

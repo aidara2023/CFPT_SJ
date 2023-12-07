@@ -657,3 +657,4 @@ Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
 Route::get('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
