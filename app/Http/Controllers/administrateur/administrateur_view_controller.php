@@ -12,7 +12,7 @@ class administrateur_view_controller extends Controller
         return view('administrateur.index');
     }
 
-    public function create_admin(Request $request){
+    public function create_admin(){
 
         $matricule= User::generateur_matricule();
         $user = User::create([
@@ -22,7 +22,7 @@ class administrateur_view_controller extends Controller
             'adresse' => 'Medina',
             'telephone' => '778793127',
             'email' => 'admin@cfpt.edu.sn',
-            'password' => bcrypt($request['admincfpt']),
+            'password' => bcrypt('admincfpt'),
             'id_role' => 3,
             'matricule' => $matricule,
         ]);
