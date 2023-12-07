@@ -115,11 +115,17 @@
                 </div>
             </div>
 
-            <div class="champ " v-show="i_1_2_3 === 1">
+            <div class="champ " v-show="i_1_2_3 === 3">
                 <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
                 <input type="mail" name="email" id="email"  v-model="form.email"
                     @input="validatedata('email')" :class="{ 'bordure_rouge': (this.email_user_erreur) }">
                 <span class="erreur">{{ this.email_user_erreur }}</span>
+            </div>
+
+            <div class="groupe_champs validation" v-show="i_1_2_3 === 1">
+            <button type="button"  data-close-modal  ><span data-statut="visible">Annuler</span></button>
+
+            <button type="button"  @click.prevent="goToStep(3)"><span data-statut="visible" >Suivant</span></button>
             </div>
 
             <div v-show="i_1_2_3 === 3">
@@ -206,6 +212,12 @@
                 </div>
             </div>
 
+            <div class="groupe_champs validation" v-show="i_1_2_3 === 3">
+            <button type="button"  @click="goToStep(1)" ><span data-statut="visible">Precedent</span></button>
+
+            <button type="submit"  ><span data-statut="visible">Ajouter</span></button>
+            </div>
+
 
             <div class="groupe_champs validation">
                 <!-- 
@@ -216,8 +228,11 @@
                  <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
                 <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
  -->
-                <button type="button" data-close-modal="1"  class="annuler" @click="clic_precedent()"><span data-statut="visible">Annuler</span></button>
-                <button type="button"  class="suivant" @click="clic_suivant()"><span data-statut="visible" data-close-modal="0">Suivant</span></button> <!--  v-if="this.editModal === true" -->
+          <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
+
+   <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
+
+            <button type="button"  class="suivant" @click="clic_suivant" ><span data-statut="visible">Suivant</span></button> -->
 
             </div>
         </div>
@@ -369,11 +384,26 @@ export default {
         changement(event) {
             this.interesser = event;
             this.id_role_erreur = "";
-        },/* 
+        }, 
 
         goToStep: function(step){
-            this.activePhase= step;
-        }, */
+            if(!this.validatedata('nom') && !this.validatedata('prenom') && !this.validatedata('date_naissance') && !this.validatedata('naissance') && !this.validatedata('nationalite') && !this.validatedata('genre') && !this.validatedata('adresse') && !this.validatedata('telephone')){
+                this.activePhase= step;
+                this.i_1_2_3=step;
+            }
+            
+        
+
+            this.cercles.dataset.etape = this.i_1_2_3 - 2;
+            this.etape.dataset.etape = this.i_1_2_3;
+            if(this.i_1_2_3 == 3) this.off = 1;
+            this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
+            this.off = 0
+        }, 
+
+        isValidPhase(){
+            return (this.form.nom!=="" && this.form.prenom!=="" && this.form.date_naissance!=="" && this.form.lieu_naissance!=="" && this.form.nationalite!=="" && this.form.genre!=="" && this.form.telephone!=="" && this.form.adresse!=="");
+        },
 
         get_role() {
             axios.get('/roles/index')
@@ -429,7 +459,6 @@ export default {
         },
 
         validerAvantAjout() {
-
             const isVerifIdValid = this.verifId();
             const isIdChampValid = this.validatedataOld();
             /*   console.log(isNomChampValid); */
@@ -441,7 +470,6 @@ export default {
                 this.editModal = false;
                 return 0;
             } else {
-
                 if (this.editModal === true) {
                     this.etatForm = true;
                     this.update_utilisateur(this.idUser);
@@ -456,8 +484,6 @@ export default {
                     this.editModal = false;
                 }
             }
-
-
         },
 
         resetForm() {
@@ -968,7 +994,8 @@ export default {
             formdata.append('nationalite', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
             formdata.append('type', this.form.type);
-            formdata.append('situation_matrimoniale', this.form.situation_matrimoniale);
+            formdata.append('situation_matrimoniale', 
+            this.form.situation_matrimoniale);
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
@@ -991,6 +1018,7 @@ export default {
                 }
             }
         },
+
         /* Méthode pour les variables */
         variables_changement_etape() {
             this.suivant = document.querySelector('.suivant');
@@ -1000,45 +1028,14 @@ export default {
 
             this.etape = document.querySelector('.positions');
             this.cercles = document.querySelector('.cercles');
-
-
         },
-        /* C'est renaud qui a dit ça */
 
-        /* Méthode changement étape */
-        //Pour éffectuer tous les changements à faire 
-        //une fois que l'on passe d'une étape à une autre
         changement_etape(avancer) {
             if (avancer) {
                 this.i_1_2_3 = this.i_1_2_3 + 2;
-            /*     this.visible = document.querySelectorAll('.visible');
-                this.invisible = document.querySelectorAll('.invisible');
-
-                this.visible.forEach(item => {
-                    item.classList.remove('visible');
-                    item.classList.add('invisible');
-                });
-
-                this.invisible.forEach(item => {
-                    item.classList.remove('invisible');
-                    item.classList.add('visible');
-                }); */
             }  
             if (!avancer) {
                 this.i_1_2_3 = this.i_1_2_3 - 2;
-
-          /*       this.visible = document.querySelectorAll('.visible');
-                this.invisible = document.querySelectorAll('.invisible');
-
-                this.visible.forEach(item => {
-                    item.classList.remove('visible');
-                    item.classList.add('invisible');
-                });
-
-                this.invisible.forEach(item => {
-                    item.classList.remove('invisible');
-                    item.classList.add('visible');
-                }); */
             } 
 
                 
@@ -1053,12 +1050,16 @@ export default {
                 this.suivant.firstChild.textContent = "Ajouter";
                 this.suivant.dataset.closeModal = "1";
             }
+            
             if (this.i_1_2_3 > 1) {
                 this.precedent.firstChild.textContent = "Précédent";
                 this.precedent.dataset.closeModal = "0";
-            } else {
+            } 
+            else {
+               
                 this.precedent.firstChild.textContent = "Annuler";
                 this.precedent.dataset.closeModal = "1";
+                
             }
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
