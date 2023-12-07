@@ -115,7 +115,8 @@ class connexion_controller extends Controller
 
     public function logout(){
         Auth::logout();
-        return view('auth.login');
+       /*  return view('auth.login'); */
+       return redirect()->route('login');
     }
 }
 

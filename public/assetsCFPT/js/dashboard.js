@@ -102,10 +102,10 @@ document.addEventListener("DOMContentLoaded", function()  {
             //Fermeture des modals
             fermemod.forEach(item => {
                 item.addEventListener('click', () => {
-                alert(item.dataset.closeModal);
+                /* alert(item.dataset.closeModal); */
 
                 if(item.dataset.closeModal == "0"){
-                    alert("Suivant");
+                   /*  alert("Suivant"); */
                     return;
                 }
                 var actif = document.querySelectorAll('.actif');
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             });
 
             //Pour fermer le modal en cliquant hors de ce dernier
-            function ClicExtérieur(modal_concerne){
+       /*      function ClicExtérieur(modal_concerne){
                 var actif = document.querySelectorAll('.actif');
                     actif.forEach(item => {
                         item.classList.remove("actif");
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                     modal_concerne.close();
                 }
                 });
-            }
+            } */
 
             
 
