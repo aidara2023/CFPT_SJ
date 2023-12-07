@@ -16,7 +16,7 @@
                 <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
+                        <span class="modifier">Actions</span>           
                     </a>
 
                     <a href="#" class="texte b" @click="openModal(unite_de_formation)">
@@ -53,7 +53,7 @@ import Form from 'vform';
        return {
            form:new Form({
             'nom_unite_formation':"",
-                'id_formateur':"",
+                'id_user':"",
                 'id_departement':""
 
            }),
@@ -90,7 +90,7 @@ import Form from 'vform';
        resetForm(){
            this.form.input="";
            this.form.nom_unite_formation="";
-           this.form.id_formateur="";
+           this.form.id_user="";
            this.form.id_departement="";
 
        },
@@ -131,7 +131,7 @@ import Form from 'vform';
           const eventData = {
               idFormation: this.idFormation,
               nom: unite_de_formation.nom_unite_formation,
-              id_formateur: unite_de_formation.id_formateur,
+              id_user: unite_de_formation.id_user,
               id_departement: unite_de_formation.id_departement,
               editModal: this.editModal,
               // Ajoutez d'autres propriétés si nécessaire
