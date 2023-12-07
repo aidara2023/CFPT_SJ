@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         ajout.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(ajout);
+                        //ClicExtérieur(ajout);
 
                     }
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         modification.showModal();
                         modification.classList.add("actif");
                         }, 20); 
-                        ClicExtérieur(modification);
+                        //ClicExtérieur(modification);
                     }
 
                     if(mdl[index].classList.contains("supprimer")){
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         suppression.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(suppression);
+                       // ClicExtérieur(suppression);
                     }
                     
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         encaissement.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(encaissement);
+                       // ClicExtérieur(encaissement);
                     }
                     
 
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         filtre.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(filtre);
+                       // ClicExtérieur(filtre);
                     }
 
                 }); 
