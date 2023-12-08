@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             var encaissement = document.querySelector("[data-modal-encaissement]");
             var filtre = document.querySelector("[data-modal-filtre]");
 
+            
 
             var droit = document.querySelector('.droit');
             var etape = document.querySelector('.positions');
@@ -194,7 +195,12 @@ document.addEventListener("DOMContentLoaded", function()  {
             });
 
            
-
+            var taillefixe = '800px';
+            ajout.style.width = taillefixe;
+            modification.style.width = taillefixe;
+            suppression.style.width = taillefixe;
+            encaissement.style.width = taillefixe;
+            filtre.style.width = taillefixe;
 
 
             

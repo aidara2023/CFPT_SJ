@@ -68,6 +68,7 @@
         width: 100%;
         grid-area: prenom;
         width: fit-content;
+        font-size: 18px; 
     }
     
     .nom{
