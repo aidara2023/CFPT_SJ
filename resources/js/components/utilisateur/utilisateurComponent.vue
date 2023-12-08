@@ -387,11 +387,11 @@ export default {
         }, 
 
         goToStep: function(step){
-            if(!this.validatedata('nom') && !this.validatedata('prenom') && !this.validatedata('date_naissance') && !this.validatedata('naissance') && !this.validatedata('nationalite') && !this.validatedata('genre') && !this.validatedata('adresse') && !this.validatedata('telephone')){
+            if(!this.validatedata('nom') || !this.validatedata('prenom') || !this.validatedata('date_naissance') || !this.validatedata('naissance') || !this.validatedata('nationalite') || !this.validatedata('genre') || !this.validatedata('adresse') || !this.validatedata('telephone')){
                 this.activePhase= step;
                 this.i_1_2_3=step;
             }
-            
+
         
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
@@ -400,10 +400,6 @@ export default {
             this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
             this.off = 0
         }, 
-
-        isValidPhase(){
-            return (this.form.nom!=="" && this.form.prenom!=="" && this.form.date_naissance!=="" && this.form.lieu_naissance!=="" && this.form.nationalite!=="" && this.form.genre!=="" && this.form.telephone!=="" && this.form.adresse!=="");
-        },
 
         get_role() {
             axios.get('/roles/index')
