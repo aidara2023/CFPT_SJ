@@ -820,9 +820,9 @@ label.photo i{
 
 label{
     margin:0 0 1% min(5vw, 40px);
-    font-size: clamp(.4rem, 54%, .9rem);
+    font-size: clamp(.7rem, 54%, .9rem);
 
-    color: #7a9def;
+    color: #1a5aed;
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 2px;

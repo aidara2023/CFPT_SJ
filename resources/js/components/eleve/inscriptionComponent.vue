@@ -31,9 +31,9 @@
                     <div class="cercles" data-etape="1">
                         <div class="actuel"><i class="fi fi-rr-check"></i></div>
                         <span></span>
-                        <div class="actuel"><i class="fi fi-rr-check"></i></div><!-- 
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div> 
                     <span></span>
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div> -->
+                    <div class="actuel"><i class="fi fi-rr-check"></i></div>
                     </div>
                     <label for="" class="positions" data-etape="1">ETApe 1</label>
                 </div>
@@ -248,7 +248,7 @@
                 <div class="champ" v-if="activePhase === 3">
                     <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_tuteur_erreur) }">Sexe</label>
 
-                    <select name="sexe" id="sexe" v-model="form.genre_tuteur" @change="validatedata('genre')"
+                    <select name="sexe" id="sexe" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')"
                         :class="{ 'bordure_rouge': (this.genre_tuteur_erreur) }">
                         <option class="option">Masculin</option>
                         <option class="option">Féminin</option>
@@ -379,6 +379,8 @@ export default {
             i: 0,
             etatForm: false,
             activePhase: 1,
+            off: "",
+            i_1_2_3:"",
 
         }
     },
@@ -388,6 +390,7 @@ export default {
         this.get_classe();
         this.get_annee();
         // this.get_type_formation();
+        this.variables_changement_etape();
 
     },
 
@@ -518,7 +521,54 @@ export default {
         },
 
         goToStep: function (step) {
-            this.activePhase = step;
+            if(step===2){
+                if(!this.validatedata('nom_eleve') & !this.validatedata('prenom_eleve') & !this.validatedata('date_naissance_eleve') & !this.validatedata('lieu_naissance_eleve') & !this.validatedata('nationalite_eleve') & !this.validatedata('genre_eleve') & !this.validatedata('adresse_eleve') & !this.validatedata('telephone_eleve') & !this.validatedata('mail_eleve')){
+                    this.activePhase= step;
+                    this.i_1_2_3=step;
+                    this.indicateur_etape();
+                    
+                }
+            }
+            if(step===3){
+                if(!this.validatedata('telephone_urgence_1') & !this.validatedata('telephone_urgence_2')){
+                    this.activePhase= step;
+                    this.i_1_2_3=step;
+                    this.indicateur_etape();
+                }
+            }
+            if(step===4){
+                if(!this.validatedata('nom_tuteur') & !this.validatedata('prenom_tuteur') & !this.validatedata('nationalite_tuteur') & !this.validatedata('genre_tuteur') & !this.validatedata('adresse_tuteur') & !this.validatedata('telephone_tuteur') & !this.validatedata('mail_tuteur')){
+                    this.activePhase= step;
+                    this.i_1_2_3=step;
+                    this.indicateur_etape();
+                }
+            }
+            if(step===1){
+                this.activePhase = step;
+                this.indicateur_etape();
+            }
+
+       
+         
+            //this.activePhase = step;
+        },
+
+        indicateur_etape(){
+            this.cercles.dataset.etape = this.i_1_2_3 - 1;
+            this.etape.dataset.etape = this.i_1_2_3;
+            //if(this.i_1_2_3 == 2) this.off = 1;
+            this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
+            this.off = 0
+        },
+
+        variables_changement_etape() {
+            this.suivant = document.querySelector('.suivant');
+            this.precedent = document.querySelector('.annuler');
+            this.i_1_2_3 = 1;
+            this.off = 0;
+
+            this.etape = document.querySelector('.positions');
+            this.cercles = document.querySelector('.cercles');
         },
 
         closeModal() {
@@ -770,7 +820,7 @@ export default {
                     this.mail_eleve_erreur = "";
                     //Vérification de l' email
                     if (this.form.mail_eleve === "") {
-                        "L'email est obligatoire"
+                        this.mail_eleve_erreur= "L'email est obligatoire";
                         i = 1;
                         return true
                     } else {

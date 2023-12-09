@@ -1,12 +1,19 @@
 <template>
 
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Inscription Non Payé</h1>
+       <div class="avant" style=" margin-left: 80%;">
+          
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
+       <div class="avant">
+           <h1 class="texte">Inscription Non Payé</h1>
+           <a href="#">
+              
+           </a>
+       </div>
+
 
 
         <div class="sections" v-for="(inscription, index) in inscriptions" :key="index">
