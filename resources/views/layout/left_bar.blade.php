@@ -169,6 +169,44 @@
         </ul>
      </nav>
      @endif
+     @if (Auth::user()->id_role==7)
+
+     <nav class="flou ">
+         <ul >
+             <li class="fntr"><a href="{{route('bibliothecaire_index')}}">
+                 <div>
+                     <i class="fi fi-rr-home"></i>
+                     <span>Accueil</span>
+                 </div>
+             </a>
+      
+         </li>
+         
+             <li class="fntr"><a href="{{route('paiement_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Paiment</span>
+                 </div>
+             </a></li>
+ 
+             <li class="fntr"><a href="{{route('recouvrement_index')}}">
+                 <div>
+                     <i class="fi fi-rr-money-bill-wave"></i>
+                     <span>Recouvrement</span>
+                 </div>
+             </a></li>
+ 
+ 
+             <li class="fntr"><a href="{{route('logout')}}">
+                 <div>
+                     <i class="fi fi-rr-sign-out-alt"></i>
+                     <span>Me déconnecter</span>
+                 </div>
+             </a></li>
+ 
+         </ul>
+      </nav>
+      @endif
 
      @if(Auth::user()->id_role==12)
         <nav class="flou">
