@@ -467,8 +467,8 @@ Route::post('caissier/update/{id}',[caissier_controller::class,'update'])->name(
 Route::delete('caissier/delete/{id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
 
 Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
-Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('caissier_index');
-
+/* Route::get('/caissier/index1',[caissier_view_controller::class, 'index 1'])->name('caissier_index');
+ */
 //Route pour note
 
 Route::get('note/index',[note_controller::class, 'index'])->name('note_index');
