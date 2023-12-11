@@ -195,13 +195,13 @@ document.addEventListener("DOMContentLoaded", function()  {
             });
 
            
-            var taillefixe = '800px';
+         /*    var taillefixe = '800px';
             ajout.style.width = taillefixe;
             modification.style.width = taillefixe;
             suppression.style.width = taillefixe;
             encaissement.style.width = taillefixe;
             filtre.style.width = taillefixe;
-
+ */
 
             
             
