@@ -42,7 +42,7 @@ class connexion_controller extends Controller
             }
            
             elseif($role=="Caissier"){
-            $url='/caissier/index';
+            $url='/caissier/accueil';
             return response([
                 'url'=>$url, 
                 'user'=>$user

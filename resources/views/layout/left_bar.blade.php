@@ -135,7 +135,7 @@
 
     <nav class="flou ">
         <ul >
-            <li class="fntr"><a href="{{route('caissier_index')}}">
+            <li class="fntr"><a href="{{route('caissier_accueil')}}">
                 <div>
                     <i class="fi fi-rr-home"></i>
                     <span>Accueil</span>
