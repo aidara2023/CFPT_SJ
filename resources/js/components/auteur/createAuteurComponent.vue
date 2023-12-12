@@ -1,19 +1,33 @@
 <template>
-    <div class="cote_droit">
-        <form @submit.prevent="soumettre">
-            <h1 class="sous_titre">Ajouter l'auteur</h1>
-           
-            <div class="personnel">
-            <input type="text" name="nom" id="nom" placeholder=" Nom auteur" v-model="form.nom">
-        </div>
+<dialog data-modal-ajout class="modal">
 
-        <div class="boutons">
-            <input type="submit" value="Ajouter">
-            <button type="button">Annuler</button>
+    <div class="titres">
+        <h1>Ajout Auteur</h1>
+    <!--  <h3>Informations Personnelles</h3> -->
+    </div>
+
+    <form @submit.prevent="validerAvantAjout()" action="" method="dialog" >
+        <div class="informations">
+            <div class="titres">
+                <h1>Ajout Auteur</h1>
+            </div>           
+           
+            <div class="champ">
+                <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
+                <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
+                <span class="erreur" >{{this.nom_auteur_erreur}}</span>
+            </div>     
+
+            <div class="groupe_champs validation">
+            <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
+                <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+            </div>
         </div>
 
         </form>
-    </div>
+    </dialog>
 </template>
 
 <script>
