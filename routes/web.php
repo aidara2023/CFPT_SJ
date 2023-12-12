@@ -52,6 +52,7 @@ use App\Http\Controllers\edition\edition_view_controller;
 
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
+use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;
 use App\Http\Controllers\exemplaire\exemplaire_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
@@ -395,12 +396,12 @@ Route::get('/bibliothecaire/index',[bibliothecaire_view_controller::class, 'inde
 
 
 //route exemplaire
-Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
+/* Route::get('exemplaire/index',[Exemplaire_controller::class, 'index'])->name('exemplaire_index');
 Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
 Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
 Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
 Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
-
+ */
 Route::get('/exemplaire/create',[exemplaire_view_controller::class, 'create'])->name('exemplaire_create');
 
 //route ressource_pedagogique
@@ -467,7 +468,7 @@ Route::post('caissier/update/{id}',[caissier_controller::class,'update'])->name(
 Route::delete('caissier/delete/{id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
 
 Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
-Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('caissier_index');
+Route::get('/caissier/accueil',[caissier_view_controller::class, 'accueil'])->name('caissier_accueil');
 
 //Route pour note
 

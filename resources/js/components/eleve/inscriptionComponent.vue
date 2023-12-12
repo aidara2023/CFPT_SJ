@@ -979,6 +979,7 @@ export default {
                         i = 1;
                         return true
                     }
+                    break;
                 case 'id_classe':
                     this.id_classe_erreur = "";
                     //Vérification de annee academique

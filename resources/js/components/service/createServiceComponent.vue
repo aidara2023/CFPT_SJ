@@ -1,48 +1,8 @@
 <template>
-    <!--  <dialog data-modal-ajout class="modal">
-         <div class="cote_droit contenu">
-             <form @submit.prevent="validerAvantAjout()" method="">
-                 <h1 class="sous_titre">Ajout Service</h1>
-               
-                 <div class="personnel">
-                     <div>
-                         <input type="text" v-model="form.nom_service" id="nom" placeholder="Nom du Service" @input="validatedata('nom_service')">
-                         <span class="erreur" v-if="this.nom_service_erreur !== ''">{{this.nom_service_erreur}}</span>
-                     </div>
-     
-                     <diva>
-     
-                         <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="validatedata('id_user')">
-                             <option value="">Chef de service</option>
-                             <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
-                         </select>
-                         <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
-                     </div>
-     
-                     
-             
-                     <div>
-                         <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="validatedata('id_direction')">
-                                 <option value=""> Direction</option>
-                                 <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
-                         </select>
-                         <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
-                     </div>
-     
-                 </div>
-     
-                 <div class="boutons">
-                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                 <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
-             </div>
-             </form>
-         </div>
-     </dialog> -->
      <dialog data-modal-ajout class="modal ">
          
          <div class="titres">
-             <h1>Ajout Service</h1>
+             <h1>Nouveau Service</h1>
             <!--  <h3>Informations Personnelles</h3> -->
          </div>
          <!-- <div class="contenu"> -->
@@ -53,7 +13,7 @@
                  Et enlever la div au dessus -->
                  <div class="informations">
                      <div class="titres">
-                         <h1>Ajout Service</h1>
+                         <h1>Nouveau Service</h1>
                      </div>
  
                      <div class="champ">
@@ -80,85 +40,7 @@
                          </select>
                          <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
                      </div>
-                 </div>
-                   <!--   <div class="champ">
-                         <input type="text" class="select">
-                         <div class="choix">
-                             <p class="option">choix </p>
-                             <p class="option">choix</p>
-                             <p class="option">choix</p>
-                         </div>
-                     </div>
- 
-                     <div class="champ">
-                             <label for="nom">Sexe</label>
-                             
-                             <input type="text" name="nom" id="nom" class="select">
-                             <span class="erreur"></span>
-                             <div class="choix">
-                                 <p class="option">Masculin</p>
-                                 <p class="option">Féminin</p>
-                             </div>
-                         </div> -->
- <!-- 
-                     <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Lieu de Naissance</label>
-                             <input type="text" name="nom" id="nom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">Date de naissance</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div> -->
- <!--                     <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Sexe</label>
-                             
-                             <input type="text" name="nom" id="nom" class="select">
-                             <span class="erreur"></span>
-                             <div class="choix">
-                                 <p class="option">Masculin</p>
-                                 <p class="option">Féminin</p>
-                             </div>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">nationalité</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div> -->
-  <!--                    <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Adresse</label>
-                             <input type="text" name="nom" id="nom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">telephone</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div>
- 
-                     <div class="champ">
-                         <label for="nom">Email</label>
-                         <input type="text" name="prenom" id="prenom">
-                         <span class="erreur"></span>
-                     </div> -->
- 
-                     
+                 </div>                
  
                      <!-- Le groupe qui contient les boutons -->
                 <div class="groupe_champs validation">
