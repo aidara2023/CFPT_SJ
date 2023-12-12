@@ -67,7 +67,7 @@
 
             <div class="groupe_champs validation">
                     <button type="button" @click="closeModal()" class="texte annuler">Annuler</button>
-                    <button type="submit"  :class="{ 'data-close-modal': (this.etatForm) }">Ajouter</button>
+                    <button type="submit"  :class="{ 'data-close-modal': (this.etatForm) }">Appliquer</button>
                 </div>
         </div>
     </form>
@@ -126,6 +126,13 @@ export default {
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('id_classe', this.form.id_classe);
+            try {
+                const response = await axios.post('/recouvrement/filtre', formdata);
+                // Traitez la réponse de l'API selon vos besoins
+                console.log(response.data);
+            } catch (error) {
+                console.error('Une erreur s\'est produite lors de la récupération des données filtrées.', error);
+            }
 
 
 
@@ -178,13 +185,7 @@ export default {
         },
 
         async filtre() {
-            try {
-                const response = await axios.post('recouvrement/filtre', this.form);
-                // Traitez la réponse de l'API selon vos besoins
-                console.log(response.data);
-            } catch (error) {
-                console.error('Une erreur s\'est produite lors de la récupération des données filtrées.', error);
-            }
+          
 
         },
         validerAvantAjout() {

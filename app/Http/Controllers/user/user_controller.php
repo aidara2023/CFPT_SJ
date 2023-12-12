@@ -162,7 +162,7 @@ class user_controller extends Controller
             $formateur->save();
         }
         
-        elseif($request['id_role']=11){
+        elseif($request['id_role']==11){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();

@@ -27,11 +27,8 @@ class Paiement extends Model
       return $this->belongsTo(Eleve::class,'id_eleve');
     }
 
-    public function mois() {
-      return $this->hasMany(mois::class);
-    }
     public function concerner() {
-      return $this -> hasMany(Concerner::class);
+      return $this -> hasMany(Concerner::class, 'id');
   }
 
 
