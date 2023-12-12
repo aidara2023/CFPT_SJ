@@ -12,4 +12,9 @@ class dossier_medical_view_controller extends Controller
         return view('dossier_medical.create');
     }
 
+    public function accueil(){
+        return view('dossier_medical.accueil');
+    }
+  
+
 }

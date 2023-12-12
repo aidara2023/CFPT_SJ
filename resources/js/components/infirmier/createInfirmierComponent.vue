@@ -42,10 +42,10 @@
 
           </div>
 
-          <div class="services">
-            <select name="services" id="service" v-model="form.id_service">
-                <option value="">service</option>
-                <option v-for="service in services"  :key="service.id">{{ service.nom_service }}</option>
+          <div class="infirmier">
+            <select name="infirmier" id="infirmier" v-model="form.id_infirmier">
+                <option value="">infirmier</option>
+                <option v-for="infirmier in infirmier"  :key="infirmier.id">{{ infirmier.nom_infirmier }}</option>
                 
             </select>
 
@@ -116,21 +116,21 @@ import Swal  from 'sweetalert2';
             'genre_infirmier':"",
             'telephone_infirmier':"",
             'adresse_infirmier':"",
-            'id_service':"",
+            'id_infirmier':"",
             'id_role':""
             
             
           }),
           photo:"",
           roles:[],
-          services: [],
+          infirmier: [],
 
       }
   },
 
   mounted(){
         this.get_role();
-        this.get_service();
+        this.get_infirmier();
 
     },
 
@@ -210,7 +210,7 @@ import Swal  from 'sweetalert2';
             // this.form.lieu_naissance="";
             // this.form.nationalite="";
             this.form.id_role="";
-            this.form.id_service="";
+            this.form.id_infirmier="";
             
         },
 
@@ -223,12 +223,12 @@ import Swal  from 'sweetalert2';
             });
         },
 
-        get_service(){
-            axios.get('/services/index')
+        get_infirmier(){
+            axios.get('/infirmier/index')
             .then(response =>{
-                this.services=response.data.service
+                this.infirmier=response.data.infirmier
             }).catch(error=>{
-                Swal.fire('Erreur!', 'une erreur est survenue lors de la recupperation des services', 'error')
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recupperation des infirmier', 'error')
             });
         },
 

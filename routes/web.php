@@ -180,6 +180,7 @@ Route::delete('dossier_medical/delete/{id}',[dossier_medical_controller::class, 
 Route::get('dossier_medical/get/{id}',[dossier_medical_controller::class, 'get'])->name('dossier_medical_get');
 
 Route::get('/dossier_medical/create',[dossier_medical_view_controller::class, 'create'])->name('dossier_medical_create');
+Route::get('/dossier_medical/accueil',[dossier_medical_view_controller::class, 'accueil'])->name('dossier_medical_accueil');
 
 //Route de infirmier
 
@@ -190,6 +191,7 @@ Route::delete('infirmier/delete/{id}',[infirmier_controller::class, 'delete'])->
 Route::get('infirmier/get/{id}',[infirmier_controller::class, 'get'])->name('infirmier_get');
 
 Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->name('infirmier_create');
+Route::get('infirmier/accueil', [infirmier_view_controller::class, 'accueil'])->name('infirmier_accueil');
 
 
 //Route unite de formation

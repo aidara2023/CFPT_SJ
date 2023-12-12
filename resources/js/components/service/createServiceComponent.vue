@@ -69,6 +69,7 @@
         mounted(){
             this.get_user();
             this.get_direction();
+            
             bus.on('serviceModifier', (eventData) => {
             this.idService = eventData.idService;
             this.editModal = eventData.editModal;

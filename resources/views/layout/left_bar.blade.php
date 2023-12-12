@@ -57,7 +57,7 @@
             </ul>
         </li>
 
-          
+
             <li class="fntr"><a href="{{route('service_accueil')}}">
                 <div>
                     <i class="fi fi-rr-money-bill-wave"></i>
@@ -131,6 +131,7 @@
         </ul>
      </nav>
     @endif
+
     @if (Auth::user()->id_role==4)
 
     <nav class="flou ">
@@ -187,12 +188,52 @@
                 <li class="fntr actif"><a href="#"><i class="fi fi-rr-home"></i><span>Inscription</span></a></li>
                 <li class="fntr"><a href="{{route('paiement_create')}}"><i class="fi fi-rr-user"></i><span >inscription</span></a></li>
                 <li class="fntr"><a href="#"><i class="fi fi-rr-graduation-cap"></i><span>Inscription</span></a></li>
-
                 <li class="fntr"><a href="{{route('logout')}}"><i class="fi fi-rr-sign-out-alt"></i><span>inscription</span></a></li>
             </ul>
         </nav>
    
     @endif
+
+
+    @if (Auth::user()->id_role==6)
+
+    <nav class="flou ">
+        <ul>
+            <li class="fntr"><a href="{{route('infirmier_accueil')}}">
+                <div>
+                    <i class="fi fi-rr-home"></i>
+                    <span>Accueil</span>
+                </div>
+            </a>
+     
+        </li>
+        
+            <li class="fntr"><a href="{{route('dossier_medical_accueil')}}">
+                <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >dossier medical</span>
+                </div>
+            </a></li>
+
+            <li class="fntr"><a href="{{route('consultation_create')}}">
+                <div>
+                    <i class="fi fi-rr-money-bill-wave"></i>
+                    <span>consultation</span>
+                </div>
+            </a></li>
+
+
+            <li class="fntr"><a href="{{route('logout')}}">
+                <div>
+                    <i class="fi fi-rr-sign-out-alt"></i>
+                    <span>Me déconnecter</span>
+                </div>
+            </a></li>
+
+        </ul>
+     </nav>
+     @endif
+
     
 
 @endif

@@ -10,4 +10,8 @@ class infirmier_view_controller extends Controller
    public function create(){
         return view('infirmier.create');
    }
+
+   public function accueil(){
+      return view('infirmier.accueil');
+  }
 }

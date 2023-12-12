@@ -2,26 +2,26 @@
 
     <div class="affichage">
        <div class="avant">
-           <h1 class="texte">Service</h1>
+           <h1 class="texte">infirmier</h1>
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
 
 
-        <div class="sections" v-for="(service, index) in services" :key="index">
+        <div class="sections" v-for="(infirmier, index) in infirmiers" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
-               <p class="texte" id="n">{{ service.nom_service }} </p>
-               <p class="texte" id="n">{{ service.user.nom }}</p>
+               <p class="texte" id="n">{{ infirmier.nom_infirmier }} </p>
+               <p class="texte" id="n">{{ infirmier.user.nom }}</p>
                <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>
                         <span class="modifier">Actions</span>
 
                     </a>
-                   <a href="#" class="texte b" @click="openModal(service)">
+                   <a href="#" class="texte b" @click="openModal(infirmier)">
                        <i class="fi fi-rr-edit"></i>
                        <span class="modifier mdl">Modifier</span>
                    </a>
@@ -29,7 +29,7 @@
                        <i class="fi fi-rr-comment-alt-dots"></i>
                        <span class="details">Détails</span>
                    </a>
-                   <a href="#" class="texte b" @click="deleteService(service)" >
+                   <a href="#" class="texte b" @click="deleteinfirmier(infirmier)" >
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
@@ -59,31 +59,32 @@ import Form from 'vform';
    data(){
        return {
            form:new Form({
-               'nom_service':"",
+               'nom_infirmier':"",
                'id_user':"",
                'id_direction':""
-            }),
-           services: [],
+
+           }),
+           infirmiers: [],
            editModal: false,
-           idService: "",
+           idinfirmier: "",
        }
    },
    mounted(){
-       this.get_service();
-       bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_service(); // Mettre à jour la liste des utilisateurs
+       this.get_infirmier();
+       bus.on('infirmierAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+           this.get_infirmier(); // Mettre à jour la liste des utilisateurs
        });
    },
 
 methods:{       
-       get_service(){
-           axios.get('/service/index')
+       get_infirmier(){
+           axios.get('/infirmier/index')
            .then(response => {
-               this.services=response.data.service
+               this.infirmiers=response.data.infirmier
 
 
            }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
+           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des infirmiers','error')
            });
        },
 
@@ -93,10 +94,10 @@ methods:{
 
        resetForm(){
            this.form.input="";
-           this.form.nom_service="";
+           this.form.nom_infirmier="";
        },
 
-       async deleteService(type) {
+       async deleteinfirmier(type) {
            Swal.fire({
                title: 'Êtes-vous sûr?',
                text: "Cette action sera irréversible!",
@@ -108,12 +109,12 @@ methods:{
                cancelButtonText: 'Annuler'
            }).then((result) => {
                if (result.isConfirmed) {
-                   axios.delete(`/service/delete/${type.id}`).then(resp => {
-                       this.get_service();
+                   axios.delete(`/infirmier/delete/${type.id}`).then(resp => {
+                       this.get_infirmier();
 
                    /*     Swal.fire(
                            'Supprimé!',
-                           'Le service a été supprimé avec succès.',
+                           'Le infirmier a été supprimé avec succès.',
                            'success',
                        ) */
                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
@@ -142,23 +143,23 @@ methods:{
                }
            });
        },
-       openModal(service) {
+       openModal(infirmier) {
           
-          this.idService=service.id;
+          this.idinfirmier=infirmier.id;
 
           this.editModal = true;
 
           // Créez un objet avec les données à envoyer
           const eventData = {
-              idService: this.idService,
-              nom: service.nom_service,
-              id_user: service.id_user,
-              id_direction: service.id_direction,
+              idinfirmier: this.idinfirmier,
+              nom: infirmier.nom_infirmier,
+              id_user: infirmier.id_user,
+              id_direction: infirmier.id_direction,
               editModal: this.editModal,
               // Ajoutez d'autres propriétés si nécessaire
           };
 
-          bus.emit('serviceModifier', eventData);
+          bus.emit('infirmierModifier', eventData);
 
           var fond = document.querySelector('.fond');
           var flou = document.querySelectorAll('.flou');

@@ -58,7 +58,7 @@ class connexion_controller extends Controller
     
             }
             elseif($role=="Infirmier"){
-                $url='/infirmier/index';
+                $url='/infirmier/accueil';
                 return response([
                     'url'=>$url, 
                     'user'=>$user

@@ -8,7 +8,7 @@
         @include('layout.header')
     </div>
 
-     <liste-service></liste-service>
+        <liste-infirmier></liste-infirmier>
 
     <!-- debut modal pour modifier utilisateur -->
     <dialog data-modal-modification class="modal">
@@ -23,6 +23,7 @@
                     <input type="date" name="date_naissance" id="date_naissance" placeholder="Jour/Mois/Annee">
                     <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance">
                 </div>
+
                 <div class="sexe">
                     <span class="b2">Sexe</span>
                     <label for="masculin">Masculin
@@ -34,6 +35,7 @@
                         <input type="radio" name="sexe" id="feminin" value="feminin" >
                     </label>
                 </div>
+
                 <div class="num-addr">
                     <input type="tel" name="telephone" id="telephone" placeholder="Tel : 77 234 48 43">
                     <input type="text" name="adresse" id="adresse" placeholder="Adresse">
@@ -47,7 +49,7 @@
                     <input type="tel" name="contact_urgence_1" id="contact_urgence_1" placeholder="Contact d'urgence 1">
                     <input type="tel" name="contact_urgence_2" id="contact_urgence_2" placeholder="Contact d'urgence 2">
                 </div>
-                <h1 class="sous_titre">Informations Académiques</h1>
+                 <h1 class="sous_titre">Informations Académiques</h1>
                 <div class="academiques">
                     <select name="niveau" id="niveau" aria-placeholder="Niveau">
                         <optgroup label="BTI">
@@ -110,7 +112,7 @@
 
 
   <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
-        <service-create></service-create>
+        <infirmier-create></infirmier-create>
    <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
@@ -132,21 +134,21 @@
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service ajouté avec succès</p>
+        <p class="">infirmier ajouté avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service supprimé avec succès</p>
+        <p class="">infirmier supprimé avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-modifier class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service modifier avec succès</p>
+        <p class="">infirmier modifier avec succès</p>
     </dialog>
 
 </div>

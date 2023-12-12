@@ -14,7 +14,6 @@ import listeUserComponent from './components/utilisateur/listeUserComponent.vue'
 
 import createEleveComponent from './components/eleve/createEleveComponent.vue';
 
-import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
 
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
@@ -69,10 +68,16 @@ import listePaiementComponent from './components/paiement/listePaiementComponent
 
 import createAnneeComponent from './components/annee_academique/createAnneeComponent.vue';
 import createSeminaireComponent from './components/seminaire/createSeminaireComponent.vue';
+
 import createDossierMedicalComponent from './components/dossier_medical/createDossierMedicalComponent.vue';
+import listeDossierMedicalComponent from './components/dossier_medical/listeDossierMedicalComponent.vue';
 
 import createServiceComponent from './components/service/createServiceComponent.vue';
 import listeServiceComponent from './components/service/listeServiceComponent.vue';
+
+import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
+import listeInfirmierComponent from './components/infirmier/listeInfirmierComponent.vue';
+
 
 import createDirectionComponent from './components/direction/createDirectionComponent.vue';
 import listeDirectionComponent from './components/direction/listeDirectionComponent.vue';
@@ -111,8 +116,6 @@ app.component("liste-utilisateur", listeUserComponent);
 
 app.component("create-eleve", createEleveComponent);
 
-app.component("create-infirmier",createInfirmierComponent);
-
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
 app.component("create-bibliothecaire", createBibliothecaireComponent);
@@ -147,7 +150,10 @@ app.component("type-formation-liste",listeTypeFormationComponent);
 
 app.component("type-materiel-create", createTypeMaterielComponent);
 app.component("unite-de-formation-create", createUniteDeFormationComponent);
+
 app.component("dossier-medical-create", createDossierMedicalComponent);
+app.component("dossier-medical-liste", listeDossierMedicalComponent);
+
 app.component("exemplaire-create", createExemplaireComponent);
 app.component("emprunter-livre-create", createEmprunterLivreComponent);
 app.component("emprunter-materiel-create", createEmprunterMaterielComponent);
@@ -169,6 +175,9 @@ app.component("annee-create", createAnneeComponent);
 
 app.component("service-create", createServiceComponent);
 app.component("liste-service", listeServiceComponent);
+
+app.component("infirmier-create", createInfirmierComponent);
+app.component("liste-infirmier", listeInfirmierComponent);
 
 app.component("direction-create", createDirectionComponent);
 app.component("liste-direction", listeDirectionComponent);
