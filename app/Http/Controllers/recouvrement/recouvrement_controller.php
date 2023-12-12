@@ -10,21 +10,23 @@ use Illuminate\Http\Request;
 class recouvrement_controller extends Controller
 {
     public function filtre(Request $request){
-        $id_annee_academique=$request->input('id_annee_academique');
+/*         $id_annee_academique=$request->input('id_annee_academique');
         $id_mois=$request->input('id_mois');
         $id_departement=$request->input('id_depertement');
         $id_unite_de_formation=$request->input('id_unite_de_formation');
-        $id_classe=$request->input('id_classe');
+        $id_classe=$request->input('id_classe'); */
 
-        $inscriptions=Eleve:: with('inscription.classe.type_formation', 'eleve.user')->get(); 
-
+        $inscriptions=Eleve:: with('inscription.classe.type_formation', 'user', 'inscription.classe')->get(); 
+     
         $filters = $request->all();
         $eleve_non_payers= [];
         $inscription_eleve_non_payant=[];
-        $query = Paiement::with('eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique' , 'eleve.inscription.classe.unite_de_formation.departement');
-
+        $query = Paiement::with('eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique' , 'eleve.inscription.classe.unite_de_formation.departement')->get();
+     
    foreach($inscriptions as $inscription){
-    if(($inscription->inscription->classe->type_classe == "FPJ" || $inscription->inscription->classe->type_classe == "CS")){
+    //dd($inscriptions->inscription->classe);
+    if(($inscription->type_classe == "FPJ" || $inscription->inscription->classe->type_classe == "CS")){
+        //dd($inscription);
         foreach($query as $paiement){
           /*   if($inscription->inscription->classe->type_formation->intitule == "BTI"  ){
                 $inscription_bti []= $inscription->eleve; */
@@ -71,7 +73,7 @@ class recouvrement_controller extends Controller
                         }
                     }
             
-                    $eleve_non_payers = $query->get();
+                    //$eleve_non_payers = $query->get();
                 }
                /*  else{
                     $eleve_non_payer_bti []= $paiement;

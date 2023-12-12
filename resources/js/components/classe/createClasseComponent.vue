@@ -24,9 +24,9 @@
                     <div class="champ">
                         <label for="nom" :class="{ 'couleur_rouge': (this.type_classe_erreur)} ">Type classe</label>
                         <select v-model="form.type_classe " @change="validatedata('type_classe')" :class="{ 'bordure_rouge': (this.type_classe_erreur)} ">
-                                <option  value="Non payant">CJ</option>
-                                <option  value="Payant Jour">FPJ</option>
-                                <option  value="Payant soir">CS</option>
+                                <option  value="CJ">CJ</option>
+                                <option  value="FPJ">FPJ</option>
+                                <option  value="CS">CS</option>
                             </select>
                             <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
                     </div>
