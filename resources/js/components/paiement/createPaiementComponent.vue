@@ -57,7 +57,7 @@
                             <select name="annee_academique" id="annee_academique" v-model="paie.id_annee_academique" :class="{ 'bordure_rouge': (this.id_annee_academique_erreur)} " @change="validatedata('id_annee_accademique')">
                                 <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
                             </select>
-                            <span class="erreur">{{id_annee_academique_erreur}}></span>
+                            <span class="erreur">{{id_annee_academique_erreur}}</span>
                         </div>
 
                         <div class="champ">
@@ -65,13 +65,13 @@
                             <select name="mois" id="mois" v-model="paie.id_mois" :class="{ 'bordure_rouge': (this.id_mois_erreur)} " @change="validatedata('id_mois')">
                                 <option v-for="m in mois" :value="m.id">{{ m.intitule }} </option>
                             </select>
-                            <span class="erreur">{{id_mois_erreur}}></span>
+                            <span class="erreur">{{id_mois_erreur}}</span>
                         </div>
 
                         <div class="champ">
                             <label for="nom" :class="{ 'couleur_rouge': (this.montant_erreur)} ">Montant</label>
                             <input type="number" v-model="paie.montant" @input="validatedata('montant')">
-                            <span class="erreur">{{montant_erreur}}></span>
+                            <span class="erreur">{{montant_erreur}}</span>
                         </div>
                 </div>
                 </div>
