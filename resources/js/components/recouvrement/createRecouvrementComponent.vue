@@ -130,13 +130,20 @@ export default {
                 const response = await axios.post('/recouvrement/filtre', formdata);
                 // Traitez la réponse de l'API selon vos besoins
                 console.log(response.data);
+                
+            const eventData = {
+              matricule: response.data.eleve_non_payers.matricule,
+              nom: response.data.eleve_non_payers.nom,
+              idEleve: response.data.eleve_non_payers.id_eleve,
+              prenom: response.data.eleve_non_payers.prenom,
+              //editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          };
+
+          bus.emit('nouveauFiltre', eventData);
             } catch (error) {
                 console.error('Une erreur s\'est produite lors de la récupération des données filtrées.', error);
             }
-
-
-
-
         },
 
         get_annee_academique() {
