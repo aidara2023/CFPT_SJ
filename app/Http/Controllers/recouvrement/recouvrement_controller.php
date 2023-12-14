@@ -98,7 +98,7 @@ class recouvrement_controller extends Controller
             //dd($eleves);
             foreach ($eleves->inscription ?? [] as $eleve) {
                 $user = optional($eleve->eleve)->user;
-                //dd($user);
+               
         
                 $classe = optional($eleve->classe);
                 
@@ -117,9 +117,11 @@ class recouvrement_controller extends Controller
                     $hasPaiement = $hasPaiement && $classeUnite && optional($classeUnite->departement)->id == $id_departement;
         
                     if (!$hasPaiement) {
+                        //dd(($eleve->eleve)->user->matricule);
                         $eleve_non_payers[] = [
                             'id_eleve' => $eleve->id,
                             'matricule' => optional($eleve->eleve)->user->matricule,
+                            'photo' => optional($eleve->eleve)->user->photo,
                             'nom' => optional($eleve->eleve)->user->nom,
                             'prenom' => optional($eleve->eleve)->user->prenom,
                         ];

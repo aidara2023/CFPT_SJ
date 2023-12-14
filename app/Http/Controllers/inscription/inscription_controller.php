@@ -97,8 +97,9 @@ class inscription_controller extends Controller
          /* Uploader une image */
          $image= $request->file('photo');
          $imageName=time() . '_' . $image->getClientOriginalName();
-         $image->move(public_path('image'), $imageName);
-         $eleve_user->photo=$image;
+        /*  $image->move(public_path('image'), $imageName);
+         $eleve_user->photo=$image; */
+         $eleve_user->photo= $image->storeAs('public/image', $imageName);
          /* Fin upload */
 
         $roleEleve= Role::where('intitule', 'Eleve')->first();
