@@ -144,8 +144,9 @@ class user_controller extends Controller
         /* Uploader une image */
         $image= $request->file('photo');
         $imageName=time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('image'), $imageName);
-        $user->photo=$image;
+        //$image->move(public_path('image'), $imageName);
+        $user->photo= $image->storeAs('image', $imageName, 'public');
+        //$user->photo=$imageName;
         /* Fin upload */
 
         $user->id_role=$request['id_role'];
@@ -209,8 +210,9 @@ class user_controller extends Controller
            if($request->hasFile('photo')){
             $image= $request->file('image');
             $imageName=time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('image'), $imageName);
-            $user->photo=$imageName;
+            //$image->move(public_path('image'), $imageName);
+            $user->photo= $image->storeAs('image', $imageName, 'public');
+            //$user->photo=$imageName;
            }
 
            $user->date_naissance=$request['date_naissance'];

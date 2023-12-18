@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 import Swal from 'sweetalert2';
@@ -129,14 +130,22 @@ export default {
             try {
                 const response = await axios.post('/recouvrement/filtre', formdata);
                 // Traitez la réponse de l'API selon vos besoins
-                console.log(response.data);
+               /*  console.log(response.data); */
+               //console.log(response.data.eleve_non_payer);
+                
+            const eventData = {
+              eleve_non_payers:response.data.eleve_non_payer
+
+              //editModal: this.editModal,
+              // Ajoutez d'autres propriétés si nécessaire
+          }; 
+
+          bus.emit('nouveauFiltre', eventData);
+          this.closeModal();
+
             } catch (error) {
-                console.error('Une erreur s\'est produite lors de la récupération des données filtrées.', error);
+                console.log( error);
             }
-
-
-
-
         },
 
         get_annee_academique() {
@@ -301,9 +310,9 @@ export default {
 
         },
 
-        closeModal(selector) {
+        closeModal() {
             var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
+            //var confirmation = document.querySelector(selector);
 
             if (this.etatForm == true) {
                 var actif = document.querySelectorAll('.actif');
@@ -319,7 +328,7 @@ export default {
 
             this.editModal === false;
 
-            confirmation.style.backgroundColor = 'white';
+           /*  confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
 
             confirmation.showModal();
@@ -331,7 +340,7 @@ export default {
                     confirmation.classList.remove("actif");
                 }, 100);
 
-            }, 1700);
+            }, 1700); */
         },
 
 

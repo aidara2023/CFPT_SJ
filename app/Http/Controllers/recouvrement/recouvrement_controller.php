@@ -9,102 +9,219 @@ use Illuminate\Http\Request;
 
 class recouvrement_controller extends Controller
 {
-    public function filtre(Request $request){
-/*         $id_annee_academique=$request->input('id_annee_academique');
-        $id_mois=$request->input('id_mois');
-        $id_departement=$request->input('id_depertement');
-        $id_unite_de_formation=$request->input('id_unite_de_formation');
-        $id_classe=$request->input('id_classe'); */
+    /*   public function filtre(Request $request)
+    {
+        $id_annee_academique = $request->input('id_annee_academique');
+        $id_mois = $request->input('id_mois');
+        $id_departement = $request->input('id_departement');
+        $id_unite_de_formation = $request->input('id_unite_de_formation');
+        $id_classe = $request->input('id_classe');
 
-        $inscriptions=Eleve:: with('inscription.classe.type_formation', 'user', 'inscription.classe')->get(); 
-     
-        $filters = $request->all();
-        $eleve_non_payers= [];
-        $inscription_eleve_non_payant=[];
-        $query = Paiement::with('eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique' , 'eleve.inscription.classe.unite_de_formation.departement')->get();
-     
-   foreach($inscriptions as $inscription){
-    //dd($inscriptions->inscription->classe);
-    if(($inscription->type_classe == "FPJ" || $inscription->inscription->classe->type_classe == "CS")){
-        //dd($inscription);
-        foreach($query as $paiement){
-          /*   if($inscription->inscription->classe->type_formation->intitule == "BTI"  ){
-                $inscription_bti []= $inscription->eleve; */
-                if($paiement->id_eleve != $inscription->eleve->id){
-                    foreach ($filters as $filterName => $filterValues) {
-                        if (!empty($filterValues)) {
-                            switch ($filterName) {
-                                case 'id_annee_academique':
-                                    $query->whereHas('concerner.annee_academique', function ($query) use ($filterValues) {
-                                        $query->whereIn('id', $filterValues);
-                                    });
-                                    break;
-            
-                                case 'id_mois':
-                                    $query->whereHas('concerner.mois', function ($query) use ($filterValues) {
-                                        $query->whereIn('id', $filterValues);
-                                    });
-                                    break;
-            
-                                case 'id_departement':
-                                    $query->whereHas('eleve.inscription.classe.unite_de_formation.departement', function ($query) use ($filterValues) {
-                                        $query->whereIn('id', $filterValues);
-                                    });
-                                    break;
+        $eleve_non_payers = [];
 
-                                case 'id_unite_de_formation':
-                                    $query->whereHas('eleve.inscription.classe.unite_de_formation', function ($query) use ($filterValues) {
-                                        $query->whereIn('id', $filterValues);
-                                    });
-                                    break;
+        $inscriptions = Eleve::with('inscription.classe.type_formation', 'user', 'inscription.classe')->get();
+        $paiements = Paiement::with('eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique', 'eleve.inscription.classe.unite_de_formation.departement')->get();
 
-                                    case 'id_classe':
-                                        $query->whereHas('eleve.inscription.classe', function ($query) use ($filterValues) {
-                                            $query->whereIn('id', $filterValues);
-                                        });
-                                        break;
-            
-                                // Ajoutez d'autres cas pour d'autres critères de filtrage...
-            
-                                default:
-                                    // Gérer d'autres cas si nécessaire...
-                                    break;
-                            }
+        foreach ($inscriptions as $inscription) {
+            foreach ($inscription->inscription as $inscriptionItem) {
+                $classe = $inscriptionItem->classe;
+
+                if (($classe->type_classe == "FPJ" || $classe->type_classe == "CS")) {
+                    $elevePaye = $paiements->contains('id_eleve', $inscriptionItem->eleve->id);
+
+                    if (!$elevePaye) {
+                        $hasFilters = $paiements->filter(function ($paiement) use ($id_annee_academique, $id_mois, $id_departement, $id_unite_de_formation, $id_classe, $inscriptionItem) {
+                            return $paiement->when($id_annee_academique, function ($query) use ($id_annee_academique) {
+                                $query->whereHas('concerner.annee_academique', function ($query) use ($id_annee_academique) {
+                                    $query->whereIn('id', (array) $id_annee_academique);
+                                });
+                            })
+                            ->when($id_mois, function ($query) use ($id_mois) {
+                                $query->whereHas('concerner.mois', function ($query) use ($id_mois) {
+                                    $query->whereIn('id', (array) $id_mois);
+                                });
+                            })
+                            ->when($id_departement, function ($query) use ($id_departement) {
+                                $query->whereHas('eleve.inscription.classe.unite_de_formation.departement', function ($query) use ($id_departement) {
+                                    $query->whereIn('id', (array) $id_departement);
+                                });
+                            })
+                            ->when($id_unite_de_formation, function ($query) use ($id_unite_de_formation) {
+                                $query->whereHas('eleve.inscription.classe.unite_de_formation', function ($query) use ($id_unite_de_formation) {
+                                    $query->whereIn('id', (array) $id_unite_de_formation);
+                                });
+                            })
+                            ->when($id_classe, function ($query) use ($id_classe) {
+                                $query->whereHas('eleve.inscription.classe', function ($query) use ($id_classe) {
+                                    $query->whereIn('id', (array) $id_classe);
+                                });
+                            })
+                            ->exists();
+                        });
+
+                        if ($hasFilters) {
+                            $eleve_non_payers[] = $inscriptionItem->eleve->id;
+                            break; // Sortir de la boucle dès qu'un élève non payeur est trouvé
                         }
                     }
-            
-                    //$eleve_non_payers = $query->get();
                 }
-               /*  else{
-                    $eleve_non_payer_bti []= $paiement;
-                }  */                                                                                                                                                                                                                                                                                                                                                                      
-          /*   }else{ */
-             /*    $inscription_bts []= $inscription->eleve;
-                if($paiement->id_eleve == $inscription->eleve->id){
-                    $eleve_payer_bts []= $paiement;
-                } */
-                /* else{
-                    $eleve_non_payer_bts []= $paiement;
-                } */
-           /*  } */
+            }
         }
-    }else{
-        $inscription_eleve_non_payant []= $inscription->eleve;
-    }
-   }
-   if($inscriptions!=null){
-    return response()->json([
-        'statut'=>200,
-       
-        'eleve_non_payer'=>$eleve_non_payers,
+        dd($eleve_non_payers);
         
+        if (!empty($eleve_non_payers)) {
+            return response()->json([
+                'statut' => 200,
+                'eleve_non_payer' => $eleve_non_payers,
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    } */
+ /*    public function filtre(Request $request)
+    {
+        $id_annee_academique = $request->input('id_annee_academique');
+        $id_mois = $request->input('id_mois');
+        $id_departement = $request->input('id_departement');
+        $id_unite_de_formation = $request->input('id_unite_de_formation');
+        $id_classe = $request->input('id_classe');
 
-    ],200)  ;
-}else{
-    return response()->json([ 
-        'statut'=>500,
-        'message'=>'Aucune donnée trouvée',
-    ],500 );
-}
+        $eleve_non_payers = [];
+        //dd($request->all());
+
+        $elevess = Eleve::with('inscription.classe.type_formation', 'user', 'inscription.classe.unite_de_formation.departement')->get();
+        $paiements = Paiement::with('concerner.mois', 'concerner.annee_academique', 'eleve.inscription.classe.unite_de_formation')->get();
+
+        foreach ($elevess as $eleves) {
+            //dd($eleves);
+            foreach ($eleves->inscription ?? [] as $eleve) {
+                $user = optional($eleve->eleve)->user;
+               
+        
+                $classe = optional($eleve->classe);
+                
+               
+        
+                if ($classe && ($classe->type_classe == "FPJ" || $classe->type_classe == "CS")) {
+                    $paiementEleve = $paiements->where('id_eleve', $eleve->id)->first();
+                    
+                    // Vérifier si l'élève a des paiements correspondant aux critères
+                    $hasPaiement = $paiementEleve &&
+                        $paiementEleve->concerner->where('id_annee_academique', $id_annee_academique)->where('id_mois', $id_mois)->count() > 0;
+        
+                    $classeUnite = optional($classe->unite_de_formation);
+        
+                    // Vérifier la présence de 'unite_de_formation' avant d'accéder à 'departement'
+                    $hasPaiement = $hasPaiement && $classeUnite && optional($classeUnite->departement)->id == $id_departement;
+        
+                    if (!$hasPaiement) {
+                        //dd(($eleve->eleve)->user->matricule);
+                        $eleve_non_payers[] = [
+                            'id_eleve' => $eleve->id,
+                            'matricule' => optional($eleve->eleve)->user->matricule,
+                            'photo' => optional($eleve->eleve)->user->photo,
+                            'nom' => optional($eleve->eleve)->user->nom,
+                            'prenom' => optional($eleve->eleve)->user->prenom,
+                        ];
+                    }
+                }
+            }
+        }
+        
+        
+        //dd($eleve_non_payers);
+
+        if (!empty($eleve_non_payers)) {
+            return response()->json([
+                'statut' => 200,
+                'eleve_non_payer' => $eleve_non_payers,
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    } */
+
+    public function filtre(Request $request)
+    {
+        $id_annee_academique = $request->input('id_annee_academique');
+        $id_mois = $request->input('id_mois');
+        $id_departement = $request->input('id_departement');
+        $id_unite_de_formation = $request->input('id_unite_de_formation');
+        $id_classe = $request->input('id_classe');
+    
+        $eleve_non_payers = [];
+    
+        $elevess = Eleve::with('inscription.classe.type_formation', 'user', 'inscription.classe.unite_de_formation.departement')
+            ->whereHas('inscription.classe', function ($query) use ($id_classe, $id_unite_de_formation, $id_departement) {
+                $query->when($id_classe, function ($q) use ($id_classe) {
+                    $q->whereIn('id', (array) $id_classe);
+                })
+                ->when($id_unite_de_formation, function ($q) use ($id_unite_de_formation) {
+                  /*   $q->whereHas('inscription.classe.unite_de_formation', function ($q) use ($id_unite_de_formation) {
+                        $q->whereIn('id', (array) $id_unite_de_formation);
+                    }); */
+                })
+                ->when($id_departement, function ($q) use ($id_departement) {
+                  /*   $q->whereHas('inscription.classe.unite_de_formation.departement', function ($q) use ($id_departement) {
+                        $q->whereIn('id', (array) $id_departement);
+                    }); */
+                });
+            })
+            ->get();
+            dd($elevess);
+    
+        // Charger les paiements en fonction des critères
+        $paiements = Paiement::with('concerner.mois', 'concerner.annee_academique', 'eleve.inscription.classe.unite_de_formation')
+            ->whereHas('concerner', function ($query) use ($id_annee_academique, $id_mois) {
+                $query->when($id_annee_academique, function ($q) use ($id_annee_academique) {
+                    $q->whereIn('id_annee_academique', (array) $id_annee_academique);
+                })
+                ->when($id_mois, function ($q) use ($id_mois) {
+                    $q->whereIn('id_mois', (array) $id_mois);
+                });
+            })
+            ->get();
+    
+        foreach ($elevess as $eleve) {
+            $classe = optional($eleve->inscription->classe);
+            $classeUnite = optional($classe->unite_de_formation);
+    
+            if ($classe && ($classe->type_classe == "FPJ" || $classe->type_classe == "CS")) {
+                $paiementEleve = $paiements->where('id_eleve', $eleve->id)->first();
+    
+                $hasPaiement = $paiementEleve && $paiementEleve->concerner->count() > 0;
+    
+                if (!$hasPaiement) {
+                    $eleve_non_payers[] = [
+                        'id_eleve' => $eleve->id,
+                        'matricule' => $eleve->user->matricule,
+                        'photo' => $eleve->user->photo,
+                        'nom' => $eleve->user->nom,
+                        'prenom' => $eleve->user->prenom,
+                    ];
+                }
+            }
+        }
+    
+        if (!empty($eleve_non_payers)) {
+            return response()->json([
+                'statut' => 200,
+                'eleve_non_payer' => $eleve_non_payers,
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
     }
+    
+
 }
+
