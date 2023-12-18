@@ -367,6 +367,7 @@ export default {
                 const user_store = await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
+                //this.closeModal('[data-modal-confirmation-modifier]');
 
             }
             catch (e) {

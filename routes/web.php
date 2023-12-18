@@ -660,3 +660,8 @@ Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPe
 
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
+
+
+Route::get('recherche/code',[caissier_controller::class, 'recherche_id_inscription'])->name('recherche_id_inscription');
+Route::post('caissier/valider-inscription/{id}' ,[caissier_controller::class, 'validerInscription'])->name('validerInscription');
