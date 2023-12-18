@@ -1,7 +1,7 @@
 <template>
     <dialog data-modal-ajout class="modal">
         <div class="titres">
-             <h1>Ajout direction</h1>
+             <h1>Nouvelle Direction</h1>
             <!--  <h3>Informations Personnelles</h3> -->
          </div>
 
@@ -10,7 +10,7 @@
           <!--Informations personnelles-->
         <div class="informations">
             <div class="titres">
-                <h1>Ajout direction</h1>
+                <h1>Nouvelle direction</h1>
             </div>
 
             <div class="champ">

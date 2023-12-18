@@ -57,7 +57,7 @@
                             <select name="annee_academique" id="annee_academique" v-model="paie.id_annee_academique" :class="{ 'bordure_rouge': (this.id_annee_academique_erreur)} " @change="validatedata('id_annee_accademique')">
                                 <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
                             </select>
-                            <span class="erreur">{{id_annee_academique_erreur}}</span>
+                            <span class="erreur">{{id_annee_academique_erreur}}></span>
                         </div>
 
                         <div class="champ">
