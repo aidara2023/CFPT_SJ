@@ -145,7 +145,7 @@ class user_controller extends Controller
         $image= $request->file('photo');
         $imageName=time() . '_' . $image->getClientOriginalName();
         //$image->move(public_path('image'), $imageName);
-        $user->photo= $image->storeAs('public/image', $imageName);
+        $user->photo= $image->storeAs('image', $imageName, 'public');
         //$user->photo=$imageName;
         /* Fin upload */
 
@@ -211,7 +211,7 @@ class user_controller extends Controller
             $image= $request->file('image');
             $imageName=time() . '_' . $image->getClientOriginalName();
             //$image->move(public_path('image'), $imageName);
-            $user->photo= $image->storeAs('public/image', $imageName);
+            $user->photo= $image->storeAs('image', $imageName, 'public');
             //$user->photo=$imageName;
            }
 

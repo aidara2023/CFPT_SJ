@@ -1,6 +1,5 @@
 <template>
     <div class="affichage">
-
         <div class="sections">
             <div class="utilisateurnv"
                 style="height: 60px;align-items: flex-start;/* grid-template-columns: 2fr 1fr; */border: none;">
@@ -50,7 +49,7 @@
             <div class="utilisateurnv" v-if="eleves.length > 0" v-for="eleve in eleves">
                 <!-- informations sur l'utilisateur  -->
                 <div class="info" >
-                    <img :src="eleve.photo" alt="{{eleve.photo}}" class="petite">{{eleve.photo}}
+                    <img :src="getImageUrl(eleve.photo)" alt="" class="petite">{{eleve.photo}}
                     <p class="texte matricule">{{ eleve.matricule }}</p>
                     <p class="texte prenom">{{ eleve.prenom }}</p>
                     <p class="texte nom">{{ eleve.nom }}</p>
@@ -122,10 +121,14 @@ export default {
     },
  
     methods: {
-        getImageUrl(url){
-            const timestamp= new Date().getTime;
-            return url ? `${window.location.origin}/storage/${url}?t=${timestamp} ` : '';
-        },
+       /*  getImageUrl(url){
+            const timestamp= new Date().getTime();
+            return url ? `${window.location.origin}/storage/app/${url}?t=${timestamp} ` : '';
+        }, */
+
+        getImageUrl(url) {
+            return url ? `${window.location.origin}/storage/${url}` : '';
+        }
 
     } 
 }
