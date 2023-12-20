@@ -144,8 +144,15 @@
             </div>
         </dialog>
     
-        <dialog data-modal-filtre class="modal" >
+        <dialog data-modal-filtre class="modal actif" >
             <recouvrement-create></recouvrement-create>
+        </dialog>
+
+        <dialog data-modal-recouvrement-payer class="modal">
+            <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+            <h1>Echec !</h1>
+            <br>
+            <p class="">Pas d'impayer pour ce mois</p>
         </dialog>
     
     </div>

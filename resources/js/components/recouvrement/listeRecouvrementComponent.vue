@@ -27,7 +27,8 @@
             <div class="utilisateurnv" style="color: var(--clr);" v-if="eleves.length > 0">
                 <!-- informations sur l'utilisateur  -->
                 <div class="info">
-                    <img src="" alt="" class="petite">
+                    <!-- <img src="" alt="" class="petite"> -->
+                    <p class="texte image">Image</p>
                     <p class="texte matricule">Matricule</p>
                     <p class="texte prenom">Prénom </p>
                     <p class="texte nom">Nom</p>
@@ -38,18 +39,18 @@
                 <!-- Informations sur le paiement -->
                 <div class="paiement">
                     <!-- <p class="texte montant">Montant</p> -->
-                    <p class="texte statut" style="background-color: transparent;height: auto;">Statut</p>
-
+                   <!--  <p class="texte statut" style="background-color: transparent;height: auto;">Statut</p>
+ -->
                     <p class="texte date">Date</p>
                 </div>
 
                 <!-- actions -->
-                <p class="actions texte" style="height: fit-content;">Actions</p>
+                <!-- <p class="actions texte" style="height: fit-content;">Actions</p> -->
             </div>
             <div class="utilisateurnv" v-if="eleves.length > 0" v-for="eleve in eleves">
                 <!-- informations sur l'utilisateur  -->
                 <div class="info" >
-                    <img :src="getImageUrl(eleve.photo)" alt="" class="petite">{{eleve.photo}}
+                    <img :src="getImageUrl(eleve.photo)" alt="" class="petite">
                     <p class="texte matricule">{{ eleve.matricule }}</p>
                     <p class="texte prenom">{{ eleve.prenom }}</p>
                     <p class="texte nom">{{ eleve.nom }}</p>
@@ -57,11 +58,11 @@
                 </div>
 
                 <!-- Informations sur le paiement -->
-                <!--  <div class="paiement">
-            <p class="texte b montant">700.000</p>
-            <div class="statut paye"></div>
+                  <div class="paiement">
+            <!-- <p class="texte b montant">700.000</p> -->
+           <!--  <div class="statut paye"></div> -->
             <p class="texte date">12/11/2023</p>
-        </div> -->
+        </div>
 
                 <!-- actions -->
                 <!--   <div class="actions">
@@ -117,6 +118,7 @@ export default {
         bus.on('nouveauFiltre', (eventData) => {
             this.eleves=eventData.eleve_non_payers;
         });
+        
         console.log(this.eleves) 
     },
  
