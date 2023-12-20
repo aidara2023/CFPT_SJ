@@ -14,5 +14,9 @@ class caissier_view_controller extends Controller
     public function accueil(){
         return view('caissier.index');
     }
+
+    public function inscription(){
+        return view('caissier.inscription');
+    }
      
 }

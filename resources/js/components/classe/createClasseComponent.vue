@@ -2,7 +2,7 @@
       <dialog data-modal-ajout class="modal">
 
         <div class="titres">
-            <h1 >Ajout classe</h1>
+            <h1 >Nouvelle classe</h1>
         </div>
 
         <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
