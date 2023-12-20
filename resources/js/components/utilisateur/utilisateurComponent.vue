@@ -123,7 +123,7 @@
             </div>
 
             <div class="groupe_champs validation" v-show="i_1_2_3 === 1">
-            <button type="button"  data-close-modal  ><span data-statut="visible">Annuler</span></button>
+            <button type="button"  data-close-modal  @click="resetForm"><span data-statut="visible">Annuler</span></button>
 
             <button type="button"  @click.prevent="goToStep(3)"><span data-statut="visible" >Suivant</span></button>
             </div>
@@ -215,7 +215,7 @@
             <div class="groupe_champs validation" v-show="i_1_2_3 === 3">
             <button type="button"  @click="goToStep(1)" ><span data-statut="visible">Precedent</span></button>
 
-            <button type="submit"  ><span data-statut="visible">Ajouter</span></button>
+            <button type="submit" :class="{ 'data-close-modal': (etatForm) } "><span data-statut="visible">Ajouter</span></button>
             </div>
 
 
@@ -294,8 +294,6 @@ export default {
             champ: "",
             get_id_perso_admin: "",
             get_id_perso_appui: "",
-            /*  id_personnel_appui_erreur:"",
-             id_personnel_administratif_erreur:"", */
             i: 0,
             etatForm: false,
             editModal: false,
@@ -367,6 +365,38 @@ export default {
                 const user_store = await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
+                var ajout = document.querySelector('[data-modal-ajout]');
+                var confirmation = document.querySelector('[data-modal-confirmation]');
+
+
+                /* console.log(ajout); */
+                var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                    item.classList.remove("actif");
+                });
+                //ajout.classList.remove("actif");
+                ajout.close();
+
+
+                confirmation.style.backgroundColor = 'white';
+                confirmation.style.color = 'var(--clr)';
+
+
+
+                //setTimeout(function(){
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+                //confirmation.close();
+                //}, 1000);
+
+                setTimeout(function () {
+                    confirmation.close();
+
+                    setTimeout(function () {
+                        confirmation.classList.remove("actif");
+                    }, 100);
+
+                }, 1700);
 
             }
             catch (e) {
@@ -440,11 +470,7 @@ export default {
                 });
         },
 
-        /*   
-            getImageUrl(url){
-                const timestamp= new Date().getTime;
-                return url ? `${window.location.origin}/image/${nom}?t=${timestamp} ` : '';
-            }, */
+       
         ajoutimage(event) {
             this.photo = event.target.files[0];
         },
@@ -476,7 +502,7 @@ export default {
                 else {
                     this.etatForm = true;
                     this.soumettre();
-                    this.closeModal('[data-modal-confirmation]');
+                   // this.closeModal('[data-modal-confirmation]');
                     this.editModal = false;
                 }
             }

@@ -4,7 +4,7 @@
             <h1>Nouveau paiement</h1>
          </div>
         <div>
-            <form @submit.prevent="validerAvantAjout" method="">
+            <form @submit.prevent="validerAvantAjout()" method="">
                <div class="informations">
 
                 <div class="titres">
@@ -26,10 +26,17 @@
 
                 <div v-if="form.id_eleve !== '' && selectedEleve.id">
                     <div class="champ">
+                        <label for="nom" >Prenom</label>
+                        <input type="text" v-model="selectedEleve.prenom" disabled>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" >Nom</label>
                         <input type="text" v-model="selectedEleve.nom" disabled>
                     </div>
 
                     <div class="champ">
+                        <label for="nom" >Classe</label>
                         <input type="text" v-model="selectedEleve.classe" disabled>
                     </div>
                     <div v-for="(paie, index) in form_paiement.paiement" :key="index">
@@ -53,11 +60,11 @@
                         </div>
 
                         <div class="champ">
-                            <label for="nom" :class="{ 'couleur_rouge': (this.id_annee_academique_erreur)} ">Annee</label>
-                            <select name="annee_academique" id="annee_academique" v-model="paie.id_annee_academique" :class="{ 'bordure_rouge': (this.id_annee_academique_erreur)} " @change="validatedata('id_annee_accademique')">
+                            <label for="nom" :class="{ 'couleur_rouge': (this.id_annee_accademique_erreur)} ">Annee</label>
+                            <select name="annee_academique" id="annee_academique" v-model="paie.id_annee_academique" :class="{ 'bordure_rouge': (this.id_annee_accademique_erreur)} " @change="validatedata('id_annee_accademique')">
                                 <option v-for="annee_academique in annee_academiques" :value="annee_academique.id">{{ annee_academique.intitule }}</option>
                             </select>
-                            <span class="erreur">{{id_annee_academique_erreur}}</span>
+                            <span class="erreur">{{id_annee_accademique_erreur}}</span>
                         </div>
 
                         <div class="champ">
@@ -70,7 +77,7 @@
 
                         <div class="champ">
                             <label for="nom" :class="{ 'couleur_rouge': (this.montant_erreur)} ">Montant</label>
-                            <input type="number" v-model="paie.montant" @input="validatedata('montant')">
+                            <input type="number" v-model="paie.montant"   :class="{ 'bordure_rouge': (this.montant_erreur) }" @input="validatedata('montant')">
                             <span class="erreur">{{montant_erreur}}</span>
                         </div>
                 </div>
@@ -78,7 +85,7 @@
 
                 <div class="groupe_champs validation">
                     <button type="button" data-close-modal class="texte annuler" @click="resetForm">Annuler</button>
-                    <button  type="submit">Enregistrer</button>
+                    <button  type="submit"  :class="{ 'data-close-modal': (this.etatForm) }">Enregistrer</button>
                 </div>
                </div>
             </form>
@@ -116,14 +123,16 @@ import Form from 'vform';
             selectedEleve: {
                 id: "",
                 nom: "",
+                prenom:"",
                 classe: ""
             },
             eleve_classe:"",
             id_eleve_erreur:"",
-            id_annee_academique_erreur:"",
+            id_annee_accademique_erreur:"",
             id_mois_erreur:"",
             montant_erreur:"",
             id_eleve_erreur:"",
+            etatForm : false,
 
         }
     },
@@ -162,6 +171,8 @@ import Form from 'vform';
 
         validerAvantAjout() {
              const isVerifIdValid = this.validatedataOld();
+             console.log("isVerifIdValid");
+             console.log(isVerifIdValid);
              
              if (isVerifIdValid===true) {
                  this.etatForm = false;
@@ -240,29 +251,35 @@ import Form from 'vform';
         this.id_annee_accademique_erreur= "";
         this.id_mois_erreur= "";
         this.montant_erreur="";
-        var i=0;
+        this.id_eleve_erreur = "";
+        var j=0;
 
         for (let i = 0; i < this.form_paiement.paiement.length; i++) {
             const paiement = this.form_paiement.paiement[i];
             if (paiement.id_mois === "") {
                 this.id_mois_erreur = "Vous avez oublié de sélectionner le mois pour le paiement " + (i + 1);
-                i=1;
+                j=1;
+               
             }
             if (paiement.id_annee_academique === "") {
                 this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l'\Annee Academique pour le paiement " + (i + 1);
-                i=1;
+                j=1;
+                
             }
             if (paiement.montant === "" || isNaN(paiement.montant) || paiement.montant <= 0) {
                 this.montant_erreur = "Le montant pour le paiement " + (i + 1) + " est invalide";
-                i=1;
+                j=1;
+                
             }
         }
         if (this.form.id_eleve === "") {
             this.id_eleve_erreur = "Matricule invalide "
-            i = 1;
+            j = 1;
+           
         }
+      
 
-        if(i==1) return true;
+        if(j==1) return true;
 
         return false;
     },
@@ -312,10 +329,11 @@ import Form from 'vform';
             this.search_query = eleve.matricule;
             this.selectedEleve.id = eleve.id;
             this.selectedEleve.nom = eleve.nom;
+            this.selectedEleve.prenom = eleve.prenom;
             // this.selectedEleve.classe = eleve.eleves.inscription.classe.nom_classe;
             eleve.eleves.forEach((eleve) => {
                 eleve.inscription.forEach((inscription) => {
-                    this.selectedEleve.classe=inscription.classe.nom_classe;
+                   this.selectedEleve.classe = inscription.classe.type_classe + ' ' + inscription.classe.nom_classe + ' ' + inscription.classe.niveau;
                 });
             });
             this.eleves = [];
@@ -349,6 +367,7 @@ import Form from 'vform';
             this.form_paiement.paiement.id_annee_academique="";
             this.selectedEleve.id="";
             this.selectedEleve.nom="";
+            this.selectedEleve.prenom="";
             this.selectedEleve.classe="";
             this.search_query="";
             this.eleve_classe=""
