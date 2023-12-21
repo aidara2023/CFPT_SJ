@@ -57,6 +57,7 @@ use App\Http\Controllers\exemplaire\exemplaire_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
+use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\livre\livre_view_controller;
@@ -660,3 +661,5 @@ Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPe
 
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+
+Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
