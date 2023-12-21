@@ -95,6 +95,8 @@ import listePersonnelAppuiComponent from './components/personnel_appui/listePers
 import validerInscriptionComponent from './components/caissier/validerInscriptionComponent.vue';
 import listeValiderInscriptionComponent from './components/caissier/listeValiderInscriptionComponent.vue';
 
+import createRecouvrementComponent from './components/recouvrement/createRecouvrementComponent.vue';
+
 import tableauRecouvrementComponent from './components/recouvrement/listeRecouvrementComponent.vue';
 
 
@@ -196,7 +198,7 @@ app.component("inscription-valider", validerInscriptionComponent);
 app.component("liste-valider-inscription", listeValiderInscriptionComponent);
 
 
-=======
+
 app.component("recouvrement-tableau", tableauRecouvrementComponent);
 
 

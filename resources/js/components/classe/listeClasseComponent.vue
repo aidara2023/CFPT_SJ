@@ -12,8 +12,8 @@
    <div class="sections" v-for="(classe, index) in classes" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ classe.nom_classe }} {{ classe.type_classe }}</p>
+              
+               <p class="texte" id="n">{{ classe.type_formation_intitule }} {{ classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }} </p>
                <p class="texte" id="n">{{ classe.type_formation.intitule }} {{ classe.unite_de_formation.nom_unite_formation }}</p>
                <div  class="presences">
                 <a href="#" class="texte b">
