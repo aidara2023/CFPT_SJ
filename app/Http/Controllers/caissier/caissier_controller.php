@@ -53,9 +53,10 @@ class caissier_controller extends Controller
          /* Uploader une image */
          $image= $request->file('photo');
          $imageName=time() . '_' . $image->getClientOriginalName();
-         $image->move(public_path('image'), $imageName);
-         $userCaissier->photo=$image;
+         /* $image->move(public_path('image'), $imageName); 
+         $userCaissier->photo=$image; */
          /* Fin upload */
+         $userCaissier->photo= $image->storeAs('image', $imageName, 'public');
 
          $role= Role::where('intitule', "Caissier")->first();
  

@@ -150,6 +150,14 @@
         <p class="">Service modifier avec succès</p>
     </dialog>
 
+
+    <dialog data-modal-confirmation-inscription class="modal">
+        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
+        <h1>Echec !</h1>
+        <br>
+        <p class="">Inscription déja effectuée</p>
+    </dialog>
+
 </div>
 
 <span class="fond"></span>
