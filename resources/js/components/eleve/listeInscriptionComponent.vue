@@ -20,8 +20,8 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur" v-if="inscription.statut===0">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ inscription.eleve.user.nom}} {{ inscription.classe.prenom }} </p>
-               <p class="texte" id="n"> {{ inscription.classe.nom_classe }} {{ inscription.classe.type_classe }} {{ inscription.classe.niveau }}</p>
+               <p class="texte" id="n">{{ inscription.eleve.user.prenom}} {{ inscription.eleve.user.nom }} </p>
+               <p class="texte" id="n"> {{ inscription.classe.type_formation.intitule }} {{ inscription.classe.nom_classe}} {{ inscription.classe.niveau }} {{ inscription.classe.type_classe }}</p>
                <p class="texte" id="n">{{ inscription.annee_academique.intitule }}</p>
                <div  class="presences">
                    <a href="#" class="texte b">
@@ -52,8 +52,8 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur" v-if="inscription.statut===1">
                <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ inscription.eleve.user.nom}} {{ inscription.classe.prenom }} </p>
-               <p class="texte" id="n"> {{ inscription.classe.nom_classe }} {{ inscription.classe.type_classe }} {{ inscription.classe.niveau }}</p>
+               <p class="texte" id="n">{{ inscription.eleve.user.prenom}} {{ inscription.eleve.user.nom }}  </p>
+               <p class="texte" id="n">  {{ inscription.classe.type_formation.intitule }} {{ inscription.classe.nom_classe}} {{ inscription.classe.niveau }} {{ inscription.classe.type_classe }}</p>
                <p class="texte" id="n">{{ inscription.annee_academique.intitule }}</p>
                <div  class="presences">
                    <a href="#" class="texte b">

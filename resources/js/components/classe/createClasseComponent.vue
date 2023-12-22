@@ -106,10 +106,6 @@ import Form from 'vform';
           etatForm: false,
           editModal: false
 
-
-
-
-
         }
     },
     mounted(){
