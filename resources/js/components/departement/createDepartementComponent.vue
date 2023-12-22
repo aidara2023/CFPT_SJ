@@ -13,7 +13,7 @@
                 Et enlever la div au dessus -->
                 <div class="informations">
                     <div class="titres">
-                        <h1>Ajout Departement</h1>
+                        <h1>Nouveau Département</h1>
                     </div>
 
                     <div class="champ">

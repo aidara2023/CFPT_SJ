@@ -143,6 +143,13 @@
             </a>
      
         </li>
+         <li class="fntr"><a href="{{route('validation_inscription')}}">
+                <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >Valider Inscription</span>
+                </div>
+            </a></li>
+
         
             <li class="fntr"><a href="{{route('paiement_create')}}">
                 <div>
