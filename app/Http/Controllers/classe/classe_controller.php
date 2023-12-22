@@ -89,7 +89,8 @@ class classe_controller extends Controller
     }
 
     public function show($id){
-        $classe=classe::find($id);
+        $classe=classe::with('unite_de_formation', 'type_formation')->find($id);
+   
         if($classe!=null){
             return response()->json([
                 'statut'=>200,

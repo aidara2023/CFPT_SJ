@@ -60,7 +60,8 @@
                 <label for="classe" :class="{ 'couleur_rouge': (this.id_classe_erreur) }">Classe</label>
                 <select v-model="form.id_classe" @change="validatedata('classe')"
                     :class="{ 'bordure_rouge': (this.id_classe_erreur) }">
-                    <option v-for="classe in classes" :value="classe.id">{{ classe.nom_classe }}</option>
+                    <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{
+                        classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }}</option>
                 </select>
                 <span class="erreur">{{ id_classe_erreur }}</span>
             </div>
@@ -104,6 +105,7 @@ export default {
             id_departement_erreur: "",
             id_unite_de_formation_erreur: "",
             id_classe_erreur: "",
+            nom_classe_selected: "",
             etatForm: false,
             i: 0,
 
@@ -116,6 +118,8 @@ export default {
         this.get_departement();
         this.get_unite_de_formation();
         this.get_classe();
+       
+    
 
 
     },
@@ -128,6 +132,9 @@ export default {
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('id_classe', this.form.id_classe);
+
+            this.get_classe_by_id(this.form.id_classe);
+           
             try {
                 const response = await axios.post('/recouvrement/filtre', formdata);
                 // Traitez la réponse de l'API selon vos besoins
@@ -137,7 +144,8 @@ export default {
                 if (response.data.statut === 200) {
 
                     const eventData = {
-                        eleve_non_payers: response.data.eleve_non_payer
+                        eleve_non_payers: response.data.eleve_non_payer,
+                        nom_classe_selected: this.nom_classe_selected
 
                         //editModal: this.editModal,
                         // Ajoutez d'autres propriétés si nécessaire
@@ -146,7 +154,7 @@ export default {
                     bus.emit('nouveauFiltre', eventData);
 
                     this.closeModal();
-                } 
+                }
 
             } catch (error) {
                 console.log(error);
@@ -222,15 +230,35 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du filiere', 'error')
                 });
         },
+
+        get_classe_by_id(id) {
+         
+           if(this.form.id_classe){
+            axios.get('/classe/show/'+id)
+                .then(response => {
+                    this.nom_classe_selected = response.data.classe
+                }).catch(error => {
+                    //this.resetForm();
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du nom de la classe choisi', 'error')
+                });
+           }
+        },
+
         get_classe() {
             axios.get('/classe/all')
                 .then(response => {
-                    this.classes = response.data.classe
-                }).catch(error => {
-                    //this.resetForm();
-                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation de la classe', 'error')
+                    // Filtrer les classes par type d'intitulé (CS ou FPJ)
+                    this.classes = response.data.classe.filter(classe => {
+                        return classe.type_classe === 'CS' || classe.type_classe === 'FPJ';
+                    });
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    // this.resetForm();
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la récupération de la classe', 'error');
                 });
         },
+
 
         async filtre() {
 
