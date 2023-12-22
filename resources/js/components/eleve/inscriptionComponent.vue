@@ -146,8 +146,8 @@
                     <div class="champ">
                         <label for="contact_urgence_1"
                             :class="{ 'couleur_rouge': (this.telephone_urgence_1_erreur) }">Contact d'urgence 1</label>
-                        <input type="tel" name="contact_urgence_1" id="contact_urgence_1" v-model="form.contact_urgence1"
-                            @input="validatedata('telephone_urgence_1')"
+                        <input type="tel" name="contact_urgence_1" id="contact_urgence_1" v-model="form.contact_urgence1" placeholder="Tel : 7X XXX XX XX"
+                            @input="validatedata('telephone_urgence_1') "
                             :class="{ 'bordure_rouge': (this.telephone_urgence_1_erreur) }">
                         <span class="erreur">{{
                             this.telephone_urgence_1_erreur
@@ -158,6 +158,7 @@
                         <label for="contact_urgence_2"
                             :class="{ 'couleur_rouge': (this.telephone_urgence_2_erreur) }">Contact d'urgence 2</label>
                         <input type="tel" name="contact_urgence_2" id="contact_urgence_2" v-model="form.contact_urgence2"
+                        placeholder="Tel : 7X XXX XX XX"
                             @input="validatedata('telephone_urgence_2')"
                             :class="{ 'bordure_rouge': (this.telephone_urgence_2_erreur) }">
                         <span class="erreur">{{

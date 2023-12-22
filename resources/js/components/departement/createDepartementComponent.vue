@@ -239,7 +239,7 @@ import Form from 'vform';
         },
 
         get_user(){
-            axios.get('/user/getPersonnel')
+            axios.get('/user_formateur/index')
             .then(response => {
                 this.users=response.data.user
                 }).catch(error=>{
