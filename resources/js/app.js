@@ -91,14 +91,8 @@ import listePersonnelAdministratifComponent from './components/personnel_adminis
 import listePersonnelAppuiComponent from './components/personnel_appui/listePersonnelAppuiComponent.vue';
 
 
-
-import validerInscriptionComponent from './components/caissier/validerInscriptionComponent.vue';
-import listeValiderInscriptionComponent from './components/caissier/listeValiderInscriptionComponent.vue';
-
 import createRecouvrementComponent from './components/recouvrement/createRecouvrementComponent.vue';
-
 import tableauRecouvrementComponent from './components/recouvrement/listeRecouvrementComponent.vue';
-
 
 import Swal from 'sweetalert2';
 window.Form=Form;
@@ -119,7 +113,6 @@ app.component("liste-utilisateur", listeUserComponent);
 app.component("create-eleve", createEleveComponent);
 
 app.component("create-infirmier",createInfirmierComponent);
-/* app.component("inscription-valider",validationInscriptionComponent); */
 
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
@@ -193,14 +186,7 @@ app.component("liste-personnel-administratif", listePersonnelAdministratifCompon
 app.component("liste-personnel-appui", listePersonnelAppuiComponent);
 
 app.component("recouvrement-create", createRecouvrementComponent);
-
-app.component("inscription-valider", validerInscriptionComponent);
-app.component("liste-valider-inscription", listeValiderInscriptionComponent);
-
-
-
 app.component("recouvrement-tableau", tableauRecouvrementComponent);
-
 
 
 app.mount('#app')
