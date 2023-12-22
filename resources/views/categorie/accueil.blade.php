@@ -9,7 +9,7 @@
         @include('layout.header')
     </div>
 
-     <liste-editeur></liste-editeur>
+     <liste-categorie></liste-categorie>
 
     <!-- debut modal pour modifier utilisateur -->
     <dialog data-modal-modification class="modal">
@@ -111,7 +111,7 @@
 
 
   <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
-        <editeur-create></editeur-create>
+        <categorie-create></categorie-create>
    <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
@@ -133,21 +133,21 @@
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">editeur ajouté avec succès</p>
+        <p class="">categorie ajouté avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">editeur supprimé avec succès</p>
+        <p class="">categorie supprimé avec succès</p>
     </dialog>
 
     <dialog data-modal-confirmation-modifier class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">editeur modifier avec succès</p>
+        <p class="">categorie modifier avec succès</p>
     </dialog>
 
 </div>

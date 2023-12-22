@@ -13,8 +13,8 @@
             </div>           
            
             <div class="champ">
-                <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
-                <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
+                <label for="nom" :class="{ 'couleur_rouge': (this.nom_auteur_erreur)} ">Nom Auteur</label>
+                <input  v-model="form.nom" id="nom"  @input="validatedata('nom_auteur')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_auteur_erreur)} ">
                 <span class="erreur" >{{this.nom_auteur_erreur}}</span>
             </div>     
 
@@ -43,37 +43,82 @@ import Form from 'vform';
                 'nom':"",
                
             }),
+            nom_auteur_erreur:"",
+            etatForm:false,
+            editModal:false,
+            idAuteur:""
         }
     },
-    
+    mounted(){
+       
+       this.get_user();
+       bus.on('ateurModifier', (eventData) => {
+           this.idAteur = eventData.idAteur;
+           this.editModal = eventData.editModal;
+           this.form.nom_Ateur = eventData.nom;
+       });
+   },
+
     methods:{
         async soumettre(){
             const formdata = new FormData();
             formdata.append('nom_auteur', this.form.nom  );
         
-            if(this.form.nom!==""){
-                try{
-                    const create_store=await axios.post('/auteur/store', formdata, {
+            try{
+                const create_store=await axios.post('/auteur/store', formdata);
 
-                    });
-                    Swal.fire('Succes!','Auteur ajouté avec succés','succes')
-                    this.resetForm();
-                }
-                catch(e){
-                    console.log(e)
-                    Swal.fire('Erreur!','Une erreur est survenue lors de l\'enregistrement','error')
-                }
+                this.resetForm();
+                bus.emit('auteurAjoutee');
 
-            }else{
-                Swal.fire('Erreur!','Veillez remplir tous les champs ','error')
+                 } 
+                 catch(e){
+
+                /* console.log(e.request.status) */
+                if(e.request.status===404){
+                    Swal.fire('Erreur !','Cette auteur existe déjà','error')
+                }
+                else{
+                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                }
             }
-
-
+        },
+        verifCaratere(nom){
+            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+            return valeur.test(nom);
         },
 
         resetForm(){
             this.form.nom="";
         }
+        closeModal(selector){
+            var ajout=document.querySelector('[data-modal-ajout]');
+            var confirmation = document.querySelector(selector);
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+            this.editModal=false;
+
+            confirmation.style.backgroundColor = 'white';
+            confirmation.style.color = 'var(--clr)';
+
+                confirmation.showModal();
+                confirmation.classList.add("actif");
+            setTimeout(function(){
+                confirmation.close();
+
+                setTimeout(function(){
+                    confirmation.classList.remove("actif");
+            }, 100);
+
+            }, 1700);
+        },
+
+     
 
 
     }

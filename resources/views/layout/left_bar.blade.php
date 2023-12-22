@@ -173,7 +173,7 @@
      @if (Auth::user()->id_role==7)
      <nav class="flou ">
          <ul >
-             <li class="fntr"><a href="{{route('bibliothecaire_index')}}">
+             <li class="fntr"><a href="{{route('bibliothecaire_accueil')}}">
                  <div>
                      <i class="fi fi-rr-home"></i>
                      <span>Accueil</span>

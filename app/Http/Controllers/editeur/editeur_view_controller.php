@@ -10,4 +10,7 @@ class editeur_view_controller extends Controller
     public function create(){
         return view('editeur.create');
     }
+    public function accueil(){
+        return view('editeur.accueil');
+    }
 }
