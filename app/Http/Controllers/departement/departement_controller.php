@@ -50,6 +50,7 @@ class departement_controller extends Controller
     }
 }
 
+
     public function update(departement_request $request, $id) {
         $departement = Departement::find($id);
         if($departement != null){
