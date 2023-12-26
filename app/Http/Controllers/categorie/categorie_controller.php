@@ -11,7 +11,7 @@ class categorie_controller extends Controller
 {
     
     public function index() {
-        $categorie=Categorie::all();
+        $categorie=Categorie::orderBy('created_at', 'desc')->get();
         if($categorie!=null){
             return response()->json([
                 'statut'=>200,

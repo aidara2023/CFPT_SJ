@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ressource_pedagogique_controller extends Controller
 {
     public function index() {
-        $ressource_pedagogique=Ressource_pedagogique::all();
+        $ressource_pedagogique=Ressource_pedagogique::orderBy('created_at', 'desc')->get();
         if($ressource_pedagogique!=null){
             return response()->json([
                 'statut'=>200,

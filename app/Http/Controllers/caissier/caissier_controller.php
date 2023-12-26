@@ -16,7 +16,7 @@ class caissier_controller extends Controller
 {
     public function index()
     {
-        $caissiers = Caissier::with('user')->get();
+        $caissiers = Caissier::with('user')->orderBy('created_at', 'desc')->get();
         if($caissiers!=null){
             return response()->json([
                 'statut'=>200,

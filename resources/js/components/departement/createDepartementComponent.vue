@@ -223,6 +223,7 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.update_departement(this.idDepartement);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal=false;
@@ -230,6 +231,7 @@ import Form from 'vform';
                 }
                 else{
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
                     this.editModal=false;

@@ -17,11 +17,7 @@ import createEleveComponent from './components/eleve/createEleveComponent.vue';
 import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
 
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
-
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
-import listeBibliothecaireComponent from './components/bibliothecaire/listeBibliothecaireComponent.vue';
-
-
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
 
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
@@ -61,25 +57,12 @@ import createTypeMaterielComponent from './components/type_materiel/createTypeMa
 import createEmprunterLivreComponent from './components/emprunter_livre/createEmprunterLivreComponent.vue';
 import createEmprunterMaterielComponent from './components/emprunter_materiel/createEmprunterMaterielComponent.vue';
 import createRessourcePedagogiqueComponent from './components/ressource_pedagogique/createRessourcePedagogiqueComponent.vue';
-
 import createEditeurComponent from './components/editeur/createEditeurComponent.vue';
-import listeEditeurComponent from './components/editeur/listeEditeurComponent.vue';
-
 import createEditionComponent from './components/edition/createEditionComponent.vue';
-import listeEditionComponent from './components/edition/listeEditionComponent.vue';
-
 import createCategorieComponent from './components/categorie/createCategorieComponent.vue';
-import listeCategorieComponent from './components/categorie/listeCategorieComponent.vue';
-
 import createAuteurComponent from './components/auteur/createAuteurComponent.vue';
-import listeAuteurComponent from './components/auteur/listeAuteurComponent.vue';
-
 import createRayonComponent from './components/rayon/createRayonComponent.vue';
-import listeRayonComponent from './components/rayon/listeRayonComponent.vue';
-
 import createLivreComponent from './components/livre/createLivreComponent.vue';
-import listeLivreComponent from './components/livre/listeLivreComponent.vue';
-
 
 import createPaiementComponent from './components/paiement/createPaiementComponent.vue';
 import listePaiementComponent from './components/paiement/listePaiementComponent.vue';
@@ -137,10 +120,7 @@ app.component("create-infirmier",createInfirmierComponent);
 
 app.component("caissier-create", createCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
-
 app.component("create-bibliothecaire", createBibliothecaireComponent);
-app.component("liste-bibliothecaire", listeBibliothecaireComponent);
-
 app.component("create-matiere", createMatiereComponent);
 
 app.component("create-classe", createClasseComponent);
@@ -182,24 +162,11 @@ app.component("consultation-create", createConsultationComponent);
 
 
 app.component("editeur-create", createEditeurComponent);
-app.component("liste-editeur", listeEditeurComponent);
-
 app.component("edition-create", createEditionComponent);
-app.component("liste-edition", listeEditionComponent);
-
 app.component("categorie-create", createCategorieComponent);
-app.component("liste-categorie", listeCategorieComponent);
-
 app.component("auteur-create", createAuteurComponent);
-app.component("liste-auteur", listeAuteurComponent);
-
 app.component("rayon-create", createRayonComponent);
-app.component("liste-rayon", listeRayonComponent);
-
 app.component("livre-create", createLivreComponent);
-app.component("liste-livre", listeLivreComponent);
-
-
 
 app.component("paiement-create", createPaiementComponent);
 app.component("paiement-liste", listePaiementComponent);

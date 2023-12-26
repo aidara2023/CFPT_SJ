@@ -14,7 +14,7 @@ class bibliothecaire_controller extends Controller
 {
     
     public function index() {
-        $bibliothecaire=Bibliothecaire::all();
+        $bibliothecaire=Bibliothecaire::orderBy('created_at', 'desc')->get();
         if($bibliothecaire!=null){
             return response()->json([
                 'statut'=>200,

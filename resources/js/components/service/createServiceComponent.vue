@@ -143,12 +143,14 @@
  
                  if(this.editModal===true){
                      this.etatForm= true;
+                     this.form.nom_service = this.form.nom_service.toUpperCase();
                      this.update_service(this.idService);
                      this.closeModal('[data-modal-confirmation-modifier]');  
                      this.editModal=false;
                  }
              
              else{
+                this.form.nom_service = this.form.nom_service.toUpperCase();
                  this.soumettre();
                  this.etatForm = true;
                  this.closeModal('[data-modal-confirmation]');

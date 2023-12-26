@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class cours_controller extends Controller
 {
     public function index(){
-        $Cour = Cour::all();
+        $Cour = Cour::orderBy('created_at', 'desc')->get();
 
         return response()->json($Cour);
         

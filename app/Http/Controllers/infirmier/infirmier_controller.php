@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class infirmier_controller extends Controller
 {
     public function index() {
-        $infirmier=Infirmier::all();
+        $infirmier=Infirmier::orderBy('created_at', 'desc')->get();
         if($infirmier!=null){
             return response()->json([
                 'statut'=>200,

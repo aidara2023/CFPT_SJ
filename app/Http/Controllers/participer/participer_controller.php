@@ -10,7 +10,7 @@ use App\Models\Participer;
 class participer_controller extends Controller
 {
     public function index(){
-        $participer = Participer::all();
+        $participer = Participer::orderBy('created_at', 'desc')->get();
         if($participer != null){
             return response()->json([
                 'statut' => 200,

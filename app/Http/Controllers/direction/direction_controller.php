@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class direction_controller extends Controller
 {
     public function index() {
-        $direction=Direction::with('user' ,'services')->get();
+        $direction=Direction::with('user' ,'services')->orderBy('created_at', 'desc')->get();
         if($direction!=null){
             return response()->json([
                 'statut'=>200,

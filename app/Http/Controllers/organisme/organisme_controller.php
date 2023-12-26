@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class organisme_controller extends Controller
 {
     public function index() {
-        $organisme=Organisme::all();
+        $organisme=Organisme::orderBy('created_at', 'desc')->get();
         if($organisme!=null){
             return response()->json([
                 'statut'=>200,

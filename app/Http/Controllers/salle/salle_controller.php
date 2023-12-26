@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class salle_controller extends Controller
 {
     public function index() {
-        $salle=Salle::with('batiment')->get();
+        $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->get();
         if($salle!=null){
             return response()->json([
                 'statut'=>200,

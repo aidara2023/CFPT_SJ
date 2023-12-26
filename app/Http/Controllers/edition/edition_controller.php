@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class edition_controller extends Controller
 {
     public function index() {
-        $edition=Edition::all();
+        $edition=Edition::orderBy('created_at', 'desc')->get();
         if($edition!=null){
             return response()->json([
                 'statut'=>200,
