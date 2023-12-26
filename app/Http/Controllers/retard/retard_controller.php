@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class retard_controller extends Controller
 {
     public function index() {
-        $retard=Retard::all();
+        $retard=Retard::orderBy('created_at', 'desc')->get();
         if($retard!=null){
             return response()->json([
                 'statut'=>200,

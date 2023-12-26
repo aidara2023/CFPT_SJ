@@ -89,7 +89,8 @@ import Form from 'vform';
 
         resetForm(){
             this.form.nom="";
-        }
+        },
+        
         closeModal(selector){
             var ajout=document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);

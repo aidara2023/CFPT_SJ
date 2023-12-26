@@ -12,7 +12,7 @@ class personnel_appui_controller extends Controller
     
     public function index()
     {
-        $personnel_appuis = Personnel_appui::all();
+        $personnel_appuis = Personnel_appui::orderBy('created_at', 'desc')->get();
         if ($personnel_appuis->count() > 0) {
             return response()->json([
                 'status' => 200,

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class archive_controller extends Controller
 {
     public function index() {
-        $archive=Archive::all();
+        $archive=Archive::orderBy('created_at', 'desc')->get();
         if($archive!=null){
             return response()->json([
                 'statut'=>200,

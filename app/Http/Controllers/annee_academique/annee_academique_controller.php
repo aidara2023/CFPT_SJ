@@ -10,7 +10,7 @@ use App\Models\Annee_academique;
 class annee_academique_controller extends Controller
 {
     public function index(){
-        $annee_academique = Annee_academique::all();
+        $annee_academique = Annee_academique::orderBy('created_at', 'desc')->get();
         if($annee_academique != null){
             return response()->json([
                 'statut' => 200,

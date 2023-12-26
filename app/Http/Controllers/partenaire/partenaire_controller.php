@@ -11,7 +11,7 @@ class partenaire_controller extends Controller
 {
        public function index()
         {
-            $partenaires = Partenaire::all();
+            $partenaires = Partenaire::orderBy('created_at', 'desc')->get();
             if ($partenaires->count() > 0) {
                 return response()->json([
                     'status' => 200,

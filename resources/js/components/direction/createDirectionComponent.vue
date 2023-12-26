@@ -215,12 +215,14 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= false;
+                    this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.update_direction(this.idDirection);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal=false;
                 }
                 else{
                     this.etatForm= true;
+                    this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
                     this.editModal=false;

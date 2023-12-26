@@ -11,7 +11,7 @@ class exemplaire_controller extends Controller
 {
     
     public function index() {
-        $exemplaire=Exemplaire::all();
+        $exemplaire=Exemplaire::orderBy('created_at', 'desc')->get();
         if($exemplaire!=null){
             return response()->json([
                 'statut'=>200,

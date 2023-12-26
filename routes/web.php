@@ -506,6 +506,8 @@ Route::post('inscription/store',[inscription_controller::class, 'store'])->name(
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::post('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
 Route::delete('inscription/delete/{id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+Route::get('find/filieres/{id}',[inscription_controller::class, 'get_filiere_by_departement'])->name('find_filiere');
+Route::get('find/classes/{id}',[inscription_controller::class, 'get_classe_by_filiere'])->name('find_classe');
 
 Route::get('inscription/index', [inscription_view_controller::class, 'index'])->name('inscription_accueil');
 

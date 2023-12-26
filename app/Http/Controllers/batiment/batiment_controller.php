@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class batiment_controller extends Controller
 {
     public function index() {
-        $batiment=Batiment::all();
+        $batiment=Batiment::orderBy('created_at', 'desc')->get();
         if($batiment!=null){
             return response()->json([
                 'statut'=>200,

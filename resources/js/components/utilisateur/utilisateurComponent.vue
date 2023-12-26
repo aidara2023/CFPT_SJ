@@ -1,5 +1,4 @@
 <template >
-
     <div class="titres">
         <h1>AJOUT UTILISATEUR</h1>
     </div>
@@ -66,7 +65,7 @@
                     <span class="erreur">{{ this.date_erreur }}</span>
                 </div>
 
-                <div class="champ " >
+                <div class="champ ">
                     <label for="lieu_naissance" :class="{ 'couleur_rouge': (this.lieu_naissance_erreur) }">Lieu de
                         naissance</label>
                     <input type="text" name="lieu_naissance" id="lieu_naissance" v-model="form.lieu_naissance"
@@ -79,18 +78,18 @@
 
                 <div class="champ">
                     <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_erreur) }">Nationalite</label>
-                    <input type="text" name="nationalite" id="nationalite"
-                        v-model="form.nationalite" @input="validatedata('nationalite')"
-                        :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
+                    <input type="text" name="nationalite" id="nationalite" v-model="form.nationalite"
+                        @input="validatedata('nationalite')" :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
                     <span class="erreur">{{ this.nationalite_erreur }}</span>
                 </div>
 
-                <div class="champ" >
+                <div class="champ">
                     <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_erreur) }">Sexe</label>
-               
-                    <select name="role" id="role" v-model="form.genre" @change="validatedata('genre')"  :class="{ 'bordure_rouge': (this.genre_erreur) }">
-                        <option class="option" >Masculin</option>
-                        <option class="option" >Féminin</option>
+
+                    <select name="role" id="role" v-model="form.genre" @change="validatedata('genre')"
+                        :class="{ 'bordure_rouge': (this.genre_erreur) }">
+                        <option class="option">Masculin</option>
+                        <option class="option">Féminin</option>
                     </select>
                     <span class="erreur">{{ this.genre_erreur }}</span>
                 </div>
@@ -101,9 +100,8 @@
             <div class="groupe_champs  " v-show="i_1_2_3 === 1">
                 <div class="champ">
                     <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_erreur) }">Telephone</label>
-                    <input type="tel" name="telephone" id="telephone" 
-                        v-model="form.telephone" @input="validatedata('telephone')"
-                        :class="{ 'bordure_rouge': (this.telephone_erreur) }">
+                    <input type="tel" name="telephone" id="telephone" v-model="form.telephone"
+                        @input="validatedata('telephone')" :class="{ 'bordure_rouge': (this.telephone_erreur) }">
                     <span class="erreur">{{ this.telephone_erreur }}</span>
                 </div>
 
@@ -117,24 +115,26 @@
 
             <div class="champ " v-show="i_1_2_3 === 3">
                 <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
-                <input type="mail" name="email" id="email"  v-model="form.email"
-                    @input="validatedata('email')" :class="{ 'bordure_rouge': (this.email_user_erreur) }">
+                <input type="mail" name="email" id="email" v-model="form.email" @input="validatedata('email')"
+                    :class="{ 'bordure_rouge': (this.email_user_erreur) }">
                 <span class="erreur">{{ this.email_user_erreur }}</span>
             </div>
 
             <div class="groupe_champs validation" v-show="i_1_2_3 === 1">
-            <button type="button"  data-close-modal  @click="resetForm"><span data-statut="visible">Annuler</span></button>
+                <button type="button" data-close-modal @click="resetForm"><span
+                        data-statut="visible">Annuler</span></button>
 
-            <button type="button"  @click.prevent="goToStep(3)"><span data-statut="visible" >Suivant</span></button>
+                <button type="button" @click.prevent="goToStep(3)"><span data-statut="visible">Suivant</span></button>
             </div>
 
             <div v-show="i_1_2_3 === 3">
-                <div class="champ" >
+                <div class="champ">
                     <label for="Role" :class="{ 'couleur_rouge': (this.id_role_erreur) }">Role</label>
-                    <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)" :class="{ 'bordure_rouge': (this.id_role_erreur) }">
+                    <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)"
+                        :class="{ 'bordure_rouge': (this.id_role_erreur) }">
                         <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
                     </select>
-                    <span class="erreur" >{{ id_role_erreur }}</span>
+                    <span class="erreur">{{ id_role_erreur }}</span>
                 </div>
             </div>
 
@@ -162,7 +162,7 @@
                             <!--   <option value="">Selectioner Statut</option> -->
                             <option value="Niveau 1">Célibataire</option>
                             <option value="Niveau 2">Marié</option>
-                          
+
                         </select>
                         <span class="erreur">{{ situation_matrimoniale_erreur
                         }}</span>
@@ -172,11 +172,10 @@
                 <div class="groupe_champs">
 
                     <div class="champ">
-                        <label for="Spécialite"
-                            :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
+                        <label for="Spécialite" :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
                         <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"
                             @change="validatedata('specialite')" :class="{ 'bordure_rouge': (this.id_specialite_erreur) }">
-                        
+
                             <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
                                 specialite.intitule }}</option>
                         </select>
@@ -187,8 +186,9 @@
                         <label for="Departement"
                             :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
                         <select name="id_departement" id="id_departement" v-model="form.id_departement"
-                            @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
-                        
+                            @change="validatedata('departement')"
+                            :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
+
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                                 departement.nom_departement }}</option>
                         </select>
@@ -199,12 +199,12 @@
 
 
 
-            <div  v-if="this.interesser === 4">
+            <div v-if="this.interesser === 4">
                 <div class="champ">
-                    <label for="Service"
-                            :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
-                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')" :class="{ 'bordure_rouge': (this.id_service_erreur) }">
-               
+                    <label for="Service" :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
+                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')"
+                        :class="{ 'bordure_rouge': (this.id_service_erreur) }">
+
                         <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service
                         }}</option>
                     </select>
@@ -213,9 +213,10 @@
             </div>
 
             <div class="groupe_champs validation" v-show="i_1_2_3 === 3">
-            <button type="button"  @click="goToStep(1)" ><span data-statut="visible">Precedent</span></button>
+                <button type="button" @click="goToStep(1)"><span data-statut="visible">Precedent</span></button>
 
-            <button type="submit" :class="{ 'data-close-modal': (etatForm) } "><span data-statut="visible">Ajouter</span></button>
+                <button type="submit" :class="{ 'data-close-modal': (etatForm) }"><span
+                        data-statut="visible">Ajouter</span></button>
             </div>
 
 
@@ -228,9 +229,9 @@
                  <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
                 <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
  -->
-          <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
+                <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
 
-   <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
+                <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
 
             <button type="button"  class="suivant" @click="clic_suivant" ><span data-statut="visible">Suivant</span></button> -->
 
@@ -303,7 +304,7 @@ export default {
             visible: "",
             invisible: "",
             off: "",
-            i_1_2_3:"",
+            i_1_2_3: "",
         }
     },
 
@@ -414,22 +415,22 @@ export default {
         changement(event) {
             this.interesser = event;
             this.id_role_erreur = "";
-        }, 
+        },
 
-        goToStep: function(step){
-            if(!this.validatedata('nom') || !this.validatedata('prenom') || !this.validatedata('date_naissance') || !this.validatedata('naissance') || !this.validatedata('nationalite') || !this.validatedata('genre') || !this.validatedata('adresse') || !this.validatedata('telephone')){
-                this.activePhase= step;
-                this.i_1_2_3=step;
+        goToStep: function (step) {
+            if (!this.validatedata('nom') & !this.validatedata('prenom') & !this.validatedata('date_naissance') & !this.validatedata('naissance') & !this.validatedata('nationalite') & !this.validatedata('genre') & !this.validatedata('adresse') & !this.validatedata('telephone')) {
+                this.activePhase = step;
+                this.i_1_2_3 = step;
             }
 
-        
+
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
             this.etape.dataset.etape = this.i_1_2_3;
-            if(this.i_1_2_3 == 3) this.off = 1;
+            if (this.i_1_2_3 == 3) this.off = 1;
             this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
             this.off = 0
-        }, 
+        },
 
         get_role() {
             axios.get('/roles/index')
@@ -449,7 +450,7 @@ export default {
                 Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
             });
         },
-        
+
 
         get_specialite() {
             axios.get('/specialite/index').then(response => {
@@ -470,7 +471,7 @@ export default {
                 });
         },
 
-       
+
         ajoutimage(event) {
             this.photo = event.target.files[0];
         },
@@ -494,6 +495,13 @@ export default {
             } else {
                 if (this.editModal === true) {
                     this.etatForm = true;
+                    this.form.nom = this.form.nom.toUpperCase();
+                    this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
+                    this.form.adresse = this.form.adresse.toUpperCase();
+                    this.form.nationalite = this.form.nationalite.toUpperCase();
+                    
+                    // Convertir la première lettre du prénom en majuscule et le reste en minuscules
+                    this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.update_utilisateur(this.idUser);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal = false;
@@ -501,8 +509,16 @@ export default {
                 }
                 else {
                     this.etatForm = true;
+
+                    this.form.nom = this.form.nom.toUpperCase();
+                    this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
+                    this.form.adresse = this.form.adresse.toUpperCase();
+                    this.form.nationalite = this.form.nationalite.toUpperCase();
+
+                    // Convertir la première lettre du prénom en majuscule et le reste en minuscules
+                    this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.soumettre();
-                   // this.closeModal('[data-modal-confirmation]');
+                    // this.closeModal('[data-modal-confirmation]');
                     this.editModal = false;
                 }
             }
@@ -974,18 +990,18 @@ export default {
             return false;
         },
 
-        closeModal(selector){
+        closeModal(selector) {
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
-           if(this.etatForm === false){
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            ajout.classList.remove("actif");
-            ajout.close();
-           }
+            if (this.etatForm === false) {
+                var actif = document.querySelectorAll('.actif');
+                actif.forEach(item => {
+                    item.classList.remove("actif");
+                });
+                ajout.classList.remove("actif");
+                ajout.close();
+            }
             this.editModal = false;
 
             confirmation.style.backgroundColor = 'white';
@@ -1016,8 +1032,8 @@ export default {
             formdata.append('nationalite', this.form.nationalite);
             formdata.append('id_role', this.form.id_role);
             formdata.append('type', this.form.type);
-            formdata.append('situation_matrimoniale', 
-            this.form.situation_matrimoniale);
+            formdata.append('situation_matrimoniale',
+                this.form.situation_matrimoniale);
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
@@ -1055,41 +1071,41 @@ export default {
         changement_etape(avancer) {
             if (avancer) {
                 this.i_1_2_3 = this.i_1_2_3 + 2;
-            }  
+            }
             if (!avancer) {
                 this.i_1_2_3 = this.i_1_2_3 - 2;
-            } 
+            }
 
-                
+
             if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
             if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
 
             if (this.i_1_2_3 < 3) {
                 this.suivant.firstChild.textContent = "Suivant";
                 this.suivant.dataset.closeModal = "0";
-               
+
             } else {
                 this.suivant.firstChild.textContent = "Ajouter";
                 this.suivant.dataset.closeModal = "1";
             }
-            
+
             if (this.i_1_2_3 > 1) {
                 this.precedent.firstChild.textContent = "Précédent";
                 this.precedent.dataset.closeModal = "0";
-            } 
+            }
             else {
-               
+
                 this.precedent.firstChild.textContent = "Annuler";
                 this.precedent.dataset.closeModal = "1";
-                
+
             }
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
             this.etape.dataset.etape = this.i_1_2_3;
-            if(this.i_1_2_3 == 3) this.off = 1;
+            if (this.i_1_2_3 == 3) this.off = 1;
             this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
             this.off = 0
-            
+
         },
 
 
