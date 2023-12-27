@@ -114,48 +114,6 @@ import Form from 'vform';
 
 
 
-  export default {
-   name:"listeUserCompenent",
-   data(){
-       return {
-           form:new Form({
-               'intitule':""
-
-           }),
-           utilisateurs: [],
-           idUser: "",
-           editModal: false,
-           activePhase:1,
-
-
-       }
-   },
-   mounted(){
-       this.get_utilisateur();
-       bus.on('utilisateurAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_utilisateur(); // Mettre à jour la liste des utilisateurs
-       });
-   },
-
-   methods:{
-       get_utilisateur(){
-           axios.get('/user/getPersonnel')
-           .then(response => {
-               this.utilisateurs=response.data.user
-
-
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des utilisateurs','error')
-           });
-       },
-
-       changement(event){
-           this.interesser= event;
-       },
-
-       goToStep: function(step){
-            this.activePhase= step;
-
 export default {
     name: "listeUserCompenent",
     data() {
@@ -203,7 +161,6 @@ export default {
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des utilisateurs', 'error')
                 });
-
         },
 
         changement(event) {
@@ -236,73 +193,6 @@ export default {
 
                         confirmation.showModal();
                         confirmation.classList.add("actif");
-
-                    setTimeout(function(){
-                        confirmation.close();
-
-                        setTimeout(function(){
-                            confirmation.classList.remove("actif");
-                    }, 100);
-
-                    }, 2000);
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
-       openModal(utilisateur) {
-          
-          this.idUser=utilisateur.id;
-
-          this.editModal = true;
-
-          // Créez un objet avec les données à envoyer
-          const eventData = {
-              idUser: this.idUser, 
-              nom: utilisateur.nom,
-              prenom: utilisateur.prenom,
-              genre: utilisateur.genre,
-              adresse: utilisateur.adresse,
-              telephone: utilisateur.telephone,
-              email: utilisateur.email,
-              date_naissance: utilisateur.date_naissance,
-              lieu_naissance: utilisateur.lieu_naissance,
-              nationalite: utilisateur.nationalite,
-              type: utilisateur.type,
-              situation_matrimonial: utilisateur.situation_matrimonial,
-              id_role: utilisateur.id_role,
-              id_specialite: utilisateur.id_specialite,
-              id_departement: utilisateur.id_departement,
-              id_service: utilisateur.id_service,
-              id_personnel_administratif: utilisateur.id_personnel_administratif,
-              id_personnel_appui: utilisateur.id_personnel_appui,
-              
-              editModal: this.editModal,
-              // Ajoutez d'autres propriétés si nécessaire
-          };
-
-          bus.emit('departementModifier', eventData);
-
-          var fond = document.querySelector('.fond');
-          var flou = document.querySelectorAll('.flou');
-          var modification = document.querySelector("[data-modal-ajout]");
-
-          flou.forEach(item => {
-              item.classList.add("actif");
-          });
-
-          fond.classList.add("actif");
-          modification.showModal();
-          modification.classList.add("actif");
-
-       
-      },
-
-
-
-   }
-
                         setTimeout(function () {
                             confirmation.close();
 
@@ -372,6 +262,5 @@ export default {
 
 
     }
-
 }
 </script>
