@@ -1,55 +1,44 @@
 <template>
     <dialog data-modal-ajout class="modal">
-        <div class="titres">
-            <h1>Ajout Filière</h1>
-           <!--  <h3>Informations Personnelles</h3> -->
-        </div>
-   
-        <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
+      <div class="cote_droit contenu">
+        <form @submit.prevent="validerAvantAjout()">
+            <h1 class="sous_titre">Ajout d'unité de formation</h1>
 
-            <div class="informations">
-                    <div class="titres">
-                        <h1>Ajout Filière</h1>
-                    </div>
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_unite_erreur)} ">Filière</label>
-                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom de l'unité de formation" @input="validatedata('nom_unite_de_formation')" :class="{ 'bordure_rouge': (this.nom_unite_erreur)} ">
-                    <span class="erreur" >{{this.nom_unite_erreur}}</span>
+            <div class="personnel">
+                <div>
+                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom de l'unité de formation" @input="validatedata('nom_unite_de_formation')">
+                    <span class="erreur" v-if="this.nom_unite_erreur !== ''">{{this.nom_unite_erreur}}</span>
                 </div>
-            
+            </div>
 
-                <div class="groupe_champs">
-
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.id_departement_erreur)} ">Departement</label>
-                    <select v-model="form.id_departement" @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur)} ">
+            <div class="departement">
+                <div>
+                    <select name="id_departement" id="id_departement" v-model="form.id_departement" @change="validatedata('departement')">
+                            <option value=""> Département</option>
                             <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                     </select>
                     <span class="erreur" v-if="id_departement_erreur !== ''">{{id_departement_erreur}}</span>
                 </div>
-            
+            </div>
 
-            <div class="champ">
-                <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef filière</label>
-                    <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_direction_erreur)} ">
+            <div class="user">
+                <div>
+                    <select name="user" id="user" v-model="form.id_user"  @change="validatedata('user')" >
+                        <option value=""> Chef filiére</option>
                         <option v-for="user in users" :value="user.id">{{user.nom }} {{ user.prenom }}</option>
                     </select>
                     <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
                 </div>
-            
-        </div>
+            </div>
 
 
-        <div class="groupe_champs validation">
-                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                        <button  v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
-
-                    </div>
-        </div>
+            <div class="boutons">
+                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
+                <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
+            </div>
         </form>
-    
+    </div>
 </dialog>
 </template>
 
@@ -283,13 +272,12 @@ import Form from 'vform';
             var confirmation = document.querySelector(selector);
 
             /* console.log(ajout); */
-            if(this.etatForm==true){
-                var actif = document.querySelectorAll('.actif');
+            var actif = document.querySelectorAll('.actif');
                 actif.forEach(item => {
                 item.classList.remove("actif");
             });
-                ajout.close();
-            }
+            //ajout.classList.remove("actif");
+            ajout.close();
 
             confirmation.style.backgroundColor = 'white';
             confirmation.style.color = 'var(--clr)';
@@ -310,7 +298,7 @@ import Form from 'vform';
             const formdata = new FormData();
             formdata.append('nom_unite_formation', this.form.nom_unite_formation );
             formdata.append('id_departement', this.form.id_departement);
-            formdata.append('id_user', this.form.id_user);
+            formdata.append('id_user', this.form.id_formateur);
 
              //if(this.form.nom!==""){
                 try{
