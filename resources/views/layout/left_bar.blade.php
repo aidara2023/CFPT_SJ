@@ -188,6 +188,13 @@
              </a>
       
          </li>
+
+         
+             <li class="fntr"><a href="{{route('livre_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span ></span>
+
             <li class="fntr"><a href="{{route('rayon_create')}}">
                     <div>
                         <i class="fi fi-rr-user"></i>
@@ -199,6 +206,7 @@
                  <div>
                      <i class="fi fi-rr-user"></i>
                      <span >Catégorie</span>
+
                  </div>
              </a></li>
  
@@ -267,6 +275,7 @@
             </ul>
         </nav>
     @endif
+
      @if(Auth::user()->id_role==5)
         <nav class="flou">
             <ul>
