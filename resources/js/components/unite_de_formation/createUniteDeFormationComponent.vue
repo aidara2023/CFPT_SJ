@@ -148,11 +148,14 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
                     this.update_formation(this.idFormation);
                     this.closeModal('[data-modal-confirmation-modifier]');  
                     this.editModal=false;
                 }
             else{
+                this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
+                 
                 this.soumettre();
                 this.etatForm= true;
                 this.closeModal('[data-modal-confirmation]');
@@ -193,7 +196,7 @@ import Form from 'vform';
                 return true
 
                }else{
-                if(this.form.nom_unite_formation.length <14 ){
+                if(this.form.nom_unite_formation.length <10 ){
                     this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
                         i=1;
                         return true
@@ -245,7 +248,7 @@ import Form from 'vform';
             this.nom_unite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
             i=1;
         }
-        if(this.form.nom_unite_formation.length <14 ){
+        if(this.form.nom_unite_formation.length <10 ){
             this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
            i=1;
         }

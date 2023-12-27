@@ -10,7 +10,7 @@ use App\Models\Matiere;
 class matiere_controller extends Controller
 {
     public function index() {
-        $matiere=Matiere::all();
+        $matiere=Matiere::orderBy('created_at', 'desc')->get();
         if($matiere!=null){
             return response()->json([
                 'statut'=>200,

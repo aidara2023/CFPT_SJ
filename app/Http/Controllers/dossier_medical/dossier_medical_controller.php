@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class dossier_medical_controller extends Controller
 {
     public function index() {
-       $dossier_medical=Dossier_medical::all();
+       $dossier_medical=Dossier_medical::orderBy('created_at', 'desc')->get();
         if($dossier_medical!=null){
             return response()->json([
                 'statut'=>200,

@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class unite_de_formation_controller extends Controller
 {
     public function all() {
-        $unite_de_formation=Unite_de_formation::with('departement' , 'user')->get();
+        $unite_de_formation=Unite_de_formation::with('departement' , 'user')->orderBy('created_at', 'desc')->get();
         if($unite_de_formation!=null){
             return response()->json([
                 'statut'=>200,
@@ -26,7 +26,7 @@ class unite_de_formation_controller extends Controller
         }
      }
      public function index (){
-        $roles = Role::where('intitule', ['Formateur'])->get();
+        $roles = Role::where('intitule', ['Formateur'])->orderBy('created_at', 'desc')->get();
         if ($roles->isNotEmpty()) {
             $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
 

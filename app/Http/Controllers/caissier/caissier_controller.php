@@ -6,6 +6,7 @@ namespace App\Http\Controllers\caissier;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\caissier\caissier_request;
 use App\Models\Caissier;
+use App\Models\Inscription;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class caissier_controller extends Controller
 {
     public function index()
     {
-        $caissiers = Caissier::with('user')->get();
+        $caissiers = Caissier::with('user')->orderBy('created_at', 'desc')->get();
         if($caissiers!=null){
             return response()->json([
                 'statut'=>200,
@@ -52,9 +53,10 @@ class caissier_controller extends Controller
          /* Uploader une image */
          $image= $request->file('photo');
          $imageName=time() . '_' . $image->getClientOriginalName();
-         $image->move(public_path('image'), $imageName);
-         $userCaissier->photo=$image;
+         /* $image->move(public_path('image'), $imageName); 
+         $userCaissier->photo=$image; */
          /* Fin upload */
+         $userCaissier->photo= $image->storeAs('image', $imageName, 'public');
 
          $role= Role::where('intitule', "Caissier")->first();
  
@@ -77,6 +79,59 @@ class caissier_controller extends Controller
             ],500 );
         }
         
+    }
+    public function validerInscription(Request $request, $id)
+    {
+        // Trouver l'inscription par ID
+        $inscriptionsearch = Inscription::find($id);
+        
+    
+        // Vérifier si l'inscription existe
+        if ($inscriptionsearch) {
+            // Mettre à jour les champs avec les données de la requête
+            $inscriptionsearch->id_classe = $request->input('id_classe');
+            $inscriptionsearch->id_eleve = $inscriptionsearch->id_eleve;
+            $inscriptionsearch->id_annee_academique = $request->input('id_annee_academique');
+            $inscriptionsearch->montant = $request->input('montant');
+            $inscriptionsearch->statut = 1;
+    
+            // Sauvegarder les modifications
+            $inscriptionsearch->save();
+    
+            // Retourner une réponse JSON avec un message de succès
+            return response()->json([
+                'statut' => 200,
+                'message' => 'La mise à jour a été effectuée avec succès.',
+                'inscriptionsearch' => $inscriptionsearch,
+            ], 200);
+        } else {
+            // Retourner une réponse JSON avec un message d'erreur si l'inscription n'est pas trouvée
+            return response()->json([
+                'statut' => 404,
+                'message' => 'L\'inscription spécifiée n\'a pas été trouvée.',
+            ], 404);
+        }
+    }
+    
+    public function recherche_id_inscription(Request $request){
+        $valeur = $request->input('query');
+    
+        $inscriptions = Inscription::with( 'eleve.user', 'classe' , 'annee_academique') 
+             /* ->whereHas( function ($query) { */
+                // Filtrer les utilisateurs ayant un rôle avec id_role élevé
+               /*  $query->where('id_role', 1); */ // Assurez-vous de remplacer $valeur par la valeur souhaitée
+           /*  })  */
+            ->where('id', 'LIKE', "%$valeur%")
+            ->get();
+    
+        if ($inscriptions->isNotEmpty()) {
+            return response()->json($inscriptions);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'eleve' => 'Aucun code ne correspond à la recherche',
+            ], 500);
+        }
     }
 
     public function update(caissier_request $request, $id){

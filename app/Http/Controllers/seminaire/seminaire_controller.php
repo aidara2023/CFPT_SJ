@@ -12,7 +12,7 @@ class seminaire_controller extends Controller
 
         public function index()
         {
-            $seminaires = Seminaire::all();
+            $seminaires = Seminaire::orderBy('created_at', 'desc')->get();
             if ($seminaires->count() > 0) {
                 return response()->json([
                     'status' => 200,

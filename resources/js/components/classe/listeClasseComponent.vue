@@ -1,19 +1,19 @@
 <template>
 
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Classe</h1>
+       <div class="avant" style=" margin-left: 80%;">
+          
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
-
+       <h1 class="texte">Classe</h1>
 
    <div class="sections" v-for="(classe, index) in classes" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-               <p class="texte" id="n">{{ classe.nom_classe }} {{ classe.type_classe }}</p>
+              
+               <p class="texte" id="n">{{ classe.type_formation_intitule }} {{ classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }} </p>
                <p class="texte" id="n">{{ classe.type_formation.intitule }} {{ classe.unite_de_formation.nom_unite_formation }}</p>
                <div  class="presences">
                 <a href="#" class="texte b">

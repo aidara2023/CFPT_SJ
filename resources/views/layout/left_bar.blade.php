@@ -135,7 +135,7 @@
 
     <nav class="flou ">
         <ul >
-            <li class="fntr"><a href="{{route('caissier_index')}}">
+            <li class="fntr"><a href="{{route('caissier_accueil')}}">
                 <div>
                     <i class="fi fi-rr-home"></i>
                     <span>Accueil</span>
@@ -143,6 +143,13 @@
             </a>
      
         </li>
+         <li class="fntr"><a href="{{route('validation_inscription')}}">
+                <div>
+                    <i class="fi fi-rr-user"></i>
+                    <span >Valider Inscription</span>
+                </div>
+            </a></li>
+
         
             <li class="fntr"><a href="{{route('paiement_create')}}">
                 <div>
@@ -170,6 +177,93 @@
      </nav>
      @endif
 
+     @if (Auth::user()->id_role==7)
+     <nav class="flou ">
+         <ul >
+             <li class="fntr"><a href="{{route('bibliothecaire_accueil')}}">
+                 <div>
+                     <i class="fi fi-rr-home"></i>
+                     <span>Accueil</span>
+                 </div>
+             </a>
+      
+         </li>
+
+         
+             <li class="fntr"><a href="{{route('livre_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span ></span>
+
+            <li class="fntr"><a href="{{route('rayon_create')}}">
+                    <div>
+                        <i class="fi fi-rr-user"></i>
+                        <span >Rayon</span>
+                    </div>
+             </a></li>
+            
+             <li class="fntr"><a href="{{route('categorie_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Catégorie</span>
+
+                 </div>
+             </a></li>
+ 
+             <li class="fntr"><a href="{{route('auteur_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Auteur</span>
+                 </div>
+             </a></li>
+
+             <li class="fntr"><a href="{{route('editeur_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Editeur</span>
+                 </div>
+             </a></li>
+
+             <li class="fntr"><a href="{{route('edition_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Edition</span>
+                 </div>
+             </a></li>
+
+             <li class="fntr"><a href="{{route('livre_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Livre</span>
+                 </div>
+             </a></li>
+
+             <li class="fntr"><a href="{{route('exemplaire_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Exemplaire</span>
+                 </div>
+             </a></li>
+
+             <li class="fntr"><a href="{{route('emprunter_livre_create')}}">
+                 <div>
+                     <i class="fi fi-rr-user"></i>
+                     <span >Livre Emprunter</span>
+                 </div>
+             </a></li>
+ 
+ 
+             <li class="fntr"><a href="{{route('logout')}}">
+                 <div>
+                     <i class="fi fi-rr-sign-out-alt"></i>
+                     <span>Me déconnecter</span>
+                 </div>
+             </a></li>
+ 
+         </ul>
+      </nav>
+      @endif
+
      @if(Auth::user()->id_role==12)
         <nav class="flou">
             <ul>
@@ -181,6 +275,7 @@
             </ul>
         </nav>
     @endif
+
      @if(Auth::user()->id_role==5)
         <nav class="flou">
             <ul>

@@ -20,6 +20,7 @@ body{
     --clr2:  rgb(10, 22, 56);
 
     --rouge: #ff5252;
+    --rouge: rgb(255, 82, 82);
     --orange:#ff7e00;
     --vert:lime;
     --vert_confirmation:#75ccd5;
@@ -808,11 +809,19 @@ label.photo i{
     width: 48%;
     
 }
+
+.champ.invisible, .groupe_champs.invisible{
+    display: none;
+}
+.champ.visible, .groupe_champs.visible{
+    display: flex;
+}
+
 label{
     margin:0 0 1% min(5vw, 40px);
-    font-size: clamp(.4rem, 54%, .9rem);
+    font-size: clamp(.7rem, 54%, .9rem);
 
-    color: #7a9def;
+    color: #1a5aed;
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 2px;
@@ -837,7 +846,6 @@ label{
 
 
 input{
-    
     background-color: transparent;
 
     border: 1.5px solid var(--clr);
@@ -1212,8 +1220,3 @@ p .fi-rr-angle-small-down{
         height:30px;
     }
    }
-
-
-
-
-

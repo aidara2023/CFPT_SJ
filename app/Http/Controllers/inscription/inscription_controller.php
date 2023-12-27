@@ -4,10 +4,12 @@ namespace App\Http\Controllers\inscription;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\inscription\inscription_request;
+use App\Models\Classe;
 use App\Models\Eleve;
 use App\Models\Inscription;
 use App\Models\Role;
 use App\Models\Tuteur;
+use App\Models\Unite_de_formation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 class inscription_controller extends Controller
 {
     public function index() {
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe')->get();
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation')->orderBy('created_at', 'desc')->get();
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
@@ -97,8 +99,10 @@ class inscription_controller extends Controller
          /* Uploader une image */
          $image= $request->file('photo');
          $imageName=time() . '_' . $image->getClientOriginalName();
-         $image->move(public_path('image'), $imageName);
-         $eleve_user->photo=$image;
+         $eleve_user->photo= $image->storeAs('image', $imageName, 'public');
+        /*  $image->move(public_path('image'), $imageName);
+         $eleve_user->photo=$image; */
+        
          /* Fin upload */
 
         $roleEleve= Role::where('intitule', 'Eleve')->first();
@@ -169,6 +173,37 @@ class inscription_controller extends Controller
 
 
         return response()->json(['message' => 'Inscription supprimée avec succès']);
+    }
+
+    public function get_filiere_by_departement($id){
+        $filiere=Unite_de_formation::where('id_departement', $id)->get();
+
+        if($filiere!=null){
+            return response()->json([
+                'statut'=>200,
+                'filiere'=>$filiere
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Filiere introuvable ',
+            ],500 );
+        }
+    }
+    public function get_classe_by_filiere($id){
+        $classe=Classe::with('unite_de_formation', 'type_formation')->where('id_unite_de_formation', $id)->get();
+
+        if($classe!=null){
+            return response()->json([
+                'statut'=>200,
+                'classe'=>$classe
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Classe introuvable ',
+            ],500 );
+        }
     }
 
 

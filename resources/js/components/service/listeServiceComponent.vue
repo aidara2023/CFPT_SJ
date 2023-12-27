@@ -1,18 +1,13 @@
 <template>
-
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Service</h1>
+       <div class="avant" style=" margin-left: 80%;">
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
-
-
+       <h1 class="texte">Service</h1>
         <div class="sections" v-for="(service, index) in services" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ service.nom_service }} </p>
                <p class="texte" id="n">{{ service.direction.nom_direction }} </p>
                <p class="texte" id="n">{{ service.user.prenom }} {{ service.user.nom }}</p>
@@ -34,18 +29,10 @@
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
-                   <!-- <a href="#" class="texte b supprimer mdl">
-                         <i class="fi fi-rr-cross"></i>
-                         <span class="">Supprimer</span></a> -->
                </div>
            </div>
        </div>
-
    </div>
-
-
-<!-- <span class="fond "></span> -->
-
 </template>
 
 <script>

@@ -12,7 +12,7 @@ class type_formation_controller extends Controller
 
     public function index()
     {
-        $type_formation = Type_formation::all();
+        $type_formation = Type_formation::orderBy('created_at', 'desc')->get();
         if ($type_formation->count() > 0) {
             return response()->json([
                 'status' => 200,

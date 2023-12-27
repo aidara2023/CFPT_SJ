@@ -11,7 +11,7 @@ class type_evaluation_controller extends Controller
 {
     public function index()
     {
-        $type_Evaluation = Type_evaluation::all();
+        $type_Evaluation = Type_evaluation::orderBy('created_at', 'desc')->get();
         if ($type_Evaluation->count() > 0) {
             return response()->json([
                 'status' => 200,

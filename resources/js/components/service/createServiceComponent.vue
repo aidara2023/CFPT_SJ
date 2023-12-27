@@ -1,4 +1,5 @@
 <template>
+
     <!--  <dialog data-modal-ajout class="modal">
          <div class="cote_droit contenu">
              <form @submit.prevent="validerAvantAjout()" method="">
@@ -39,10 +40,11 @@
              </form>
          </div>
      </dialog> -->
+
      <dialog data-modal-ajout class="modal ">
          
          <div class="titres">
-             <h1>Ajout Service</h1>
+             <h1>Nouveau Service</h1>
             <!--  <h3>Informations Personnelles</h3> -->
          </div>
          <!-- <div class="contenu"> -->
@@ -53,7 +55,7 @@
                  Et enlever la div au dessus -->
                  <div class="informations">
                      <div class="titres">
-                         <h1>Ajout Service</h1>
+                         <h1>Nouveau Service</h1>
                      </div>
  
                      <div class="champ">
@@ -80,92 +82,15 @@
                          </select>
                          <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
                      </div>
-                 </div>
-                   <!--   <div class="champ">
-                         <input type="text" class="select">
-                         <div class="choix">
-                             <p class="option">choix </p>
-                             <p class="option">choix</p>
-                             <p class="option">choix</p>
-                         </div>
-                     </div>
- 
-                     <div class="champ">
-                             <label for="nom">Sexe</label>
-                             
-                             <input type="text" name="nom" id="nom" class="select">
-                             <span class="erreur"></span>
-                             <div class="choix">
-                                 <p class="option">Masculin</p>
-                                 <p class="option">Féminin</p>
-                             </div>
-                         </div> -->
- <!-- 
-                     <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Lieu de Naissance</label>
-                             <input type="text" name="nom" id="nom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">Date de naissance</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div> -->
- <!--                     <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Sexe</label>
-                             
-                             <input type="text" name="nom" id="nom" class="select">
-                             <span class="erreur"></span>
-                             <div class="choix">
-                                 <p class="option">Masculin</p>
-                                 <p class="option">Féminin</p>
-                             </div>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">nationalité</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div> -->
-  <!--                    <div class="groupe_champs">     
- 
-                         <div class="champ">
-                             <label for="nom">Adresse</label>
-                             <input type="text" name="nom" id="nom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                         <div class="champ">
-                             <label for="nom">telephone</label>
-                             <input type="text" name="prenom" id="prenom">
-                             <span class="erreur"></span>
-                         </div>
- 
-                     </div>
- 
-                     <div class="champ">
-                         <label for="nom">Email</label>
-                         <input type="text" name="prenom" id="prenom">
-                         <span class="erreur"></span>
-                     </div> -->
- 
-                     
+                 </div>                
  
                      <!-- Le groupe qui contient les boutons -->
-                     <div class="groupe_champs validation">
-                         <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                         <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                         <button type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                     </div>
+                <div class="groupe_champs validation">
+                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
+                        <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+                    </div>
  
                      </div>
                  
@@ -189,6 +114,7 @@
          data(){
              return {
                  users:[],
+                 directions:[],
                  form:new Form({
                      'nom_service':"",
                      'id_user':"",
@@ -259,12 +185,17 @@
  
                  if(this.editModal===true){
                      this.etatForm= true;
+                     this.form.nom_service = this.form.nom_service.toUpperCase();
                      this.update_service(this.idService);
                      this.closeModal('[data-modal-confirmation-modifier]');  
                      this.editModal=false;
                  }
              
              else{
+
+
+                this.form.nom_service = this.form.nom_service.toUpperCase();
+
                  this.soumettre();
                  this.etatForm = true;
                  this.closeModal('[data-modal-confirmation]');
@@ -342,12 +273,12 @@
                 // this.coloration_erreur_rouge(this.nom_service_erreur);
                  return true
              }
-            /*  if(this.form.nom_service.length < 12){
+             if(this.form.nom_service.length < 12){
                  this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caractères"
                  ;
-              
+                // this.coloration_erreur_rouge(this.nom_service_erreur);
                  return true
-             } */
+             }
              break;
              
              case 'user':
@@ -409,11 +340,19 @@
                  ;
                  i=1;
              }
+
              /* if(this.form.nom_service.length < 12){
                  this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
                  ;
                  i=1;
              } */
+
+             if(this.form.nom_service.length < 12){
+                 this.nom_service_erreur= "Ce champ doit contenir au moins 12 Caratères"
+                 ;
+                 i=1;
+             }
+
              if(this.form.id_user=== ""){
                  this.id_user_erreur= "Vous avez oublié de sélectionner le chef de service"
                  ;
@@ -442,8 +381,7 @@
              axios.get('/direction/index')
              .then(response => {
                  this.directions=response.data.direction
-             
-             
+
              }).catch(error=>{
              Swal.fire('Erreur!','Une erreur est survenue lors de la recupération des directions','error')
              });

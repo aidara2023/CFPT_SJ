@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 class user_controller extends Controller
 {
     public function index() {
-        $user=User::all();
+        $user=User::orderBy('created_at', 'desc')->get();
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -144,8 +144,9 @@ class user_controller extends Controller
         /* Uploader une image */
         $image= $request->file('photo');
         $imageName=time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('image'), $imageName);
-        $user->photo=$image;
+        //$image->move(public_path('image'), $imageName);
+        $user->photo= $image->storeAs('image', $imageName, 'public');
+        //$user->photo=$imageName;
         /* Fin upload */
 
         $user->id_role=$request['id_role'];
@@ -162,7 +163,7 @@ class user_controller extends Controller
             $formateur->save();
         }
         
-        elseif($request['id_role']=11){
+        elseif($request['id_role']==11){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
@@ -209,8 +210,9 @@ class user_controller extends Controller
            if($request->hasFile('photo')){
             $image= $request->file('image');
             $imageName=time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('image'), $imageName);
-            $user->photo=$imageName;
+            //$image->move(public_path('image'), $imageName);
+            $user->photo= $image->storeAs('image', $imageName, 'public');
+            //$user->photo=$imageName;
            }
 
            $user->date_naissance=$request['date_naissance'];

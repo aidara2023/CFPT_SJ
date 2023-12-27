@@ -10,4 +10,7 @@ class exemplaire_view_controller extends Controller
     public function create(){
         return view('exemplaire.create');
     }
+    public function accueil(){
+        return view('exemplaire.accueil');
+    }
 }

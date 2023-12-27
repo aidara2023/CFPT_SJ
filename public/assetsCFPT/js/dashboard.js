@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function()  {
             var encaissement = document.querySelector("[data-modal-encaissement]");
             var filtre = document.querySelector("[data-modal-filtre]");
 
+            
 
             var droit = document.querySelector('.droit');
             var etape = document.querySelector('.positions');
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         ajout.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(ajout);
+                        //ClicExtérieur(ajout);
 
                     }
 
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         modification.showModal();
                         modification.classList.add("actif");
                         }, 20); 
-                        ClicExtérieur(modification);
+                        //ClicExtérieur(modification);
                     }
 
                     if(mdl[index].classList.contains("supprimer")){
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         suppression.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(suppression);
+                       // ClicExtérieur(suppression);
                     }
                     
 
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         encaissement.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(encaissement);
+                       // ClicExtérieur(encaissement);
                     }
                     
 
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                         filtre.classList.add("actif");
                         }, 20); 
 
-                        ClicExtérieur(filtre);
+                       // ClicExtérieur(filtre);
                     }
 
                 }); 
@@ -102,22 +103,27 @@ document.addEventListener("DOMContentLoaded", function()  {
             //Fermeture des modals
             fermemod.forEach(item => {
                 item.addEventListener('click', () => {
-                if(item.dataset.closeModal == "0") return;
+                /* alert(item.dataset.closeModal); */
+
+                if(item.dataset.closeModal == "0"){
+                   /*  alert("Suivant"); */
+                    return;
+                }
                 var actif = document.querySelectorAll('.actif');
                     actif.forEach(item => {
                         item.classList.remove("actif");
                     });
                         ajout.close();
                         modification.close();
-                        suppression.close();
+                        suppression.close();/* 
                         filtre.close();
-                        encaissement.close();
+                        encaissement.close(); */
                     
             })
             });
 
             //Pour fermer le modal en cliquant hors de ce dernier
-            function ClicExtérieur(modal_concerne){
+       /*      function ClicExtérieur(modal_concerne){
                 var actif = document.querySelectorAll('.actif');
                     actif.forEach(item => {
                         item.classList.remove("actif");
@@ -138,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function()  {
                     modal_concerne.close();
                 }
                 });
-            }
+            } */
 
             
 
@@ -189,8 +195,13 @@ document.addEventListener("DOMContentLoaded", function()  {
             });
 
            
-
-
+         /*    var taillefixe = '800px';
+            ajout.style.width = taillefixe;
+            modification.style.width = taillefixe;
+            suppression.style.width = taillefixe;
+            encaissement.style.width = taillefixe;
+            filtre.style.width = taillefixe;
+ */
 
             
             

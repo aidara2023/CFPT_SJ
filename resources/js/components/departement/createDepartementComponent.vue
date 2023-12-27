@@ -1,5 +1,6 @@
 <template>
     <dialog data-modal-ajout class="modal">
+
       <div class="cote_droit contenu">
         <form @submit.prevent="validerAvantAjout()">
             <h1 class="sous_titre">Ajout de departement</h1>
@@ -8,6 +9,48 @@
                 <div>
                     <input type="text" v-model="form.nom" id="nom" placeholder="Nom du Departement" @input="validatedata('nom_departement')">
                     <span class="erreur" v-if="this.nom_departement_erreur !== ''">{{this.nom_departement_erreur}}</span>
+
+
+        <div class="titres">
+            <h1>Ajout Service</h1>
+           <!--  <h3>Informations Personnelles</h3> -->
+        </div>
+        
+              <form @submit.prevent="validerAvantAjout()" action="" method="dialog" >
+                
+                    
+                <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
+                Et enlever la div au dessus -->
+                <div class="informations">
+                    <div class="titres">
+                        <h1>Nouveau Département</h1>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
+                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
+                        <span class="erreur" >{{this.nom_departement_erreur}}</span>
+                    </div>
+                
+                    <div class="groupe_champs">
+
+                    
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Service</label>
+                        <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
+                            <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
+                        </select>
+                        <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}></span>
+                    </div>
+
+                    <div class="champ">
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_direction_erreur)} ">Direction</label>
+                        <select  v-model="form.id_direction" @change="validatedata('id_direction')" :class="{ 'bordure_rouge': (this.id_direction_erreur)} ">
+                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
+                        </select>
+                        <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
+                    </div>
+
                 </div>
             </div>
 
@@ -32,6 +75,7 @@
             </div>
 
 
+
             <div class="boutons">
                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
@@ -40,6 +84,14 @@
             </div>
         </form>
     </div>
+
+                </div>
+
+                
+              
+            </form>
+    
+
 </dialog>
 </template>
 
@@ -128,6 +180,7 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.update_departement(this.idDepartement);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal=false;
@@ -135,6 +188,7 @@ import Form from 'vform';
                 }
                 else{
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
                     this.editModal=false;
@@ -144,7 +198,7 @@ import Form from 'vform';
         },
 
         get_user(){
-            axios.get('/user/getPersonnel')
+            axios.get('/user_formateur/index')
             .then(response => {
                 this.users=response.data.user
                 }).catch(error=>{
@@ -208,6 +262,10 @@ import Form from 'vform';
                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
                 return true;
             }
+            if(!this.verifCaratere(this.form.nom)){
+                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                 return true
+             }
             if(this.form.nom.length <14 ){
                 this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
                 return true;
@@ -256,6 +314,11 @@ import Form from 'vform';
                 this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
                  i=1;
             }
+            if(!this.verifCaratere(this.form.nom)){
+                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
+                 ;
+                 i=1;
+             }
             if(this.form.id_user=== ""){
               this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
                 i=1;

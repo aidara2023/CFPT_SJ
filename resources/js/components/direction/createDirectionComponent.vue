@@ -1,34 +1,45 @@
 <template>
     <dialog data-modal-ajout class="modal">
-    <div class="cote_droit contenu">
-        <form  @submit.prevent="validerAvantAjout()" method="">
-          <h1 class="sous_titre">Ajout direction</h1>
+        <div class="titres">
+             <h1>Nouvelle Direction</h1>
+            <!--  <h3>Informations Personnelles</h3> -->
+         </div>
+
+        <form  @submit.prevent="validerAvantAjout()" action="" method="dialog">
+          
           <!--Informations personnelles-->
-    <div class="personnel">
-              <div>
-                  <input type="text" v-model="form.nom_direction" id="nom" placeholder="Nom de la direction" @input="validatedata('nom_direction')">
-                  <span class="erreur" v-if="this.nom_direction_erreur !== ''">{{this.nom_direction_erreur}}</span>
-              </div>
-           <div class="roles">
-              <select name="user" id="user" placeholder="Niveau" v-model="form.id_user" @change="validatedata('user')" >
-                <option value="">Chef de direction</option>
+        <div class="informations">
+            <div class="titres">
+                <h1>Nouvelle direction</h1>
+            </div>
+
+            <div class="champ">
+                <label for="nom" :class="{ 'couleur_rouge': (this.nom_direction_erreur)} ">Nom direction</label>
+                <input type="text" v-model="form.nom_direction" id="nom"  @input="validatedata('nom_direction')" :class="{ 'bordure_rouge': (this.nom_direction_erreur)} " >
+                <span class="erreur" >{{this.nom_direction_erreur}}</span>
+            </div>
+
+           <div class="champ">
+            <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef direction</label>
+              <select name="user" id="user"  v-model="form.id_user" @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} " >
                 <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
               </select>
               <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
              </div>
 
           
-      </div>
+      
 
 
-      <div class="boutons">
-                <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
+            <div class="groupe_champs validation">
+                <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
+                <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
+                <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
             </div>
-      </form>
-  </div>
+        </div>
+    </form>
+  
 </dialog>
 </template>
 
@@ -204,12 +215,14 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= false;
+                    this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.update_direction(this.idDirection);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal=false;
                 }
                 else{
                     this.etatForm= true;
+                    this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
                     this.editModal=false;

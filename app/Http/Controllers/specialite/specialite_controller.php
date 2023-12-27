@@ -11,7 +11,7 @@ class specialite_controller extends Controller
 {
 
     public function index(){
-        $specialite = Specialite::all();
+        $specialite = Specialite::orderBy('created_at', 'desc')->get();
         if($specialite != null){
             return response()->json([
                 'statut' => 200,

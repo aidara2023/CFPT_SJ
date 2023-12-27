@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 class paiement_controller extends Controller
 {
     public function index(){
-        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'annee_academique')->get();
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe'  )->orderBy('created_at', 'desc')->get();
         if($paiement != null){
             return response()->json([
                 'statut' => 200,
@@ -38,10 +38,13 @@ class paiement_controller extends Controller
          $paiements= $request->input('paiements');
          $caissiers=Caissier::all();
          $eleves=Eleve::all();
+         $concerner = null;
          if(!empty($paiements)){
+        
              $paiements= json_decode($paiements, true);
              foreach($caissiers as $caissier){
                  if($caissier->id_user == Auth::user()->id){
+                  
                      foreach($paiements as $paiement){
                          foreach($eleves as $eleve){
                              if($eleve->id_user==$request['id_eleve']){
@@ -50,7 +53,7 @@ class paiement_controller extends Controller
                                      'montant'=>$paiement['montant'],
                                      'id_eleve'=>$eleve->id,
                                  ];
-
+                                
                                  $paiementValid= Paiement::create($dataPaiement);
 
                                  $dataConcerner= [
@@ -75,7 +78,7 @@ class paiement_controller extends Controller
                  ],200);
              } else {
                  return response()->json([
-                     'statut' => 500,
+                     'statut' => 600,
                      'message' => 'L\'enregistrement n\'a pas été éffectué'
                  ],500);
              }

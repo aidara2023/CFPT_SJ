@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class mois_controller extends Controller
 {
     public function index() {
-        $mois=Mois::all();
+        $mois=Mois::get();
         if($mois!=null){
             return response()->json([
                 'statut'=>200,

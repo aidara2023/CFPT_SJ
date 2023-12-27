@@ -12,9 +12,10 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.3.4",
+        "html2pdf.js": "^0.10.1",
         "mitt": "^3.0.1",
         "swal": "^0.1.0",
-        "sweetalert2": "^11.7.31",
+        "sweetalert2": "^11.7.32",
         "vform": "^2.1.2",
         "vue": "^3.2.36"
     }

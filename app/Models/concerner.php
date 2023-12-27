@@ -15,20 +15,21 @@ class Concerner extends Model
         'id_paiement',
     ];
 
-    public function paiement(){
-        return $this->belongsToMany(Paiement::class,'id_paiement');
+    public function mois()
+    {
+        return $this->belongsTo(Mois::class, 'id_mois');
     }
 
-    public function annee_academique(){
-        return $this->belongsToMany(Annee_academique::class,'id_annee_academique');
+    // Définir la relation avec la table annee_academique
+    public function annee_academique()
+    {
+        return $this->belongsTo(Annee_academique::class, 'id_annee_academique');
     }
 
-    public function mois(){
-        return $this->belongsToMany(Mois::class,'id_mois');
-    }
-
-    public function concerner() {
-        return $this->hasMany(Concerner::class); 
+    // Définir la relation avec la table paiement
+    public function paiement()
+    {
+        return $this->belongsTo(Paiement::class, 'id_paiement');
     }
 
 }

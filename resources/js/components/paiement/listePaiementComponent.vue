@@ -1,12 +1,13 @@
 <template>
 
     <div class="affichage">
-       <div class="avant">
-           <h1 class="texte">Paiement</h1>
+       <div class="avant" style=" margin-left: 80%;">
+          <!--  <h1 class="texte">Paiement</h1> -->
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
+       <h1 class="texte">Paiement</h1>
 
         <div class="sections" v-for="(paiement, index) in paiements" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
@@ -14,7 +15,7 @@
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ paiement.eleve.user.nom }} {{ paiement.eleve.user.prenom }} </p>
                <p class="texte" id="n" v-if="paiement.annee_academique">{{ paiement.eleve.inscription.classe }} {{ paiement.annee_academique.id}} </p>
-              <!--  <p class="texte" id="n">{{ paiement.user.nom }}</p> -->
+                <p class="texte" id="n">{{ paiement.montant }}</p> 
                 <div  class="presences">
                     <a href="#" class="texte b">
                         <i class="fi fi-rr-bars-sort"></i>

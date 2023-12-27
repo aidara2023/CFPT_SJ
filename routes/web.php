@@ -24,7 +24,6 @@ use App\Http\Controllers\edition\edition_controller;
 use App\Http\Controllers\eleve\eleve_controller;
 use App\Http\Controllers\eleve\eleve_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_controller;
-use App\Http\Controllers\examplaire\exemplaire_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_controller;
 use App\Http\Controllers\infirmier\infirmier_controller;
 use App\Http\Controllers\livre\livre_controller;
@@ -52,10 +51,12 @@ use App\Http\Controllers\edition\edition_view_controller;
 
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
+use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;
 use App\Http\Controllers\exemplaire\exemplaire_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
+use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\livre\livre_view_controller;
@@ -225,6 +226,8 @@ Route::delete('emprunter_livre/delete/{id}',[emprunter_livre_controller::class, 
 Route::post('emprunter_livre/rendre/{id}',[emprunter_livre_controller::class, 'rendre'])->name('emprunter_livre_rendre');
 
 Route::get('/emprunter_livre/create',[emprunter_livre_view_controller::class, 'create'])->name('emprunter_livre_create');
+Route::get('/emprunter_livre/accueil',[emprunter_livre_view_controller::class, 'accueil'])->name('emprunter_livre_accueil');
+
 
 //route type de formation
 Route::get('type_formation/all',[type_formation_controller::class, 'index'])->name('type_formation_all');
@@ -343,6 +346,7 @@ Route::post('livre/update/{id}',[livre_controller::class, 'update'])->name('livr
 Route::delete('livre/delete/{id}',[livre_controller::class, 'delete'])->name('livre_delete');
 
 Route::get('/livre/create',[livre_view_controller::class, 'create'])->name('livre_create');
+Route::get('/livre/accueil',[livre_view_controller::class, 'accueil'])->name('livre_accueil');
 
 
 //route editeur
@@ -353,6 +357,8 @@ Route::post('editeur/update/{id}',[editeur_controller::class, 'update'])->name('
 Route::delete('editeur/delete/{id}',[editeur_controller::class, 'delete'])->name('editeur_delete');
 
 Route::get('/editeur/create',[editeur_view_controller::class, 'create'])->name('editeur_create');
+Route::get('/editeur/accueil',[editeur_view_controller::class, 'accueil'])->name('editeur_accueil');
+
 
 //route auteur
 Route::get('auteur/index', [auteur_controller::class, 'index']) -> name('auteur_index');
@@ -362,6 +368,8 @@ Route::delete('auteur/delete/{id}', [auteur_controller::class, 'delete']) -> nam
 Route::get('auteur/show/{id}', [auteur_controller::class, 'show']) -> name('auteur_show');
 
 Route::get('/auteur/create',[auteur_view_controller::class, 'create'])->name('auteur_create');
+Route::get('/auteur/accueil',[auteur_view_controller::class, 'accueil'])->name('auteur_accueil');
+
 
 //route rayon
 Route::get('rayon/index',[rayon_controller::class, 'index'])->name('rayon_index');
@@ -371,6 +379,7 @@ Route::post('rayon/update/{id}',[rayon_controller::class, 'update'])->name('rayo
 Route::delete('rayon/delete/{id}',[rayon_controller::class, 'delete'])->name('rayon_delete');
 
 Route::get('/rayon/create',[rayon_view_controller::class, 'create'])->name('rayon_create');
+Route::get('/rayon/accueil',[rayon_view_controller::class, 'accueil'])->name('rayon_accueil');
 
 
 //route categorie
@@ -381,6 +390,8 @@ Route::post('categorie/update/{id}',[categorie_controller::class, 'update'])->na
 Route::delete('categorie/delete/{id}',[categorie_controller::class, 'delete'])->name('categorie_delete');
 
 Route::get('/categorie/create',[categorie_view_controller::class, 'create'])->name('categorie_create');
+Route::get('/categorie/accueil',[categorie_view_controller::class, 'accueil'])->name('categorie_accueil');
+
 
 //route bibliothecaire
 Route::get('bibliothecaire/index',[bibliothecaire_controller::class, 'index'])->name('bibliothecaire_index');
@@ -391,17 +402,18 @@ Route::delete('bibliothecaire/delete/{id}',[bibliothecaire_controller::class, 'd
 
 
 Route::get('/bibliothecaire/create',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
+Route::get('/bibliothecaire/accueil',[bibliothecaire_view_controller::class, 'accueil'])->name('bibliothecaire_accueil');
 
 
-//route exemplaire
-Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
+//rout exemplaire
+/* Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
 Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
 Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
 Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
 Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
-
+ */
 Route::get('/exemplaire/create',[exemplaire_view_controller::class, 'create'])->name('exemplaire_create');
-
+Route::get('/exemplaire/accueil',[exemplaire_view_controller::class, 'accueil'])->name('exemplaire_accueil');
 //route ressource_pedagogique
 Route::get('ressource_pedagogique/index',[ressource_pedagogique_controller::class, 'index'])->name('ressource_pedagogique_index');
 Route::post('ressource_pedagogique/store',[ressource_pedagogique_controller::class, 'store'])->name('ressource_pedagogique_store');
@@ -466,7 +478,7 @@ Route::post('caissier/update/{id}',[caissier_controller::class,'update'])->name(
 Route::delete('caissier/delete/{id}',[caissier_controller::class, 'delete'])->name('caissier_delete');
 
 Route::get('/caissier/create',[caissier_view_controller::class, 'create'])->name('caissier_create');
-Route::get('/caissier/index',[caissier_view_controller::class, 'index'])->name('caissier_index');
+Route::get('/caissier/accueil',[caissier_view_controller::class, 'accueil'])->name('caissier_accueil');
 
 //Route pour note
 
@@ -494,6 +506,8 @@ Route::post('inscription/store',[inscription_controller::class, 'store'])->name(
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::post('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
 Route::delete('inscription/delete/{id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+Route::get('find/filieres/{id}',[inscription_controller::class, 'get_filiere_by_departement'])->name('find_filiere');
+Route::get('find/classes/{id}',[inscription_controller::class, 'get_classe_by_filiere'])->name('find_classe');
 
 Route::get('inscription/index', [inscription_view_controller::class, 'index'])->name('inscription_accueil');
 
@@ -656,4 +670,12 @@ Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
-Route::get('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
+Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+
+Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
+Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
+
+
+Route::get('recherche/code',[caissier_controller::class, 'recherche_id_inscription'])->name('recherche_id_inscription');
+Route::post('caissier/valider-inscription/{id}' ,[caissier_controller::class, 'validerInscription'])->name('validerInscription');
