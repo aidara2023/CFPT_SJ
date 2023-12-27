@@ -180,7 +180,7 @@
 
      <nav class="flou ">
          <ul >
-             <li class="fntr"><a href="{{route('bibliothecaire_index')}}">
+             <li class="fntr"><a href="{{route('bibliothecaire_accueil')}}">
                  <div>
                      <i class="fi fi-rr-home"></i>
                      <span>Accueil</span>
@@ -189,10 +189,10 @@
       
          </li>
          
-             <li class="fntr"><a href="{{route('paiement_create')}}">
+             <li class="fntr"><a href="{{route('livre_create')}}">
                  <div>
                      <i class="fi fi-rr-user"></i>
-                     <span >Paiment</span>
+                     <span ></span>
                  </div>
              </a></li>
  
@@ -226,6 +226,7 @@
             </ul>
         </nav>
     @endif
+
      @if(Auth::user()->id_role==5)
         <nav class="flou">
             <ul>

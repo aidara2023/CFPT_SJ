@@ -393,7 +393,7 @@ Route::delete('bibliothecaire/delete/{id}',[bibliothecaire_controller::class, 'd
 
 
 Route::get('/bibliothecaire/create',[bibliothecaire_view_controller::class, 'create'])->name('bibliothecaire_create');
-Route::get('/bibliothecaire/index',[bibliothecaire_view_controller::class, 'index'])->name('bibliothecaire_index');
+Route::get('/bibliothecaire/accueil',[bibliothecaire_view_controller::class, 'accueil'])->name('bibliothecaire_accueil');
 
 
 //route exemplaire
