@@ -1,39 +1,43 @@
 <template>
     <div class="">
 
-       <!--  <h1 class="sous_titre" v-if="activePhase === 1">Informations Personnelles</h1> -->
+        <!--  <h1 class="sous_titre" v-if="activePhase === 1">Informations Personnelles</h1> -->
         <div v-if="activePhase === 1">
         </div>
         <form @submit.prevent="validerAvantAjout()" method="dialog">
             <!-- <div v-if="activePhase===1"> -->
-            <div class="droit" >
+            <div class="droit">
                 <div class="image">
-                    <div class="roue">
-                        <div class="roue">
+                    <div :class="{ 'bordure_rouge': (this.photo_erreur), 'roue': true }">
+                        <div :class="{ 'bordure_rouge': (this.photo_erreur), 'roue': true }">
                             <label for="photo" class="photo">
                                 <i class="fi fi-rr-picture"></i>
                                 Téléchargez votre photo ici
                                 <input type="file" id="photo" @change="ajoutimage" accept="image/*">
+                                <!--   <span class="erreur">{{ this.photo_erreur }}</span> -->
                             </label>
                         </div>
                     </div>
 
                     <label for="photo" class="photo visible">
                         <i class="fi fi-rr-picture"></i>
-                        téléchargez votre photo ici
-                        <input type="file" id="photo" @change="ajoutimage" accept="image/*">
+                        Téléchargez votre photo ici
+                        <input type="file" id="photo" @change="ajoutimage" accept="image/*"
+                            :class="{ 'bordure_rouge': (this.photo_erreur) }">
+                        <!--  <span class="erreur">{{ this.photo_erreur }}</span> -->
                     </label>
                     <img v-if="photo" :src="photoUrl" alt="Etu">
-
+                    <!--  <span class="erreur">{{ this.photo_erreur }}</span> -->
                 </div>
+
                 <label for="">photo</label>
                 <div class="etapes">
                     <div class="cercles" data-etape="1">
                         <div class="actuel"><i class="fi fi-rr-check"></i></div>
                         <span></span>
-                        <div class="actuel"><i class="fi fi-rr-check"></i></div> 
-                    <span></span>
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div>
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div>
+                        <span></span>
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div>
                     </div>
                     <label for="" class="positions" data-etape="1">ETApe 1</label>
                 </div>
@@ -60,7 +64,8 @@
                 <div class="groupe_champs" v-if="activePhase === 1">
 
                     <div class="champ">
-                        <label for="date_naissance" :class="{ 'couleur_rouge': (this.date_naissance_eleve_erreur) }">Date de naissance
+                        <label for="date_naissance" :class="{ 'couleur_rouge': (this.date_naissance_eleve_erreur) }">Date de
+                            naissance
                         </label>
                         <input type="date" name="date_naissance" id="date_naissance" v-model="form.date_naissance_eleve"
                             @input="validatedata('date_naissance_eleve')"
@@ -72,7 +77,8 @@
                         <label for="lieu_naissance" :class="{ 'couleur_rouge': (this.lieu_naissance_eleve_erreur) }">Lieu de
                             naissance</label>
                         <input type="text" name="lieu_naissance" id="lieu_naissance" v-model="form.lieu_naissance_eleve"
-                            @input="validatedata('lieu_naissance_eleve')" :class="{ 'bordure_rouge': (this.lieu_naissance_eleve_erreur) }">
+                            @input="validatedata('lieu_naissance_eleve')"
+                            :class="{ 'bordure_rouge': (this.lieu_naissance_eleve_erreur) }">
                         <span class="erreur">{{ this.lieu_naissance_eleve_erreur }}</span>
                     </div>
                 </div>
@@ -112,24 +118,24 @@
                         <span class="erreur">{{ this.genre_eleve_erreur }}</span>
                     </div>
 
-                    
-                        <div class="champ">
-                            <label for="Telephone"
-                                :class="{ 'couleur_rouge': (this.telephone_eleve_erreur) }">Telephone</label>
-                            <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX"
-                                v-model="form.telephone_eleve" @input="validatedata('telephone_eleve')"
-                                :class="{ 'bordure_rouge': (this.telephone_eleve_erreur) }">
-                            <span class="erreur">{{ this.telephone_eleve_erreur
-                            }}</span>
-                        </div>
-                   
+
+                    <div class="champ">
+                        <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_eleve_erreur) }">Telephone</label>
+                        <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX"
+                            v-model="form.telephone_eleve" @input="validatedata('telephone_eleve')"
+                            :class="{ 'bordure_rouge': (this.telephone_eleve_erreur) }">
+                        <span class="erreur">{{ this.telephone_eleve_erreur
+                        }}</span>
+                    </div>
+
                 </div>
 
                 <div class="champ" v-if="activePhase === 1">
                     <label for="Adresse Email" :class="{ 'couleur_rouge': (this.mail_eleve_erreur) }">Adresse
                         Email</label>
                     <input type="email" name="mail_eleve" id="mail_eleve" v-model="form.mail_eleve"
-                        @input="validatedata('mail_eleve')" :class="{ 'bordure_rouge': (this.mail_eleve_erreur) }">
+                        placeholder="exemple@gmail.com" @input="validatedata('mail_eleve')"
+                        :class="{ 'bordure_rouge': (this.mail_eleve_erreur) }">
                     <span class="erreur">{{ this.mail_eleve_erreur }}</span>
                 </div>
 
@@ -144,21 +150,21 @@
                 <h1 v-if="activePhase === 2"> Personnes à contacter en cas d'urgence</h1>
                 <div class="groupe_champs" v-if="activePhase === 2">
                     <div class="champ">
-                        <label for="contact_urgence_1"
-                            :class="{ 'couleur_rouge': (this.telephone_urgence_1_erreur) }">Contact d'urgence 1</label>
-                        <input type="tel" name="contact_urgence_1" id="contact_urgence_1" v-model="form.contact_urgence1"
-                            @input="validatedata('telephone_urgence_1')"
+                        <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_urgence_1_erreur) }">Contact
+                            d'urgence 1</label>
+                        <input type="tel" name="telephone" id="telephone" v-model="form.contact_urgence1"
+                            placeholder="Tel : 7X XXX XX XX" @input="validatedata('telephone_urgence_1')"
                             :class="{ 'bordure_rouge': (this.telephone_urgence_1_erreur) }">
                         <span class="erreur">{{
                             this.telephone_urgence_1_erreur
                         }}</span>
-                    </div>                                                                                                                                                                                                                                                              
+                    </div>
 
                     <div class="champ">
-                        <label for="contact_urgence_2"
-                            :class="{ 'couleur_rouge': (this.telephone_urgence_2_erreur) }">Contact d'urgence 2</label>
-                        <input type="tel" name="contact_urgence_2" id="contact_urgence_2" v-model="form.contact_urgence2"
-                            @input="validatedata('telephone_urgence_2')"
+                        <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_urgence_2_erreur) }">Contact
+                            d'urgence 2</label>
+                        <input type="tel" name="telephone" id="telephone" v-model="form.contact_urgence2"
+                            placeholder="Tel : 7X XXX XX XX" @input="validatedata('telephone_urgence_2')"
                             :class="{ 'bordure_rouge': (this.telephone_urgence_2_erreur) }">
                         <span class="erreur">{{
                             this.telephone_urgence_2_erreur
@@ -177,17 +183,17 @@
                 <!-- </div> -->
                 <!-- Informations sur le tuteur -->
                 <!-- <div v-if="activePhase===3"> -->
-                    
-                <div  v-if="activePhase === 3">
-                    <h1 >Informations du tuteur</h1> 
-                    <div class="champ">
+
+              
+                    <h1 v-if="activePhase === 3">Informations du tuteur</h1>
+                    <div class="champ" v-if="activePhase === 3">
                         <label for="nom_tuteur" :class="{ 'couleur_rouge': (this.nom_tuteur_erreur) }">Nom Tuteur</label>
                         <input type="text" name="nom_tuteur" id="nom_tuteur" v-model="form.nom_tuteur"
                             @input="validatedata('nom_tuteur')" :class="{ 'bordure_rouge': (this.nom_tuteur_erreur) }">
                         <span class="erreur">{{ this.nom_tuteur_erreur }}</span>
                     </div>
 
-                    <div class="champ">
+                    <div class="champ" v-if="activePhase === 3">
                         <label for="prenom_tuteur" :class="{ 'couleur_rouge': (this.prenom_tuteur_erreur) }">Prénom
                             Tuteur</label>
                         <input type="text" name="prenom_tuteur" id="prenom_tuteur" v-model="form.prenom_tuteur"
@@ -205,9 +211,10 @@
                         <input type="text" name="lieu_naissance" id="lieu_naissance" placeholder="Lieu de Naissance" v-model="form.lieu_naissance_tuteur" @input="validatedata('lieu_naissance_tuteur')">
                         <span class="erreur" v-if="this.lieu_naissance_tuteur_erreur !== ''">{{this.lieu_naissance_tuteur_erreur}}</span>
                     </div> -->
-
-                    <div class="champ">
-                        <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_tuteur_erreur) }">Nationalité</label>
+<div class="groupe_champs" v-if="activePhase === 3">
+    <div class="champ" >
+                        <label for="Nationalite"
+                            :class="{ 'couleur_rouge': (this.nationalite_tuteur_erreur) }">Nationalité</label>
                         <input type="text" name="nationalite" id="nationalite" v-model="form.nationalite_tuteur"
                             @input="validatedata('nationalite_tuteur')"
                             :class="{ 'bordure_rouge': (this.nationalite_tuteur_erreur) }">
@@ -215,7 +222,7 @@
                         }}</span>
                     </div>
 
-                    <div class="champ">
+                    <div class="champ" >
                         <label for="Adresse" :class="{ 'couleur_rouge': (this.adresse_tuteur_erreur) }">Adresse
                             tuteur</label>
                         <input type="text" name="adresse_tuteur" id="adresse_tuteur" v-model="form.adresse_tuteur"
@@ -224,17 +231,21 @@
                         <span class="erreur">{{ this.adresse_tuteur_erreur
                         }}</span>
                     </div>
+</div>
+                  
 
                     <!-- A continuer -->
-                    <div class="champ">
+                    <div class="champ" v-if="activePhase === 3">
                         <label for="Adresse Email" :class="{ 'couleur_rouge': (this.mail_tuteur_erreur) }">Adresse
                             Email</label>
                         <input type="email" name="email" id="email" v-model="form.mail_tuteur"
-                            @input="validatedata('mail_tuteur')" :class="{ 'bordure_rouge': (this.mail_tuteur_erreur) }">
+                            placeholder="exemple@gmail.com" @input="validatedata('mail_tuteur')"
+                            :class="{ 'bordure_rouge': (this.mail_tuteur_erreur) }">
                         <span class="erreur">{{ this.mail_tuteur_erreur }}</span>
                     </div>
 
-                    <div class="champ">
+                    <div class="groupe_champs" v-if="activePhase === 3">
+                        <div class="champ">
                         <label for="Telephone"
                             :class="{ 'couleur_rouge': (this.telephone_tuteur_erreur) }">Telephone</label>
                         <input type="tel" name="telephone" id="telephone" placeholder="Tel : 7X XXX XX XX"
@@ -243,33 +254,41 @@
                         <span class="erreur" v-if="this.telephone_tuteur_erreur !== ''">{{ this.telephone_tuteur_erreur
                         }}</span>
                     </div>
-                </div>
 
-                <div class="champ" v-if="activePhase === 3">
-                    <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_tuteur_erreur) }">Sexe</label>
+                    <div class="champ">
+                        <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_tuteur_erreur) }">Sexe</label>
 
-                    <select name="sexe" id="sexe" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')"
-                        :class="{ 'bordure_rouge': (this.genre_tuteur_erreur) }">
-                        <option class="option">Masculin</option>
-                        <option class="option">Féminin</option>
-                    </select>
+                        <select name="sexe" id="sexe" v-model="form.genre_tuteur" @change="validatedata('genre_tuteur')"
+                            :class="{ 'bordure_rouge': (this.genre_tuteur_erreur) }">
+                            <option class="option">Masculin</option>
+                            <option class="option">Féminin</option>
+                        </select>
                         <span class="erreur">{{ this.genre_tuteur_erreur }}</span>
-                </div>
+                    </div>
+                    </div>
+                 
+
                     <div class="groupe_champs validation" v-if="activePhase === 3">
-                        <button type="button" @click="closeModal()" class="texte annuler data-close-modal">Annuler</button>
+                        <button type="button" @click="closeModal()" class="texte annuler">Annuler</button>
                         <button type="button" class="texte annuler" @click.prevent="goToStep(2)">Precedent</button>
                         <button type="button" class="texte annuler" @click.prevent="goToStep(4)">Suivant</button>
                     </div>
-                
+               
+
+
+
+
 
                 <!-- <div v-if="activePhase===4"> -->
                 <div class="groupe-champs" v-if="activePhase === 4">
                     <h1>Informations Académiques</h1>
                     <div class="champ">
-                        <label for="annee_accademique" :class="{ 'couleur_rouge': (this.id_annee_accademique_erreur) }">Année
+                        <label for="annee_accademique"
+                            :class="{ 'couleur_rouge': (this.id_annee_accademique_erreur) }">Année
                             Académique</label>
-                        <select name="annee_accademique" id="annee_accademique" v-model="form. id_annee_accademique"
-                            @change="validatedata('id_annee_accademique')">
+                        <select name="annee_accademique" id="annee_accademique" v-model="form.id_annee_accademique"
+                            @change="validatedata('id_annee_accademique')"
+                            :class="{ 'bordure_rouge': (this.id_annee_accademique_erreur) }">
 
                             <option v-for="annee_accademique in annee_accademiques" :value="annee_accademique.id">{{
                                 annee_accademique.intitule }}</option>
@@ -279,8 +298,30 @@
                     </div>
 
                     <div class="champ">
+                        <label for="classe" :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
+                        <select name="classe" id="classe" v-model="form.id_departement"
+                            @change="get_filiere(form.id_departement)"
+                            :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
+                            <option v-for="departement in departements" :value="departement.id">{{
+                                departement.nom_departement }} </option>
+                        </select>
+                        <span class="erreur">{{ id_departement_erreur }}</span>
+                    </div>
+
+                    <div class="champ">
+                        <label for="classe" :class="{ 'couleur_rouge': (this.id_filiere_erreur) }">Filiere</label>
+                        <select name="classe" id="classe" v-model="form.id_filiere" @change="get_classe(form.id_filiere)"
+                            :class="{ 'bordure_rouge': (this.id_filiere_erreur) }">
+                            <option v-for="filiere in filieres" :value="filiere.id">{{ filiere.nom_unite_formation }}
+                            </option>
+                        </select>
+                        <span class="erreur">{{ id_filiere_erreur }}</span>
+                    </div>
+
+                    <div class="champ">
                         <label for="classe" :class="{ 'couleur_rouge': (this.id_classe_erreur) }">Classe</label>
-                        <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')">
+                        <select name="classe" id="classe" v-model="form.id_classe" @change="validatedata('id_classe')"
+                            :class="{ 'bordure_rouge': (this.id_classe_erreur) }">
                             <option v-for="classe in classes" :value="classe.id">{{ classe.type_formation.intitule }} {{
                                 classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }}</option>
                         </select>
@@ -291,7 +332,7 @@
                 <div class="groupe_champs validation" v-if="activePhase === 4">
                     <button type="button" @click="closeModal()" class="texte annuler">Annuler</button>
                     <button type="button" class="texte annuler" @click.prevent="goToStep(3)">Precedent</button>
-                    <button type="submit"  :class="{ 'data-close-modal': (this.etatForm) }">Ajouter</button>
+                    <button type="submit" :class="{ 'data-close-modal': (this.etatForm) }">Ajouter</button>
                 </div>
                 <!-- </div> -->
             </div>
@@ -308,6 +349,7 @@ export default {
     data() {
         return {
             filieres: [],
+            departements: [],
             type_formations: [],
             annee_accademiques: [],
             classes: [],
@@ -321,6 +363,8 @@ export default {
                 'date_inscription': "",
                 'id_eleve': "",
                 'id_classe': "",
+                'id_departement': "",
+                'id_filiere': "",
                 'id_annee_accademique': "",
                 'nom_eleve': "",
                 'prenom_eleve': "",
@@ -373,6 +417,9 @@ export default {
 
             id_annee_accademique_erreur: "",
             id_classe_erreur: "",
+            id_departement_erreur: "",
+            id_filiere_erreur: "",
+            photo_erreur: "",
 
             erreur: "",
             champ: "",
@@ -380,16 +427,16 @@ export default {
             etatForm: false,
             activePhase: 1,
             off: "",
-            i_1_2_3:"",
+            i_1_2_3: "",
 
         }
     },
 
     mounted() {
         // this.get_filiere();
-        this.get_classe();
+        //this.get_classe();
         this.get_annee();
-        // this.get_type_formation();
+        this.get_departement();
         this.variables_changement_etape();
 
     },
@@ -484,6 +531,7 @@ export default {
         },
 
         resetForm() {
+            this.departements = [];
             this.form.id_tuteur = "";
             this.form.montant = "";
             this.form.mail_tuteur = "";
@@ -521,39 +569,39 @@ export default {
         },
 
         goToStep: function (step) {
-            if(step===2){
-                if(!this.validatedata('nom_eleve') & !this.validatedata('prenom_eleve') & !this.validatedata('date_naissance_eleve') & !this.validatedata('lieu_naissance_eleve') & !this.validatedata('nationalite_eleve') & !this.validatedata('genre_eleve') & !this.validatedata('adresse_eleve') & !this.validatedata('telephone_eleve') & !this.validatedata('mail_eleve')){
-                    this.activePhase= step;
-                    this.i_1_2_3=step;
+            if (step === 2) {
+                if (!this.validatedata('nom_eleve') & !this.validatedata('prenom_eleve') & !this.validatedata('date_naissance_eleve') & !this.validatedata('lieu_naissance_eleve') & !this.validatedata('nationalite_eleve') & !this.validatedata('genre_eleve') & !this.validatedata('adresse_eleve') & !this.validatedata('telephone_eleve') & !this.validatedata('mail_eleve') & !this.validatedata('photo')) {
+                    this.activePhase = step;
+                    this.i_1_2_3 = step;
                     this.indicateur_etape();
-                    
+
                 }
             }
-            if(step===3){
-                if(!this.validatedata('telephone_urgence_1') & !this.validatedata('telephone_urgence_2')){
-                    this.activePhase= step;
-                    this.i_1_2_3=step;
-                    this.indicateur_etape();
-                }
-            }
-            if(step===4){
-                if(!this.validatedata('nom_tuteur') & !this.validatedata('prenom_tuteur') & !this.validatedata('nationalite_tuteur') & !this.validatedata('genre_tuteur') & !this.validatedata('adresse_tuteur') & !this.validatedata('telephone_tuteur') & !this.validatedata('mail_tuteur')){
-                    this.activePhase= step;
-                    this.i_1_2_3=step;
+            if (step === 3) {
+                if (!this.validatedata('telephone_urgence_1') & !this.validatedata('telephone_urgence_2')) {
+                    this.activePhase = step;
+                    this.i_1_2_3 = step;
                     this.indicateur_etape();
                 }
             }
-            if(step===1){
+            if (step === 4) {
+                if (!this.validatedata('nom_tuteur') & !this.validatedata('prenom_tuteur') & !this.validatedata('nationalite_tuteur') & !this.validatedata('genre_tuteur') & !this.validatedata('adresse_tuteur') & !this.validatedata('telephone_tuteur') & !this.validatedata('mail_tuteur')) {
+                    this.activePhase = step;
+                    this.i_1_2_3 = step;
+                    this.indicateur_etape();
+                }
+            }
+            if (step === 1) {
                 this.activePhase = step;
                 this.indicateur_etape();
             }
 
-       
-         
+
+
             //this.activePhase = step;
         },
 
-        indicateur_etape(){
+        indicateur_etape() {
             this.cercles.dataset.etape = this.i_1_2_3 - 1;
             this.etape.dataset.etape = this.i_1_2_3;
             //if(this.i_1_2_3 == 2) this.off = 1;
@@ -588,6 +636,7 @@ export default {
         ajoutimage(event) {
             const file = event.target.files[0];
             console.log(file.type.includes('image'));
+            this.photo_erreur = "";
             // Vérification du type de fichier pour s'assurer qu'il s'agit d'une image
             if (file.type.includes('image')) {
                 this.photo = file;
@@ -620,12 +669,32 @@ export default {
 
 
 
-        async get_classe() {
-            await axios.get('/classe/all').then(response => {
+        async get_classe(id) {
+            await axios.get('/find/classes/' + id).then(response => {
                 this.classes = response.data.classe;
+                this.validatedata('id_filiere');
 
             }).catch(error => {
                 Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des classes', 'error')
+            });
+        },
+
+        async get_departement() {
+            await axios.get('/departement/all').then(response => {
+                this.departements = response.data.departement;
+
+            }).catch(error => {
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des Departements', 'error')
+            });
+        },
+
+        async get_filiere(id) {
+            await axios.get('/find/filieres/' + id).then(response => {
+                this.filieres = response.data.filiere;
+                this.validatedata('id_departement');
+
+            }).catch(error => {
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des filiere', 'error')
             });
         },
 
@@ -636,6 +705,21 @@ export default {
                 console.log("erreur");
                 return 0;
             } else {
+                this.form.nom_eleve = this.form.nom_eleve.toUpperCase();
+                this.form.lieu_naissance_eleve = this.form.lieu_naissance_eleve.toUpperCase();
+                this.form.lieu_naissance_tuteur = this.form.lieu_naissance_tuteur.toUpperCase();
+                this.form.adresse_eleve = this.form.adresse_eleve.toUpperCase();
+                this.form.adresse_tuteur = this.form.adresse_tuteur.toUpperCase();
+                this.form.nationalite_eleve = this.form.nationalite_eleve.toUpperCase();
+                this.form.nationalite_tuteur = this.form.nationalite_tuteur.toUpperCase();
+
+                // Convertir la première lettre du prénom en majuscule et le reste en minuscules
+                this.form.prenom_eleve = this.form.prenom_eleve.charAt(0).toUpperCase() + this.form.prenom_eleve.slice(1).toLowerCase();
+
+                this.form.nom_tuteur = this.form.nom_tuteur.toUpperCase();
+                // Convertir la première lettre du prénom en majuscule et le reste en minuscules
+                this.form.prenom_tuteur = this.form.prenom_tuteur.charAt(0).toUpperCase() + this.form.prenom_tuteur.slice(1).toLowerCase();
+
                 this.soumettre();
                 this.etatForm = true;
                 console.log("Tokkos");
@@ -820,7 +904,7 @@ export default {
                     this.mail_eleve_erreur = "";
                     //Vérification de l' email
                     if (this.form.mail_eleve === "") {
-                        this.mail_eleve_erreur= "L'email est obligatoire";
+                        this.mail_eleve_erreur = "L'email est obligatoire";
                         i = 1;
                         return true
                     } else {
@@ -962,6 +1046,15 @@ export default {
                         return true
                     }
                     break;
+                case 'photo':
+                    this.photo_erreur = "";
+                    //Vérification de matrimoniale
+                    if (this.photo === "") {
+                        this.photo_erreur = "La photo est obligatoire "
+                        i = 1;
+                        return true
+                    }
+                    break;
                 case 'genre_tuteur':
                     this.genre_tuteur_erreur = "";
                     //Vérification de matrimoniale
@@ -984,7 +1077,25 @@ export default {
                     this.id_classe_erreur = "";
                     //Vérification de annee academique
                     if (this.form.id_classe === "") {
-                        this.id_classe_erreur = "Vous avez oublié de sélectionner le statut "
+                        this.id_classe_erreur = "Vous avez oublié de sélectionner la classe "
+                        i = 1;
+                        return true
+                    }
+                    break;
+                case 'id_departement':
+                    this.id_departement_erreur = "";
+                    //Vérification de annee academique
+                    if (this.form.id_departement === "") {
+                        this.id_departement_erreur = "Vous avez oublié de sélectionner le departement "
+                        i = 1;
+                        return true
+                    }
+                    break;
+                case 'id_filiere':
+                    this.id_filiere_erreur = "";
+                    //Vérification de annee academique
+                    if (this.form.id_filiere === "") {
+                        this.id_filiere_erreur = "Vous avez oublié de sélectionner la filiere "
                         i = 1;
                         return true
                     }
@@ -1017,13 +1128,22 @@ export default {
             this.telephone_urgence_2_erreur = "";
             this.mail_eleve_erreur = "";
             this.mail_tuteur_erreur = "";
+            this.photo_erreur = "";
 
             this.id_annee_accademique_erreur = "";
             this.id_classe_erreur = "";
+            this.id_departement_erreur = "";
+            this.id_filiere_erreur = "";
             var i = 0;
             // Effectuez la validation pour le champ 'nom'
             if (this.form.nom_eleve === "") {
                 this.nom_eleve_erreur = "Ce champ est obligatoire"
+                i = 1;
+                console.log("videnomeleve=" + i);
+            }
+            // Effectuez la validation pour le champ 'photo'
+            if (this.photo === "") {
+                this.photo_erreur = "Ce champ est obligatoire"
                 i = 1;
                 console.log("videnomeleve=" + i);
             }
@@ -1249,6 +1369,18 @@ export default {
                 this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l\'Annee Academique "
                 i = 1;
                 console.log("anneeacada=" + i);
+            }
+            //Vérification de annee departement
+            if (this.form.id_departement === "") {
+                this.id_departement_erreur = "Vous avez oublié de sélectionner le departement "
+                i = 1;
+                console.log("departement=" + i);
+            }
+            //Vérification de annee filiere
+            if (this.form.id_filiere === "") {
+                this.id_filiere_erreur = "Vous avez oublié de sélectionner la filiere "
+                i = 1;
+                console.log("filiere=" + i);
             }
 
             //Vérification de annee academique

@@ -159,11 +159,14 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
                     this.update_formation(this.idFormation);
                     this.closeModal('[data-modal-confirmation-modifier]');  
                     this.editModal=false;
                 }
             else{
+                this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
+                 
                 this.soumettre();
                 this.etatForm= true;
                 this.closeModal('[data-modal-confirmation]');

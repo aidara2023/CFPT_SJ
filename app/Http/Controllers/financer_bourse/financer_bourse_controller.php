@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class financer_bourse_controller extends Controller
 {
     public function index() {
-        $financer_bourse=Financer_bourse::all();
+        $financer_bourse=Financer_bourse::orderBy('created_at', 'desc')->get();
         if($financer_bourse!=null){
             return response()->json([
                 'statut'=>200,

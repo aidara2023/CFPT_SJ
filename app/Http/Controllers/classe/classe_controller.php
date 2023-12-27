@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class classe_controller extends Controller
 {
     public function all() {
-        $classe=Classe::with('unite_de_formation', 'type_formation')->get();
+        $classe=Classe::with('unite_de_formation', 'type_formation')->orderBy('created_at', 'desc')->get();
         if($classe!=null){
             return response()->json([
                 'statut'=>200,

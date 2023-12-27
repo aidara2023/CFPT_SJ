@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class date_emprunter_controller extends Controller
 {
     public function index() {
-        $date_emprunter=Date_emprunter::all();
+        $date_emprunter=Date_emprunter::orderBy('created_at', 'desc')->get();
         if($date_emprunter!=null){
             return response()->json([
                 'statut'=>200,

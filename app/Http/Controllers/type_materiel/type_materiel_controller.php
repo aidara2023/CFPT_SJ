@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class type_materiel_controller extends Controller
 {
     public function index(){
-        $data = Type_materiel::all();
+        $data = Type_materiel::orderBy('created_at', 'desc')->get();
 
         return response()->json($data);
 

@@ -9,7 +9,9 @@
         @include('layout.header')
     </div>
 
-     <liste-service></liste-service>
+
+     <liste-bibliothecaire></liste-bibliothecaire>
+
 
     <!-- debut modal pour modifier utilisateur -->
     <dialog data-modal-modification class="modal">
@@ -111,7 +113,9 @@
 
 
   <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
-        <service-create></service-create>
+
+        <create-bibliothecaire></create-bibliothecaire>
+
    <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
@@ -133,21 +137,27 @@
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service ajouté avec succès</p>
+
+        <p class="">bibliothecaire ajouté avec succès</p>
+
     </dialog>
 
     <dialog data-modal-confirmation-sup class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service supprimé avec succès</p>
+
+        <p class="">bibliothecaire supprimé avec succès</p>
+
     </dialog>
 
     <dialog data-modal-confirmation-modifier class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
-        <p class="">Service modifier avec succès</p>
+
+        <p class="">bibliothecaire modifier avec succès</p>
+
     </dialog>
 
 </div>

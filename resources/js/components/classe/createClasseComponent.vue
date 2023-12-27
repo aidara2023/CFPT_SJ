@@ -373,6 +373,7 @@ import Form from 'vform';
                 this.etatForm= false;
                 return 0;
             }else{
+                this.form.nom_classe = this.form.nom_classe.toUpperCase();
                 this.soumettre();
                 this.etatForm= true;
                 this.closeModal('[data-modal-confirmation]')

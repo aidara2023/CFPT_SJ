@@ -204,7 +204,7 @@ class recouvrement_controller extends Controller
                 //$classeUnite = optional($classe->unite_de_formation);
                 //dd($classe->nom_classe);
         
-                if ($classe && ($classe->type_classe == "FPJ" || $classe->type_classe == "CS")) {
+                if ($classe && ($classe->type_classe == "FPJ" || $classe->type_classe == "CS" || $classe->type_classe == "CPS")) {
                     $paiementEleve = $paiements->where('id_eleve', $eleve->id)->first();
                    // dd($paiementEleve);
                           

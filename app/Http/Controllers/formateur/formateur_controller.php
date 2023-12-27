@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class formateur_controller extends Controller
 {
     public function index() {
-        $formateur=Formateur::with('user')->get();
+        $formateur=Formateur::with('user')->orderBy('created_at', 'desc')->get();
         if($formateur!=null){
             return response()->json([
                 'statut'=>200,

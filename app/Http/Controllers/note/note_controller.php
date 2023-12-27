@@ -12,7 +12,7 @@ class note_controller extends Controller
 {
     public function index(){
 
-        $notes = note::all();
+        $notes = note::orderBy('created_at', 'desc')->get();
         return response()->json($notes);
 
     }

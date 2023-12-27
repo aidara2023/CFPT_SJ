@@ -92,12 +92,14 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.intitule = this.form.intitule.toUpperCase();
                     this.update_formation(this.idTypeformation);
                     this.closeModal('[data-modal-confirmation-modifier]'); 
                     this.editModal=false; 
                 }
             
             else{
+                this.form.intitule = this.form.intitule.toUpperCase();
                 this.soumettre();
                 this.etatForm = true;
                 this.closeModal('[data-modal-confirmation]');

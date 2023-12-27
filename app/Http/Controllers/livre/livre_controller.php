@@ -11,7 +11,7 @@ class livre_controller extends Controller
 {
     
     public function index() {
-        $livre=Livre::all();
+        $livre=Livre::orderBy('created_at', 'desc')->get();
         if($livre!=null){
             return response()->json([
                 'statut'=>200,

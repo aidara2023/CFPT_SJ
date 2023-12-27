@@ -14,7 +14,7 @@ class emprunter_livre_controller extends Controller
     
     public function index()
     {
-        $emprunts = Emprunter_livre::all();
+        $emprunts = Emprunter_livre::orderBy('created_at', 'desc')->get();
         if($emprunts!=null){
             return response()->json([
                 'statut'=>200,
