@@ -13,8 +13,9 @@
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
             <div class="utilisateur" v-if="inscription.statut === 1 && inscription.montant !== null ">
                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
+               <img :src="getImageUrl(inscription.eleve.user.photo)" alt="" class="petite">
                <p class="texte" id="n" >{{ inscription.eleve.user.nom }} {{ inscription.eleve.user.prenom }} </p>
-               <p class="texte" id="n"> {{ inscription.classe.type_formation}} {{ inscription.classe.nom_classe }} {{ inscription.classe.niveau }} {{ inscription.classe.type_classe }}</p>
+               <p class="texte" id="n"> {{ inscription.classe.type_formation.intitule}} {{ inscription.classe.nom_classe }} {{ inscription.classe.niveau }} {{ inscription.classe.type_classe }}</p>
                <p class="texte" id="n">{{ inscription.annee_academique.intitule }}</p>
                 <div  class="presences">
                     <a href="#" class="texte b">
@@ -142,6 +143,9 @@ import Form from 'vform';
                }
            });
        },
+       getImageUrl(url) {
+            return url ? `${window.location.origin}/storage/${url}` : '';
+        }
 
 
 

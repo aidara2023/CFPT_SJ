@@ -204,7 +204,7 @@ import Form from 'vform';
                 return true
 
                }else{
-                if(this.form.nom_unite_formation.length <14 ){
+                if(this.form.nom_unite_formation.length <10 ){
                     this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
                         i=1;
                         return true
@@ -256,7 +256,7 @@ import Form from 'vform';
             this.nom_unite_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
             i=1;
         }
-        if(this.form.nom_unite_formation.length <14 ){
+        if(this.form.nom_unite_formation.length <10 ){
             this.nom_unite_erreur= "Ce champ doit contenir au moins 14 Caratères"
            i=1;
         }

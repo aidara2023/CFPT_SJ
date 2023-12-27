@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 class inscription_controller extends Controller
 {
     public function index() {
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe')->get();
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation')->get();
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
