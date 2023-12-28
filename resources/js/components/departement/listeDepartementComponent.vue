@@ -7,7 +7,7 @@
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
        </div>
-       <h1 class="texte">Departement</h1>
+       <h1 class="texte">Département</h1>
 
    <div class="sections" v-for="(departement, index) in departements" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->

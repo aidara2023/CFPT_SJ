@@ -165,11 +165,20 @@ ul li a div{
     margin: 0;
 }
 
+
 /* ul li a ul{
     gap: 5px;
 } */
+
+
 ul.deroulante {
     padding: 0;
+}
+ul.deroulante li.submenu {
+    margin-left: 20px; /* Ajustez la marge selon vos besoins */
+}
+.menu:hover .deroulante {
+    display: block;
 }
 
 ul.deroulante li{
@@ -187,6 +196,14 @@ ul.deroulante li a{
     flex-direction: row;
     gap: 10px;
 
+}
+.menu:hover .deroulante {
+    display: flex;
+    flex-direction: column;
+    max-height: none; /* Ajoutez cette ligne pour supprimer la limite de hauteur */
+}
+ul.deroulante li.submenu {
+    margin-left: 20px; /* Ajustez la marge selon vos besoins */
 }
 
 div{

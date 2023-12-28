@@ -1,7 +1,7 @@
 <template>
     <dialog data-modal-ajout class="modal">
         <div class="titres">
-            <h1>Ajout Filière</h1>
+            <h1>Nouvelle Filière</h1>
            <!--  <h3>Informations Personnelles</h3> -->
         </div>
    
@@ -9,7 +9,7 @@
 
             <div class="informations">
                     <div class="titres">
-                        <h1>Ajout Filière</h1>
+                        <h1>Nouvelle Filière</h1>
                     </div>
                 <div class="champ">
                     <label for="nom" :class="{ 'couleur_rouge': (this.nom_unite_erreur)} ">Filière</label>

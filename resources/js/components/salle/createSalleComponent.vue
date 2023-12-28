@@ -1,14 +1,14 @@
 <template>
     <dialog data-modal-ajout class="modal">
         <div class="titres">
-            <h1>Ajout Salle</h1>
+            <h1>Nouvelle Salle</h1>
         </div>
 
         <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
 
             <div class="informations">
                 <div class="titres">
-                    <h1>Ajout Salle</h1>
+                    <h1>Nouvelle Salle</h1>
                 </div>
 
                 <div class="champ">
