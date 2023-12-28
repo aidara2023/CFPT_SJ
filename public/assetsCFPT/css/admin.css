@@ -1840,3 +1840,34 @@ td {
         width: calc(100% - 20px); /* 100% de la largeur avec un espace de 20px entre les cartes */
     }
 }
+
+.haut_de_page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo, .profil {
+    width: 20%;
+}
+
+.liste-alerte {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.liste-alerte .content {
+    display: inline-block;
+    animation: scrollToLeft 20s linear infinite;
+}
+
+@keyframes scrollToLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+

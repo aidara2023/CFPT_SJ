@@ -690,3 +690,5 @@ Route::post('alerte/store',[alerte_controller::class, 'store'])->name('alerte_st
 Route::post('alerte/update/{id}',[alerte_controller::class,'update'])->name('alerte_update');
 Route::delete('alerte/delete/{id}',[alerte_controller::class, 'delete'])->name('alerte_delete');
 Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('alerte_create');
+
+Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
