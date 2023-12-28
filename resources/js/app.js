@@ -91,6 +91,10 @@ import listePersonnelAdministratifComponent from './components/personnel_adminis
 import listePersonnelAppuiComponent from './components/personnel_appui/listePersonnelAppuiComponent.vue';
 import listeValiderInscriptionComponent from './components/caissier/listeValiderInscriptionComponent.vue';
 import validerInscriptionComponent from './components/caissier/validerInscriptionComponent.vue';
+import createAlerteComponent from './components/alerte/createAlerteComponent.vue';
+import listeAlerteComponent from './components/alerte/listeAlerteComponent.vue';
+
+
 
 
 
@@ -193,6 +197,10 @@ app.component("recouvrement-create", createRecouvrementComponent);
 app.component("recouvrement-tableau", tableauRecouvrementComponent);
 app.component("liste-valider-inscription", listeValiderInscriptionComponent);
 app.component("inscription-valider", validerInscriptionComponent);
+app.component("alerte-create", createAlerteComponent);
+app.component("liste-alerte", listeAlerteComponent);
+
+
 
 
 

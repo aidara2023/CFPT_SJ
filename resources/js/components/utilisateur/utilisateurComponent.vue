@@ -1,6 +1,6 @@
 <template >
     <div class="titres">
-        <h1>AJOUT UTILISATEUR</h1>
+        <h1>Nouvel utilisateur</h1>
     </div>
 
     <form @submit.prevent="validerAvantAjout()" action="" method="">
@@ -40,7 +40,7 @@
 
         <div class="informations plus">
             <div class="titres">
-                <h1>AJOUT UTILISATEUR</h1>
+                <h1>Nouvel utilisateur</h1>
             </div>
 
             <div class="champ " v-show="i_1_2_3 === 1">

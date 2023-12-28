@@ -1,13 +1,22 @@
 <template>
     <dialog data-modal-ajout class="modal">
-      <div class="cote_droit contenu">
-        <form @submit.prevent="validerAvantAjout()">
-            <h1 class="sous_titre">Ajout d'unité de formation</h1>
 
-            <div class="personnel">
-                <div>
-                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom de l'unité de formation" @input="validatedata('nom_unite_de_formation')">
-                    <span class="erreur" v-if="this.nom_unite_erreur !== ''">{{this.nom_unite_erreur}}</span>
+        <div class="titres">
+            <h1>Nouvelle Filière</h1>
+           <!--  <h3>Informations Personnelles</h3> -->
+        </div>
+   
+        <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
+
+            <div class="informations">
+                    <div class="titres">
+                        <h1>Nouvelle Filière</h1>
+                    </div>
+                <div class="champ">
+                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_unite_erreur)} ">Filière</label>
+                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom de l'unité de formation" @input="validatedata('nom_unite_de_formation')" :class="{ 'bordure_rouge': (this.nom_unite_erreur)} ">
+                    <span class="erreur" >{{this.nom_unite_erreur}}</span>
+
                 </div>
             </div>
 

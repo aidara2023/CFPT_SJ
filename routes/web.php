@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\administrateur\administrateur_view_controller;
+use App\Http\Controllers\alerte\alerte_controller;
+use App\Http\Controllers\alerte\alerte_view_controller;
+use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
@@ -679,3 +682,11 @@ Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscriptio
 
 Route::get('recherche/code',[caissier_controller::class, 'recherche_id_inscription'])->name('recherche_id_inscription');
 Route::post('caissier/valider-inscription/{id}' ,[caissier_controller::class, 'validerInscription'])->name('validerInscription');
+
+//Route pour alerte 
+
+Route::get('alerte/index',[alerte_controller::class, 'index'])->name('alerte_index');
+Route::post('alerte/store',[alerte_controller::class, 'store'])->name('alerte_store');
+Route::post('alerte/update/{id}',[alerte_controller::class,'update'])->name('alerte_update');
+Route::delete('alerte/delete/{id}',[alerte_controller::class, 'delete'])->name('alerte_delete');
+Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('alerte_create');

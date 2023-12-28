@@ -23,6 +23,71 @@
   </div> --}}
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="partie accueil">
       <img class="logo-cfpt" src="/assetsCFPT/image/logoCFPT--clr.png" alt="">
       <h3>Bienvenue sur</h3>
