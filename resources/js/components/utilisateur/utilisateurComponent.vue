@@ -451,6 +451,26 @@ export default {
             });
         },
 
+        /* 
+                get_personnel_administratif(){
+                    axios.get('/personnel_administratif/index').then(response => {
+                    this.personnel_administratifs=response.data.personnel_administratifs
+                    console.log(this.personnel_administratifs)
+                    }).catch(error=>{
+                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
+                    });
+                },
+                get_personnel_appui(){
+                    axios.get('/personnel_appui/index').then(response => {
+                    this.personnel_appuis=response.data.personnel_appuis
+                    console.log(this.personnel_appuis)
+                    }).catch(error=>{
+                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
+                    });
+                }, */
+
+
+
 
         get_specialite() {
             axios.get('/specialite/index').then(response => {
@@ -525,6 +545,7 @@ export default {
         },
 
         resetForm() {
+
             this.form.nom = "";
             this.form.prenom = "";
             this.form.genre = "";
@@ -540,6 +561,10 @@ export default {
             this.form.id_specialite = "";
             this.form.id_departement = "";
             this.form.id_service = "";
+
+            /*  this.form.id_personnel_administratif="";
+             this.id_personnel_appui=""; */
+
             this.photo = "";
             this.editModal = false;
 
@@ -562,7 +587,11 @@ export default {
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
+
+
+
             /* this.activePhase= 1; */
+
         },
 
         verifCaratere(nom) {
@@ -994,6 +1023,15 @@ export default {
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
 
+
+            /* console.log(ajout); */
+            var actif = document.querySelectorAll('.actif');
+            actif.forEach(item => {
+                item.classList.remove("actif");
+            });
+            //ajout.classList.remove("actif");
+            ajout.close();
+
             if (this.etatForm === false) {
                 var actif = document.querySelectorAll('.actif');
                 actif.forEach(item => {
@@ -1002,6 +1040,7 @@ export default {
                 ajout.classList.remove("actif");
                 ajout.close();
             }
+
             this.editModal = false;
 
             confirmation.style.backgroundColor = 'white';

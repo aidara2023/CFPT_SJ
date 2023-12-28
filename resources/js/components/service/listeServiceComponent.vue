@@ -1,5 +1,5 @@
 <template>
-    <div class="affichage">
+    <!-- <div class="affichage">
        <div class="avant" style=" margin-left: 80%;">
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -32,7 +32,65 @@
                </div>
            </div>
        </div>
-   </div>
+   </div> -->
+
+    <div class="liste">
+        <!--  <div class="item">
+                <div class="renseignements">
+                    <div></div>
+                    <span>Nom Service</span>
+                    <span>Direction</span>
+                    <span>Chef de service</span>
+                    
+                </div>
+                <span>Actions</span>
+            </div> -->
+
+        <!-- <div class="item" v-for="(service, index) in services" :key="index">
+                <div class="renseignements">
+                    <div class="cadre_photo">
+                        
+                        <img src="etudiant.png" alt="" class="petite_taille">
+                        <div class="statut petit_ecran_seulement"></div>
+                    </div>
+                    <span>{{ service.nom_service }}</span>
+                    <span>{{ service.direction.nom_direction }}</span>
+                    <span>{{ service.user.prenom }} {{ service.user.nom }}</span>
+                     <span class="grand_ecran_seulement">IIR 2</span> 
+                     <div class="grand_ecran_seulement statut"></div> 
+                </div>
+                <button>
+                    <i class="fi fi-rr-angle-small-left"></i>
+                    
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl"></i>
+                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteService(service)"></i>
+                    </div>
+                </button>
+            </div> -->
+        <table>
+            <thead>
+                <th>Service</th>
+                <th>Direction</th>
+                <th>Chef de service</th>
+                <th>Actions</th>
+            </thead>
+            <tbody v-for="(service, index) in services" :key="index">
+                <td><span>{{ service.nom_service }}</span></td>
+                <td> <span>{{ service.direction.nom_direction }}</span></td>
+                <td><span>{{ service.user.prenom }} {{ service.user.nom }}</span></td>
+                <td>
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)" title="Modifier"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteService(service)" title="Supprimer"></i>
+                    </div>
+                </td>
+
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script>
@@ -42,130 +100,130 @@ import Form from 'vform';
 
 
 
-  export default {
-   name:"listeUserCompenent",
-   data(){
-       return {
-           form:new Form({
-               'nom_service':"",
-               'id_user':"",
-               'id_direction':""
+export default {
+    name: "listeUserCompenent",
+    data() {
+        return {
+            form: new Form({
+                'nom_service': "",
+                'id_user': "",
+                'id_direction': ""
 
-           }),
-           services: [],
-           editModal: false,
-           idService: "",
-       }
-   },
-   mounted(){
-       this.get_service();
-       bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_service(); // Mettre à jour la liste des utilisateurs
-       });
-   },
+            }),
+            services: [],
+            editModal: false,
+            idService: "",
+        }
+    },
+    mounted() {
+        this.get_service();
+        bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+            this.get_service(); // Mettre à jour la liste des utilisateurs
+        });
+    },
 
-methods:{       
-       get_service(){
-           axios.get('/service/index')
-           .then(response => {
-               this.services=response.data.service
+    methods: {
+        get_service() {
+            axios.get('/service/index')
+                .then(response => {
+                    this.services = response.data.service
 
 
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des services','error')
-           });
-       },
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
+                });
+        },
 
-       changement(event){
-           this.interesser= event;
-       },
+        changement(event) {
+            this.interesser = event;
+        },
 
-       resetForm(){
-           this.form.input="";
-           this.form.nom_service="";
-       },
+        resetForm() {
+            this.form.input = "";
+            this.form.nom_service = "";
+        },
 
-       async deleteService(type) {
-           Swal.fire({
-               title: 'Êtes-vous sûr?',
-               text: "Cette action sera irréversible!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Oui, supprimer!',
-               cancelButtonText: 'Annuler'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   axios.delete(`/service/delete/${type.id}`).then(resp => {
-                       this.get_service();
+        async deleteService(type) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/service/delete/${type.id}`).then(resp => {
+                        this.get_service();
 
-                   /*     Swal.fire(
-                           'Supprimé!',
-                           'Le service a été supprimé avec succès.',
-                           'success',
-                       ) */
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                        /*     Swal.fire(
+                                'Supprimé!',
+                                'Le service a été supprimé avec succès.',
+                                'success',
+                            ) */
+                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
 
                         //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        //confirmation.close();
                         //}, 1000);
 
-                        setTimeout(function(){
+                        setTimeout(function () {
                             confirmation.close();
 
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 confirmation.classList.remove("actif");
-                        }, 100);
+                            }, 100);
 
                         }, 2000);
 
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
-       openModal(service) {
-          
-          this.idService=service.id;
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
+        },
+        openModal(service) {
 
-          this.editModal = true;
+            this.idService = service.id;
 
-          // Créez un objet avec les données à envoyer
-          const eventData = {
-              idService: this.idService,
-              nom: service.nom_service,
-              id_user: service.id_user,
-              id_direction: service.id_direction,
-              editModal: this.editModal,
-              // Ajoutez d'autres propriétés si nécessaire
-          };
+            this.editModal = true;
 
-          bus.emit('serviceModifier', eventData);
+            // Créez un objet avec les données à envoyer
+            const eventData = {
+                idService: this.idService,
+                nom: service.nom_service,
+                id_user: service.id_user,
+                id_direction: service.id_direction,
+                editModal: this.editModal,
+                // Ajoutez d'autres propriétés si nécessaire
+            };
 
-          var fond = document.querySelector('.fond');
-          var flou = document.querySelectorAll('.flou');
-          var modification = document.querySelector("[data-modal-ajout]");
+            bus.emit('serviceModifier', eventData);
 
-          flou.forEach(item => {
-              item.classList.add("actif");
-          });
+            var fond = document.querySelector('.fond');
+            var flou = document.querySelectorAll('.flou');
+            var modification = document.querySelector("[data-modal-ajout]");
 
-          fond.classList.add("actif");
-          modification.showModal();
-          modification.classList.add("actif");
+            flou.forEach(item => {
+                item.classList.add("actif");
+            });
 
-       
-      },
+            fond.classList.add("actif");
+            modification.showModal();
+            modification.classList.add("actif");
 
 
+        },
 
-   }
+
+
+    }
 }
 </script>
