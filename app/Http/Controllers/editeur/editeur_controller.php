@@ -11,7 +11,7 @@ class editeur_controller extends Controller
 {
     
     public function index() {
-        $editeur=Editeur::all();
+        $editeur=Editeur::orderBy('created_at', 'desc')->get();
         if($editeur!=null){
             return response()->json([
                 'statut'=>200,

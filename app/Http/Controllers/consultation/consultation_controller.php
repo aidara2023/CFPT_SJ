@@ -12,7 +12,7 @@ class consultation_controller extends Controller
     public function index()
     {
        
-        $consultations = Consultation::all();
+        $consultations = Consultation::orderBy('created_at', 'desc')->get();
 
         
         return response()->json($consultations);

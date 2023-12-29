@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class tuteur_controller extends Controller
 {
     public function index(){
-        $tuteur = Tuteur::all();
+        $tuteur = Tuteur::orderBy('created_at', 'desc')->get();
         if($tuteur != null){
             return response()->json([
                 'statut' => 200,

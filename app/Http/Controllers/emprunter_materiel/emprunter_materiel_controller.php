@@ -11,7 +11,7 @@ class emprunter_materiel_controller extends Controller
 {
     public function index()
     {
-        $emprunts = emprunter_materiel::all();
+        $emprunts = emprunter_materiel::orderBy('created_at', 'desc')->get();
 
         return response()->json($emprunts);
     }

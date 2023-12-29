@@ -11,7 +11,7 @@ class concerner_controller extends Controller
 {
      
     public function index() {
-        $concerner=concerner::all();
+        $concerner=concerner::orderBy('created_at', 'desc')->get();
         if($concerner!=null){
             return response()->json([
                 'statut'=>200,

@@ -36,7 +36,7 @@
 
             <div class="champ">
                 <label for="departement" :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Département</label>
-                <select v-model="form.id_departement" @change="validatedata('departement')"
+                <select v-model="form.id_departement" @change="get_filiere(form.id_departement)"
                     :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
                     <option v-for="departement in departements" :value="departement.id">{{ departement.nom_departement }}
                     </option>
@@ -47,7 +47,7 @@
             <div class="champ">
                 <label for="unite_de_formation"
                     :class="{ 'couleur_rouge': (this.id_unite_de_formation_erreur) }">Filiére</label>
-                <select v-model="form.id_unite_de_formation" @change="validatedata('unite_de_formation')"
+                <select v-model="form.id_unite_de_formation" @change="get_classe(form.id_unite_de_formation)"
                     :class="{ 'bordure_rouge': (this.id_unite_de_formation_erreur) }">
                     <option v-for="unite_de_formation in unite_de_formations" :value="unite_de_formation.id">{{
                         unite_de_formation.nom_unite_formation }}</option>
@@ -116,8 +116,8 @@ export default {
         this.get_annee_academique();
         this.get_mois();
         this.get_departement();
-        this.get_unite_de_formation();
-        this.get_classe();
+        //this.get_unite_de_formation();
+        //this.get_classe();
        
     
 
@@ -212,7 +212,39 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du mois', 'error')
                 });
         },
-        get_departement() {
+        async get_classe(id) {
+            await axios.get('/find/classes/' + id).then(response => {
+                //this.classes = response.data.classe;
+                this.validatedata('unite_de_formation');
+                 // Filtrer les classes par type d'intitulé (CS ou FPJ)
+                 this.classes = response.data.classe.filter(classe => {
+                        return classe.type_classe === 'CS' || classe.type_classe === 'FPJ';
+                    });
+
+            }).catch(error => {
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des classes', 'error')
+            });
+        },
+
+        async get_departement() {
+            await axios.get('/departement/all').then(response => {
+                this.departements = response.data.departement;
+
+            }).catch(error => {
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des Departements', 'error')
+            });
+        },
+
+        async get_filiere(id) {
+            await axios.get('/find/filieres/' + id).then(response => {
+                this.unite_de_formations = response.data.filiere;
+                this.validatedata('departement');
+
+            }).catch(error => {
+                Swal.fire('Erreur!', 'une erreur est survenue lors de la recuperation des filiere', 'error')
+            });
+        },
+        /* get_departement() {
             axios.get('/departement/all')
                 .then(response => {
                     this.departements = response.data.departement
@@ -220,8 +252,8 @@ export default {
                     //this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du departement', 'error')
                 });
-        },
-        get_unite_de_formation() {
+        }, */
+       /*  get_unite_de_formation() {
             axios.get('/unite_de_formation/all')
                 .then(response => {
                     this.unite_de_formations = response.data.unite_de_formation
@@ -229,7 +261,7 @@ export default {
                     //this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du filiere', 'error')
                 });
-        },
+        }, */
 
         get_classe_by_id(id) {
          
@@ -244,7 +276,7 @@ export default {
            }
         },
 
-        get_classe() {
+       /*  get_classe() {
             axios.get('/classe/all')
                 .then(response => {
                     // Filtrer les classes par type d'intitulé (CS ou FPJ)
@@ -257,13 +289,9 @@ export default {
                     // this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la récupération de la classe', 'error');
                 });
-        },
+        }, */
 
 
-        async filtre() {
-
-
-        },
         validerAvantAjout() {
             const isIdChampValid = this.validatedataOld();
             if (isIdChampValid) {

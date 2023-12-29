@@ -2,7 +2,7 @@
     <dialog data-modal-ajout class="modal">
 
         <div class="titres">
-            <h1>Ajout Service</h1>
+            <h1>Nouveau Département</h1>
            <!--  <h3>Informations Personnelles</h3> -->
         </div>
         
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Departement</label>
+                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Département</label>
                         <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
                         <span class="erreur" >{{this.nom_departement_erreur}}</span>
                     </div>
@@ -26,7 +26,7 @@
 
                     
                     <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Service</label>
+                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Département</label>
                         <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
                             <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
                         </select>
@@ -223,6 +223,7 @@ import Form from 'vform';
 
                 if(this.editModal===true){
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.update_departement(this.idDepartement);
                     this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal=false;
@@ -230,6 +231,7 @@ import Form from 'vform';
                 }
                 else{
                     this.etatForm= true;
+                    this.form.nom = this.form.nom.toUpperCase();
                     this.soumettre();
                     this.closeModal('[data-modal-confirmation]');
                     this.editModal=false;

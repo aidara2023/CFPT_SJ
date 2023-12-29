@@ -11,7 +11,7 @@ class rayon_controller extends Controller
 {
     
     public function index() {
-        $rayon=Rayon::all();
+        $rayon=Rayon::orderBy('created_at', 'desc')->get();
         if($rayon!=null){
             return response()->json([
                 'statut'=>200,

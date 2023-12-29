@@ -11,7 +11,7 @@ class personnel_administratif_controller extends Controller
 {
     public function index()
     {
-        $personnel_administratifs = Personnel_administratif::all();
+        $personnel_administratifs = Personnel_administratif::orderBy('created_at', 'desc')->get();
         if ($personnel_administratifs->count() > 0) {
             return response()->json([
                 'status' => 200,

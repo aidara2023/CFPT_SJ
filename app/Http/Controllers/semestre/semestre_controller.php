@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class semestre_controller extends Controller
 {
     public function index() {
-        $semestre=Semestre::all();
+        $semestre=Semestre::orderBy('created_at', 'desc')->get();
         if($semestre!=null){
             return response()->json([
                 'statut'=>200,

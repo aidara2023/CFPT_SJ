@@ -10,7 +10,7 @@ use App\Models\Departement;
 class departement_controller extends Controller
 {
     public function all(){
-        $departement = Departement::with('direction' , 'user')->get();
+        $departement = Departement::with('direction' , 'user')->orderBy('created_at', 'desc')->get();
         if($departement != null){
             return response()->json([
                 'statut' => 200,

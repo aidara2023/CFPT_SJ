@@ -11,7 +11,7 @@ class materiel_controller extends Controller
 {
         public function index()
         {
-            $materiels = Materiel::all();
+            $materiels = Materiel::orderBy('created_at', 'desc')->get();
             if ($materiels->count() > 0) {
                 return response()->json([
                     'status' => 200,

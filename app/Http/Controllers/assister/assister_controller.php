@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class assister_controller extends Controller
 {
     public function index() {
-        $assister=Assister::all();
+        $assister=Assister::orderBy('created_at', 'desc')->get();
         if($assister!=null){
             return response()->json([
                 'statut'=>200,
