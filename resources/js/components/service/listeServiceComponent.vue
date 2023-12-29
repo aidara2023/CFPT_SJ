@@ -1,40 +1,5 @@
 <template>
-    <!-- <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
-           <a href="#">
-               <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-           </a>
-       </div>
-       <h1 class="texte">Service</h1>
-        <div class="sections" v-for="(service, index) in services" :key="index">
-           <div class="utilisateur">
-               <p class="texte" id="n">{{ service.nom_service }} </p>
-               <p class="texte" id="n">{{ service.direction.nom_direction }} </p>
-               <p class="texte" id="n">{{ service.user.prenom }} {{ service.user.nom }}</p>
-               <div  class="presences">
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
-
-                    </a>
-                   <a href="#" class="texte b" @click="openModal(service)">
-                       <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
-                   </a>
-                   <a href="#" class="texte b">
-                       <i class="fi fi-rr-comment-alt-dots"></i>
-                       <span class="details">Détails</span>
-                   </a>
-                   <a href="#" class="texte b" @click="deleteService(service)" >
-                       <i class="fi fi-rr-cross"></i>
-                       <span class="supprimer mdl">Supprimer</span>
-                   </a>
-               </div>
-           </div>
-       </div>
-   </div> -->
-
-    <div class="liste">
+    <div class="liste table-container">
         <!--  <div class="item">
                 <div class="renseignements">
                     <div></div>

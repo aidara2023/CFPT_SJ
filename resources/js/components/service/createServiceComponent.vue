@@ -1,54 +1,11 @@
 <template>
-    <!--  <dialog data-modal-ajout class="modal">
-         <div class="cote_droit contenu">
-             <form @submit.prevent="validerAvantAjout()" method="">
-                 <h1 class="sous_titre">Ajout Service</h1>
-               
-                 <div class="personnel">
-                     <div>
-                         <input type="text" v-model="form.nom_service" id="nom" placeholder="Nom du Service" @input="validatedata('nom_service')">
-                         <span class="erreur" v-if="this.nom_service_erreur !== ''">{{this.nom_service_erreur}}</span>
-                     </div>
-     
-                     <div>
-     
-                         <select name="classe" id="classe" placeholder="Niveau" v-model="form.id_user" @change="validatedata('id_user')">
-                             <option value="">Chef de service</option>
-                             <option v-for="(user, index) in users" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
-                         </select>
-                         <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
-                     </div>
-     
-                     
-             
-                     <div>
-                         <select name="id_direction" id="id_direction" v-model="form.id_direction" @change="validatedata('id_direction')">
-                                 <option value=""> Direction</option>
-                                 <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
-                         </select>
-                         <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}</span>
-                     </div>
-     
-                 </div>
-     
-                 <div class="boutons">
-                 <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                 <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                 <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
-             </div>
-             </form>
-         </div>
-     </dialog> -->
-
     <div>
-
         <div class="titres">
             <h1>Nouveau Service</h1>
             <!--  <h3>Informations Personnelles</h3> -->
         </div>
         <!-- <div class="contenu"> -->
         <form @submit.prevent="validerAvantAjout()" action="" method="">
-
 
             <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
                  Et enlever la div au dessus -->
@@ -65,8 +22,6 @@
                 </div>
 
                 <div class="groupe_champs">
-
-
                     <div class="champ">
                         <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur) }">Chef Service</label>
                         <select v-model="form.id_user" @change="validatedata('id_user')"
@@ -97,15 +52,8 @@
                     <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
                             data-statut="visible">Modifier</span></button>
                 </div>
-
             </div>
-
-
         </form>
-
-
-        <!--  </div> -->
-
     </div>
 </template>
      

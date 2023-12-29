@@ -1,8 +1,9 @@
 <template>
-    <form class="" action="" method="">
-      <h1>connexion</h1>
+
+    <form action="" method="">
+      <h1>Connexion</h1>
   
-      <div class="informations">
+      <div class="informationsLogin">
         <div class="champ">
           <label for="matricule"><span>Matricule</span></label>
           <input type="text" id="matricule" name="matricule" placeholder="Matricule" v-model="form.matricule">
