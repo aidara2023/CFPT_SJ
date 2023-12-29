@@ -1,26 +1,7 @@
 @extends('layout.app')
 @section('content')
     <div class="elements flou" id="app">
-        <div class="haut_de_page">
-            <div class="logo">
-                <img src="/assetsCFPT/image/logo_cfpt_bleu.png" alt="" class="moyenne_taille">
-            </div>
-
-            <div class="profil">
-                <div class="image-container">
-                    <img src="/assetsCFPT/image/etudiant.png" alt="" class="moyenne_taille mdl"
-                        id="dropdown-trigger">
-                    <!-- Dropdown menu -->
-                    <div class="dropdown-content">
-                        <a href="#">Mon profil</a>
-                        <a href="{{ route('logout') }}">Me déconnecter</a>
-                    </div>
-                </div>
-                <!-- Autres informations utilisateur (h3, p) peuvent être ajoutées ici si nécessaire -->
-            </div>
-        </div>
-
-        <h1 class="grand_ecran_seulement">Service</h1>
+       @include('layout.header')
 
         <div class="controle">
             <div class="recherche_filtre">

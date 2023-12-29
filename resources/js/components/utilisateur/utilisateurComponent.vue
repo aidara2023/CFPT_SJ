@@ -1,227 +1,233 @@
 <template >
-    <div class="titres">
-        <h1>Nouvel utilisateur</h1>
-    </div>
-
-    <form @submit.prevent="validerAvantAjout()" action="" method="">
-        <div class="droit">
-
-            <div class="image">
-                <div class="roue">
-                    <div class="roue">
-                        <label for="photo" class="photo">
-                            <i class="fi fi-rr-picture"></i>
-                            téléchargez votre photo ici
-                            <input type="file" id="photo" @change="ajoutimage" accept="image/*">
-                        </label>
-                    </div>
-                </div>
-
-                <label for="photo" class="photo visible">
-                    <i class="fi fi-rr-picture"></i>
-                    téléchargez votre photo ici
-                    <input type="file" id="photo" @change="ajoutimage" accept="image/*">
-                </label>
-                <img v-if="photo" :src="photoUrl" alt="Etu">
-            </div>
-
-            <label for="">photo</label>
-            <div class="etapes">
-                <div class="cercles" data-etape="1">
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div>
-                    <span></span>
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div><!-- 
-                    <span></span>
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div> -->
-                </div>
-                <label for="" class="positions" data-etape="1">ETApe 1</label>
-            </div>
+    <div>
+        <div class="titres">
+            <h1>Nouvel utilisateur</h1>
         </div>
 
-        <div class="informations plus">
-            <div class="titres">
-                <h1>Nouvel utilisateur</h1>
-            </div>
+        <form @submit.prevent="validerAvantAjout()" action="" method="">
+            <div class="droit">
 
-            <div class="champ " v-show="i_1_2_3 === 1">
-                <label for="nom" :class="{ 'couleur_rouge': (this.nom_user_erreur) }">Nom</label>
-                <input type="text" name="nom" id="nom" v-model="form.nom" @input="validatedata('nom')"
-                    :class="{ 'bordure_rouge': (this.nom_user_erreur) }">
-                <span class="erreur">{{ this.nom_user_erreur }}</span>
-            </div>
-
-            <div class="champ " v-show="i_1_2_3 === 1">
-                <label for="prenom" :class="{ 'couleur_rouge': (this.prenom_user_erreur) }">Prenom</label>
-                <input type="text" name="prenom" id="prenom" v-model="form.prenom" @input="validatedata('prenom')"
-                    :class="{ 'bordure_rouge': (this.prenom_user_erreur) }">
-                <span class="erreur">{{ this.prenom_user_erreur }}</span>
-            </div>
-
-            <div class="groupe_champs " v-show="i_1_2_3 === 1">
-                <div class="champ">
-                    <label for="date_naissance" :class="{ 'couleur_rouge': (this.date_erreur) }">Date de naissance</label>
-                    <input type="date" name="date_naissance" id="date_naissance" v-model="form.date_naissance"
-                        @input="validatedata('date_naissance')" :class="{ 'bordure_rouge': (this.date_erreur) }">
-                    <span class="erreur">{{ this.date_erreur }}</span>
-                </div>
-
-                <div class="champ ">
-                    <label for="lieu_naissance" :class="{ 'couleur_rouge': (this.lieu_naissance_erreur) }">Lieu de
-                        naissance</label>
-                    <input type="text" name="lieu_naissance" id="lieu_naissance" v-model="form.lieu_naissance"
-                        @input="validatedata('naissance')" :class="{ 'bordure_rouge': (this.lieu_naissance_erreur) }">
-                    <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
-                </div>
-            </div>
-
-            <div class="groupe_champs " v-show="i_1_2_3 === 1">
-
-                <div class="champ">
-                    <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_erreur) }">Nationalite</label>
-                    <input type="text" name="nationalite" id="nationalite" v-model="form.nationalite"
-                        @input="validatedata('nationalite')" :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
-                    <span class="erreur">{{ this.nationalite_erreur }}</span>
-                </div>
-
-                <div class="champ">
-                    <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_erreur) }">Sexe</label>
-
-                    <select name="role" id="role" v-model="form.genre" @change="validatedata('genre')"
-                        :class="{ 'bordure_rouge': (this.genre_erreur) }">
-                        <option class="option">Masculin</option>
-                        <option class="option">Féminin</option>
-                    </select>
-                    <span class="erreur">{{ this.genre_erreur }}</span>
-                </div>
-
-            </div>
-
-
-            <div class="groupe_champs  " v-show="i_1_2_3 === 1">
-                <div class="champ">
-                    <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_erreur) }">Telephone</label>
-                    <input type="tel" name="telephone" id="telephone" v-model="form.telephone"
-                        @input="validatedata('telephone')" :class="{ 'bordure_rouge': (this.telephone_erreur) }">
-                    <span class="erreur">{{ this.telephone_erreur }}</span>
-                </div>
-
-                <div class="champ">
-                    <label for="Adresse" :class="{ 'couleur_rouge': (this.adresse_erreur) }">Adresse</label>
-                    <input type="text" name="adresse" id="adresse" v-model="form.adresse" @input="validatedata('adresse')"
-                        :class="{ 'bordure_rouge': (this.adresse_erreur) }">
-                    <span class="erreur">{{ this.adresse_erreur }}</span>
-                </div>
-            </div>
-
-            <div class="champ " v-show="i_1_2_3 === 3">
-                <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
-                <input type="mail" name="email" id="email" v-model="form.email" @input="validatedata('email')"
-                    :class="{ 'bordure_rouge': (this.email_user_erreur) }">
-                <span class="erreur">{{ this.email_user_erreur }}</span>
-            </div>
-
-            <div class="groupe_champs validation" v-show="i_1_2_3 === 1">
-                <button type="button" data-close-modal @click="resetForm"><span
-                        data-statut="visible">Annuler</span></button>
-
-                <button type="button" @click.prevent="goToStep(3)"><span data-statut="visible">Suivant</span></button>
-            </div>
-
-            <div v-show="i_1_2_3 === 3">
-                <div class="champ">
-                    <label for="Role" :class="{ 'couleur_rouge': (this.id_role_erreur) }">Role</label>
-                    <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)"
-                        :class="{ 'bordure_rouge': (this.id_role_erreur) }">
-                        <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
-                    </select>
-                    <span class="erreur">{{ id_role_erreur }}</span>
-                </div>
-            </div>
-
-            <div v-if="this.interesser === 2">
-                <div class="groupe_champs">
-                    <div class="champ">
-                        <label for="Type Professeur" :class="{ 'couleur_rouge': (this.type_erreur) }">Type
-                            Professeur</label>
-                        <select name="" id="" v-model="form.type" @change="validatedata('type')"
-                            :class="{ 'bordure_rouge': (this.type_erreur) }">
-                            <!-- <option value="">Type Professeur</option> -->
-                            <option value="Etat">Etat</option>
-                            <option value="Etat">Recruté</option>
-                            <option value="Recruter">Prestataire</option>
-                        </select>
-                        <span class="erreur">{{ type_erreur }}</span>
+                <div class="image">
+                    <div class="roue">
+                        <div class="roue">
+                            <label for="photo" class="photo">
+                                <i class="fi fi-rr-picture"></i>
+                                téléchargez votre photo ici
+                                <input type="file" id="photo" @change="ajoutimage" accept="image/*">
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="champ">
-                        <label for="Statut"
-                            :class="{ 'couleur_rouge': (this.situation_matrimoniale_erreur) }">Statut</label>
-                        <select name="" id="" v-model="form.situation_matrimoniale"
-                            @change="validatedata('situation_matrimoniale')"
-                            :class="{ 'bordure_rouge': (this.situation_matrimoniale_erreur) }">
-                            <!--   <option value="">Selectioner Statut</option> -->
-                            <option value="Niveau 1">Célibataire</option>
-                            <option value="Niveau 2">Marié</option>
+                    <label for="photo" class="photo visible">
+                        <i class="fi fi-rr-picture"></i>
+                        téléchargez votre photo ici
+                        <input type="file" id="photo" @change="ajoutimage" accept="image/*">
+                    </label>
+                    <img v-if="photo" :src="photoUrl" alt="Etu">
+                </div>
 
-                        </select>
-                        <span class="erreur">{{ situation_matrimoniale_erreur
-                        }}</span>
+                <label for="">photo</label>
+                <div class="etapes">
+                    <div class="cercles" data-etape="1">
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div>
+                        <span></span>
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div><!-- 
+                    <span></span>
+                    <div class="actuel"><i class="fi fi-rr-check"></i></div> -->
+                    </div>
+                    <label for="" class="positions" data-etape="1">ETApe 1</label>
+                </div>
+            </div>
+
+            <div class="informations plus">
+                <div class="titres">
+                    <h1>Nouvel utilisateur</h1>
+                </div>
+
+                <div class="champ " v-show="i_1_2_3 === 1">
+                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_user_erreur) }">Nom</label>
+                    <input type="text" name="nom" id="nom" v-model="form.nom" @input="validatedata('nom')"
+                        :class="{ 'bordure_rouge': (this.nom_user_erreur) }">
+                    <span class="erreur">{{ this.nom_user_erreur }}</span>
+                </div>
+
+                <div class="champ " v-show="i_1_2_3 === 1">
+                    <label for="prenom" :class="{ 'couleur_rouge': (this.prenom_user_erreur) }">Prenom</label>
+                    <input type="text" name="prenom" id="prenom" v-model="form.prenom" @input="validatedata('prenom')"
+                        :class="{ 'bordure_rouge': (this.prenom_user_erreur) }">
+                    <span class="erreur">{{ this.prenom_user_erreur }}</span>
+                </div>
+
+                <div class="groupe_champs " v-show="i_1_2_3 === 1">
+                    <div class="champ">
+                        <label for="date_naissance" :class="{ 'couleur_rouge': (this.date_erreur) }">Date de
+                            naissance</label>
+                        <input type="date" name="date_naissance" id="date_naissance" v-model="form.date_naissance"
+                            @input="validatedata('date_naissance')" :class="{ 'bordure_rouge': (this.date_erreur) }">
+                        <span class="erreur">{{ this.date_erreur }}</span>
+                    </div>
+
+                    <div class="champ ">
+                        <label for="lieu_naissance" :class="{ 'couleur_rouge': (this.lieu_naissance_erreur) }">Lieu de
+                            naissance</label>
+                        <input type="text" name="lieu_naissance" id="lieu_naissance" v-model="form.lieu_naissance"
+                            @input="validatedata('naissance')" :class="{ 'bordure_rouge': (this.lieu_naissance_erreur) }">
+                        <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
                     </div>
                 </div>
 
-                <div class="groupe_champs">
+                <div class="groupe_champs " v-show="i_1_2_3 === 1">
 
                     <div class="champ">
-                        <label for="Spécialite" :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
-                        <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"
-                            @change="validatedata('specialite')" :class="{ 'bordure_rouge': (this.id_specialite_erreur) }">
-
-                            <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
-                                specialite.intitule }}</option>
-                        </select>
-                        <span class="erreur">{{ id_specialite_erreur }}</span>
+                        <label for="Nationalite" :class="{ 'couleur_rouge': (this.nationalite_erreur) }">Nationalite</label>
+                        <input type="text" name="nationalite" id="nationalite" v-model="form.nationalite"
+                            @input="validatedata('nationalite')" :class="{ 'bordure_rouge': (this.nationalite_erreur) }">
+                        <span class="erreur">{{ this.nationalite_erreur }}</span>
                     </div>
 
                     <div class="champ">
-                        <label for="Departement"
-                            :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
-                        <select name="id_departement" id="id_departement" v-model="form.id_departement"
-                            @change="validatedata('departement')"
-                            :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
+                        <label for="Sexe" :class="{ 'couleur_rouge': (this.genre_erreur) }">Sexe</label>
 
-                            <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
-                                departement.nom_departement }}</option>
+                        <select name="role" id="role" v-model="form.genre" @change="validatedata('genre')"
+                            :class="{ 'bordure_rouge': (this.genre_erreur) }">
+                            <option class="option">Masculin</option>
+                            <option class="option">Féminin</option>
                         </select>
-                        <span class="erreur">{{ id_departement_erreur }}</span>
+                        <span class="erreur">{{ this.genre_erreur }}</span>
+                    </div>
+
+                </div>
+
+
+                <div class="groupe_champs  " v-show="i_1_2_3 === 1">
+                    <div class="champ">
+                        <label for="Telephone" :class="{ 'couleur_rouge': (this.telephone_erreur) }">Telephone</label>
+                        <input type="tel" name="telephone" id="telephone" v-model="form.telephone"
+                            @input="validatedata('telephone')" :class="{ 'bordure_rouge': (this.telephone_erreur) }">
+                        <span class="erreur">{{ this.telephone_erreur }}</span>
+                    </div>
+
+                    <div class="champ">
+                        <label for="Adresse" :class="{ 'couleur_rouge': (this.adresse_erreur) }">Adresse</label>
+                        <input type="text" name="adresse" id="adresse" v-model="form.adresse"
+                            @input="validatedata('adresse')" :class="{ 'bordure_rouge': (this.adresse_erreur) }">
+                        <span class="erreur">{{ this.adresse_erreur }}</span>
                     </div>
                 </div>
-            </div>
 
-
-
-            <div v-if="this.interesser === 4">
-                <div class="champ">
-                    <label for="Service" :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
-                    <select name="id_service" id="id_service" v-model="form.id_service" @change="validatedata('service')"
-                        :class="{ 'bordure_rouge': (this.id_service_erreur) }">
-
-                        <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service
-                        }}</option>
-                    </select>
-                    <span class="erreur">{{ id_service_erreur }}</span>
+                <div class="champ " v-show="i_1_2_3 === 3">
+                    <label for="Adresse Email" :class="{ 'couleur_rouge': (this.email_user_erreur) }">Adresse Email</label>
+                    <input type="mail" name="email" id="email" v-model="form.email" @input="validatedata('email')"
+                        :class="{ 'bordure_rouge': (this.email_user_erreur) }">
+                    <span class="erreur">{{ this.email_user_erreur }}</span>
                 </div>
-            </div>
 
-            <div class="groupe_champs validation" v-show="i_1_2_3 === 3">
-                <button type="button" @click="goToStep(1)"><span data-statut="visible">Precedent</span></button>
+                <div class="groupe_champs validation" v-show="i_1_2_3 === 1">
+                    <button type="button" data-close-modal @click="resetForm"><span
+                            data-statut="visible">Annuler</span></button>
 
-                <button type="submit" :class="{ 'data-close-modal': (etatForm) }"><span
-                        data-statut="visible">Ajouter</span></button>
-            </div>
+                    <button type="button" @click.prevent="goToStep(3)"><span data-statut="visible">Suivant</span></button>
+                </div>
+
+                <div v-show="i_1_2_3 === 3">
+                    <div class="champ">
+                        <label for="Role" :class="{ 'couleur_rouge': (this.id_role_erreur) }">Role</label>
+                        <select name="role" id="role" v-model="form.id_role" @change="changement(form.id_role)"
+                            :class="{ 'bordure_rouge': (this.id_role_erreur) }">
+                            <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}
+                            </option>
+                        </select>
+                        <span class="erreur">{{ id_role_erreur }}</span>
+                    </div>
+                </div>
+
+                <div v-if="this.interesser === 2">
+                    <div class="groupe_champs">
+                        <div class="champ">
+                            <label for="Type Professeur" :class="{ 'couleur_rouge': (this.type_erreur) }">Type
+                                Professeur</label>
+                            <select name="" id="" v-model="form.type" @change="validatedata('type')"
+                                :class="{ 'bordure_rouge': (this.type_erreur) }">
+                                <!-- <option value="">Type Professeur</option> -->
+                                <option value="Etat">Etat</option>
+                                <option value="Etat">Recruté</option>
+                                <option value="Recruter">Prestataire</option>
+                            </select>
+                            <span class="erreur">{{ type_erreur }}</span>
+                        </div>
+
+                        <div class="champ">
+                            <label for="Statut"
+                                :class="{ 'couleur_rouge': (this.situation_matrimoniale_erreur) }">Statut</label>
+                            <select name="" id="" v-model="form.situation_matrimoniale"
+                                @change="validatedata('situation_matrimoniale')"
+                                :class="{ 'bordure_rouge': (this.situation_matrimoniale_erreur) }">
+                                <!--   <option value="">Selectioner Statut</option> -->
+                                <option value="Niveau 1">Célibataire</option>
+                                <option value="Niveau 2">Marié</option>
+
+                            </select>
+                            <span class="erreur">{{ situation_matrimoniale_erreur
+                            }}</span>
+                        </div>
+                    </div>
+
+                    <div class="groupe_champs">
+
+                        <div class="champ">
+                            <label for="Spécialite"
+                                :class="{ 'couleur_rouge': (this.id_specialite_erreur) }">Spécialite</label>
+                            <select name="id_specialite" id="id_specialite" v-model="form.id_specialite"
+                                @change="validatedata('specialite')"
+                                :class="{ 'bordure_rouge': (this.id_specialite_erreur) }">
+
+                                <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
+                                    specialite.intitule }}</option>
+                            </select>
+                            <span class="erreur">{{ id_specialite_erreur }}</span>
+                        </div>
+
+                        <div class="champ">
+                            <label for="Departement"
+                                :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
+                            <select name="id_departement" id="id_departement" v-model="form.id_departement"
+                                @change="validatedata('departement')"
+                                :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
+
+                                <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
+                                    departement.nom_departement }}</option>
+                            </select>
+                            <span class="erreur">{{ id_departement_erreur }}</span>
+                        </div>
+                    </div>
+                </div>
 
 
-            <div class="groupe_champs validation">
-                <!-- 
+
+                <div v-if="this.interesser === 4">
+                    <div class="champ">
+                        <label for="Service" :class="{ 'couleur_rouge': (this.id_service_erreur) }">Service</label>
+                        <select name="id_service" id="id_service" v-model="form.id_service"
+                            @change="validatedata('service')" :class="{ 'bordure_rouge': (this.id_service_erreur) }">
+
+                            <option v-for="(service, index) in services" :value="service.id" :key="index">{{
+                                service.nom_service
+                            }}</option>
+                        </select>
+                        <span class="erreur">{{ id_service_erreur }}</span>
+                    </div>
+                </div>
+
+                <div class="groupe_champs validation" v-show="i_1_2_3 === 3">
+                    <button type="button" @click="goToStep(1)"><span data-statut="visible">Precedent</span></button>
+
+                    <button type="submit" :class="{ 'data-close-modal': (etatForm) }"><span
+                            data-statut="visible">Ajouter</span></button>
+                </div>
+
+
+                <div class="groupe_champs validation">
+                    <!-- 
                 <input v-if="this.editModal === false" type="submit" value="Ajouter"
                     :class="{ 'data-close-modal': (this.etatForm) }">
                 <input v-if="this.editModal === true" type="submit" value="Modifier"
@@ -229,15 +235,16 @@
                  <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
                 <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
  -->
-                <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
+                    <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
 
-                <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
+                    <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
 
             <button type="button"  class="suivant" @click="clic_suivant" ><span data-statut="visible">Suivant</span></button> -->
 
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -519,7 +526,7 @@ export default {
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
                     this.form.adresse = this.form.adresse.toUpperCase();
                     this.form.nationalite = this.form.nationalite.toUpperCase();
-                    
+
                     // Convertir la première lettre du prénom en majuscule et le reste en minuscules
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.update_utilisateur(this.idUser);

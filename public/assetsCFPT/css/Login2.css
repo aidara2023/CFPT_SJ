@@ -148,7 +148,7 @@ body{
 }
 
 
-.partie.connexion form .informations{
+.partie.connexion form .informationsLogin{
   margin: 0;
   padding: 0;
   background: transparent;
@@ -241,11 +241,11 @@ body{
     transform: translateY(-20%);
   }
 
-  .partie.connexion form .informations{
+  .partie.connexion form .informationsLogin{
     width: 100%;
   }
 
-  .partie.connexion form .informations .champ{
+  .partie.connexion form .informationsLogin .champ{
     padding: 0;
   }
 }
