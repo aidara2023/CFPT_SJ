@@ -34,7 +34,7 @@
                     </div>
                 </button>
             </div> -->
-        <table>
+    <!--     <table>
             <thead>
                 <th>Service</th>
                 <th>Direction</th>
@@ -54,7 +54,45 @@
                 </td>
 
             </tbody>
-        </table>
+        </table> -->
+ <div class="item">
+                <div class="renseignements">
+                    <div></div>
+                    <span>Matricule</span>
+                    <span>Prénom</span>
+                    <span>Nom</span>
+                    <span class="grand_ecran_seulement">Classe</span>
+                    <span class="grand_ecran_seulement">Statut</span>
+                </div>
+                <span>Actions</span>
+            </div>
+
+            <div class="item">
+                <div class="renseignements">
+                    <div class="cadre_photo">
+                        <!-- <span>FA</span> -->
+                        <img src="etudiant.png" alt="" class="petite_taille">
+                        <div class="statut petit_ecran_seulement"></div> 
+                    </div>
+                    <span>M1233235</span>
+                    <span>Prénom<!-- Fatoumata Bintou Rassoul --></span>
+                    <span>Aidara</span>
+                    <span class="grand_ecran_seulement">IIR 2</span>
+                    <div class="statut grand_ecran_seulement"></div>
+                </div>
+                <button>
+                    <i class="fi fi-rr-angle-small-left"></i>
+                    <!-- Menu pour les boutons d'actions -->
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl"></i>
+                        <i class="fi fi-rr-cross supprimer mdl"></i>
+                    
+                    </div>
+                   
+                </button>
+            </div>
+
     </div>
 </template>
 

@@ -8,19 +8,21 @@
                 <div class="recherche">
                     <input type="text" placeholder="Rechercher...">
                 </div>
+                <div></div>
                 {{--  <button class="filtrer mdl">
                     <i class="fi fi-rr-bars-sort"></i>
                     <span class="grand_ecran_seulement">Filtrer</span>
                 </button> --}}
             </div>
+            <div></div>
             <!-- Onglets de navigation -->
             {{--      <div class="recherche onglets grand_ecran_seulement">
                 <div data-fenetre="">Formateurs</div>
                 <div data-fenetre="">Eleve</div>
                 <div data-fenetre="">Administration</div>
                 <div data-fenetre="">Appui</div>
-            </div> --}}
-            <div class="petit_ecran_seulement"></div>
+            </div> 
+            <div class="petit_ecran_seulement"></div>--}}
 
             <button class="ajouter mdl">
                 <i class="fi fi-rr-plus"></i>
