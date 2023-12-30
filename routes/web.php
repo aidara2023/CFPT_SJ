@@ -669,7 +669,7 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 
 
-
+Route::put('/user/disable/{id}', 'UserController@disableUser');
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 

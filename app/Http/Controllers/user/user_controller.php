@@ -232,22 +232,27 @@ class user_controller extends Controller
             ],500 );
         }
     }
-    public function delete($id){
-        $user=User::find($id);
-        if($user!=null){
-            $user->delete();
-            return response()->json([
-                'statut'=>200,
-                'message'=>'Utilisateur supprimer avec succes',
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L utilisateur n\'est pas supprimer',
-            ],500 );
-        }
+   
+public function delete($id) {
+    $user = User::find($id);
 
+    if ($user != null) {
+        // Mettre à jour le statut au lieu de supprimer
+        $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
+        $user->save();
+
+        return response()->json([
+            'statut' => 200,
+            'message' => 'Utilisateur désactivé avec succès',
+        ], 200);
+    } else {
+        return response()->json([
+            'statut' => 500,
+            'message' => 'L utilisateur n\'est pas désactivé',
+        ], 500);
     }
+}
+
 
     public function show($id){
         $user=User::find($id);
@@ -263,5 +268,23 @@ class user_controller extends Controller
             ],500 );
         }
 
+    }
+    public function disableUser($id) {
+        $user = User::find($id);
+    
+        if ($user != null) {
+            $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
+            $user->save();
+    
+            return response()->json([
+                'statut' => 200,
+                'message' => 'Utilisateur désactivé avec succès',
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'L utilisateur n\'est pas désactivé',
+            ], 500);
+        }
     }
 }

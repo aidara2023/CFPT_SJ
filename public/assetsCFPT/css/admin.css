@@ -1847,12 +1847,10 @@ td {
     align-items: center;
 }
 
-.logo, .profil {
-    width: 20%;
-}
+
 
 .liste-alerte {
-    width: 60%;
+    width: 30%;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -1864,10 +1862,12 @@ td {
 
 @keyframes scrollToLeft {
     0% {
-        transform: translateX(100%);
+        transform: translateX(200%);
     }
     100% {
         transform: translateX(-100%);
     }
 }
+
+
 
