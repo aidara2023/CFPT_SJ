@@ -1,37 +1,6 @@
-<!-- <template>
-
-      <div class="sections" >
-
-
-        <div class="utilisateur" v-for="(formation, index) in formations" :key="index">
-          <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
-          <p class="texte" id="n">{{ formation.intitule }}</p>
-          <div class="presences">
-            <a href="#" class="texte b">
-                        <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
-                    </a>
-            <a href="#" class="texte b" title="Modifier" >
-              <i class="fi fi-rr-edit" ></i>
-              <span class="modifier mdl">Modifier</span>
-            </a>
-            <a href="" class="texte b">
-              <i class="fi fi-rr-comment-alt-dots"></i>
-              <span class="details">Détails</span>
-            </a>
-            <a href="#" class="texte b">
-              <i class="fi fi-rr-cross"></i>
-              <span class="supprimer mdl">Supprimer</span>
-            </a>
-
-        </div>
-      </div>
-    </div>
-  </template> -->
-
 <template>
-    <div class="affichage">
-        <div class="avant" style=" margin-left: 80%;">
+    <div class="liste table-container">
+        <!--       <div class="avant" style=" margin-left: 80%;">
            
             <a href="#">
                 <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -42,7 +11,7 @@
     <div class="sections" v-for="(formation, index) in formations" :key="index">
 
             <div class="utilisateur">
-                <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
+               
                 <p class="texte" id="n">{{ formation.intitule }}</p>
                 <div  class="presences">
                     <a href="#" class="texte b">
@@ -69,8 +38,25 @@
 
 
     </div>
- <span class="fond "></span>
+ <span class="fond "></span> -->
+        <table>
+            <thead>
+                <th>Formation</th>
+                <th>Actions</th>
+            </thead>
+            <tbody v-for="(formation, index) in formations" :key="index">
+                <td><span>{{ formation.intitule }}</span></td>
+                <td>
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(formation)" title="Modifier"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteTypeFormation(formation)" title="Supprimer"></i>
+                    </div>
+                </td>
 
+            </tbody>
+        </table>
+    </div>
 </template>
 
 
@@ -81,12 +67,12 @@ import Form from 'vform';
 
 
 
-   export default {
-    name:"listeTypeFormationCompenent",
-    data(){
+export default {
+    name: "listeTypeFormationCompenent",
+    data() {
         return {
-            form:new Form({
-                'intitule':""
+            form: new Form({
+                'intitule': ""
 
             }),
             formations: [],
@@ -96,32 +82,32 @@ import Form from 'vform';
 
         }
     },
-    mounted(){
+    mounted() {
         this.get_formation();
         bus.on('formationAjoutee', () => { // Écouter l'événement de nouvelle formation ajoutée
             this.get_formation(); // Mettre à jour la liste des formations
         });
     },
 
-    methods:{
-        get_formation(){
+    methods: {
+        get_formation() {
             axios.get('/type_formation/all')
-            .then(response => {
-                this.formations=response.data.type_formation
+                .then(response => {
+                    this.formations = response.data.type_formation
 
 
-            }).catch(error=>{
-            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des formations','error')
-            });
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des formations', 'error')
+                });
         },
 
-        changement(event){
-            this.interesser= event;
+        changement(event) {
+            this.interesser = event;
         },
 
-        resetForm(){
-            this.form.input="";
-            this.form.intitule="";
+        resetForm() {
+            this.form.input = "";
+            this.form.intitule = "";
         },
 
         async deleteTypeFormation(type) {
@@ -144,12 +130,12 @@ import Form from 'vform';
 
                         confirmation.showModal();
                         confirmation.classList.add("actif");
-                        setTimeout(function(){
-                        confirmation.close();
+                        setTimeout(function () {
+                            confirmation.close();
 
-                        setTimeout(function(){
-                            confirmation.classList.remove("actif");
-                        }, 100);
+                            setTimeout(function () {
+                                confirmation.classList.remove("actif");
+                            }, 100);
 
                         }, 2000);
                     }).catch(function (error) {
@@ -159,35 +145,35 @@ import Form from 'vform';
             });
         },
         openModal(formation) {
-          
-          this.idTypeformation=formation.id;
 
-          this.editModal = true;
+            this.idTypeformation = formation.id;
 
-          // Créez un objet avec les données à envoyer
-          const eventData = {
-              idTypeformation: this.idTypeformation,
-              nom: formation.intitule,
-              editModal: this.editModal,
-              // Ajoutez d'autres propriétés si nécessaire
-          };
+            this.editModal = true;
 
-          bus.emit('formationModifier', eventData);
+            // Créez un objet avec les données à envoyer
+            const eventData = {
+                idTypeformation: this.idTypeformation,
+                nom: formation.intitule,
+                editModal: this.editModal,
+                // Ajoutez d'autres propriétés si nécessaire
+            };
 
-          var fond = document.querySelector('.fond');
-          var flou = document.querySelectorAll('.flou');
-          var modification = document.querySelector("[data-modal-ajout]");
+            bus.emit('formationModifier', eventData);
 
-          flou.forEach(item => {
-              item.classList.add("actif");
-          });
+            var fond = document.querySelector('.fond');
+            var flou = document.querySelectorAll('.flou');
+            var modification = document.querySelector("[data-modal-ajout]");
 
-          fond.classList.add("actif");
-          modification.showModal();
-          modification.classList.add("actif");
+            flou.forEach(item => {
+                item.classList.add("actif");
+            });
 
-       
-      },
+            fond.classList.add("actif");
+            modification.showModal();
+            modification.classList.add("actif");
+
+
+        },
 
     }
 }

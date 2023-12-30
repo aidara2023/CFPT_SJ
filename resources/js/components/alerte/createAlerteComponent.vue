@@ -19,30 +19,33 @@
                 </div>
 
                 <div class="champ">
+                    <label for="statut" :class="{ 'couleur_rouge': (this.statut_erreur) }">Statut</label>
+                    <select v-model="form.statut" @change="validatedata('statut')"
+                        :class="{ 'bordure_rouge': (this.statut_erreur) }">
+                        <option value="urgence">Urgence</option>
+                        <option value="Annonce">Annonce</option>
+                    </select>
+                    <span class="erreur" v-if="statut_erreur !== ''">{{ statut_erreur }}</span>
+                </div>
+
+                <div class="champ">
                     <label for="message" :class="{ 'couleur_rouge': (this.message_erreur) }">Message</label>
-                    <textarea type="text" v-model="form.message" id="message" @input="validatedata('message')"
+                    <textarea rows="5" type="text" v-model="form.message" id="message" @input="validatedata('message')"
                         :class="{ 'bordure_rouge': (this.message_erreur) }">
                     </textarea>
                     <span class="erreur">{{ this.message_erreur }}</span>
                 </div>
 
-                <div class="champ">
-                        <label for="statut" :class="{ 'couleur_rouge': (this.statut_erreur)} ">Statut</label>
-                        <select v-model="form.statut " @change="validatedata('statut')" :class="{ 'bordure_rouge': (this.statut_erreur)} ">
-                                <option  value="urgence">Urgence</option>
-                                <option  value="Annonce">Annonce</option>
-                            </select>
-                            <span class="erreur" v-if="statut_erreur !== ''">{{statut_erreur}}</span>
-                    </div>
 
-               
-                
+
+
+
 
                 <div class="groupe_champs validation">
                     <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
                     <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
                             @click="resetForm">Annuler</span></button>
-                    <button v-if="this.editModal === false" type="submit"  class="suivant"><span
+                    <button v-if="this.editModal === false" type="submit" class="suivant"><span
                             data-statut="visible">Ajouter</span></button>
                     <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
                             data-statut="visible">Modifier</span></button>
@@ -99,10 +102,10 @@ export default {
             try {
                 await axios.post('/alerte/store', formdata, {});
                 this.resetForm();
-                 bus.emit('alerteAjoutee'); 
+                bus.emit('alerteAjoutee');
             }
             catch (e) {
-             
+
                 if (e.request.status === 404) {
                     Swal.fire('Erreur !', 'Ce message existe déjà', 'error')
                 }
@@ -110,7 +113,7 @@ export default {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
                 }
 
-            } 
+            }
 
         },
 
@@ -138,7 +141,7 @@ export default {
                     this.form.titre = this.form.titre.toUpperCase();
                     this.soumettre();
                     this.etatForm = true;
-                    this.closeModal('[data-modal-confirmation]'); 
+                    this.closeModal('[data-modal-confirmation]');
                     this.editModal = false;
 
                 }
@@ -155,7 +158,7 @@ export default {
             this.editModal === false;
         },
 
-       
+
 
         validatedataold() {
             this.titre_erreur = "";
@@ -173,8 +176,8 @@ export default {
                 i = 1;
 
             }
-           
-            
+
+
             if (this.form.statut === "") {
                 this.statut_erreur = "Vous avez oublié de selectionner le statut"
                     ;
@@ -199,21 +202,21 @@ export default {
                         return true
 
                     }
-                   
+
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'message':
-                    
+
                     this.message_erreur = "";
 
                     if (this.form.message === "") {
                         this.message_erreur = "Ce champ est obligatoire"
                         return true
                     }
-    
+
                     break;
                 case 'statut':
-                    
+
                     this.statut_erreur = "";
 
                     if (this.form.statut === "") {
@@ -226,20 +229,20 @@ export default {
             }
         },
 
-      
+
         closeModal(selector) {
-           /*  var ajout = document.querySelector('[data-modal-ajout]'); */
+            /*  var ajout = document.querySelector('[data-modal-ajout]'); */
             var confirmation = document.querySelector(selector);
 
             /* console.log(ajout); */
-           /*  if (this.etatForm == true) {
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                //ajout.classList.remove("actif");
-                ajout.close();
-            } */
+            /*  if (this.etatForm == true) {
+                 var actif = document.querySelectorAll('.actif');
+                 actif.forEach(item => {
+                     item.classList.remove("actif");
+                 });
+                 //ajout.classList.remove("actif");
+                 ajout.close();
+             } */
             this.editModal === false;
 
             confirmation.style.backgroundColor = 'white';
@@ -265,21 +268,21 @@ export default {
             formdata.append('id_batiment', this.form.statut);
 
             //if(this.form.nom!==""){
-           /*  try {
-                await axios.post('/salle/update/' + id, formdata);
-                bus.emit('salleAjoutee');
-                this.resetForm();
-                this.editModal = false;
-            }
-            catch (e) {
-                console.log(e) */
-                /*      if(e.request.status===404){
-                         Swal.fire('Erreur !','Ce salle existe déjà','error')
-                     }
-                     else{
-                         Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                     } */
-           /*  } */
+            /*  try {
+                 await axios.post('/salle/update/' + id, formdata);
+                 bus.emit('salleAjoutee');
+                 this.resetForm();
+                 this.editModal = false;
+             }
+             catch (e) {
+                 console.log(e) */
+            /*      if(e.request.status===404){
+                     Swal.fire('Erreur !','Ce salle existe déjà','error')
+                 }
+                 else{
+                     Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                 } */
+            /*  } */
         }
 
     }

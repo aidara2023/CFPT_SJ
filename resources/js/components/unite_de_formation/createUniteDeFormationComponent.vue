@@ -1,59 +1,62 @@
 <template>
-    <dialog data-modal-ajout class="modal">
+    <div>
 
         <div class="titres">
             <h1>Nouvelle Filière</h1>
             <!--  <h3>Informations Personnelles</h3> -->
         </div>
 
-        <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
+        <form @submit.prevent="validerAvantAjout()" action="" method="">
 
             <div class="informations">
+
                 <div class="titres">
                     <h1>Nouvelle Filière</h1>
                 </div>
+
                 <div class="champ">
                     <label for="nom" :class="{ 'couleur_rouge': (this.nom_unite_erreur) }">Filière</label>
-                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom de l'unité de formation"
+                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom"
                         @input="validatedata('nom_unite_de_formation')"
                         :class="{ 'bordure_rouge': (this.nom_unite_erreur) }">
                     <span class="erreur">{{ this.nom_unite_erreur }}</span>
-
                 </div>
-            </div>
 
-            <div class="departement">
-                <div>
+
+                <div class="champ">
+                    <label for="nom" :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
                     <select name="id_departement" id="id_departement" v-model="form.id_departement"
-                        @change="validatedata('departement')">
+                        @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
                         <option value=""> Département</option>
                         <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                             departement.nom_departement }}</option>
                     </select>
-                    <span class="erreur" v-if="id_departement_erreur !== ''">{{ id_departement_erreur }}</span>
+                    <span class="erreur" >{{ id_departement_erreur }}</span>
                 </div>
-            </div>
 
-            <div class="user">
-                <div>
-                    <select name="user" id="user" v-model="form.id_user" @change="validatedata('user')">
+                <div class="champ">
+                    <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur) }">Chef de filiere</label>
+                    <select name="user" id="user" v-model="form.id_user" @change="validatedata('user')"  :class="{ 'bordure_rouge': (this.id_user_erreur) }">
                         <option value=""> Chef filiére</option>
                         <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }}</option>
                     </select>
-                    <span class="erreur" v-if="id_user_erreur !== ''">{{ id_user_erreur }}</span>
+                    <span class="erreur" >{{ id_user_erreur }}</span>
+
+                </div>
+
+
+                <div class="groupe_champs validation">
+                    <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
+                            @click="resetForm">Annuler</span></button>
+                    <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
+                            data-statut="visible">Ajouter</span></button>
+                    <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
+                            data-statut="visible">Modifier</span></button>
                 </div>
             </div>
 
-
-            <div class="boutons">
-                <input v-if="this.editModal === false" type="submit" value="Ajouter"
-                    :class="{ 'data-close-modal': (this.etatForm) }">
-                <input v-if="this.editModal === true" type="submit" value="Modifier"
-                    :class="{ 'data-close-modal': (this.etatForm) }">
-                <button type="button" class="texte annuler data-close-modal" @click="resetForm">Annuler</button>
-            </div>
         </form>
-    </dialog>
+    </div>
 </template>
 
 

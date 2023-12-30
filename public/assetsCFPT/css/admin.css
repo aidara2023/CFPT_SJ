@@ -379,6 +379,26 @@ select:focus{
     box-shadow: 0 3px 10px 0px var(--clr);
 
 } 
+textarea{
+    
+    background-color: transparent;
+
+    border: 1.5px solid var(--clr);
+    border-radius: 20px;
+
+   
+    padding-left: min(5vw, 19px);
+
+    font-size: clamp(.7rem, 1.6vw, 1.2rem);
+    font-weight: 200;
+}
+
+textarea:focus{
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 10px 0px var(--clr);
+
+} 
 
 input{
     cursor:text;
@@ -524,6 +544,10 @@ button.ajouter{
     color: var(--clr);
     font-weight: 400;
 
+}
+.petite{
+    width: clamp(19px,6%, 40px);
+    margin-right: 10px;
 }
 
 .cadre_photo, .petite_taille,.item button{
@@ -1227,8 +1251,6 @@ label.photo i{
     /* Ajoutez cette ligne pour centrer verticalement le contenu */
     justify-content: center;
   }
-  
-  
 
   .groupe_champs,
 .champ,
@@ -1634,9 +1656,6 @@ input[type="file"]{
         animation: apparition .5s forwards linear;
     }
 
-    
-
-
     .recherche{
         width: 70%;
         padding-left: 15px;
@@ -1680,27 +1699,39 @@ input[type="file"]{
    }
 
 /* Style pour le tableau */
+/* Style pour le conteneur de la table */
+.table-container {
+    max-height: 300px; /* Réglez la hauteur maximale selon vos besoins */
+    overflow-y: auto; /* Ajoutez une barre de défilement verticale si nécessaire */
+}
+
+/* Style pour le tableau */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-/* Style pour l'en-tête du tableau */
-th {
-    background-color: var(--clr2);
-    padding: 15px; /* Augmentez la taille du padding pour un aspect plus spacieux */
-    text-align: center; /* Centrez le texte dans les cellules de l'en-tête */
-    border: 1px solid #ddd;
-    color: white;
-}
-
 /* Style pour les cellules du tableau */
 td {
-    padding: 15px; /* Augmentez la taille du padding pour un aspect plus spacieux */
-    text-align: center; /* Centrez le texte dans les cellules du tableau */
+    padding: 15px;
     border: 1px solid #ddd;
 }
+
+/* Style pour les en-têtes de tableau fixes */
+th {
+    background-color: var(--clr2);
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    color: white;
+    position: sticky;
+    top: 0; /* Fixe l'en-tête en haut de la table */
+    z-index: 1; /* Assure que l'en-tête est au-dessus du contenu de la table */
+}
+
+
+
 
 /* Style pour les boutons d'actions */
 .boutons_actions i {
