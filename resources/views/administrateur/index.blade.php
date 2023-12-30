@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="elements flou">
+    <div class="elements flou" id="app">
         @include('layout.header')
 
         <div class="dashboard">

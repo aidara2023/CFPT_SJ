@@ -1823,3 +1823,176 @@ input[type="file"]{
 
    }
 
+/* Style pour le tableau */
+/* Style pour le conteneur de la table */
+.table-container {
+    max-height: 300px; /* Réglez la hauteur maximale selon vos besoins */
+    overflow-y: auto; /* Ajoutez une barre de défilement verticale si nécessaire */
+}
+
+/* Style pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Style pour les cellules du tableau */
+td {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+/* Style pour les en-têtes de tableau fixes */
+th {
+    background-color: var(--clr2);
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    color: white;
+    position: sticky;
+    top: 0; /* Fixe l'en-tête en haut de la table */
+    z-index: 1; /* Assure que l'en-tête est au-dessus du contenu de la table */
+}
+
+
+
+
+/* Style pour les boutons d'actions */
+.boutons_actions i {
+    margin-right: 8px; /* Ajoutez un peu plus d'espace entre les icônes */
+    cursor: pointer;
+}
+
+/* Ajoutez un peu de marge en bas des boutons d'actions */
+.boutons_actions i:last-child {
+    margin-right: 0;
+}
+
+/* Style spécifique pour la colonne "Actions" */
+.boutons_actions {
+    display: flex;
+    justify-content: center; /* Centrez les boutons dans la colonne "Actions" */
+}
+
+  
+  /* Ajoutez des styles pour les icônes d'édition, de détails et de suppression */
+ /*  .modifier::before {
+    content: "✎";
+  }
+  
+  .details::before {
+    content: "•••";
+  }
+  
+  .supprimer::before {
+    content: "✖";
+  } */
+
+  /* Style pour le dropdown */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* Afficher le dropdown lorsque survolé */
+.image-container:hover .dropdown-content {
+    display: block;
+}
+
+
+/* Style pour les liens dans le dropdown */
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: var(--clr)
+}
+
+/* Style pour les liens au survol */
+.dropdown-content a:hover {
+    background-color: var(--clr2);
+}
+.dashboard {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(40.33% - 20px); /* 33.33% de la largeur avec un espace de 20px entre les cartes */
+    margin: 0 0 20px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-icon {
+    font-size: 50px;
+    background-color: var(--clr2);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 20%;
+}
+
+.card-body {
+    padding: 20px;
+    position: relative;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+    text-align: right;
+    position: absolute;
+    top: -50px; /* Ajuster la valeur selon vos préférences */
+    right: 20px; /* Ajuster la valeur pour décaler vers la gauche */
+    width: 60%;
+}
+
+.card-text {
+    margin: 0;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+/* Ajoutez une media query pour ajuster la largeur des cartes en fonction de la résolution de l'écran */
+@media screen and (max-width: 1200px) {
+    .card {
+        width: calc(50% - 20px); /* 50% de la largeur avec un espace de 20px entre les cartes */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: calc(100% - 20px); /* 100% de la largeur avec un espace de 20px entre les cartes */
+    }
+}
