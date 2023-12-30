@@ -9,11 +9,15 @@
     </div>
     </div>
 </div> --}}
+
 <div class="haut_de_page">
+
     <div class="logo">
         <img src="/assetsCFPT/image/logo_cfpt_bleu.png" alt="" class="moyenne_taille">
     </div>
 
+     <liste-alerte></liste-alerte>
+    
     <div class="profil">
         <div class="image-container">
             <img src="/assetsCFPT/image/etudiant.png" alt="" class="moyenne_taille mdl"
@@ -32,6 +36,8 @@
 
 
 @if (Auth::user()->id_role==1)
+
+<liste-alerte></liste-alerte>
 <div class="haut_de_page">
     <div class="logo">
         <img src="/assetsCFPT/image/logo_cfpt_bleu.png" alt="" class="moyenne_taille">
