@@ -1,7 +1,7 @@
 <template>
     <div class="liste-alerte-container">
-      <strong id="alerteTitre">{{ alertes.titre }}</strong>
-      <span id="alerteMessage" class="word">{{ alertes.message }}</span>
+      <strong id="alerteTitre">{{ alertes.titre }} : </strong>
+      <span id="alerteMessage" >{{ alertes.message }}</span>
     </div>
   </template>
   
@@ -45,12 +45,9 @@
     white-space: nowrap;   /* Empêche le texte de passer à la ligne */
     overflow: hidden;      /* Masque tout contenu qui dépasse */
     animation: scrollMessage 10s linear infinite; /* Animation de défilement */
-    font-size: 2vw; 
+   
   }
-  .cadre {
-  border: 2px solid #000;  /* Style de bordure du cadre */
-  padding: 10px;          /* Espace intérieur du cadre */
-}
+ 
   
   @keyframes scrollMessage {
     0% {

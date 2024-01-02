@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="container page">
-                        <i class="fi fi-rr-perso"></i>
+                        <i class="fi fi-rr-user"></i>
                         <div>
                             <span>Formateurs</span>
                             <h2>123412</h2>

@@ -247,6 +247,22 @@ ul.deroulante li.submenu {
     grid-template-columns: auto 100px;
 }
 
+.haut_de_page {
+    overflow: hidden;
+}
+
+.liste-alerte {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.liste-alerte .content {
+    display: inline-block;
+    animation: scrollToLeft 1s linear infinite;
+}
+
+
 .profil{
     position: relative;
     display: flex;
@@ -317,7 +333,7 @@ ul.deroulante li.submenu {
 h1.grand_ecran_seulement{
     margin: 0;
     width: fit-content;
-    font-size: clamp(1.5rem,6vw,3.5rem);
+    font-size: clamp(1.5rem,3vw,3.5rem);
     font-weight: 700;
     background-image: linear-gradient(109deg ,var(--clr2) 50%, var(--clr));
     -webkit-background-clip: text;
@@ -347,8 +363,17 @@ h1.grand_ecran_seulement{
     display: flex;
     align-items: center;
     gap: min(3vw,10px);
-
-
+}
+.rechercheOnglet{
+    background-color: transparent;
+    padding: max(1vw, 9px) max(2vw, 5px);
+   
+  
+    width: min(500px, 500px);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: min(3vw,10px);
 }
 
 
@@ -455,10 +480,24 @@ button{
 }
 .recherche.onglets{
     width: auto;
-    justify-content: center;
+    /* justify-content: center; */
     max-height: 47px;
     padding: 0 2px;
     cursor: none;
+    font-size: 20px;
+}
+.rechercheOnglet.onglets{
+    width: auto;
+    /* justify-content: center; */
+    max-height: 47px;
+    padding: 0 2px;
+    cursor: none;
+    font-size: 18px;
+}
+.rechercheOnglet a{
+    color: rgb(12, 9, 9);
+    font-weight: bold;
+   
 }
 
 [data-fenetre]{
@@ -469,7 +508,7 @@ button{
 }
 
 [data-fenetre="actif"]{
-    background-color: #2a61e6;
+    background-color: var(--clr_clair);
     color: white;
     transition: .4s;
 }
@@ -1714,21 +1753,45 @@ table {
 
 /* Style pour les cellules du tableau */
 td {
-    padding: 15px;
-    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+    border: none; /* Enlève les bordures des cellules */
 }
 
 /* Style pour les en-têtes de tableau fixes */
 th {
-    background-color: var(--clr2);
-    padding: 15px;
+    
+    background-color: var(--clr_clair);
+    padding: 5px;
     text-align: center;
-    border: 1px solid #ddd;
-    color: white;
+    border: none; /* Enlève les bordures des en-têtes */
+    color: rgb(12, 9, 9);
     position: sticky;
     top: 0; /* Fixe l'en-tête en haut de la table */
     z-index: 1; /* Assure que l'en-tête est au-dessus du contenu de la table */
 }
+
+/* Style pour le tableau */
+/* ... (le reste de votre CSS reste inchangé) */
+
+/* Style pour différencier chaque ligne avec des couleurs */
+.odd-row {
+    background-color: #d4d3d3; /* Couleur de fond pour les lignes impaires */
+}
+
+/* tbody tr:hover {
+    background-color: #e0e0e0; 
+} */
+
+/* Style pour le bouton de sélection devant chaque ligne */
+.select-button {
+    background-color: var(--clr2);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
 
 
 
@@ -1860,38 +1923,64 @@ th {
 }
 
 
-.item_bloc{
-    
-    width: 100%;/* 
+/* .item_bloc{
+    width: 100%; *//* 
     display: flex;
     gap: 10px; */
-    padding: .5em;
+ /*    padding: .5em;
     height: fit-content;
-}
+} */
 
 .item_bloc:first-child{
     margin-bottom: 20px;
 }
 
+.item_bloc {
+    width: 100%;
+    padding: 0.5em;
+    height: fit-content;
+}
+
+.container {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 2%; /* Utilisez une unité relative comme % pour l'espacement entre les cartes */
+    height: 100%;
+    flex-wrap: nowrap; /* Empêche le passage à la ligne */
+}
+
+.container .container {
+    background: white;
+    padding: 1em;
+    color: var(--clr);
+    box-shadow: 0 0 20px 1px var(--clr_plus_clair);
+    flex: 1; /* Ajustez la largeur des cartes en fonction de l'espace disponible */
+}
+
+
 .item_bloc h3{
     opacity: .6;
     color: var(--clr_clair);
-    margin: 0;
+ 
 }
 
-.container{
+/* .container{
     border-radius: 10px;
     display: flex;
-    align-items: center;/* 
+    align-items: center; *//* 
     justify-content: space-between; */
-    gap: 45px;
+   /*  gap: 45px;
     height: 100%;
     width: 100%;
     flex-wrap: wrap;
-}
+} */
 
 
-.container .container{
+
+
+
+/* .container .container{
     background: white;
     
 
@@ -1899,7 +1988,7 @@ th {
     justify-content: space-around;
     color: var(--clr);
     box-shadow: 0 0 20px 1px var(--clr_plus_clair);
-}
+} */
 
 
 .container.page{
