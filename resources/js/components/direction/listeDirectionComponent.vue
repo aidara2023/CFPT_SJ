@@ -36,6 +36,27 @@
                </div>
            </div>
        </div> -->
+
+       <table>
+            <thead>
+                
+                <th>Direction</th>
+                <th>Chef de direction</th>
+                <th>Actions</th>
+            </thead>
+            <tbody v-for="(direction, index) in directions" :key="index">
+                <td><span>{{ direction.nom_direction }}</span></td>
+                <td><span>{{ direction.user.prenom }} {{ direction.user.nom }}</span></td>
+                <td>
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(direction)" title="Modifier"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                        <i class="fi fi-rr-trash supprimer mdl" @click="deleteDirection(direction)" title="Supprimer"></i>
+                    </div>
+                </td>
+
+            </tbody>
+        </table>
    </div>
 
 
@@ -111,7 +132,7 @@ import Form from 'vform';
                            'success',
                        ) */
 
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                       var confirmation = document.querySelector('[data-modal-suppression]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';

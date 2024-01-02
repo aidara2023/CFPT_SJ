@@ -16,7 +16,11 @@
         <img src="/assetsCFPT/image/logo_cfpt_bleu.png" alt="" class="moyenne_taille">
     </div>
 
+
+ <div class="message-deroulant">
      <liste-alerte></liste-alerte>
+    
+    </div>
     
     <div class="profil">
         <div class="image-container">

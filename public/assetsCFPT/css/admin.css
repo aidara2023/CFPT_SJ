@@ -686,23 +686,51 @@ i.supprimer:hover{
         transform: translateX(-20%);
     }
 }
+.haut_de_page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permet le passage à la ligne si nécessaire */
+}
+
+.logo, .profil {
+    flex-shrink: 0; /* Empêche le rétrécissement des éléments logo et profil */
+}
+
+.liste-alerte-container {
+    white-space: nowrap;
+    overflow: hidden;
+    flex-grow: 1; /* Permet au message de prendre autant d'espace que possible entre le logo et la photo */
+}
+
+@media (max-width: 900px) {
+    .haut_de_page {
+        flex-direction: column; /* Passe à une disposition en colonne pour les petits écrans */
+        align-items: flex-start; /* Aligne les éléments à gauche */
+    }
+
+    .liste-alerte-container {
+        flex-basis: 100%; /* Prend toute la largeur sur les petits écrans */
+        margin-top: 10px; /* Ajoute un espace entre le message et les éléments adjacents */
+    }
+}
 
 /* Animations pour les apparitions d'éléments */
-.apparition{
+.apparition {
     animation: apparition .5s forwards linear;
 }
 
-.apparition.move{
+.apparition.move {
     animation: apparition .5s forwards linear, apparition_move .5s forwards linear;
 }
 
 @keyframes apparition {
-    0%{
+    0% {
         display: none;
         opacity: 0;
         transform: translate(-50%, -50%);
     }
-    100%{
+    100% {
         display: flex;
         opacity: 1;
         transform: translate(-150%, -50%);
@@ -710,19 +738,19 @@ i.supprimer:hover{
 }
 
 @keyframes apparition_move {
-
-    0%{
+    0% {
         transform: translate(-50%, -50%);
     }
-    100%{
+    100% {
         transform: translate(-150%, -50%);
     }
 }
 /* Animations pour les disparitions d'éléments */
-.disparition{
+.disparition {
     animation: disparition .5s forwards linear;
 }
-.disparition.move{
+
+.disparition.move {
     animation: disparition .5s forwards linear, disparition_move .5s forwards linear;
 }
 
