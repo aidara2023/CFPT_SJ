@@ -247,6 +247,22 @@ ul.deroulante li.submenu {
     grid-template-columns: auto 100px;
 }
 
+.haut_de_page {
+    overflow: hidden;
+}
+
+.liste-alerte {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.liste-alerte .content {
+    display: inline-block;
+    animation: scrollToLeft 1s linear infinite;
+}
+
+
 .profil{
     position: relative;
     display: flex;
@@ -317,7 +333,7 @@ ul.deroulante li.submenu {
 h1.grand_ecran_seulement{
     margin: 0;
     width: fit-content;
-    font-size: clamp(1.5rem,6vw,3.5rem);
+    font-size: clamp(1.5rem,3vw,3.5rem);
     font-weight: 700;
     background-image: linear-gradient(109deg ,var(--clr2) 50%, var(--clr));
     -webkit-background-clip: text;
@@ -347,8 +363,17 @@ h1.grand_ecran_seulement{
     display: flex;
     align-items: center;
     gap: min(3vw,10px);
-
-
+}
+.rechercheOnglet{
+    background-color: transparent;
+    padding: max(1vw, 9px) max(2vw, 5px);
+   
+  
+    width: min(500px, 500px);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: min(3vw,10px);
 }
 
 
@@ -455,10 +480,24 @@ button{
 }
 .recherche.onglets{
     width: auto;
-    justify-content: center;
+    /* justify-content: center; */
     max-height: 47px;
     padding: 0 2px;
     cursor: none;
+    font-size: 20px;
+}
+.rechercheOnglet.onglets{
+    width: auto;
+    /* justify-content: center; */
+    max-height: 47px;
+    padding: 0 2px;
+    cursor: none;
+    font-size: 18px;
+}
+.rechercheOnglet a{
+    color: rgb(12, 9, 9);
+    font-weight: bold;
+   
 }
 
 [data-fenetre]{
@@ -469,7 +508,7 @@ button{
 }
 
 [data-fenetre="actif"]{
-    background-color: #2a61e6;
+    background-color: var(--clr_clair);
     color: white;
     transition: .4s;
 }
@@ -697,40 +736,40 @@ i.supprimer:hover{
     flex-shrink: 0; /* Empêche le rétrécissement des éléments logo et profil */
 }
 
-.message-deroulant {
+.liste-alerte-container {
     white-space: nowrap;
     overflow: hidden;
     flex-grow: 1; /* Permet au message de prendre autant d'espace que possible entre le logo et la photo */
 }
 
-@media (max-width: px) {
+@media (max-width: 900px) {
     .haut_de_page {
         flex-direction: column; /* Passe à une disposition en colonne pour les petits écrans */
         align-items: flex-start; /* Aligne les éléments à gauche */
     }
 
-    .message-deroulant {
+    .liste-alerte-container {
         flex-basis: 100%; /* Prend toute la largeur sur les petits écrans */
         margin-top: 10px; /* Ajoute un espace entre le message et les éléments adjacents */
     }
 }
 
 /* Animations pour les apparitions d'éléments */
-.apparition{
+.apparition {
     animation: apparition .5s forwards linear;
 }
 
-.apparition.move{
+.apparition.move {
     animation: apparition .5s forwards linear, apparition_move .5s forwards linear;
 }
 
 @keyframes apparition {
-    0%{
+    0% {
         display: none;
         opacity: 0;
         transform: translate(-50%, -50%);
     }
-    100%{
+    100% {
         display: flex;
         opacity: 1;
         transform: translate(-150%, -50%);
@@ -738,19 +777,19 @@ i.supprimer:hover{
 }
 
 @keyframes apparition_move {
-
-    0%{
+    0% {
         transform: translate(-50%, -50%);
     }
-    100%{
+    100% {
         transform: translate(-150%, -50%);
     }
 }
 /* Animations pour les disparitions d'éléments */
-.disparition{
+.disparition {
     animation: disparition .5s forwards linear;
 }
-.disparition.move{
+
+.disparition.move {
     animation: disparition .5s forwards linear, disparition_move .5s forwards linear;
 }
 
@@ -1744,21 +1783,45 @@ table {
 
 /* Style pour les cellules du tableau */
 td {
-    padding: 15px;
-    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+    border: none; /* Enlève les bordures des cellules */
 }
 
 /* Style pour les en-têtes de tableau fixes */
 th {
-    background-color: var(--clr2);
-    padding: 15px;
+    
+    background-color: var(--clr_clair);
+    padding: 5px;
     text-align: center;
-    border: 1px solid #ddd;
-    color: white;
+    border: none; /* Enlève les bordures des en-têtes */
+    color: rgb(12, 9, 9);
     position: sticky;
     top: 0; /* Fixe l'en-tête en haut de la table */
     z-index: 1; /* Assure que l'en-tête est au-dessus du contenu de la table */
 }
+
+/* Style pour le tableau */
+/* ... (le reste de votre CSS reste inchangé) */
+
+/* Style pour différencier chaque ligne avec des couleurs */
+.odd-row {
+    background-color: #d4d3d3; /* Couleur de fond pour les lignes impaires */
+}
+
+/* tbody tr:hover {
+    background-color: #e0e0e0; 
+} */
+
+/* Style pour le bouton de sélection devant chaque ligne */
+.select-button {
+    background-color: var(--clr2);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
 
 
 
@@ -1891,11 +1954,10 @@ th {
 
 
 /* .item_bloc{
-    
     width: 100%; *//* 
     display: flex;
     gap: 10px; */
-   /*  padding: .5em;
+ /*    padding: .5em;
     height: fit-content;
 } */
 
@@ -1918,11 +1980,20 @@ th {
     flex-wrap: nowrap; /* Empêche le passage à la ligne */
 }
 
+.container .container {
+    background: white;
+    padding: 1em;
+    color: var(--clr);
+    box-shadow: 0 0 20px 1px var(--clr_plus_clair);
+    flex: 1; /* Ajustez la largeur des cartes en fonction de l'espace disponible */
+}
+
+
 .item_bloc h3{
     opacity: .6;
     color: var(--clr_clair);
+ 
 }
-    
 
 /* .container{
     border-radius: 10px;
@@ -1936,6 +2007,9 @@ th {
 } */
 
 
+
+
+
 /* .container .container{
     background: white;
     
@@ -1945,14 +2019,6 @@ th {
     color: var(--clr);
     box-shadow: 0 0 20px 1px var(--clr_plus_clair);
 } */
-
-.container .container {
-    background: white;
-    padding: 1em;
-    color: var(--clr);
-    box-shadow: 0 0 20px 1px var(--clr_plus_clair);
-    flex: 1; /* Ajustez la largeur des cartes en fonction de l'espace disponible */
-}
 
 
 .container.page{
