@@ -225,10 +225,12 @@
         <dialog data-modal-ajout class="modal">
             <service-create></service-create>
         </dialog>
+
         <dialog data-modal-confirmation class="modal message">
             <img src="../assetsCFPT/image/verified.gif" alt="">
             <h1>Ajouté avec succés</h1>
         </dialog>
+
         <dialog data-modal-erreur class="modal message ">
 
             <div class="bordure">
@@ -237,6 +239,7 @@
             </div>
             <h1>Erreur lors de l'Ajout</h1>
         </dialog>
+
         <dialog data-modal-détails class="modal message">
             <h1>Détails</h1>
             <div>
@@ -245,6 +248,7 @@
                     unde, asperiores omnis culpa voluptatum reiciendis, non odit delectus est nihil, itaque iste!</p>
             </div>
         </dialog>
+
         <!-- class="modal actif" -->
         <dialog data-modal-modification class="modal">
             <h1>Encaissement</h1>
@@ -375,6 +379,7 @@
                 <button type="submit" data-close-modal = "1" class="suivant">Suivant</button>
             </div>
         </dialog>
+        
         <span class="fond"></span>
     </div>
 @endsection
