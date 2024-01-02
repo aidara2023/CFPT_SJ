@@ -41,21 +41,38 @@
   <style scoped>
   .liste-alerte-container {
     white-space: nowrap;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    width: 100%; /* Définir une largeur fixe ou relative, selon votre préférence */
   }
   
   .scrolling-text {
-    animation: scrollFromPhotoToLogo 15s linear infinite;
+    animation: scrollToLeft 15s linear infinite;
+    white-space: nowrap;
+    width: 100%; /* Utilise toute la largeur disponible */
   }
   
-  @keyframes scrollFromPhotoToLogo {
+  @keyframes scrollToLeft {
     0% {
       transform: translateX(100%);
     }
     100% {
       transform: translateX(-100%);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .scrolling-text {
+      animation: scrollToLeftResponsive 15s linear infinite;
+    }
+  
+    @keyframes scrollToLeftResponsive {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
   }
   </style>
