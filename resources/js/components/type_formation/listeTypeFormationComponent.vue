@@ -44,7 +44,7 @@
                 <th>Formation</th>
                 <th>Actions</th>
             </thead>
-            <tbody v-for="(formation, index) in formations" :key="index">
+            <tbody v-for="(formation, index) in formations" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
                 <td><span>{{ formation.intitule }}</span></td>
                 <td>
                     <div class="boutons_actions">

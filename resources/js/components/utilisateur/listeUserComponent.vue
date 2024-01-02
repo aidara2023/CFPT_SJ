@@ -1,13 +1,12 @@
 <template>
-    <div class="controle">
-        <div class="recherche onglets grand_ecran_seulement">
-            <div data-fenetre=""><a href="#" @click="goToStep(1)">Formateur</a></div>
+    <div class="liste ">
+        <div class="rechercheOnglet onglets grand_ecran_seulement">
+            <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
             <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
             <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
             <!-- <div data-fenetre="">Appui</div> -->
         </div>
-    </div>
-    <div class="liste table-container">
+        <br>
         <!--  <div class="avant" style=" margin-left: 80%;">
             <a href="#">
                 <button class="texte ajout mdl" id="openModal"> <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -43,7 +42,7 @@
                             <span class="details">Détails</span>
                         </a>
                         <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-cross"></i>
+                            <i class="fi fi-rr-trash"></i>
                             <span class="supprimer mdl">Supprimer</span>
                         </a>
                     </div>
@@ -71,7 +70,7 @@
                             <span class="details">Détails</span>
                         </a>
                         <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-cross"></i>
+                            <i class="fi fi-rr-trash"></i>
                             <span class="supprimer mdl">Supprimer</span>
                         </a>
                     </div>
@@ -99,7 +98,7 @@
                             <span class="details">Détails</span>
                         </a>
                         <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-cross"></i>
+                            <i class="fi fi-rr-trash"></i>
                             <span class="supprimer mdl">Supprimer</span>
                         </a>
                     </div>
@@ -118,10 +117,11 @@
                 <th>Email</th>
                 <th>Actions</th>
             </thead>
-            <tbody v-for="(utilisateur, index) in utilisateurs" :key="index">
+            <tbody v-for="(utilisateur, index) in utilisateurs" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
 
-                 <tr  v-if="activePhase === 1 && utilisateur.role.id === 2"> 
-                    <td><span><img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 50px; height: 50px;"></span> </td>
+                <tr v-if="activePhase === 1 && utilisateur.role.id === 2">
+                    <td><span><img :src="getImageUrl(utilisateur.photo)" alt="Etu"
+                                style="width: 30px; height: 30px;"></span> </td>
                     <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                     <td><span> {{ utilisateur.telephone }}</span></td>
                     <td><span>{{ utilisateur.email }} </span></td>
@@ -129,13 +129,18 @@
                         <div class="boutons_actions">
                             <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)" title="Modifier"></i>
                             <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                            <i class="fi fi-rr-cross supprimer mdl" @click="deleteUtilisateur(utilisateur)" title="Supprimer"></i>
+                            <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
+                                title="Supprimer"></i>
                         </div>
                     </td>
-                 </tr> 
+                </tr>
 
-                <tr  v-if="activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                    <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 50px; height: 50px;"></td>
+            </tbody>
+            <tbody v-for="(utilisateur, index1) in utilisateurs" :key="index1" :class="{ 'odd-row': index1 % 2 == 0 }">
+
+
+                <tr v-if="activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif'">
+                    <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;"></td>
                     <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                     <td><span>{{ utilisateur.telephone }}</span></td>
                     <td><span>{{ utilisateur.email }} </span></td>
@@ -143,13 +148,18 @@
                         <div class="boutons_actions">
                             <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)" title="Modifier"></i>
                             <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                            <i class="fi fi-rr-cross supprimer mdl" @click="deleteUtilisateur(utilisateur)" title="Supprimer"></i>
+                            <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
+                                title="Supprimer"></i>
                         </div>
                     </td>
                 </tr>
+            </tbody>
 
-                <tr  v-if="activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                    <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 50px; height: 50px;"></td>
+            <tbody v-for="(utilisateur, index2) in utilisateurs" :key="index2" :class="{ 'odd-row': index2 % 2 === 0 }">
+
+
+                <tr v-if="activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui'">
+                    <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;"></td>
                     <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                     <td><span> {{ utilisateur.telephone }}</span></td>
                     <td><span>{{ utilisateur.email }} </span></td>
@@ -157,7 +167,8 @@
                         <div class="boutons_actions">
                             <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)" title="Modifier"></i>
                             <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                            <i class="fi fi-rr-cross supprimer mdl" @click="deleteUtilisateur(utilisateur)" title="Supprimer"></i>
+                            <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
+                                title="Supprimer"></i>
                         </div>
                     </td>
                 </tr>
