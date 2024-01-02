@@ -1,7 +1,7 @@
 <template>
 
-    <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
+    <div class="liste">
+      <!--  <div class="avant" style=" margin-left: 80%;">
           
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -10,7 +10,7 @@
        <h1 class="texte">Classe</h1>
 
    <div class="sections" v-for="(classe, index) in classes" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+          
            <div class="utilisateur">
               
                <p class="texte" id="n">{{ classe.type_formation_intitule }} {{ classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }} </p>
@@ -35,8 +35,38 @@
                </div>
            </div>
        </div>
+ -->
+ <div class="table-container">
+            <table>
+                <thead>
+                    <th>Type de Formation</th>
+                    <th>Nom</th>
+                    <th>Niveau</th>
+                    <th>Type Classe</th>
+                    <th>Filiere</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody v-for="(classe, index) in classes" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
+                    <tr>
+                        <td><span>{{ classe.type_formation.intitule }} </span></td>
+                        <td><span> {{ classe.nom_classe }}  </span></td>
+                        <td><span> {{ classe.niveau }} </span></td>
+                        <td> <span>{{ classe.type_classe }}</span></td>
+                        <td><span>{{ classe.unite_de_formation.nom_unite_formation }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(classe)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteClasse(classe)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
 
+                    </tr>
 
+                </tbody>
+            </table>
+        </div>
 
    </div>
 
