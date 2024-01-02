@@ -1,16 +1,16 @@
 <template>
-      <dialog data-modal-ajout class="modal">
+      <div>
 
         <div class="titres">
             <h1 >Nouvelle classe</h1>
         </div>
 
-        <form @submit.prevent="validerAvantAjout()" action="" method="dialog">
+        <form @submit.prevent="validerAvantAjout()" action="" method="">
            
 
             <div class="informations">
                     <div class="titres">
-                        <h1>Ajout classe</h1>
+                        <h1>Nouvelle classe</h1>
                     </div>
 
                     <div class="champ">
@@ -28,7 +28,7 @@
                                 <option  value="FPJ">FPJ</option>
                                 <option  value="CS">CS</option>
                             </select>
-                            <span class="erreur" v-if="type_classe_erreur !== ''">{{type_classe_erreur}}</span>
+                            <span class="erreur">{{type_classe_erreur}}</span>
                     </div>
                  <!-- <input type="text" name="niveau" id="niveau" placeholder="Niveau" v-model="form.niveau"> -->
 
@@ -76,7 +76,7 @@
         
         </form>
     
-</dialog>
+</div>
 </template>
 
 <script>

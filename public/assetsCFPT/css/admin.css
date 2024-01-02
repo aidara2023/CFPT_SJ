@@ -1729,8 +1729,10 @@ input[type="file"]{
 /* Style pour le tableau */
 /* Style pour le conteneur de la table */
 .table-container {
-    max-height: 300px; /* Réglez la hauteur maximale selon vos besoins */
+    /* max-height: 300px; */ /* Réglez la hauteur maximale selon vos besoins */
     overflow-y: auto; /* Ajoutez une barre de défilement verticale si nécessaire */
+    background-color: #f8f7f7f2; /* Couleur de fond grise */
+    padding: 5%; /* Ajoutez un espacement intérieur si nécessaire */
 }
 
 /* Style pour le tableau */
