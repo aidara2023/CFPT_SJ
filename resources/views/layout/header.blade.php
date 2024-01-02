@@ -20,7 +20,7 @@
     
     <div class="profil">
         <div class="image-container">
-            <img src="/assetsCFPT/image/etudiant.png" alt="" class="moyenne_taille"
+            <img src="/assetsCFPT/image/etudiant.png" alt="" class="moyenne_taille mdl"
                 id="dropdown-trigger">
             <!-- Dropdown menu -->
             <div class="dropdown-content">

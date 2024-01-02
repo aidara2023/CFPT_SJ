@@ -47,7 +47,7 @@
                 <th>Chef de Filiere</th>
                 <th>Actions</th>
             </thead>
-            <tbody v-for="(unite_de_formation, index) in unite_de_formations" :key="index">
+            <tbody v-for="(unite_de_formation, index) in unite_de_formations" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
                 <tr>
                     <td><span>{{ unite_de_formation.nom_unite_formation }}</span></td>
                     <td> <span>{{ unite_de_formation.departement.nom_departement }}</span></td>
