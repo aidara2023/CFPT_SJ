@@ -1,7 +1,7 @@
 <template>
 
-    <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
+    <div class="liste table-container">
+      <!--  <div class="avant" style=" margin-left: 80%;">
         
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -10,7 +10,7 @@
        <h1 class="texte">Direction</h1>
 
    <div class="sections" v-for="(direction, index) in directions" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+         
            <div class="utilisateur">
                <p class="texte" id="n">{{ direction.nom_direction}} </p>
                <p class="texte" id="n">{{ direction.services.nom_service}} </p>
@@ -35,7 +35,7 @@
                    </a>
                </div>
            </div>
-       </div>
+       </div> -->
    </div>
 
 
