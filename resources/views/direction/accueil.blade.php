@@ -138,13 +138,13 @@
  {{--  Debut modal pour ajouter utilisateur --}}
 
         {{-- <div id="app"> --}}
-          <dialog data-modal-ajout class="modal">
+          <dialog data-modal-ajout class="modal" >
             <direction-create></direction-create>
             </dialog>
 
 
         <dialog data-modal-confirmation class="modal message">
-            <img src="../assetsCFPT/image/verified.gif" alt="">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Ajouté avec succés</h1>
         </dialog>
 
@@ -288,14 +288,11 @@
         </dialog>
 
         <dialog data-modal-suppression class="modal message">
+         <img src="../assetsCFPT/image/verified.gif" alt=""  style="width:30%; height:50%">
             <h1>Suppression</h1>
+            <p style="color:red">Direction supprimée avec succés</p>
 
-            <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
-
-            <div class="groupe_champs validation">
-                <button type="button" data-close-modal = "1" class="annuler">Annuler</button>
-                <button type="submit" data-close-modal = "1" class="suivant">Suivant</button>
-            </div>
+           
         </dialog>
 
 

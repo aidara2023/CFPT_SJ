@@ -1,15 +1,13 @@
 <template>
     <div class="liste-alerte-container">
-      <strong id="alerteTitre">{{ alertes.titre }} : </strong>
-      <span id="alerteMessage" >{{ alertes.message }}</span>
+      <span id="alerteMessage" class="scrolling-text">
+        {{ alertes.statut }}: {{ alertes.titre }}, {{ alertes.message }}
+      </span>
     </div>
   </template>
   
   <script>
-  import bus from '../../eventBus';
   import axios from 'axios';
-  import Form from 'vform';
-  import Swal from 'sweetalert2';
   
   export default {
     name: "createAlerteComponent",
@@ -42,14 +40,17 @@
   
   <style scoped>
   .liste-alerte-container {
-    white-space: nowrap;   /* Empêche le texte de passer à la ligne */
-    overflow: hidden;      /* Masque tout contenu qui dépasse */
-    animation: scrollMessage 10s linear infinite; /* Animation de défilement */
-   
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Définir une largeur fixe ou relative, selon votre préférence */
   }
- 
   
-  @keyframes scrollMessage {
+  .scrolling-text {
+    animation: scrollFromPhotoToLogo 15s linear infinite;
+  }
+  
+  @keyframes scrollFromPhotoToLogo {
     0% {
       transform: translateX(100%);
     }

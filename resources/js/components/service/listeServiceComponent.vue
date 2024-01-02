@@ -168,7 +168,7 @@ export default {
                                 'Le service a été supprimé avec succès.',
                                 'success',
                             ) */
-                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                        var confirmation = document.querySelector('[data-modal-suppression]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
@@ -186,7 +186,7 @@ export default {
                                 confirmation.classList.remove("actif");
                             }, 100);
 
-                        }, 2000);
+                        }, 2000); 
 
                     }).catch(function (error) {
                         console.log(error);

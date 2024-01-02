@@ -1,7 +1,7 @@
 <template>
 
-    <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
+    <div class="liste table-container">
+      <!--  <div class="avant" style=" margin-left: 80%;">
           
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -10,9 +10,8 @@
        <h1 class="texte">Département</h1>
 
    <div class="sections" v-for="(departement, index) in departements" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+          
            <div class="utilisateur">
-               <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ departement.nom_departement }} </p>
                <p class="texte" id="n">{{ departement.direction.nom_direction }}</p>
                <p class="texte" id="n">{{ departement.user.nom }} {{ departement.user.prenom }}</p>
@@ -36,8 +35,28 @@
                    </a>
                </div>
            </div>
-       </div>
+       </div> -->
+       <table>
+            <thead>
+                <th>Département</th>
+                <th>Direction</th>
+                <th>Chef de département</th>
+                <th>Actions</th>
+            </thead>
+            <tbody v-for="(departement, index) in departements" :key="index">
+                <td><span>{{ departement.nom_departement }}</span></td>
+                <td> <span>{{ departement.direction.nom_direction }}</span></td>
+                <td><span>{{ departement.user.prenom }} {{ departement.user.nom }}</span></td>
+                <td>
+                    <div class="boutons_actions">
+                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(departement)" title="Modifier"></i>
+                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                        <i class="fi fi-rr-trash supprimer mdl" @click="deleteDepartement(departement)" title="Supprimer"></i>
+                    </div>
+                </td>
 
+            </tbody>
+        </table>
 
 
    </div>
@@ -112,7 +131,7 @@ import Form from 'vform';
                if (result.isConfirmed) {
                    axios.delete(`/departement/delete/${type.id}`).then(resp => {
                        this.get_departement();
-                    var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                    var confirmation = document.querySelector('[data-modal-suppression]');
 
                     confirmation.style.backgroundColor = 'white';
                     confirmation.style.color = 'var(--clr)';
