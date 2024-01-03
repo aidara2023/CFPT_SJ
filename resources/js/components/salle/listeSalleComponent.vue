@@ -1,6 +1,6 @@
 <template>
-
-    <div class="affichage">
+ <div class="liste">
+   <!--  <div class="affichage">
        <div class="avant" style=" margin-left: 80%;">
      
            <a href="#">
@@ -10,9 +10,7 @@
        <h1 class="texte">Salle</h1>
 
    <div class="sections" v-for="(salle, index) in salles" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
                <p class="texte" id="n">{{ salle.intitule }}</p>
                <p class="texte" id="n">{{ salle.nombre_place }} </p>
                <p class="texte" id="n" v-if="salle.batiment.intitule">{{ salle.batiment.intitule}}</p>
@@ -34,12 +32,38 @@
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
-                   <!-- <a href="#" class="texte b supprimer mdl">
-                         <i class="fi fi-rr-cross"></i>
-                         <span class="">Supprimer</span></a> -->
-               </div>
-           </div>
-       </div>
+                  
+               </div> -->
+          <!--  </div>
+       </div> -->
+
+       <div class="table-container">
+            <table>
+                <thead>
+                    <th>Salle</th>
+                    <th>Nombre de place</th>
+                    <th>Batiment</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(salle, index) in salles" :key="index">
+                        <td><span>{{ salle.intitule }}</span></td>
+                        <td> <span>{{ salle.nombre_place }}</span></td>
+                        <td><span>{{ salle.batiment.intitule }} </span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(salle)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteSalle(salle)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
 
    </div>
 
@@ -120,7 +144,7 @@ import Form from 'vform';
                            'Le salle a été supprimé avec succès.',
                            'success',
                        ) */
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                       var confirmation = document.querySelector('[data-modal-suppression]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
