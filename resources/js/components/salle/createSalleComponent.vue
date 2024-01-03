@@ -1,40 +1,5 @@
 <template>
-    <dialog data-modal-ajout class="modal">
-
-        <div class="cote_droit contenu">
-            <form @submit.prevent="validerAvantAjout()" method="">
-                <h1 class="sous_titre">Ajout Salle</h1>
-                <!--Informations personnelles-->
-                    <div class="personnel">
-                        <div>
-                       <input type="text" name="nom" id="nom" placeholder="Intitule" v-model="form.intitule"  @input="validatedata('intitule')">
-                       <span class="erreur" v-if="this.nom_salle_erreur !== ''">{{this.nom_salle_erreur}}</span>
-                   </div>
-
-                    <div>
-                        <input type="text" v-model="form.nombre_place" id="nom_place" placeholder="Nombre de place" @input="validatedata('nombre_place')">
-                        <span class="erreur" v-if="this.nombre_place_erreur !== ''">{{this.nombre_place_erreur}}</span>
-                    </div>
-    
-                    <div class="batiments">
-                        <div>
-                               <select name="batiment" id="batiment" v-model="form.id_batiment"  @change="validatedata('id_batiment')" >
-                                    <option value=""> Batiment</option>
-                                    <option v-for="batiment in batiments" :value="batiment.id">{{ batiment.intitule }} </option>
-                                </select>
-                                <span class="erreur" v-if="id_batiment_erreur !== ''">{{id_batiment_erreur}}</span>
-                        </div>
-                    </div>
-                </div>
-               
-                <div class="boutons">
-                    <input v-if="this.editModal===false"  type="submit" value="Ajouter" :class="{ 'data-close-modal': (this.etatForm) } ">
-                    <input v-if="this.editModal===true"  type="submit" value="Modifier" :class="{ 'data-close-modal': (this.etatForm) } ">
-                    <!-- <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  -->
-                    <button type="button" class="texte annuler data-close-modal"  @click="resetForm">Annuler</button>
-                </div>
-            </form>
-        </div>
+    <div>
 
         <div class="titres">
             <h1>Nouvelle Salle</h1>
@@ -87,7 +52,7 @@
 
         </form>
 
-    </dialog>
+    </div>
     </template>
     
 <script>

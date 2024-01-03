@@ -26,6 +26,13 @@ class batiment_controller extends Controller
 
     public function store(batiment_request $request){
         $data=$request->validated();
+        $verification = Batiment::where(['intitule','=', $request['intitule']] )->get();
+        if($verification->count()!=0){
+            return response()->json([
+                'statut'=>404,
+                'message'=>'Ce batiment existe déja',
+            ],404 );
+        }else{
         $batiment=Batiment::create($data);
         if($batiment!=null){
             return response()->json([
@@ -38,6 +45,7 @@ class batiment_controller extends Controller
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
         }
+    }
     }
     public function update(batiment_request $request, $id){
         $batiment=Batiment::find($id);

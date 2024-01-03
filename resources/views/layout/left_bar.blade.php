@@ -67,6 +67,10 @@
             <i class="fi fi-rr-home"></i>
             <span>Type Formation</span>
         </a></li>
+          <li class="fntr submenu"><a href="{{ route('batiment_accueil') }}">
+            <i class="fi fi-rr-home"></i>
+            <span>Batiment</span>
+        </a></li>
 
          <li class="fntr submenu"><a href="{{ route('salle_accueil') }}">
             <i class="fi fi-rr-home"></i>

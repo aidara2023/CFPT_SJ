@@ -599,6 +599,8 @@ Route::get('batiment/show/{id}',[batiment_controller::class,'show'])->name('bati
 Route::post('batiment/update/{id}',[batiment_controller::class,'update'])->name('batiment_update');
 Route::delete('batiment/delete/{id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
 Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
+Route::get('batiment/accueil',[batiment_view_controller::class, 'index'])->name('batiment_accueil');
+
 
 //Route pour salle
 
