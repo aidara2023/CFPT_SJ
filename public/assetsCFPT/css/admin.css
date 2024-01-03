@@ -1784,7 +1784,7 @@ table {
 
 /* Style pour les cellules du tableau */
 td {
-    text-align: center;
+    text-align: justify;
     padding: 5px;
     border: none; /* Enlève les bordures des cellules */
 }
@@ -1794,7 +1794,7 @@ th {
     
     background-color: var(--clr_clair);
     padding: 5px;
-    text-align: center;
+    text-align: justify;
     border: none; /* Enlève les bordures des en-têtes */
     color: rgb(12, 9, 9);
     position: sticky;

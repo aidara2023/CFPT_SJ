@@ -1,8 +1,11 @@
 @extends('layout.app')
-
+@section('titre')
+        Tableau de bord
+        @endsection
 @section('content')
     <div class="elements flou" id="app">
         @include('layout.header')
+        
         {{--  <div class="dashboard">
             <div class="card">
                 <div class="card-icon">👤</div>
