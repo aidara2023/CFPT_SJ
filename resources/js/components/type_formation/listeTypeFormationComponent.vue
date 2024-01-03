@@ -1,5 +1,26 @@
 <template>
-    <div class="liste table-container">
+    <div class="liste ">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Formation</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(formation, index) in formations">
+                        <td><span>{{ formation.intitule }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(formation)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-cross supprimer mdl" @click="deleteTypeFormation(formation)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <!--       <div class="avant" style=" margin-left: 80%;">
            
             <a href="#">
@@ -39,23 +60,7 @@
 
     </div>
  <span class="fond "></span> -->
-        <table>
-            <thead>
-                <th>Formation</th>
-                <th>Actions</th>
-            </thead>
-            <tbody v-for="(formation, index) in formations" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
-                <td><span>{{ formation.intitule }}</span></td>
-                <td>
-                    <div class="boutons_actions">
-                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(formation)" title="Modifier"></i>
-                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteTypeFormation(formation)" title="Supprimer"></i>
-                    </div>
-                </td>
 
-            </tbody>
-        </table>
     </div>
 </template>
 

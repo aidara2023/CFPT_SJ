@@ -1,5 +1,31 @@
 <template>
-    <div class="liste table-container">
+    <div class="liste">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Filiere</th>
+                    <th>Departement</th>
+                    <th>Chef de Filiere</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(unite_de_formation, index) in unite_de_formations" :key="index">
+                        <td><span>{{ unite_de_formation.nom_unite_formation }}</span></td>
+                        <td> <span>{{ unite_de_formation.departement.nom_departement }}</span></td>
+                        <td><span>{{ unite_de_formation.user.prenom }} {{ unite_de_formation.user.nom }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(unite_de_formation)"
+                                    title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-cross supprimer mdl" @click="deleteUniteDeFormation(unite_de_formation)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <!--  <div class="avant" style=" margin-left: 80%;">
            
             <a href="#">
@@ -40,30 +66,7 @@
 
 
     </div> -->
-        <table>
-            <thead>
-                <th>Filiere</th>
-                <th>Departement</th>
-                <th>Chef de Filiere</th>
-                <th>Actions</th>
-            </thead>
-            <tbody v-for="(unite_de_formation, index) in unite_de_formations" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
-                <tr>
-                    <td><span>{{ unite_de_formation.nom_unite_formation }}</span></td>
-                    <td> <span>{{ unite_de_formation.departement.nom_departement }}</span></td>
-                    <td><span>{{ unite_de_formation.user.prenom }} {{ unite_de_formation.user.nom }}</span></td>
-                    <td>
-                        <div class="boutons_actions">
-                            <i class="fi fi-rr-edit modifier mdl" @click="openModal(unite_de_formation)"
-                                title="Modifier"></i>
-                            <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                            <i class="fi fi-rr-cross supprimer mdl" @click="deleteUniteDeFormation(unite_de_formation)"
-                                title="Supprimer"></i>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
     </div>
 </template>
 <script>

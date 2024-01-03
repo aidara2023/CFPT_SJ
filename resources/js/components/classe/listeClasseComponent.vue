@@ -46,8 +46,8 @@
                     <th>Filiere</th>
                     <th>Actions</th>
                 </thead>
-                <tbody v-for="(classe, index) in classes" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
-                    <tr>
+                <tbody>
+                    <tr v-for="(classe, index) in classes" :key="index">
                         <td><span>{{ classe.type_formation.intitule }} </span></td>
                         <td><span> {{ classe.nom_classe }}  </span></td>
                         <td><span> {{ classe.niveau }} </span></td>

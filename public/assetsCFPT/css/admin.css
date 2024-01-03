@@ -1772,6 +1772,7 @@ input[type="file"]{
     overflow-y: auto; /* Ajoutez une barre de défilement verticale si nécessaire */
     background-color: #f8f7f7f2; /* Couleur de fond grise */
     padding: 5%; /* Ajoutez un espacement intérieur si nécessaire */
+    border-radius: 20px;
 }
 
 /* Style pour le tableau */
@@ -1805,7 +1806,11 @@ th {
 /* ... (le reste de votre CSS reste inchangé) */
 
 /* Style pour différencier chaque ligne avec des couleurs */
-.odd-row {
+/* .odd-row {
+    background-color: #d4d3d3; 
+} */
+
+tbody tr:nth-child(odd) {
     background-color: #d4d3d3; /* Couleur de fond pour les lignes impaires */
 }
 

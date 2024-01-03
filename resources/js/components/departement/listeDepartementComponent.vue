@@ -1,7 +1,32 @@
 <template>
+    <div class="liste ">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Département</th>
+                    <th>Direction</th>
+                    <th>Chef de département</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(departement, index) in departements" :key="index">
+                        <td><span>{{ departement.nom_departement }}</span></td>
+                        <td> <span>{{ departement.direction.nom_direction }}</span></td>
+                        <td><span>{{ departement.user.prenom }} {{ departement.user.nom }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(departement)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteDepartement(departement)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <div class="liste table-container">
-      <!--  <div class="avant" style=" margin-left: 80%;">
+        </div>
+        <!--  <div class="avant" style=" margin-left: 80%;">
           
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -36,33 +61,9 @@
                </div>
            </div>
        </div> -->
-       <table>
-            <thead>
-                <th>Département</th>
-                <th>Direction</th>
-                <th>Chef de département</th>
-                <th>Actions</th>
-            </thead>
-            <tbody v-for="(departement, index) in departements" :key="index">
-                <td><span>{{ departement.nom_departement }}</span></td>
-                <td> <span>{{ departement.direction.nom_direction }}</span></td>
-                <td><span>{{ departement.user.prenom }} {{ departement.user.nom }}</span></td>
-                <td>
-                    <div class="boutons_actions">
-                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(departement)" title="Modifier"></i>
-                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                        <i class="fi fi-rr-trash supprimer mdl" @click="deleteDepartement(departement)" title="Supprimer"></i>
-                    </div>
-                </td>
-
-            </tbody>
-        </table>
 
 
-   </div>
-
-
-
+    </div>
 </template>
 
 <script>
@@ -72,90 +73,90 @@ import Form from 'vform';
 
 
 
-  export default {
-   name:"listeUserCompenent",
-   data(){
-       return {
-        form:new Form({
-                'nom':"",
-                'id_direction':"",
-                'id_user':""
+export default {
+    name: "listeUserCompenent",
+    data() {
+        return {
+            form: new Form({
+                'nom': "",
+                'id_direction': "",
+                'id_user': ""
             }),
-           departements: [],
-           idDepartement: "",
-           editModal: false,
+            departements: [],
+            idDepartement: "",
+            editModal: false,
 
 
-       }
-   },
-   mounted(){
-       this.get_departement();
-       bus.on('departementAjoutee', () => { 
-           this.get_departement(); 
-       });
-   },
+        }
+    },
+    mounted() {
+        this.get_departement();
+        bus.on('departementAjoutee', () => {
+            this.get_departement();
+        });
+    },
 
-   methods:{
-       get_departement(){
-           axios.get('/departement/all')
-           .then(response => {
-               this.departements=response.data.departement
+    methods: {
+        get_departement() {
+            axios.get('/departement/all')
+                .then(response => {
+                    this.departements = response.data.departement
 
 
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des departements','error')
-           });
-       },
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
+                });
+        },
 
-       changement(event){
-           this.interesser= event;
-       },
+        changement(event) {
+            this.interesser = event;
+        },
 
-       resetForm(){
-           this.form.nom="";
-           this.form.id_direction="";
-           this.form.id_user="";
-       },
+        resetForm() {
+            this.form.nom = "";
+            this.form.id_direction = "";
+            this.form.id_user = "";
+        },
 
-       async deleteDepartement(type) {
-           Swal.fire({
-               title: 'Êtes-vous sûr?',
-               text: "Cette action sera irréversible!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Oui, supprimer!',
-               cancelButtonText: 'Annuler'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   axios.delete(`/departement/delete/${type.id}`).then(resp => {
-                       this.get_departement();
-                    var confirmation = document.querySelector('[data-modal-suppression]');
+        async deleteDepartement(type) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/departement/delete/${type.id}`).then(resp => {
+                        this.get_departement();
+                        var confirmation = document.querySelector('[data-modal-suppression]');
 
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
+                        confirmation.style.backgroundColor = 'white';
+                        confirmation.style.color = 'var(--clr)';
 
                         confirmation.showModal();
                         confirmation.classList.add("actif");
-                    setTimeout(function(){
-                        confirmation.close();
+                        setTimeout(function () {
+                            confirmation.close();
 
-                        setTimeout(function(){
-                            confirmation.classList.remove("actif");
-                    }, 100);
+                            setTimeout(function () {
+                                confirmation.classList.remove("actif");
+                            }, 100);
 
-                    }, 2000);
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
+                        }, 2000);
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
+        },
 
         openModal(departement) {
-          
-            this.idDepartement=departement.id;
+
+            this.idDepartement = departement.id;
 
             this.editModal = true;
 
@@ -183,11 +184,11 @@ import Form from 'vform';
             modification.showModal();
             modification.classList.add("actif");
 
-         
+
         },
 
 
 
-   }
+    }
 }
 </script>

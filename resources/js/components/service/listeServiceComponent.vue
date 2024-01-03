@@ -42,8 +42,8 @@
                     <th>Chef de service</th>
                     <th>Actions</th>
                 </thead>
-                <tbody v-for="(service, index) in services" :key="index" :class="{ 'odd-row': index % 2 === 0 }">
-                    <tr>
+                <tbody>
+                    <tr v-for="(service, index) in services" :key="index">
                         <td><span>{{ service.nom_service }}</span></td>
                         <td> <span>{{ service.direction.nom_direction }}</span></td>
                         <td><span>{{ service.user.prenom }} {{ service.user.nom }}</span></td>
