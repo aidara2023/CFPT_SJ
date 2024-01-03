@@ -1,7 +1,30 @@
 <template>
+    <div class="liste ">
+        <div class="table-container">
+            <table>
+                <thead>
 
-    <div class="liste table-container">
-      <!--  <div class="avant" style=" margin-left: 80%;">
+                    <th>Direction</th>
+                    <th>Chef de direction</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(direction, index) in directions" :key="index" >
+                        <td><span>{{ direction.nom_direction }}</span></td>
+                        <td><span>{{ direction.user.prenom }} {{ direction.user.nom }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(direction)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteDirection(direction)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--  <div class="avant" style=" margin-left: 80%;">
         
            <a href="#">
                <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -37,31 +60,11 @@
            </div>
        </div> -->
 
-       <table>
-            <thead>
-                
-                <th>Direction</th>
-                <th>Chef de direction</th>
-                <th>Actions</th>
-            </thead>
-            <tbody v-for="(direction, index) in directions" :key="index">
-                <td><span>{{ direction.nom_direction }}</span></td>
-                <td><span>{{ direction.user.prenom }} {{ direction.user.nom }}</span></td>
-                <td>
-                    <div class="boutons_actions">
-                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(direction)" title="Modifier"></i>
-                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                        <i class="fi fi-rr-trash supprimer mdl" @click="deleteDirection(direction)" title="Supprimer"></i>
-                    </div>
-                </td>
 
-            </tbody>
-        </table>
-   </div>
+    </div>
 
 
-<!-- <span class="fond "></span> -->
-
+    <!-- <span class="fond "></span> -->
 </template>
 
 <script>
@@ -71,126 +74,126 @@ import Form from 'vform';
 
 
 
-  export default {
-   name:"listeDirectionComponent",
-   data(){
-       return {
-           form:new Form({
-               'nom_direction':"",
-               'id_user':""
+export default {
+    name: "listeDirectionComponent",
+    data() {
+        return {
+            form: new Form({
+                'nom_direction': "",
+                'id_user': ""
 
-           }),
-           directions: [],
-           idDirection: "",
-           editModal: false,
+            }),
+            directions: [],
+            idDirection: "",
+            editModal: false,
 
 
-       }
-   },
-   mounted(){
-       this.get_direction();
-       bus.on('directionAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_direction(); // Mettre à jour la liste des utilisateurs
-       });
-   },
+        }
+    },
+    mounted() {
+        this.get_direction();
+        bus.on('directionAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+            this.get_direction(); // Mettre à jour la liste des utilisateurs
+        });
+    },
 
-   methods:{
-       get_direction(){
-           axios.get('/direction/index')
-           .then(response => {
-               this.directions=response.data.direction;
+    methods: {
+        get_direction() {
+            axios.get('/direction/index')
+                .then(response => {
+                    this.directions = response.data.direction;
 
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des directions','error')
-           });
-       },
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des directions', 'error')
+                });
+        },
 
-       resetForm(){
-           this.form.input="";
-           this.form.nom_direction="";
-           this.form.id_user="";
-       },
+        resetForm() {
+            this.form.input = "";
+            this.form.nom_direction = "";
+            this.form.id_user = "";
+        },
 
-       async deleteDirection(type) {
-           Swal.fire({
-               title: 'Êtes-vous sûr?',
-               text: "Cette action sera irréversible!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Oui, supprimer!',
-               cancelButtonText: 'Annuler'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   axios.delete(`/direction/delete/${type.id}`).then(resp => {
-                       this.get_direction();
+        async deleteDirection(type) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/direction/delete/${type.id}`).then(resp => {
+                        this.get_direction();
 
-                  /*      Swal.fire(
-                           'Supprimé!',
-                           'La direction a été supprimée avec succès.',
-                           'success',
-                       ) */
+                        /*      Swal.fire(
+                                 'Supprimé!',
+                                 'La direction a été supprimée avec succès.',
+                                 'success',
+                             ) */
 
-                       var confirmation = document.querySelector('[data-modal-suppression]');
+                        var confirmation = document.querySelector('[data-modal-suppression]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
 
                         //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();
+                        confirmation.showModal();
+                        confirmation.classList.add("actif");
+                        //confirmation.close();
                         //}, 1000);
 
-                        setTimeout(function(){
+                        setTimeout(function () {
                             confirmation.close();
 
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 confirmation.classList.remove("actif");
-                        }, 100);
+                            }, 100);
 
                         }, 2000);
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
-       openModal(direction) {
-          
-          this.idDirection=direction.id;
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
+        },
+        openModal(direction) {
 
-          this.editModal = true;
+            this.idDirection = direction.id;
 
-          // Créez un objet avec les données à envoyer
-          const eventData = {
-              idDirection: this.idDirection,
-              nom: direction.nom_direction,
-              id_user: direction.id_user,
-              editModal: this.editModal,
-              // Ajoutez d'autres propriétés si nécessaire
-          };
+            this.editModal = true;
 
-          bus.emit('directionModifier', eventData);
+            // Créez un objet avec les données à envoyer
+            const eventData = {
+                idDirection: this.idDirection,
+                nom: direction.nom_direction,
+                id_user: direction.id_user,
+                editModal: this.editModal,
+                // Ajoutez d'autres propriétés si nécessaire
+            };
 
-          var fond = document.querySelector('.fond');
-          var flou = document.querySelectorAll('.flou');
-          var modification = document.querySelector("[data-modal-ajout]");
+            bus.emit('directionModifier', eventData);
 
-          flou.forEach(item => {
-              item.classList.add("actif");
-          });
+            var fond = document.querySelector('.fond');
+            var flou = document.querySelectorAll('.flou');
+            var modification = document.querySelector("[data-modal-ajout]");
 
-          fond.classList.add("actif");
-          modification.showModal();
-          modification.classList.add("actif");
+            flou.forEach(item => {
+                item.classList.add("actif");
+            });
 
-       
-      },
+            fond.classList.add("actif");
+            modification.showModal();
+            modification.classList.add("actif");
 
 
+        },
 
-   }
+
+
+    }
 }
 </script>
