@@ -1,4 +1,7 @@
 @extends('layout.app')
+@section('titre')
+    Type Formation
+@endsection
 @section('content')
     <div class="elements flou " id="app">
         @include('layout.header')

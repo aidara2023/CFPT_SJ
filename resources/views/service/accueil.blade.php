@@ -1,7 +1,10 @@
 @extends('layout.app')
+@section('titre')
+    Service
+@endsection
 @section('content')
     <div class="elements flou" id="app">
-       @include('layout.header')
+        @include('layout.header')
 
         <div class="controle">
             <div class="recherche_filtre">
@@ -22,7 +25,7 @@
                 <div data-fenetre="">Administration</div>
                 <div data-fenetre="">Appui</div>
             </div> 
-            <div class="petit_ecran_seulement"></div>--}}
+            <div class="petit_ecran_seulement"></div> --}}
 
             <button class="ajouter mdl">
                 <i class="fi fi-rr-plus"></i>
@@ -370,13 +373,13 @@
         </dialog>
 
         <dialog data-modal-suppression class="modal message">
-                <img src="../assetsCFPT/image/verified.gif" alt=""  style="width:30%; height:50%">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Suppression</h1>
             <p style="color:red">Service supprimé avec succés </p>
 
-            
+
         </dialog>
-        
+
         <span class="fond"></span>
     </div>
 @endsection

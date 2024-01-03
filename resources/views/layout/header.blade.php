@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<h1 class="grand_ecran_seulement">Tableau de bord</h1>
+<h1 class="grand_ecran_seulement">@yield('titre')</h1>
 @endif
 
 
