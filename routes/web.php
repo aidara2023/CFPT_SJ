@@ -694,3 +694,5 @@ Route::delete('alerte/delete/{id}',[alerte_controller::class, 'delete'])->name('
 Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('alerte_create');
 
 Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
+Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
+

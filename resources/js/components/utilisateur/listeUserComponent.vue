@@ -1,7 +1,7 @@
 <template>
     <div class="liste ">
         <div class="table-container">
-            <div class="rechercheOnglet onglets grand_ecran_seulement">
+            <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
                 <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
@@ -15,6 +15,7 @@
                     <th>Nom Complet</th>
                     <th>Telephone</th>
                     <th>Email</th>
+                    <th>Statut</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
@@ -26,13 +27,16 @@
                             <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                             <td><span> {{ utilisateur.telephone }}</span></td>
                             <td><span>{{ utilisateur.email }} </span></td>
+                            <td><span>{{ utilisateur.status }} </span></td>
                             <td>
                                 <div class="boutons_actions">
                                     <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
                                         title="Modifier"></i>
                                     <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
-                                        title="Supprimer"></i>
+                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
+                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
+                                    </i>
+
                                 </div>
                             </td>
                         </template>
@@ -48,8 +52,10 @@
                                     <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
                                         title="Modifier"></i>
                                     <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
-                                        title="Supprimer"></i>
+                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
+                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
+                                    </i>
+
                                 </div>
                             </td>
                         </template>
@@ -64,8 +70,10 @@
                                     <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
                                         title="Modifier"></i>
                                     <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i class="fi fi-rr-trash supprimer mdl" @click="deleteUtilisateur(utilisateur)"
-                                        title="Supprimer"></i>
+                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
+                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
+                                    </i>
+
                                 </div>
                             </td>
                         </template>
@@ -238,6 +246,23 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des utilisateurs', 'error')
                 });
         },
+        async toggleUserStatus(user) {
+            try {
+                const response = await axios.put(`/user/toggle-status/${user.id}`);
+
+                if (response.data.status === 200) {
+                    // Succès, mettez à jour la liste des utilisateurs ou affichez un message
+                    this.get_utilisateur();
+                    console.log(response.data.message);
+                } else {
+                    // Échec, affichez un message d'erreur
+                    console.error(response.data.message);
+                }
+            } catch (error) {
+                // Gestion des erreurs
+                console.error(error);
+            }
+        },
 
         shouldShowRow(utilisateur) {
             if (this.activePhase === 1 && utilisateur.role.id === 2) {
@@ -271,7 +296,7 @@ export default {
                 cancelButtonText: 'Annuler'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/user/delete/${user.id}`).then(resp => {
+                    axios.delete(`/user/disable/${user.id}`).then(resp => {
                         this.get_utilisateur();
 
                         var confirmation = document.querySelector('[data-modal-confirmation-sup]');
@@ -295,6 +320,7 @@ export default {
                 }
             });
         },
+
         openModal(utilisateur) {
 
             this.idUser = utilisateur.id;

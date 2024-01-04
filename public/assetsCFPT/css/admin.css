@@ -523,6 +523,7 @@ button {
     padding: 0 2px;
     cursor: none;
     font-size: 18px;
+    margin-top: 0;
 }
 
 .rechercheOnglet a {
@@ -726,12 +727,34 @@ i.supprimer {
     color: var(--rouge);
 }
 
+
 i.supprimer:hover {
+
     color: white;
     background-color: var(--rouge);
     box-shadow: 0 0 10px 3px var(--rouge);
     transition: .4s;
 }
+i.desactiver{
+    color: var(--rouge);
+}
+i.desactiver:hover{
+    color: white;
+    background-color: var(--clr2);
+    box-shadow: 0 0 10px 3px var(--clr2);
+    transition: .4s;
+}
+i.activer{
+    color: var(--rouge);
+}
+i.activer:hover{
+    color: white;
+    background-color: var(--clr2);
+    box-shadow: 0 0 10px 3px var(--clr2);
+    transition: .4s;
+}
+
+
 
 .item button:hover {
     width: 250px;
@@ -1894,14 +1917,16 @@ input[type="file"] {
 /* Style pour le tableau */
 /* Style pour le conteneur de la table */
 .table-container {
-    /* max-height: 300px; */
-    /* Réglez la hauteur maximale selon vos besoins */
-    overflow-y: auto;
-    /* Ajoutez une barre de défilement verticale si nécessaire */
-    background-color: #f8f7f7f2;
-    /* Couleur de fond grise */
-    padding: 5%;
-    /* Ajoutez un espacement intérieur si nécessaire */
+
+    /* max-height: 300px; */ /* Réglez la hauteur maximale selon vos besoins */
+    overflow-y: auto; /* Ajoutez une barre de défilement verticale si nécessaire */
+    background-color: #f8f7f7f2; /* Couleur de fond grise */
+    padding: 1%; /* Ajoutez un espacement intérieur si nécessaire */
+
+    
+  
+    
+
     border-radius: 20px;
 }
 
