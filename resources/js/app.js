@@ -93,6 +93,7 @@ import listeValiderInscriptionComponent from './components/caissier/listeValider
 import validerInscriptionComponent from './components/caissier/validerInscriptionComponent.vue';
 import createAlerteComponent from './components/alerte/createAlerteComponent.vue';
 import listeAlerteComponent from './components/alerte/listeAlerteComponent.vue';
+import dashboardComponent from './components/dashboard/dashboardComponent.vue';
 
 
 
@@ -199,6 +200,7 @@ app.component("liste-valider-inscription", listeValiderInscriptionComponent);
 app.component("inscription-valider", validerInscriptionComponent);
 app.component("alerte-create", createAlerteComponent);
 app.component("liste-alerte", listeAlerteComponent);
+app.component("dash-board", dashboardComponent);
 
 
 
