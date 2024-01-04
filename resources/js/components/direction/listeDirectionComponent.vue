@@ -13,7 +13,7 @@
                         <td><span>{{ direction.nom_direction }}</span></td>
                         <td><span>{{ direction.user.prenom }} {{ direction.user.nom }}</span></td>
                         <td>
-                            <div class="boutons_actions">
+                            <div class="boutons_actions" >
                                 <i class="fi fi-rr-edit modifier mdl" @click="openModal(direction)" title="Modifier"></i>
                                 <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
                                 <i class="fi fi-rr-trash supprimer mdl" @click="deleteDirection(direction)"
