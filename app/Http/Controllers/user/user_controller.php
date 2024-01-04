@@ -287,4 +287,25 @@ public function delete($id) {
             ], 500);
         }
     }
+    public function toggleUserStatus($id) {
+        $user = User::find($id);
+    
+        if ($user) {
+            $user->status = $user->status == 1 ? 0 : 1;
+            $user->save();
+    
+            $message = $user->status == 1 ? 'L\'utilisateur a été activé.' : 'L\'utilisateur a été désactivé.';
+    
+            return response()->json([
+                'status' => 200,
+                'message' => $message,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'L\'utilisateur n\'a pas été trouvé',
+            ], 404);
+        }
+    }
+    
 }

@@ -1,6 +1,8 @@
 
 @extends('layout.app')
-
+@section('titre')
+        Salle
+        @endsection
 @section('content')
 
 <div class="elements flou " id="app">
