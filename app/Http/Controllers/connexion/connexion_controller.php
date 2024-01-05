@@ -24,76 +24,49 @@ class connexion_controller extends Controller
             // Utilisateur bloqué
             Auth::logout();
             return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-            }
-
-            elseif($role=="Comptable"){
-                $url='/comptable/index';
-                return response([
-                    'url'=>$url, 
-                    'user'=>$user
-                 ]);
-    
-            }
-            elseif($role=="Infirmier"){
-                $url='/infirmier/index';
-                return response([
-                    'url'=>$url, 
-                    'user'=>$user
-                 ]);
-    
-            }
-            elseif($role=="Bibliothecaire"){
-                $url='/bibliothecaire/index';
-                return response([
-                    'url'=>$url, 
-                    'user'=>$user
-                 ]);
-    
-            }
-            elseif($role=="Surveillant"){
-                $url='/surveillant/index';
-                return response([
-                    'url'=>$url, 
-                    'user'=>$user
-                 ]);
-    
-            }
-
-        
-         
-   /*  elseif($role=="Personnel Appui"){
-
-        if($user->role->appui->intitule=="Vigile"){
-            //a creer
-            $url='/vigile/index';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-            }
-            elseif($user->role->appui->intitule=="Femme de menage"){
-                //continuer le nom des personnel d'appui
-
-            }
-    } */
-        
-        else{
-            $url='/login';
-            return response([
-                'url'=>$url,
-                'statut'=>'Error'
+                'message' => 'Vous avez été bloqué, rapprochez-vous de votre administrateur pour plus d\'informations.',
+                'statut' => 'Blocked'
             ]);
-
         }
 
-       
-   
-}
+        $url = '';
+        switch ($role) {
+            case "Etudiant":
+                $url = 'eleve/index';
+                break;
+            case "Formateur":
+                $url = 'formateur';
+                break;
+            case "Administrateur":
+                $url = '/admin/index';
+                break;
+            case "Caissier":
+                $url = '/caissier/accueil';
+                break;
+            case "Comptable":
+                $url = '/comptable/index';
+                break;
+            case "Infirmier":
+                $url = '/infirmier/index';
+                break;
+            case "Bibliothecaire":
+                $url = '/bibliothecaire/index';
+                break;
+            case "Surveillant":
+                $url = '/surveillant/index';
+                break;
+            default:
+                $url = '/login';
+        }
 
-    public function logout(){
+        return response([
+            'url' => $url,
+            'user' => $user
+        ]);
+    }
+
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('login');
     }
