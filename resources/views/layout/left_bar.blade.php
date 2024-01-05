@@ -67,6 +67,15 @@
             <i class="fi fi-rr-home"></i>
             <span>Type Formation</span>
         </a></li>
+          <li class="fntr submenu"><a href="{{ route('batiment_accueil') }}">
+            <i class="fi fi-rr-home"></i>
+            <span>Batiment</span>
+        </a></li>
+
+         <li class="fntr submenu"><a href="{{ route('salle_accueil') }}">
+            <i class="fi fi-rr-home"></i>
+            <span>Salle</span>
+        </a></li>
 
         <li class="fntr submenu"><a href="{{ route('alerte_create') }}">
             <i class="fi fi-rr-home"></i>
@@ -155,7 +164,7 @@
                 <li class="fntr"><a href="{{ route('paiement_create') }}">
                         <div>
                             <i class="fi fi-rr-user"></i>
-                            <span>Paiment</span>
+                            <span>Paiement</span>
                         </div>
                     </a></li>
 

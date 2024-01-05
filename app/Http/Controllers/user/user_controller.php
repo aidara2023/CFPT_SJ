@@ -232,22 +232,27 @@ class user_controller extends Controller
             ],500 );
         }
     }
-    public function delete($id){
-        $user=User::find($id);
-        if($user!=null){
-            $user->delete();
-            return response()->json([
-                'statut'=>200,
-                'message'=>'Utilisateur supprimer avec succes',
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L utilisateur n\'est pas supprimer',
-            ],500 );
-        }
+   
+public function delete($id) {
+    $user = User::find($id);
 
+    if ($user != null) {
+        // Mettre à jour le statut au lieu de supprimer
+        $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
+        $user->save();
+
+        return response()->json([
+            'statut' => 200,
+            'message' => 'Utilisateur désactivé avec succès',
+        ], 200);
+    } else {
+        return response()->json([
+            'statut' => 500,
+            'message' => 'L utilisateur n\'est pas désactivé',
+        ], 500);
     }
+}
+
 
     public function show($id){
         $user=User::find($id);
@@ -264,4 +269,43 @@ class user_controller extends Controller
         }
 
     }
+    public function disableUser($id) {
+        $user = User::find($id);
+    
+        if ($user != null) {
+            $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
+            $user->save();
+    
+            return response()->json([
+                'statut' => 200,
+                'message' => 'Utilisateur désactivé avec succès',
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'L utilisateur n\'est pas désactivé',
+            ], 500);
+        }
+    }
+    public function toggleUserStatus($id) {
+        $user = User::find($id);
+    
+        if ($user) {
+            $user->status = $user->status == 1 ? 0 : 1;
+            $user->save();
+    
+            $message = $user->status == 1 ? 'L\'utilisateur a été activé.' : 'L\'utilisateur a été désactivé.';
+    
+            return response()->json([
+                'status' => 200,
+                'message' => $message,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'L\'utilisateur n\'a pas été trouvé',
+            ], 404);
+        }
+    }
+    
 }

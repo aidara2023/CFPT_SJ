@@ -1,5 +1,5 @@
 <template>
-    <dialog data-modal-ajout class="modal">
+    
         <div class="titres">
             <h1>Validation Inscription</h1>
         </div>
@@ -93,7 +93,7 @@
                 </div>
             </form>
         </div>
-    </dialog>
+    
 </template>
 
 <script>

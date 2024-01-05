@@ -1,39 +1,4 @@
 <template>
-    <!-- <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
-           <a href="#">
-               <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-           </a>
-       </div>
-       <h1 class="texte">Service</h1>
-        <div class="sections" v-for="(service, index) in services" :key="index">
-           <div class="utilisateur">
-               <p class="texte" id="n">{{ service.nom_service }} </p>
-               <p class="texte" id="n">{{ service.direction.nom_direction }} </p>
-               <p class="texte" id="n">{{ service.user.prenom }} {{ service.user.nom }}</p>
-               <div  class="presences">
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
-
-                    </a>
-                   <a href="#" class="texte b" @click="openModal(service)">
-                       <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
-                   </a>
-                   <a href="#" class="texte b">
-                       <i class="fi fi-rr-comment-alt-dots"></i>
-                       <span class="details">Détails</span>
-                   </a>
-                   <a href="#" class="texte b" @click="deleteService(service)" >
-                       <i class="fi fi-rr-cross"></i>
-                       <span class="supprimer mdl">Supprimer</span>
-                   </a>
-               </div>
-           </div>
-       </div>
-   </div> -->
-
     <div class="liste">
         <!--  <div class="item">
                 <div class="renseignements">
@@ -69,27 +34,33 @@
                     </div>
                 </button>
             </div> -->
-        <table>
-            <thead>
-                <th>Service</th>
-                <th>Direction</th>
-                <th>Chef de service</th>
-                <th>Actions</th>
-            </thead>
-            <tbody v-for="(service, index) in services" :key="index">
-                <td><span>{{ service.nom_service }}</span></td>
-                <td> <span>{{ service.direction.nom_direction }}</span></td>
-                <td><span>{{ service.user.prenom }} {{ service.user.nom }}</span></td>
-                <td>
-                    <div class="boutons_actions">
-                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)" title="Modifier"></i>
-                        <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteService(service)" title="Supprimer"></i>
-                    </div>
-                </td>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Service</th>
+                    <th>Direction</th>
+                    <th>Chef de service</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(service, index) in services" :key="index">
+                        <td><span>{{ service.nom_service }}</span></td>
+                        <td> <span>{{ service.direction.nom_direction }}</span></td>
+                        <td><span>{{ service.user.prenom }} {{ service.user.nom }}</span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteService(service)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
 
-            </tbody>
-        </table>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -163,7 +134,7 @@ export default {
                                 'Le service a été supprimé avec succès.',
                                 'success',
                             ) */
-                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                        var confirmation = document.querySelector('[data-modal-suppression]');
 
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
@@ -220,7 +191,7 @@ export default {
             modification.classList.add("actif");
 
 
-        },
+         },
 
 
 

@@ -599,6 +599,8 @@ Route::get('batiment/show/{id}',[batiment_controller::class,'show'])->name('bati
 Route::post('batiment/update/{id}',[batiment_controller::class,'update'])->name('batiment_update');
 Route::delete('batiment/delete/{id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
 Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
+Route::get('batiment/accueil',[batiment_view_controller::class, 'index'])->name('batiment_accueil');
+
 
 //Route pour salle
 
@@ -669,7 +671,7 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 
 
-
+Route::put('/user/disable/{id}', 'UserController@disableUser');
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
@@ -690,3 +692,7 @@ Route::post('alerte/store',[alerte_controller::class, 'store'])->name('alerte_st
 Route::post('alerte/update/{id}',[alerte_controller::class,'update'])->name('alerte_update');
 Route::delete('alerte/delete/{id}',[alerte_controller::class, 'delete'])->name('alerte_delete');
 Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('alerte_create');
+
+Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
+Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
+

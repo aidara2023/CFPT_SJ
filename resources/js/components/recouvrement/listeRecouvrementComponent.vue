@@ -29,7 +29,12 @@
 
             <div id="contenu-a-imprimer" style="margin-top: 0%;">
 
-                <h1 style="color: var(--clr);outline: none;gap: 0;text-align: center;" v-if="this.nom_classe_selected !== ''">
+                <h1 style="color: var(--clr);outline: none;gap: 0;text-align: center;"
+                    v-if="this.nom_classe_selected !== ''">
+                    {{ nom_classe_selected.type_formation.intitule }} {{ nom_classe_selected.nom_classe }} {{
+                        nom_classe_selected.niveau }} {{ nom_classe_selected.type_classe }}</h1>
+                        <h1 style="color: var(--clr);outline: none;gap: 0;text-align: center;"
+                    v-if="this.nom_classe_selected !== ''">
                     {{ nom_classe_selected.type_formation.intitule }} {{ nom_classe_selected.nom_classe }} {{
                         nom_classe_selected.niveau }} {{ nom_classe_selected.type_classe }}</h1>
 
@@ -77,7 +82,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 

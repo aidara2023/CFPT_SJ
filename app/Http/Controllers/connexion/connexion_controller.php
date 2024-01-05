@@ -8,41 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class connexion_controller extends Controller
 {
-    public function connexion(Request $request){
-        if(!Auth::attempt($request->only('matricule','password'))){
+    public function connexion(Request $request)
+    {
+        if (!Auth::attempt($request->only('matricule', 'password'))) {
             return response([
-                'message'=>'Connexion échouée',
-                'statut'=>'Error'
+                'message' => 'Connexion échouée',
+                'statut' => 'Error'
             ]);
         }
-        $user=Auth::user();
-        $role=$user->role->intitule ;
-        
-        $url='';
-        if($role=="Etudiant"){
-            $url='eleve/index';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
-        }elseif($role=="Formateur"){
-            $url='formateur';
-            return response([
-                'url'=>$url, 
-                'user'=>$user
-             ]);
 
-        } 
-        elseif($role=="Administrateur"){
-                $url='/admin/index';
-                return response([
-                    'url'=>$url, 
-                    'user'=>$user
-                 ]);
-            }
-           
-            elseif($role=="Caissier"){
-            $url='/caissier/accueil';
+        $user = Auth::user();
+        $role = $user->role->intitule;
+
+        if ($user->status === 0) {
+            // Utilisateur bloqué
+            Auth::logout();
             return response([
                 'url'=>$url, 
                 'user'=>$user
@@ -66,7 +46,7 @@ class connexion_controller extends Controller
     
             }
             elseif($role=="Bibliothecaire"){
-                $url='/bibliothecaire/accueil';
+                $url='/bibliothecaire/index';
                 return response([
                     'url'=>$url, 
                     'user'=>$user
@@ -115,8 +95,6 @@ class connexion_controller extends Controller
 
     public function logout(){
         Auth::logout();
-       /*  return view('auth.login'); */
-       return redirect()->route('login');
+        return redirect()->route('login');
     }
 }
-

@@ -1,5 +1,5 @@
 <template>
-    <dialog data-modal-ajout class="modal">
+<div>
         <div class="titres">
              <h1>Nouvelle Direction</h1>
             <!--  <h3>Informations Personnelles</h3> -->
@@ -40,7 +40,7 @@
         </div>
     </form>
   
-</dialog>
+</div>
 </template>
 
 <script>
