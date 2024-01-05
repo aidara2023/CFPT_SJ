@@ -18,7 +18,7 @@
                                 <i class="fi fi-rr-edit modifier mdl" @click="openModal(unite_de_formation)"
                                     title="Modifier"></i>
                                 <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-cross supprimer mdl" @click="deleteUniteDeFormation(unite_de_formation)"
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteUniteDeFormation(unite_de_formation)"
                                     title="Supprimer"></i>
                             </div>
                         </td>
@@ -139,16 +139,42 @@ export default {
                     axios.delete(`/unite_de_formation/delete/${type.id}`).then(resp => {
                         this.get_unite_de_formation();
 
-                        Swal.fire(
+                       /*  Swal.fire(
                             'Supprimé!',
                             'La filière a été supprimée avec succès.',
                             'success',
-                        )
-                    }).catch(function (error) {
+                        ) */
+
+                   /*  }).catch(function (error) {
                         console.log(error);
-                    })
-                }
-            });
+                    }) */
+              /*   }
+            }); */
+            var confirmation = document.querySelector('[data-modal-suppression]');
+
+confirmation.style.backgroundColor = 'white';
+confirmation.style.color = 'var(--clr)';
+
+//setTimeout(function(){
+confirmation.showModal();
+confirmation.classList.add("actif");
+//confirmation.close();
+//}, 1000);
+
+setTimeout(function () {
+    confirmation.close();
+
+    setTimeout(function () {
+        confirmation.classList.remove("actif");
+    }, 100);
+
+}, 2000);
+
+}).catch(function (error) {
+console.log(error);
+})
+}
+});
         },
         openModal(unite_de_formation) {
 

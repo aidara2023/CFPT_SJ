@@ -12,9 +12,11 @@
             <table>
                 <thead>
                     <th>Image</th>
+                    <th>Matricule</th>
                     <th>Nom Complet</th>
                     <th>Telephone</th>
                     <th>Email</th>
+                    <th>Fonction</th>
                     <th>Statut</th>
                     <th>Actions</th>
                 </thead>
@@ -24,9 +26,11 @@
                         <template v-if="this.activePhase === 1 && utilisateur.role.id === 2">
                             <td><span><img :src="getImageUrl(utilisateur.photo)" alt="Etu"
                                         style="width: 30px; height: 30px;"></span> </td>
+                                        <td><span> {{ utilisateur.matricule }}</span></td>
                             <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                             <td><span> {{ utilisateur.telephone }}</span></td>
                             <td><span>{{ utilisateur.email }} </span></td>
+                            <td><span>{{ utilisateur.role.intitule }} </span></td>
                             <td><span>{{ utilisateur.status }} </span></td>
                             <td>
                                 <div class="boutons_actions">
@@ -44,9 +48,12 @@
                             v-if="activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif'">
                             <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
                             </td>
+                            <td><span> {{ utilisateur.matricule }}</span></td>
                             <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                             <td><span>{{ utilisateur.telephone }}</span></td>
                             <td><span>{{ utilisateur.email }} </span></td>
+                            <td><span>{{ utilisateur.role.intitule }} </span></td>
+                            <td><span>{{ utilisateur.status }} </span></td>
                             <td>
                                 <div class="boutons_actions">
                                     <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
@@ -62,9 +69,12 @@
                         <template v-if="activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui'">
                             <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
                             </td>
+                            <td><span> {{ utilisateur.matricule }}</span></td>
                             <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
                             <td><span> {{ utilisateur.telephone }}</span></td>
                             <td><span>{{ utilisateur.email }} </span></td>
+                            <td><span>{{ utilisateur.role.intitule }} </span></td>
+                            <td><span>{{ utilisateur.status }} </span></td>
                             <td>
                                 <div class="boutons_actions">
                                     <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"

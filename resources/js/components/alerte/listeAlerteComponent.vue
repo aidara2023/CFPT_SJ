@@ -50,6 +50,7 @@
     animation: scrollToLeft 15s linear infinite;
     white-space: nowrap;
     width: 100%; /* Utilise toute la largeur disponible */
+    font-size: 25px;
   }
   
   @keyframes scrollToLeft {

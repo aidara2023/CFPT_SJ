@@ -27,7 +27,7 @@
                     <label for="nom" :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
                     <select name="id_departement" id="id_departement" v-model="form.id_departement"
                         @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
-                        <option value=""> Département</option>
+                      
                         <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                             departement.nom_departement }}</option>
                     </select>
@@ -37,7 +37,7 @@
                 <div class="champ">
                     <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur) }">Chef de filiere</label>
                     <select name="user" id="user" v-model="form.id_user" @change="validatedata('user')"  :class="{ 'bordure_rouge': (this.id_user_erreur) }">
-                        <option value=""> Chef filiére</option>
+                        
                         <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }}</option>
                     </select>
                     <span class="erreur" >{{ id_user_erreur }}</span>
