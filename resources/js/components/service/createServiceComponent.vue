@@ -357,7 +357,26 @@ export default {
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Ce service existe déjà', 'error')
+                   /*  Swal.fire('Erreur !', 'Ce service existe déjà', 'error') */
+                   var confirmation = document.querySelector('[data-modal-verification]');
+
+confirmation.style.backgroundColor = 'white';
+confirmation.style.color = 'var(--clr)';
+
+//setTimeout(function(){
+confirmation.showModal();
+confirmation.classList.add("actif");
+//confirmation.close();
+//}, 1000);
+
+setTimeout(function () {
+    confirmation.close();
+
+    setTimeout(function () {
+        confirmation.classList.remove("actif");
+    }, 100);
+
+}, 2000);
                 }
                 else {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')

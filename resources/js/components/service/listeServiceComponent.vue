@@ -191,7 +191,7 @@ export default {
             modification.classList.add("actif");
 
 
-        },
+         },
 
 
 

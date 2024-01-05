@@ -1,8 +1,9 @@
 <template>
-
+     <div class="liste">
+<!-- 
     <div class="affichage">
        <div class="avant" style=" margin-left: 80%;">
-          <!--  <h1 class="texte">Paiement</h1> -->
+        
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
            </a>
@@ -10,9 +11,9 @@
        <h1 class="texte">Paiement</h1>
 
         <div class="sections" v-for="(paiement, index) in paiements" :key="index">
-           <!-- Répéter la div utilisateur pour un autre utilisateur -->
+          
             <div class="utilisateur">
-               <!-- <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite"> -->
+             
                <p class="texte" id="n">{{ paiement.eleve.user.nom }} {{ paiement.eleve.user.prenom }} </p>
                <p class="texte" id="n" v-if="paiement.annee_academique">{{ paiement.eleve.inscription.classe }} {{ paiement.annee_academique.id}} </p>
                 <p class="texte" id="n">{{ paiement.montant }}</p> 
@@ -34,12 +35,43 @@
                        <i class="fi fi-rr-cross"></i>
                        <span class="supprimer mdl">Supprimer</span>
                    </a>
-                   <!-- <a href="#" class="texte b supprimer mdl">
-                         <i class="fi fi-rr-cross"></i>
-                         <span class="">Supprimer</span></a> -->
+                   
                </div>
            </div>
-       </div>
+       </div> -->
+       <div class="table-container">
+            <table>
+                <thead>
+                    <th>Matricule</th>
+                    <th>Nom Complet</th>
+                    <th>Classe</th>
+                    <th>Année Académique</th>
+                    <th>Mois</th>
+                    <th>Montant</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(paiement, index) in paiements" :key="index">
+                        <td><span>{{ paiement.eleve.user.matricule }}</span></td>
+                        <td> <span>{{ paiement.eleve.user.prenom }} {{ paiement.eleve.user.nom }}</span></td>
+                        <td><span>{{ paiement.eleve.inscription.classe }} </span></td>
+                        <td><span>{{ paiement.annee_academique }} </span></td>
+                        <td><span>{{ paiement.mois }} </span></td>
+                        <td><span>{{ paiement.montant }} </span></td>
+                        <td>
+                            <div class="boutons_actions">
+                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(paiement)" title="Modifier"></i>
+                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deletepaiement(paiement)"
+                                    title="Supprimer"></i>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
 
    </div>
 

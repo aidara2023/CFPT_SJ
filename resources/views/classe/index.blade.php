@@ -274,7 +274,7 @@
         <dialog data-modal-suppression class="modal message">
             <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Suppression</h1>
-            <p style="color:red">Service supprimé avec succés </p>
+            <p style="color:red">Classe supprimé avec succés </p>
         </dialog>
 
         <span class="fond"></span>

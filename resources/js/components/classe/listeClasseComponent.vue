@@ -143,7 +143,7 @@ import Form from 'vform';
                            'La classe a été supprimé avec succès.',
                            'success',
                        ) */
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                       var confirmation = document.querySelector('[data-modal-suppression]');
 
                     confirmation.style.backgroundColor = 'white';
                     confirmation.style.color = 'var(--clr)';

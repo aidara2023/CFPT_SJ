@@ -178,10 +178,11 @@
         <p class="">Département modifier avec succès</p>
     </dialog>
 </div> --}}
-        <dialog data-modal-confirmation class="modal message">
-            <img src="../assetsCFPT/image/verified.gif" alt="">
+         <dialog data-modal-confirmation class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Ajouté avec succés</h1>
         </dialog>
+
 
         <dialog data-modal-erreur class="modal message ">
 
@@ -323,9 +324,9 @@
         </dialog>
 
         <dialog data-modal-suppression class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Suppression</h1>
-
-            <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
+            <p style="color:red">Service supprimé avec succés </p>
 
 
         </dialog>

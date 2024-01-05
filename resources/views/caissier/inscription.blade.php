@@ -1,6 +1,8 @@
 
 @extends('layout.app')
-
+@section('titre')
+    Valider Inscription
+@endsection
 @section('content')
 
 <div class="elements flou " id="app">
@@ -8,6 +10,32 @@
     <div class="entete">
         @include('layout.header')
     </div>
+      <div class="controle">
+            <div class="recherche_filtre">
+                <div class="recherche">
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <div></div>
+                {{--  <button class="filtrer mdl">
+                    <i class="fi fi-rr-bars-sort"></i>
+                    <span class="grand_ecran_seulement">Filtrer</span>
+                </button> --}}
+            </div>
+            <div></div>
+            <!-- Onglets de navigation -->
+            {{--      <div class="recherche onglets grand_ecran_seulement">
+                <div data-fenetre="">Formateurs</div>
+                <div data-fenetre="">Eleve</div>
+                <div data-fenetre="">Administration</div>
+                <div data-fenetre="">Appui</div>
+            </div> 
+            <div class="petit_ecran_seulement"></div> --}}
+
+            <button class="ajouter mdl">
+                <i class="fi fi-rr-plus"></i>
+                <span class="grand_ecran_seulement">Ajouter</span>
+            </button>
+        </div>
 
      <liste-valider-inscription></liste-valider-inscription>
 
@@ -111,7 +139,9 @@
 
 
   <!--   {{--  Debut modal pour ajouter utilisateur --}} -->
+   <dialog data-modal-ajout class="modal">
         <inscription-valider></inscription-valider>
+         </dialog>
    <!--  {{--  Fin modal pour ajouter utilisateur --}} -->
 
 
@@ -129,7 +159,7 @@
    <!--  {{--  Fin modal pour supprimer utilisateur --}} -->
 
 
-    <dialog data-modal-confirmation class="modal">
+    {{-- <dialog data-modal-confirmation class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
         <h1>Réussi !</h1>
         <br>
@@ -148,8 +178,39 @@
         <h1>Réussi !</h1>
         <br>
         <p class="">Service modifier avec succès</p>
-    </dialog>
+    </dialog> --}}
+ <dialog data-modal-confirmation class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
+            <h1>Ajouté avec succés</h1>
+        </dialog>
 
+        <dialog data-modal-erreur class="modal message ">
+
+            <div class="bordure">
+                <span class="croix"></span>
+                <span class="croix"></span>
+            </div>
+            <h1>Erreur lors de l'Ajout</h1>
+        </dialog>
+
+        <dialog data-modal-détails class="modal message">
+            <h1>Détails</h1>
+            <div>
+                <h3>Service Comptabilité</h3>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias at adipisci eum? Architecto sunt nisi
+                    unde, asperiores omnis culpa voluptatum reiciendis, non odit delectus est nihil, itaque iste!</p>
+            </div>
+        </dialog>
+
+      
+
+        <dialog data-modal-suppression class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
+            <h1>Suppression</h1>
+            <p style="color:red">Inscription supprimée avec succés </p>
+
+
+        </dialog>
 
     <dialog data-modal-confirmation-inscription class="modal">
         <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">

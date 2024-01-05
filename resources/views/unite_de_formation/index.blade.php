@@ -141,7 +141,7 @@
         </dialog>
 
         <dialog data-modal-confirmation class="modal message">
-            <img src="../assetsCFPT/image/verified.gif" alt="">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Ajouté avec succés</h1>
         </dialog>
 
@@ -284,16 +284,14 @@
             </div>
         </dialog>
 
-        <dialog data-modal-confirmation-sup class="modal message">
+        <dialog data-modal-suppression class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Suppression</h1>
+            <p style="color:red">Filiére supprimée avec succés </p>
 
-            <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
 
-            <div class="groupe_champs validation">
-                <button type="button" data-close-modal = "1" class="annuler">Annuler</button>
-                <button type="submit" data-close-modal = "1" class="suivant">Suivant</button>
-            </div>
         </dialog>
+
 
         <span class="fond"></span>
     </div>

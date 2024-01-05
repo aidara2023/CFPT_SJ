@@ -13,7 +13,7 @@
                             <div class="boutons_actions">
                                 <i class="fi fi-rr-edit modifier mdl" @click="openModal(formation)" title="Modifier"></i>
                                 <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-cross supprimer mdl" @click="deleteTypeFormation(formation)"
+                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteTypeFormation(formation)"
                                     title="Supprimer"></i>
                             </div>
                         </td>
@@ -129,7 +129,7 @@ export default {
                 if (result.isConfirmed) {
                     axios.delete(`/type_formation/delete/${type.id}`).then(resp => {
                         this.get_formation();
-                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
+                        var confirmation = document.querySelector('[data-modal-suppression]');
                         confirmation.style.backgroundColor = 'white';
                         confirmation.style.color = 'var(--clr)';
 

@@ -1,5 +1,5 @@
 <template>
-    <dialog data-modal-ajout class="modal">
+   
         <div class="titres">
             <h1>Nouveau paiement</h1>
          </div>
@@ -92,7 +92,7 @@
                </div>
             </form>
         </div>
-    </dialog>
+   
 </template>
 
 <script>
