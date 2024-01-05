@@ -357,7 +357,7 @@ ul.deroulante li.submenu {
 h1.grand_ecran_seulement {
     margin: 0;
     width: fit-content;
-    font-size: clamp(1.5rem, 3vw, 3.5rem);
+    font-size: clamp(0.5rem,2vw,2.5rem);
     font-weight: 700;
     background-image: linear-gradient(109deg, var(--clr2) 50%, var(--clr));
     -webkit-background-clip: text;
