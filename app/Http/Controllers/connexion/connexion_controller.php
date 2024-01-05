@@ -66,7 +66,7 @@ class connexion_controller extends Controller
     
             }
             elseif($role=="Bibliothecaire"){
-                $url='/bibliothecaire/index';
+                $url='/bibliothecaire/accueil';
                 return response([
                     'url'=>$url, 
                     'user'=>$user
