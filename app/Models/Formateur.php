@@ -20,7 +20,7 @@ class Formateur extends Model
         return $this->belongsTo(User::class,'id_user'); 
     }
     public function specialite() {
-        return $this -> belongsTo(Specialite::class,'id_specialte');
+        return $this-> belongsTo(Specialite::class,'id_specialite');
     }
     public function cour() {
         return $this -> hasMany(Cour::class);
@@ -31,9 +31,7 @@ class Formateur extends Model
     public function ressource_pedagogiques() {
         return $this->hasMany(Ressource_pedagogique::class); 
     }
-    public function departement() {
-        return $this->belongsTo(Departement::class,'id_departement'); 
-    }
+   
     public function unite_de_formation() {
         return $this->belongsTo(Unite_de_formation::class,'id_unite_de_formation'); 
     }

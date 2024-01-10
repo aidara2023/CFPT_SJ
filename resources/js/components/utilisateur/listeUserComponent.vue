@@ -1,11 +1,11 @@
 <template>
-    <div class="liste ">
+    <!--  <div class="liste ">
         <div class="table-container">
             <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
                 <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
-                <!-- <div data-fenetre="">Appui</div> -->
+               
             </div>
             <br>
 
@@ -93,112 +93,430 @@
             </table>
         </div>
 
-        <!--  <div class="avant" style=" margin-left: 80%;">
-            <a href="#">
-                <button class="texte ajout mdl" id="openModal"> <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-            </a>
-        </div>
-
-        <div class="avant" style="margin-top: 5%;">
-            <h1 class="texte"><a href="#" @click="goToStep(1)">Formateur</a></h1>
-            <h1 class="texte"><a href="#" @click="goToStep(2)">Personnel Administratif</a></h1>
-            <h1 class="texte"><a href="#" @click="goToStep(3)">Personnel d'appui</a></h1>
-        </div>
-
-
-        <div v-if="activePhase == 1">
-
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-               
-                <div class="utilisateur" v-if="utilisateur.role.id === 2">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="activePhase == 2">
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-              
-                <div class="utilisateur" v-if="utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="activePhase == 3">
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-               
-                <div class="utilisateur" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
     </div>
  -->
+ <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Liste utilisateur</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
+                                class="fa fa-angle-right"></i>
+                        </li>
+                        <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateur</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Liste utilisateur</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable-line">
+                        <!-- <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab1" data-bs-toggle="tab"> List View </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-bs-toggle="tab"> Grid View </a>
+                                </li>
+                            </ul> -->
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Formateurs</a></li>
+                            <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Personnel Administratif</a></li>
+                            <li class="nav-item"><a href="#tab3" class="nav-link" data-bs-toggle="tab">Personnel d'appui</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fontawesome-demo" id="tab1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card card-box">
+                                            <div class="card-head">
+                                                <header>Tous les formateurs</header>
+                                                <div class="tools">
+                                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                    <a class="t-collapse btn-color fa fa-chevron-down"
+                                                        href="javascript:;"></a>
+                                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body ">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-6">
+                                                        <div class="btn-group">
+                                                            <a :href="'/utilisateur/create'" id="addRow"
+                                                                class="btn btn-primary">
+                                                                Ajouter <i class="fa fa-plus"></i>
+                                                            </a>
 
-    </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <table
+                                                    class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                    id="example4">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th> Matricule </th>
+                                                            <th> Prénom </th>
+                                                            <th> Nom </th>
+                                                            <th> Email </th>
+                                                            <th> Téléphone </th>
+                                                            <th> Unité de formation </th>
+                                                            <th> Département </th>
+                    
+                                                            <th> Action </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs" :key="index">
+                                                            <template v-if="this.activePhase === 1 && utilisateur.role.id === 2">
+                                                            <td class="patient-img">
+                                                                <img :src="getImageUrl(utilisateur.photo)"  alt="">
+                                                            </td>
+                                                            <td>{{ utilisateur.matricule }}</td>
+                                                            <td class="left">{{ utilisateur.prenom }}</td>
+                                                            <td class="left">{{ utilisateur.nom }}</td>
+                                                            <td><a :href= "utilisateur.email">
+                                                                {{ utilisateur.email }} </a></td>
+                                                            <td><a :href="utilisateur.telephone ">
+                                                                {{ utilisateur.telephone }}</a></td>
+                                                           
+                                                                    <td class="left" v-for="ele in utilisateur.formateur">{{ ele.unite_de_formation.nom_unite_formation}}</td>
+                                                                    <td class="left" v-for="eles in utilisateur.formateur">{{ eles.unite_de_formation.departement.nom_departement}}</td>
+                                                         
+                                                            <td>
+                                                                <a  class="tblEditBtn" @click="openModal(utilisateur)">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a class="tblDelBtn"  @click="toggleUserStatus(utilisateur)">
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
+                                                            </td>
 
-    <!-- <span class="fond "></span> -->
+                                                          
+                       
+                                                            </template>
+                                                        </tr>
+
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user10.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Pooja Patel </div>
+                                                        <div class="name-center"> Mathematics </div>
+                                                    </div>
+                                                    <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user1.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Rajesh </div>
+                                                        <div class="name-center"> Science </div>
+                                                    </div>
+                                                    <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai
+                                                    </p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user2.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Sarah Smith </div>
+                                                        <div class="name-center"> Computer </div>
+                                                    </div>
+                                                    <p>456, Estern evenue, Courtage area, <br />New York</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user3.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">John Deo </div>
+                                                        <div class="name-center"> Engineering </div>
+                                                    </div>
+                                                    <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user4.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Jay Soni </div>
+                                                        <div class="name-center"> Music </div>
+                                                    </div>
+                                                    <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai
+                                                    </p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user5.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Jacob Ryan </div>
+                                                        <div class="name-center"> Commerce </div>
+                                                    </div>
+                                                    <p>456, Estern evenue, Courtage area, <br />New York</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user6.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Megha Trivedi </div>
+                                                        <div class="name-center"> Mechanical </div>
+                                                    </div>
+                                                    <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user1.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Rajesh </div>
+                                                        <div class="name-center"> Science </div>
+                                                    </div>
+                                                    <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai
+                                                    </p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user2.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Sarah Smith </div>
+                                                        <div class="name-center"> Computer </div>
+                                                    </div>
+                                                    <p>456, Estern evenue, Courtage area, <br />New York</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user10.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Pooja Patel </div>
+                                                        <div class="name-center"> Mathematics </div>
+                                                    </div>
+                                                    <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user1.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">Rajesh </div>
+                                                        <div class="name-center"> Science </div>
+                                                    </div>
+                                                    <p>45, Krishna Tower, Near Bus Stop, Satellite, <br />Mumbai
+                                                    </p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding ">
+                                                <div class="doctor-profile">
+                                                    <img src="../assets/img/user/user3.jpg" class="doctor-pic"
+                                                        alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">John Deo </div>
+                                                        <div class="name-center"> Engineering </div>
+                                                    </div>
+                                                    <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                    <div>
+                                                        <p><i class="fa fa-phone"></i><a href="tel:(123)456-7890">
+                                                                (123)456-7890</a></p>
+                                                    </div>
+                                                    <div class="profile-userbuttons">
+                                                        <a href="professor_profile.html"
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                            More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </template>
 
 <script>
@@ -250,6 +568,7 @@ export default {
             axios.get('/user/getPersonnel')
                 .then(response => {
                     this.utilisateurs = response.data.user
+                    console.log(this.utilisateurs);
 
 
                 }).catch(error => {
@@ -274,17 +593,6 @@ export default {
             }
         },
 
-        shouldShowRow(utilisateur) {
-            if (this.activePhase === 1 && utilisateur.role.id === 2) {
-                return true;
-            } else if (this.activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif') {
-                return true;
-            } else if (this.activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui') {
-                return true;
-            } else {
-                return false;
-            }
-        },
 
         changement(event) {
             this.interesser = event;

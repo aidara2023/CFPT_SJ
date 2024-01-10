@@ -20,6 +20,7 @@
     <!--bootstrap -->
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/summernote/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/plugins/flatpicker/css/flatpickr.min.css" />
     <!-- Material Design Lite CSS -->
     <link rel="stylesheet" href="/assets/plugins/material/material.min.css">
     <link rel="stylesheet" href="/assets/css/material_style.css">
@@ -29,8 +30,14 @@
     <link href="/assets/css/theme/light/theme_style.css" rel="stylesheet" id="rt_style_components" type="text/css" />
     <link href="/assets/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme/light/style.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/pages/formlayout.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
+    <!-- dropzone -->
+    <link href="/assets/plugins/dropzone/dropzone.css" rel="stylesheet" media="screen">
+    <!-- data tables -->
+    <link href="/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
     <!-- favicon -->
     <link rel="shortcut icon" href="/assets/img/logoCFPT--clr" />
 </head>
@@ -152,10 +159,10 @@
                 <!-- start page container -->
                 <div class="page-container">
                     <!-- start sidebar menu -->
-                   @include('layouts.navbar')
+                    @include('layouts.navbar')
                     <!-- end sidebar menu -->
                     <!-- start page content -->
-                   @yield('content')
+                    @yield('content')
                     <!-- end page content -->
                     <!-- start chat sidebar -->
                     <div class="chat-sidebar-container" data-close-on-body-click="false">
@@ -197,9 +204,8 @@
                                                 <li class="media">
                                                     <div class="media-status">
                                                         <span class="badge badge-success">5</span>
-                                                    </div> <img class="media-object"
-                                                        src="/assets/img/user/user1.jpg" width="35"
-                                                        height="35" alt="...">
+                                                    </div> <img class="media-object" src="/assets/img/user/user1.jpg"
+                                                        width="35" height="35" alt="...">
                                                     <i class="busy dot"></i>
                                                     <div class="media-body">
                                                         <h5 class="media-heading">Rajesh</h5>
@@ -218,9 +224,8 @@
                                                 <li class="media">
                                                     <div class="media-status">
                                                         <span class="badge badge-danger">8</span>
-                                                    </div> <img class="media-object"
-                                                        src="/assets/img/user/user4.jpg" width="35"
-                                                        height="35" alt="...">
+                                                    </div> <img class="media-object" src="/assets/img/user/user4.jpg"
+                                                        width="35" height="35" alt="...">
                                                     <i class="online dot"></i>
                                                     <div class="media-body">
                                                         <h5 class="media-heading">Kehn Anderson</h5>
@@ -253,9 +258,8 @@
                                                 <li class="media">
                                                     <div class="media-status">
                                                         <span class="badge badge-warning">4</span>
-                                                    </div> <img class="media-object"
-                                                        src="/assets/img/user/user6.jpg" width="35"
-                                                        height="35" alt="...">
+                                                    </div> <img class="media-object" src="/assets/img/user/user6.jpg"
+                                                        width="35" height="35" alt="...">
                                                     <i class="offline dot"></i>
                                                     <div class="media-body">
                                                         <h5 class="media-heading">Jennifer Maklen</h5>
@@ -276,9 +280,8 @@
                                                 <li class="media">
                                                     <div class="media-status">
                                                         <span class="badge badge-success">9</span>
-                                                    </div> <img class="media-object"
-                                                        src="/assets/img/user/user9.jpg" width="35"
-                                                        height="35" alt="...">
+                                                    </div> <img class="media-object" src="/assets/img/user/user9.jpg"
+                                                        width="35" height="35" alt="...">
                                                     <i class="offline dot"></i>
                                                     <div class="media-body">
                                                         <h5 class="media-heading">Jeff Adam</h5>
@@ -302,8 +305,7 @@
                                 </div>
                                 <!-- End Doctor Chat -->
                                 <!-- Start Setting Panel -->
-                                <div class="tab-pane chat-sidebar-settings" role="tabpanel"
-                                    id="quick_sidebar_tab_3">
+                                <div class="tab-pane chat-sidebar-settings" role="tabpanel" id="quick_sidebar_tab_3">
                                     <div class="chat-sidebar-settings-list slimscroll-style">
                                         <div class="chat-header">
                                             <h5 class="list-heading">Layout Settings</h5>
@@ -454,7 +456,7 @@
                 </div>
                 <!-- end page container -->
                 <!-- start footer -->
-               @include('layouts.footer')
+                @include('layouts.footer')
                 <!-- end footer -->
             </div>
             <!-- start js include path -->
@@ -468,19 +470,27 @@
             <script src="/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
             <script src="/assets/plugins/sparkline/jquery.sparkline.js"></script>
             <script src="/assets/js/pages/sparkline/sparkline-data.js"></script>
+            <script src="/assets/plugins/flatpicker/js/flatpicker.min.js"></script>
+            <script src="/assets/js/pages/date-time/date-time.init.js"></script>
             <!-- Common js-->
             <script src="/assets/js/app.js"></script>
             <script src="/assets/js/layout.js"></script>
             <script src="/assets/js/theme-color.js"></script>
             <!-- material -->
             <script src="/assets/plugins/material/material.min.js"></script>
+            <script src="/assets/js/pages/material-select/getmdl-select.js"></script>
             <!--apex chart-->
             <script src="/assets/plugins/apexcharts/apexcharts.min.js"></script>
             <script src="/assets/js/pages/chart/apex/home-data.js"></script>
             <!-- summernote -->
             <script src="/assets/plugins/summernote/summernote.js"></script>
             <script src="/assets/js/pages/summernote/summernote-data.js"></script>
+            <!-- dropzone -->
+            <script src="/assets/plugins/dropzone/dropzone.js"></script>
+            <script src="/assets/plugins/dropzone/dropzone-call.js"></script>
             <!-- end js include path -->
+
+
 </body>
 
 </html>

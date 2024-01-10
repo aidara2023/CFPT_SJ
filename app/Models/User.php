@@ -99,8 +99,8 @@ class User extends Authenticatable
         return $this->hasMany(Eleve::class, 'id_user', 'id');
     }
 
-    public function formateurs(){
-        return $this->hasMany(Formateur::class);
+    public function formateur(){
+        return $this->hasMany(Formateur::class, 'id_user', 'id');
     }
 
     public function emprunter_materiels(){
