@@ -1,9 +1,9 @@
-@extends('layout.app')
-@section('titre')
-    Utilisateur
+@extends('layouts.app')
+@section('fonction')
+   Administrateur
 @endsection
 @section('content')
-    <div class="elements flou " id="app">
+    {{--  <div class="elements flou " id="app">
         @include('layout.header')
 
         <div class="controle">
@@ -11,18 +11,7 @@
                 <div class="recherche">
                     <input type="text" placeholder="Rechercher...">
                 </div>
-                {{--  <button class="filtrer mdl">
-                <i class="fi fi-rr-bars-sort"></i>
-                <span class="grand_ecran_seulement">Filtrer</span>
-            </button> --}}
-            </div>
-            <!-- Onglets de navigation -->
-            {{--      <div class="recherche onglets grand_ecran_seulement">
-            <div data-fenetre="">Formateurs</div>
-            <div data-fenetre="">Eleve</div>
-            <div data-fenetre="">Administration</div>
-            <div data-fenetre="">Appui</div>
-        </div> --}}
+               
             <div class="petit_ecran_seulement"></div>
 
             <button class="ajouter mdl">
@@ -33,7 +22,7 @@
 
         <liste-utilisateur></liste-utilisateur>
 
-        <!-- debut modal pour modifier utilisateur -->
+       
         <dialog data-modal-modification class="modal">
             <h1>Modification</h1>
             <div class="contenu">
@@ -131,9 +120,7 @@
                 <button type="button" data-close-modal class="texte">Annuler</button>
             </div>
         </dialog>
-        {{--  Fin modal pour modifier utilisateur --}}
-
-        {{--  Debut modal pour ajouter utilisateur --}}
+     
         <dialog data-modal-ajout class="modal ">
             <utilisateur-create></utilisateur-create>
         </dialog>
@@ -161,7 +148,7 @@
             </div>
         </dialog>
 
-        <!-- class="modal actif" -->
+       
         <dialog data-modal-modification class="modal">
             <h1>Encaissement</h1>
             <div class="contenu">
@@ -294,5 +281,9 @@
         </dialog>
 
         <span class="fond"></span>
+    </div> --}}
+
+    <div class="page-content-wrapper" id="app">
+       <liste-utilisateur></liste-utilisateur>
     </div>
 @endsection

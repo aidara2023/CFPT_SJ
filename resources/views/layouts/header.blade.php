@@ -192,9 +192,9 @@
             <ul class="dropdown-menu dropdown-menu-default">
                 <li>
                     <a href="user_profile.html">
-                        <i class="icon-user"></i> Profile </a>
+                        <i class="icon-user"></i> Profil </a>
                 </li>
-                <li>
+         {{--        <li>
                     <a href="#">
                         <i class="icon-settings"></i> Settings
                     </a>
@@ -203,16 +203,16 @@
                     <a href="#">
                         <i class="icon-directions"></i> Help
                     </a>
-                </li>
+                </li> --}}
                 <li class="divider"> </li>
-                <li>
+               {{--  <li>
                     <a href="lock_screen.html">
                         <i class="icon-lock"></i> Lock
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('logout') }}">
-                        <i class="icon-logout"></i> Deconnexion </a>
+                        <i class="icon-logout"></i> Déconnexion </a>
                 </li>
             </ul>
         </li>

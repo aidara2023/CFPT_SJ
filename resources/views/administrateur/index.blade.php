@@ -25,7 +25,7 @@
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                            href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                            href="{{ route('admin_index') }}">Accueil</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                     <li class="active">Tableau de Bord</li>
                 </ol>

@@ -45,35 +45,29 @@
                         </li>
                     </ul> --}}
                 </li>
-                <li class="nav-item">
-                    <a href="event.html" class="nav-link nav-toggle"> <i
-                            data-feather="calendar"></i>
-                        <span class="title">Utilisateurs</span>
-                    </a>
-                </li>
+              
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i data-feather="user"></i>
-                        <span class="title">Professors</span> <span class="arrow"></span>
+                        <span class="title">Utilisateur</span> <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="all_professors.html" class="nav-link "> <span
-                                    class="title">All
-                                    Professors</span>
+                            <a href="{{route('utilisateur_index')}}" class="nav-link "> <span
+                                    class="title">Liste Utilisateur</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                      {{--   <li class="nav-item">
                             <a href="add_professor.html" class="nav-link "> <span
                                     class="title">Add
                                     Professor</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href="add_professor_bootstrap.html" class="nav-link "> <span
-                                    class="title">Add Professor Bootstrap</span>
+                            <a href="{{route('utilisateur_create')}}" class="nav-link "> <span
+                                    class="title">Nouveau Utilisateur</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                       {{--  <li class="nav-item">
                             <a href="edit_professor.html" class="nav-link "> <span
                                     class="title">Edit
                                     Professor</span>
@@ -84,46 +78,67 @@
                                     class="title">About
                                     Professor</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="event.html" class="nav-link nav-toggle"> <i
+                            data-feather="calendar"></i>
+                        <span class="title">Inscription</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
-                        <span class="title">Students</span><span class="arrow"></span></a>
+                        <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
                         <li class="nav-item">
                             <a href="all_students.html" class="nav-link "> <span
-                                    class="title">All
-                                    Students</span>
+                                    class="title">Service</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="add_student.html" class="nav-link "> <span
-                                    class="title">Add
-                                    Student</span>
+                                    class="title">Direction</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="add_student_bootstrap.html" class="nav-link "> <span
-                                    class="title">Add
-                                    Student Bootstrap</span>
+                                    class="title">Département</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="edit_student.html" class="nav-link "> <span
-                                    class="title">Edit
-                                    Student</span>
+                                    class="title">Classe</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">About
-                                    Student</span>
+                                    class="title">Filière</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_profile.html" class="nav-link "> <span
+                                    class="title">Type Formation</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_profile.html" class="nav-link "> <span
+                                    class="title">Batiment</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_profile.html" class="nav-link "> <span
+                                    class="title">Salle</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_profile.html" class="nav-link "> <span
+                                    class="title">Message Alerte</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i data-feather="book"></i>
                         <span class="title">Courses</span> <span class="arrow"></span>
                         <span class="label label-rouded label-menu label-success">new</span>
@@ -159,8 +174,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+               {{--  <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i
                             data-feather="book-open"></i>
                         <span class="title">Library</span> <span class="arrow"></span>
@@ -191,8 +206,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+               {{--  <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i
                             data-feather="briefcase"></i>
                         <span class="title">Departments</span> <span class="arrow"></span>
@@ -710,8 +725,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i data-feather="chevrons-down"></i>
                         <span class="title">Multi Level Menu</span>
@@ -784,6 +799,13 @@
                                 <i data-feather="lock"></i> Item 3 </a>
                         </li>
                     </ul>
+                </li> --}}
+                <li class="nav-item">
+                  
+                    <a href="{{ route('logout') }}" class="nav-link nav-toggle"> <i
+                        class="icon-logout"></i>
+                        <span class="title">Déconnexion</span>
+                    </a>
                 </li>
             </ul>
         </div>

@@ -53,7 +53,7 @@ class user_controller extends Controller
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
+            $users = User::with('formateur.unite_de_formation.departement', 'role', 'direction' , 'service')->whereIn('id_role', $roles->pluck('id'))->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
