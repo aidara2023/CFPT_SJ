@@ -53,7 +53,7 @@
                 <div class="page-logo">
                     <a href="{{ route('admin_index') }}">
                         <span class="logo-icon material-icons fa-rotate-45">school</span>
-                        <span class="logo-default">CFPT Digital</span> </a>
+                        <span class="logo-default">DFC</span> </a>
                 </div>
                 <!-- logo end -->
                 <ul class="nav navbar-nav navbar-left in">

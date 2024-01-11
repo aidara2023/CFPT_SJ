@@ -534,11 +534,8 @@ export default {
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
-            
 
         });
-        console.log(eventData.prenom);
-    
 
     },
     computed: {
