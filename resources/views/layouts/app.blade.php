@@ -488,6 +488,10 @@
             <!-- dropzone -->
             <script src="/assets/plugins/dropzone/dropzone.js"></script>
             <script src="/assets/plugins/dropzone/dropzone-call.js"></script>
+            <!-- data tables -->
+          {{--   <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
+            <script src="/assets/js/pages/table/table_data.js"></script> --}}
             <!-- end js include path -->
 
 

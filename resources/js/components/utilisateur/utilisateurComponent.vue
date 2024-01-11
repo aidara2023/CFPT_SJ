@@ -291,7 +291,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list3" class="mdl-textfield__label">Choisissez Genre</label>
-            <select class="mdl-textfield__input" id="list3" type="text" readonly tabIndex="-1" v-model="form.genre"
+            <select class="mdl-textfield__input" id="list3"  readonly tabIndex="-1" v-model="form.genre"
                 @change="validatedata('genre')">
                 <option value="Masculin">Masculin</option>
                 <option value="Féminin">Féminin</option>
@@ -346,7 +346,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="listrole" class="mdl-textfield__label"> Choisissez un role</label>
-            <select class="mdl-textfield__input" id="roleSelect" type="text" readonly tabIndex="-1" v-model="form.id_role"
+            <select class="mdl-textfield__input" id="roleSelect" readonly tabIndex="-1" v-model="form.id_role"
                 @change="changement(form.id_role)">
 
                 <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
@@ -359,7 +359,7 @@
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width" >
             <label for="list5" class="mdl-textfield__label">Choisissez Type Professeur</label>
-            <select class="mdl-textfield__input" id="list5" type="text" readonly tabIndex="-1" v-model="form.type"
+            <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
                 <option value="Etat">Etat</option>
                 <option value="Etat">Recruté</option>
@@ -375,7 +375,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list6" class="mdl-textfield__label">Choisissez Situation Matrimoniale</label>
-            <select class="mdl-textfield__input" id="list6" type="text" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
                 @change="validatedata('situation_matrimoniale')">
                 <option value="Célibataire">Célibataire</option>
                 <option value="Marié">Marié(e)</option>
@@ -391,7 +391,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
-            <select class="mdl-textfield__input" id="list7" type="text" readonly tabIndex="-1" v-model="form.id_specialite"
+            <select class="mdl-textfield__input" id="list7"  readonly tabIndex="-1" v-model="form.id_specialite"
                 @change="validatedata('id_specialite')">
                 <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
                 
@@ -407,7 +407,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list8" class="mdl-textfield__label">Choisissez Département</label>
-            <select class="mdl-textfield__input" id="list8" type="text" readonly tabIndex="-1" v-model="form.id_departement"
+            <select class="mdl-textfield__input" id="list8"  readonly tabIndex="-1" v-model="form.id_departement"
                 @change="validatedata('departement')">
                 <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
                 
@@ -421,7 +421,7 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list9" class="mdl-textfield__label">Choisissez Service</label>
-            <select class="mdl-textfield__input" id="list9" type="text" readonly tabIndex="-1" v-model="form.id_service"
+            <select class="mdl-textfield__input" id="list9"  readonly tabIndex="-1" v-model="form.id_service"
                 @change="validatedata('service')">
                 <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
                 
@@ -534,8 +534,11 @@ export default {
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
+            
 
         });
+        console.log(eventData.prenom);
+    
 
     },
     computed: {
