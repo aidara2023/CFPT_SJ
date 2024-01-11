@@ -7,6 +7,7 @@ use App\Http\Requests\user\user_request;
 use App\Models\Caissier;
 use App\Models\Formateur;
 use App\Models\Infirmier;
+use App\Models\personnel_admin_appui;
 use App\Models\Role;
 use App\Models\Tuteur;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class user_controller extends Controller
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::with('formateur.unite_de_formation.departement', 'role')->whereIn('id_role', $roles->pluck('id'))->get();
+            $users = User::with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service')->whereIn('id_role', $roles->pluck('id'))->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
@@ -168,19 +169,22 @@ class user_controller extends Controller
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==4){
-                $caissier=new Caissier();
-                $caissier->id_user= $user->id;
-                $caissier->id_service= $request->id_service;
-                $caissier->save();
+        elseif($request['id_role']==4 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
+                $personnel_admin=new Personnel_admin_appui();
+                $personnel_admin->id_user= $user->id;
+                $personnel_admin->id_service= $request->id_service;
+                $personnel_admin->type_personnel= "Personnel Administratif";
+                $personnel_admin->save();
             }
-            elseif($request['id_role']==3){
-                $infirmier=new Infirmier();
-                $infirmier->id_user= $user->id;
-                $infirmier->save();
+            else{
+                $personnel_appui=new Personnel_admin_appui();
+                $personnel_appui->type_personnel= "Personnel Appui";
+                $personnel_appui->id_user= $user->id;
+                $personnel_appui->id_service= $request->id_service;
+                $personnel_appui->save();
             }
-        
-
+    
+            
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -269,24 +273,7 @@ public function delete($id) {
         }
 
     }
-    public function disableUser($id) {
-        $user = User::find($id);
-    
-        if ($user != null) {
-            $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
-            $user->save();
-    
-            return response()->json([
-                'statut' => 200,
-                'message' => 'Utilisateur désactivé avec succès',
-            ], 200);
-        } else {
-            return response()->json([
-                'statut' => 500,
-                'message' => 'L utilisateur n\'est pas désactivé',
-            ], 500);
-        }
-    }
+   
     public function toggleUserStatus($id) {
         $user = User::find($id);
     

@@ -252,8 +252,8 @@
                                                             <th> Email </th>
                                                             <th> Téléphone </th>
                                                             <th> Fonction </th>
-                                                          
-                    
+                                                            <th> Service </th>
+                                                           
                                                             <th> Action </th>
                                                         </tr>
                                                     </thead>
@@ -272,7 +272,7 @@
                                                                 {{ utilisateur.telephone }}</a></td>
                                                            
                                                                     <td class="left">{{ utilisateur.role.intitule }}</td>
-                                                                   
+                                                                    <td class="left" v-for="eles in utilisateur.personnel_admin_appui">{{ eles.service.nom_service }}</td>
                                                                    
                                                          
                                                             <td>

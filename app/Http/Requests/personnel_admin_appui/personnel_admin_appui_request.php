@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\personnel_administratif;
+namespace App\Http\Requests\personnel_admin_appui;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class personnel_administratif_request extends FormRequest
+class personnel_admin_appui_request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class personnel_administratif_request extends FormRequest
         return [
             'id_user'=>'required',
             'id_service'=>'required',
-           
+            'type_personnel'=>'required'
         ];
     }
 }
