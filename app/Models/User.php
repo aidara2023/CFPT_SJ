@@ -110,6 +110,10 @@ class User extends Authenticatable
         return $this->hasMany(Consultation::class);
     }
 
+    public function personnel_admin_appui(){
+        return $this->hasMany(Personnel_admin_appui::class, 'id_user', 'id');
+    }
+
    /*  public static function generateur_matricule($prefix= 'M'){
         $dernier_user=self::orderBy('matricule_nombre', 'desc')->first();
         $prochain_nombre= $dernier_user ? $dernier_user->matricule_nombre + 1 : 10066;
