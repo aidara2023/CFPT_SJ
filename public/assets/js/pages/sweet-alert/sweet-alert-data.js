@@ -6,13 +6,13 @@ $(function () {
     } else if (type === "dialog2") {
       showDialog2();
     } else if (type === "dialog3") {
-      showDialog3();
+      showDialog3(text);
     } else if (type === "dialog4") {
       showDialog4();
     } else if (type === "dialog5") {
       showDialog5();
     } else if (type === "dialog6") {
-      showDialog6();
+      showDialog6(title);
     } else if (type === "dialog7") {
       showDialog7();
     } else if (type === "dialog8") {
@@ -33,12 +33,12 @@ function showDialog2() {
   Swal.fire("The Internet?", "That thing is still around?", "question");
 }
 
-function showDialog3() {
+function showDialog3(text) {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Something went wrong!",
-    footer: "<a href>Why do I have this issue?</a>",
+    text: text,
+    footer: "<a href>Reessayer s'il vous plait</a>",
   });
 }
 
@@ -68,7 +68,7 @@ function showDialog5() {
   });
 }
 
-function showDialog6() {
+/* function showDialog6() {
   Swal.fire({
     position: "bottom-end",
     icon: "success",
@@ -76,7 +76,18 @@ function showDialog6() {
     showConfirmButton: false,
     timer: 1500,
   });
+} */
+
+function showDialog6( title) {
+  Swal.fire({
+    position:" bottom-end",
+    icon: "success",
+    title: title,
+    showConfirmButton: false,
+    timer: 1500,
+  });
 }
+
 
 function showDialog7() {
   Swal.fire({

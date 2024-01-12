@@ -7,7 +7,7 @@
 
 $(document).ready(function () {
   $("#example47").DataTable({
-
+    responsive: true,
     ajax: {
       url: '/user/getPersonnel', // Endpoint pour récupérer les données
       type: 'GET',
@@ -21,8 +21,8 @@ $(document).ready(function () {
         // Formatez les données restantes si nécessaire
         const formattedData = filteredData.map(utilisateur => {
           return {
-            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`, matricule: `
-            <td> ${utilisateur.matricule}</td>`,
+            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`,
+            matricule: ` <td> ${utilisateur.matricule}</td>`,
             prenom: `<td class="left"> ${utilisateur.prenom}</td>`,
             nom: `<td class="left"> ${utilisateur.nom}</td>`,
             email: `<td> <a href="mailto: ${utilisateur.email}"> ${utilisateur.email} </a> </td>`,
@@ -31,15 +31,15 @@ $(document).ready(function () {
             departement: `<td class="left"> ${utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', ')}</td>`,
             // ... autres propriétés que vous souhaitez inclure ...
             action: `
-                      <td>  
-                        <a class="tblEditBtn" onclick="openModal(${utilisateur.id})">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                        <a class="tblDelBtn" onclick="toggleUserStatus(${utilisateur.id})">
-                          <i class="fa fa-trash-o"></i>
-                        </a> 
-                      </td>
-                        `,
+            <td>  
+                <a class="tblEditBtn" >
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="tblDelBtn" >
+                    <i class="fa fa-trash-o"></i>
+                </a> 
+            </td>
+        `,
           };
         });
 
@@ -56,13 +56,29 @@ $(document).ready(function () {
       { data: 'telephone', name: 'telephone' },
       { data: 'unite_formation', name: 'unite_formation' },
       { data: 'departement', name: 'departement' },
-      { data: 'action', name: 'action' },
+      {
+        data: 'action',
+        name: 'action',
+        render: function (data, type, row) {
+          return `
+            <td>  
+                <a class="tblEditBtn" @click="openUserDetailsPage(${row.id})">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="tblDelBtn" @click="toggleUserStatus(${row.id})">
+                    <i class="fa fa-trash-o"></i>
+                </a> 
+            </td>
+          `;
+        }
+      },
     ],
 
   });
 
-  $("#personnelAdmin").DataTable({
-
+  $("#exemple1").DataTable({
+    responsive: true,
+    paging: true,
     ajax: {
       url: '/user/getPersonnel', // Endpoint pour récupérer les données
       type: 'GET',
@@ -77,25 +93,26 @@ $(document).ready(function () {
         // Formatez les données restantes si nécessaire
         const formattedData = filteredData.map(utilisateur => {
           return {
-            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`, matricule: `
-            <td> ${utilisateur.matricule}</td>`,
-            prenom: `<td class="left"> ${utilisateur.prenom}</td>`,
-            nom: `<td class="left"> ${utilisateur.nom}</td>`,
+            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`,
+            matricule: ` <td> ${utilisateur.matricule}</td>`,
+            prenom: `<td > ${utilisateur.prenom}</td>`,
+            nom: `<td > ${utilisateur.nom}</td>`,
             email: `<td> <a href="mailto: ${utilisateur.email}"> ${utilisateur.email} </a> </td>`,
             telephone: `<td> <a href="tel: ${utilisateur.telephone}"> ${utilisateur.telephone}</a></td>`,
-            //unite_formation: `<td class="left"> ${utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', ')}</td>`,
-            //departement: `<td class="left"> ${utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', ')}</td>`,
+            fonction: `<td >  ${utilisateur.role.intitule}</td>`,
+            nom_service: `<td > ${utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', ')}</td>`,
+            //departement: `<td > ${utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', ')}</td>`,
             // ... autres propriétés que vous souhaitez inclure ...
             action: `
-                      <td>  
-                        <a class="tblEditBtn" onclick="openModal(${utilisateur.id})">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                        <a class="tblDelBtn" onclick="toggleUserStatus(${utilisateur.id})">
-                          <i class="fa fa-trash-o"></i>
-                        </a> 
-                      </td>
-                        `,
+            <td>  
+                <a class="tblEditBtn" >
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="tblDelBtn">
+                    <i class="fa fa-trash-o"></i>
+                </a> 
+            </td>
+        `,
           };
         });
 
@@ -110,13 +127,35 @@ $(document).ready(function () {
       { data: 'nom', name: 'nom' },
       { data: 'email', name: 'email' },
       { data: 'telephone', name: 'telephone' },
-      //{ data: 'unite_formation', name: 'unite_formation' },
-     // { data: 'departement', name: 'departement' },
-      { data: 'action', name: 'action' },
+      { data: 'fonction', name: 'fonction' },
+      { data: 'nom_service', name: 'nom_service' },
+      // { data: 'departement', name: 'departement' },
+      {
+        data: 'action',
+        name: 'action',
+        render: function (data, type, row) {
+          return `
+            <td>  
+                <a class="tblEditBtn" @click="openUserDetailsPage(${row.id})">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="tblDelBtn" @click="toggleUserStatus(${row.id})">
+                    <i class="fa fa-trash-o"></i>
+                </a> 
+            </td>
+          `;
+        }
+      },
     ],
+
+
 
   });
 
+  function openUserDetailsPage(userId) {
+    // Redirigez vers la page d'affichage des détails de l'utilisateur en utilisant l'ID
+    window.location.href = `/utilisateur/create/${userId}`; // Assurez-vous d'ajuster le chemin selon votre structure d'URL
+  }
 
   "use strict";
   $("#example1").DataTable();
@@ -236,7 +275,7 @@ $(document).ready(function () {
     }
   });
 
-   var dataSet = [
+  var dataSet = [
     [
       "Tiger Nixon",
       "System Architect",
@@ -504,20 +543,20 @@ $(document).ready(function () {
       "2009/12/09",
       "$85,675",
     ],
-  ]; 
+  ];
 
 
-   $("#dataTable").DataTable({
-      data: dataSet,
-      columns: [
-        { title: "Name" },
-        { title: "Position" },
-        { title: "Office" },
-        { title: "Extn." },
-        { title: "Start date" },
-        { title: "Salary" },
-      ],
-    });
+  $("#dataTable").DataTable({
+    data: dataSet,
+    columns: [
+      { title: "Name" },
+      { title: "Position" },
+      { title: "Office" },
+      { title: "Extn." },
+      { title: "Start date" },
+      { title: "Salary" },
+    ],
+  });
 
   $("#exportTable").DataTable({
     dom: "Bfrtip",

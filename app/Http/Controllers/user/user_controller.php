@@ -13,6 +13,8 @@ use App\Models\Tuteur;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class user_controller extends Controller
 {
@@ -49,6 +51,26 @@ class user_controller extends Controller
 
     //     }
     // }
+
+    public function verifMail(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore(auth()->id()),
+        ],
+        // Ajoutez d'autres règles de validation pour les champs nécessaires
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Le reste de votre code pour le traitement du formulaire
+
+    return response()->json(['success' => true]);
+}
 
     public function getPersonnelAdministratif() {
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
@@ -169,7 +191,7 @@ class user_controller extends Controller
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==4 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
+        elseif($request['id_role']==4 || $request['id_role']==3 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
                 $personnel_admin=new Personnel_admin_appui();
                 $personnel_admin->id_user= $user->id;
                 $personnel_admin->id_service= $request->id_service;

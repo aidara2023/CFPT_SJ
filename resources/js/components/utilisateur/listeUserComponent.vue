@@ -159,7 +159,7 @@
                                             </div>
                                             <table
                                                 class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example47">
+                                                id="example47" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
@@ -175,43 +175,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class="odd gradeX">
-                                                        <!-- <template v-if="utilisateur.role.id === 2">
-                                                            <td class="patient-img">
-                                                                <img :src="getImageUrl(utilisateur.photo)" alt="">
-                                                            </td>
 
-                                                            <td>{{ utilisateur.matricule }}</td>
-
-                                                            <td class="left">{{ utilisateur.prenom }}</td>
-
-                                                            <td class="left">{{ utilisateur.nom }}</td>
-
-                                                            <td>
-                                                                <a :href="'mailto:' + utilisateur.email">
-                                                                {{ utilisateur.email }} </a>
-                                                            </td>
-
-                                                            <td><a :href="'tel:' + utilisateur.telephone">
-                                                                {{ utilisateur.telephone }}</a>
-                                                            </td>
-
-                                                            <td class="left" v-for="ele in utilisateur.formateur">{{
-                                                                ele.unite_de_formation.nom_unite_formation }}
-                                                            </td>
-
-                                                            <td class="left" v-for="eles in utilisateur.formateur">{{
-                                                                eles.unite_de_formation.departement.nom_departement }}
-                                                            </td>
-
-                                                            <td>
-                                                                <a class="tblEditBtn" @click="openModal(utilisateur)">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <a class="tblDelBtn" @click="toggleUserStatus(utilisateur)">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </a>
-                                                            </td>
-                                                        </template>-->
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -240,14 +204,12 @@
                                                             class="btn btn-primary">
                                                             Ajouter <i class="fa fa-plus"></i>
                                                         </a>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <table
-
-                                               class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="personnelAdmin">
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="exemple1" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
@@ -256,57 +218,14 @@
                                                         <th> Nom </th>
                                                         <th> Email </th>
                                                         <th> Téléphone </th>
-                                                       <!--  <th> Fonction </th> -->
+                                                        <th> Fonction </th>
+                                                        <th> Service </th>
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="odd gradeX">
-                                                        <!-- <template
-                                                            v-if="utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                                                    class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                    id="example4">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th> Matricule </th>
-                                                            <th> Prénom </th>
-                                                            <th> Nom </th>
-                                                            <th> Email </th>
-                                                            <th> Téléphone </th>
-                                                            <th> Fonction </th>
-                                                            <th> Service </th>
-                                                           
-                                                            <th> ActionS </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs" :key="index">
-                                                            <template v-if=" utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                                                            <td class="patient-img">
-                                                                <img :src="getImageUrl(utilisateur.photo)" alt="">
-                                                            </td>
-                                                            <td>{{ utilisateur.matricule }}</td>
-                                                            <td class="left">{{ utilisateur.prenom }}</td>
-                                                            <td class="left">{{ utilisateur.nom }}</td>
-                                                            <td><a :href="utilisateur.email">
-                                                                    {{ utilisateur.email }} </a></td>
-                                                            <td><a :href="utilisateur.telephone">
-                                                                    {{ utilisateur.telephone }}</a></td>
-                                                            <td class="left">{{ utilisateur.role.intitule }}</td>
 
-                                                                    <td class="left">{{ utilisateur.role.intitule }}</td>
-                                                                    <td class="left" v-for="eles in utilisateur.personnel_admin_appui">{{ eles.service.nom_service }}</td>
-                                        
-                                                            <td>
-                                                                <a class="tblEditBtn" @click="openModal(utilisateur)">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <a class="tblDelBtn" @click="toggleUserStatus(utilisateur)">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </a>
-                                                            </td>
-                                                        </template> -->
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -518,18 +437,7 @@ export default {
             bus.emit('utilisateurModifier', eventData);
             console.log(eventData)
 
-            /*  var fond = document.querySelector('.fond');
-             var flou = document.querySelectorAll('.flou');
-             var modification = document.querySelector("[data-modal-ajout]");
- 
-             flou.forEach(item => {
-                 item.classList.add("actif");
-             });
- 
-             fond.classList.add("actif");
-             modification.showModal();
-             modification.classList.add("actif"); */
-            //window.location.href = '/utilisateur/create';
+
 
 
         },
@@ -538,15 +446,28 @@ export default {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
+        openUserDetailsPage(userId) {
+            // Redirigez vers la page d'affichage des détails de l'utilisateur en utilisant l'ID
+            window.location.href = `/utilisateur/create/${userId}`; // Assurez-vous d'ajuster le chemin selon votre structure d'URL
+            console.log("teste")
+        },
+        toggleUserStatus(userId) {
+            // Logique pour supprimer l'utilisateur avec l'ID userId
+            // Vous pouvez utiliser une boîte de dialogue de confirmation avant de supprimer
+            // ou afficher un formulaire de suppression dans le même composant
+            console.log(`Supprimer l'utilisateur avec l'ID ${userId}`);
+        },
+
 
 
     }
 }
 </script>
 <style>
-  .small-image {
-    width: 34px; /* Ajustez la taille comme nécessaire */
+.small-image {
+    width: 34px;
+    /* Ajustez la taille comme nécessaire */
     height: 34px;
     border-radius: 50%;
-  }
+}
 </style>
