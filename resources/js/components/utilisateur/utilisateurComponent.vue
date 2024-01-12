@@ -291,7 +291,6 @@
     </div>
 
     <div class="col-lg-6 p-t-20">
-
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
@@ -357,6 +356,7 @@
                 <i class="fa fa-upload"></i> Cliquez pour télécharger
             </div>
         </div>
+        <span class="erreur">{{ photo_erreur }}</span>
     </div>
 
 
@@ -405,7 +405,6 @@
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-
             <label for="list6" class="mdl-textfield__label">Choisissez Situation Matrimoniale</label>
             <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
                 @change="validatedata('situation_matrimoniale')">
@@ -414,7 +413,6 @@
             </select>
             <span class="erreur">{{ situation_matrimoniale_erreur }}</span>
         </div>
-
     </div>
 
 
@@ -422,13 +420,11 @@
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-
             <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
             <select class="mdl-textfield__input" id="list7" readonly tabIndex="-1" v-model="form.id_specialite"
                 @change="validatedata('id_specialite')">
                 <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
                     specialite.intitule }}</option>
-
             </select>
             <span class="erreur">{{ id_specialite_erreur }}</span>
         </div>
@@ -437,7 +433,6 @@
 
 
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
-
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
@@ -446,14 +441,13 @@
                 @change="validatedata('departement')">
                 <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
                     departement.nom_departement }}</option>
-
             </select>
             <span class="erreur">{{ id_departement_erreur }}</span>
         </div>
     </div>
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 4">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser !== 1 && this.interesser !== 2 && this.interesser !== ''">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
@@ -545,7 +539,8 @@ export default {
             invisible: "",
             off: "",
             i_1_2_3: "",
-            urlPhoto:false,
+            urlPhoto: false,
+            photo_erreur: "",
         }
     },
 
@@ -603,7 +598,7 @@ export default {
     },
     computed: {
         photoUrl() {
-            this.urlPhoto= true;
+            this.urlPhoto = true;
             return this.photo ? URL.createObjectURL(this.photo) : '';
         },
     },
@@ -613,7 +608,7 @@ export default {
             // Cliquez sur l'élément de fichier invisible
             this.$refs.fileInput.click();
         },
-      
+
         async soumettre() {
             const formdata = new FormData();
             formdata.append('nom', this.form.nom);
@@ -637,47 +632,17 @@ export default {
                 const user_store = await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
-                var ajout = document.querySelector('[data-modal-ajout]');
-                var confirmation = document.querySelector('[data-modal-confirmation]');
-
-
-                /* console.log(ajout); */
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                //ajout.classList.remove("actif");
-                ajout.close();
-
-
-                confirmation.style.backgroundColor = 'white';
-                confirmation.style.color = 'var(--clr)';
-
-
-
-                //setTimeout(function(){
-                confirmation.showModal();
-                confirmation.classList.add("actif");
-                //confirmation.close();
-                //}, 1000);
-
-                setTimeout(function () {
-                    confirmation.close();
-
-                    setTimeout(function () {
-                        confirmation.classList.remove("actif");
-                    }, 100);
-
-                }, 1700);
+                showDialog6("Utilisateur ajouter avec succès");
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
+                    showDialog3("Cet utilisateur existe déjà");
                 }
                 else {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
         },
@@ -765,6 +730,7 @@ export default {
 
         ajoutimage(event) {
             this.photo = event.target.files[0];
+            this.photo_erreur = "";
         },
 
         getImageUrl() {
@@ -855,9 +821,11 @@ export default {
             this.id_departement_erreur = "";
             this.id_service_erreur = "";
             this.type_erreur = "";
+            this.photo_erreur = "";
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
+
 
 
 
@@ -919,6 +887,15 @@ export default {
                         return true
                     }
                     // Ajoutez d'autres validations si nécessaire
+                    break;
+                case 'photo':
+                    this.photo_erreur = "";
+                    //Vérification de matrimoniale
+                    if (this.photo === "") {
+                        this.photo_erreur = "La photo est obligatoire "
+                        i = 1;
+                        return true
+                    }
                     break;
                 case 'prenom':
                     this.prenom_user_erreur = "";
@@ -1120,6 +1097,7 @@ export default {
             this.id_departement_erreur = "";
             this.type_erreur = "";
             this.id_role_erreur = "";
+            this.photo_erreur = "";
             var i = 0;
             // pour nom
 
@@ -1134,7 +1112,12 @@ export default {
                 /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                 i = 1;
             }
-
+            // Effectuez la validation pour le champ 'photo'
+            if (this.photo === "") {
+                this.photo_erreur = "Ce champ est obligatoire"
+                i = 1;
+                console.log("videnomeleve=" + i);
+            }
             //pour prenom
             if (this.form.prenom === "") {
                 this.prenom_user_erreur = "Ce champ est obligatoire"
@@ -1177,14 +1160,33 @@ export default {
 
             //Vérification de l' email
             if (this.form.email === "") {
-                this.email_user_erreur = "L'email est obligatoire"
+                this.email_user_erreur = "L'email est obligatoire";
+                i = 1;
+            } else if (!this.validateEmail(this.form.email)) {
+                this.email_user_erreur = "L'email n'est pas valide";
                 i = 1;
             } else {
-                if (!this.validateEmail(this.form.email)) {
-                    this.email_user_erreur = "L'email n'est pas valide";
-                    i = 1;
-                }
+                // Appel à votre backend pour vérifier l'existence de l'e-mail
+                axios.post('/verif/mail', { email: this.form.email })
+                    .then(response => {
+                        // Succès - faire quelque chose si nécessaire
+                    })
+                    .catch(error => {
+                        if (error.response.status === 422) {
+                            const errors = error.response.data.errors;
+
+                            // Vérifiez si l'erreur spécifique liée à l'e-mail existe
+                            if (errors && errors.email) {
+                                this.email_user_erreur = errors.email[0];
+                                i = 1;
+                                if (this.email_user_erreur == "The email has already been taken.") {
+                                    this.email_user_erreur = "Cet e-mail existe déjà";
+                                }
+                            }
+                        }
+                    });
             }
+
 
             // Vérification de la date de naissance
             if (this.form.date_naissance === "") {
@@ -1271,7 +1273,7 @@ export default {
                 i = 1;
             }
 
-            if (this.interesser == 4) {
+            if (this.interesser !== 1 && this.interesser !== 2 && this.interesser !== '') {
                 if (this.form.id_service === "") {
                     this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
                     i = 1;
@@ -1447,21 +1449,22 @@ export default {
 </script>
 <style scoped>
 .dropzone {
-  border: 2px dashed #ccc;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  /* Spécifiez les dimensions du dropzone */
-  width: 100%;
-  height: 80%;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    /* Spécifiez les dimensions du dropzone */
+    width: 100%;
+    height: 80%;
 }
 
 .uploaded-image {
-  /* Spécifiez les dimensions de l'image téléchargée */
-  width: 100%;
-  height: 100%;
-  float: left;
-  object-fit: cover; /* Garantit que l'image couvre complètement le conteneur */
+    /* Spécifiez les dimensions de l'image téléchargée */
+    width: 100%;
+    height: 100%;
+    float: left;
+    object-fit: cover;
+    /* Garantit que l'image couvre complètement le conteneur */
 }
 </style>
 

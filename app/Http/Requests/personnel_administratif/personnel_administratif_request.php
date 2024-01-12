@@ -22,8 +22,8 @@ class personnel_administratif_request extends FormRequest
     public function rules(): array
     {
         return [
-            'id_user'=>'required',
-            'id_service'=>'required',
+            'id_user'=>'',
+            'id_service'=>'',
            
         ];
     }
