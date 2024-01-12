@@ -1200,3 +1200,10 @@ tr.group:hover {
 .col-gray-dark {
   color: #343a40 !important;
 }
+.erreur{
+  color: #cb2027;
+  font-size: 12px;
+  text-wrap: wrap;
+  max-width: 140px;
+  
+}

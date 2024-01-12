@@ -39,4 +39,9 @@ class Service extends Model
       public function direction(){
         return $this->belongsTo(Direction::class, 'id_direction');
       }
+
+      public function personnel_admin_appui(){
+        return $this->hasMany(Personnel_admin_appui::class);
+    }
+
 }

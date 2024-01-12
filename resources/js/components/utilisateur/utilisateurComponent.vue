@@ -248,6 +248,7 @@
             <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
                 @input="validatedata('nom')">
             <label class="mdl-textfield__label">Nom</label>
+            <span class="erreur">{{ this.nom_user_erreur }}</span>
         </div>
     </div>
     <div class="col-lg-6 p-t-20">
@@ -256,6 +257,7 @@
             <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.prenom"
                 @input="validatedata('prenom')">
             <label class="mdl-textfield__label">Prénom</label>
+            <span class="erreur">{{ this.prenom_user_erreur }}</span>
         </div>
     </div>
 
@@ -264,6 +266,7 @@
             <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
                 @input="validatedata('date_naissance')">
             <label class="mdl-textfield__label">Date de Naissance</label>
+            <span class="erreur">{{ this.date_erreur }}</span>
         </div>
     </div>
 
@@ -272,32 +275,35 @@
             <input class="mdl-textfield__input" type="text" id="designation" v-model="form.lieu_naissance"
                 @input="validatedata('naissance')">
             <label class="mdl-textfield__label">Lieu de naissance</label>
+            <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
         </div>
     </div>
 
     <div class="col-lg-6 p-t-20">
-       
+
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <input class="mdl-textfield__input" type="text" id="list2" v-model="form.nationalite"
                 @input="validatedata('nationalite')">
             <label class="mdl-textfield__label">Nationalité</label>
+            <span class="erreur">{{ this.nationalite_erreur }}</span>
         </div>
 
     </div>
 
     <div class="col-lg-6 p-t-20">
-       
+
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list3" class="mdl-textfield__label">Choisissez Genre</label>
-            <select class="mdl-textfield__input" id="list3"  readonly tabIndex="-1" v-model="form.genre"
+            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.genre"
                 @change="validatedata('genre')">
                 <option value="Masculin">Masculin</option>
                 <option value="Féminin">Féminin</option>
             </select>
+            <span class="erreur">{{ this.genre_erreur }}</span>
         </div>
-        
+
     </div>
 
 
@@ -306,7 +312,7 @@
             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="text5"
                 v-model="form.telephone" @input="validatedata('telephone')">
             <label class="mdl-textfield__label" for="text5">Téléphone</label>
-            <span class="mdl-textfield__error">Number required!</span>
+            <span class="erreur">{{ this.telephone_erreur }}</span>
         </div>
     </div>
 
@@ -316,26 +322,50 @@
             <input class="mdl-textfield__input" type="text" id="designation" v-model="form.adresse"
                 @input="validatedata('adresse')">
             <label class="mdl-textfield__label">Adresse</label>
-            <span class="mdl-textfield__error">Enter Valid Address!</span>
+            <span class="erreur">{{ this.adresse_erreur }}</span>
         </div>
     </div>
 
 
-    <div class="col-lg-12 p-t-20">
+    <!-- <div class="col-lg-12 p-t-20">
         <label class="control-label col-md-3">Upload Photo
         </label>
         
         <div class="col-md-12">
             <div id="id_dropzone" class="dropzone"></div>
         </div>
+    </div> -->
+
+    <!--   <div class="col-lg-12 p-t-20">
+    <label class="control-label col-md-3">Upload Photo</label>
+    <div class="col-md-12 dropzone">
+        <input type="file" name="file" @change="handleFileChange" />
     </div>
+</div> -->
+
+    <div class="col-lg-12 p-t-20">
+        <label class="control-label col-md-3">Upload Photo</label>
+        <div class="col-md-12 dropzone" @click="openFileInput">
+            <input type="file" name="file" ref="fileInput" style="display: none;" @change="ajoutimage" />
+            <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
+            <div class="sidebar-user">
+                <div class="sidebar-user-picture">
+                    <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
+                </div>
+            </div>
+            <div v-if="!urlPhoto">
+                <i class="fa fa-upload"></i> Cliquez pour télécharger
+            </div>
+        </div>
+    </div>
+
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <input class="mdl-textfield__input" type="mail" id="txtemail" v-model="form.email"
                 @input="validatedata('email')">
             <label class="mdl-textfield__label">Email</label>
-            <span class="mdl-textfield__error">Enter Valid Email Address!</span>
+            <span class="erreur">{{ this.email_user_erreur }}</span>
         </div>
     </div>
 
@@ -351,13 +381,14 @@
 
                 <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
             </select>
+            <span class="erreur">{{ id_role_erreur }}</span>
         </div>
     </div>
 
 
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
         <div
-            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width" >
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
             <label for="list5" class="mdl-textfield__label">Choisissez Type Professeur</label>
             <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
@@ -365,6 +396,7 @@
                 <option value="Etat">Recruté</option>
                 <option value="Recruter">Prestataire</option>
             </select>
+            <span class="erreur">{{ type_erreur }}</span>
         </div>
     </div>
 
@@ -380,6 +412,7 @@
                 <option value="Célibataire">Célibataire</option>
                 <option value="Marié">Marié(e)</option>
             </select>
+            <span class="erreur">{{ situation_matrimoniale_erreur }}</span>
         </div>
 
     </div>
@@ -391,27 +424,31 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
-            <select class="mdl-textfield__input" id="list7"  readonly tabIndex="-1" v-model="form.id_specialite"
+            <select class="mdl-textfield__input" id="list7" readonly tabIndex="-1" v-model="form.id_specialite"
                 @change="validatedata('id_specialite')">
-                <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{ specialite.intitule }}</option>
-                
+                <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
+                    specialite.intitule }}</option>
+
             </select>
+            <span class="erreur">{{ id_specialite_erreur }}</span>
         </div>
     </div>
 
 
 
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
-       
+
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list8" class="mdl-textfield__label">Choisissez Département</label>
-            <select class="mdl-textfield__input" id="list8"  readonly tabIndex="-1" v-model="form.id_departement"
+            <select class="mdl-textfield__input" id="list8" readonly tabIndex="-1" v-model="form.id_departement"
                 @change="validatedata('departement')">
-                <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{ departement.nom_departement }}</option>
-                
+                <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
+                    departement.nom_departement }}</option>
+
             </select>
+            <span class="erreur">{{ id_departement_erreur }}</span>
         </div>
     </div>
 
@@ -421,18 +458,20 @@
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
             <label for="list9" class="mdl-textfield__label">Choisissez Service</label>
-            <select class="mdl-textfield__input" id="list9"  readonly tabIndex="-1" v-model="form.id_service"
+            <select class="mdl-textfield__input" id="list9" readonly tabIndex="-1" v-model="form.id_service"
                 @change="validatedata('service')">
-                <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}</option>
-                
+                <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}
+                </option>
+
             </select>
+            <span class="erreur">{{ id_service_erreur }}</span>
         </div>
     </div>
     <div class="col-lg-12 p-t-20 text-center">
 
         <button type="submit"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
-            @submit.prevent="validerAvantAjout()">Enregistrer</button>
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
         <button type="button"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger">Annuler</button>
 
@@ -506,6 +545,7 @@ export default {
             invisible: "",
             off: "",
             i_1_2_3: "",
+            urlPhoto:false,
         }
     },
 
@@ -537,14 +577,43 @@ export default {
 
         });
 
+        Dropzone.autoDiscover = false;
+
+        $(document).ready(function () {
+            var myDropzone = new Dropzone("#id_dropzone", {
+                maxFiles: 1, // Un seul fichier à la fois
+                url: "#", // Une URL factice ou vide
+                autoProcessQueue: false, // Désactiver le téléchargement automatique
+                addedfile: function (file) {
+                    // Stocker le fichier dans une variable
+                    var uploadedFile = file;
+
+                    // Vous pouvez également faire d'autres opérations ici si nécessaire
+
+                    console.log(uploadedFile);
+                },
+            });
+
+            // Gérer le téléchargement manuel lorsque vous êtes prêt
+            /*   $("#bouton_telechargement").on("click", function () {
+                myDropzone.processQueue();
+              }); */
+        });
+
     },
     computed: {
         photoUrl() {
+            this.urlPhoto= true;
             return this.photo ? URL.createObjectURL(this.photo) : '';
         },
     },
 
     methods: {
+        openFileInput() {
+            // Cliquez sur l'élément de fichier invisible
+            this.$refs.fileInput.click();
+        },
+      
         async soumettre() {
             const formdata = new FormData();
             formdata.append('nom', this.form.nom);
@@ -1376,4 +1445,23 @@ export default {
     }
 }
 </script>
+<style scoped>
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  /* Spécifiez les dimensions du dropzone */
+  width: 100%;
+  height: 80%;
+}
+
+.uploaded-image {
+  /* Spécifiez les dimensions de l'image téléchargée */
+  width: 100%;
+  height: 100%;
+  float: left;
+  object-fit: cover; /* Garantit que l'image couvre complètement le conteneur */
+}
+</style>
 

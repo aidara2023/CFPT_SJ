@@ -245,7 +245,8 @@
                                                 </div>
                                             </div>
                                             <table
-                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+
+                                               class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
                                                 id="personnelAdmin">
                                                 <thead>
                                                     <tr>
@@ -263,6 +264,25 @@
                                                     <tr class="odd gradeX">
                                                         <!-- <template
                                                             v-if="utilisateur.role.categorie_personnel === 'Personnel Administratif'">
+                                                    class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                    id="example4">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th> Matricule </th>
+                                                            <th> Prénom </th>
+                                                            <th> Nom </th>
+                                                            <th> Email </th>
+                                                            <th> Téléphone </th>
+                                                            <th> Fonction </th>
+                                                            <th> Service </th>
+                                                           
+                                                            <th> Action </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs" :key="index">
+                                                            <template v-if=" utilisateur.role.categorie_personnel === 'Personnel Administratif'">
                                                             <td class="patient-img">
                                                                 <img :src="getImageUrl(utilisateur.photo)" alt="">
                                                             </td>
@@ -274,6 +294,10 @@
                                                             <td><a :href="utilisateur.telephone">
                                                                     {{ utilisateur.telephone }}</a></td>
                                                             <td class="left">{{ utilisateur.role.intitule }}</td>
+
+                                                                    <td class="left">{{ utilisateur.role.intitule }}</td>
+                                                                    <td class="left" v-for="eles in utilisateur.personnel_admin_appui">{{ eles.service.nom_service }}</td>
+                                        
                                                             <td>
                                                                 <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                     <i class="fa fa-pencil"></i>
