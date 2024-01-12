@@ -6,8 +6,152 @@
  **/
 
 $(document).ready(function () {
+  $("#example47").DataTable({
+
+    ajax: {
+      url: '/user/getPersonnel', // Endpoint pour récupérer les données
+      type: 'GET',
+      //dataSrc: 'user',
+      dataSrc: function (data) {
+        // Filtrer les données en fonction de la condition v-if
+        const filteredData = data.user.filter(utilisateur => {
+          return utilisateur.role.id === 2;
+        });
+
+        // Formatez les données restantes si nécessaire
+        const formattedData = filteredData.map(utilisateur => {
+          return {
+            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`, matricule: `
+            <td> ${utilisateur.matricule}</td>`,
+            prenom: `<td class="left"> ${utilisateur.prenom}</td>`,
+            nom: `<td class="left"> ${utilisateur.nom}</td>`,
+            email: `<td> <a href="mailto: ${utilisateur.email}"> ${utilisateur.email} </a> </td>`,
+            telephone: `<td> <a href="tel: ${utilisateur.telephone}"> ${utilisateur.telephone}</a></td>`,
+            unite_formation: `<td class="left"> ${utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', ')}</td>`,
+            departement: `<td class="left"> ${utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', ')}</td>`,
+            // ... autres propriétés que vous souhaitez inclure ...
+            action: `
+                      <td>  
+                        <a class="tblEditBtn" onclick="openModal(${utilisateur.id})">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="tblDelBtn" onclick="toggleUserStatus(${utilisateur.id})">
+                          <i class="fa fa-trash-o"></i>
+                        </a> 
+                      </td>
+                        `,
+          };
+        });
+
+        // Retournez les données formatées
+        return formattedData;
+      }
+    },
+    columns: [
+      { data: 'photo', name: 'photo' },
+      { data: 'matricule', name: 'matricule' },
+      { data: 'prenom', name: 'prenom' },
+      { data: 'nom', name: 'nom' },
+      { data: 'email', name: 'email' },
+      { data: 'telephone', name: 'telephone' },
+      { data: 'unite_formation', name: 'unite_formation' },
+      { data: 'departement', name: 'departement' },
+      { data: 'action', name: 'action' },
+    ],
+
+  });
+
+  $("#personnelAdmin").DataTable({
+
+    ajax: {
+      url: '/user/getPersonnel', // Endpoint pour récupérer les données
+      type: 'GET',
+      //dataSrc: 'user',
+      dataSrc: function (data) {
+        // Filtrer les données en fonction de la condition v-if
+        const filteredData = data.user.filter(utilisateur => {
+          return utilisateur.role.categorie_personnel === 'Personnel Administratif';
+
+        });
+
+        // Formatez les données restantes si nécessaire
+        const formattedData = filteredData.map(utilisateur => {
+          return {
+            photo: `<td class="patient-img"> <img class="small-image" src="${window.location.origin}/storage/${utilisateur.photo}" alt=""></td>`, matricule: `
+            <td> ${utilisateur.matricule}</td>`,
+            prenom: `<td class="left"> ${utilisateur.prenom}</td>`,
+            nom: `<td class="left"> ${utilisateur.nom}</td>`,
+            email: `<td> <a href="mailto: ${utilisateur.email}"> ${utilisateur.email} </a> </td>`,
+            telephone: `<td> <a href="tel: ${utilisateur.telephone}"> ${utilisateur.telephone}</a></td>`,
+            //unite_formation: `<td class="left"> ${utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', ')}</td>`,
+            //departement: `<td class="left"> ${utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', ')}</td>`,
+            // ... autres propriétés que vous souhaitez inclure ...
+            action: `
+                      <td>  
+                        <a class="tblEditBtn" onclick="openModal(${utilisateur.id})">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="tblDelBtn" onclick="toggleUserStatus(${utilisateur.id})">
+                          <i class="fa fa-trash-o"></i>
+                        </a> 
+                      </td>
+                        `,
+          };
+        });
+
+        // Retournez les données formatées
+        return formattedData;
+      }
+    },
+    columns: [
+      { data: 'photo', name: 'photo' },
+      { data: 'matricule', name: 'matricule' },
+      { data: 'prenom', name: 'prenom' },
+      { data: 'nom', name: 'nom' },
+      { data: 'email', name: 'email' },
+      { data: 'telephone', name: 'telephone' },
+      //{ data: 'unite_formation', name: 'unite_formation' },
+     // { data: 'departement', name: 'departement' },
+      { data: 'action', name: 'action' },
+    ],
+
+  });
+
+
   "use strict";
   $("#example1").DataTable();
+
+  $(document).on('donnees-pretent', function () {
+    // Récupérer les données depuis l'attribut de données
+    var myData = JSON.parse($('#tableDataScript').attr('data-mydata'));
+
+    // Utiliser les données reçues
+    // Remplacer les données statiques par les données dynamiques dans le tableau dataSet
+    var dataSet = myData.map(function (item) {
+      return [
+        item.matricule,
+        item.prenom,
+        item.nom,
+        item.email,
+        item.telephone,
+        // Ajoutez d'autres propriétés au besoin
+      ];
+    });
+    $("#dataTable").DataTable({
+      data: dataSet,
+      columns: [
+        { title: "Matricule" },
+        { title: "Prénom" },
+        { title: "Nom" },
+        { title: "Email." },
+        { title: "Téléphone" },
+        /* { title: "Salary" }, */
+      ],
+    });
+    console.log(myData);
+    // Faites ce que vous avez à faire avec les données
+  });
+
 
   var table = $("#example2").DataTable({
     scrollY: "200px",
@@ -92,7 +236,7 @@ $(document).ready(function () {
     }
   });
 
-  var dataSet = [
+   var dataSet = [
     [
       "Tiger Nixon",
       "System Architect",
@@ -360,19 +504,20 @@ $(document).ready(function () {
       "2009/12/09",
       "$85,675",
     ],
-  ];
+  ]; 
 
-  $("#dataTable").DataTable({
-    data: dataSet,
-    columns: [
-      { title: "Name" },
-      { title: "Position" },
-      { title: "Office" },
-      { title: "Extn." },
-      { title: "Start date" },
-      { title: "Salary" },
-    ],
-  });
+
+   $("#dataTable").DataTable({
+      data: dataSet,
+      columns: [
+        { title: "Name" },
+        { title: "Position" },
+        { title: "Office" },
+        { title: "Extn." },
+        { title: "Start date" },
+        { title: "Salary" },
+      ],
+    });
 
   $("#exportTable").DataTable({
     dom: "Bfrtip",
