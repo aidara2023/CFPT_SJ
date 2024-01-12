@@ -277,7 +277,7 @@
                                                             <th> Fonction </th>
                                                             <th> Service </th>
                                                            
-                                                            <th> Action </th>
+                                                            <th> ActionS </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
