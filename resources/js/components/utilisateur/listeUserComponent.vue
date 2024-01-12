@@ -159,7 +159,7 @@
                                             </div>
                                             <table
                                                 class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example4">
+                                                id="example47">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
@@ -170,29 +170,38 @@
                                                         <th> Téléphone </th>
                                                         <th> Unité de formation </th>
                                                         <th> Département </th>
-
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs"
-                                                        :key="index">
-                                                        <template v-if="utilisateur.role.id === 2">
+                                                    <tr class="odd gradeX">
+                                                        <!-- <template v-if="utilisateur.role.id === 2">
                                                             <td class="patient-img">
                                                                 <img :src="getImageUrl(utilisateur.photo)" alt="">
                                                             </td>
+
                                                             <td>{{ utilisateur.matricule }}</td>
+
                                                             <td class="left">{{ utilisateur.prenom }}</td>
+
                                                             <td class="left">{{ utilisateur.nom }}</td>
-                                                            <td><a :href="utilisateur.email">
-                                                                    {{ utilisateur.email }} </a></td>
-                                                            <td><a :href="utilisateur.telephone">
-                                                                    {{ utilisateur.telephone }}</a></td>
+
+                                                            <td>
+                                                                <a :href="'mailto:' + utilisateur.email">
+                                                                {{ utilisateur.email }} </a>
+                                                            </td>
+
+                                                            <td><a :href="'tel:' + utilisateur.telephone">
+                                                                {{ utilisateur.telephone }}</a>
+                                                            </td>
 
                                                             <td class="left" v-for="ele in utilisateur.formateur">{{
-                                                                ele.unite_de_formation.nom_unite_formation }}</td>
+                                                                ele.unite_de_formation.nom_unite_formation }}
+                                                            </td>
+
                                                             <td class="left" v-for="eles in utilisateur.formateur">{{
-                                                                eles.unite_de_formation.departement.nom_departement }}</td>
+                                                                eles.unite_de_formation.departement.nom_departement }}
+                                                            </td>
 
                                                             <td>
                                                                 <a class="tblEditBtn" @click="openModal(utilisateur)">
@@ -202,13 +211,8 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </a>
                                                             </td>
-
-
-
-                                                        </template>
+                                                        </template>-->
                                                     </tr>
-
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -216,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane  fontawesome-demo" id="tab2">
+                        <div class="tab-pane fontawesome-demo" id="tab2">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-box">
@@ -241,57 +245,47 @@
                                                 </div>
                                             </div>
                                             <table
-                                                    class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                    id="example4">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th> Matricule </th>
-                                                            <th> Prénom </th>
-                                                            <th> Nom </th>
-                                                            <th> Email </th>
-                                                            <th> Téléphone </th>
-                                                            <th> Fonction </th>
-                                                          
-                    
-                                                            <th> Action </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs" :key="index">
-                                                            <template v-if=" utilisateur.role.categorie_personnel === 'Personnel Administratif'">
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="personnelAdmin">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th> Matricule </th>
+                                                        <th> Prénom </th>
+                                                        <th> Nom </th>
+                                                        <th> Email </th>
+                                                        <th> Téléphone </th>
+                                                       <!--  <th> Fonction </th> -->
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX">
+                                                        <!-- <template
+                                                            v-if="utilisateur.role.categorie_personnel === 'Personnel Administratif'">
                                                             <td class="patient-img">
-                                                                <img :src="getImageUrl(utilisateur.photo)"  alt="">
+                                                                <img :src="getImageUrl(utilisateur.photo)" alt="">
                                                             </td>
                                                             <td>{{ utilisateur.matricule }}</td>
                                                             <td class="left">{{ utilisateur.prenom }}</td>
                                                             <td class="left">{{ utilisateur.nom }}</td>
-                                                            <td><a :href= "utilisateur.email">
-                                                                {{ utilisateur.email }} </a></td>
-                                                            <td><a :href="utilisateur.telephone ">
-                                                                {{ utilisateur.telephone }}</a></td>
-                                                           
-                                                                    <td class="left">{{ utilisateur.role.intitule }}</td>
-                                                                   
-                                                                   
-                                                         
+                                                            <td><a :href="utilisateur.email">
+                                                                    {{ utilisateur.email }} </a></td>
+                                                            <td><a :href="utilisateur.telephone">
+                                                                    {{ utilisateur.telephone }}</a></td>
+                                                            <td class="left">{{ utilisateur.role.intitule }}</td>
                                                             <td>
-                                                                <a  class="tblEditBtn" @click="openModal(utilisateur)">
+                                                                <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
-                                                                <a class="tblDelBtn"  @click="toggleUserStatus(utilisateur)">
+                                                                <a class="tblDelBtn" @click="toggleUserStatus(utilisateur)">
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </a>
                                                             </td>
-
-                                                          
-                       
-                                                            </template>
-                                                        </tr>
-
-                                                       
-                                                    </tbody>
-                                                </table>
+                                                        </template> -->
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -299,40 +293,37 @@
                         </div>
 
                         <div class="tab-pane" id="tab3">
-                            
                             <div class="row" v-for="(utilisateur, index) in utilisateurs" :key="index">
-                                <div class="col-md-4" v-if=" utilisateur.role.categorie_personnel === 'Personnel Appui'" >
-                                    <div class="card card-box" >
-                                        <div class="card-body no-padding "  >
-                                           
+                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
+                                    <div class="card card-box">
+                                        <div class="card-body no-padding ">
+
                                             <div class="doctor-profile">
-                                           
-                                                <img :src="getImageUrl(utilisateur.photo)"  class="doctor-pic" alt="">
+
+                                                <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
                                                 <div class="profile-usertitle">
-                                                    <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom }} </div>
+                                                    <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}
+                                                    </div>
                                                     <div class="name-center"> {{ utilisateur.role.intitule }} </div>
-                                                <!-- </div>
+                                                    <!-- </div>
                                                 <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
                                                 <div> -->
-                                                    <p><i class="fa fa-phone" > </i> <a :href=" utilisateur.telephone ">
-                                                        {{ utilisateur.telephone }}</a></p>
+                                                    <p><i class="fa fa-phone"> </i> <a :href="utilisateur.telephone">
+                                                            {{ utilisateur.telephone }}</a></p>
                                                 </div>
                                                 <div class="profile-userbuttons">
                                                     <a href="professor_profile.html"
                                                         class="btn btn-circle deepPink-bgcolor btn-sm">Read
                                                         More</a>
                                                 </div>
-                                        
+
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
-
-                           
-                                
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -382,15 +373,25 @@ export default {
         this.get_utilisateur();
         bus.on('utilisateurAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
             this.get_utilisateur(); // Mettre à jour la liste des utilisateurs
+
         });
+
+
     },
 
     methods: {
+
         get_utilisateur() {
             axios.get('/user/getPersonnel')
                 .then(response => {
-                    this.utilisateurs = response.data.user
-                    console.log(this.utilisateurs);
+                    this.utilisateurs = response.data.user;
+                    const scriptTag = document.getElementById('tableDataScript');
+                    /*  console.log("Données utilisateurs : ", this.utilisateurs); */
+                    scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
+
+                    //console.log("Chaîne JSON générée : ", JSON.stringify(this.utilisateurs));
+                    $(document).trigger('donnees-pretent');
+
 
 
                 }).catch(error => {
@@ -518,3 +519,10 @@ export default {
     }
 }
 </script>
+<style>
+  .small-image {
+    width: 34px; /* Ajustez la taille comme nécessaire */
+    height: 34px;
+    border-radius: 50%;
+  }
+</style>
