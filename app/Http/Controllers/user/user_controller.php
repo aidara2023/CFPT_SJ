@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 class user_controller extends Controller
 {
     public function index() {
-        $user=User::orderBy('created_at', 'desc')->get();
+        $user=User::orderBy('created_at', 'desc')->with('formateur.unite_de_formation.departement', 'role')->get();
         if($user!=null){
             return response()->json([
                 'statut'=>200,
