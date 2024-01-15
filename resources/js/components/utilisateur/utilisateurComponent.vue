@@ -146,7 +146,7 @@
                                 Professeur</label>
                             <select name="" id="" v-model="form.type" @change="validatedata('type')"
                                 :class="{ 'bordure_rouge': (this.type_erreur) }">
-                             
+
                                 <option value="Etat">Etat</option>
                                 <option value="Etat">Recruté</option>
                                 <option value="Recruter">Prestataire</option>
@@ -160,7 +160,7 @@
                             <select name="" id="" v-model="form.situation_matrimoniale"
                                 @change="validatedata('situation_matrimoniale')"
                                 :class="{ 'bordure_rouge': (this.situation_matrimoniale_erreur) }">
-                               
+
                                 <option value="Niveau 1">Célibataire</option>
                                 <option value="Niveau 2">Marié</option>
 
@@ -329,7 +329,7 @@
     <!-- <div class="col-lg-12 p-t-20">
         <label class="control-label col-md-3">Upload Photo
         </label>
-        
+
         <div class="col-md-12">
             <div id="id_dropzone" class="dropzone"></div>
         </div>
@@ -541,15 +541,18 @@ export default {
             i_1_2_3: "",
             urlPhoto: false,
             photo_erreur: "",
+            utilisateurEnCoursDeModification: null,
         }
     },
+
+
 
     mounted() {
         this.get_role();
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        this.fetchCountries();
+        // this.fetchCountries();
         /*  this.variables_changement_etape(); */
 
         bus.on('utilisateurModifier', (eventData) => {
@@ -569,31 +572,11 @@ export default {
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
+            console.log(eventData)
 
         });
 
-        Dropzone.autoDiscover = false;
-
-        $(document).ready(function () {
-            var myDropzone = new Dropzone("#id_dropzone", {
-                maxFiles: 1, // Un seul fichier à la fois
-                url: "#", // Une URL factice ou vide
-                autoProcessQueue: false, // Désactiver le téléchargement automatique
-                addedfile: function (file) {
-                    // Stocker le fichier dans une variable
-                    var uploadedFile = file;
-
-                    // Vous pouvez également faire d'autres opérations ici si nécessaire
-
-                    console.log(uploadedFile);
-                },
-            });
-
-            // Gérer le téléchargement manuel lorsque vous êtes prêt
-            /*   $("#bouton_telechargement").on("click", function () {
-                myDropzone.processQueue();
-              }); */
-        });
+       
 
     },
     computed: {
@@ -604,6 +587,11 @@ export default {
     },
 
     methods: {
+        ouvrirFormulaire(utilisateur) {
+      // Mettre à jour les données de l'utilisateur en cours de modification
+      this.utilisateurEnCoursDeModification = utilisateur;
+      // Affichez votre formulaire ou modal ici
+    },
         openFileInput() {
             // Cliquez sur l'élément de fichier invisible
             this.$refs.fileInput.click();
@@ -687,7 +675,7 @@ export default {
             });
         },
 
-        /* 
+        /*
                 get_personnel_administratif(){
                     axios.get('/personnel_administratif/index').then(response => {
                     this.personnel_administratifs=response.data.personnel_administratifs
@@ -1388,7 +1376,7 @@ export default {
               this.precedent = document.querySelector('.annuler');
               this.i_1_2_3 = 1;
               this.off = 0;
-  
+
               this.etape = document.querySelector('.positions');
               this.cercles = document.querySelector('.cercles');
           }, */
@@ -1400,44 +1388,44 @@ export default {
                  if (!avancer) {
                      this.i_1_2_3 = this.i_1_2_3 - 2;
                  }
-     
-     
+
+
                  if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
                  if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
-     
+
                  if (this.i_1_2_3 < 3) {
                      this.suivant.firstChild.textContent = "Suivant";
                      this.suivant.dataset.closeModal = "0";
-     
+
                  } else {
                      this.suivant.firstChild.textContent = "Ajouter";
                      this.suivant.dataset.closeModal = "1";
                  }
-     
+
                  if (this.i_1_2_3 > 1) {
                      this.precedent.firstChild.textContent = "Précédent";
                      this.precedent.dataset.closeModal = "0";
                  }
                  else {
-     
+
                      this.precedent.firstChild.textContent = "Annuler";
                      this.precedent.dataset.closeModal = "1";
-     
+
                  }
-     
+
                  this.cercles.dataset.etape = this.i_1_2_3 - 2;
                  this.etape.dataset.etape = this.i_1_2_3;
                  if (this.i_1_2_3 == 3) this.off = 1;
                  this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
                  this.off = 0
-     
+
              }, */
 
 
         /*     clic_suivant() {
                 this.changement_etape(true);
             },
-    
+
             clic_precedent() {
                 this.changement_etape(false)
             } */

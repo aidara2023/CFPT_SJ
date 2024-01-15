@@ -17,63 +17,63 @@ class RoleSeeder extends Seeder
             [
                 'intitule' => 'Eleve',
                 'categorie_personnel' => 'Simple',
-                
+
             ],
 
             [
                 'intitule' => 'Formateur',
                 'categorie_personnel' => 'Simple',
             ],
-            
+
             [
                 'intitule' => 'Administrateur',
-                'categorie_personnel' => 'Simple',
+                'categorie_personnel' => 'Personnel Administratif',
             ],
 
-            [  
+            [
                 'intitule' => 'Caissier',
                 'categorie_personnel' => 'Personnel Administratif',
-              
-               
+
+
             ],
             [
                 'intitule' => 'Comptable',
                 'categorie_personnel' => 'Personnel Administratif',
-                
+
             ],
             [
                 'intitule' => 'Infirmier',
                 'categorie_personnel' => 'Personnel Administratif',
-               
+
             ],
 
-           
+
             [
                 'intitule' => 'Bibliothecaire',
                 'categorie_personnel' => 'Personnel Administratif',
-                
-    
+
+
             ],
-           
+
             [
                 'intitule' => 'femme de menage',
                 'categorie_personnel' => 'Personnel Appui',
-               
-    
+
+
             ],
             [
                 'intitule' => 'Jardinier',
                 'categorie_personnel' => 'Personnel Appui',
-                
-    
+
+
             ],
             [
                 'intitule' => 'Vigile',
                 'categorie_personnel' => 'Personnel Appui',
-              
-    
+
+
             ],
-           
+
             [
                 'intitule' => 'Tuteur',
                 'categorie_personnel' => 'Simple',
@@ -82,11 +82,11 @@ class RoleSeeder extends Seeder
             [
                 'intitule' => 'Surveillant',
                 'categorie_personnel' => 'Personnel Administratif',
-                
-    
+
+
             ],
 
-            
+
         ]);
     }
 }

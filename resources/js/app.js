@@ -1,4 +1,5 @@
 import './bootstrap';
+
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import { Form } from 'vform';
 import loginComponent from './components/auth/loginComponent.vue';
@@ -201,9 +202,6 @@ app.component("inscription-valider", validerInscriptionComponent);
 app.component("alerte-create", createAlerteComponent);
 app.component("liste-alerte", listeAlerteComponent);
 app.component("dash-board", dashboardComponent);
-
-
-
 
 
 

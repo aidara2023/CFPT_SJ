@@ -34,6 +34,7 @@ class User extends Authenticatable
         'matricule_nombre',
         'matricule',
         'status',
+        'situation_matrimonial',
 
     ];
    /*  protected $primaryKey= 'matricule'; */

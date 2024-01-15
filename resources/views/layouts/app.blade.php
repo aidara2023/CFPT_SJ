@@ -495,7 +495,8 @@
             <!-- data tables -->
             <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
             <script src="/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
-            <script id="tableDataScript" src="/assets/js/pages/table/table_data.js"></script>
+            <script type="module" id="tableDataScript" src="/assets/js/pages/table/table_data.js"></script>
+            {{-- <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script> --}}
             <!-- end js include path -->
 
 

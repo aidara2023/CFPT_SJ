@@ -1,11 +1,11 @@
-<template>
+<template >
     <!--  <div class="liste ">
         <div class="table-container">
             <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
                 <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
-               
+
             </div>
             <br>
 
@@ -96,7 +96,7 @@
 
     </div>
  -->
-    <div class="page-content">
+    <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
@@ -224,8 +224,30 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX">
+                                                    <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs">
+                                                        <td class="patient-img"> <img :src="getImageUrl(utilisateur.photo)"
+                                                                alt="Etu">
+                                                        </td>
+                                                        <td> {{ utilisateur.matricule }}</td>
+                                                        <td> {{ utilisateur.prenom }}</td>
+                                                        <td> {{ utilisateur.nom }}</td>
+                                                        <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
+                                                            </a></td>
+                                                        <td><a :href="'tel:' + utilisateur.telephone">{{
+                                                            utilisateur.telephone }}</a></td>
+                                                        <td>{{ utilisateur.fonction }} </td>
+                                                        <td>{{ utilisateur.nom_service }} </td>
 
+                                                        <td>
+
+                                                            <a  class="tblEditBtn"
+                                                                @click="openModal(utilisateur)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -236,7 +258,7 @@
                         </div>
 
                         <div class="tab-pane" id="tab3">
-                            <div class="row" v-for="(utilisateur, index) in utilisateurs" :key="index">
+                            <div class="row" v-for="(utilisateur, index) in utilisateursPer" :key="index">
                                 <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
                                     <div class="card card-box">
                                         <div class="card-body no-padding ">
@@ -273,12 +295,61 @@
             </div>
         </div>
     </div>
+
+
+        <div class="page-content-wrapper" v-if="this.editModal">
+    <div class="page-content">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                <div class=" pull-left">
+                    <div class="page-title">Nouvel Utilisateur</div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                            href="{{ route('admin_index') }}">Tableau de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a class="parent-item" href="{{ route('utilisateur_create') }}">Utilisateur</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">Modifier Utilisateur</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <div class="card-head">
+                        <header>Information</header>
+                        <button id="panel-button"
+                            class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                            data-upgraded=",MaterialButton">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                            data-mdl-for="panel-button">
+                            <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                            </li>
+                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                            </li>
+                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                here</li>
+                        </ul>
+                    </div>
+                    <div class="card-body row">
+                       <utilisateur-create></utilisateur-create>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import datatable from 'datatables.net-bs5'
 
 
 
@@ -303,11 +374,13 @@ export default {
                 'type': "",
                 'situation_matrimoniale': ""
             }),
-            utilisateurs: [],
+            utilisateurs: null,
+            utilisateursPer: [],
             idUser: "",
             editModal: false,
             activePhase: 1,
             idUser: "",
+            editModalOpen: false,
 
 
         }
@@ -320,22 +393,87 @@ export default {
         });
 
 
+
     },
 
     methods: {
+        initDataTable() {
+            this.$nextTick(() => {
+                $('#exemple1').DataTable({
+                    responsive: true,
+                    language: {
+                        // Messages pour la pagination
+                        paginate: {
+                            first: 'Premier',
+                            previous: 'Précédent',
+                            next: 'Suivant',
+                            last: 'Dernier'
+                        },
+                        // Message d'affichage du nombre d'éléments par page
+                        lengthMenu: 'Afficher _MENU_ entrées',
+                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                        // Message lorsque le tableau est vide
+                        emptyTable: 'Aucune donnée disponible dans le tableau',
+                        // Message indiquant que la recherche est en cours
+                        loadingRecords: 'Chargement en cours...',
+                        // Message indiquant que la recherche n'a pas renvoyé de résultats
+                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                        // Message indiquant le nombre total d'entrées
+                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                        // Message indiquant que la recherche est en cours dans le champ de recherche
+                        search: 'Recherche :'
+                    }
+                });
+            });
+        },
 
         get_utilisateur() {
             axios.get('/user/getPersonnel')
                 .then(response => {
-                    this.utilisateurs = response.data.user;
-                    const scriptTag = document.getElementById('tableDataScript');
+                    this.utilisateursPer = response.data.user;
+
+                    // const scriptTag = document.getElementById('tableDataScript');
                     /*  console.log("Données utilisateurs : ", this.utilisateurs); */
-                    scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
+                    //scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
 
                     //console.log("Chaîne JSON générée : ", JSON.stringify(this.utilisateurs));
-                    $(document).trigger('donnees-pretent');
+                    // $(document).trigger('donnees-pretent');
+                    // Obtenez toutes les données d'utilisateurs
+                    const allUtilisateurs = response.data.user;
 
+                    // Filtrer les utilisateurs en fonction de la catégorie du personnel
+                    const filteredUtilisateurs = allUtilisateurs.filter(utilisateur => {
+                        return utilisateur.role.categorie_personnel === 'Personnel Administratif';
+                    });
 
+                    // Formater les utilisateurs pour DataTables
+                    const formattedUtilisateurs = filteredUtilisateurs.map(utilisateur => {
+                        return {
+                            photo: utilisateur.photo,
+                            adresse: utilisateur.adresse,
+                            date_naissance: utilisateur.date_naissance,
+                            lieu_naissance: utilisateur.lieu_naissance,
+                            id: utilisateur.id,
+                            type: utilisateur.type,
+                            genre: utilisateur.genre,
+                            id_role: utilisateur.id_role,
+                            nationalite: utilisateur.nationalite,
+                            situation_matrimonial: utilisateur.situation_matrimonial,
+                            matricule: utilisateur.matricule,
+                            prenom: utilisateur.prenom,
+                            nom: utilisateur.nom,
+                            email: utilisateur.email,
+                            telephone: utilisateur.telephone,
+                            fonction: utilisateur.role.intitule,
+                            nom_service: utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', '),
+                        };
+                    });
+
+                    // Mettez à jour la liste des utilisateurs au format de tableau de dictionnaires
+                    this.utilisateurs = formattedUtilisateurs;
+
+                    this.initDataTable();
 
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des utilisateurs', 'error')
@@ -437,7 +575,8 @@ export default {
             bus.emit('utilisateurModifier', eventData);
             console.log(eventData)
 
-
+            //window.location.href = `/utilisateur/create`;
+            this.editModalOpen = true;
 
 
         },
@@ -445,20 +584,6 @@ export default {
         getImageUrl(url) {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },
-
-        openUserDetailsPage(userId) {
-            // Redirigez vers la page d'affichage des détails de l'utilisateur en utilisant l'ID
-            window.location.href = `/utilisateur/create/${userId}`; // Assurez-vous d'ajuster le chemin selon votre structure d'URL
-            console.log("teste")
-        },
-        toggleUserStatus(userId) {
-            // Logique pour supprimer l'utilisateur avec l'ID userId
-            // Vous pouvez utiliser une boîte de dialogue de confirmation avant de supprimer
-            // ou afficher un formulaire de suppression dans le même composant
-            console.log(`Supprimer l'utilisateur avec l'ID ${userId}`);
-        },
-
-
 
     }
 }
