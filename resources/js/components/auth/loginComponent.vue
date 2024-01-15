@@ -1,5 +1,6 @@
 <template>
-  <form action="" method="">
+  <!--
+    <form action="" method="">
     <h1>Connexion</h1>
 
     <div class="informationsLogin">
@@ -20,12 +21,34 @@
       </button>
       <p class="text-danger" v-if="erreur" style="color: white;">{{ errorMessage }}</p>
     </div>
+  </form>-->
+  <form class="register-form" id="login-form">
+    <div class="form-group">
+      <div class="">
+        <input name="uname" type="text" placeholder="Matricule" class="form-control input-height"
+          v-model="form.matricule" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="">
+        <input name="pwd" type="password" placeholder="Mot de passe" class="form-control input-height"
+          v-model="form.password" />
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" v-model="rememberMe" />
+      <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+        me</label>
+    </div>
+    <div class="form-group form-button">
+      <button class="btn btn-round btn-primary" name="signin" id="signin" @click.prevent="verification()">Se
+        Connecter</button>
+    </div>
   </form>
 </template>
 
 <script>
 import Form from 'vform';
-import axios from 'axios';
 
 export default {
   name: "loginComponent",
@@ -38,43 +61,55 @@ export default {
       message: "",
       errorMessage: "",
       erreur: false,
-      bouton: ""
+      bouton: "",
+      rememberMe: false,
     };
   },
+  mounted() {
+    //$(".tstWarning").on("click", this.afficherToastWarning);
+    // ... Ajoutez des écouteurs pour les autres types de toast
+  },
   methods: {
+    afficherToastInfo(message) {
+      $.toast({
+        heading: 'Erreur',
+        text: message,
+        position: 'top-right',
+        loaderBg: '#ff6849',
+        icon: 'error',
+        hideAfter: 3500
+      });
+    },
     async verification() {
-      this.message = document.querySelector('.b');
-      this.bouton = document.querySelector('.suivant');
+      /*   this.message = document.querySelector('.b');
+        this.bouton = document.querySelector('.suivant'); */
 
       if (this.form.matricule !== "" && this.form.password !== "") {
         await this.form.post('/connexion').then(({ data }) => {
+          console.log("bonjour")
           this.message = "";
-          this.bouton.innerHTML = "<span data-statut='visible'> Vérification</span><div class='roue'></div>";
+          if (this.rememberMe) {
+            // Stockez l'état dans un cookie ou localStorage
+            // Exemple avec localStorage :
+            localStorage.setItem('rememberMe', true);
+          }
           if (data.statut !== "Error") {
             window.location.href = data.url;
           } else {
             if (data.message === "L'utilisateur est bloqué") {
-              this.errorMessage = "Vous avez été bloqué. Rapprochez-vous de votre administrateur pour plus d'informations.";
+              this.message = "Vous avez été bloqué. Rapprochez-vous de votre administrateur pour plus d\'informations."
+              this.afficherToastInfo(this.message);
             } else {
-              this.errorMessage = "Matricule ou mot de passe incorrect";
+              this.message = "Matricule ou mot de passe incorrect."
+              this.afficherToastInfo(this.message);
             }
-            this.bouton.style.backgroundColor = 'var(--rouge)';
-            this.bouton.innerHTML = "<span data-statut='visible' > Réessayer</span>";
-            this.bouton.style.color = 'white';
-
-            this.erreur = true;
-
-            setTimeout(() => {
-              this.erreur = false;
-              this.errorMessage = "";
-            }, 5000);
           }
         }).catch(error => {
           // Gestion des erreurs
         });
       } else {
-        this.erreur = true;
-        this.errorMessage = "Tous les champs sont obligatoires";
+        this.message = "Tous les champs sont obligatoires."
+        this.afficherToastInfo(this.message);
       }
     }
   }
@@ -84,5 +119,21 @@ export default {
 <style>
 .text-danger {
   color: red;
+}
+
+.flash-message {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  /* Modifier la propriété 'left' pour déplacer le message à gauche */
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+
+}
+
+.error {
+  background-color: #ce0404;
+  color: #FFFFFF;
 }
 </style>

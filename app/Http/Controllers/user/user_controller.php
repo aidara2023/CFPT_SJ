@@ -7,16 +7,19 @@ use App\Http\Requests\user\user_request;
 use App\Models\Caissier;
 use App\Models\Formateur;
 use App\Models\Infirmier;
+use App\Models\personnel_admin_appui;
 use App\Models\Role;
 use App\Models\Tuteur;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class user_controller extends Controller
 {
     public function index() {
-        $user=User::orderBy('created_at', 'desc')->get();
+        $user=User::orderBy('created_at', 'desc')->with('formateur.unite_de_formation.departement', 'role')->get();
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -49,11 +52,31 @@ class user_controller extends Controller
     //     }
     // }
 
+    public function verifMail(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore(auth()->id()),
+        ],
+        // Ajoutez d'autres règles de validation pour les champs nécessaires
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Le reste de votre code pour le traitement du formulaire
+
+    return response()->json(['success' => true]);
+}
+
     public function getPersonnelAdministratif() {
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::whereIn('id_role', $roles->pluck('id'))->with('role')->get();
+            $users = User::with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service')->whereIn('id_role', $roles->pluck('id'))->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
@@ -168,19 +191,22 @@ class user_controller extends Controller
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==4){
-                $caissier=new Caissier();
-                $caissier->id_user= $user->id;
-                $caissier->id_service= $request->id_service;
-                $caissier->save();
+        elseif($request['id_role']==4 || $request['id_role']==3 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
+                $personnel_admin=new Personnel_admin_appui();
+                $personnel_admin->id_user= $user->id;
+                $personnel_admin->id_service= $request->id_service;
+                $personnel_admin->type_personnel= "Personnel Administratif";
+                $personnel_admin->save();
             }
-            elseif($request['id_role']==3){
-                $infirmier=new Infirmier();
-                $infirmier->id_user= $user->id;
-                $infirmier->save();
+            else{
+                $personnel_appui=new Personnel_admin_appui();
+                $personnel_appui->type_personnel= "Personnel Appui";
+                $personnel_appui->id_user= $user->id;
+                $personnel_appui->id_service= $request->id_service;
+                $personnel_appui->save();
             }
-        
-
+    
+            
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -269,24 +295,7 @@ public function delete($id) {
         }
 
     }
-    public function disableUser($id) {
-        $user = User::find($id);
-    
-        if ($user != null) {
-            $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
-            $user->save();
-    
-            return response()->json([
-                'statut' => 200,
-                'message' => 'Utilisateur désactivé avec succès',
-            ], 200);
-        } else {
-            return response()->json([
-                'statut' => 500,
-                'message' => 'L utilisateur n\'est pas désactivé',
-            ], 500);
-        }
-    }
+   
     public function toggleUserStatus($id) {
         $user = User::find($id);
     

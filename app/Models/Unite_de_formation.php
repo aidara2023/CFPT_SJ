@@ -27,6 +27,10 @@ class Unite_de_formation extends Model
         return $this->hasMany(Materiel::class,'id');
 
     }
+    public function formateur (){
+        return $this->hasMany(Formateur::class,'id_unite_de_formation');
+
+    }
 
     public function user (){
         return $this->belongsTo(User::class,'id_user');

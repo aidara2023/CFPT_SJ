@@ -1,11 +1,11 @@
-<template>
-    <div class="liste ">
+<template >
+    <!--  <div class="liste ">
         <div class="table-container">
             <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
                 <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
                 <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
-                <!-- <div data-fenetre="">Appui</div> -->
+
             </div>
             <br>
 
@@ -93,118 +93,263 @@
             </table>
         </div>
 
-        <!--  <div class="avant" style=" margin-left: 80%;">
-            <a href="#">
-                <button class="texte ajout mdl" id="openModal"> <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-            </a>
-        </div>
-
-        <div class="avant" style="margin-top: 5%;">
-            <h1 class="texte"><a href="#" @click="goToStep(1)">Formateur</a></h1>
-            <h1 class="texte"><a href="#" @click="goToStep(2)">Personnel Administratif</a></h1>
-            <h1 class="texte"><a href="#" @click="goToStep(3)">Personnel d'appui</a></h1>
-        </div>
-
-
-        <div v-if="activePhase == 1">
-
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-               
-                <div class="utilisateur" v-if="utilisateur.role.id === 2">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="activePhase == 2">
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-              
-                <div class="utilisateur" v-if="utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="activePhase == 3">
-            <div class="" v-for="(utilisateur, index) in utilisateurs" :key="index">
-               
-                <div class="utilisateur" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                    <img :src="getImageUrl(utilisateur.photo)" alt="Etu" class="petite">
-                    <p class="texte" id="n">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-                    <p class="texte" id="n">{{ utilisateur.email }} {{ utilisateur.telephone }}</p>
-                    <div class="presences">
-                        <a href="#" class="texte b">
-                            <i class="fi fi-rr-bars-sort"></i>
-                            <span class="modifier">Actions</span>
-                        </a>
-                        <a href="#" class="texte b" @click="openModal(utilisateur)">
-                            <i class="fi fi-rr-edit"></i>
-                            <button class="modifier mdl">Modifier</button>
-                        </a>
-                        <a href="" class="texte b">
-                            <i class="fi fi-rr-comment-alt-dots"></i>
-                            <span class="details">Détails</span>
-                        </a>
-                        <a href="#" class="texte b" @click="deleteUtilisateur(utilisateur)">
-                            <i class="fi fi-rr-trash"></i>
-                            <span class="supprimer mdl">Supprimer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
     </div>
  -->
+    <div class="page-content" v-if="!this.editModal">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                <div class=" pull-left">
+                    <div class="page-title">Liste utilisateur</div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateur</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">Liste utilisateur</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabbable-line">
+                    <!-- <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab1" data-bs-toggle="tab"> List View </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-bs-toggle="tab"> Grid View </a>
+                                </li>
+                            </ul> -->
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Formateurs</a>
+                        </li>
+                        <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Personnel
+                                Administratif</a></li>
+                        <li class="nav-item"><a href="#tab3" class="nav-link" data-bs-toggle="tab">Personnel d'appui</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-box">
+                                        <div class="card-head">
+                                            <header>Tous les formateurs</header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a :href="'/utilisateur/create'" id="addRow"
+                                                            class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        </a>
 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="example47" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th> Matricule </th>
+                                                        <th> Prénom </th>
+                                                        <th> Nom </th>
+                                                        <th> Email </th>
+                                                        <th> Téléphone </th>
+                                                        <th> Unité de formation </th>
+                                                        <th> Département </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX">
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fontawesome-demo" id="tab2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-box">
+                                        <div class="card-head">
+                                            <header>Tout le personnel administratif</header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a :href="'/utilisateur/create'" id="addRow"
+                                                            class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="exemple1" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th> Matricule </th>
+                                                        <th> Prénom </th>
+                                                        <th> Nom </th>
+                                                        <th> Email </th>
+                                                        <th> Téléphone </th>
+                                                        <th> Fonction </th>
+                                                        <th> Service </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurs">
+                                                        <td class="patient-img"> <img :src="getImageUrl(utilisateur.photo)"
+                                                                alt="Etu">
+                                                        </td>
+                                                        <td> {{ utilisateur.matricule }}</td>
+                                                        <td> {{ utilisateur.prenom }}</td>
+                                                        <td> {{ utilisateur.nom }}</td>
+                                                        <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
+                                                            </a></td>
+                                                        <td><a :href="'tel:' + utilisateur.telephone">{{
+                                                            utilisateur.telephone }}</a></td>
+                                                        <td>{{ utilisateur.fonction }} </td>
+                                                        <td>{{ utilisateur.nom_service }} </td>
+
+                                                        <td>
+
+                                                            <a  class="tblEditBtn"
+                                                                @click="openModal(utilisateur)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab3">
+                            <div class="row" v-for="(utilisateur, index) in utilisateursPer" :key="index">
+                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
+                                    <div class="card card-box">
+                                        <div class="card-body no-padding ">
+
+                                            <div class="doctor-profile">
+
+                                                <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
+                                                <div class="profile-usertitle">
+                                                    <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}
+                                                    </div>
+                                                    <div class="name-center"> {{ utilisateur.role.intitule }} </div>
+                                                    <!-- </div>
+                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
+                                                <div> -->
+                                                    <p><i class="fa fa-phone"> </i> <a :href="utilisateur.telephone">
+                                                            {{ utilisateur.telephone }}</a></p>
+                                                </div>
+                                                <div class="profile-userbuttons">
+                                                    <a href="professor_profile.html"
+                                                        class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                        More</a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- <span class="fond "></span> -->
+
+        <div class="page-content-wrapper" v-if="this.editModal">
+    <div class="page-content">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                <div class=" pull-left">
+                    <div class="page-title">Nouvel Utilisateur</div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
+                            href="{{ route('admin_index') }}">Tableau de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a class="parent-item" href="{{ route('utilisateur_create') }}">Utilisateur</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">Modifier Utilisateur</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <div class="card-head">
+                        <header>Information</header>
+                        <button id="panel-button"
+                            class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                            data-upgraded=",MaterialButton">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                            data-mdl-for="panel-button">
+                            <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                            </li>
+                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                            </li>
+                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                here</li>
+                        </ul>
+                    </div>
+                    <div class="card-body row">
+                       <utilisateur-create></utilisateur-create>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import datatable from 'datatables.net-bs5'
 
 
 
@@ -229,11 +374,13 @@ export default {
                 'type': "",
                 'situation_matrimoniale': ""
             }),
-            utilisateurs: [],
+            utilisateurs: null,
+            utilisateursPer: [],
             idUser: "",
             editModal: false,
             activePhase: 1,
             idUser: "",
+            editModalOpen: false,
 
 
         }
@@ -242,15 +389,91 @@ export default {
         this.get_utilisateur();
         bus.on('utilisateurAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
             this.get_utilisateur(); // Mettre à jour la liste des utilisateurs
+
         });
+
+
+
     },
 
     methods: {
+        initDataTable() {
+            this.$nextTick(() => {
+                $('#exemple1').DataTable({
+                    responsive: true,
+                    language: {
+                        // Messages pour la pagination
+                        paginate: {
+                            first: 'Premier',
+                            previous: 'Précédent',
+                            next: 'Suivant',
+                            last: 'Dernier'
+                        },
+                        // Message d'affichage du nombre d'éléments par page
+                        lengthMenu: 'Afficher _MENU_ entrées',
+                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                        // Message lorsque le tableau est vide
+                        emptyTable: 'Aucune donnée disponible dans le tableau',
+                        // Message indiquant que la recherche est en cours
+                        loadingRecords: 'Chargement en cours...',
+                        // Message indiquant que la recherche n'a pas renvoyé de résultats
+                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                        // Message indiquant le nombre total d'entrées
+                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                        // Message indiquant que la recherche est en cours dans le champ de recherche
+                        search: 'Recherche :'
+                    }
+                });
+            });
+        },
+
         get_utilisateur() {
             axios.get('/user/getPersonnel')
                 .then(response => {
-                    this.utilisateurs = response.data.user
+                    this.utilisateursPer = response.data.user;
 
+                    // const scriptTag = document.getElementById('tableDataScript');
+                    /*  console.log("Données utilisateurs : ", this.utilisateurs); */
+                    //scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
+
+                    //console.log("Chaîne JSON générée : ", JSON.stringify(this.utilisateurs));
+                    // $(document).trigger('donnees-pretent');
+                    // Obtenez toutes les données d'utilisateurs
+                    const allUtilisateurs = response.data.user;
+
+                    // Filtrer les utilisateurs en fonction de la catégorie du personnel
+                    const filteredUtilisateurs = allUtilisateurs.filter(utilisateur => {
+                        return utilisateur.role.categorie_personnel === 'Personnel Administratif';
+                    });
+
+                    // Formater les utilisateurs pour DataTables
+                    const formattedUtilisateurs = filteredUtilisateurs.map(utilisateur => {
+                        return {
+                            photo: utilisateur.photo,
+                            adresse: utilisateur.adresse,
+                            date_naissance: utilisateur.date_naissance,
+                            lieu_naissance: utilisateur.lieu_naissance,
+                            id: utilisateur.id,
+                            type: utilisateur.type,
+                            genre: utilisateur.genre,
+                            id_role: utilisateur.id_role,
+                            nationalite: utilisateur.nationalite,
+                            situation_matrimonial: utilisateur.situation_matrimonial,
+                            matricule: utilisateur.matricule,
+                            prenom: utilisateur.prenom,
+                            nom: utilisateur.nom,
+                            email: utilisateur.email,
+                            telephone: utilisateur.telephone,
+                            fonction: utilisateur.role.intitule,
+                            nom_service: utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', '),
+                        };
+                    });
+
+                    // Mettez à jour la liste des utilisateurs au format de tableau de dictionnaires
+                    this.utilisateurs = formattedUtilisateurs;
+
+                    this.initDataTable();
 
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des utilisateurs', 'error')
@@ -274,17 +497,6 @@ export default {
             }
         },
 
-        shouldShowRow(utilisateur) {
-            if (this.activePhase === 1 && utilisateur.role.id === 2) {
-                return true;
-            } else if (this.activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif') {
-                return true;
-            } else if (this.activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui') {
-                return true;
-            } else {
-                return false;
-            }
-        },
 
         changement(event) {
             this.interesser = event;
@@ -352,29 +564,19 @@ export default {
                 type: utilisateur.type,
                 situation_matrimonial: utilisateur.situation_matrimonial,
                 id_role: utilisateur.id_role,
-                id_specialite: utilisateur.id_specialite,
-                id_departement: utilisateur.id_departement,
-                id_service: utilisateur.id_service,
-                id_personnel_administratif: utilisateur.id_personnel_administratif,
-                id_personnel_appui: utilisateur.id_personnel_appui,
+                /* id_specialite: utilisateur.id_specialite,
+                id_departement: utilisateur.id_departement, */
+                /*      id_service: utilisateur.id_service, */
 
                 editModal: this.editModal,
                 // Ajoutez d'autres propriétés si nécessaire
             };
 
             bus.emit('utilisateurModifier', eventData);
+            console.log(eventData)
 
-            var fond = document.querySelector('.fond');
-            var flou = document.querySelectorAll('.flou');
-            var modification = document.querySelector("[data-modal-ajout]");
-
-            flou.forEach(item => {
-                item.classList.add("actif");
-            });
-
-            fond.classList.add("actif");
-            modification.showModal();
-            modification.classList.add("actif");
+            //window.location.href = `/utilisateur/create`;
+            this.editModalOpen = true;
 
 
         },
@@ -383,8 +585,14 @@ export default {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
-
-
     }
 }
 </script>
+<style>
+.small-image {
+    width: 34px;
+    /* Ajustez la taille comme nécessaire */
+    height: 34px;
+    border-radius: 50%;
+}
+</style>

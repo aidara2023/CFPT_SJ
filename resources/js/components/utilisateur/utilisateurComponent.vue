@@ -1,10 +1,10 @@
 <template >
-    <div>
-        <div class="titres">
+    <!--  <div> -->
+    <!--    <div class="titres">
             <h1>Nouvel utilisateur</h1>
-        </div>
+        </div> -->
 
-        <form @submit.prevent="validerAvantAjout()" action="" method="">
+    <!--    <form @submit.prevent="validerAvantAjout()" action="" method="">
             <div class="droit">
 
                 <div class="image">
@@ -31,9 +31,7 @@
                     <div class="cercles" data-etape="1">
                         <div class="actuel"><i class="fi fi-rr-check"></i></div>
                         <span></span>
-                        <div class="actuel"><i class="fi fi-rr-check"></i></div><!-- 
-                    <span></span>
-                    <div class="actuel"><i class="fi fi-rr-check"></i></div> -->
+                        <div class="actuel"><i class="fi fi-rr-check"></i></div>
                     </div>
                     <label for="" class="positions" data-etape="1">ETApe 1</label>
                 </div>
@@ -148,7 +146,7 @@
                                 Professeur</label>
                             <select name="" id="" v-model="form.type" @change="validatedata('type')"
                                 :class="{ 'bordure_rouge': (this.type_erreur) }">
-                                <!-- <option value="">Type Professeur</option> -->
+
                                 <option value="Etat">Etat</option>
                                 <option value="Etat">Recruté</option>
                                 <option value="Recruter">Prestataire</option>
@@ -162,7 +160,7 @@
                             <select name="" id="" v-model="form.situation_matrimoniale"
                                 @change="validatedata('situation_matrimoniale')"
                                 :class="{ 'bordure_rouge': (this.situation_matrimoniale_erreur) }">
-                                <!--   <option value="">Selectioner Statut</option> -->
+
                                 <option value="Niveau 1">Célibataire</option>
                                 <option value="Niveau 2">Marié</option>
 
@@ -227,23 +225,250 @@
 
 
                 <div class="groupe_champs validation">
-                    <!-- 
-                <input v-if="this.editModal === false" type="submit" value="Ajouter"
-                    :class="{ 'data-close-modal': (this.etatForm) }">
-                <input v-if="this.editModal === true" type="submit" value="Modifier"
-                    :class="{ 'data-close-modal': (this.etatForm) }">
-                 <input v-if="this.editModal===true" type="submit" value="Modifier" :class="{ 'data-close-modal': (etatForm) } "> :class="{ 'data-close-modal': !(this.etatForm) } " :class="{ 'data-close-modal': !(validatedata() && verifIdUser()) } "  
-                <button type="submit" class="annuler data-close-modal" @click="resetForm">Annuler</button>
- -->
-                    <!--   <button v-show="i_1_2_3 === 1" type="button" data-close-modal><span data-statut="visible">Annuler</span></button> -->
-
-                    <!--          <button type="button"  class="data-close-modal annuler" @click="clic_precedent" ><span data-statut="visible">Annuler</span></button>
-
-            <button type="button"  class="suivant" @click="clic_suivant" ><span data-statut="visible">Suivant</span></button> -->
-
                 </div>
             </div>
-        </form>
+        </form> -->
+
+    <!--  nouveau formulaire -->
+    <!--  <form action="#" @submit.prevent="validerAvantAjout()" id="form_sample_1" class="form-horizontal"> -->
+    <!--    <div style="">
+            <img alt="image" v-if="photo" :src="photoUrl" style="width: 10%; height: 10%;">
+        </div> -->
+    <!--  <div class="form-body"> -->
+    <!--  <div class="col-lg-6 p-t-20">
+        <label class="control-label col-md-3">Photo
+        </label>
+        <div class="col-md-5">
+            <input type="file" class="default" multiple @change="ajoutimage" accept="image/*">
+        </div>
+    </div> -->
+    <div class="col-lg-6 p-t-20">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
+                @input="validatedata('nom')">
+            <label class="mdl-textfield__label">Nom</label>
+            <span class="erreur">{{ this.nom_user_erreur }}</span>
+        </div>
+    </div>
+    <div class="col-lg-6 p-t-20">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.prenom"
+                @input="validatedata('prenom')">
+            <label class="mdl-textfield__label">Prénom</label>
+            <span class="erreur">{{ this.prenom_user_erreur }}</span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
+                @input="validatedata('date_naissance')">
+            <label class="mdl-textfield__label">Date de Naissance</label>
+            <span class="erreur">{{ this.date_erreur }}</span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="designation" v-model="form.lieu_naissance"
+                @input="validatedata('naissance')">
+            <label class="mdl-textfield__label">Lieu de naissance</label>
+            <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 p-t-20">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="list2" v-model="form.nationalite"
+                @input="validatedata('nationalite')">
+            <label class="mdl-textfield__label">Nationalité</label>
+            <span class="erreur">{{ this.nationalite_erreur }}</span>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="list3" class="mdl-textfield__label">Choisissez Genre</label>
+            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.genre"
+                @change="validatedata('genre')">
+                <option value="Masculin">Masculin</option>
+                <option value="Féminin">Féminin</option>
+            </select>
+            <span class="erreur">{{ this.genre_erreur }}</span>
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="text5"
+                v-model="form.telephone" @input="validatedata('telephone')">
+            <label class="mdl-textfield__label" for="text5">Téléphone</label>
+            <span class="erreur">{{ this.telephone_erreur }}</span>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="text" id="designation" v-model="form.adresse"
+                @input="validatedata('adresse')">
+            <label class="mdl-textfield__label">Adresse</label>
+            <span class="erreur">{{ this.adresse_erreur }}</span>
+        </div>
+    </div>
+
+
+    <!-- <div class="col-lg-12 p-t-20">
+        <label class="control-label col-md-3">Upload Photo
+        </label>
+
+        <div class="col-md-12">
+            <div id="id_dropzone" class="dropzone"></div>
+        </div>
+    </div> -->
+
+    <!--   <div class="col-lg-12 p-t-20">
+    <label class="control-label col-md-3">Upload Photo</label>
+    <div class="col-md-12 dropzone">
+        <input type="file" name="file" @change="handleFileChange" />
+    </div>
+</div> -->
+
+    <div class="col-lg-12 p-t-20">
+        <label class="control-label col-md-3">Upload Photo</label>
+        <div class="col-md-12 dropzone" @click="openFileInput">
+            <input type="file" name="file" ref="fileInput" style="display: none;" @change="ajoutimage" />
+            <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
+            <div class="sidebar-user">
+                <div class="sidebar-user-picture">
+                    <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
+                </div>
+            </div>
+            <div v-if="!urlPhoto">
+                <i class="fa fa-upload"></i> Cliquez pour télécharger
+            </div>
+        </div>
+        <span class="erreur">{{ photo_erreur }}</span>
+    </div>
+
+
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <input class="mdl-textfield__input" type="mail" id="txtemail" v-model="form.email"
+                @input="validatedata('email')">
+            <label class="mdl-textfield__label">Email</label>
+            <span class="erreur">{{ this.email_user_erreur }}</span>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-6 p-t-20 mt-1">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="listrole" class="mdl-textfield__label"> Choisissez un role</label>
+            <select class="mdl-textfield__input" id="roleSelect" readonly tabIndex="-1" v-model="form.id_role"
+                @change="changement(form.id_role)">
+
+                <option v-for="(role, index) in roles" :value="role.id" :key="index">{{ role.intitule }}</option>
+            </select>
+            <span class="erreur">{{ id_role_erreur }}</span>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list5" class="mdl-textfield__label">Choisissez Type Professeur</label>
+            <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
+                @change="validatedata('type')">
+                <option value="Etat">Etat</option>
+                <option value="Etat">Recruté</option>
+                <option value="Recruter">Prestataire</option>
+            </select>
+            <span class="erreur">{{ type_erreur }}</span>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label">Choisissez Situation Matrimoniale</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
+                @change="validatedata('situation_matrimoniale')">
+                <option value="Célibataire">Célibataire</option>
+                <option value="Marié">Marié(e)</option>
+            </select>
+            <span class="erreur">{{ situation_matrimoniale_erreur }}</span>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
+            <select class="mdl-textfield__input" id="list7" readonly tabIndex="-1" v-model="form.id_specialite"
+                @change="validatedata('id_specialite')">
+                <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
+                    specialite.intitule }}</option>
+            </select>
+            <span class="erreur">{{ id_specialite_erreur }}</span>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="list8" class="mdl-textfield__label">Choisissez Département</label>
+            <select class="mdl-textfield__input" id="list8" readonly tabIndex="-1" v-model="form.id_departement"
+                @change="validatedata('departement')">
+                <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
+                    departement.nom_departement }}</option>
+            </select>
+            <span class="erreur">{{ id_departement_erreur }}</span>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6 p-t-20" v-show="this.interesser !== 1 && this.interesser !== 2 && this.interesser !== ''">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="list9" class="mdl-textfield__label">Choisissez Service</label>
+            <select class="mdl-textfield__input" id="list9" readonly tabIndex="-1" v-model="form.id_service"
+                @change="validatedata('service')">
+                <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}
+                </option>
+
+            </select>
+            <span class="erreur">{{ id_service_erreur }}</span>
+        </div>
+    </div>
+    <div class="col-lg-12 p-t-20 text-center">
+
+        <button type="submit"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger">Annuler</button>
+
     </div>
 </template>
 
@@ -256,6 +481,8 @@ export default {
     name: "utilisateurCompenent",
     data() {
         return {
+            countries: [],
+            selectedNationality: '',
             filieres: [],
             form: new Form({
                 'nom': "",
@@ -312,15 +539,21 @@ export default {
             invisible: "",
             off: "",
             i_1_2_3: "",
+            urlPhoto: false,
+            photo_erreur: "",
+            utilisateurEnCoursDeModification: null,
         }
     },
+
+
 
     mounted() {
         this.get_role();
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        this.variables_changement_etape();
+        // this.fetchCountries();
+        /*  this.variables_changement_etape(); */
 
         bus.on('utilisateurModifier', (eventData) => {
             this.idUser = eventData.idUser;
@@ -339,17 +572,31 @@ export default {
             this.form.id_departement = eventData.id_departement;
             this.form.id_service = eventData.id_service;
             this.form.id_specialite = eventData.id_specialite;
+            console.log(eventData)
 
         });
+
+       
 
     },
     computed: {
         photoUrl() {
+            this.urlPhoto = true;
             return this.photo ? URL.createObjectURL(this.photo) : '';
         },
     },
 
     methods: {
+        ouvrirFormulaire(utilisateur) {
+      // Mettre à jour les données de l'utilisateur en cours de modification
+      this.utilisateurEnCoursDeModification = utilisateur;
+      // Affichez votre formulaire ou modal ici
+    },
+        openFileInput() {
+            // Cliquez sur l'élément de fichier invisible
+            this.$refs.fileInput.click();
+        },
+
         async soumettre() {
             const formdata = new FormData();
             formdata.append('nom', this.form.nom);
@@ -373,47 +620,17 @@ export default {
                 const user_store = await axios.post('/user/store', formdata, {});
                 this.resetForm();
                 bus.emit('utilisateurAjoutee');
-                var ajout = document.querySelector('[data-modal-ajout]');
-                var confirmation = document.querySelector('[data-modal-confirmation]');
-
-
-                /* console.log(ajout); */
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                //ajout.classList.remove("actif");
-                ajout.close();
-
-
-                confirmation.style.backgroundColor = 'white';
-                confirmation.style.color = 'var(--clr)';
-
-
-
-                //setTimeout(function(){
-                confirmation.showModal();
-                confirmation.classList.add("actif");
-                //confirmation.close();
-                //}, 1000);
-
-                setTimeout(function () {
-                    confirmation.close();
-
-                    setTimeout(function () {
-                        confirmation.classList.remove("actif");
-                    }, 100);
-
-                }, 1700);
+                showDialog6("Utilisateur ajouter avec succès");
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
+                    showDialog3("Cet utilisateur existe déjà");
                 }
                 else {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
         },
@@ -458,7 +675,7 @@ export default {
             });
         },
 
-        /* 
+        /*
                 get_personnel_administratif(){
                     axios.get('/personnel_administratif/index').then(response => {
                     this.personnel_administratifs=response.data.personnel_administratifs
@@ -501,6 +718,7 @@ export default {
 
         ajoutimage(event) {
             this.photo = event.target.files[0];
+            this.photo_erreur = "";
         },
 
         getImageUrl() {
@@ -591,14 +809,28 @@ export default {
             this.id_departement_erreur = "";
             this.id_service_erreur = "";
             this.type_erreur = "";
+            this.photo_erreur = "";
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
 
 
 
+
             /* this.activePhase= 1; */
 
+        },
+        fetchCountries() {
+            // Utiliser Vue-resource pour effectuer la requête AJAX (vous pouvez également utiliser Axios)
+            axios.get('https://restcountries.com/v3.1/all')
+                .then(response => {
+                    // Mettre à jour la liste des pays
+                    this.countries = response.data;
+                    console.log(this.countries)
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des pays :', error);
+                });
         },
 
         verifCaratere(nom) {
@@ -632,6 +864,7 @@ export default {
                     if (this.form.nom === "") {
                         this.nom_user_erreur = "Ce champ est obligatoire"
                         i = 1;
+
                         return true
 
                     }
@@ -642,6 +875,15 @@ export default {
                         return true
                     }
                     // Ajoutez d'autres validations si nécessaire
+                    break;
+                case 'photo':
+                    this.photo_erreur = "";
+                    //Vérification de matrimoniale
+                    if (this.photo === "") {
+                        this.photo_erreur = "La photo est obligatoire "
+                        i = 1;
+                        return true
+                    }
                     break;
                 case 'prenom':
                     this.prenom_user_erreur = "";
@@ -843,6 +1085,7 @@ export default {
             this.id_departement_erreur = "";
             this.type_erreur = "";
             this.id_role_erreur = "";
+            this.photo_erreur = "";
             var i = 0;
             // pour nom
 
@@ -857,7 +1100,12 @@ export default {
                 /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
                 i = 1;
             }
-
+            // Effectuez la validation pour le champ 'photo'
+            if (this.photo === "") {
+                this.photo_erreur = "Ce champ est obligatoire"
+                i = 1;
+                console.log("videnomeleve=" + i);
+            }
             //pour prenom
             if (this.form.prenom === "") {
                 this.prenom_user_erreur = "Ce champ est obligatoire"
@@ -900,14 +1148,33 @@ export default {
 
             //Vérification de l' email
             if (this.form.email === "") {
-                this.email_user_erreur = "L'email est obligatoire"
+                this.email_user_erreur = "L'email est obligatoire";
+                i = 1;
+            } else if (!this.validateEmail(this.form.email)) {
+                this.email_user_erreur = "L'email n'est pas valide";
                 i = 1;
             } else {
-                if (!this.validateEmail(this.form.email)) {
-                    this.email_user_erreur = "L'email n'est pas valide";
-                    i = 1;
-                }
+                // Appel à votre backend pour vérifier l'existence de l'e-mail
+                axios.post('/verif/mail', { email: this.form.email })
+                    .then(response => {
+                        // Succès - faire quelque chose si nécessaire
+                    })
+                    .catch(error => {
+                        if (error.response.status === 422) {
+                            const errors = error.response.data.errors;
+
+                            // Vérifiez si l'erreur spécifique liée à l'e-mail existe
+                            if (errors && errors.email) {
+                                this.email_user_erreur = errors.email[0];
+                                i = 1;
+                                if (this.email_user_erreur == "The email has already been taken.") {
+                                    this.email_user_erreur = "Cet e-mail existe déjà";
+                                }
+                            }
+                        }
+                    });
             }
+
 
             // Vérification de la date de naissance
             if (this.form.date_naissance === "") {
@@ -994,7 +1261,7 @@ export default {
                 i = 1;
             }
 
-            if (this.interesser == 4) {
+            if (this.interesser !== 1 && this.interesser !== 2 && this.interesser !== '') {
                 if (this.form.id_service === "") {
                     this.id_service_erreur = "Vous avez oublié de sélectionner le chef de service"
                     i = 1;
@@ -1104,68 +1371,88 @@ export default {
         },
 
         /* Méthode pour les variables */
-        variables_changement_etape() {
-            this.suivant = document.querySelector('.suivant');
-            this.precedent = document.querySelector('.annuler');
-            this.i_1_2_3 = 1;
-            this.off = 0;
+        /*   variables_changement_etape() {
+              this.suivant = document.querySelector('.suivant');
+              this.precedent = document.querySelector('.annuler');
+              this.i_1_2_3 = 1;
+              this.off = 0;
 
-            this.etape = document.querySelector('.positions');
-            this.cercles = document.querySelector('.cercles');
-        },
+              this.etape = document.querySelector('.positions');
+              this.cercles = document.querySelector('.cercles');
+          }, */
 
-        changement_etape(avancer) {
-            if (avancer) {
-                this.i_1_2_3 = this.i_1_2_3 + 2;
-            }
-            if (!avancer) {
-                this.i_1_2_3 = this.i_1_2_3 - 2;
-            }
-
-
-            if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
-            if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
-
-            if (this.i_1_2_3 < 3) {
-                this.suivant.firstChild.textContent = "Suivant";
-                this.suivant.dataset.closeModal = "0";
-
-            } else {
-                this.suivant.firstChild.textContent = "Ajouter";
-                this.suivant.dataset.closeModal = "1";
-            }
-
-            if (this.i_1_2_3 > 1) {
-                this.precedent.firstChild.textContent = "Précédent";
-                this.precedent.dataset.closeModal = "0";
-            }
-            else {
-
-                this.precedent.firstChild.textContent = "Annuler";
-                this.precedent.dataset.closeModal = "1";
-
-            }
-
-            this.cercles.dataset.etape = this.i_1_2_3 - 2;
-            this.etape.dataset.etape = this.i_1_2_3;
-            if (this.i_1_2_3 == 3) this.off = 1;
-            this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
-            this.off = 0
-
-        },
+        /*      changement_etape(avancer) {
+                 if (avancer) {
+                     this.i_1_2_3 = this.i_1_2_3 + 2;
+                 }
+                 if (!avancer) {
+                     this.i_1_2_3 = this.i_1_2_3 - 2;
+                 }
 
 
-        clic_suivant() {
-            this.changement_etape(true);
-        },
+                 if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
+                 if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
 
-        clic_precedent() {
-            this.changement_etape(false)
-        }
+                 if (this.i_1_2_3 < 3) {
+                     this.suivant.firstChild.textContent = "Suivant";
+                     this.suivant.dataset.closeModal = "0";
+
+                 } else {
+                     this.suivant.firstChild.textContent = "Ajouter";
+                     this.suivant.dataset.closeModal = "1";
+                 }
+
+                 if (this.i_1_2_3 > 1) {
+                     this.precedent.firstChild.textContent = "Précédent";
+                     this.precedent.dataset.closeModal = "0";
+                 }
+                 else {
+
+                     this.precedent.firstChild.textContent = "Annuler";
+                     this.precedent.dataset.closeModal = "1";
+
+                 }
+
+                 this.cercles.dataset.etape = this.i_1_2_3 - 2;
+                 this.etape.dataset.etape = this.i_1_2_3;
+                 if (this.i_1_2_3 == 3) this.off = 1;
+                 this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
+                 this.off = 0
+
+             }, */
+
+
+        /*     clic_suivant() {
+                this.changement_etape(true);
+            },
+
+            clic_precedent() {
+                this.changement_etape(false)
+            } */
 
 
 
     }
 }
 </script>
+<style scoped>
+.dropzone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    /* Spécifiez les dimensions du dropzone */
+    width: 100%;
+    height: 80%;
+}
+
+.uploaded-image {
+    /* Spécifiez les dimensions de l'image téléchargée */
+    width: 100%;
+    height: 100%;
+    float: left;
+    object-fit: cover;
+    /* Garantit que l'image couvre complètement le conteneur */
+}
+</style>
 

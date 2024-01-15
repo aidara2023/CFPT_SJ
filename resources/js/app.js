@@ -1,4 +1,5 @@
 import './bootstrap';
+
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import { Form } from 'vform';
 import loginComponent from './components/auth/loginComponent.vue';
@@ -102,6 +103,7 @@ import dashboardComponent from './components/dashboard/dashboardComponent.vue';
 
 import createRecouvrementComponent from './components/recouvrement/createRecouvrementComponent.vue';
 import tableauRecouvrementComponent from './components/recouvrement/listeRecouvrementComponent.vue';
+import adminComponent from './components/admin/adminComponent.vue';
 
 import Swal from 'sweetalert2';
 window.Form=Form;
@@ -201,9 +203,7 @@ app.component("inscription-valider", validerInscriptionComponent);
 app.component("alerte-create", createAlerteComponent);
 app.component("liste-alerte", listeAlerteComponent);
 app.component("dash-board", dashboardComponent);
-
-
-
+app.component("dashboard-user", adminComponent);
 
 
 

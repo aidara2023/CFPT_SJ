@@ -34,6 +34,7 @@ class User extends Authenticatable
         'matricule_nombre',
         'matricule',
         'status',
+        'situation_matrimonial',
 
     ];
    /*  protected $primaryKey= 'matricule'; */
@@ -64,11 +65,11 @@ class User extends Authenticatable
 
 
     public function service() {
-        return $this -> belongsTo(Service::class);
+        return $this -> hasOne(Service::class, 'id_service', 'id');
     }
 
     public function direction() {
-        return $this -> belongsTo(Direction::class);
+        return $this -> hasOne(Direction::class, 'id_direction', 'id');
     }
 
     public function bibliothecaires(){
@@ -99,8 +100,8 @@ class User extends Authenticatable
         return $this->hasMany(Eleve::class, 'id_user', 'id');
     }
 
-    public function formateurs(){
-        return $this->hasMany(Formateur::class);
+    public function formateur(){
+        return $this->hasMany(Formateur::class, 'id_user', 'id');
     }
 
     public function emprunter_materiels(){
@@ -108,6 +109,10 @@ class User extends Authenticatable
     }
     public function consultations(){
         return $this->hasMany(Consultation::class);
+    }
+
+    public function personnel_admin_appui(){
+        return $this->hasMany(Personnel_admin_appui::class, 'id_user', 'id');
     }
 
    /*  public static function generateur_matricule($prefix= 'M'){
