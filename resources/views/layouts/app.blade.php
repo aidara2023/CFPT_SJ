@@ -171,7 +171,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a href="#quick_sidebar_tab_1" class="nav-link active tab-icon"
-                                        data-bs-toggle="tab"> <i class="material-icons">chat</i>Chat
+                                        data-bs-toggle="tab"> <i class="material-icons">message</i>Message
                                         <span class="badge badge-danger">4</span>
                                     </a>
                                 </li>

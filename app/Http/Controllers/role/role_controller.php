@@ -89,4 +89,18 @@ class role_controller extends Controller
         }
 
     }
+    public function all() {
+        $role=Role::orderBy('created_at', 'desc')->get();
+        if($role!=null){
+            return response()->json([
+                'statut'=>200,
+                'role'=>$role
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Auncune donnée trouvée',
+            ],500 );
+        }
+     }
 }

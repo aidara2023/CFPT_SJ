@@ -570,6 +570,7 @@ Route::get('user/getBibliothecaire',[user_controller::class, 'getBibliothecaire'
 //Route pour role
 
 Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
+Route::get('role/all', [role_controller::class, 'all'])->name('role_all');
 
 
 //Route pour service
