@@ -245,36 +245,36 @@
     <div class="col-lg-6 p-t-20">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom">Nom</label>
             <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
                 @input="validatedata('nom')">
-            <label class="mdl-textfield__label">Nom</label>
             <span class="erreur">{{ this.nom_user_erreur }}</span>
         </div>
     </div>
     <div class="col-lg-6 p-t-20">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.prenom"
+            <label class="mdl-textfield__label" for="txtLastName" v-show="!form.prenom">Prénom</label>
+            <input class="mdl-textfield__input" type="text" id="txtLastName" v-model="form.prenom"
                 @input="validatedata('prenom')">
-            <label class="mdl-textfield__label">Prénom</label>
             <span class="erreur">{{ this.prenom_user_erreur }}</span>
         </div>
     </div>
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="dateOfBirth" v-show="!form.date_naissance">Date de Naissance</label>
             <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
                 @input="validatedata('date_naissance')">
-            <label class="mdl-textfield__label">Date de Naissance</label>
             <span class="erreur">{{ this.date_erreur }}</span>
         </div>
     </div>
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="designation" v-show="!form.lieu_naissance">Lieu de naissance</label>
             <input class="mdl-textfield__input" type="text" id="designation" v-model="form.lieu_naissance"
                 @input="validatedata('naissance')">
-            <label class="mdl-textfield__label">Lieu de naissance</label>
             <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
         </div>
     </div>
@@ -282,9 +282,9 @@
     <div class="col-lg-6 p-t-20">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="list2" v-show="!form.nationalite">Nationalité</label>
             <input class="mdl-textfield__input" type="text" id="list2" v-model="form.nationalite"
                 @input="validatedata('nationalite')">
-            <label class="mdl-textfield__label">Nationalité</label>
             <span class="erreur">{{ this.nationalite_erreur }}</span>
         </div>
 
@@ -293,8 +293,7 @@
     <div class="col-lg-6 p-t-20">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-
-            <label for="list3" class="mdl-textfield__label">Choisissez Genre</label>
+            <label for="list3" class="mdl-textfield__label" v-show="!form.genre">Choisissez Genre</label>
             <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.genre"
                 @change="validatedata('genre')">
                 <option value="Masculin">Masculin</option>
@@ -308,9 +307,9 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="text5" v-show="!form.telephone">Téléphone</label>
             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="text5"
                 v-model="form.telephone" @input="validatedata('telephone')">
-            <label class="mdl-textfield__label" for="text5">Téléphone</label>
             <span class="erreur">{{ this.telephone_erreur }}</span>
         </div>
     </div>
@@ -318,38 +317,26 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-            <input class="mdl-textfield__input" type="text" id="designation" v-model="form.adresse"
+            <label class="mdl-textfield__label" for="designation2" v-show="!form.adresse">Adresse</label>
+            <input class="mdl-textfield__input" type="text" id="designation2" v-model="form.adresse"
                 @input="validatedata('adresse')">
-            <label class="mdl-textfield__label">Adresse</label>
             <span class="erreur">{{ this.adresse_erreur }}</span>
         </div>
     </div>
 
-
-    <!-- <div class="col-lg-12 p-t-20">
-        <label class="control-label col-md-3">Upload Photo
-        </label>
-
-        <div class="col-md-12">
-            <div id="id_dropzone" class="dropzone"></div>
-        </div>
-    </div> -->
-
-    <!--   <div class="col-lg-12 p-t-20">
-    <label class="control-label col-md-3">Upload Photo</label>
-    <div class="col-md-12 dropzone">
-        <input type="file" name="file" @change="handleFileChange" />
-    </div>
-</div> -->
-
     <div class="col-lg-12 p-t-20">
-        <label class="control-label col-md-3">Upload Photo</label>
+        <label class="control-label col-md-3"  for="photo">Upload Photo</label>
         <div class="col-md-12 dropzone" @click="openFileInput">
-            <input type="file" name="file" ref="fileInput" style="display: none;" @change="ajoutimage" />
+            <input type="file" name="file" id="photo" ref="fileInput" style="display: none;" @change="ajoutimage" />
             <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
-            <div class="sidebar-user">
+            <div class="sidebar-user" v-if="!this.ancienPhoto">
                 <div class="sidebar-user-picture">
                     <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
+                </div>
+            </div>
+            <div class="sidebar-user" v-if="this.ancienPhoto">
+                <div class="sidebar-user-picture">
+                    <img :src="getImageUrl(this.ancienPhoto)" alt="Etu" class="uploaded-image">
                 </div>
             </div>
             <div v-if="!urlPhoto">
@@ -362,9 +349,9 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtemail" v-show="!form.email">Email</label>
             <input class="mdl-textfield__input" type="mail" id="txtemail" v-model="form.email"
                 @input="validatedata('email')">
-            <label class="mdl-textfield__label">Email</label>
             <span class="erreur">{{ this.email_user_erreur }}</span>
         </div>
     </div>
@@ -375,7 +362,7 @@
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="listrole" class="mdl-textfield__label"> Choisissez un role</label>
+            <label class="mdl-textfield__label" for="roleSelect" v-show="!form.id_role"> Choisissez un role</label>
             <select class="mdl-textfield__input" id="roleSelect" readonly tabIndex="-1" v-model="form.id_role"
                 @change="changement(form.id_role)">
 
@@ -386,10 +373,10 @@
     </div>
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role===2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list5" class="mdl-textfield__label">Choisissez Type Professeur</label>
+            <label for="list5" class="mdl-textfield__label" v-show="!form.type">Choisissez Type Professeur</label>
             <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
                 <option value="Etat">Etat</option>
@@ -402,10 +389,10 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role===2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list6" class="mdl-textfield__label">Choisissez Situation Matrimoniale</label>
+            <label for="list6" class="mdl-textfield__label" v-show="!form.situation_matrimoniale">Choisissez Situation Matrimoniale</label>
             <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
                 @change="validatedata('situation_matrimoniale')">
                 <option value="Célibataire">Célibataire</option>
@@ -417,10 +404,10 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role===2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
+            <label for="list7" class="mdl-textfield__label" v-show="!form.id_specialite">Choisissez Spécialité</label>
             <select class="mdl-textfield__input" id="list7" readonly tabIndex="-1" v-model="form.id_specialite"
                 @change="validatedata('id_specialite')">
                 <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
@@ -432,11 +419,11 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role===2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="list8" class="mdl-textfield__label">Choisissez Département</label>
+            <label for="list8" class="mdl-textfield__label" v-show="!form.id_departement">Choisissez Département</label>
             <select class="mdl-textfield__input" id="list8" readonly tabIndex="-1" v-model="form.id_departement"
                 @change="validatedata('departement')">
                 <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
@@ -451,7 +438,7 @@
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="list9" class="mdl-textfield__label">Choisissez Service</label>
+            <label for="list9" class="mdl-textfield__label" v-show="!form.id_service">Choisissez Service</label>
             <select class="mdl-textfield__input" id="list9" readonly tabIndex="-1" v-model="form.id_service"
                 @change="validatedata('service')">
                 <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}
@@ -463,11 +450,14 @@
     </div>
     <div class="col-lg-12 p-t-20 text-center">
 
-        <button type="submit"
+        <button type="submit" v-if="!this.editModal"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
             @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
         <button type="button"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger">Annuler</button>
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger" @click="resetForm">Annuler</button>
 
     </div>
 </template>
@@ -478,6 +468,7 @@ import axios from 'axios';
 import Form from 'vform';
 
 export default {
+    props: ['utilisateur', 'editModal'],
     name: "utilisateurCompenent",
     data() {
         return {
@@ -541,6 +532,7 @@ export default {
             i_1_2_3: "",
             urlPhoto: false,
             photo_erreur: "",
+            ancienPhoto: "",
             utilisateurEnCoursDeModification: null,
         }
     },
@@ -552,32 +544,10 @@ export default {
         this.get_specialite();
         this.get_departement();
         this.get_service();
+        this.monterToupdate();
         // this.fetchCountries();
         /*  this.variables_changement_etape(); */
-
-        bus.on('utilisateurModifier', (eventData) => {
-            this.idUser = eventData.idUser;
-            this.editModal = eventData.editModal;
-            this.form.nom = eventData.nom;
-            this.form.prenom = eventData.prenom;
-            this.form.genre = eventData.genre;
-            this.form.adresse = eventData.adresse;
-            this.form.telephone = eventData.telephone;
-            this.form.email = eventData.email;
-            this.form.lieu_naissance = eventData.lieu_naissance;
-            this.form.nationalite = eventData.nationalite;
-            this.form.type = eventData.type;
-            this.form.situation_matrimoniale = eventData.situation_matrimoniale;
-            this.form.id_role = eventData.id_role;
-            this.form.id_departement = eventData.id_departement;
-            this.form.id_service = eventData.id_service;
-            this.form.id_specialite = eventData.id_specialite;
-            console.log(eventData)
-
-        });
-
-       
-
+        
     },
     computed: {
         photoUrl() {
@@ -639,6 +609,7 @@ export default {
         changement(event) {
             this.interesser = event;
             this.id_role_erreur = "";
+            
         },
 
         goToStep: function (step) {
@@ -646,8 +617,6 @@ export default {
                 this.activePhase = step;
                 this.i_1_2_3 = step;
             }
-
-
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
             this.etape.dataset.etape = this.i_1_2_3;
@@ -675,27 +644,6 @@ export default {
             });
         },
 
-        /*
-                get_personnel_administratif(){
-                    axios.get('/personnel_administratif/index').then(response => {
-                    this.personnel_administratifs=response.data.personnel_administratifs
-                    console.log(this.personnel_administratifs)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
-                    });
-                },
-                get_personnel_appui(){
-                    axios.get('/personnel_appui/index').then(response => {
-                    this.personnel_appuis=response.data.personnel_appuis
-                    console.log(this.personnel_appuis)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
-                    });
-                }, */
-
-
-
-
         get_specialite() {
             axios.get('/specialite/index').then(response => {
                 this.specialites = response.data.specialite
@@ -721,9 +669,8 @@ export default {
             this.photo_erreur = "";
         },
 
-        getImageUrl() {
-            const timestamp = new Date().getTime();
-            return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
+        getImageUrl(url) {
+            return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
         validerAvantAjout() {
@@ -1370,67 +1317,31 @@ export default {
             }
         },
 
-        /* Méthode pour les variables */
-        /*   variables_changement_etape() {
-              this.suivant = document.querySelector('.suivant');
-              this.precedent = document.querySelector('.annuler');
-              this.i_1_2_3 = 1;
-              this.off = 0;
+        monterToupdate() {
+            this.idUser = this.utilisateur.id;
+            this.editModal = this.utilisateur.editModal;
+            this.form.nom = this.utilisateur.nom;
+            this.form.prenom = this.utilisateur.prenom;
+            this.form.genre = this.utilisateur.genre;
+            this.form.adresse = this.utilisateur.adresse;
+            this.form.telephone = this.utilisateur.telephone;
+            this.form.email = this.utilisateur.email;
+            this.form.lieu_naissance = this.utilisateur.lieu_naissance;
+            this.form.date_naissance = this.utilisateur.date_naissance;
+            this.form.nationalite = this.utilisateur.nationalite;
+            this.form.type = this.utilisateur.type;
+            this.form.situation_matrimoniale = this.utilisateur.situation_matrimoniale;
+            this.form.id_role = this.utilisateur.id_role;
+            this.form.id_departement = this.utilisateur.id_departement;
+            this.form.id_service = this.utilisateur.id_service;
+            this.form.id_specialite = this.utilisateur.specialite;
+            this.form.id_departement = this.utilisateur.id_departement;
+            this.ancienPhoto= this.utilisateur.photo
 
-              this.etape = document.querySelector('.positions');
-              this.cercles = document.querySelector('.cercles');
-          }, */
+            console.log("situation")
+            console.log( this.form.situation_matrimoniale)
 
-        /*      changement_etape(avancer) {
-                 if (avancer) {
-                     this.i_1_2_3 = this.i_1_2_3 + 2;
-                 }
-                 if (!avancer) {
-                     this.i_1_2_3 = this.i_1_2_3 - 2;
-                 }
-
-
-                 if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
-                 if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
-
-                 if (this.i_1_2_3 < 3) {
-                     this.suivant.firstChild.textContent = "Suivant";
-                     this.suivant.dataset.closeModal = "0";
-
-                 } else {
-                     this.suivant.firstChild.textContent = "Ajouter";
-                     this.suivant.dataset.closeModal = "1";
-                 }
-
-                 if (this.i_1_2_3 > 1) {
-                     this.precedent.firstChild.textContent = "Précédent";
-                     this.precedent.dataset.closeModal = "0";
-                 }
-                 else {
-
-                     this.precedent.firstChild.textContent = "Annuler";
-                     this.precedent.dataset.closeModal = "1";
-
-                 }
-
-                 this.cercles.dataset.etape = this.i_1_2_3 - 2;
-                 this.etape.dataset.etape = this.i_1_2_3;
-                 if (this.i_1_2_3 == 3) this.off = 1;
-                 this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
-                 this.off = 0
-
-             }, */
-
-
-        /*     clic_suivant() {
-                this.changement_etape(true);
-            },
-
-            clic_precedent() {
-                this.changement_etape(false)
-            } */
-
-
+        },
 
     }
 }

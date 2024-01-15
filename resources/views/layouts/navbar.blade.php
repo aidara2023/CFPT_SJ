@@ -48,7 +48,7 @@
               
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i data-feather="user"></i>
-                        <span class="title">Utilisateur</span> <span class="arrow"></span>
+                        <span class="title">Utilisateurs</span> <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item">
@@ -64,7 +64,7 @@
                         </li> --}}
                         <li class="nav-item">
                             <a href="{{route('utilisateur_create')}}" class="nav-link "> <span
-                                    class="title">Nouveau Utilisateur</span>
+                                    class="title">Nouvel Utilisateur</span>
                             </a>
                         </li>
                        {{--  <li class="nav-item">
