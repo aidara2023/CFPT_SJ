@@ -170,6 +170,7 @@
                                                         <th> Téléphone </th>
                                                         <th> Unité de formation </th>
                                                         <th> Département </th>
+                                                      <!--   <th> Statut </th> -->
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -189,11 +190,18 @@
 
                                                         <td>{{ utilisateur.departement }} </td>
 
+                                                    <!--     <td>
+                                                            <span
+                                                            :class="{ 'label label-sm label-success': utilisateur.status === 1, 'label label-sm label-warning': utilisateur.status === 0 }">
+                                                                {{ utilisateur.status === 1 ? 'Activer' : 'Desactiver' }}
+                                                            </span>
+                                                        </td> -->
+
                                                         <td>
-                                                            <a  class="tblEditBtn" @click="openModal(utilisateur)">
+                                                            <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                            <a class="tblDelBtn" @click="deleteUtilisateur(utilisateur)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -241,6 +249,7 @@
                                                         <th> Téléphone </th>
                                                         <th> Fonction </th>
                                                         <th> Service </th>
+                                                    <!--     <th> Statut </th> -->
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -259,12 +268,24 @@
                                                         <td class="left">{{ utilisateur.fonction }} </td>
                                                         <td>{{ utilisateur.nom_service }} </td>
 
+                                                  <!--       <td :class="{ 'label label-sm label-success': utilisateur.status === 1, 'label label-sm label-warning': utilisateur.status === 0 }">
+                                                            <span
+                                                                >
+                                                                {{ utilisateur.status === 1 ? 'Activer' : 'Desactiver' }}
+                                                            </span>
+                                                        </td> -->
+
+                                                    <!--     <td v-show="utilisateur.status === 0">
+                                                            <span class="label label-sm label-warning ">Desactiver</span>
+                                                        </td> -->
+
                                                         <td>
 
                                                             <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                            <a href="javascript:void(0)" class="tblDelBtn"
+                                                                @click="deleteUtilisateur(utilisateur)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -317,7 +338,7 @@
     </div>
 
 
-    <div class="page-content-wrapper" v-if="this.editModal">
+    <div class="page-content-wrapper" v-show="editModal">
         <div class="page-content">
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
@@ -355,7 +376,7 @@
                             </ul>
                         </div>
                         <div class="card-body row">
-                            <FormulaireModification :utilisateur="userEnCoursDeModification"  />
+                            <FormulaireModification />
                         </div>
                     </div>
                 </div>
@@ -376,8 +397,8 @@ import FormulaireModification from './utilisateurComponent.vue';
 export default {
     name: "listeUserCompenent",
     components: {
-  FormulaireModification,
-},
+        FormulaireModification,
+    },
     data() {
         return {
             form: new Form({
@@ -402,6 +423,7 @@ export default {
             utilisateursPer: [],
             idUser: "",
             editModal: false,
+
             activePhase: 1,
             idUser: "",
             userEnCoursDeModification: null,
@@ -482,14 +504,6 @@ export default {
             axios.get('/user/getPersonnel')
                 .then(response => {
                     this.utilisateursPer = response.data.user;
-
-                    // const scriptTag = document.getElementById('tableDataScript');
-                    /*  console.log("Données utilisateurs : ", this.utilisateurs); */
-                    //scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
-
-                    //console.log("Chaîne JSON générée : ", JSON.stringify(this.utilisateurs));
-                    // $(document).trigger('donnees-pretent');
-                    // Obtenez toutes les données d'utilisateurs
                     const allUtilisateurs = response.data.user;
 
                     // Filtrer les utilisateurs en fonction de la catégorie du personnel
@@ -518,6 +532,7 @@ export default {
                             matricule: utilisateur.matricule,
                             prenom: utilisateur.prenom,
                             nom: utilisateur.nom,
+                            status: utilisateur.status,
                             email: utilisateur.email,
                             telephone: utilisateur.telephone,
                             editModal: true,
@@ -540,6 +555,7 @@ export default {
                             matricule: utilisateur.matricule,
                             prenom: utilisateur.prenom,
                             nom: utilisateur.nom,
+                            status: utilisateur.status,
                             email: utilisateur.email,
                             telephone: utilisateur.telephone,
                             editModal: true,
@@ -597,7 +613,12 @@ export default {
         },
 
         async deleteUtilisateur(user) {
-            Swal.fire({
+        /*     showDialog7(
+                "Oui, desactivez-le !",
+                "Supprimé(e) !",
+                "Utilisateur desactiver avec succès."
+            ).then((result) => { */
+                Swal.fire({
                 title: 'Êtes-vous sûr?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
@@ -608,24 +629,10 @@ export default {
                 cancelButtonText: 'Annuler'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/user/disable/${user.id}`).then(resp => {
+                    axios.delete(`/user/delete/${user.id}`).then(resp => {
                         this.get_utilisateur();
 
-                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
 
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        setTimeout(function () {
-                            confirmation.close();
-
-                            setTimeout(function () {
-                                confirmation.classList.remove("actif");
-                            }, 100);
-
-                        }, 2000);
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -635,11 +642,18 @@ export default {
 
         openModal(utilisateur) {
 
-            this.idUser = utilisateur.id;
+            //  this.idUser = utilisateur.id;
 
             this.editModal = true;
 
-            this.userEnCoursDeModification = utilisateur;
+            // this.userEnCoursDeModification = utilisateur;
+
+            const eventData = {
+                utilisateur: utilisateur,
+            };
+
+            bus.emit('userModifier', eventData);
+            console.log("etatModal set to true:", this.etatModal);
 
         },
 
@@ -656,5 +670,4 @@ export default {
     /* Ajustez la taille comme nécessaire */
     height: 34px;
     border-radius: 50%;
-}
-</style>
+}</style>
