@@ -265,7 +265,7 @@
             <label class="mdl-textfield__label" for="dateOfBirth" v-show="!form.date_naissance">Date de Naissance</label>
             <!-- <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
                 @change="validatedata('date_naissance')"> -->
-                <flat-pickr v-model="form.date_naissance" class="mdl-textfield__input"  @change="validatedata('date_naissance')"></flat-pickr>
+                <flat-pickr v-model="form.date_naissance" class="mdl-textfield__input" id="dateOfBirth" @input="validatedata('date_naissance')"></flat-pickr>
             <span class="erreur">{{ this.date_erreur }}</span>
         </div>
     </div>
@@ -436,7 +436,7 @@
 
 
     <div class="col-lg-6 p-t-20"
-        v-show="(this.interesser !== 1 & this.interesser !== 2 & this.interesser !== '') || (this.form.id_role !== 2 & this.form.id_role !== 1 & this.form.id_role !== '')">
+        v-show="(this.interesser !== 1 && this.interesser !== 2 && this.interesser !== '') || (this.form.id_role !== 2 & this.form.id_role !== 1 & this.form.id_role !== '')">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
@@ -448,6 +448,22 @@
 
             </select>
             <span class="erreur">{{ id_service_erreur }}</span>
+        </div>
+    </div>
+
+    <div class="col-lg-6 p-t-20"
+    v-show="this.interesser === 2 || this.form.id_role === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="list99" class="mdl-textfield__label" v-show="!form.id_unite_de_formation">Choisissez Filière</label>
+            <select class="mdl-textfield__input" id="list99" readonly tabIndex="-1" v-model="form.id_unite_de_formation"
+                @change="validatedata('filiere')">
+                <option v-for="(filiere, index) in filieres" :value="filiere.id" :key="index">{{ filiere.nom_unite_formation }}
+                </option>
+
+            </select>
+            <span class="erreur">{{ id_unite_de_formation_erreur }}</span>
         </div>
     </div>
     <div class="col-lg-12 p-t-20 text-center">
@@ -499,11 +515,13 @@ export default {
                 'id_service': "",
                 'type': "",
                 'situation_matrimoniale': "",
+                'id_unite_de_formation': "",
             }),
 
             photo: "",
             interesser: "",
             roles: [],
+            filieres: [],
             services: [],
             departements: [],
             specialites: [],
@@ -524,6 +542,7 @@ export default {
             id_service_erreur: "",
             type_erreur: "",
             situation_matrimoniale_erreur: "",
+            id_unite_de_formation_erreur: "",
             erreur: "",
             champ: "",
             get_id_perso_admin: "",
@@ -532,12 +551,6 @@ export default {
             etatForm: false,
             editModal: false,
             idUser: "",
-            suivant: "",
-            precedent: "",
-            visible: "",
-            invisible: "",
-            off: "",
-            i_1_2_3: "",
             urlPhoto: false,
             photo_erreur: "",
             ancienPhoto: "",
@@ -552,10 +565,10 @@ export default {
         this.get_specialite();
         this.get_departement();
         this.get_service();
+        this.get_filiere();
         this.monterToupdate();
         componentHandler.upgradeAllRegistered();
-        // this.fetchCountries();
-        /*  this.variables_changement_etape(); */
+       
 
     },
     computed: {
@@ -594,13 +607,14 @@ export default {
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
+            formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('photo', this.photo);
 
             try {
                 const user_store = await axios.post('/user/store', formdata, {});
-                this.resetForm();
                 bus.emit('utilisateurAjoutee');
                 showDialog6("Utilisateur ajouter avec succès");
+                this.resetForm();
 
             }
             catch (e) {
@@ -672,6 +686,16 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
                 });
         },
+        get_filiere() {
+            axios.get('/unite_de_formation/all')
+                .then(response => {
+                    this.filieres = response.data.unite_de_formation
+
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des filière', 'error')
+                });
+        },
 
 
         ajoutimage(event) {
@@ -701,44 +725,27 @@ export default {
                         this.photo = this.ancienPhoto;
                     }
                     this.form.nom = this.form.nom.toUpperCase();
-                    console.log("nom")
-                    console.log(this.form.nom)
-
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
-                    console.log("lieu_naissance")
-                    console.log(this.form.lieu_naissance)
-
                     this.form.adresse = this.form.adresse.toUpperCase();
-                    console.log("adresse")
-                    console.log(this.form.adresse)
-
                     this.form.nationalite = this.form.nationalite.toUpperCase();
-                    console.log("nationalite")
-                    console.log(this.form.nationalite)
-
                     // Convertir la première lettre du prénom en majuscule et le reste en minuscules
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
-                    console.log("prenom")
-                    console.log(this.form.prenom)
-
                     this.update_utilisateur(this.idUser);
-                    // this.closeModal('[data-modal-confirmation-modifier]');
-                    this.editModal = false;
+                    this.resetForm();
+                    
 
                 }
                 else {
                     this.etatForm = true;
-
                     this.form.nom = this.form.nom.toUpperCase();
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
                     this.form.adresse = this.form.adresse.toUpperCase();
                     this.form.nationalite = this.form.nationalite.toUpperCase();
-
                     // Convertir la première lettre du prénom en majuscule et le reste en minuscules
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.soumettre();
-                    // this.closeModal('[data-modal-confirmation]');
-                    this.editModal = false;
+                    this.resetForm();
+                   
                 }
             }
         },
@@ -761,17 +768,15 @@ export default {
             this.form.id_departement = "";
             this.form.id_service = "";
 
-            /*  this.form.id_personnel_administratif="";
-             this.id_personnel_appui=""; */
-
             this.photo = "";
             this.editModal = false;
 
             this.nom_user_erreur = "";
+            this.date_erreur = "";
             this.interesser = "";
             this.get_id_perso_admin = "";
             this.prenom_user_erreur = "";
-            this.date_erreur = "";
+      
             this.lieu_naissance_erreur = "";
             this.genre_erreur = "";
             this.adresse_erreur = "";
@@ -787,11 +792,6 @@ export default {
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
-
-
-
-
-            /* this.activePhase= 1; */
 
         },
         fetchCountries() {
@@ -1041,6 +1041,15 @@ export default {
                         return true
                     }
                     break;
+                case 'filiere':
+                    this.id_unite_de_formation_erreur = "";
+                    //Vérification de departement
+                    if (this.form.id_unite_de_formation === "") {
+                        this.id_unite_de_formation_erreur = "Vous avez oublié de sélectionner la filiere"
+                        i = 1;
+                        return true
+                    }
+                    break;
 
                 default:
 
@@ -1065,6 +1074,7 @@ export default {
             this.id_departement_erreur = "";
             this.type_erreur = "";
             this.id_role_erreur = "";
+            this.id_unite_de_formation_erreur = "";
             this.photo_erreur = "";
             var i = 0;
             // pour nom
@@ -1213,6 +1223,10 @@ export default {
                     this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
                     i = 1;
                 }
+                if (this.form.id_unite_de_formation === "") {
+                        this.id_unite_de_formation_erreur = "Vous avez oublié de sélectionner la filière"
+                        i = 1;
+                    }
                 if (this.form.type === "") {
                     this.type_erreur = "Vous avez oublié de sélectionner le type "
                     i = 1;
@@ -1280,45 +1294,6 @@ export default {
             return false;
         },
 
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-
-            if (this.etatForm === false) {
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                ajout.classList.remove("actif");
-                ajout.close();
-            }
-
-            this.editModal = false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
-
         async update_utilisateur(id) {
             const formdata = new FormData();
             formdata.append('nom', this.form.nom);
@@ -1341,22 +1316,24 @@ export default {
 
             try {
                 const user_store = await axios.post('/user/update/' + id, formdata);
-                this.resetForm();
                 bus.emit('utilisateurAjoutee');
+                showDialog6("Utilisateur modifier avec succès");
+                this.resetForm();
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
             }
         },
 
         monterToupdate() {
+            if(this.editModal){
             this.idUser = this.utilisateur.id;
             this.editModal = this.utilisateur.editModal;
             this.form.nom = this.utilisateur.nom;
@@ -1376,8 +1353,10 @@ export default {
             this.form.id_specialite = this.utilisateur.specialite;
             this.form.id_departement = this.utilisateur.id_departement;
             this.form.id_service = this.utilisateur.id_service;
+            this.form.id_unite_de_formation = this.utilisateur.id_filiere;
             this.ancienPhoto = this.utilisateur.photo;
             componentHandler.upgradeAllRegistered();
+            }
 
 
         },

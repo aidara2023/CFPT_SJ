@@ -545,12 +545,13 @@ export default {
                             editModal: true,
                             fonction: utilisateur.role.intitule,
 
-                             situation_matrimoniale: utilisateur.formateur.map(ele => ele.situation_matrimoniale).join(', '),
+                            situation_matrimoniale: utilisateur.formateur.map(ele => ele.situation_matrimoniale).join(', '),
                             type: utilisateur.formateur.map(ele => ele.type).join(', '),
                             specialite: utilisateur.formateur.map(ele => ele.specialite.id).join(', '),
                             type_formateur: utilisateur.formateur.map(ele => ele.type_formateur).join(', '),
 
                             filiere: utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', '),
+                            id_filiere: utilisateur.formateur.map(ele => ele.unite_de_formation.id).join(', '),
                             id_departement: utilisateur.formateur.map(eles => eles.unite_de_formation.departement.id).join(', '),
                             departement: utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', '),
 
