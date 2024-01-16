@@ -243,38 +243,38 @@
         </div>
     </div> -->
     <div class="col-lg-6 p-t-20">
-
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom">Nom</label>
             <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
                 @input="validatedata('nom')">
-            <label class="mdl-textfield__label">Nom</label>
             <span class="erreur">{{ this.nom_user_erreur }}</span>
         </div>
     </div>
     <div class="col-lg-6 p-t-20">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.prenom"
+            <label class="mdl-textfield__label" for="txtLastName" v-show="!form.prenom">Prénom</label>
+            <input class="mdl-textfield__input" type="text" id="txtLastName" v-model="form.prenom"
                 @input="validatedata('prenom')">
-            <label class="mdl-textfield__label">Prénom</label>
             <span class="erreur">{{ this.prenom_user_erreur }}</span>
         </div>
     </div>
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-            <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
-                @input="validatedata('date_naissance')">
-            <label class="mdl-textfield__label">Date de Naissance</label>
+            <label class="mdl-textfield__label" for="dateOfBirth" v-show="!form.date_naissance">Date de Naissance</label>
+            <!-- <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
+                @change="validatedata('date_naissance')"> -->
+                <flat-pickr v-model="form.date_naissance" class="mdl-textfield__input" id="dateOfBirth" @input="validatedata('date_naissance')"></flat-pickr>
             <span class="erreur">{{ this.date_erreur }}</span>
         </div>
     </div>
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="designation" v-show="!form.lieu_naissance">Lieu de naissance</label>
             <input class="mdl-textfield__input" type="text" id="designation" v-model="form.lieu_naissance"
                 @input="validatedata('naissance')">
-            <label class="mdl-textfield__label">Lieu de naissance</label>
             <span class="erreur">{{ this.lieu_naissance_erreur }}</span>
         </div>
     </div>
@@ -282,9 +282,9 @@
     <div class="col-lg-6 p-t-20">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="list2" v-show="!form.nationalite">Nationalité</label>
             <input class="mdl-textfield__input" type="text" id="list2" v-model="form.nationalite"
                 @input="validatedata('nationalite')">
-            <label class="mdl-textfield__label">Nationalité</label>
             <span class="erreur">{{ this.nationalite_erreur }}</span>
         </div>
 
@@ -293,8 +293,7 @@
     <div class="col-lg-6 p-t-20">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-
-            <label for="list3" class="mdl-textfield__label">Choisissez Genre</label>
+            <label for="list3" class="mdl-textfield__label" v-show="!form.genre">Choisissez Genre</label>
             <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.genre"
                 @change="validatedata('genre')">
                 <option value="Masculin">Masculin</option>
@@ -308,9 +307,9 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="text5" v-show="!form.telephone">Téléphone</label>
             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="text5"
                 v-model="form.telephone" @input="validatedata('telephone')">
-            <label class="mdl-textfield__label" for="text5">Téléphone</label>
             <span class="erreur">{{ this.telephone_erreur }}</span>
         </div>
     </div>
@@ -318,38 +317,26 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-            <input class="mdl-textfield__input" type="text" id="designation" v-model="form.adresse"
+            <label class="mdl-textfield__label" for="designation2" v-show="!form.adresse">Adresse</label>
+            <input class="mdl-textfield__input" type="text" id="designation2" v-model="form.adresse"
                 @input="validatedata('adresse')">
-            <label class="mdl-textfield__label">Adresse</label>
             <span class="erreur">{{ this.adresse_erreur }}</span>
         </div>
     </div>
 
-
-    <!-- <div class="col-lg-12 p-t-20">
-        <label class="control-label col-md-3">Upload Photo
-        </label>
-
-        <div class="col-md-12">
-            <div id="id_dropzone" class="dropzone"></div>
-        </div>
-    </div> -->
-
-    <!--   <div class="col-lg-12 p-t-20">
-    <label class="control-label col-md-3">Upload Photo</label>
-    <div class="col-md-12 dropzone">
-        <input type="file" name="file" @change="handleFileChange" />
-    </div>
-</div> -->
-
     <div class="col-lg-12 p-t-20">
-        <label class="control-label col-md-3">Upload Photo</label>
+        <label class="control-label col-md-3" for="photo">Upload Photo</label>
         <div class="col-md-12 dropzone" @click="openFileInput">
-            <input type="file" name="file" ref="fileInput" style="display: none;" @change="ajoutimage" />
+            <input type="file" name="file" id="photo" ref="fileInput" style="display: none;" @change="ajoutimage" />
             <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
-            <div class="sidebar-user">
+            <div class="sidebar-user" v-if="!this.ancienPhoto">
                 <div class="sidebar-user-picture">
                     <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
+                </div>
+            </div>
+            <div class="sidebar-user" v-if="this.ancienPhoto">
+                <div class="sidebar-user-picture">
+                    <img :src="getImageUrl(this.ancienPhoto)" alt="Etu" class="uploaded-image">
                 </div>
             </div>
             <div v-if="!urlPhoto">
@@ -362,9 +349,9 @@
 
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtemail" v-show="!form.email">Email</label>
             <input class="mdl-textfield__input" type="mail" id="txtemail" v-model="form.email"
                 @input="validatedata('email')">
-            <label class="mdl-textfield__label">Email</label>
             <span class="erreur">{{ this.email_user_erreur }}</span>
         </div>
     </div>
@@ -375,7 +362,7 @@
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="listrole" class="mdl-textfield__label"> Choisissez un role</label>
+            <label class="mdl-textfield__label" for="roleSelect" v-show="!form.id_role"> Choisissez un role</label>
             <select class="mdl-textfield__input" id="roleSelect" readonly tabIndex="-1" v-model="form.id_role"
                 @change="changement(form.id_role)">
 
@@ -386,10 +373,10 @@
     </div>
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list5" class="mdl-textfield__label">Choisissez Type Professeur</label>
+            <label for="list5" class="mdl-textfield__label" v-show="!form.type">Choisissez Type Professeur</label>
             <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
                 <option value="Etat">Etat</option>
@@ -402,10 +389,11 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list6" class="mdl-textfield__label">Choisissez Situation Matrimoniale</label>
+            <label for="list6" class="mdl-textfield__label" v-show="!form.situation_matrimoniale">Choisissez Situation
+                Matrimoniale</label>
             <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.situation_matrimoniale"
                 @change="validatedata('situation_matrimoniale')">
                 <option value="Célibataire">Célibataire</option>
@@ -417,10 +405,10 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list7" class="mdl-textfield__label">Choisissez Spécialité</label>
+            <label for="list7" class="mdl-textfield__label" v-show="!form.id_specialite">Choisissez Spécialité</label>
             <select class="mdl-textfield__input" id="list7" readonly tabIndex="-1" v-model="form.id_specialite"
                 @change="validatedata('id_specialite')">
                 <option v-for="(specialite, index) in specialites" :value="specialite.id" :key="index">{{
@@ -432,11 +420,11 @@
 
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2">
+    <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="list8" class="mdl-textfield__label">Choisissez Département</label>
+            <label for="list8" class="mdl-textfield__label" v-show="!form.id_departement">Choisissez Département</label>
             <select class="mdl-textfield__input" id="list8" readonly tabIndex="-1" v-model="form.id_departement"
                 @change="validatedata('departement')">
                 <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
@@ -447,11 +435,12 @@
     </div>
 
 
-    <div class="col-lg-6 p-t-20" v-show="this.interesser !== 1 && this.interesser !== 2 && this.interesser !== ''">
+    <div class="col-lg-6 p-t-20"
+        v-show="(this.interesser !== 1 && this.interesser !== 2 && this.interesser !== '') || (this.form.id_role !== 2 & this.form.id_role !== 1 & this.form.id_role !== '')">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <label for="list9" class="mdl-textfield__label">Choisissez Service</label>
+            <label for="list9" class="mdl-textfield__label" v-show="!form.id_service">Choisissez Service</label>
             <select class="mdl-textfield__input" id="list9" readonly tabIndex="-1" v-model="form.id_service"
                 @change="validatedata('service')">
                 <option v-for="(service, index) in services" :value="service.id" :key="index">{{ service.nom_service }}
@@ -461,13 +450,33 @@
             <span class="erreur">{{ id_service_erreur }}</span>
         </div>
     </div>
+
+    <div class="col-lg-6 p-t-20"
+    v-show="this.interesser === 2 || this.form.id_role === 2">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+
+            <label for="list99" class="mdl-textfield__label" v-show="!form.id_unite_de_formation">Choisissez Filière</label>
+            <select class="mdl-textfield__input" id="list99" readonly tabIndex="-1" v-model="form.id_unite_de_formation"
+                @change="validatedata('filiere')">
+                <option v-for="(filiere, index) in filieres" :value="filiere.id" :key="index">{{ filiere.nom_unite_formation }}
+                </option>
+
+            </select>
+            <span class="erreur">{{ id_unite_de_formation_erreur }}</span>
+        </div>
+    </div>
     <div class="col-lg-12 p-t-20 text-center">
 
-        <button type="submit"
+        <button type="submit" v-if="!this.editModal"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
             @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
         <button type="button"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger">Annuler</button>
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
 
     </div>
 </template>
@@ -476,9 +485,15 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
+    props: ['utilisateur'],
     name: "utilisateurCompenent",
+    components: {
+    flatPickr,
+  },
     data() {
         return {
             countries: [],
@@ -500,11 +515,13 @@ export default {
                 'id_service': "",
                 'type': "",
                 'situation_matrimoniale': "",
+                'id_unite_de_formation': "",
             }),
 
             photo: "",
             interesser: "",
             roles: [],
+            filieres: [],
             services: [],
             departements: [],
             specialites: [],
@@ -525,6 +542,7 @@ export default {
             id_service_erreur: "",
             type_erreur: "",
             situation_matrimoniale_erreur: "",
+            id_unite_de_formation_erreur: "",
             erreur: "",
             champ: "",
             get_id_perso_admin: "",
@@ -533,14 +551,9 @@ export default {
             etatForm: false,
             editModal: false,
             idUser: "",
-            suivant: "",
-            precedent: "",
-            visible: "",
-            invisible: "",
-            off: "",
-            i_1_2_3: "",
             urlPhoto: false,
             photo_erreur: "",
+            ancienPhoto: "",
             utilisateurEnCoursDeModification: null,
         }
     },
@@ -552,30 +565,9 @@ export default {
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        // this.fetchCountries();
-        /*  this.variables_changement_etape(); */
-
-        bus.on('utilisateurModifier', (eventData) => {
-            this.idUser = eventData.idUser;
-            this.editModal = eventData.editModal;
-            this.form.nom = eventData.nom;
-            this.form.prenom = eventData.prenom;
-            this.form.genre = eventData.genre;
-            this.form.adresse = eventData.adresse;
-            this.form.telephone = eventData.telephone;
-            this.form.email = eventData.email;
-            this.form.lieu_naissance = eventData.lieu_naissance;
-            this.form.nationalite = eventData.nationalite;
-            this.form.type = eventData.type;
-            this.form.situation_matrimoniale = eventData.situation_matrimoniale;
-            this.form.id_role = eventData.id_role;
-            this.form.id_departement = eventData.id_departement;
-            this.form.id_service = eventData.id_service;
-            this.form.id_specialite = eventData.id_specialite;
-            console.log(eventData)
-
-        });
-
+        this.get_filiere();
+        this.monterToupdate();
+        componentHandler.upgradeAllRegistered();
        
 
     },
@@ -587,11 +579,12 @@ export default {
     },
 
     methods: {
+
         ouvrirFormulaire(utilisateur) {
-      // Mettre à jour les données de l'utilisateur en cours de modification
-      this.utilisateurEnCoursDeModification = utilisateur;
-      // Affichez votre formulaire ou modal ici
-    },
+            // Mettre à jour les données de l'utilisateur en cours de modification
+            this.utilisateurEnCoursDeModification = utilisateur;
+            // Affichez votre formulaire ou modal ici
+        },
         openFileInput() {
             // Cliquez sur l'élément de fichier invisible
             this.$refs.fileInput.click();
@@ -614,13 +607,14 @@ export default {
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
+            formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('photo', this.photo);
 
             try {
                 const user_store = await axios.post('/user/store', formdata, {});
-                this.resetForm();
                 bus.emit('utilisateurAjoutee');
                 showDialog6("Utilisateur ajouter avec succès");
+                this.resetForm();
 
             }
             catch (e) {
@@ -639,6 +633,7 @@ export default {
         changement(event) {
             this.interesser = event;
             this.id_role_erreur = "";
+
         },
 
         goToStep: function (step) {
@@ -646,8 +641,6 @@ export default {
                 this.activePhase = step;
                 this.i_1_2_3 = step;
             }
-
-
 
             this.cercles.dataset.etape = this.i_1_2_3 - 2;
             this.etape.dataset.etape = this.i_1_2_3;
@@ -675,27 +668,6 @@ export default {
             });
         },
 
-        /*
-                get_personnel_administratif(){
-                    axios.get('/personnel_administratif/index').then(response => {
-                    this.personnel_administratifs=response.data.personnel_administratifs
-                    console.log(this.personnel_administratifs)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel administratifs','error')
-                    });
-                },
-                get_personnel_appui(){
-                    axios.get('/personnel_appui/index').then(response => {
-                    this.personnel_appuis=response.data.personnel_appuis
-                    console.log(this.personnel_appuis)
-                    }).catch(error=>{
-                        Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des personnel appuis','error')
-                    });
-                }, */
-
-
-
-
         get_specialite() {
             axios.get('/specialite/index').then(response => {
                 this.specialites = response.data.specialite
@@ -714,6 +686,16 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
                 });
         },
+        get_filiere() {
+            axios.get('/unite_de_formation/all')
+                .then(response => {
+                    this.filieres = response.data.unite_de_formation
+
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des filière', 'error')
+                });
+        },
 
 
         ajoutimage(event) {
@@ -721,9 +703,8 @@ export default {
             this.photo_erreur = "";
         },
 
-        getImageUrl() {
-            const timestamp = new Date().getTime();
-            return this.photo ? `${window.location.origin}/image/${this.photo.name}?t=${timestamp}` : '';
+        getImageUrl(url) {
+            return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
         validerAvantAjout() {
@@ -740,31 +721,31 @@ export default {
             } else {
                 if (this.editModal === true) {
                     this.etatForm = true;
+                    if(this.photo==""){
+                        this.photo = this.ancienPhoto;
+                    }
                     this.form.nom = this.form.nom.toUpperCase();
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
                     this.form.adresse = this.form.adresse.toUpperCase();
                     this.form.nationalite = this.form.nationalite.toUpperCase();
-
                     // Convertir la première lettre du prénom en majuscule et le reste en minuscules
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.update_utilisateur(this.idUser);
-                    this.closeModal('[data-modal-confirmation-modifier]');
-                    this.editModal = false;
+                    this.resetForm();
+                    
 
                 }
                 else {
                     this.etatForm = true;
-
                     this.form.nom = this.form.nom.toUpperCase();
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
                     this.form.adresse = this.form.adresse.toUpperCase();
                     this.form.nationalite = this.form.nationalite.toUpperCase();
-
                     // Convertir la première lettre du prénom en majuscule et le reste en minuscules
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.soumettre();
-                    // this.closeModal('[data-modal-confirmation]');
-                    this.editModal = false;
+                    this.resetForm();
+                   
                 }
             }
         },
@@ -787,17 +768,15 @@ export default {
             this.form.id_departement = "";
             this.form.id_service = "";
 
-            /*  this.form.id_personnel_administratif="";
-             this.id_personnel_appui=""; */
-
             this.photo = "";
             this.editModal = false;
 
             this.nom_user_erreur = "";
+            this.date_erreur = "";
             this.interesser = "";
             this.get_id_perso_admin = "";
             this.prenom_user_erreur = "";
-            this.date_erreur = "";
+      
             this.lieu_naissance_erreur = "";
             this.genre_erreur = "";
             this.adresse_erreur = "";
@@ -813,11 +792,6 @@ export default {
             this.situation_matrimoniale_erreur = "";
             this.id_personnel_appui_erreur = "";
             this.id_personnel_administratif_erreur = "";
-
-
-
-
-            /* this.activePhase= 1; */
 
         },
         fetchCountries() {
@@ -879,9 +853,15 @@ export default {
                 case 'photo':
                     this.photo_erreur = "";
                     //Vérification de matrimoniale
-                    if (this.photo === "") {
-                        this.photo_erreur = "La photo est obligatoire "
-                        i = 1;
+
+                    if (!this.editModal) {
+                        if (this.photo === "") {
+                            this.photo_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true;
+                        }
+                    } else {
+                        this.photo = this.ancienPhoto;
                         return true
                     }
                     break;
@@ -1061,6 +1041,15 @@ export default {
                         return true
                     }
                     break;
+                case 'filiere':
+                    this.id_unite_de_formation_erreur = "";
+                    //Vérification de departement
+                    if (this.form.id_unite_de_formation === "") {
+                        this.id_unite_de_formation_erreur = "Vous avez oublié de sélectionner la filiere"
+                        i = 1;
+                        return true
+                    }
+                    break;
 
                 default:
 
@@ -1085,6 +1074,7 @@ export default {
             this.id_departement_erreur = "";
             this.type_erreur = "";
             this.id_role_erreur = "";
+            this.id_unite_de_formation_erreur = "";
             this.photo_erreur = "";
             var i = 0;
             // pour nom
@@ -1101,10 +1091,14 @@ export default {
                 i = 1;
             }
             // Effectuez la validation pour le champ 'photo'
-            if (this.photo === "") {
-                this.photo_erreur = "Ce champ est obligatoire"
-                i = 1;
-                console.log("videnomeleve=" + i);
+            if (!this.editModal) {
+                if (this.photo === "") {
+                    this.photo_erreur = "Ce champ est obligatoire"
+                    i = 1;
+                    console.log("videnomeleve=" + i);
+                }
+            } else {
+                this.photo = this.ancienPhoto;
             }
             //pour prenom
             if (this.form.prenom === "") {
@@ -1153,26 +1147,29 @@ export default {
             } else if (!this.validateEmail(this.form.email)) {
                 this.email_user_erreur = "L'email n'est pas valide";
                 i = 1;
+            } else if (!this.editModal) {
+                // Si vous êtes en mode édition, ne faites pas la vérification côté client
+                // Continuez avec le reste du traitement ou mettez à jour l'utilisateur
             } else {
-                // Appel à votre backend pour vérifier l'existence de l'e-mail
-                axios.post('/verif/mail', { email: this.form.email })
-                    .then(response => {
-                        // Succès - faire quelque chose si nécessaire
-                    })
-                    .catch(error => {
-                        if (error.response.status === 422) {
-                            const errors = error.response.data.errors;
+                // Si vous êtes en mode ajout, effectuez la vérification côté client
+                try {
+                    const response = axios.post('/verif/mail', { email: this.form.email });
 
-                            // Vérifiez si l'erreur spécifique liée à l'e-mail existe
-                            if (errors && errors.email) {
-                                this.email_user_erreur = errors.email[0];
-                                i = 1;
-                                if (this.email_user_erreur == "The email has already been taken.") {
-                                    this.email_user_erreur = "Cet e-mail existe déjà";
-                                }
+                    // Succès - faire quelque chose si nécessaire
+                } catch (error) {
+                    if (error.response.status === 422) {
+                        const errors = error.response.data.errors;
+
+                        // Vérifiez si l'erreur spécifique liée à l'e-mail existe
+                        if (errors && errors.email) {
+                            this.email_user_erreur = errors.email[0];
+                            i = 1;
+                            if (this.email_user_erreur == "The email has already been taken.") {
+                                this.email_user_erreur = "Cet e-mail existe déjà";
                             }
                         }
-                    });
+                    }
+                }
             }
 
 
@@ -1226,6 +1223,10 @@ export default {
                     this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
                     i = 1;
                 }
+                if (this.form.id_unite_de_formation === "") {
+                        this.id_unite_de_formation_erreur = "Vous avez oublié de sélectionner la filière"
+                        i = 1;
+                    }
                 if (this.form.type === "") {
                     this.type_erreur = "Vous avez oublié de sélectionner le type "
                     i = 1;
@@ -1293,45 +1294,6 @@ export default {
             return false;
         },
 
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-
-            if (this.etatForm === false) {
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                ajout.classList.remove("actif");
-                ajout.close();
-            }
-
-            this.editModal = false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
-
         async update_utilisateur(id) {
             const formdata = new FormData();
             formdata.append('nom', this.form.nom);
@@ -1351,86 +1313,53 @@ export default {
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
             formdata.append('photo', this.photo);
-            formdata.append('photo', this.photo);
 
             try {
                 const user_store = await axios.post('/user/update/' + id, formdata);
-                this.resetForm();
                 bus.emit('utilisateurAjoutee');
+                showDialog6("Utilisateur modifier avec succès");
+                this.resetForm();
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cet utilisateur existe déjà', 'error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
             }
         },
 
-        /* Méthode pour les variables */
-        /*   variables_changement_etape() {
-              this.suivant = document.querySelector('.suivant');
-              this.precedent = document.querySelector('.annuler');
-              this.i_1_2_3 = 1;
-              this.off = 0;
-
-              this.etape = document.querySelector('.positions');
-              this.cercles = document.querySelector('.cercles');
-          }, */
-
-        /*      changement_etape(avancer) {
-                 if (avancer) {
-                     this.i_1_2_3 = this.i_1_2_3 + 2;
-                 }
-                 if (!avancer) {
-                     this.i_1_2_3 = this.i_1_2_3 - 2;
-                 }
-
-
-                 if (this.i_1_2_3 > 3) this.i_1_2_3 = 3;
-                 if (this.i_1_2_3 < 1) this.i_1_2_3 = 1;
-
-                 if (this.i_1_2_3 < 3) {
-                     this.suivant.firstChild.textContent = "Suivant";
-                     this.suivant.dataset.closeModal = "0";
-
-                 } else {
-                     this.suivant.firstChild.textContent = "Ajouter";
-                     this.suivant.dataset.closeModal = "1";
-                 }
-
-                 if (this.i_1_2_3 > 1) {
-                     this.precedent.firstChild.textContent = "Précédent";
-                     this.precedent.dataset.closeModal = "0";
-                 }
-                 else {
-
-                     this.precedent.firstChild.textContent = "Annuler";
-                     this.precedent.dataset.closeModal = "1";
-
-                 }
-
-                 this.cercles.dataset.etape = this.i_1_2_3 - 2;
-                 this.etape.dataset.etape = this.i_1_2_3;
-                 if (this.i_1_2_3 == 3) this.off = 1;
-                 this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
-                 this.off = 0
-
-             }, */
+        monterToupdate() {
+            if(this.editModal){
+            this.idUser = this.utilisateur.id;
+            this.editModal = this.utilisateur.editModal;
+            this.form.nom = this.utilisateur.nom;
+            this.form.prenom = this.utilisateur.prenom;
+            this.form.genre = this.utilisateur.genre;
+            this.form.adresse = this.utilisateur.adresse;
+            this.form.telephone = this.utilisateur.telephone;
+            this.form.email = this.utilisateur.email;
+            this.form.lieu_naissance = this.utilisateur.lieu_naissance;
+            this.form.date_naissance = this.utilisateur.date_naissance;
+            this.form.nationalite = this.utilisateur.nationalite;
+            this.form.type = this.utilisateur.type;
+            this.form.situation_matrimoniale = this.utilisateur.situation_matrimoniale;
+            this.form.id_role = this.utilisateur.id_role;
+            this.form.id_departement = this.utilisateur.id_departement;
+            this.form.id_service = this.utilisateur.id_service;
+            this.form.id_specialite = this.utilisateur.specialite;
+            this.form.id_departement = this.utilisateur.id_departement;
+            this.form.id_service = this.utilisateur.id_service;
+            this.form.id_unite_de_formation = this.utilisateur.id_filiere;
+            this.ancienPhoto = this.utilisateur.photo;
+            componentHandler.upgradeAllRegistered();
+            }
 
 
-        /*     clic_suivant() {
-                this.changement_etape(true);
-            },
-
-            clic_precedent() {
-                this.changement_etape(false)
-            } */
-
-
+        },
 
     }
 }

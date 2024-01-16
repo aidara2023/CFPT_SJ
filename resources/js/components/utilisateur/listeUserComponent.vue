@@ -174,8 +174,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX">
+                                                    <tr class="odd gradeX" v-for="(utilisateur, index) in utilisateurProf">
+                                                        <td class="patient-img"> <img :src="getImageUrl(utilisateur.photo)"
+                                                                alt="Etu">
+                                                        </td>
+                                                        <td> {{ utilisateur.matricule }}</td>
+                                                        <td class="left"> {{ utilisateur.prenom }}</td>
+                                                        <td class="left"> {{ utilisateur.nom }}</td>
+                                                        <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
+                                                            </a></td>
+                                                        <td><a :href="'tel:' + utilisateur.telephone">{{
+                                                            utilisateur.telephone }}</a></td>
+                                                        <td class="left">{{ utilisateur.filiere }} </td>
 
+                                                        <td>{{ utilisateur.departement }} </td>
+
+                                                        <td>
+                                                            <a  class="tblEditBtn" @click="openModal(utilisateur)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -229,19 +250,18 @@
                                                                 alt="Etu">
                                                         </td>
                                                         <td> {{ utilisateur.matricule }}</td>
-                                                        <td> {{ utilisateur.prenom }}</td>
-                                                        <td> {{ utilisateur.nom }}</td>
+                                                        <td class="left"> {{ utilisateur.prenom }}</td>
+                                                        <td class="left"> {{ utilisateur.nom }}</td>
                                                         <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
                                                             </a></td>
                                                         <td><a :href="'tel:' + utilisateur.telephone">{{
                                                             utilisateur.telephone }}</a></td>
-                                                        <td>{{ utilisateur.fonction }} </td>
+                                                        <td class="left">{{ utilisateur.fonction }} </td>
                                                         <td>{{ utilisateur.nom_service }} </td>
 
                                                         <td>
 
-                                                            <a  class="tblEditBtn"
-                                                                @click="openModal(utilisateur)">
+                                                            <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                             <a href="javascript:void(0)" class="tblDelBtn">
@@ -297,64 +317,67 @@
     </div>
 
 
-        <div class="page-content-wrapper" v-if="this.editModal">
-    <div class="page-content">
-        <div class="page-bar">
-            <div class="page-title-breadcrumb">
-                <div class=" pull-left">
-                    <div class="page-title">Nouvel Utilisateur</div>
-                </div>
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                            href="{{ route('admin_index') }}">Tableau de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
-                    </li>
-                    <li><a class="parent-item" href="{{ route('utilisateur_create') }}">Utilisateur</a>&nbsp;<i class="fa fa-angle-right"></i>
-                    </li>
-                    <li class="active">Modifier Utilisateur</li>
-                </ol>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card-box">
-                    <div class="card-head">
-                        <header>Information</header>
-                        <button id="panel-button"
-                            class="mdl-button mdl-js-button mdl-button--icon pull-right"
-                            data-upgraded=",MaterialButton">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                            data-mdl-for="panel-button">
-                            <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
-                            </li>
-                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
-                            </li>
-                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
-                                here</li>
-                        </ul>
+    <div class="page-content-wrapper" v-if="this.editModal">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Nouvel Utilisateur</div>
                     </div>
-                    <div class="card-body row">
-                       <utilisateur-create></utilisateur-create>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
+                                de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li><a class="parent-item" href="{{ route('utilisateur_create') }}">Utilisateur</a>&nbsp;<i
+                                class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Modifier Utilisateur</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="card-head">
+                            <header>Information</header>
+                            <button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                data-mdl-for="panel-button">
+                                <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                    here</li>
+                            </ul>
+                        </div>
+                        <div class="card-body row">
+                            <FormulaireModification :utilisateur="userEnCoursDeModification"  />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
-import datatable from 'datatables.net-bs5'
+import datatable from 'datatables.net-bs5';
+import FormulaireModification from './utilisateurComponent.vue';
 
 
 
 export default {
     name: "listeUserCompenent",
+    components: {
+  FormulaireModification,
+},
     data() {
         return {
             form: new Form({
@@ -375,12 +398,13 @@ export default {
                 'situation_matrimoniale': ""
             }),
             utilisateurs: null,
+            utilisateurProf: null,
             utilisateursPer: [],
             idUser: "",
             editModal: false,
             activePhase: 1,
             idUser: "",
-            editModalOpen: false,
+            userEnCoursDeModification: null,
 
 
         }
@@ -400,6 +424,32 @@ export default {
         initDataTable() {
             this.$nextTick(() => {
                 $('#exemple1').DataTable({
+                    responsive: true,
+                    language: {
+                        // Messages pour la pagination
+                        paginate: {
+                            first: 'Premier',
+                            previous: 'Précédent',
+                            next: 'Suivant',
+                            last: 'Dernier'
+                        },
+                        // Message d'affichage du nombre d'éléments par page
+                        lengthMenu: 'Afficher _MENU_ entrées',
+                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                        // Message lorsque le tableau est vide
+                        emptyTable: 'Aucune donnée disponible dans le tableau',
+                        // Message indiquant que la recherche est en cours
+                        loadingRecords: 'Chargement en cours...',
+                        // Message indiquant que la recherche n'a pas renvoyé de résultats
+                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                        // Message indiquant le nombre total d'entrées
+                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                        // Message indiquant que la recherche est en cours dans le champ de recherche
+                        search: 'Recherche :'
+                    }
+                });
+                $('#example47').DataTable({
                     responsive: true,
                     language: {
                         // Messages pour la pagination
@@ -447,6 +497,11 @@ export default {
                         return utilisateur.role.categorie_personnel === 'Personnel Administratif';
                     });
 
+                    // Filtrer les utilisateurs en fonction de la catégorie du personnel
+                    const filteredProf = allUtilisateurs.filter(utilisateur => {
+                        return utilisateur.role.id === 2;
+                    });
+
                     // Formater les utilisateurs pour DataTables
                     const formattedUtilisateurs = filteredUtilisateurs.map(utilisateur => {
                         return {
@@ -465,13 +520,48 @@ export default {
                             nom: utilisateur.nom,
                             email: utilisateur.email,
                             telephone: utilisateur.telephone,
+                            editModal: true,
                             fonction: utilisateur.role.intitule,
                             nom_service: utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', '),
+                            id_service: utilisateur.personnel_admin_appui.map(ele => ele.service.id).join(', '),
+                        };
+                    });
+                    const formattedFormateur = filteredProf.map(utilisateur => {
+                        return {
+                            photo: utilisateur.photo,
+                            adresse: utilisateur.adresse,
+                            date_naissance: utilisateur.date_naissance,
+                            lieu_naissance: utilisateur.lieu_naissance,
+                            id: utilisateur.id,
+
+                            genre: utilisateur.genre,
+                            id_role: utilisateur.id_role,
+                            nationalite: utilisateur.nationalite,
+                            matricule: utilisateur.matricule,
+                            prenom: utilisateur.prenom,
+                            nom: utilisateur.nom,
+                            email: utilisateur.email,
+                            telephone: utilisateur.telephone,
+                            editModal: true,
+                            fonction: utilisateur.role.intitule,
+
+                            situation_matrimoniale: utilisateur.formateur.map(ele => ele.situation_matrimoniale).join(', '),
+                            type: utilisateur.formateur.map(ele => ele.type).join(', '),
+                            specialite: utilisateur.formateur.map(ele => ele.specialite.id).join(', '),
+                            type_formateur: utilisateur.formateur.map(ele => ele.type_formateur).join(', '),
+
+                            filiere: utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', '),
+                            id_filiere: utilisateur.formateur.map(ele => ele.unite_de_formation.id).join(', '),
+                            id_departement: utilisateur.formateur.map(eles => eles.unite_de_formation.departement.id).join(', '),
+                            departement: utilisateur.formateur.map(eles => eles.unite_de_formation.departement.nom_departement).join(', '),
+
                         };
                     });
 
                     // Mettez à jour la liste des utilisateurs au format de tableau de dictionnaires
                     this.utilisateurs = formattedUtilisateurs;
+                    this.utilisateurProf = formattedFormateur;
+                    console.log(this.utilisateurProf)
 
                     this.initDataTable();
 
@@ -549,35 +639,7 @@ export default {
 
             this.editModal = true;
 
-            // Créez un objet avec les données à envoyer
-            const eventData = {
-                idUser: this.idUser,
-                nom: utilisateur.nom,
-                prenom: utilisateur.prenom,
-                genre: utilisateur.genre,
-                adresse: utilisateur.adresse,
-                telephone: utilisateur.telephone,
-                email: utilisateur.email,
-                date_naissance: utilisateur.date_naissance,
-                lieu_naissance: utilisateur.lieu_naissance,
-                nationalite: utilisateur.nationalite,
-                type: utilisateur.type,
-                situation_matrimonial: utilisateur.situation_matrimonial,
-                id_role: utilisateur.id_role,
-                /* id_specialite: utilisateur.id_specialite,
-                id_departement: utilisateur.id_departement, */
-                /*      id_service: utilisateur.id_service, */
-
-                editModal: this.editModal,
-                // Ajoutez d'autres propriétés si nécessaire
-            };
-
-            bus.emit('utilisateurModifier', eventData);
-            console.log(eventData)
-
-            //window.location.href = `/utilisateur/create`;
-            this.editModalOpen = true;
-
+            this.userEnCoursDeModification = utilisateur;
 
         },
 
