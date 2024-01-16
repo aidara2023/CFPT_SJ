@@ -186,7 +186,7 @@
                                                         <td><a :href="'tel:' + utilisateur.telephone">{{
                                                             utilisateur.telephone }}</a></td>
                                                         <td class="left">{{ utilisateur.filiere }} </td>
-                                                     
+
                                                         <td>{{ utilisateur.departement }} </td>
 
                                                         <td>
@@ -523,6 +523,7 @@ export default {
                             editModal: true,
                             fonction: utilisateur.role.intitule,
                             nom_service: utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', '),
+                            id_service: utilisateur.personnel_admin_appui.map(ele => ele.service.id).join(', '),
                         };
                     });
                     const formattedFormateur = filteredProf.map(utilisateur => {
@@ -532,7 +533,7 @@ export default {
                             date_naissance: utilisateur.date_naissance,
                             lieu_naissance: utilisateur.lieu_naissance,
                             id: utilisateur.id,
-                            
+
                             genre: utilisateur.genre,
                             id_role: utilisateur.id_role,
                             nationalite: utilisateur.nationalite,
@@ -547,7 +548,7 @@ export default {
                              situation_matrimoniale: utilisateur.formateur.map(ele => ele.situation_matrimoniale).join(', '),
                             type: utilisateur.formateur.map(ele => ele.type).join(', '),
                             specialite: utilisateur.formateur.map(ele => ele.specialite.id).join(', '),
-                            type_formateur: utilisateur.formateur.map(ele => ele.type_formateur).join(', '), 
+                            type_formateur: utilisateur.formateur.map(ele => ele.type_formateur).join(', '),
 
                             filiere: utilisateur.formateur.map(ele => ele.unite_de_formation.nom_unite_formation).join(', '),
                             id_departement: utilisateur.formateur.map(eles => eles.unite_de_formation.departement.id).join(', '),
