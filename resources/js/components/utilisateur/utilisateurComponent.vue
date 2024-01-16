@@ -265,7 +265,7 @@
             <label class="mdl-textfield__label" for="dateOfBirth" v-show="!form.date_naissance">Date de Naissance</label>
             <!-- <input class="mdl-textfield__input" type="text" id="dateOfBirth" v-model="form.date_naissance"
                 @change="validatedata('date_naissance')"> -->
-                <flat-pickr v-model="form.date_naissance" class="mdl-textfield__input" id="dateOfBirth" @input="validatedata('date_naissance')"></flat-pickr>
+                <flat-pickr v-model="form.date_naissance" class="mdl-textfield__input" @input="validatedata('date_naissance')"></flat-pickr>
             <span class="erreur">{{ this.date_erreur }}</span>
         </div>
     </div>
@@ -566,9 +566,14 @@ export default {
         this.get_departement();
         this.get_service();
         this.get_filiere();
-        this.monterToupdate();
-        componentHandler.upgradeAllRegistered();
-       
+        //this.monterToupdate();
+       // componentHandler.upgradeAllRegistered();
+     
+        bus.on('userModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.monterToupdate(eventData.utilisateur);
+           
+        });
 
     },
     computed: {
@@ -580,11 +585,7 @@ export default {
 
     methods: {
 
-        ouvrirFormulaire(utilisateur) {
-            // Mettre à jour les données de l'utilisateur en cours de modification
-            this.utilisateurEnCoursDeModification = utilisateur;
-            // Affichez votre formulaire ou modal ici
-        },
+      
         openFileInput() {
             // Cliquez sur l'élément de fichier invisible
             this.$refs.fileInput.click();
@@ -634,19 +635,6 @@ export default {
             this.interesser = event;
             this.id_role_erreur = "";
 
-        },
-
-        goToStep: function (step) {
-            if (!this.validatedata('nom') & !this.validatedata('prenom') & !this.validatedata('date_naissance') & !this.validatedata('naissance') & !this.validatedata('nationalite') & !this.validatedata('genre') & !this.validatedata('adresse') & !this.validatedata('telephone')) {
-                this.activePhase = step;
-                this.i_1_2_3 = step;
-            }
-
-            this.cercles.dataset.etape = this.i_1_2_3 - 2;
-            this.etape.dataset.etape = this.i_1_2_3;
-            if (this.i_1_2_3 == 3) this.off = 1;
-            this.etape.textContent = "etape " + (this.i_1_2_3 - this.off);
-            this.off = 0
         },
 
         get_role() {
@@ -1312,6 +1300,7 @@ export default {
             formdata.append('id_specialite', this.form.id_specialite);
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
+              formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
             formdata.append('photo', this.photo);
 
             try {
@@ -1332,31 +1321,34 @@ export default {
             }
         },
 
-        monterToupdate() {
-            if(this.editModal){
-            this.idUser = this.utilisateur.id;
-            this.editModal = this.utilisateur.editModal;
-            this.form.nom = this.utilisateur.nom;
-            this.form.prenom = this.utilisateur.prenom;
-            this.form.genre = this.utilisateur.genre;
-            this.form.adresse = this.utilisateur.adresse;
-            this.form.telephone = this.utilisateur.telephone;
-            this.form.email = this.utilisateur.email;
-            this.form.lieu_naissance = this.utilisateur.lieu_naissance;
-            this.form.date_naissance = this.utilisateur.date_naissance;
-            this.form.nationalite = this.utilisateur.nationalite;
-            this.form.type = this.utilisateur.type;
-            this.form.situation_matrimoniale = this.utilisateur.situation_matrimoniale;
-            this.form.id_role = this.utilisateur.id_role;
-            this.form.id_departement = this.utilisateur.id_departement;
-            this.form.id_service = this.utilisateur.id_service;
-            this.form.id_specialite = this.utilisateur.specialite;
-            this.form.id_departement = this.utilisateur.id_departement;
-            this.form.id_service = this.utilisateur.id_service;
-            this.form.id_unite_de_formation = this.utilisateur.id_filiere;
-            this.ancienPhoto = this.utilisateur.photo;
+        monterToupdate(utilisateur) {
+            console.log("MonterToupdate called");
+           /*  if(this.utilisateur.editModal){ */
+            this.idUser = utilisateur.id;
+            this.editModal = utilisateur.editModal;
+            this.form.nom = utilisateur.nom;
+            this.form.prenom = utilisateur.prenom;
+            this.form.genre = utilisateur.genre;
+            this.form.adresse = utilisateur.adresse;
+            this.form.telephone = utilisateur.telephone;
+            this.form.email = utilisateur.email;
+            this.form.lieu_naissance = utilisateur.lieu_naissance;
+            this.form.date_naissance = utilisateur.date_naissance;
+            this.form.nationalite = utilisateur.nationalite;
+            this.form.type = utilisateur.type;
+            this.form.situation_matrimoniale = utilisateur.situation_matrimoniale;
+            this.form.id_role = utilisateur.id_role;
+            this.form.id_departement = utilisateur.id_departement;
+            this.form.id_service = utilisateur.id_service;
+            this.form.id_specialite = utilisateur.specialite;
+            this.form.id_departement = utilisateur.id_departement;
+            this.form.id_service = utilisateur.id_service;
+            this.form.id_unite_de_formation = utilisateur.id_filiere;
+            this.ancienPhoto = utilisateur.photo;
             componentHandler.upgradeAllRegistered();
-            }
+            console.log("yryryryryryrr");
+            console.log(this.editModal);
+           /*  } */
 
 
         },

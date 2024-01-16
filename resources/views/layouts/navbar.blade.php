@@ -92,7 +92,7 @@
                         <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="all_students.html" class="nav-link "> <span
+                            <a href="{{ route('service_accueil') }}" class="nav-link "> <span
                                     class="title">Service</span>
                             </a>
                         </li>
