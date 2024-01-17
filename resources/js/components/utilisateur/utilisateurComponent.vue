@@ -619,6 +619,7 @@ export default {
                 bus.emit('utilisateurAjoutee');
                 showDialog6("Utilisateur ajouter avec succès");
                 this.resetForm();
+                window.location.href = '/utilisateur/index';
 
             }
             catch (e) {
@@ -632,7 +633,6 @@ export default {
                 }
             }
         },
-
 
         changement(event) {
             this.interesser = event;

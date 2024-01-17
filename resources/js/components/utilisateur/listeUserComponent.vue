@@ -449,36 +449,23 @@ export default {
 
     methods: {
         initDataTable() {
-            this.$nextTick(() => {
+           /*  this.$nextTick(() => {
                 $('#exemple1').DataTable({
                     responsive: true,
-                    language: {
-                        // Messages pour la pagination
-                        paginate: {
-                            first: 'Premier',
-                            previous: 'Précédent',
-                            next: 'Suivant',
-                            last: 'Dernier'
-                        },
-                        // Message d'affichage du nombre d'éléments par page
-                        lengthMenu: 'Afficher _MENU_ entrées',
-                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
-                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
-                        // Message lorsque le tableau est vide
-                        emptyTable: 'Aucune donnée disponible dans le tableau',
-                        // Message indiquant que la recherche est en cours
-                        loadingRecords: 'Chargement en cours...',
-                        // Message indiquant que la recherche n'a pas renvoyé de résultats
-                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
-                        // Message indiquant le nombre total d'entrées
-                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
-                        // Message indiquant que la recherche est en cours dans le champ de recherche
-                        search: 'Recherche :'
-                    }
+                    
                 });
                 $('#example47').DataTable({
                     responsive: true,
-                    language: {
+                   
+                });
+            }); */
+            this.$nextTick(() => {
+        // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
+        if (!$.fn.DataTable.isDataTable('#exemple1')) {
+            $('#exemple1').DataTable({
+                responsive: true,
+                // ... (autres options)
+                language: {
                         // Messages pour la pagination
                         paginate: {
                             first: 'Premier',
@@ -501,8 +488,40 @@ export default {
                         // Message indiquant que la recherche est en cours dans le champ de recherche
                         search: 'Recherche :'
                     }
-                });
             });
+        }
+
+        // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
+        if (!$.fn.DataTable.isDataTable('#example47')) {
+            $('#example47').DataTable({
+                responsive: true,
+                // ... (autres options)
+                language: {
+                        // Messages pour la pagination
+                        paginate: {
+                            first: 'Premier',
+                            previous: 'Précédent',
+                            next: 'Suivant',
+                            last: 'Dernier'
+                        },
+                        // Message d'affichage du nombre d'éléments par page
+                        lengthMenu: 'Afficher _MENU_ entrées',
+                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                        // Message lorsque le tableau est vide
+                        emptyTable: 'Aucune donnée disponible dans le tableau',
+                        // Message indiquant que la recherche est en cours
+                        loadingRecords: 'Chargement en cours...',
+                        // Message indiquant que la recherche n'a pas renvoyé de résultats
+                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                        // Message indiquant le nombre total d'entrées
+                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                        // Message indiquant que la recherche est en cours dans le champ de recherche
+                        search: 'Recherche :'
+                    }
+            });
+        }
+    });
         },
 
         get_utilisateur() {
@@ -636,8 +655,6 @@ export default {
                 if (result.isConfirmed) {
                     axios.delete(`/user/delete/${user.id}`).then(resp => {
                         this.get_utilisateur();
-
-
                     }).catch(function (error) {
                         console.log(error);
                     })
