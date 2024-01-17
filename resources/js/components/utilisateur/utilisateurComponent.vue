@@ -328,17 +328,20 @@
         <label class="control-label col-md-3" for="photo">Upload Photo</label>
         <div class="col-md-12 dropzone" @click="openFileInput">
             <input type="file" name="file" id="photo" ref="fileInput" style="display: none;" @change="ajoutimage" />
+
             <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
             <div class="sidebar-user" v-if="!this.ancienPhoto">
                 <div class="sidebar-user-picture">
                     <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
                 </div>
             </div>
+
             <div class="sidebar-user" v-if="this.ancienPhoto">
                 <div class="sidebar-user-picture">
                     <img :src="getImageUrl(this.ancienPhoto)" alt="Etu" class="uploaded-image">
                 </div>
             </div>
+
             <div v-if="!urlPhoto">
                 <i class="fa fa-upload"></i> Cliquez pour télécharger
             </div>
@@ -380,8 +383,8 @@
             <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
                 <option value="Etat">Etat</option>
-                <option value="Etat">Recruté</option>
-                <option value="Recruter">Prestataire</option>
+                <option value="Recruté">Recruté</option>
+                <option value="Prestataire">Prestataire</option>
             </select>
             <span class="erreur">{{ type_erreur }}</span>
         </div>
@@ -568,11 +571,11 @@ export default {
         this.get_filiere();
         //this.monterToupdate();
        // componentHandler.upgradeAllRegistered();
-     
+
         bus.on('userModifier', (eventData) => {
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.utilisateur);
-           
+
         });
 
     },
@@ -585,7 +588,7 @@ export default {
 
     methods: {
 
-      
+
         openFileInput() {
             // Cliquez sur l'élément de fichier invisible
             this.$refs.fileInput.click();
@@ -709,9 +712,7 @@ export default {
             } else {
                 if (this.editModal === true) {
                     this.etatForm = true;
-                    if(this.photo==""){
-                        this.photo = this.ancienPhoto;
-                    }
+
                     this.form.nom = this.form.nom.toUpperCase();
                     this.form.lieu_naissance = this.form.lieu_naissance.toUpperCase();
                     this.form.adresse = this.form.adresse.toUpperCase();
@@ -720,7 +721,7 @@ export default {
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.update_utilisateur(this.idUser);
                     this.resetForm();
-                    
+
 
                 }
                 else {
@@ -733,7 +734,7 @@ export default {
                     this.form.prenom = this.form.prenom.charAt(0).toUpperCase() + this.form.prenom.slice(1).toLowerCase();
                     this.soumettre();
                     this.resetForm();
-                   
+
                 }
             }
         },
@@ -764,7 +765,7 @@ export default {
             this.interesser = "";
             this.get_id_perso_admin = "";
             this.prenom_user_erreur = "";
-      
+
             this.lieu_naissance_erreur = "";
             this.genre_erreur = "";
             this.adresse_erreur = "";
@@ -849,8 +850,11 @@ export default {
                             return true;
                         }
                     } else {
-                        this.photo = this.ancienPhoto;
-                        return true
+                        if (this.ancienPhoto === "") {
+                        this.photo_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true;
+                        }
                     }
                     break;
                 case 'prenom':
@@ -1086,7 +1090,11 @@ export default {
                     console.log("videnomeleve=" + i);
                 }
             } else {
-                this.photo = this.ancienPhoto;
+                if (this.ancienPhoto === "") {
+                        this.photo_erreur = "Ce champ est obligatoire"
+                            i = 1;
+                            return true;
+                        }
             }
             //pour prenom
             if (this.form.prenom === "") {
@@ -1301,13 +1309,23 @@ export default {
             formdata.append('id_service', this.form.id_service);
             formdata.append('id_departement', this.form.id_departement);
               formdata.append('id_unite_de_formation', this.form.id_unite_de_formation);
-            formdata.append('photo', this.photo);
+
+            if(this.photo){
+                formdata.append('photo',  this.photo );
+            }else{
+                formdata.append('photo',this.ancienPhoto);
+            }
 
             try {
                 const user_store = await axios.post('/user/update/' + id, formdata);
                 bus.emit('utilisateurAjoutee');
                 showDialog6("Utilisateur modifier avec succès");
-                this.resetForm();
+
+                const eventData = {
+                editModal: false,
+            };
+
+            bus.emit('userDejaModifier', eventData);
 
             }
             catch (e) {
@@ -1347,7 +1365,7 @@ export default {
             this.ancienPhoto = utilisateur.photo;
             componentHandler.upgradeAllRegistered();
             console.log("yryryryryryrr");
-            console.log(this.editModal);
+            console.log(utilisateur);
            /*  } */
 
 

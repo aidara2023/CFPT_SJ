@@ -172,7 +172,7 @@ class user_controller extends Controller
         //$user->photo=$imageName;
         /* Fin upload */
 
-        $user->id_role=$request['id_role'];
+        $user->id_role=$request->id_role;
         $user->save();
 
         if($request['id_role']==2){
@@ -222,6 +222,7 @@ class user_controller extends Controller
     public function update(Request $request, $id){
         $user=User::find($id);
         if($user!=null){
+
            $user->nom=$request['nom'];
            $user->prenom=$request['prenom'];
            $user->genre=$request['genre'];
@@ -231,17 +232,19 @@ class user_controller extends Controller
            $user->status=$user->status;
 
 
-           if($request->filled('password')){
-                $user->password=Hash::make($request['password']);
-           }
-
+        //    if($request->filled('password')){
+        //         $user->password=Hash::make($request['password']);
+        //    }
+        // dd($request);
            if($request->hasFile('photo')){
-            $image= $request->file('image');
+            $image= $request->file('photo');
             $imageName=time() . '_' . $image->getClientOriginalName();
             //$image->move(public_path('image'), $imageName);
             $user->photo= $image->storeAs('image', $imageName, 'public');
             //$user->photo=$imageName;
            }
+
+
 
            $user->date_naissance=$request['date_naissance'];
            $user->lieu_naissance=$request['lieu_naissance'];
@@ -250,7 +253,7 @@ class user_controller extends Controller
            $user->id_role=$request['id_role'];
 
 
-           if($request['id_role']==2){
+           if($request->id_role==2){
                $formateur= Formateur::where('id_user', $user->id)->first();
                $formateur->situation_matrimoniale= $request['situation_matrimoniale'];
                $formateur->type= $request['type'];
@@ -261,16 +264,19 @@ class user_controller extends Controller
                $formateur->save();
            }
 
-           elseif($request['id_role']==11){
+           elseif($request->id_role==11){
                $tuteur=Tuteur::where('id_user', $user->id)->first();
                $tuteur->id_user= $user->id;
                $tuteur->save();
            }
-           elseif($request['id_role']==4 || $request['id_role']==3 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
-                   $personnel_admin=Personnel_admin_appui::where('id_user', $user->id)->first();
+           elseif($request->id_role==4 || $request->id_role==3 || $request->id_role==5 || $request->id_role==6 || $request->id_role==7 || $request->id_role==12 || $request->id_role==14 || $request->id_role==15 || $request->id_role==16 || $request->id_role==17 || $request->id_role==22 || $request->id_role==23 || $request->id_role==25 ){
+
+            $personnel_admin=personnel_admin_appui::where('id_user', $user->id)->first();
+            // dd($personnel_admin);
                 //    $personnel_admin->id_user= $user->id;
-                   $personnel_admin->id_service= $request->id_service;
+                   $personnel_admin->id_service=  $request['id_service'];
                    $personnel_admin->type_personnel= "Personnel Administratif";
+
                    $personnel_admin->save();
                }
                else{

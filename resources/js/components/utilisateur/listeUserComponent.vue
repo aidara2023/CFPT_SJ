@@ -438,6 +438,11 @@ export default {
 
         });
 
+        bus.on('userDejaModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.get_utilisateur();
+        });
+
 
 
     },
