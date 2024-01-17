@@ -38,6 +38,7 @@ use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_controller;
+use App\Http\Controllers\connexion\connexion_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
@@ -135,6 +136,7 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 
 //Route de direction
 
+Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
 Route::post('direction/update/{id}', [direction_controller::class, 'update'])->name('direction_update');
