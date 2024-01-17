@@ -106,7 +106,7 @@
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                    <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateur</a>&nbsp;<i
+                    <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateurs</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
                     <li class="active">Liste utilisateur</li>

@@ -556,7 +556,9 @@ Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
 
 Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
 Route::get('utilisateur/index', [user_view_controller::class, 'index'])->name('utilisateur_index');
-
+Route::get('utilisateur/profil', [user_view_controller::class, 'profil'])->name('utilisateur_profil');
+Route::get('utilisateur/service', [user_controller::class, 'getServiceUtilisateurConnecte'])->name('utilisateur_service');
+ 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
 Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
 Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
