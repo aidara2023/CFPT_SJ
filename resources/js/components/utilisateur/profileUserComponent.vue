@@ -81,7 +81,7 @@
 												<div class="profile-desc-item pull-right">Jr. Professor</div>
 											</li>
 										</ul>
-										<div class="row list-separated profile-stat">
+										<!-- <div class="row list-separated profile-stat">
 											<div class="col-md-4 col-sm-4 col-6">
 												<div class="uppercase profile-stat-title"> 37 </div>
 												<div class="uppercase profile-stat-text"> Projects </div>
@@ -93,6 +93,19 @@
 											<div class="col-md-4 col-sm-4 col-6">
 												<div class="uppercase profile-stat-title"> 61 </div>
 												<div class="uppercase profile-stat-text"> Uploads </div>
+											</div>
+										</div> -->
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-head">
+										<header>Direction</header>
+									</div>
+									<div class="card-body no-padding height-9">
+										<div class="row text-center m-t-10">
+											<div class="col-md-12">
+												  <p>{{this.authdirection}}
+													<br> <!-- {{this.authservice}} -->  </p> 
 											</div>
 										</div>
 									</div>
@@ -112,7 +125,7 @@
 								</div>
 								<div class="card">
 									<div class="card-head">
-										<header>Work Expertise</header>
+										<header>Compétences</header>
 									</div>
 									<div class="card-body no-padding height-9">
 										<div class="work-monitor work-progress">
@@ -242,7 +255,7 @@
 																typesetting industry. </li>
 														</ul>
 														<br>
-														<h4 class="font-bold">Conferences, Cources & Workshop Attended
+														<h4 class="font-bold">Conférences, Cours & Ateliers suivis
 														</h4>
 														<hr>
 														<ul>
@@ -601,6 +614,7 @@ export default {
 			userId: null,
       userDetails: null,
 	  authservice:[],
+	  authdirection: [],
     };
   },
   mounted() {
@@ -630,6 +644,8 @@ export default {
       axios.get('/utilisateur/service')
         .then(response => {
           this.authservice  = response.data.service;
+		  this.authdirection = response.data.direction;
+		  
           /* const users = response.data.users;
  */
           
@@ -638,7 +654,7 @@ export default {
           Swal.fire('Erreur!', 'récupération des utilisateurs', 'error');
         });
     },
-
+	
 	getImageUrl(url) {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },

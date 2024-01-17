@@ -559,6 +559,7 @@ Route::get('utilisateur/index', [user_view_controller::class, 'index'])->name('u
 
 Route::get('utilisateur/profil', [user_view_controller::class, 'profil'])->name('utilisateur_profil');
 Route::get('utilisateur/service', [user_controller::class, 'getServiceUtilisateurConnecte'])->name('utilisateur_service');
+Route::get('utilisateur/direction', [user_controller::class, 'getDirectionUtilisateurConnecte'])->name('utilisateur_direction');
  
 
 Route::get('utilisateur/update/{id}',[user_view_controller::class, 'show'])->name('user_edit');

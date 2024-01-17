@@ -35,6 +35,8 @@
                 :authnationalite="{{ json_encode(Auth::user()->nationalite) }}"
                 :authstatus="{{ json_encode(Auth::user()->status) }}"
                 :authrole="{{ json_encode(Auth::user()->role->intitule) }}"
+                :authgenre="{{ json_encode(Auth::user()->genre) }}"
+               
              >
 			</profil-user>
         @endif

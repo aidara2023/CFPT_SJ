@@ -361,46 +361,54 @@ public function delete($id) {
     }
 
     public function getServiceUtilisateurConnecte()
-{
-    $user = Auth::user();
-
-    if ($user) {
-        // Liste des catégories de personnel que vous voulez vérifier
-        $categoriesToCheck = ['Personnel Administratif', 'Personnel d\'appui'];
-
-        // Vérifiez si l'utilisateur a l'une des catégories spécifiées dans la colonne categorie_personnel
-        $roles = $user->role->whereIn('categorie_personnel', $categoriesToCheck)->get();
-
-        if ($roles->isNotEmpty()) {
-            // Si l'utilisateur a l'une des catégories spécifiées, vous pouvez accéder à son service
-            $personnelAdmin = personnel_admin_appui::where('id_user', $user->id)->first();
-
-            if ($personnelAdmin) {
-                $service = $personnelAdmin->service->nom_service;
-                
-                return response()->json([
-                    'status' => 200,
-                    'service' => $service,
-                ], 200);
+    {
+        $user = Auth::user();
+    
+        if ($user) {
+            // Liste des catégories de personnel que vous voulez vérifier
+            $categoriesToCheck = ['Personnel Administratif', 'Personnel d\'appui'];
+    
+            // Vérifiez si l'utilisateur a l'une des catégories spécifiées dans la colonne categorie_personnel
+            $roles = $user->role->whereIn('categorie_personnel', $categoriesToCheck)->get();
+    
+            if ($roles->isNotEmpty()) {
+                // Si l'utilisateur a l'une des catégories spécifiées, vous pouvez accéder à son service
+                $personnelAdmin = personnel_admin_appui::where('id_user', $user->id)->first();
+    
+                if ($personnelAdmin) {
+                    $service = $personnelAdmin->service;
+                    
+                    // Maintenant, vous pouvez également accéder à la direction associée
+                    $direction = $service->direction->nom_direction;
+    
+                    return response()->json([
+                        'status' => 200,
+                        'service' => $service->nom_service,
+                        'direction' => $direction,
+                        
+                    ], 200);
+                   
+                } else {
+                    return response()->json([
+                        'status' => 500,
+                        'message' => 'Aucun enregistrement de personnel administratif trouvé pour cet utilisateur.',
+                    ], 500);
+                }
             } else {
                 return response()->json([
                     'status' => 500,
-                    'message' => 'Aucun enregistrement de personnel administratif trouvé pour cet utilisateur.',
+                    'message' => 'L\'utilisateur n\'a pas de rôle approprié pour accéder au service.',
                 ], 500);
             }
         } else {
             return response()->json([
-                'status' => 500,
-                'message' => 'L\'utilisateur n\'a pas de rôle approprié pour accéder au service.',
-            ], 500);
+                'status' => 401,
+                'message' => 'Utilisateur non authentifié',
+            ], 401);
         }
-    } else {
-        return response()->json([
-            'status' => 401,
-            'message' => 'Utilisateur non authentifié',
-        ], 401);
     }
-}
+    
+   
 
 
 
