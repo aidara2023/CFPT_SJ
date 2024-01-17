@@ -33,6 +33,7 @@
     <link href="/assets/css/pages/formlayout.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet">
     <!-- dropzone -->
     <link href="/assets/plugins/dropzone/dropzone.css" rel="stylesheet" media="screen">
     <!-- data tables -->
@@ -479,6 +480,9 @@
             <!-- material -->
             <script src="/assets/plugins/material/material.min.js"></script>
             <script src="/assets/js/pages/material-select/getmdl-select.js"></script>
+            <script src="/assets/plugins/sweet-alert/sweetalert2.all.min.js"></script>
+            <script src="/assets/plugins/sweet-alert/sweetalert2.min.js"></script>
+            <script src="/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
             <!--apex chart-->
             <script src="/assets/plugins/apexcharts/apexcharts.min.js"></script>
             <script src="/assets/js/pages/chart/apex/home-data.js"></script>
@@ -489,9 +493,10 @@
             <script src="/assets/plugins/dropzone/dropzone.js"></script>
             <script src="/assets/plugins/dropzone/dropzone-call.js"></script>
             <!-- data tables -->
-          {{--   <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
             <script src="/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
-            <script src="/assets/js/pages/table/table_data.js"></script> --}}
+            <script type="module" id="tableDataScript" src="/assets/js/pages/table/table_data.js"></script>
+            {{-- <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script> --}}
             <!-- end js include path -->
 
 

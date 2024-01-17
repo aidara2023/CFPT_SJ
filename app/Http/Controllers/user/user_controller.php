@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class user_controller extends Controller
 {
@@ -51,11 +53,31 @@ class user_controller extends Controller
     //     }
     // }
 
+    public function verifMail(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore(auth()->id()),
+        ],
+        // Ajoutez d'autres règles de validation pour les champs nécessaires
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Le reste de votre code pour le traitement du formulaire
+
+    return response()->json(['success' => true]);
+}
+
     public function getPersonnelAdministratif() {
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service')->whereIn('id_role', $roles->pluck('id'))->get();
+            $users = User::with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')->whereIn('id_role', $roles->pluck('id'))->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
@@ -151,7 +173,7 @@ class user_controller extends Controller
         //$user->photo=$imageName;
         /* Fin upload */
 
-        $user->id_role=$request['id_role'];
+        $user->id_role=$request->id_role;
         $user->save();
 
         if($request['id_role']==2){
@@ -164,13 +186,13 @@ class user_controller extends Controller
             $formateur->id_unite_de_formation= $request['id_unite_de_formation'];
             $formateur->save();
         }
-        
+
         elseif($request['id_role']==11){
             $tuteur=new Tuteur();
             $tuteur->id_user= $user->id;
             $tuteur->save();
         }
-        elseif($request['id_role']==4 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
+        elseif($request['id_role']==4 || $request['id_role']==3 || $request['id_role']==5 || $request['id_role']==6 || $request['id_role']==7 || $request['id_role']==12 || $request['id_role']==14 || $request['id_role']==15 || $request['id_role']==16 || $request['id_role']==17 || $request['id_role']==22 || $request['id_role']==23 || $request['id_role']==25 ){
                 $personnel_admin=new Personnel_admin_appui();
                 $personnel_admin->id_user= $user->id;
                 $personnel_admin->id_service= $request->id_service;
@@ -184,8 +206,8 @@ class user_controller extends Controller
                 $personnel_appui->id_service= $request->id_service;
                 $personnel_appui->save();
             }
-    
-            
+
+
         if($user!=null){
             return response()->json([
                 'statut'=>200,
@@ -198,33 +220,75 @@ class user_controller extends Controller
             ],500 );
         }
     }
-    public function mis_ajour(Request $request, $id){
+    public function update(Request $request, $id){
         $user=User::find($id);
         if($user!=null){
+
            $user->nom=$request['nom'];
            $user->prenom=$request['prenom'];
            $user->genre=$request['genre'];
            $user->adresse=$request['adresse'];
            $user->email=$request['email'];
            $user->telephone=$request['telephone'];
+           $user->status=$user->status;
 
-           if($request->filled('password')){
-                $user->password=Hash::make($request['password']);
-           }
 
+        //    if($request->filled('password')){
+        //         $user->password=Hash::make($request['password']);
+        //    }
+        // dd($request);
            if($request->hasFile('photo')){
-            $image= $request->file('image');
+            $image= $request->file('photo');
             $imageName=time() . '_' . $image->getClientOriginalName();
             //$image->move(public_path('image'), $imageName);
             $user->photo= $image->storeAs('image', $imageName, 'public');
             //$user->photo=$imageName;
            }
 
+
+
            $user->date_naissance=$request['date_naissance'];
            $user->lieu_naissance=$request['lieu_naissance'];
            $user->nationalite=$request['nationalite'];
            $user->id_role=$request['id_role'];
+           $user->id_role=$request['id_role'];
+
+
+           if($request->id_role==2){
+               $formateur= Formateur::where('id_user', $user->id)->first();
+               $formateur->situation_matrimoniale= $request['situation_matrimoniale'];
+               $formateur->type= $request['type'];
+               $formateur->id_specialite= $request['id_specialite'];
+   /*             $formateur->id_departement= $request['id_departement'];
+    // */         $formateur->id_user= $user->id;
+               $formateur->id_unite_de_formation= $request['id_unite_de_formation'];
+               $formateur->save();
+           }
+
+           elseif($request->id_role==11){
+               $tuteur=Tuteur::where('id_user', $user->id)->first();
+               $tuteur->id_user= $user->id;
+               $tuteur->save();
+           }
+           elseif($request->id_role==4 || $request->id_role==3 || $request->id_role==5 || $request->id_role==6 || $request->id_role==7 || $request->id_role==12 || $request->id_role==14 || $request->id_role==15 || $request->id_role==16 || $request->id_role==17 || $request->id_role==22 || $request->id_role==23 || $request->id_role==25 ){
+
+            $personnel_admin=personnel_admin_appui::where('id_user', $user->id)->first();
+            // dd($personnel_admin);
+                //    $personnel_admin->id_user= $user->id;
+                   $personnel_admin->id_service=  $request['id_service'];
+                   $personnel_admin->type_personnel= "Personnel Administratif";
+
+                   $personnel_admin->save();
+               }
+               else{
+                   $personnel_appui=Personnel_admin_appui::where('id_user', $user->id)->first();
+                   $personnel_appui->type_personnel= "Personnel Appui";
+                //    $personnel_appui->id_user= $user->id;
+                   $personnel_appui->id_service= $request->id_service;
+                   $personnel_appui->save();
+               }
            $user->save();
+
 
             return response()->json([
                 'statut'=>200,
@@ -237,7 +301,7 @@ class user_controller extends Controller
             ],500 );
         }
     }
-   
+
 public function delete($id) {
     $user = User::find($id);
 
@@ -274,16 +338,16 @@ public function delete($id) {
         }
 
     }
-   
+
     public function toggleUserStatus($id) {
         $user = User::find($id);
-    
+
         if ($user) {
             $user->status = $user->status == 1 ? 0 : 1;
             $user->save();
-    
+
             $message = $user->status == 1 ? 'L\'utilisateur a été activé.' : 'L\'utilisateur a été désactivé.';
-    
+
             return response()->json([
                 'status' => 200,
                 'message' => $message,
@@ -295,6 +359,7 @@ public function delete($id) {
             ], 404);
         }
     }
+
     public function getServiceUtilisateurConnecte()
 {
     $user = Auth::user();
@@ -336,6 +401,7 @@ public function delete($id) {
         ], 401);
     }
 }
+
 
 
 
