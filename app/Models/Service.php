@@ -15,7 +15,7 @@ class Service extends Model
     ];
 
     public function user(){
-        return $this->hasOne(User::class,'id','id_user');
+        return $this->belongsTo(User::class,'id_user','id');
     }
 
     public function blibliothecaires(){

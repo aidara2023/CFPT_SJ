@@ -66,6 +66,11 @@
                             <a href="{{route('utilisateur_create')}}" class="nav-link "> <span
                                     class="title">Nouvel Utilisateur</span>
                             </a>
+                        </li>   : 
+                        <li class="nav-item"> 
+                            <a href="{{route('utilisateur_profil')}}" class="nav-link "> <span
+                                    class="title">Profil Page</span>
+                            </a>
                         </li>
                        {{--  <li class="nav-item">
                             <a href="edit_professor.html" class="nav-link "> <span
