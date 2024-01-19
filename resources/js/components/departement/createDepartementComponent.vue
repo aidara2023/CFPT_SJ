@@ -181,8 +181,12 @@ import 'flatpickr/dist/flatpickr.css';
             this.form.id_user="";
             this.editModal===false;
             this.nom_departement_erreur="";
-            this.id_direction_erreur=""
-            this.id_user_erreur=""
+            this.id_direction_erreur="";
+            this.id_user_erreur="";
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('departementDejaModifier', eventData);
         },
 
        

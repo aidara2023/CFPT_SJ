@@ -87,7 +87,6 @@ export default {
             etatForm: false,
             editModal: false,
             idService: "",
-            utilisateurEnCoursDeModification: null,
         }
     },
 
@@ -105,8 +104,6 @@ export default {
             this.form.id_direction = eventData.id_direction; */
         });
 
-        /*        var erreur = document.querySelectorAll('.erreur');
-               console.log(erreur); */
     },
 
 
@@ -133,7 +130,7 @@ export default {
                     showDialog3("Ce service existe déjà");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    //Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
                     showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
 
@@ -183,6 +180,10 @@ export default {
             this.id_user_erreur = "";
             this.id_direction_erreur = "";
             this.editModal = false;
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('serviceDejaModifier', eventData);
         },
 
 
@@ -353,6 +354,7 @@ export default {
                 }
             }
         },
+
         monterToupdate(service) {
             console.log("MonterToupdate called");
          

@@ -8,7 +8,8 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres </li>
+                    <li class="active"> Paramétres &nbsp;<i
+                            class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/departement/index'"> Département </a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -242,7 +243,8 @@ export default {
                     console.log(this.departements);
 
                 }).catch(error => {
-                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
+                    //Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
+                    showDialog3("Une erreur est survenue lors de la recuperation des departements")
                 });
         },
 
@@ -280,21 +282,16 @@ export default {
         },
 
         openModal(departement) {
-
-            /*  this.idDepartement = departement.id;
-  */
             this.editModal = true;
 
             // Créez un objet avec les données à envoyer
             const eventData = {
                 departement: departement,
                 editModal: this.editModal,
-                // Ajoutez d'autres propriétés si nécessaire
+
             };
 
             bus.emit('departementModifier', eventData);
-
-
 
         },
 

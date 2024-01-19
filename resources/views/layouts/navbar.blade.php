@@ -117,7 +117,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
+
+
                             <a  href="{{ route('unite_de_formation_index') }}" class="nav-link "> <span
+
                                     class="title">Filière</span>
                             </a>
                         </li>
@@ -127,7 +130,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a href="{{ route('batiment_accueil') }}" class="nav-link "> <span
                                     class="title">Batiment</span>
                             </a>
                         </li>

@@ -2,13 +2,14 @@
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
-                
+
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                   
-                    <li class="active"> Paramétres </li>
+
+                    <li class="active"> Paramétres &nbsp;<i
+                            class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/service/accueil'"> Service</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -18,18 +19,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tabbable-line">
-                    <!-- <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab1" data-bs-toggle="tab"> List View </a>
-                                </li>
-                                <li>
-                                    <a href="#tab2" data-bs-toggle="tab"> Grid View </a>
-                                </li>
-                            </ul> -->
                     <ul class="nav customtab nav-tabs" role="tablist">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Service</a>
                         </li>
-                        
+
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active fontawesome-demo" id="tab1">
@@ -48,8 +41,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a :href="'/service/create'" id="addRow"
-                                                            class="btn btn-primary">
+                                                        <a :href="'/service/create'" id="addRow" class="btn btn-primary">
                                                             Ajouter <i class="fa fa-plus"></i>
                                                         </a>
 
@@ -58,25 +50,26 @@
                                             </div>
                                             <table
                                                 class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example47" >
+                                                id="example47">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th> Service </th>
                                                         <th> Direction </th>
                                                         <th> Chef de service </th>
-                        
+
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX"  v-for="(service, index) in services" :key="index">
-                                                        <td > {{ index+1 }} </td>
-                                                        <td > {{ service.service }} </td>
-                                                        <td > {{ service.direction}}</td>
-                                                        <td > {{ service.user_prenom }} {{ service.user_nom }}</td>
-                                                        
-                                                        <td >
+                                                    <tr class="odd gradeX" v-for="(service, index) in services"
+                                                        :key="index">
+                                                        <td> {{ index + 1 }} </td>
+                                                        <td> {{ service.service }} </td>
+                                                        <td> {{ service.direction }}</td>
+                                                        <td> {{ service.user_prenom }} {{ service.user_nom }}</td>
+
+                                                        <td>
                                                             <a class="tblEditBtn" @click="openModal(service)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
@@ -92,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -138,7 +131,7 @@
                             </ul>
                         </div>
                         <div class="card-body row">
-                            <FormulaireModification /> 
+                            <FormulaireModification />
                         </div>
                     </div>
                 </div>
@@ -163,23 +156,24 @@ export default {
     components: {
         FormulaireModification,
     },
+
     data() {
         return {
             form: new Form({
                 'nom_service': "",
                 'id_user': "",
                 'id_direction': ""
-
             }),
             services: [],
             editModal: false,
             idService: "",
         }
     },
+
     mounted() {
         this.get_service();
-        bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-            this.get_service(); // Mettre à jour la liste des utilisateurs
+        bus.on('serviceAjoutee', () => {
+            this.get_service();
         });
         bus.on('serviceDejaModifier', (eventData) => {
             this.editModal = eventData.editModal;
@@ -190,49 +184,42 @@ export default {
 
     methods: {
         initDataTable() {
-         
-         this.$nextTick(() => {
-     // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
-     
+            this.$nextTick(() => {
+                if (!$.fn.DataTable.isDataTable('#example47')) {
+                    $('#example47').DataTable({
+                        responsive: true,
 
-     // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
-     if (!$.fn.DataTable.isDataTable('#example47')) {
-         $('#example47').DataTable({
-             responsive: true,
-             
-             // ... (autres options)
-             language: {
-                     // Messages pour la pagination
-                     paginate: {
-                         first: 'Premier',
-                         previous: 'Précédent',
-                         next: 'Suivant',
-                         last: 'Dernier'
-                     },
-                     // Message d'affichage du nombre d'éléments par page
-                     lengthMenu: 'Afficher _MENU_ entrées',
-                     // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
-                     info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
-                     // Message lorsque le tableau est vide
-                     emptyTable: 'Aucune donnée disponible dans le tableau',
-                     // Message indiquant que la recherche est en cours
-                     loadingRecords: 'Chargement en cours...',
-                     // Message indiquant que la recherche n'a pas renvoyé de résultats
-                     zeroRecords: 'Aucun enregistrement correspondant trouvé',
-                     // Message indiquant le nombre total d'entrées
-                     infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
-                     // Message indiquant que la recherche est en cours dans le champ de recherche
-                     search: 'Recherche :'
-                 }
-         });
-     }
- });
-     },
+                        language: {
+                            paginate: {
+                                first: 'Premier',
+                                previous: 'Précédent',
+                                next: 'Suivant',
+                                last: 'Dernier'
+                            },
+                            // Message d'affichage du nombre d'éléments par page
+                            lengthMenu: 'Afficher _MENU_ entrées',
+                            // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                            info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                            // Message lorsque le tableau est vide
+                            emptyTable: 'Aucune donnée disponible dans le tableau',
+                            // Message indiquant que la recherche est en cours
+                            loadingRecords: 'Chargement en cours...',
+                            // Message indiquant que la recherche n'a pas renvoyé de résultats
+                            zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                            // Message indiquant le nombre total d'entrées
+                            infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                            // Message indiquant que la recherche est en cours dans le champ de recherche
+                            search: 'Recherche :'
+                        }
+                    });
+                }
+            });
+        },
 
         get_service() {
             axios.get('/service/index')
                 .then(response => {
-                     const allservice = response.data.service;
+                    const allservice = response.data.service;
 
                     const formattedService = allservice.map(ser => {
                         return {
@@ -246,10 +233,8 @@ export default {
                             editModal: true,
                         };
                     });
-                    this.services=formattedService;
-                    this.initDataTable(); 
-                          console.log( this.services);
-
+                    this.services = formattedService;
+                    this.initDataTable();
 
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des services', 'error')
@@ -259,7 +244,7 @@ export default {
         changement(event) {
             this.interesser = event;
         },
-       
+
 
         resetForm() {
             this.form.input = "";
@@ -293,25 +278,20 @@ export default {
         },
         openModal(service) {
 
-          /*   this.idService = service.id; */
 
             this.editModal = true;
-
             // Créez un objet avec les données à envoyer
             const eventData = {
                 service: service,
-                editModal:true
-                
-               
-                // Ajoutez d'autres propriétés si nécessaire
+                editModal: true
             };
 
             bus.emit('serviceModifier', eventData);
             console.log("message envoyé")
 
-         },
+        },
 
-    
+
 
     }
 }

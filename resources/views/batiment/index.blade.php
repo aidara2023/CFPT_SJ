@@ -1,4 +1,4 @@
-@extends('layout.app')
+{{-- @extends('layout.app')
 @section('titre')
        Batiment
         @endsection
@@ -15,21 +15,8 @@
                     <input type="text" placeholder="Rechercher...">
                 </div>
                 <div></div>
-                {{--  <button class="filtrer mdl">
-                    <i class="fi fi-rr-bars-sort"></i>
-                    <span class="grand_ecran_seulement">Filtrer</span>
-                </button> --}}
             </div>
             <div></div>
-            <!-- Onglets de navigation -->
-            {{--      <div class="recherche onglets grand_ecran_seulement">
-                <div data-fenetre="">Formateurs</div>
-                <div data-fenetre="">Eleve</div>
-                <div data-fenetre="">Administration</div>
-                <div data-fenetre="">Appui</div>
-            </div> 
-            <div class="petit_ecran_seulement"></div>--}}
-
             <button class="ajouter mdl">
                 <i class="fi fi-rr-plus"></i>
                 <span class="grand_ecran_seulement">Ajouter</span>
@@ -38,8 +25,7 @@
 
        
         <liste-batiment></liste-batiment>
- 
-<!-- debut modal pour modifier utilisateur -->
+
 <dialog data-modal-modification class="modal">
     <h1>Modification</h1>
     <div class="contenu">
@@ -135,15 +121,10 @@
         <button type="button" data-close-modal class="texte">Annuler</button>
     </div>
 </dialog>
- {{--  Fin modal pour modifier utilisateur --}}
-
-
-
- {{--  Debut modal pour ajouter utilisateur --}}
+ 
 <dialog data-modal-ajout class="modal">
     <create-batiment></create-batiment>
 </dialog>
-{{--  Fin modal pour ajouter utilisateur --}}
   <dialog data-modal-confirmation class="modal message">
             <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
             <h1>Ajouté avec succés</h1>
@@ -167,9 +148,6 @@
             </div>
         </dialog>
 
-
-
- {{--  Debut modal pour supprimer utilisateur --}}
  <dialog data-modal-modification class="modal">
             <h1>Encaissement</h1>
             <div class="contenu">
@@ -298,3 +276,17 @@
         </dialog>
  <span class="fond "></span>
 @endsection
+ --}}
+
+ @extends('layouts.app')
+ @section('fonction')
+    Administrateur
+ @endsection
+ @section('content')
+    
+     <div class="page-content-wrapper" id="app">
+        <liste-batiment></liste-batiment>
+     </div>
+ @endsection
+ 
+ 

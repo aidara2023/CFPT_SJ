@@ -10,7 +10,8 @@
                             class="fa fa-angle-right"></i>
                     </li>
                    
-                    <li class="active"> Paramétres </li>
+                    <li class="active"> Paramétres &nbsp;<i
+                            class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/direction/accueil'"> Direction</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -64,6 +65,7 @@
                                                 <thead>
                                                     <tr>
                                                         
+                                                        <th> # </th>
                                                         <th> Direction </th>
                                                         <th> Chef de direction </th>
                                                         <th> Action </th>
@@ -72,6 +74,7 @@
                                                 <tbody>
                                                     <tr class="odd gradeX"  v-for="(direction, index) in directions" :key="index">
                                                         
+                                                        <td > {{ index + 1}} </td>
                                                         <td > {{ direction.direction }} </td>
                                                         <td > {{ direction.user_prenom }} {{ direction.user_nom }}</td>
                                                         
