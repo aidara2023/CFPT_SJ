@@ -191,7 +191,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
                 <li>
-                    <a href="user_profile.html">
+                    <a  href="/utilisateur/profil">
                         <i class="icon-user"></i> Profil </a>
                 </li>
          {{--        <li>

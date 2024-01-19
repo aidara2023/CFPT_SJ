@@ -1,101 +1,4 @@
 <template >
-    <!--  <div class="liste ">
-        <div class="table-container">
-            <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
-                <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
-                <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
-                <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
-
-            </div>
-            <br>
-
-            <table>
-                <thead>
-                    <th>Image</th>
-                    <th>Matricule</th>
-                    <th>Nom Complet</th>
-                    <th>Telephone</th>
-                    <th>Email</th>
-                    <th>Fonction</th>
-                    <th>Statut</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-
-                    <tr v-for="(utilisateur, index) in utilisateurs" :key="index">
-                        <template v-if="this.activePhase === 1 && utilisateur.role.id === 2">
-                            <td><span><img :src="getImageUrl(utilisateur.photo)" alt="Etu"
-                                        style="width: 30px; height: 30px;"></span> </td>
-                                        <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span> {{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                        <template
-                            v-if="activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                            <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
-                            </td>
-                            <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span>{{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                        <template v-if="activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                            <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
-                            </td>
-                            <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span> {{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-
-    </div>
- -->
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
@@ -643,18 +546,19 @@ export default {
                 "Utilisateur desactiver avec succès."
             ).then((result) => { */
                 Swal.fire({
-                title: 'Êtes-vous sûr?',
+                title: 'Êtes-vous sûr de désactiver cet utilisateur?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimer!',
+                confirmButtonText: 'Oui, désactiver!',
                 cancelButtonText: 'Annuler'
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/user/delete/${user.id}`).then(resp => {
                         this.get_utilisateur();
+                        showDialog6("Utilisateur désactivé avec succés")
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -686,10 +590,3 @@ export default {
     }
 }
 </script>
-<style>
-.small-image {
-    width: 34px;
-    /* Ajustez la taille comme nécessaire */
-    height: 34px;
-    border-radius: 50%;
-}</style>

@@ -16,5 +16,9 @@ class user_view_controller extends Controller
         return view('utilisateur.index');
     }
 
-    
+
+    public function profil(){
+        return view('utilisateur.profil');
+    }
+
 }

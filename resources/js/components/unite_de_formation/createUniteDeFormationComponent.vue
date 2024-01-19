@@ -1,61 +1,62 @@
 <template>
-    <div>
-
-        <div class="titres">
-            <h1>Nouvelle Filière</h1>
-            <!--  <h3>Informations Personnelles</h3> -->
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom_unite_formation">Nom Filière</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom_unite_formation"
+                @input="validatedata('nom_unite_de_formation')">
+            <span class="erreur">{{ this.nom_unite_erreur }}</span>
         </div>
+    </div>
 
-        <form @submit.prevent="validerAvantAjout()" action="" method="">
+    <div class="col-lg-6 p-t-20 mt-1">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <div class="informations">
+            <label class="mdl-textfield__label" for="departementSelect" v-show="!form.id_departement"> Choisissez le
+                Departement
+            </label>
+            <select class="mdl-textfield__input" id="departementSelect" readonly tabIndex="-1" v-model="form.id_departement"
+                @change="validatedata('departement')">
 
-                <div class="titres">
-                    <h1>Nouvelle Filière</h1>
-                </div>
-
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_unite_erreur) }">Filière</label>
-                    <input type="text" v-model="form.nom_unite_formation" id="nom" placeholder="Nom"
-                        @input="validatedata('nom_unite_de_formation')"
-                        :class="{ 'bordure_rouge': (this.nom_unite_erreur) }">
-                    <span class="erreur">{{ this.nom_unite_erreur }}</span>
-                </div>
-
-
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.id_departement_erreur) }">Departement</label>
-                    <select name="id_departement" id="id_departement" v-model="form.id_departement"
-                        @change="validatedata('departement')"  :class="{ 'bordure_rouge': (this.id_departement_erreur) }">
-                      
-                        <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
-                            departement.nom_departement }}</option>
-                    </select>
-                    <span class="erreur" >{{ id_departement_erreur }}</span>
-                </div>
-
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur) }">Chef de filiere</label>
-                    <select name="user" id="user" v-model="form.id_user" @change="validatedata('user')"  :class="{ 'bordure_rouge': (this.id_user_erreur) }">
-                        
-                        <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }}</option>
-                    </select>
-                    <span class="erreur" >{{ id_user_erreur }}</span>
-
-                </div>
+                <option v-for="(departement, index) in departements" :value="departement.id" :key="index">{{
+                    departement.nom_departement }}</option>
+            </select>
+            <span class="erreur">{{ id_departement_erreur }}</span>
+        </div>
+    </div>
 
 
-                <div class="groupe_champs validation">
-                    <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
-                            @click="resetForm">Annuler</span></button>
-                    <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Ajouter</span></button>
-                    <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Modifier</span></button>
-                </div>
-            </div>
 
-        </form>
+
+
+    <div class="col-lg-6 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_user">Choisissez le chef de Filière</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_user"
+                @change="validatedata('user')">
+                <option v-for="(user, index) in users" :value="user.id" :key="index">{{ user.prenom }} {{ user.nom }}
+                </option>
+            </select>
+            <span class="erreur">{{ id_user_erreur }}</span>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-lg-12 p-t-20 text-center">
+
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+
     </div>
 </template>
 
@@ -64,9 +65,14 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
     name: "createUniteDeFormationCompenent",
+    components: {
+        flatPickr,
+    },
     data() {
         return {
             filieres: [],
@@ -93,12 +99,10 @@ export default {
         this.get_departement();
         this.get_user();
         bus.on('formationModifier', (eventData) => {
-            this.idFormation = eventData.idFormation;
             this.editModal = eventData.editModal;
-            this.form.nom_unite_formation = eventData.nom;
-            this.form.id_departement = eventData.id_departement;
-            this.form.id_user = eventData.id_user;
+            this.monterToupdate(eventData.filiere);
         });
+
     },
 
     methods: {
@@ -113,17 +117,21 @@ export default {
                 await axios.post('/unite_de_formation/store', formdata, {});
                 //Swal.fire('Réussi !', 'formation ajouté avec succès','success');
 
-                this.resetForm();
                 bus.emit('unite_formationAjoutee');
+                showDialog6("Filière ajoutée avec succès");
+                this.resetForm();
+                window.location.href = '/unite_de_formation/index';
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Cette unité existe déjà', 'error')
+                    // Swal.fire('Erreur !', 'Cette unité existe déjà', 'error')
+                    showDialog3("Cette filière existe déjà");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    //Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
 
             }
@@ -167,7 +175,6 @@ export default {
                     this.etatForm = true;
                     this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
                     this.update_formation(this.idFormation);
-                    this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal = false;
                 }
                 else {
@@ -175,7 +182,7 @@ export default {
 
                     this.soumettre();
                     this.etatForm = true;
-                    this.closeModal('[data-modal-confirmation]');
+
                     this.editModal = false;
                 }
 
@@ -190,7 +197,12 @@ export default {
             this.nom_unite_erreur = "";
             this.id_departement_erreur = "";
             this.id_user_erreur = "";
-            this.editModal === false;
+            this.editModal = false;
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('unite_formationDejaModifier', eventData);
+
         },
 
         verifCaratere(nom_unite_formation) {
@@ -199,7 +211,6 @@ export default {
         },
 
         validatedata(champ) {
-
 
             var i = 0;
 
@@ -284,32 +295,6 @@ export default {
 
         },
 
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
 
         async update_formation(id) {
             const formdata = new FormData();
@@ -324,20 +309,31 @@ export default {
 
                 this.resetForm();
                 bus.emit('unite_formationAjoutee');
-                this.editModal = false;
+                showDialog6("Service modifié avec succès");
+                const eventData = {
+                    editModal: false,
+                };
+                bus.emit('unite_formationDejaModifier', eventData);
 
             }
             catch (e) {
                 console.log(e)
-                /* if(e.request.status===404){
-                  Swal.fire('Erreur !','Cette unité existe déjà','error')
-                }
-                else{
-                  Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                } */
-
+                showDialog3("Une erreur est survenue lors de la modification");
             }
         },
+
+        monterToupdate(filiere) {
+            console.log("MonterToupdate called");
+
+            this.idFormation = filiere.id;
+            this.editModal = filiere.editModal;
+            this.form.nom_unite_formation = filiere.filiere;
+
+            this.form.id_departement = filiere.id_departement;
+            this.form.id_user = filiere.id_user;
+
+        },
+
 
 
 

@@ -1,141 +1,61 @@
 <template>
-    <div>
+  
 
-        <div class="titres">
-            <h1>Nouveau Département</h1>
-           <!--  <h3>Informations Personnelles</h3> -->
+<div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom">Nom Département</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
+                @input="validatedata('nom_departement')">
+            <span class="erreur">{{ this.nom_departement_erreur }}</span>
         </div>
-        
-              <form @submit.prevent="validerAvantAjout()" action="" method="dialog" >
-                
-                    
-                <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
-                Et enlever la div au dessus -->
-                <div class="informations">
-                    <div class="titres">
-                        <h1>Nouveau Département</h1>
-                    </div>
+    </div>
+   
+    <div class="col-lg-6 p-t-20 mt-1">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Département</label>
-                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
-                        <span class="erreur" >{{this.nom_departement_erreur}}</span>
-                    </div>
-                
-                    <div class="groupe_champs">
+            <label class="mdl-textfield__label" for="directionSelect" v-show="!form.id_direction"> Choisissez la direction </label>
+            <select class="mdl-textfield__input" id="directionSelect" readonly tabIndex="-1" v-model="form.id_direction"
+            @change="validatedata('id_direction')">
 
-                    
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Département</label>
-                        <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
-                            <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
-                        </select>
-                        <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}></span>
-                    </div>
+                <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
+            </select>
+            <span class="erreur">{{ id_direction_erreur }}</span>
+        </div>
+    </div> 
 
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_direction_erreur)} ">Direction</label>
-                        <select  v-model="form.id_direction" @change="validatedata('id_direction')" :class="{ 'bordure_rouge': (this.id_direction_erreur)} ">
-                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
-                        </select>
-                        <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
-                    </div>
-                </div>
-                  <!--   <div class="champ">
-                        <input type="text" class="select">
-                        <div class="choix">
-                            <p class="option">choix </p>
-                            <p class="option">choix</p>
-                            <p class="option">choix</p>
-                        </div>
-                    </div>
 
-                    <div class="champ">
-                            <label for="nom">Sexe</label>
-                            
-                            <input type="text" name="nom" id="nom" class="select">
-                            <span class="erreur"></span>
-                            <div class="choix">
-                                <p class="option">Masculin</p>
-                                <p class="option">Féminin</p>
-                            </div>
-                        </div> -->
-<!-- 
-                    <div class="groupe_champs">     
+   
 
-                        <div class="champ">
-                            <label for="nom">Lieu de Naissance</label>
-                            <input type="text" name="nom" id="nom">
-                            <span class="erreur"></span>
-                        </div>
 
-                        <div class="champ">
-                            <label for="nom">Date de naissance</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
+    <div class="col-lg-6 p-t-20" >
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_user">Choisissez le chef de département</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_user"
+                @change="validatedata('user')">
+                <option v-for="(user, index) in users" :value="user.id" :key="index">{{ user.prenom }} {{ user.nom }}</option>
+            </select>
+            <span class="erreur">{{ id_user_erreur }}</span>
+        </div>
+    </div>
 
-                    </div> -->
-<!--                     <div class="groupe_champs">     
 
-                        <div class="champ">
-                            <label for="nom">Sexe</label>
-                            
-                            <input type="text" name="nom" id="nom" class="select">
-                            <span class="erreur"></span>
-                            <div class="choix">
-                                <p class="option">Masculin</p>
-                                <p class="option">Féminin</p>
-                            </div>
-                        </div>
 
-                        <div class="champ">
-                            <label for="nom">nationalité</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
+   
+    <div class="col-lg-12 p-t-20 text-center">
 
-                    </div> -->
- <!--                    <div class="groupe_champs">     
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
 
-                        <div class="champ">
-                            <label for="nom">Adresse</label>
-                            <input type="text" name="nom" id="nom">
-                            <span class="erreur"></span>
-                        </div>
-
-                        <div class="champ">
-                            <label for="nom">telephone</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
-
-                    </div>
-
-                    <div class="champ">
-                        <label for="nom">Email</label>
-                        <input type="text" name="prenom" id="prenom">
-                        <span class="erreur"></span>
-                    </div> -->
-
-                    
-
-                    <!-- Le groupe qui contient les boutons -->
-                    <div class="groupe_champs validation">
-                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                        <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
-                    </div>
-
-                </div>
-
-                
-              
-            </form>
-    
-
-</div>
+    </div>
 </template>
 
 
@@ -143,9 +63,16 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
    export default {
+    props: ['departement'],
     name:"createDepartementCompenent",
+    components: {
+    flatPickr,
+  },
     data(){
         return {
             filieres:[],
@@ -173,11 +100,8 @@ import Form from 'vform';
         this.get_direction();
         this.get_user();
         bus.on('departementModifier', (eventData) => {
-            this.idDepartement = eventData.idDepartement;
             this.editModal = eventData.editModal;
-            this.form.nom = eventData.nom;
-            this.form.id_direction = eventData.id_direction;
-            this.form.id_user = eventData.id_user;
+            this.monterToupdate(eventData.departement);
         });
     },
 
@@ -185,24 +109,26 @@ import Form from 'vform';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom_departement', this.form.nom  );
+            formdata.append('nom', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
             formdata.append('id_user', this.form.id_user);
 
              //if(this.form.nom!==""){
             try{
                 await axios.post('/departement/store', formdata);
-                this.resetForm();
                 bus.emit('departementAjoutee');
+                showDialog6("Departement ajouté avec succès");
+                this.resetForm();
+                window.location.href = '/departement/index';
 
             }
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                Swal.fire('Erreur !','Ce département existe déjà','error')
+                    showDialog3("Ce département existe déjà");
                 }
                 else{
-                Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
 
@@ -225,7 +151,7 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.form.nom = this.form.nom.toUpperCase();
                     this.update_departement(this.idDepartement);
-                    this.closeModal('[data-modal-confirmation-modifier]');
+                   
                     this.editModal=false;
                     
                 }
@@ -233,7 +159,7 @@ import Form from 'vform';
                     this.etatForm= true;
                     this.form.nom = this.form.nom.toUpperCase();
                     this.soumettre();
-                    this.closeModal('[data-modal-confirmation]');
+                   
                     this.editModal=false;
                 }
             }
@@ -255,37 +181,15 @@ import Form from 'vform';
             this.form.id_user="";
             this.editModal===false;
             this.nom_departement_erreur="";
-            this.id_direction_erreur=""
-            this.id_user_erreur=""
+            this.id_direction_erreur="";
+            this.id_user_erreur="";
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('departementDejaModifier', eventData);
         },
 
-        closeModal(selector){
-            var ajout=document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-            this.editModal===false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-                confirmation.showModal();
-                confirmation.classList.add("actif");
-            setTimeout(function(){
-                confirmation.close();
-
-                setTimeout(function(){
-                    confirmation.classList.remove("actif");
-            }, 100);
-
-            }, 1700);
-        },
+       
 
         verifCaratere(nom){
             const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
@@ -391,7 +295,7 @@ import Form from 'vform';
 
     async update_departement(id){
          const formdata = new FormData();
-            formdata.append('nom_departement', this.form.nom  );
+            formdata.append('nom', this.form.nom  );
             formdata.append('id_direction', this.form.id_direction);
             formdata.append('id_user', this.form.id_user);
 
@@ -399,18 +303,35 @@ import Form from 'vform';
             try{
                 await axios.post('/departement/update/'+id, formdata);
                 bus.emit('departementAjoutee');
-                this.resetForm();
-                this.editModal=false;
+                showDialog6("Département modifié avec succès");
+                const eventData = {
+                editModal: false,
+            };
+            bus.emit('departementDejaModifier', eventData);
             }
             catch(e){
                 /* console.log(e.request.status) */
                 if(e.request.status===404){
-                    Swal.fire('Erreur !','Ce département existe déjà','error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
                 else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
-            }
+                }
+            },
+            monterToupdate(departement) {
+            console.log("MonterToupdate called");
+            console.log(departement);
+         
+            this.idDepartement = departement.id;
+            this.editModal = departement.editModal;
+            this.form.nom = departement.departement;
+            this.form.nom_direction = departement.direction;
+            this.form.id_direction = departement.id_direction;
+            this.form.id_user = departement.id_user;
+           
+            
+        
     }
 
     }
