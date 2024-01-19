@@ -1,59 +1,59 @@
 <template>
-    <div>
-        <div class="titres">
-            <h1>Nouveau Service</h1>
-            <!--  <h3>Informations Personnelles</h3> -->
+   
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom_service">Nom Service</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom_service"
+                @input="validatedata('nom_service')">
+            <span class="erreur">{{ this.nom_service_erreur }}</span>
         </div>
-        <!-- <div class="contenu"> -->
-        <form @submit.prevent="validerAvantAjout()" action="" method="">
+    </div>
+   
+    <div class="col-lg-6 p-t-20 mt-1">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-            <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
-                 Et enlever la div au dessus -->
-            <div class="informations">
-                <div class="titres">
-                    <h1>Nouveau Service</h1>
-                </div>
+            <label class="mdl-textfield__label" for="directionSelect" v-show="!form.id_direction"> Choisissez la direction </label>
+            <select class="mdl-textfield__input" id="directionSelect" readonly tabIndex="-1" v-model="form.id_direction"
+            @change="validatedata('id_direction')">
 
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_service_erreur) }">Nom Service</label>
-                    <input v-model="form.nom_service" id="nom" @input="validatedata('nom_service')" type="text" name="nom"
-                        :class="{ 'bordure_rouge': (this.nom_service_erreur) }">
-                    <span class="erreur">{{ this.nom_service_erreur }}</span>
-                </div>
+                <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
+            </select>
+            <span class="erreur">{{ id_direction_erreur }}</span>
+        </div>
+    </div> 
 
-                <div class="groupe_champs">
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur) }">Chef Service</label>
-                        <select v-model="form.id_user" @change="validatedata('id_user')"
-                            :class="{ 'bordure_rouge': (this.id_user_erreur) }">
-                            <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
-                        </select>
-                        <span class="erreur" v-if="id_user_erreur !== ''">{{ id_user_erreur }}></span>
-                    </div>
 
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_direction_erreur) }">Direction</label>
-                        <select v-model="form.id_direction" @change="validatedata('id_direction')"
-                            :class="{ 'bordure_rouge': (this.id_direction_erreur) }">
-                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{
-                                direction.nom_direction }}</option>
-                        </select>
-                        <span class="erreur" v-if="id_direction_erreur !== ''">{{ id_direction_erreur }}></span>
-                    </div>
-                </div>
+   
 
-                <!-- Le groupe qui contient les boutons -->
-                <div class="groupe_champs validation">
-                    <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                    <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
-                            @click="resetForm">Annuler</span></button>
-                    <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Ajouter</span></button>
-                    <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Modifier</span></button>
-                </div>
-            </div>
-        </form>
+
+    <div class="col-lg-6 p-t-20" >
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_user">Choisissez le chef de service</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_user"
+                @change="validatedata('user')">
+                <option v-for="(user, index) in users" :value="user.id" :key="index">{{ user.prenom }} {{ user.nom }}</option>
+            </select>
+            <span class="erreur">{{ id_user_erreur }}</span>
+        </div>
+    </div>
+
+
+
+   
+    <div class="col-lg-12 p-t-20 text-center">
+
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+
     </div>
 </template>
      
@@ -62,9 +62,16 @@ import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
 
 export default {
+    props: ['service'],
     name: "createServiceCompenent",
+    components: {
+    flatPickr,
+  },
     data() {
         return {
             users: [],
@@ -80,6 +87,7 @@ export default {
             etatForm: false,
             editModal: false,
             idService: "",
+            utilisateurEnCoursDeModification: null,
         }
     },
 
@@ -87,11 +95,14 @@ export default {
         this.get_user();
         this.get_direction();
         bus.on('serviceModifier', (eventData) => {
-            this.idService = eventData.idService;
+            this.editModal = eventData.editModal;
+            this.monterToupdate(eventData.service);
+
+           /*  this.idService = eventData.idService;
             this.editModal = eventData.editModal;
             this.form.nom_service = eventData.nom;
             this.form.id_user = eventData.id_user;
-            this.form.id_direction = eventData.id_direction;
+            this.form.id_direction = eventData.id_direction; */
         });
 
         /*        var erreur = document.querySelectorAll('.erreur');
@@ -107,19 +118,23 @@ export default {
             formdata.append('id_user', this.form.id_user);
             formdata.append('id_direction', this.form.id_direction);
             try {
-                await axios.post('/service/store', formdata, {});
+                const user_store = await axios.post('/service/store', formdata, {});
                 //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
+                bus.emit('serviceAjoutee;')
+                showDialog6("Service ajouté avec succès");
                 this.resetForm();
-                bus.emit('serviceAjoutee');
+                window.location.href = '/service/index';
+                
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Ce service existe déjà', 'error')
+                    showDialog3("Ce service existe déjà");
                 }
                 else {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
 
             }
@@ -141,7 +156,7 @@ export default {
                     this.etatForm = true;
                     this.form.nom_service = this.form.nom_service.toUpperCase();
                     this.update_service(this.idService);
-                    this.closeModal('[data-modal-confirmation-modifier]');
+                   /*  this.closeModal('[data-modal-confirmation-modifier]'); */
                     this.editModal = false;
                 }
 
@@ -152,7 +167,7 @@ export default {
 
                     this.soumettre();
                     this.etatForm = true;
-                    this.closeModal('[data-modal-confirmation]');
+
                     this.editModal = false;
                     console.log("Tokkos");
                 }
@@ -170,38 +185,7 @@ export default {
             this.editModal = false;
         },
 
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
 
-            if (this.etatForm == true) {
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                ajout.close();
-            }
-            /* console.log(ajout); */
-
-            //ajout.classList.remove("actif");
-
-
-            this.editModal === false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
 
         verifCaratere(nom) {
             const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
@@ -351,38 +335,37 @@ export default {
             try {
                 await axios.post('/service/update/' + id, formdata);
                 bus.emit('serviceAjoutee');
-                this.resetForm();
-                this.editModal = false;
+                showDialog6("Service modifié avec succès");
+                const eventData = {
+                editModal: false,
+            };
+            bus.emit('serviceDejaModifier', eventData);
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                   /*  Swal.fire('Erreur !', 'Ce service existe déjà', 'error') */
-                   var confirmation = document.querySelector('[data-modal-verification]');
+                    showDialog3("Une erreur est survenue lors de la modification");
+    
 
-confirmation.style.backgroundColor = 'white';
-confirmation.style.color = 'var(--clr)';
-
-//setTimeout(function(){
-confirmation.showModal();
-confirmation.classList.add("actif");
-//confirmation.close();
-//}, 1000);
-
-setTimeout(function () {
-    confirmation.close();
-
-    setTimeout(function () {
-        confirmation.classList.remove("actif");
-    }, 100);
-
-}, 2000);
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
             }
-        }
+        },
+        monterToupdate(service) {
+            console.log("MonterToupdate called");
+         
+            this.idService = service.id;
+            this.editModal = service.editModal;
+            this.form.nom_service = service.service;
+            this.form.nom_direction = service.direction;
+            this.form.id_direction = service.id_direction;
+            this.form.id_user = service.id_user;
+           
+            
+        },
+
 
     }
 }

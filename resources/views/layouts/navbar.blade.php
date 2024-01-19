@@ -102,12 +102,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="add_student.html" class="nav-link "> <span
+                            <a href="{{ route('direction_accueil') }}" class="nav-link "> <span
                                     class="title">Direction</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="add_student_bootstrap.html" class="nav-link "> <span
+                            <a href="{{ route('departement_index') }}" class="nav-link "> <span
                                     class="title">Département</span>
                             </a>
                         </li>
