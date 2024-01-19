@@ -87,7 +87,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="event.html" class="nav-link nav-toggle"> <i
+                    <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
                             data-feather="calendar"></i>
                         <span class="title">Inscription</span>
                     </a>
@@ -112,17 +112,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="edit_student.html" class="nav-link "> <span
+                            <a href="{{ route('classe_index') }}" class="nav-link "> <span
                                     class="title">Classe</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('unite_de_formation_index') }}" class="nav-link "> <span
+
+
+                            <a  href="{{ route('unite_de_formation_index') }}" class="nav-link "> <span
+
                                     class="title">Filière</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a  href="{{ route('type_formation_index') }}" class="nav-link "> <span
                                     class="title">Type Formation</span>
                             </a>
                         </li>
@@ -132,7 +135,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a href="{{ route('salle_accueil') }}"class="nav-link "> <span
                                     class="title">Salle</span>
                             </a>
                         </li>

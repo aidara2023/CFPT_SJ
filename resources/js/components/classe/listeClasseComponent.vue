@@ -1,176 +1,330 @@
 <template>
+    
+    <div class="page-content" v-if="!this.editModal">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
 
-    <div class="liste">
-      <!--  <div class="avant" style=" margin-left: 80%;">
-          
-           <a href="#">
-               <button class="texte ajout mdl" id="openModal" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-           </a>
-       </div>
-       <h1 class="texte">Classe</h1>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
 
-   <div class="sections" v-for="(classe, index) in classes" :key="index">
-          
-           <div class="utilisateur">
-              
-               <p class="texte" id="n">{{ classe.type_formation_intitule }} {{ classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }} </p>
-               <p class="texte" id="n">{{ classe.type_formation.intitule }} {{ classe.unite_de_formation.nom_unite_formation }}</p>
-               <div  class="presences">
-                <a href="#" class="texte b">
-                        <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
-                    </a>
-                   <a href="#" class="texte b">
-                       <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
-                   </a>
-                   <a href="" class="texte b">
-                       <i class="fi fi-rr-comment-alt-dots"></i>
-                       <span class="details">Détails</span>
-                   </a>
-                   <a href="#" class="texte b" @click="deleteClasse(classe)">
-                       <i class="fi fi-rr-cross"></i>
-                       <span class="supprimer mdl">Supprimer</span>
-                   </a>
-               </div>
-           </div>
-       </div>
- -->
- <div class="table-container">
-            <table>
-                <thead>
-                    <th>Type de Formation</th>
-                    <th>Nom</th>
-                    <th>Niveau</th>
-                    <th>Type Classe</th>
-                    <th>Filiere</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(classe, index) in classes" :key="index">
-                        <td><span>{{ classe.type_formation.intitule }} </span></td>
-                        <td><span> {{ classe.nom_classe }}  </span></td>
-                        <td><span> {{ classe.niveau }} </span></td>
-                        <td> <span>{{ classe.type_classe }}</span></td>
-                        <td><span>{{ classe.unite_de_formation.nom_unite_formation }}</span></td>
-                        <td>
-                            <div class="boutons_actions">
-                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(classe)" title="Modifier"></i>
-                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteClasse(classe)"
-                                    title="Supprimer"></i>
-                            </div>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
+                    <li class="active"> Paramétres </li>
+                    <li><a class="parent-item" :href="'/classe/index'"> Classe</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
+                </ol>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabbable-line">
+                    <!-- <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab1" data-bs-toggle="tab"> List View </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-bs-toggle="tab"> Grid View </a>
+                                </li>
+                            </ul> -->
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Classe</a>
+                        </li>
 
-   </div>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-box">
+                                        <div class="card-head">
+                                            <header>Toutes les classes</header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a :href="'/classe/create'" id="addRow" class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="example47">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nom</th>
+                                                        <th>Type Classe</th>
+                                                        <th>Niveau</th>
+                                                        <th>Type de Formation</th>
+                                                        <th>Filiere</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX" v-for="(classe, index) in classes" :key="index">
+                                                        <td> {{ index + 1 }} </td>
+                                                        <td> {{ classe.classe }} </td>
+                                                        <td> {{ classe.type_classe }} </td>
+                                                        <td> {{ classe.niveau }}</td>
+                                                        <td> {{ classe.type_de_formation }} </td>
+                                                        <td> {{ classe.unite_de_formation }} </td>
+
+                                                        <td>
+                                                            <a class="tblEditBtn" @click="openModal(classe)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a class="tblDelBtn" @click="deleteClasse(classe)">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-<!-- <span class="fond "></span> -->
-
+    <div class="page-content-wrapper" v-show="editModal">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Nouvelle Classe</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
+                                de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li><a class="parent-item" href="{{ route('classe_create') }}">Classe</a>&nbsp;<i
+                                class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Modifier Classe</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="card-head">
+                            <header>Information</header>
+                            <button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                data-mdl-for="panel-button">
+                                <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                    here</li>
+                            </ul>
+                        </div>
+                        <div class="card-body row">
+                            <FormulaireModification />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import datatable from 'datatables.net-bs5';
+import FormulaireModification from './createClasseComponent.vue';
 
 
 
-  export default {
-   name:"listeUserCompenent",
-   data(){
-       return {
-           form:new Form({
-               'intitule':""
 
-           }),
-           classes: [],
-
-
-       }
-   },
-   mounted(){
-       this.get_classe();
-       bus.on('classeAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_classe(); // Mettre à jour la liste des utilisateurs
-       });
-   },
-
-   methods:{
-       get_classe(){
-           axios.get('/classe/all')
-           .then(response => {
-               this.classes=response.data.classe
+export default {
+    name: "listeClasseCompenent",
+    components: {
+        FormulaireModification,
+    },
+    data() {
+        return {
+            form: new Form({
+                'nom_classe':"",
+                'type_classe':"",
+                'niveau':"",
+                'id_type_formation':"",
+                'id_unite_de_formation':"",
 
 
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des classes','error')
-           });
-       },
+            }),
+            classes: [],
+            editModal: false,
+            idClasse: "",
 
-       changement(event){
-           this.interesser= event;
-       },
+        }
+    },
+    mounted() {
+        this.get_classe();
+        bus.on('classeAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+            this.get_classe(); // Mettre à jour la liste des utilisateurs
+            
+        });
+        bus.on('classeDejaModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.get_classe();
+        });
+    },
 
-       resetForm(){
-           this.form.input="";
-           this.form.intitule="";
-       },
+    methods: {
+        initDataTable() {
 
-       async deleteClasse(type) {
-           Swal.fire({
-               title: 'Êtes-vous sûr?',
-               text: "Cette action sera irréversible!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Oui, supprimer!',
-               cancelButtonText: 'Annuler'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   axios.delete(`/classe/delete/${type.id}`).then(resp => {
-                       this.get_classe();
-
-                       /* Swal.fire(
-                           'Supprimé!',
-                           'La classe a été supprimé avec succès.',
-                           'success',
-                       ) */
-                       var confirmation = document.querySelector('[data-modal-suppression]');
-
-                    confirmation.style.backgroundColor = 'white';
-                    confirmation.style.color = 'var(--clr)';
-
-                    //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();  
-                    //}, 1000);  
-
-                    setTimeout(function(){     
-                        confirmation.close();  
-
-                        setTimeout(function(){     
-                            confirmation.classList.remove("actif");   
-                    }, 100); 
-
-                    }, 2000); 
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
+            this.$nextTick(() => {
+                // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
 
 
+                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
+                if (!$.fn.DataTable.isDataTable('#example47')) {
+                    $('#example47').DataTable({
+                        responsive: true,
 
-   }
+                        // ... (autres options)
+                        language: {
+                            // Messages pour la pagination
+                            paginate: {
+                                first: 'Premier',
+                                previous: 'Précédent',
+                                next: 'Suivant',
+                                last: 'Dernier'
+                            },
+                            // Message d'affichage du nombre d'éléments par page
+                            lengthMenu: 'Afficher _MENU_ entrées',
+                            // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                            info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                            // Message lorsque le tableau est vide
+                            emptyTable: 'Aucune donnée disponible dans le tableau',
+                            // Message indiquant que la recherche est en cours
+                            loadingRecords: 'Chargement en cours...',
+                            // Message indiquant que la recherche n'a pas renvoyé de résultats
+                            zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                            // Message indiquant le nombre total d'entrées
+                            infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                            // Message indiquant que la recherche est en cours dans le champ de recherche
+                            search: 'Recherche :'
+                        }
+                    });
+                }
+            });
+        },
+        get_classe() {
+            axios.get('/classe/all')
+                .then(response => {
+                    const allclasse = response.data.classe
+                    //console.log(allclasse);
+                    const formattedClasse = allclasse.map(cl => {
+                        return {
+                            
+                            id: cl.id,
+                            classe: cl.nom_classe,
+                            type_classe: cl.type_classe,
+                            niveau: cl.niveau,
+                            type_de_formation: cl.type_formation.intitule,
+                            unite_de_formation: cl.unite_de_formation.nom_unite_formation,
+                            id_type_formation: cl.id_type_formation,
+                            id_unite_de_formation: cl.id_unite_de_formation,
+                            editModal: true,
+                            
+                            
+                        };
+                      
+                    });
+                    console.log(formattedClasse);
+                    this.classes = formattedClasse;
+                    this.initDataTable();
+                    console.log(this.classes);
+
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des classes', 'error')
+                });
+        },
+
+        changement(event) {
+            this.interesser = event;
+        },
+
+        resetForm() {
+            this.form.input = "";
+            this.form.nom_classe="";
+            this.form.type_classe="";
+            this.form.niveau="";
+            this.form.id_type_formation="";
+            this.form.id_unite_de_formation=""; 
+        },
+
+        async deleteClasse(type) {
+            Swal.fire({
+                title: 'Voulez-vous confirmer la suppression?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/classe/delete/${type.id}`).then(resp => {
+                        this.get_classe();
+                        showDialog6("Classe supprimée avec succés")
+
+
+                    }).catch(function (error) {
+                        console.log(error);
+                        showDialog3("Erreur lors de la suppression de la classe")
+                    })
+                }
+            });
+        },
+        openModal(classe) {
+
+            /*   this.idService = classe.id; */
+
+            this.editModal = true;
+
+            // Créez un objet avec les données à envoyer
+            const eventData = {
+                classe: classe,
+                editModal: true
+
+
+                // Ajoutez d'autres propriétés si nécessaire
+            };
+
+            bus.emit('classeModifier', eventData);
+            console.log("message envoyé")
+
+        },
+
+
+    }
 }
 </script>
