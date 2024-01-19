@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <!-- <div>
 
         <div class="titres">
             <h1>Nouvelle Salle</h1>
@@ -39,7 +39,7 @@
 
 
                 <div class="groupe_champs validation">
-                    <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
+                  
                     <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
                             @click="resetForm">Annuler</span></button>
                     <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
@@ -52,6 +52,53 @@
 
         </form>
 
+    </div> -->
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.intitule">Nom Salle</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.intitule"
+                @input="validatedata('intitule')">
+            <span class="erreur">{{ this.nom_salle_erreur }}</span>
+        </div>
+    </div>
+   
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form. nombre_place">Nombre de Place</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form. nombre_place"
+                @input="validatedata(' nombre_place')">
+            <span class="erreur">{{ this. nombre_place_erreur }}</span>
+        </div>
+    </div>
+   
+    
+    <div class="col-lg-6 p-t-20" >
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_batiment">Choisissez le batiment</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_batiment"
+                @change="validatedata('id_batiment')">
+                <option v-for="(batiment, index) in batiments" :value="batiment.id" :key="index">{{ batiment.intitule }} </option>
+            </select>
+            <span class="erreur">{{ id_batiment_erreur }}</span>
+        </div>
+    </div>
+
+
+
+   
+    <div class="col-lg-12 p-t-20 text-center">
+
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+
     </div>
     </template>
     
@@ -60,12 +107,18 @@ import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
+    props: ['salle'],
     name: "createSalleCompenent",
+    components: {
+    flatPickr,
+  },
     data() {
         return {
-            users: [],
+           users: [],
             batiments: [],
             form: new Form({
                 'intitule': "",
@@ -84,11 +137,8 @@ export default {
     mounted() {
         this.get_batiment();
         bus.on('salleModifier', (eventData) => {
-            this.idSalle = eventData.idSalle;
             this.editModal = eventData.editModal;
-            this.form.intitule = eventData.nom;
-            this.form.nombre_place = eventData.nombre_place;
-            this.form.id_batiment = eventData.id_batiment;
+            this.monterToupdate(eventData.salle);
         });
     },
 
@@ -102,16 +152,18 @@ export default {
             formdata.append('id_batiment', this.form.id_batiment);
             try {
                 await axios.post('/salle/store', formdata, {});
-                this.resetForm();
                 bus.emit('salleAjoutee');
+                showDialog6("Salle ajoutée avec succès");
+                this.resetForm();
+                window.location.href = '/salle/accueil';
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Ce salle existe déjà', 'error')
+                    showDialog3("Cette salle existe déjà");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
 
             }
@@ -196,7 +248,7 @@ export default {
                 i = 1;
             }
             if (this.form.nombre_place === "") {
-                this.nombre_place_erreur = "Vous avez oublié de sélectionner le nombre de place"
+                this.nombre_place_erreur = "Ce champ est obligatoire"
                     ;
                 i = 1;
             }
@@ -262,45 +314,7 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des membres administratifs', 'error')
                 });
         },
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-
-            var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-            this.editModal===false;
-
-            if (this.etatForm == true) {
-                var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                    item.classList.remove("actif");
-                });
-                //ajout.classList.remove("actif");
-                ajout.close();
-            }
-            this.editModal === false;
-
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
+       
 
 
         async update_salle(id) {
@@ -313,19 +327,36 @@ export default {
             try {
                 await axios.post('/salle/update/' + id, formdata);
                 bus.emit('salleAjoutee');
-                this.resetForm();
-                this.editModal = false;
+                showDialog6("Salle modifiée avec succès");
+                const eventData = {
+                editModal: false,
+            };
+            bus.emit('salleDejaModifier', eventData);
             }
             catch (e) {
                 console.log(e)
-                /*      if(e.request.status===404){
-                         Swal.fire('Erreur !','Ce salle existe déjà','error')
-                     }
-                     else{
-                         Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                     } */
+                if (e.request.status === 404) {
+                    showDialog3("Une erreur est survenue lors de la modification");
+    
+
+                }
+                else {
+                    showDialog3("Une erreur est survenue lors de la modification");
+                }
             }
-        }
+        },
+        monterToupdate(salle) {
+            console.log("MonterToupdate called");
+         
+            this.idSalle = salle.id;
+            this.editModal = salle.editModal;
+            this.form.intitule = salle.salle;
+            this.form.nombre_place = salle.nombre_de_place;
+            this.form.id_batiment= salle.id_batiment;
+            this.form.nom_batiment = salle.batiment;
+           
+            
+        },
 
     }
 }
