@@ -330,15 +330,21 @@
             <input type="file" name="file" id="photo" ref="fileInput" style="display: none;" @change="ajoutimage" />
 
             <!-- Vous pouvez ajouter une icône ou du texte ici pour indiquer le téléchargement -->
-            <div class="sidebar-user" v-if="!this.ancienPhoto">
+            <div class="sidebar-user" v-if="!this.editModal">
                 <div class="sidebar-user-picture">
                     <img v-if="photo" :src="photoUrl" alt="Etu" class="uploaded-image">
                 </div>
             </div>
 
-            <div class="sidebar-user" v-if="this.ancienPhoto">
+            <div class="sidebar-user" v-if="this.editModal && !this.photo">
                 <div class="sidebar-user-picture">
                     <img :src="getImageUrl(this.ancienPhoto)" alt="Etu" class="uploaded-image">
+                </div>
+            </div>
+
+            <div class="sidebar-user" v-if="this.editModal && this.photo">
+                <div class="sidebar-user-picture">
+                    <img :src="photoUrl" alt="Etu" class="uploaded-image">
                 </div>
             </div>
 
@@ -581,8 +587,14 @@ export default {
     },
     computed: {
         photoUrl() {
-            this.urlPhoto = true;
+            if(this.photo){
+                this.urlPhoto = true;
             return this.photo ? URL.createObjectURL(this.photo) : '';
+            }else{
+                this.urlPhoto = true;
+            return this.ancienPhoto ? URL.createObjectURL(this.photo) : '';
+            }
+          
         },
     },
 
@@ -692,6 +704,10 @@ export default {
         ajoutimage(event) {
             this.photo = event.target.files[0];
             this.photo_erreur = "";
+            if(this.editModal){
+                this.ancienPhoto = event.target.files[0];
+            this.photo_erreur = "";
+            }
         },
 
         getImageUrl(url) {
@@ -1087,7 +1103,6 @@ export default {
                 if (this.photo === "") {
                     this.photo_erreur = "Ce champ est obligatoire"
                     i = 1;
-                    console.log("videnomeleve=" + i);
                 }
             } else {
                 if (this.ancienPhoto === "") {
@@ -1364,8 +1379,7 @@ export default {
             this.form.id_unite_de_formation = utilisateur.id_filiere;
             this.ancienPhoto = utilisateur.photo;
             componentHandler.upgradeAllRegistered();
-            console.log("yryryryryryrr");
-            console.log(utilisateur);
+           
            /*  } */
 
 
