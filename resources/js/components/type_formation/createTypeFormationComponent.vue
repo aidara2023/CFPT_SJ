@@ -1,31 +1,26 @@
 <template>
-    <div>
-        <div class="titres">
-            <h1 class="sous_titre">Nouveau Type Formation</h1>
+   <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.intitule">Nom Type de formation</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.intitule"
+                @input="validatedata('intitule')">
+            <span class="erreur">{{ this.nom_formation_erreur }}</span>
         </div>
+    </div>
+   
+   
+    <div class="col-lg-12 p-t-20 text-center">
 
-        <form @submit.prevent="validerAvantAjout()" method="">
-            <div class="informations">
-                <div class="titres">
-                    <h1 class="sous_titre">Nouveau Type Formation</h1>
-                </div>
-                <div class="champ">
-                    <label for="nom" :class="{ 'couleur_rouge': (this.nom_formation_erreur) }">Nom Service</label>
-                    <input type="text" :class="{ 'bordure_rouge': (this.nom_formation_erreur) }" v-model="form.intitule" id="nom" placeholder="Intitule"
-                        @input="validatedata('intitule')">
-                    <span class="erreur" v-if="this.nom_formation_erreur !== ''">{{ this.nom_formation_erreur }}</span>
-                </div>
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
 
-                <div class="groupe_champs validation">
-                    <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
-                            @click="resetForm">Annuler</span></button>
-                    <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Ajouter</span></button>
-                    <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Modifier</span></button>
-                </div>
-            </div>
-        </form>
     </div>
 </template>
 
@@ -33,10 +28,18 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
 
 
 export default {
+    props: ['type_formation'],
     name: "createTypeFormationCompenent",
+    components: {
+    flatPickr,
+  },
     data() {
         return {
             form: new Form({
@@ -52,10 +55,8 @@ export default {
     },
     mounted() {
         bus.on('formationModifier', (eventData) => {
-            this.idTypeformation = eventData.idTypeformation;
             this.editModal = eventData.editModal;
-            this.form.intitule = eventData.nom;
-
+            this.monterToupdate(eventData.formation);
         });
     },
 
@@ -66,17 +67,19 @@ export default {
 
             try {
                 const create_store = await axios.post('/type_formation/store', formdata, {});
-                this.resetForm();
                 bus.emit('formationAjoutee');
+                showDialog6("Type de formation ajouté avec succès");
+                this.resetForm();
+                window.location.href = '/type_formation/index';
 
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
-                    Swal.fire('Erreur !', 'Ce type de formation existe déjà', 'error')
+                    showDialog3("Ce type de formation existe déjà");
                 }
                 else {
-                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
 
             }
@@ -94,7 +97,7 @@ export default {
                     this.etatForm = true;
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.update_formation(this.idTypeformation);
-                    this.closeModal('[data-modal-confirmation-modifier]');
+                   
                     this.editModal = false;
                 }
 
@@ -102,7 +105,7 @@ export default {
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.soumettre();
                     this.etatForm = true;
-                    this.closeModal('[data-modal-confirmation]');
+                   
                     this.editModal = false;
                     // console.log(Tokkos);
                 }
@@ -143,32 +146,7 @@ export default {
             this.editModal === false;
             this.nom_formation_erreur = "";
         },
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
+        
 
         async update_formation(id) {
             const formdata = new FormData();
@@ -177,19 +155,35 @@ export default {
             try {
                 await axios.post('/type_formation/update/' + id, formdata);
                 bus.emit('formationAjoutee');
-                this.resetForm();
-                this.editModal = false;
+                showDialog6("Type de Formation modifié avec succès");
+                const eventData = {
+                editModal: false,
+            };
+            bus.emit('formationDejaModifier', eventData);
             }
             catch (e) {
                 console.log(e)
-                /* if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette type de formation existe déjà','error')
+                if (e.request.status === 404) {
+                    showDialog3("Une erreur est survenue lors de la modification");
+    
+
                 }
-                else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                } */
+                else {
+                    showDialog3("Une erreur est survenue lors de la modification");
+                }
             }
-        }
+        },
+
+        monterToupdate(formation) {
+            console.log("MonterToupdate called");
+         
+            this.idTypeformation = formation.id;
+            this.editModal = formation.editModal;
+            this.form.intitule = formation.formation;
+           
+           
+            
+        },
 
 
     }
