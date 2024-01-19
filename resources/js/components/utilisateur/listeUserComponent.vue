@@ -643,18 +643,19 @@ export default {
                 "Utilisateur desactiver avec succès."
             ).then((result) => { */
                 Swal.fire({
-                title: 'Êtes-vous sûr?',
+                title: 'Êtes-vous sûr de désactiver cet utilisateur?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimer!',
+                confirmButtonText: 'Oui, désactiver!',
                 cancelButtonText: 'Annuler'
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/user/delete/${user.id}`).then(resp => {
                         this.get_utilisateur();
+                        showDialog6("Utilisateur désactivé avec succés")
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -686,10 +687,3 @@ export default {
     }
 }
 </script>
-<style>
-.small-image {
-    width: 34px;
-    /* Ajustez la taille comme nécessaire */
-    height: 34px;
-    border-radius: 50%;
-}</style>

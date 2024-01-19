@@ -617,7 +617,7 @@ export default {
             try {
                 const user_store = await axios.post('/user/store', formdata, {});
                 bus.emit('utilisateurAjoutee');
-                showDialog6("Utilisateur ajouter avec succès");
+                showDialog6("Utilisateur ajouté avec succès");
                 this.resetForm();
                 window.location.href = '/utilisateur/index';
 
@@ -1319,7 +1319,7 @@ export default {
             try {
                 const user_store = await axios.post('/user/update/' + id, formdata);
                 bus.emit('utilisateurAjoutee');
-                showDialog6("Utilisateur modifier avec succès");
+                showDialog6("Utilisateur modifié avec succès");
 
                 const eventData = {
                 editModal: false,

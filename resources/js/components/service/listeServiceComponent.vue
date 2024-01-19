@@ -1,78 +1,168 @@
 <template>
-    <div class="liste">
-        <!--  <div class="item">
-                <div class="renseignements">
-                    <div></div>
-                    <span>Nom Service</span>
-                    <span>Direction</span>
-                    <span>Chef de service</span>
-                    
-                </div>
-                <span>Actions</span>
-            </div> -->
-
-        <!-- <div class="item" v-for="(service, index) in services" :key="index">
-                <div class="renseignements">
-                    <div class="cadre_photo">
+    <div class="page-content" v-if="!this.editModal">
+        <div class="page-bar">
+            <div class="page-title-breadcrumb">
+                
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
+                   
+                    <li class="active"> Paramétres </li>
+                    <li><a class="parent-item" :href="'/service/accueil'"> Service</a>&nbsp;<i
+                            class="fa fa-angle-right"></i>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabbable-line">
+                    <!-- <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab1" data-bs-toggle="tab"> List View </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-bs-toggle="tab"> Grid View </a>
+                                </li>
+                            </ul> -->
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Service</a>
+                        </li>
                         
-                        <img src="etudiant.png" alt="" class="petite_taille">
-                        <div class="statut petit_ecran_seulement"></div>
-                    </div>
-                    <span>{{ service.nom_service }}</span>
-                    <span>{{ service.direction.nom_direction }}</span>
-                    <span>{{ service.user.prenom }} {{ service.user.nom }}</span>
-                     <span class="grand_ecran_seulement">IIR 2</span> 
-                     <div class="grand_ecran_seulement statut"></div> 
-                </div>
-                <button>
-                    <i class="fi fi-rr-angle-small-left"></i>
-                    
-                    <div class="boutons_actions">
-                        <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)"></i>
-                        <i class="fi fi-rr-comment-alt-dots details mdl"></i>
-                        <i class="fi fi-rr-cross supprimer mdl" @click="deleteService(service)"></i>
-                    </div>
-                </button>
-            </div> -->
-        <div class="table-container">
-            <table>
-                <thead>
-                    <th>Service</th>
-                    <th>Direction</th>
-                    <th>Chef de service</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(service, index) in services" :key="index">
-                        <td><span>{{ service.nom_service }}</span></td>
-                        <td> <span>{{ service.direction.nom_direction }}</span></td>
-                        <td><span>{{ service.user.prenom }} {{ service.user.nom }}</span></td>
-                        <td>
-                            <div class="boutons_actions">
-                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(service)" title="Modifier"></i>
-                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteService(service)"
-                                    title="Supprimer"></i>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-box">
+                                        <div class="card-head">
+                                            <header>Tous les services</header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a :href="'/service/create'" id="addRow"
+                                                            class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table
+                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                id="example47" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th> Service </th>
+                                                        <th> Direction </th>
+                                                        <th> Chef de service </th>
+                        
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX"  v-for="(service, index) in services" :key="index">
+                                                        <td > {{ index+1 }} </td>
+                                                        <td > {{ service.service }} </td>
+                                                        <td > {{ service.direction}}</td>
+                                                        <td > {{ service.user_prenom }} {{ service.user_nom }}</td>
+                                                        
+                                                        <td >
+                                                            <a class="tblEditBtn" @click="openModal(service)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a class="tblDelBtn" @click="deleteService(service)">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </td>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    </tr>
 
-                </tbody>
-            </table>
+    <div class="page-content-wrapper" v-show="editModal">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Nouvel Utilisateur</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
+                                de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
+                        </li>
+                        <li><a class="parent-item" href="{{ route('service_create') }}">Service</a>&nbsp;<i
+                                class="fa fa-angle-right"></i>
+                        </li>
+                        <li class="active">Modifier Service</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="card-head">
+                            <header>Information</header>
+                            <button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                data-mdl-for="panel-button">
+                                <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                </li>
+                                <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                    here</li>
+                            </ul>
+                        </div>
+                        <div class="card-body row">
+                            <FormulaireModification /> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
+
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import datatable from 'datatables.net-bs5';
+import FormulaireModification from './createServiceComponent.vue';
+
 
 
 
 export default {
-    name: "listeUserCompenent",
+    name: "listeServiceCompenent",
+    components: {
+        FormulaireModification,
+    },
     data() {
         return {
             form: new Form({
@@ -91,13 +181,74 @@ export default {
         bus.on('serviceAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
             this.get_service(); // Mettre à jour la liste des utilisateurs
         });
+        bus.on('serviceDejaModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.get_service();
+        });
+
     },
 
     methods: {
+        initDataTable() {
+         
+         this.$nextTick(() => {
+     // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
+     
+
+     // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
+     if (!$.fn.DataTable.isDataTable('#example47')) {
+         $('#example47').DataTable({
+             responsive: true,
+             
+             // ... (autres options)
+             language: {
+                     // Messages pour la pagination
+                     paginate: {
+                         first: 'Premier',
+                         previous: 'Précédent',
+                         next: 'Suivant',
+                         last: 'Dernier'
+                     },
+                     // Message d'affichage du nombre d'éléments par page
+                     lengthMenu: 'Afficher _MENU_ entrées',
+                     // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                     info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                     // Message lorsque le tableau est vide
+                     emptyTable: 'Aucune donnée disponible dans le tableau',
+                     // Message indiquant que la recherche est en cours
+                     loadingRecords: 'Chargement en cours...',
+                     // Message indiquant que la recherche n'a pas renvoyé de résultats
+                     zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                     // Message indiquant le nombre total d'entrées
+                     infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                     // Message indiquant que la recherche est en cours dans le champ de recherche
+                     search: 'Recherche :'
+                 }
+         });
+     }
+ });
+     },
+
         get_service() {
             axios.get('/service/index')
                 .then(response => {
-                    this.services = response.data.service
+                     const allservice = response.data.service;
+
+                    const formattedService = allservice.map(ser => {
+                        return {
+                            id: ser.id,
+                            service: ser.nom_service,
+                            direction: ser.direction.nom_direction,
+                            id_direction: ser.direction.id,
+                            user_prenom: ser.user.prenom,
+                            user_nom: ser.user.nom,
+                            id_user: ser.user.id,
+                            editModal: true,
+                        };
+                    });
+                    this.services=formattedService;
+                    this.initDataTable(); 
+                          console.log( this.services);
 
 
                 }).catch(error => {
@@ -108,92 +259,59 @@ export default {
         changement(event) {
             this.interesser = event;
         },
+       
 
         resetForm() {
             this.form.input = "";
             this.form.nom_service = "";
+            this.form.id_direction = "";
+            this.form.id_user = "";
         },
 
-        async deleteService(type) {
+        async deleteService(service) {
             Swal.fire({
-                title: 'Êtes-vous sûr?',
+                title: 'Voulez-vous confirmer la suppression?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimer!',
-                cancelButtonText: 'Annuler'
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/service/delete/${type.id}`).then(resp => {
+                    axios.delete(`/service/delete/${service.id}`).then(resp => {
                         this.get_service();
-
-                        /*     Swal.fire(
-                                'Supprimé!',
-                                'Le service a été supprimé avec succès.',
-                                'success',
-                            ) */
-                        var confirmation = document.querySelector('[data-modal-suppression]');
-
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-
-                        //setTimeout(function(){
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        //confirmation.close();
-                        //}, 1000);
-
-                        setTimeout(function () {
-                            confirmation.close();
-
-                            setTimeout(function () {
-                                confirmation.classList.remove("actif");
-                            }, 100);
-
-                        }, 2000);
+                        showDialog6("Service supprimé avec succés")
 
                     }).catch(function (error) {
                         console.log(error);
+                        showDialog3("Erreur lors de la suppression du service")
                     })
                 }
             });
         },
         openModal(service) {
 
-            this.idService = service.id;
+          /*   this.idService = service.id; */
 
             this.editModal = true;
 
             // Créez un objet avec les données à envoyer
             const eventData = {
-                idService: this.idService,
-                nom: service.nom_service,
-                id_user: service.id_user,
-                id_direction: service.id_direction,
-                editModal: this.editModal,
+                service: service,
+                editModal:true
+                
+               
                 // Ajoutez d'autres propriétés si nécessaire
             };
 
             bus.emit('serviceModifier', eventData);
-
-            var fond = document.querySelector('.fond');
-            var flou = document.querySelectorAll('.flou');
-            var modification = document.querySelector("[data-modal-ajout]");
-
-            flou.forEach(item => {
-                item.classList.add("actif");
-            });
-
-            fond.classList.add("actif");
-            modification.showModal();
-            modification.classList.add("actif");
-
+            console.log("message envoyé")
 
          },
 
-
+    
 
     }
 }

@@ -54,7 +54,7 @@ class departement_controller extends Controller
     public function update(departement_request $request, $id) {
         $departement = Departement::find($id);
         if($departement != null){
-            $departement -> nom_departement = $request['nom_departement'];
+            $departement -> nom_departement = $request['nom'];
             $departement -> id_direction = $request['id_direction'];
             $departement -> id_user = $request['id_user'];
             $departement -> save();
