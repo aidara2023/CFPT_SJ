@@ -64,7 +64,7 @@
         type="button" id="togglePassword " style="margin-right: 15%;">
         <i class="fa fa-eye"></i>
     </button>
-    <label for="floatingPassword"><i class="fa fa-lock"></i> Password
+    <label for="floatingPassword"><i class="fa fa-lock"></i> Mot de passe
 
     </label>
 </div>
@@ -79,7 +79,7 @@
 background: linear-gradient(9deg, #9181F4 0%, #5038ED 100%); box-shadow: 0px 8px 21px rgba(0, 0, 0, 0.16); border-radius: 16px">
     </div>
     <a @click.prevent="verification()" href=""
-        style="text-align:center; text-decoration:none; left:20%; top: 8px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 700; word-wrap: break-word">
+        style="text-align:center; text-decoration:none; left:12%; top: 8px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 700; word-wrap: break-word">
         Se connecter</a>
 </div>
 </form>
