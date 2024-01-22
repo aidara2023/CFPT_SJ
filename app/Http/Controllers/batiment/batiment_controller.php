@@ -11,7 +11,7 @@ class batiment_controller extends Controller
 {
     public function index()
     {
-        $batiment = Batiment::orderBy('created_at', 'desc')->get();
+        $batiment = Batiment::with('salle')->get(); /* ->orderBy('created_at', 'desc') */
         if ($batiment != null) {
             return response()->json([
                 'statut' => 200,

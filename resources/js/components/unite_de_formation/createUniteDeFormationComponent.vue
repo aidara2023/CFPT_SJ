@@ -174,12 +174,13 @@ export default {
                 if (this.editModal === true) {
                     this.etatForm = true;
                     this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
+                    console.log('Nice')
                     this.update_formation(this.idFormation);
                     this.editModal = false;
                 }
                 else {
                     this.form.nom_unite_formation = this.form.nom_unite_formation.toUpperCase();
-
+                    console.log('NO Nice')
                     this.soumettre();
                     this.etatForm = true;
 
@@ -241,12 +242,14 @@ export default {
                 case 'user':
                     this.id_user_erreur = "";
                     //pour user
+                 if(this.editModal){
                     if (this.form.id_user === "") {
                         this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de  filiére'"
                         i = 1;
                         return true
 
                     }
+                 }
                     break;
 
                 case 'departement':
@@ -284,10 +287,12 @@ export default {
                 this.id_departement_erreur = "Vous avez oublié de sélectionner le département"
                 i = 1;
             }
+           if(this.editModal){
             if (this.form.id_user === "") {
                 this.id_user_erreur = "Vous avez oublié de sélectionner le chef de filiére"
                 i = 1;
             }
+           }
             if (i == 1)
                 return true;
 
@@ -300,16 +305,17 @@ export default {
             const formdata = new FormData();
             formdata.append('nom_unite_formation', this.form.nom_unite_formation);
             formdata.append('id_departement', this.form.id_departement);
-            formdata.append('id_user', this.form.id_formateur);
+            formdata.append('id_user', this.form.id_user);
 
             //if(this.form.nom!==""){
             try {
-                await axios.post('/unite_de_formation/update/' + id, formdata, {});
+                await axios.post('/unite_de_formation/update/' + id, formdata);
                 //Swal.fire('Réussi !', 'formation ajouté avec succès','success');
 
                 this.resetForm();
-                bus.emit('unite_formationAjoutee');
                 showDialog6("Service modifié avec succès");
+                bus.emit('unite_formationAjoutee');
+              
                 const eventData = {
                     editModal: false,
                 };
@@ -326,7 +332,7 @@ export default {
             console.log("MonterToupdate called");
 
             this.idFormation = filiere.id;
-            this.editModal = filiere.editModal;
+          /*   this.editModal = filiere.editModal; */
             this.form.nom_unite_formation = filiere.filiere;
 
             this.form.id_departement = filiere.id_departement;

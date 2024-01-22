@@ -8,8 +8,7 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres &nbsp;<i
-                            class="fa fa-angle-right"></i></li>
+                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/departement/index'"> Département </a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -21,7 +20,7 @@
                 <div class="tabbable-line">
 
                     <ul class="nav customtab nav-tabs" role="tablist">
-                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Service</a>
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Département</a>
                         </li>
 
                     </ul>
@@ -31,7 +30,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>Toutes les directions</header>
+                                            <header>Tous les départements</header>
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -55,20 +54,23 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th class="pd-2">Identifiant</th>
                                                         <th>Département</th>
-                                                        <th>Direction</th>
                                                         <th>Chef de département</th>
+                                                        <th>Direction</th>
+                                                        <th>Date de création</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="odd gradeX" v-for="(departement, index) in departements"
                                                         :key="index">
-                                                        <td>{{ index+1 }}</td>
+                                                        <td>{{ index + 1 }}</td>
                                                         <td> {{ departement.departement }} </td>
-                                                        <td> {{ departement.direction }}</td>
                                                         <td> {{ departement.user_prenom }} {{ departement.user_nom }}</td>
+                                                        <td> {{ departement.direction }}</td>
+                                                        <td> {{ this.formatDateTime(departement.date) }}</td>
+
 
                                                         <td>
                                                             <a class="tblEditBtn" @click="openModal(departement)">
@@ -182,6 +184,16 @@ export default {
     },
 
     methods: {
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        },
         initDataTable() {
 
             this.$nextTick(() => {
@@ -231,10 +243,15 @@ export default {
                             departement: depart.nom_departement,
                             direction: depart.direction.nom_direction,
                             id_direction: depart.direction.id,
-                            user_prenom: depart.user.prenom,
+                          /*   user_prenom: depart.user.prenom,
                             user_nom: depart.user.nom,
-                            id_user: depart.user.id,
+                            id_user: depart.user.id, */
+
+                            user_prenom: depart.user ? depart.user.prenom : 'Non défini',
+                            user_nom: depart.user ? depart.user.nom : 'Non défini',
+                            id_user: depart.user ? depart.user.id : null,
                             editModal: true,
+                            date: depart.created_at,
                         };
                     });
 

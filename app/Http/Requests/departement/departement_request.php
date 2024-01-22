@@ -24,7 +24,7 @@ class departement_request extends FormRequest
         return [
             'nom' => 'required',
             'id_direction' => 'required',
-            'id_user' => 'required'
+            'id_user' => ''
         ];
     }
 }

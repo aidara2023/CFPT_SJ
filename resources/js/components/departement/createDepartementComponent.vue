@@ -109,7 +109,7 @@ import 'flatpickr/dist/flatpickr.css';
     methods:{
         async soumettre(){
             const formdata = new FormData();
-            formdata.append('nom', this.form.nom  );
+            formdata.append('nom', this.form.nom);
             formdata.append('id_direction', this.form.id_direction);
             formdata.append('id_user', this.form.id_user);
 
@@ -223,12 +223,14 @@ import 'flatpickr/dist/flatpickr.css';
             case 'user':
             this.id_user_erreur="";
             //pour user
+           if(this.editModal){
             if(this.form.id_user=== ""){
                 this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
                 i= 1;
                 return true
 
             }
+           }
             break;
 
             case 'id_direction' :  
@@ -266,10 +268,12 @@ import 'flatpickr/dist/flatpickr.css';
                  ;
                  i=1;
              }
+           if(this.editModal){
             if(this.form.id_user=== ""){
               this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
                 i=1;
             }
+           }
             if(this.form.id_direction=== ""){
                 this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
                 i=1;

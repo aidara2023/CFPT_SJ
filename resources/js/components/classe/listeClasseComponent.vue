@@ -9,7 +9,8 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres </li>
+                    <li class="active"> Paramétres &nbsp;<i
+                            class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/classe/index'"> Classe</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -61,7 +62,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Identifiant</th>
                                                         <th>Nom</th>
                                                         <th>Type Classe</th>
                                                         <th>Niveau</th>

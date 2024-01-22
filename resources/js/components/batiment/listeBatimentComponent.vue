@@ -79,8 +79,9 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Identifiant</th>
                                                         <th>Batiment</th>
+                                                        <th>Nombre de Salle</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -89,6 +90,7 @@
                                                         :key="index">
                                                         <td>{{ index + 1 }}</td>
                                                         <td class="left"> {{ batiment.intitule }} </td>
+                                                        <td class="left"> {{ batiment.nbr_salle }} </td>
 
                                                         <td class="left">
                                                             <a class="tblEditBtn" @click="openModal(batiment)">
@@ -165,8 +167,8 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import FormulaireModification from './createbatimentcomponent.vue';
 import datatable from 'datatables.net-bs5';
-import FormulaireModification from './createBatimentComponent.vue';
 
 
 
@@ -241,6 +243,8 @@ export default {
                         return {
                             id: bati.id,
                             intitule: bati.intitule,
+                            nbr_salle:bati.salle.length,
+                           /*  nbr_salle: bati.salle.map(b => b.id).join(','), */
                           
                             editModal: true,
                         };

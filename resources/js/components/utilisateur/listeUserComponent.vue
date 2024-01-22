@@ -154,7 +154,7 @@
                                                         <th> Fonction </th>
                                                         <th> Service </th>
                                                         <th> Statut </th>
-                                                        <!--     <th> Statut </th> -->
+                                                      
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -173,16 +173,15 @@
                                                         <td class="left">{{ utilisateur.fonction }} </td>
                                                         <td>{{ utilisateur.nom_service }} </td>
 
-                                                        <td
-                                                            :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-warning': utilisateur.status === '0' }">
-                                                            <span>
+                                                     
+                                                        <td>
+                                                            <span
+                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-warning': utilisateur.status === '0' }">
                                                                 {{ utilisateur.status === '1' ? 'Actif' : 'Inactif' }}
                                                             </span>
                                                         </td>
 
-                                                        <!--     <td v-show="utilisateur.status === 0">
-                                                            <span class="label label-sm label-warning ">Desactiver</span>
-                                                        </td> -->
+                                                     
 
                                                         <td>
 
@@ -205,7 +204,7 @@
 
                         <div class="tab-pane" id="tab3">
                             <div class="row" v-for="(utilisateur, index) in utilisateursPer" :key="index">
-                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
+                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel d\'appui'">
                                     <div class="card card-box">
                                         <div class="card-body no-padding ">
 
@@ -433,6 +432,8 @@ export default {
             axios.get('/user/getPersonnel')
                 .then(response => {
                     this.utilisateursPer = response.data.user;
+                    console.log("this.utilisateursPer ")
+                    console.log(this.utilisateursPer )
                     const allUtilisateurs = response.data.user;
 
                     // Filtrer les utilisateurs en fonction de la catégorie du personnel

@@ -204,6 +204,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 Route::get('unite_de_formation/all', [unite_de_formation_controller::class, 'all'])->name('unite_de_formation_all');
 Route::post('unite_de_formation/store',[unite_de_formation_controller::class, 'store'])->name('unite_de_formation_store');
 Route::post('unite_de_formation/update/{id}', [unite_de_formation_controller::class, 'update'])->name('unite_de_formation_update');
+Route::post('unite_de_formation/by/departement/{id}', [unite_de_formation_controller::class, 'get_filiere_by_departement'])->name('filiere_departement');
 Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::class, 'delete'])->name('unite_de_formation_delete');
 Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 'get'])->name('unite_de_formation_get');
 

@@ -65,18 +65,21 @@
                                                 <thead>
                                                     <tr>
                                                         
-                                                        <th> # </th>
+                                                        <th class="pd-2"> Identifiant </th>
                                                         <th> Direction </th>
                                                         <th> Chef de direction </th>
+                                                        <th> Date de création</th>
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="odd gradeX"  v-for="(direction, index) in directions" :key="index">
                                                         
-                                                        <td > {{ index + 1}} </td>
-                                                        <td > {{ direction.direction }} </td>
-                                                        <td > {{ direction.user_prenom }} {{ direction.user_nom }}</td>
+                                                        <td> {{ index + 1}} </td>
+                                                        <td> {{ direction.direction }} </td>
+                                                        <td> {{ direction.user_prenom }} {{ direction.user_nom }}</td>
+                                                       <td>{{ this.formatDateTime(direction.date)}}</td>
+
                                                         
                                                         <td >
                                                             <a class="tblEditBtn" @click="openModal(direction)">
@@ -201,6 +204,10 @@ export default {
      if (!$.fn.DataTable.isDataTable('#example47')) {
          $('#example47').DataTable({
              responsive: true,
+             render: function (data, type, full, meta) {
+                    // Formater la date avec moment.js (par exemple, au format 'DD/MM/YYYY')
+                    return moment(data).format('DD/MM/YYYY');
+                },
              
              // ... (autres options)
              language: {
@@ -230,29 +237,39 @@ export default {
      }
  });
      },
-        get_direction() {
-            axios.get('/direction/index')
-                .then(response => {
-                    const alldirection = response.data.direction;
-                    const formattedDirection = alldirection.map(direct => {
-                        return {
-                            id: direct.id,
-                            direction: direct.nom_direction,
-                            user_prenom: direct.user.prenom,
-                            user_nom: direct.user.nom,
-                            id_user: direct.user.id,
-                            editModal: true,
-                        };
-                    });
-                    this.directions=formattedDirection;
-                    this.initDataTable(); 
-                          console.log( this.directions);
+     formatDateTime(dateTime) {
+      // Utilisez une fonction pour formater la date
+      return this.formatDate(new Date(dateTime));
+    },
+    formatDate(date) {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
+    get_direction() {
+    axios.get('/direction/index')
+        .then(response => {
+            const alldirection = response.data.direction;
+            const formattedDirection = alldirection.map(direct => {
+                return {
+                    id: direct.id,
+                    direction: direct.nom_direction,
+                    user_prenom: direct.user ? direct.user.prenom : 'Non défini',
+                    user_nom: direct.user ? direct.user.nom : 'Non défini',
+                    id_user: direct.user ? direct.user.id : null,
+                    editModal: true,
+                    date: direct.created_at,
+                };
+            });
+            this.directions = formattedDirection;
+            this.initDataTable(); 
+            console.log(this.directions);
+        }).catch(error => {
+            Swal.fire('Erreur!', 'Une erreur est survenue lors de la récupération des directions', 'error');
+        });
+},
 
-
-                }).catch(error => {
-                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des directions', 'error')
-                });
-        },
 
         resetForm() {
             this.form.input = "";
