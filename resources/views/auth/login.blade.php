@@ -43,28 +43,29 @@
 </head>
 
 <body>
-   {{--  <div id="app"> --}}
-        <!-- Sing in  Form -->
-        <div class="" style="margin-left: 20%; margin-top: 8%; width: 50vw; height: 50vh;" id="app">
-            <div class="border"
-                style="width: 50vw; height: 83vh; background: rgba(255, 255, 255, 0.80); box-shadow: -2px 5px 22.899999618530273px -2px #595353; border-radius: 16px 0 0 16px; backdrop-filter: blur(29.50px)">
+    {{--  <div id="app"> --}}
+    <!-- Sing in  Form -->
+    <div class="" style="margin-left: 20%; margin-top: 8%; width: 50vw; height: 50vh;" id="app">
+        <div class="border"
+            style=" width: 638px; height: 785px; background: rgba(255, 255, 255, 0.80); box-shadow: -2px 5px 22.899999618530273px -2px #595353; border-radius: 16px 0 0 16px; backdrop-filter: blur(29.50px)">
 
-                <div class=""
-                    style=" width: 364px; height: 350px; left: 67px; top: 20%; position: absolute; background:rgba(255, 255, 255, 0.80);">
+            <div class=""
+                style=" width: 364px; height: 350px; left: 67px; top: 20%; position: absolute; background:rgba(255, 255, 255, 0.80);">
 
-                    <div>
-                        <div
-                            style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 700; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
-                            CONNEXION</div>
-                        <user-login></user-login>
-                    </div>
+                <div>
+                    <div
+                        style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 700; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
+                        CONNEXION</div>
+                    <user-login></user-login>
                 </div>
-                <div
-                    style="width: 268px; height: 60px; left: 115px; top: 70px; position: absolute; text-align: center; color: #5038ED; font-size: 37px; font-family: Poppins; font-weight: 700; line-height: 18px; letter-spacing: 1.11px; word-wrap: break-word">
-                    CFPT-Digital</div>
-                <div style="width: 50vw; height: 83vh; left: 461px; top: 0px; position: absolute; ">
-                    <div class="border-color-none"
-                        style=" 
+            </div>
+            <div
+                style="width: 268px; height: 60px; left: 115px; top: 70px; position: absolute; text-align: center; color: #5038ED; font-size: 37px; font-family: Poppins; font-weight: 700; line-height: 18px; letter-spacing: 1.11px; word-wrap: break-word">
+                CFPT-Digital</div>
+            <div
+                style="width: 638px; height: 808px; left: 461px; top: 0px; position: absolute; width: 50vw; height: 50vh;">
+                <div class="border-color-none"
+                    style=" 
                         box-shadow: -2px 5px 22.899999618530273px -2px #595353;
 						   border-radius: 0 16px 16px 0; 
 						   border: 0px solid linear-gradient(218deg, #9181F4 0%, #5038ED 100%);
@@ -76,66 +77,49 @@
 						   top: -45px; 
 						   position: absolute; 
 						   background: linear-gradient(218deg, #9181F4 0%, #5038ED 100%)">
+                </div>
+
+                <img style="width: 585px; height: 784px; left: 53px; top: 0px; position: absolute; opacity: 0.13"
+                    src="/assets/auth/images/fond.jpg" />
+                <img style="width: 555px; height: 539px; left: 10%; top: 125px; position: absolute"
+                    src="/assets/auth/images/logo2.png" />
+                <div
+                    style="width: 380px; height: 29px; left: 182px; top: 729px; position: absolute; color: white; font-size: 16px; font-family: Poppins; font-style: italic; font-weight: 700; letter-spacing: 1.28px; word-wrap: break-word">
+                    ‘’L'excellence au service de l’industrie’’</div>
+            </div>
+
+            {{-- <div style="width: 155.28px; height: 21.21px; left: 171px; top: 737px; position: absolute">
+
+                <div style="width: 155.28px; height: 21.21px; left: 0px; top: 0px; position: absolute">
+
+                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;background: #1877F2"> </div>
+                    <div style="width: 20.78px; height: 19.76px; left: 65.16px; top: 0.50px; position:absolute"></div>
+
+                    <div style="width: 26.36px; height: 17.35px; left: 93.54px; top: 2.01px; position:absolute">
+                        <div style="width: 7.11px; height: 6.95px; left: 10.46px; top: 4.94px; position:absolute; background: white"></div>
+                        <div style="width: 7.10px; height: 4.10px; left: 10.46px; top: 4.94px; position:absolute; background: #E8E0E0"></div>
+                        <div style="width: 26.36px; height: 17.35px; left: 0px; top: 0px; position: absolute;background: #CD201F"></div>
                     </div>
 
-                    <img style="width: 585px; height: 784px; left: 53px; top: 0px; position: absolute; opacity: 0.13"
-                        src="/assets/auth/images/fond.jpg" />
-                    <img style="width: 555px; height: 539px; left: 10%; top: 125px; position: absolute"
-                        src="/assets/auth/images/logo2.png" />
-                    <div
-                        style="width: 380px; height: 29px; left: 182px; top: 729px; position: absolute; color: white; font-size: 16px; font-family: Poppins; font-style: italic; font-weight: 700; letter-spacing: 1.28px; word-wrap: break-word">
-                        ‘’L'excellence au service de l’industrie’’</div>
+                    <div style="width: 22.30px; height: 21.21px; left: 132.98px; top: -0px; position: absolute">
+                        <div style="width: 22.30px; height: 21.21px; left: 0px; top: 0px; position: absolute; background: linear-gradient(135deg, #2489BE 0%, #0575B3 100%)"></div>
+                    </div>
                 </div>
-                {{--  <div style="width: 155.28px; height: 21.21px; left: 171px; top: 737px; position: absolute">
-                    <div style="width: 155.28px; height: 21.21px; left: 0px; top: 0px; position: absolute">
-                        <div
-                            style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;
-	background: #1877F2">
-                        </div>
-                        <div style="width: 20.78px; height: 19.76px; left: 65.16px; top: 0.50px; position:
-	absolute">
-                        </div>
-                        <div style="width: 26.36px; height: 17.35px; left: 93.54px; top: 2.01px; position:
-	absolute">
-                            <div
-                                style="width: 7.11px; height: 6.95px; left: 10.46px; top: 4.94px; position:
-	absolute; background: white">
-                            </div>
-                            <div
-                                style="width: 7.10px; height: 4.10px; left: 10.46px; top: 4.94px; position:
-	absolute; background: #E8E0E0">
-                            </div>
-                            <div
-                                style="width: 26.36px; height: 17.35px; left: 0px; top: 0px; position: absolute;
-	background: #CD201F">
-                            </div>
-                        </div>
-                        <div style="width: 22.30px; height: 21.21px; left: 132.98px; top: -0px; position: absolute">
-                            <div
-                                style="width: 22.30px; height: 21.21px; left: 0px; top: 0px; position: absolute; background: linear-gradient(135deg, #2489BE 0%, #0575B3 100%)">
-                            </div>
-                        </div>
+
+                <div style="width: 20.78px; height: 19.76px; left: 44.33px; top: 0.50px; position: absolute">
+
+                    <div style="width: 20.78px; height: 19.76px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #FED576 0%, #F47133 26%, #BC3081 61%, #4C63D2 100%)"></div>
+                    <div style="width: 13.54px; height: 12.88px; left: 3.59px; top: 3.42px; position: absolute">
+                        <div style="width: 13.54px; height: 12.88px; left: 0px; top: 0px; position: absolute; background: white"></div>
+                        <div style="width: 7.05px; height: 6.71px; left: 3.35px; top: 3.18px; position: absolute; background: white"></div>
+                        <div style="width: 1.73px; height: 1.64px; left: 9.61px; top: 2.22px; position: absolute; background: white"></div>
                     </div>
-                    <div style="width: 20.78px; height: 19.76px; left: 44.33px; top: 0.50px; position: absolute">
-                        <div
-                            style="width: 20.78px; height: 19.76px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #FED576 0%, #F47133 26%, #BC3081 61%, #4C63D2 100%)">
-                        </div>
-                        <div style="width: 13.54px; height: 12.88px; left: 3.59px; top: 3.42px; position: absolute">
-                            <div
-                                style="width: 13.54px; height: 12.88px; left: 0px; top: 0px; position: absolute; background: white">
-                            </div>
-                            <div
-                                style="width: 7.05px; height: 6.71px; left: 3.35px; top: 3.18px; position: absolute; background: white">
-                            </div>
-                            <div
-                                style="width: 1.73px; height: 1.64px; left: 9.61px; top: 2.22px; position: absolute; background: white">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-            </div>
+
+                </div>
+            </div> --}}
         </div>
-   {{--  </div> --}}
+    </div>
+    {{--  </div> --}}
 
     <!-- start js include path -->
     <script src="/assets/plugins/jquery/jquery.min.js"></script>
