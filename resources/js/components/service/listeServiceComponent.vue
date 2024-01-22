@@ -8,8 +8,7 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres &nbsp;<i
-                            class="fa fa-angle-right"></i></li>
+                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/service/accueil'"> Service</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -53,11 +52,11 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Identifiant</th>
                                                         <th> Service </th>
                                                         <th> Chef de service </th>
                                                         <th> Direction </th>
-                                                   
+
 
                                                         <th> Action </th>
                                                     </tr>
@@ -69,7 +68,7 @@
                                                         <td> {{ service.service }} </td>
                                                         <td> {{ service.user_prenom }} {{ service.user_nom }}</td>
                                                         <td> {{ service.direction }}</td>
-                                                       
+
 
                                                         <td>
                                                             <a class="tblEditBtn" @click="openModal(service)">
@@ -229,9 +228,13 @@ export default {
                             service: ser.nom_service,
                             direction: ser.direction.nom_direction,
                             id_direction: ser.direction.id,
-                            user_prenom: ser.user.prenom,
+                          /*   user_prenom: ser.user.prenom,
                             user_nom: ser.user.nom,
-                            id_user: ser.user.id,
+                            id_user: ser.user.id, */
+
+                            user_prenom: ser.user ? ser.user.prenom : 'Non défini',
+                            user_nom: ser.user ? ser.user.nom : 'Non défini',
+                            id_user: ser.user ? ser.user.id : null,
                             editModal: true,
                         };
                     });

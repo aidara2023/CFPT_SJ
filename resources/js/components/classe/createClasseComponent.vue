@@ -225,14 +225,14 @@ export default {
                         return true
 
                     }
-                    if (!this.verifCaratere(this.form.nom_classe)) {
+                  /*   if (!this.verifCaratere(this.form.nom_classe)) {
                         this.nom_classe_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                        /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                       
                         i = 1;
                         return true
                     }
-                    // Ajoutez d'autres validations si nécessaire
-                    break;
+                 
+                    break; */
                 case 'niveau':
                     this.niveau_erreur = "";
                     //pour niveau
@@ -324,13 +324,14 @@ export default {
             if (this.form.nom_classe === "") {
                 this.nom_classe_erreur = "Ce champ est obligatoire"
                 i = 1;
-            } else {
+            } 
+            /* else {
                 if (!this.verifCaratere(this.form.nom_classe)) {
                     this.nom_classe_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
                     i = 1;
                 }
 
-            }
+            } */
 
             if (this.form.id_type_formation === "") {
                 this.id_type_formation_erreur = "Vous avez oublié de sélectionner le type de formation"

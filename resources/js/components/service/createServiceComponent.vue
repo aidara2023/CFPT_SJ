@@ -120,7 +120,7 @@ export default {
                 bus.emit('serviceAjoutee;')
                 showDialog6("Service ajouté avec succès");
                 this.resetForm();
-                window.location.href = '/service/index';
+                window.location.href = '/service/accueil';
                 
 
             }
@@ -223,10 +223,12 @@ export default {
                 case 'user':
                     this.id_user_erreur = "";
                     //pour user
+                  if(this.editModal){
                     if (this.form.id_user === "") {
                         this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de service'"
                         return true
                     }
+                  }
                     break;
 
                 case 'direction':
@@ -241,10 +243,12 @@ export default {
                 case 'id_user':
                     //pour direction
                     this.id_user_erreur = "";
+                   if(this.editModal){
                     if (this.form.id_user === "") {
                         this.id_user_erreur = "Vous avez oublié de sélectionner le chef de service"
                         return true
                     }
+                   }
                     break;
 
                 case 'id_direction':
@@ -292,11 +296,13 @@ export default {
                 i = 1;
             }
 
+         if(this.editModal){
             if (this.form.id_user === "") {
                 this.id_user_erreur = "Vous avez oublié de sélectionner le chef de service"
                     ;
                 i = 1;
             }
+         }
             if (this.form.id_direction === "") {
                 this.id_direction_erreur = "Vous avez oublié de sélectionner la direction concernée"
                     ;

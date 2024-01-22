@@ -26,16 +26,21 @@ class departement_controller extends Controller
 
     public function store(departement_request $request) {
         $data = $request -> validated();
-        $verification =Departement::where('nom_departement', $request['nom_departement'])->get();
+        $verification =Departement::where('nom_departement', $request['nom'])->get();
 
         if($verification->count()!=0){
             return response()->json([
                 'statut'=>404,
-                'message'=>'Ce departement existe déja',
+                'message'=>'Ce département existe déja',
             ],404 );
         }else{
 
-        $departement = Departement::create($data);
+        /* $departement = Departement::create($data); */
+        $departement=new Departement();
+        $departement -> nom_departement = $request['nom'];
+        $departement -> id_direction = $request['id_direction'];
+        $departement -> id_user = $request['id_user'];
+        $departement->save();
         if($departement != null){
             return response()->json([
                 'statut' => 200,

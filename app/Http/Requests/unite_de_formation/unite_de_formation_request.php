@@ -23,7 +23,7 @@ class unite_de_formation_request extends FormRequest
     {
         return [
             'nom_unite_formation'=>'required',
-            'id_user'=>'required',
+            'id_user'=>'',
             'id_departement'=>'required'
         ];
     }

@@ -92,7 +92,7 @@ export default {
                 showDialog6("Direction ajoutée avec succès");
                 this.resetForm();
                 bus.emit('directionAjoutee');
-                window.location.href = '/direction/index';
+                window.location.href = '/direction/accueil';
 
             }
             catch (e) {
@@ -140,11 +140,13 @@ export default {
                 case 'user':
                     this.id_user_erreur = "";
                     //pour user
-                    if (this.form.id_user === "") {
-                        this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de direction'"
-                        i = 1;
-                        return true
+                    if (this.editModal) {
+                        if (this.form.id_user === "") {
+                            this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de direction'"
+                            i = 1;
+                            return true
 
+                        }
                     }
                     break;
 
@@ -170,10 +172,12 @@ export default {
                     i = 1;
                 }
             }
+           if(this.editModal){
             if (this.form.id_user === "") {
                 this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
                 i = 1;
             }
+           }
 
 
 
@@ -187,11 +191,13 @@ export default {
             var i = 0;
 
 
+            if (this.editModal) {
 
-            if (this.form.id_user === "") {
-                this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
-                i = 1;
-                return true
+                if (this.form.id_user === "") {
+                    this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
+                    i = 1;
+                    return true
+                }
             }
 
             if (i == 1) return true;

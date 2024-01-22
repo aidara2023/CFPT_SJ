@@ -25,6 +25,20 @@ class unite_de_formation_controller extends Controller
             ],500 );
         }
      }
+     public function get_filiere_by_departement($id){
+        $filiere= Unite_de_formation::where('id_departement', $id)->get();
+        if ($filiere->isNotEmpty()) {
+            return response()->json([
+                'status' => 200,
+                'filiere' => $filiere,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucune Filière trouvé pour le département spécifiés.',
+            ], 500);
+        }
+     }
      public function index (){
         $roles = Role::where('intitule', ['Formateur'])->orderBy('created_at', 'desc')->get();
         if ($roles->isNotEmpty()) {

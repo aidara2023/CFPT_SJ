@@ -78,7 +78,8 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres </li>
+                    <li class="active"> Paramétres &nbsp;<i
+                            class="fa fa-angle-right"></i>  </li>  
                     <li><a class="parent-item" :href="'/service/accueil'"> Salle</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                 </ol>
@@ -129,7 +130,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Identifiant</th>
                                                         <th>Salle</th>
                                                         <th>Nombre de place</th>
                                                         <th>Batiment</th>

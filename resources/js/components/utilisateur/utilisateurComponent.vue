@@ -145,8 +145,8 @@
             <label for="list5" class="mdl-textfield__label" v-show="!form.type">Choisissez Type Professeur</label>
             <select class="mdl-textfield__input" id="list5" readonly tabIndex="-1" v-model="form.type"
                 @change="validatedata('type')">
-                <option value="Etat">Etat</option>
-                <option value="Recruté">Recruté</option>
+                <option value="Fonctionnaire">Fonctionnaire</option>
+                <option value="Permanent">Permanent</option>
                 <option value="Prestataire">Prestataire</option>
             </select>
             <span class="erreur">{{ type_erreur }}</span>
@@ -331,7 +331,7 @@ export default {
         this.get_specialite();
         this.get_departement();
         this.get_service();
-        this.get_filiere();
+       /*  this.get_filiere(); */
         //this.monterToupdate();
        // componentHandler.upgradeAllRegistered();
 
@@ -446,15 +446,19 @@ export default {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
                 });
         },
-        get_filiere() {
-            axios.get('/unite_de_formation/all')
+        get_filiere(id) {
+            /* axios.get('/unite_de_formation/all') */
+            /* if(this.form.id_departement){ */
+               
+                axios.post('/unite_de_formation/by/departement/'+ id)
                 .then(response => {
-                    this.filieres = response.data.unite_de_formation
+                    this.filieres = response.data.filiere
 
 
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des filière', 'error')
                 });
+          /*   } */
         },
 
 
@@ -808,6 +812,8 @@ export default {
                         this.id_departement_erreur = "Vous avez oublié de sélectionner le départrement"
                         i = 1;
                         return true
+                    }else{
+                        this.get_filiere(this.form.id_departement)
                     }
                     break;
                 case 'filiere':

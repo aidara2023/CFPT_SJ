@@ -53,10 +53,10 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th class="pd-auto">Identifiant</th>
                                                         <th> Filière </th>
-                                                        <th> Chef de service </th>
-                                                        <th> Departement </th>
+                                                        <th> Chef de filière </th>
+                                                        <th> Département </th>
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -146,6 +146,7 @@ import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 import datatable from 'datatables.net-bs5';
+import Swal from 'sweetalert2';
 import FormulaireModification from './createUniteDeFormationComponent.vue';
 
 
@@ -178,13 +179,12 @@ export default {
         });
         bus.on('unite_formationDejaModifier', (eventData) => {
             this.editModal = eventData.editModal;
-            this.get_service();
+            /* this.get_service(); */
         });
     },
 
     methods: {
         initDataTable() {
-
             this.$nextTick(() => {
                 // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#example47')) {
@@ -229,9 +229,13 @@ export default {
                             filiere: fil.nom_unite_formation,
                             departement: fil.departement.nom_departement,
                             id_departement: fil.departement.id,
-                            user_prenom: fil.user.prenom,
+                          /*   user_prenom: fil.user.prenom,
                             user_nom: fil.user.nom,
-                            id_user: fil.user.id,
+                            id_user: fil.user.id, */
+
+                            user_prenom: fil.user ? fil.user.prenom : 'Non défini',
+                            user_nom: fil.user ? fil.user.nom : 'Non défini',
+                            id_user: fil.user ? fil.user.id : null,
                             editModal: true,
                         };
                     });
@@ -283,7 +287,7 @@ export default {
             // Créez un objet avec les données à envoyer
             const eventData = {
                 filiere: unite_de_formation,
-                editModal:true
+                editModal:true,
             };
 
             bus.emit('formationModifier', eventData);

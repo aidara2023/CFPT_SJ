@@ -232,12 +232,12 @@ export default {
                 i = 1;
 
             }
-            if (!this.verifCaratere(this.form.intitule)) {
+           /*  if (!this.verifCaratere(this.form.intitule)) {
                 this.nom_salle_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
                 i = 1;
 
-            }
-            if (this.form.intitule.length < 12) {
+            } */
+            if (this.form.intitule.length < 4) {
                 this.nom_salle_erreur = "Ce champ doit contenir au moins 12 Caratères"
                 i = 1;
 
@@ -271,11 +271,11 @@ export default {
                         return true
 
                     }
-                    if (!this.verifCaratere(this.form.intitule)) {
+                  /*   if (!this.verifCaratere(this.form.intitule)) {
                         this.nom_salle_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
 
                         return true
-                    }
+                    } */
                     // Ajoutez d'autres validations si nécessaire
                     break;
                 case 'nombre_place':
