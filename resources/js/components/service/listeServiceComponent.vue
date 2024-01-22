@@ -55,8 +55,9 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th> Service </th>
-                                                        <th> Direction </th>
                                                         <th> Chef de service </th>
+                                                        <th> Direction </th>
+                                                   
 
                                                         <th> Action </th>
                                                     </tr>
@@ -66,8 +67,9 @@
                                                         :key="index">
                                                         <td> {{ index + 1 }} </td>
                                                         <td> {{ service.service }} </td>
-                                                        <td> {{ service.direction }}</td>
                                                         <td> {{ service.user_prenom }} {{ service.user_nom }}</td>
+                                                        <td> {{ service.direction }}</td>
+                                                       
 
                                                         <td>
                                                             <a class="tblEditBtn" @click="openModal(service)">
