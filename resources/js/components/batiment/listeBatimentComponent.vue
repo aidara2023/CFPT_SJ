@@ -68,7 +68,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a :href="'/batiment/create'" id="addRow" class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -79,7 +79,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>Identifiant</th>
+                                                        <th>#</th>
                                                         <th>Batiment</th>
                                                         <th>Nombre de Salle</th>
                                                         <th>Actions</th>
@@ -238,22 +238,17 @@ export default {
             axios.get('/batiment/index')
                 .then(response => {
                     const allbatiment = response.data.batiment
-                    console.log(allbatiment)
                     const formattedBatiment = allbatiment.map(bati => {
                         return {
                             id: bati.id,
                             intitule: bati.intitule,
                             nbr_salle:bati.salle.length,
-                           /*  nbr_salle: bati.salle.map(b => b.id).join(','), */
-                          
                             editModal: true,
                         };
                     });
 
                     this.batiments = formattedBatiment;
                     this.initDataTable();
-                  
-                    console.log(this.batiments)
 
 
                 }).catch(error => {
@@ -284,8 +279,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/batiment/delete/${type.id}`).then(resp => {
-                        this.get_batiment();
                         showDialog6("Batiment supprimé avec succés")
+                        this.get_batiment();
 
                     }).catch(function (error) {
                         console.log(error);

@@ -1,74 +1,4 @@
 <template>
-    <!--  <div class="liste"> -->
-    <!--  <div class="affichage">
-       <div class="avant" style=" margin-left: 80%;">
-     
-           <a href="#">
-               <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
-           </a>
-       </div>
-       <h1 class="texte">Salle</h1>
-
-   <div class="sections" v-for="(salle, index) in salles" :key="index">
-           <div class="utilisateur">
-               <p class="texte" id="n">{{ salle.intitule }}</p>
-               <p class="texte" id="n">{{ salle.nombre_place }} </p>
-               <p class="texte" id="n" v-if="salle.batiment.intitule">{{ salle.batiment.intitule}}</p>
-               <div  class="presences">
-                    <a href="#" class="texte b">
-                        <i class="fi fi-rr-bars-sort"></i>
-                        <span class="modifier">Actions</span>
-
-                    </a>
-                   <a href="#" class="texte b" @click="openModal(salle)">
-                       <i class="fi fi-rr-edit"></i>
-                       <span class="modifier mdl">Modifier</span>
-                   </a>
-                   <a href="#" class="texte b">
-                       <i class="fi fi-rr-comment-alt-dots"></i>
-                       <span class="details">Détails</span>
-                   </a>
-                   <a href="#" class="texte b" @click="deleteSalle(salle)" > 
-                       <i class="fi fi-rr-cross"></i>
-                       <span class="supprimer mdl">Supprimer</span>
-                   </a>
-                  
-               </div> -->
-    <!--  </div>
-       </div> -->
-
-    <!-- <div class="table-container">
-            <table>
-                <thead>
-                    <th>Salle</th>
-                    <th>Nombre de place</th>
-                    <th>Batiment</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(salle, index) in salles" :key="index">
-                        <td><span>{{ salle.intitule }}</span></td>
-                        <td> <span>{{ salle.nombre_place }}</span></td>
-                        <td><span>{{ salle.batiment.intitule }} </span></td>
-                        <td>
-                            <div class="boutons_actions">
-                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(salle)" title="Modifier"></i>
-                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteSalle(salle)"
-                                    title="Supprimer"></i>
-                            </div>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-   </div>
- -->
-
-    <!-- <span class="fond "></span> -->
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
@@ -78,8 +8,7 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres &nbsp;<i
-                            class="fa fa-angle-right"></i>  </li>  
+                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i> </li>
                     <li><a class="parent-item" :href="'/service/accueil'"> Salle</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
                 </ol>
@@ -119,7 +48,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a :href="'/salle/create'" id="addRow" class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -130,7 +59,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>Identifiant</th>
+                                                        <th>#</th>
                                                         <th>Salle</th>
                                                         <th>Nombre de place</th>
                                                         <th>Batiment</th>
@@ -258,17 +187,10 @@ export default {
 
     methods: {
         initDataTable() {
-
             this.$nextTick(() => {
-                // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
-
-
-                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
-
-                        // ... (autres options)
                         language: {
                             // Messages pour la pagination
                             paginate: {
@@ -299,14 +221,12 @@ export default {
         get_salle() {
             axios.get('/salle/index')
                 .then(response => {
-
                     const allsalle = response.data.salle;
-
                     const formattedSalle = allsalle.map(salle => {
                         return {
                             id: salle.id,
                             salle: salle.intitule,
-                           nombre_de_place: salle.nombre_place,
+                            nombre_de_place: salle.nombre_place,
                             batiment: salle.batiment.intitule,
                             id_batiment: salle.batiment.id,
                             editModal: true,
@@ -345,9 +265,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/salle/delete/${type.id}`).then(resp => {
-                        this.get_salle();
-
                         showDialog6("Salle supprimée avec succés")
+                        this.get_salle();
 
                     }).catch(function (error) {
                         console.log(error);
@@ -358,22 +277,14 @@ export default {
             });
         },
         openModal(salle) {
-
-           /*  this.idSalle = salle.id; */
-
             this.editModal = true;
-
             // Créez un objet avec les données à envoyer
             const eventData = {
                 salle: salle,
-                editModal:true
+                editModal: true
                 // Ajoutez d'autres propriétés si nécessaire
             };
-
             bus.emit('salleModifier', eventData);
-            console.log("message envoyé")
-
-           
         },
 
 

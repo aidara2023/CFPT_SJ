@@ -24,10 +24,6 @@
         </div>
     </div>
 
-
-
-
-
     <div class="col-lg-6 p-t-20">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
@@ -40,9 +36,6 @@
             <span class="erreur">{{ id_user_erreur }}</span>
         </div>
     </div>
-
-
-
 
     <div class="col-lg-12 p-t-20 text-center">
 
@@ -132,17 +125,9 @@ export default {
         bus.on('serviceModifier', (eventData) => {
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.service);
-
-            /*  this.idService = eventData.idService;
-             this.editModal = eventData.editModal;
-             this.form.nom_service = eventData.nom;
-             this.form.id_user = eventData.id_user;
-             this.form.id_direction = eventData.id_direction; */
         });
 
     },
-
-
 
     methods: {
         async soumettre() {
@@ -152,13 +137,10 @@ export default {
             formdata.append('id_direction', this.form.id_direction);
             try {
                 const user_store = await axios.post('/service/store', formdata, {});
-                //Swal.fire('Réussi !', 'Service ajouté avec succès','success');
-                bus.emit('serviceAjoutee;')
                 showDialog6("Service ajouté avec succès");
+                bus.emit('serviceAjoutee;')
                 this.resetForm();
                 window.location.href = '/service/accueil';
-
-
             }
             catch (e) {
                 /* console.log(e.request.status) */
@@ -176,31 +158,23 @@ export default {
 
         validerAvantAjout() {
             const isVerifIdValid = this.validatedataOld();
-
-            /*   console.log(isNomChampValid); */
             if (isVerifIdValid === true) {
                 this.etatForm = false;
                 this.editModal = false;
                 console.log("erreur")
                 return 0;
             } else {
-
                 if (this.editModal === true) {
                     this.etatForm = true;
                     this.form.nom_service = this.form.nom_service.toUpperCase();
                     this.update_service(this.idService);
-                    /*  this.closeModal('[data-modal-confirmation-modifier]'); */
                     this.editModal = false;
                 }
 
                 else {
-
-
                     this.form.nom_service = this.form.nom_service.toUpperCase();
-
                     this.soumettre();
                     this.etatForm = true;
-
                     this.editModal = false;
                     console.log("Tokkos");
                 }
@@ -232,7 +206,6 @@ export default {
 
 
         validatedata(champ) {
-
             switch (champ) {
                 case 'nom_service':
                     this.nom_service_erreur = "";
@@ -387,8 +360,8 @@ export default {
             //if(this.form.nom!==""){
             try {
                 await axios.post('/service/update/' + id, formdata);
-                bus.emit('serviceAjoutee');
                 showDialog6("Service modifié avec succès");
+                bus.emit('serviceAjoutee');
                 const eventData = {
                     editModal: false,
                 };
@@ -398,8 +371,6 @@ export default {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
                     showDialog3("Une erreur est survenue lors de la modification");
-
-
                 }
                 else {
                     showDialog3("Une erreur est survenue lors de la modification");
@@ -408,19 +379,13 @@ export default {
         },
 
         monterToupdate(service) {
-            console.log("MonterToupdate called");
-
             this.idService = service.id;
             this.editModal = service.editModal;
             this.form.nom_service = service.service;
             this.form.nom_direction = service.direction;
             this.form.id_direction = service.id_direction;
             this.form.id_user = service.id_user;
-
-
         },
-
-
     }
 }
 </script>

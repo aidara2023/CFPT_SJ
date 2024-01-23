@@ -41,7 +41,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a :href="'/service/create'" id="addRow" class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -52,7 +52,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>Identifiant</th>
+                                                        <th>#</th>
                                                         <th> Service </th>
                                                         <th> Chef de service </th>
                                                         <th> Direction </th>
@@ -189,6 +189,7 @@ export default {
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
+                        "autoWidth": true,
 
                         language: {
                             paginate: {
@@ -221,17 +222,12 @@ export default {
             axios.get('/service/index')
                 .then(response => {
                     const allservice = response.data.service;
-
                     const formattedService = allservice.map(ser => {
                         return {
                             id: ser.id,
                             service: ser.nom_service,
                             direction: ser.direction.nom_direction,
                             id_direction: ser.direction.id,
-                          /*   user_prenom: ser.user.prenom,
-                            user_nom: ser.user.nom,
-                            id_user: ser.user.id, */
-
                             user_prenom: ser.user ? ser.user.prenom : 'Non défini',
                             user_nom: ser.user ? ser.user.nom : 'Non défini',
                             id_user: ser.user ? ser.user.id : null,
@@ -271,8 +267,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/service/delete/${service.id}`).then(resp => {
+                        showDialog6("Service supprimé avec succés");
                         this.get_service();
-                        showDialog6("Service supprimé avec succés")
 
                     }).catch(function (error) {
                         console.log(error);
@@ -282,22 +278,14 @@ export default {
             });
         },
         openModal(service) {
-
-
             this.editModal = true;
             // Créez un objet avec les données à envoyer
             const eventData = {
                 service: service,
                 editModal: true
             };
-
             bus.emit('serviceModifier', eventData);
-            console.log("message envoyé")
-
         },
-
-
-
     }
 }
 </script>

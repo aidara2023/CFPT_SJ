@@ -39,6 +39,20 @@ class unite_de_formation_controller extends Controller
             ], 500);
         }
      }
+    public function get_last_value() {
+        $unite_de_formation=Unite_de_formation::with('departement' , 'user')->orderBy('created_at', 'desc')->take(5)->get();
+        if($unite_de_formation!=null){
+            return response()->json([
+                'statut'=>200,
+                'filiere'=>$unite_de_formation
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
      public function index (){
         $roles = Role::where('intitule', ['Formateur'])->orderBy('created_at', 'desc')->get();
         if ($roles->isNotEmpty()) {

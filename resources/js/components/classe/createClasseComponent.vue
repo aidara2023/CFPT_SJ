@@ -1,5 +1,4 @@
 <template>
-    
     <div class="col-lg-6 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom_classe">Nom Classe</label>
@@ -13,7 +12,7 @@
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
             <label for="list6" class="mdl-textfield__label" v-show="!form.type_classe">Choisissez le type de classe
-                </label>
+            </label>
             <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.type_classe"
                 @change="validatedata('type_classe')">
                 <option value="CJ">CJ</option>
@@ -85,7 +84,42 @@
         <button type="button"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
             @click="resetForm">Annuler</button>
+    </div>
 
+    <div class="card card-box mt-4">
+        <div class="card-head">
+            <header>Liste des derniers service</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Type Classe</th>
+                        <th>Niveau</th>
+                        <th>Type de Formation</th>
+                        <th>Filiere</th>
+                       
+                    </tr>
+                </thead>  
+                <tbody>
+                    <tr class="odd gradeX" v-for="(classe, index) in classes" :key="index">
+                        <td> {{ index + 1 }} </td>
+                        <td> {{ classe.nom_classe }} </td>
+                        <td> {{ classe.type_classe }} </td>
+                        <td> {{ classe.niveau }}</td>
+                        <td> {{ classe.type_formation.intitule }} </td>
+                        <td> {{ classe.unite_de_formation.nom_unite_formation }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -101,8 +135,8 @@ export default {
     props: ['service'],
     name: "classeCompenent",
     components: {
-    flatPickr,
-  },
+        flatPickr,
+    },
     data() {
         return {
             form: new Form({
@@ -114,6 +148,7 @@ export default {
 
             }),
             type_formations: [],
+            classes: [],
             unite_de_formations: [],
             nom_classe_erreur: "",
             id_type_formation_erreur: "",
@@ -122,18 +157,19 @@ export default {
             niveau_erreur: "",
             etatForm: false,
             editModal: false,
-            idClasse:"",
+            idClasse: "",
 
         }
     },
     mounted() {
+        this.get_classe();
         this.get_type_formation();
         this.get_unite_de_formation();
         bus.on('classeModifier', (eventData) => {
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.classe);
 
-         
+
         });
     },
 
@@ -154,13 +190,10 @@ export default {
                 const create_store = await axios.post('/classe/store', formdata, {
 
                 });
-                this.resetForm();
-                bus.emit('classeAjoutee');
-               
                 showDialog6("Classe ajoutée avec succès");
                 this.resetForm();
+                bus.emit('classeAjoutee');
                 window.location.href = '/classe/index';
-               
 
             }
             catch (e) {
@@ -172,35 +205,35 @@ export default {
                     showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
+        },
 
-           
+        get_classe() {
+            axios.get('/classe/get/last')
+                .then(response => {
+                    this.classes = response.data.classe;
 
-
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des derniers classes', 'error')
+                });
         },
 
 
         get_type_formation() {
-
             axios.get('/type_formation/all')
                 .then(response => {
-                    this.type_formations = response.data.type_formation
-
-
+                    this.type_formations = response.data.type_formation;
                 }).catch(error => {
                     this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du type de formation', 'error')
                 });
         },
 
-        
+
 
         get_unite_de_formation() {
-
             axios.get('/unite_de_formation/all')
                 .then(response => {
-                    this.unite_de_formations = response.data.unite_de_formation
-
-
+                    this.unite_de_formations = response.data.unite_de_formation;
                 }).catch(error => {
                     this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation de lunite de formation', 'error')
@@ -225,14 +258,14 @@ export default {
                         return true
 
                     }
-                  /*   if (!this.verifCaratere(this.form.nom_classe)) {
-                        this.nom_classe_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
-                       
-                        i = 1;
-                        return true
-                    }
-                 
-                    break; */
+                /*   if (!this.verifCaratere(this.form.nom_classe)) {
+                      this.nom_classe_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                     
+                      i = 1;
+                      return true
+                  }
+               
+                  break; */
                 case 'niveau':
                     this.niveau_erreur = "";
                     //pour niveau
@@ -324,7 +357,7 @@ export default {
             if (this.form.nom_classe === "") {
                 this.nom_classe_erreur = "Ce champ est obligatoire"
                 i = 1;
-            } 
+            }
             /* else {
                 if (!this.verifCaratere(this.form.nom_classe)) {
                     this.nom_classe_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
@@ -369,27 +402,27 @@ export default {
                 return 0;
             } else {
 
-if (this.editModal === true) {
-    this.etatForm = true;
-    this.form.nom_classe = this.form.nom_classe.toUpperCase();
-    this.update_classe(this.idClasse);
-   /*  this.closeModal('[data-modal-confirmation-modifier]'); */
-    this.editModal = false;
-}
+                if (this.editModal === true) {
+                    this.etatForm = true;
+                    this.form.nom_classe = this.form.nom_classe.toUpperCase();
+                    this.update_classe(this.idClasse);
+                    /*  this.closeModal('[data-modal-confirmation-modifier]'); */
+                    this.editModal = false;
+                }
 
-else {
+                else {
 
 
-    this.form.nom_classe = this.form.nom_classe.toUpperCase();
+                    this.form.nom_classe = this.form.nom_classe.toUpperCase();
 
-    this.soumettre();
-    this.etatForm = true;
+                    this.soumettre();
+                    this.etatForm = true;
 
-    this.editModal = false;
-    console.log("Tokkos");
-}
+                    this.editModal = false;
+                    console.log("Tokkos");
+                }
 
-}
+            }
 
         },
         async update_classe(id) {
@@ -403,19 +436,17 @@ else {
             //if(this.form.nom!==""){
             try {
                 await axios.post('/classe/update/' + id, formdata);
-                bus.emit('classeAjoutee');
                 showDialog6("Classe modifiée avec succès");
+                bus.emit('classeAjoutee');
                 const eventData = {
-                editModal: false,
-            };
-            bus.emit('classeDejaModifier', eventData);
+                    editModal: false,
+                };
+                bus.emit('classeDejaModifier', eventData);
             }
             catch (e) {
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
                     showDialog3("Une erreur est survenue lors de la modification");
-    
-
                 }
                 else {
                     showDialog3("Une erreur est survenue lors de la modification");
@@ -424,7 +455,7 @@ else {
         },
         monterToupdate(classe) {
             console.log("MonterToupdate called");
-         
+
             this.idClasse = classe.id;
             this.editModal = classe.editModal;
             this.form.nom_classe = classe.classe;
@@ -434,12 +465,11 @@ else {
             this.form.id_type_formation = classe.id_type_formation;
             this.form.unite_de_formation = classe.unite_de_formation;
             this.form.id_unite_de_formation = classe.id_unite_de_formation;
-           
-            
+
+
         },
 
         resetForm() {
-
             this.form.nom_classe = "";
             this.form.type_classe = "";
             this.form.niveau = "";
@@ -450,8 +480,6 @@ else {
             this.id_unite_de_formation_erreur = "";
             this.type_classe_erreur = "";
             this.niveau_erreur = ""
-
-
         },
 
 

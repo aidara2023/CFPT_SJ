@@ -1,38 +1,4 @@
 <template>
-    <!--  <div >
-        <div class="titres">
-            <h1>Nouveau Batiment</h1>
-        </div>
-        <form @submit.prevent="validerAvantAjout()" action="" method="">
-            <div class="informations">
-                <div class="titres">
-                    <h1>Nouveau Batiment</h1>
-                </div>
-           
-
-                <div class="champ">
-                    <label for="intitule" :class="{ 'couleur_rouge': (this.intitule_erreur) }">Batiment</label>
-                    <input v-model="form.intitule" id="intitule" @input="validatedata('batiment')" type="text" name="nom"
-                        :class="{ 'bordure_rouge': (this.intitule_erreur) }">
-                    <span class="erreur">{{ this.intitule_erreur }}</span>
-                </div>
-
-            
-
-    
-                <div class="groupe_champs validation">
-                    <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible"
-                            @click="resetForm">Annuler</span></button>
-                    <button v-if="this.editModal === false" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Ajouter</span></button>
-                    <button v-if="this.editModal === true" type="submit" data-close-modal="0" class="suivant"><span
-                            data-statut="visible">Modifier</span></button>
-                </div>
-            </div>
-            
-        </form>
-    </div> -->
-
     <div class="col-lg-12 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.intitule">Nom Batiment</label>
@@ -55,7 +21,37 @@
         <button type="button"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
             @click="resetForm">Annuler</button>
+    </div>
 
+    <div class="card card-box mt-4">
+        <div class="card-head">
+            <header>Liste des derniers batiments</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle w-2">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Batiment</th>
+                        <th>Nombre de Salle</th>
+                    </tr>
+                </thead>  
+                <tbody>
+                    <tr class="odd gradeX" v-for="(batiment, index) in batiments" :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td class="left"> {{ batiment.intitule }} </td>
+                        <td class="left"> {{ batiment.salle.length }} </td>
+
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -80,15 +76,13 @@ export default {
             intitule_erreur: "",
             etatForm: false,
             editModal: false,
+            batiments: [],
             idBatiment: "",
 
         }
     },
     mounted() {
-        /*  bus.on('batimentModifier', (eventData) => {
-             this.idBatiment = eventData.idBatiment;
-             this.editModal = eventData.editModal;
-         }); */
+        this.get_batiment();
         bus.on('batimentModifier', (eventData) => {
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.batiment);
@@ -120,6 +114,17 @@ export default {
                 }
             }
         },
+
+        get_batiment() {
+            axios.get('/batiment/index/last/values')
+                .then(response => {
+                    this.batiments = response.data.batiment;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des derniers batiments', 'error')
+                });
+        },
+
         validerAvantAjout() {
             const isVerifIdValid = this.validatedataOld();
 
@@ -150,7 +155,6 @@ export default {
         },
 
         validatedata(champ) {
-
             switch (champ) {
                 case 'batiment':
                     this.intitule_erreur = "";
@@ -193,13 +197,11 @@ export default {
         async update_batiment(id) {
             const formdata = new FormData();
             formdata.append('intitule', this.form.intitule);
-
-            //if(this.form.nom!==""){
             try {
                 await axios.post('/batiment/update/' + id, formdata);
+                showDialog6("Batiment modifié avec succès");
                 bus.emit('batimentAjoutee');
                 this.resetForm();
-                showDialog6("Batiment modifié avec succès");
                 const eventData = {
                     editModal: false,
                 };
@@ -219,8 +221,6 @@ export default {
         },
 
         monterToupdate(batiment) {
-            console.log("MonterToupdate called");
-            console.log(batiment);
 
             this.idBatiment = batiment.id;
             this.editModal = batiment.editModal;

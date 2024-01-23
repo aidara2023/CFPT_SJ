@@ -34,7 +34,38 @@
         <button type="button"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
             @click="resetForm">Annuler</button>
+    </div>
 
+    <div class="card card-box mt-4">
+        <div class="card-head">
+            <header>Liste des dernieres directions</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                id="example47">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Direction </th>
+                        <th> Chef de direction </th>
+                        <th> Date de création</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr class="odd gradeX" v-for="(direction, index) in directions" :key="index">
+                        <td> {{ index + 1 }} </td>
+                        <td> {{ direction.nom_direction }} </td>
+                        <td> {{ direction.user.prenom }} {{ direction.user.nom }}</td>
+                        <td>{{ this.formatDateTime(direction.created_at) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -65,6 +96,7 @@ export default {
             id_user_erreur: "",
             etatForm: false,
             editModal: false,
+            directions: [],
             idDirection: "",
 
         }
@@ -72,11 +104,10 @@ export default {
     mounted() {
 
         this.get_user();
+        this.get_direction();
         bus.on('directionModifier', (eventData) => {
-
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.direction);
-
         });
     },
 
@@ -85,18 +116,16 @@ export default {
             const formdata = new FormData();
             formdata.append('nom_direction', this.form.nom_direction);
             formdata.append('id_user', this.form.id_user);
-
             try {
                 const create_store = await axios.post('/direction/store', formdata);
-                bus.emit('directionAjoutee;')
                 showDialog6("Direction ajoutée avec succès");
+                bus.emit('directionAjoutee;')
                 this.resetForm();
                 bus.emit('directionAjoutee');
                 window.location.href = '/direction/accueil';
 
             }
             catch (e) {
-
                 /* console.log(e.request.status) */
                 if (e.request.status === 404) {
                     showDialog3("Ce service existe déjà");
@@ -107,6 +136,28 @@ export default {
             }
         },
 
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
+        },
+
         verifCaratere(nom) {
             const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
@@ -114,10 +165,7 @@ export default {
 
 
         validatedata(champ) {
-
-
             var i = 0;
-
             switch (champ) {
                 case 'nom_direction':
                     this.nom_direction_erreur = "";
@@ -172,27 +220,21 @@ export default {
                     i = 1;
                 }
             }
-           if(this.editModal){
-            if (this.form.id_user === "") {
-                this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
-                i = 1;
+            if (this.editModal) {
+                if (this.form.id_user === "") {
+                    this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
+                    i = 1;
+                }
             }
-           }
-
-
 
             if (i == 1) return true;
 
             return false;
         },
         verifId() {
-
             this.id_user_erreur = "";
             var i = 0;
-
-
             if (this.editModal) {
-
                 if (this.form.id_user === "") {
                     this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
                     i = 1;
@@ -201,18 +243,12 @@ export default {
             }
 
             if (i == 1) return true;
-
             return false;
 
         },
         validerAvantAjout() {
-
-            //const isIdChampValid = this.validatedataOld();
-
-
             const isNomDirectionValid = this.validatedataOld();
             const isIdDirectionValid = this.verifId();
-
 
             console.log(isNomDirectionValid);
             console.log(isIdDirectionValid);
@@ -265,6 +301,15 @@ export default {
                 });
         },
 
+        get_direction() {
+            axios.get('/direction/index/get/last')
+                .then(response => {
+                    this.directions = response.data.direction
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des dernieres directions', 'error')
+                });
+        },
+
         async update_direction(id) {
             const formdata = new FormData();
             formdata.append('nom_direction', this.form.nom_direction);
@@ -273,8 +318,8 @@ export default {
             //if(this.form.nom!==""){
             try {
                 await axios.post('/direction/update/' + id, formdata);
-                bus.emit('directionAjoutee');
                 showDialog6("Direction modifiée avec succès");
+                bus.emit('directionAjoutee');
                 const eventData = {
                     editModal: false,
                 };
@@ -291,14 +336,10 @@ export default {
             }
         },
         monterToupdate(direction) {
-            console.log("MonterToupdate called");
-
             this.idDirection = direction.id;
             this.editModal = direction.editModal;
             this.form.nom_direction = direction.direction;
             this.form.id_user = direction.id_user;
-
-
         },
 
     }

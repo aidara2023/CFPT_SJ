@@ -8,8 +8,7 @@
                             class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Paramétres &nbsp;<i
-                            class="fa fa-angle-right"></i></li>
+                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/unite_de_formation/index'"> Filière</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -22,7 +21,6 @@
                     <ul class="nav customtab nav-tabs" role="tablist">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Filière</a>
                         </li>
-
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active fontawesome-demo" id="tab1">
@@ -41,8 +39,9 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a :href="'/unite_de_formation/create'" id="addRow" class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        <a :href="'/unite_de_formation/create'" id="addRow"
+                                                            class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -53,7 +52,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th class="pd-auto">Identifiant</th>
+                                                        <th>#</th>
                                                         <th> Filière </th>
                                                         <th> Chef de filière </th>
                                                         <th> Département </th>
@@ -229,20 +228,14 @@ export default {
                             filiere: fil.nom_unite_formation,
                             departement: fil.departement.nom_departement,
                             id_departement: fil.departement.id,
-                          /*   user_prenom: fil.user.prenom,
-                            user_nom: fil.user.nom,
-                            id_user: fil.user.id, */
-
                             user_prenom: fil.user ? fil.user.prenom : 'Non défini',
                             user_nom: fil.user ? fil.user.nom : 'Non défini',
                             id_user: fil.user ? fil.user.id : null,
                             editModal: true,
                         };
                     });
-                    this.unite_de_formations=formattedFiliere;
-                    this.initDataTable(); 
-
-
+                    this.unite_de_formations = formattedFiliere;
+                    this.initDataTable();
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des unites de formations', 'error')
                 });
@@ -273,9 +266,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/unite_de_formation/delete/${type.id}`).then(resp => {
+                        showDialog6("La filière a été supprimée avec succès")
                         this.get_unite_de_formation();
-                      showDialog6("La filière a été supprimée avec succès")
-
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -287,11 +279,10 @@ export default {
             // Créez un objet avec les données à envoyer
             const eventData = {
                 filiere: unite_de_formation,
-                editModal:true,
+                editModal: true,
             };
 
             bus.emit('formationModifier', eventData);
-            console.log("message envoyé")
 
         },
 

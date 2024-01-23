@@ -1,17 +1,13 @@
 <template>
-  
-
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
-                
+
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                   
-                    <li class="active"> Paramétres &nbsp;<i
-                            class="fa fa-angle-right"></i></li>
+                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i></li>
                     <li><a class="parent-item" :href="'/direction/accueil'"> Direction</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
@@ -32,7 +28,7 @@
                     <ul class="nav customtab nav-tabs" role="tablist">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Direction</a>
                         </li>
-                        
+
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active fontawesome-demo" id="tab1">
@@ -51,9 +47,8 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a :href="'/direction/create'" id="addRow"
-                                                            class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                        <a :href="'/direction/create'" id="addRow" class="btn btn-primary">
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -61,11 +56,10 @@
                                             </div>
                                             <table
                                                 class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example47" >
+                                                id="example47">
                                                 <thead>
                                                     <tr>
-                                                        
-                                                        <th class="pd-2"> Identifiant </th>
+                                                        <th> # </th>
                                                         <th> Direction </th>
                                                         <th> Chef de direction </th>
                                                         <th> Date de création</th>
@@ -73,15 +67,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX"  v-for="(direction, index) in directions" :key="index">
-                                                        
-                                                        <td> {{ index + 1}} </td>
+                                                    <tr class="odd gradeX" v-for="(direction, index) in directions"
+                                                        :key="index">
+
+                                                        <td> {{ index + 1 }} </td>
                                                         <td> {{ direction.direction }} </td>
                                                         <td> {{ direction.user_prenom }} {{ direction.user_nom }}</td>
-                                                       <td>{{ this.formatDateTime(direction.date)}}</td>
+                                                        <td>{{ this.formatDateTime(direction.date) }}</td>
 
-                                                        
-                                                        <td >
+
+                                                        <td>
                                                             <a class="tblEditBtn" @click="openModal(direction)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
@@ -97,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -144,14 +139,13 @@
                             </ul>
                         </div>
                         <div class="card-body row">
-                            <FormulaireModification />  
+                            <FormulaireModification />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
                                                                             
 <script>
@@ -195,80 +189,80 @@ export default {
 
     methods: {
         initDataTable() {
-         
-         this.$nextTick(() => {
-     // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
-     
-
-     // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
-     if (!$.fn.DataTable.isDataTable('#example47')) {
-         $('#example47').DataTable({
-             responsive: true,
-             render: function (data, type, full, meta) {
-                    // Formater la date avec moment.js (par exemple, au format 'DD/MM/YYYY')
-                    return moment(data).format('DD/MM/YYYY');
-                },
-             
-             // ... (autres options)
-             language: {
-                     // Messages pour la pagination
-                     paginate: {
-                         first: 'Premier',
-                         previous: 'Précédent',
-                         next: 'Suivant',
-                         last: 'Dernier'
-                     },
-                     // Message d'affichage du nombre d'éléments par page
-                     lengthMenu: 'Afficher _MENU_ entrées',
-                     // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
-                     info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
-                     // Message lorsque le tableau est vide
-                     emptyTable: 'Aucune donnée disponible dans le tableau',
-                     // Message indiquant que la recherche est en cours
-                     loadingRecords: 'Chargement en cours...',
-                     // Message indiquant que la recherche n'a pas renvoyé de résultats
-                     zeroRecords: 'Aucun enregistrement correspondant trouvé',
-                     // Message indiquant le nombre total d'entrées
-                     infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
-                     // Message indiquant que la recherche est en cours dans le champ de recherche
-                     search: 'Recherche :'
-                 }
-         });
-     }
- });
-     },
-     formatDateTime(dateTime) {
-      // Utilisez une fonction pour formater la date
-      return this.formatDate(new Date(dateTime));
-    },
-    formatDate(date) {
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    },
-    get_direction() {
-    axios.get('/direction/index')
-        .then(response => {
-            const alldirection = response.data.direction;
-            const formattedDirection = alldirection.map(direct => {
-                return {
-                    id: direct.id,
-                    direction: direct.nom_direction,
-                    user_prenom: direct.user ? direct.user.prenom : 'Non défini',
-                    user_nom: direct.user ? direct.user.nom : 'Non défini',
-                    id_user: direct.user ? direct.user.id : null,
-                    editModal: true,
-                    date: direct.created_at,
-                };
+            this.$nextTick(() => {
+                if (!$.fn.DataTable.isDataTable('#example47')) {
+                    $('#example47').DataTable({
+                        responsive: true,
+                        language: {
+                            // Messages pour la pagination
+                            paginate: {
+                                first: 'Premier',
+                                previous: 'Précédent',
+                                next: 'Suivant',
+                                last: 'Dernier'
+                            },
+                            // Message d'affichage du nombre d'éléments par page
+                            lengthMenu: 'Afficher _MENU_ entrées',
+                            // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                            info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                            // Message lorsque le tableau est vide
+                            emptyTable: 'Aucune donnée disponible dans le tableau',
+                            // Message indiquant que la recherche est en cours
+                            loadingRecords: 'Chargement en cours...',
+                            // Message indiquant que la recherche n'a pas renvoyé de résultats
+                            zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                            // Message indiquant le nombre total d'entrées
+                            infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                            // Message indiquant que la recherche est en cours dans le champ de recherche
+                            search: 'Recherche :'
+                        }
+                    });
+                }
             });
-            this.directions = formattedDirection;
-            this.initDataTable(); 
-            console.log(this.directions);
-        }).catch(error => {
-            Swal.fire('Erreur!', 'Une erreur est survenue lors de la récupération des directions', 'error');
-        });
-},
+        },
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
+        },
+        get_direction() {
+            axios.get('/direction/index')
+                .then(response => {
+                    const alldirection = response.data.direction;
+                    const formattedDirection = alldirection.map(direct => {
+                        return {
+                            id: direct.id,
+                            direction: direct.nom_direction,
+                            user_prenom: direct.user ? direct.user.prenom : 'Non défini',
+                            user_nom: direct.user ? direct.user.nom : 'Non défini',
+                            id_user: direct.user ? direct.user.id : null,
+                            editModal: true,
+                            date: direct.created_at,
+                        };
+                    });
+                    this.directions = formattedDirection;
+                    this.initDataTable();
+                    console.log(this.directions);
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la récupération des directions', 'error');
+                });
+        },
 
 
         resetForm() {
@@ -290,9 +284,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/direction/delete/${type.id}`).then(resp => {
-                        this.get_direction();
                         showDialog6("Direction supprimée avec succés")
-
+                        this.get_direction();
                     }).catch(function (error) {
                         console.log(error);
                         showDialog3("Erreur lors de la suppression de la direction")
@@ -301,22 +294,14 @@ export default {
             });
         },
         openModal(direction) {
-
-           /*  this.idDirection = direction.id; */
-
             this.editModal = true;
-
             // Créez un objet avec les données à envoyer
             const eventData = {
                 direction: direction,
                 editModal: this.editModal,
                 // Ajoutez d'autres propriétés si nécessaire
             };
-
             bus.emit('directionModifier', eventData);
-
-           
-
         },
 
 
