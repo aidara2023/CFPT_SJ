@@ -816,7 +816,7 @@
 @endif 
 
 @if (Auth::user()->id_role == 7)
-@endif
+
 <div class="sidebar-container">
     <div class="sidemenu-container navbar-collapse collapse fixed-menu">
         <div id="remove-scroll" class="left-sidemenu">
@@ -848,7 +848,7 @@
                      <ul class="sub-menu">
                         <li class="nav-item active">
                             <a href="index.html" class="nav-link ">
-                                <span class="title">Dashboard 1</span>
+                                <span class="title">Dashboard</span>
                                 <span class="selected"></span>
                             </a>
                         </li>
@@ -857,25 +857,26 @@
               
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"> <i data-feather="user"></i>
-                        <span class="title">ayon</span> <span class="arrow"></span>
+                        <span class="title">Livre</span> <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="{{route('rayon_index')}}" class="nav-link "> <span
-                                    class="title">Liste rayon</span>
+                            <a href="{{route('livre_index')}}" class="nav-link "> <span
+                                    class="title">Liste Livre</span>
                             </a>
                         </li>
-                      {{--   <li class="nav-item">
+                       {{-- <li class="nav-item">
                             <a href="add_professor.html" class="nav-link "> <span
                                     class="title">Add
                                     Professor</span>
                             </a>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="{{route('rayon_create')}}" class="nav-link "> <span
-                                    class="title">Nouveau rayon</span>
+                            <a href="{{route('livre_create')}}" class="nav-link "> <span
+                                    class="title">Nouveau livre</span>
                             </a>
                         </li>
+                        
                        {{--  <li class="nav-item">
                             <a href="edit_professor.html" class="nav-link "> <span
                                     class="title">Edit
@@ -889,60 +890,64 @@
                             </a>
                         </li> --}}
                     </ul>
+
+                    <a href="#" class="nav-link nav-toggle"> <i data-feather="user"></i>
+                        <span class="title">Livre Emprunter</span> <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('emprunter_livre_index')}}" class="nav-link "> <span
+                                    class="title">Liste des livres emprunter</span>
+                            </a>
+                        </li>
+                       {{-- <li class="nav-item">
+                            <a href="add_professor.html" class="nav-link "> <span
+                                    class="title">Add
+                                    Professor</span>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{route('emprunter_livre_create')}}" class="nav-link "> <span
+                                    class="title">Nouveau demande livre</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
                 </li>
-                <li class="nav-item">
+                
+                {{-- <li class="nav-item">
                     <a href="event.html" class="nav-link nav-toggle"> <i
                             data-feather="calendar"></i>
                         <span class="title">Inscription</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
                         <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
                         <li class="nav-item">
                             <a href="all_students.html" class="nav-link "> <span
-                                    class="title">Service</span>
+                                    class="title">Rayon</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="add_student.html" class="nav-link "> <span
-                                    class="title">Direction</span>
+                                    class="title">Categorie</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="add_student_bootstrap.html" class="nav-link "> <span
-                                    class="title">Département</span>
+                                    class="title">Auteur</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="edit_student.html" class="nav-link "> <span
-                                    class="title">Classe</span>
+                                    class="title">Editeur</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">Filière</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">Type Formation</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">Batiment</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">Salle</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
-                                    class="title">Message Alerte</span>
+                                    class="title">Edition</span>
                             </a>
                         </li>
                     </ul>
@@ -1620,4 +1625,5 @@
         </div>
     </div>
 </div>
+@endif
 @endif

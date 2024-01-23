@@ -50,7 +50,7 @@ class connexion_controller extends Controller
                 $url = '/infirmier/index';
                 break;
             case "Bibliothecaire":
-                $url = '/bibliothecaire/index';
+                $url = '/bibliothecaire/accueil';
                 break;
             case "Surveillant":
                 $url = '/surveillant/index';
