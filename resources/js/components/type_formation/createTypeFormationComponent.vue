@@ -1,5 +1,5 @@
 <template>
-   <div class="col-lg-6 p-t-20">
+    <div class="col-lg-12 p-t-20">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.intitule">Nom Type de formation</label>
             <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.intitule"
@@ -7,8 +7,8 @@
             <span class="erreur">{{ this.nom_formation_erreur }}</span>
         </div>
     </div>
-   
-   
+
+
     <div class="col-lg-12 p-t-20 text-center">
 
         <button type="submit" v-if="!this.editModal"
@@ -20,7 +20,34 @@
         <button type="button"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
             @click="resetForm">Annuler</button>
+    </div>
 
+    <div class="card card-box">
+        <div class="card-head">
+            <header>Liste des dernières filières</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th> Nom </th>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="odd gradeX" v-for="(formation, index) in type_formations" :key="index">
+                        <td> {{ index + 1 }} </td>
+                        <td> {{ formation.intitule }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -38,19 +65,17 @@ export default {
     props: ['type_formation'],
     name: "createTypeFormationCompenent",
     components: {
-    flatPickr,
-  },
+        flatPickr,
+    },
     data() {
         return {
             form: new Form({
                 'intitule': ""
             }),
             nom_formation_erreur: "",
+            type_formations: [],
             editModal: false,
             idTypeformation: "",
-
-
-
         }
     },
     mounted() {
@@ -58,20 +83,19 @@ export default {
             this.editModal = eventData.editModal;
             this.monterToupdate(eventData.formation);
         });
+        this.get_filiere();
     },
 
     methods: {
         async soumettre() {
             const formdata = new FormData();
             formdata.append('intitule', this.form.intitule);
-
             try {
                 const create_store = await axios.post('/type_formation/store', formdata, {});
-                bus.emit('formationAjoutee');
                 showDialog6("Type de formation ajouté avec succès");
+                bus.emit('formationAjoutee');
                 this.resetForm();
                 window.location.href = '/type_formation/index';
-
             }
             catch (e) {
                 /* console.log(e.request.status) */
@@ -86,18 +110,15 @@ export default {
         },
         validerAvantAjout() {
             const isVerifIdValid = this.validatedata();
-            /*   console.log(isNomChampValid); */
             if (isVerifIdValid === true) {
                 this.etatForm = false;
                 this.editModal = false;
                 return 0;
             } else {
-
                 if (this.editModal === true) {
                     this.etatForm = true;
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.update_formation(this.idTypeformation);
-                   
                     this.editModal = false;
                 }
 
@@ -105,9 +126,7 @@ export default {
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.soumettre();
                     this.etatForm = true;
-                   
                     this.editModal = false;
-                    // console.log(Tokkos);
                 }
 
             }
@@ -146,27 +165,24 @@ export default {
             this.editModal === false;
             this.nom_formation_erreur = "";
         },
-        
+
 
         async update_formation(id) {
             const formdata = new FormData();
             formdata.append('intitule', this.form.intitule);
-            //if(this.form.nom!==""){
             try {
                 await axios.post('/type_formation/update/' + id, formdata);
-                bus.emit('formationAjoutee');
                 showDialog6("Type de Formation modifié avec succès");
+                bus.emit('formationAjoutee');
                 const eventData = {
-                editModal: false,
-            };
-            bus.emit('formationDejaModifier', eventData);
+                    editModal: false,
+                };
+                bus.emit('formationDejaModifier', eventData);
             }
             catch (e) {
                 console.log(e)
                 if (e.request.status === 404) {
                     showDialog3("Une erreur est survenue lors de la modification");
-    
-
                 }
                 else {
                     showDialog3("Une erreur est survenue lors de la modification");
@@ -174,15 +190,20 @@ export default {
             }
         },
 
+        get_filiere() {
+            axios.get('/type_formation/get/last')
+                .then(response => {
+                    this.type_formations = response.data.formation;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des formation', 'error')
+                });
+        },
+
         monterToupdate(formation) {
-            console.log("MonterToupdate called");
-         
             this.idTypeformation = formation.id;
             this.editModal = formation.editModal;
             this.form.intitule = formation.formation;
-           
-           
-            
         },
 
 

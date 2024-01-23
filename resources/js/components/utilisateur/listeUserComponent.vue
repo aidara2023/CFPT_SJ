@@ -54,7 +54,7 @@
                                                     <div class="btn-group">
                                                         <a :href="'/utilisateur/create'" id="addRow"
                                                             class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -74,7 +74,6 @@
                                                         <th> Unité de formation </th>
                                                         <th> Département </th>
                                                         <th> Statut </th>
-                                                        <!--   <th> Statut </th> -->
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -94,12 +93,26 @@
 
                                                         <td>{{ utilisateur.departement }} </td>
 
-                                                        <td>
+                                                        <!--  <td class="text-center align-middle">
                                                             <span
-                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-warning': utilisateur.status === '0' }">
+                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-danger': utilisateur.status === '0' }">
                                                                 {{ utilisateur.status === '1' ? 'Actif' : 'Inactif' }}
                                                             </span>
+                                                        </td> -->
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '1'">
+                                                            <span class="label label-sm label-success">
+                                                                Actif
+                                                            </span>
                                                         </td>
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '0'"
+                                                            @click="activUser(utilisateur)">
+                                                            <a class="label label-sm label-danger">
+                                                                Inactif
+                                                            </a>
+                                                        </td>
+
 
                                                         <td>
                                                             <a class="tblEditBtn" @click="openModal(utilisateur)">
@@ -135,7 +148,7 @@
                                                     <div class="btn-group">
                                                         <a :href="'/utilisateur/create'" id="addRow"
                                                             class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -154,7 +167,7 @@
                                                         <th> Fonction </th>
                                                         <th> Service </th>
                                                         <th> Statut </th>
-                                                      
+
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -166,25 +179,38 @@
                                                         <td> {{ utilisateur.matricule }}</td>
                                                         <td class="left"> {{ utilisateur.prenom }}</td>
                                                         <td class="left"> {{ utilisateur.nom }}</td>
-                                                        <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
-                                                            </a></td>
-                                                        <td><a :href="'tel:' + utilisateur.telephone">{{
-                                                            utilisateur.telephone }}</a></td>
+                                                        <td>
+                                                            <a :href="'mailto:' + utilisateur.email">{{ utilisateur.email
+                                                            }}</a>
+                                                        </td>
+                                                        <td>
+                                                            <a :href="'tel:' + utilisateur.telephone">{{
+                                                                utilisateur.telephone
+                                                            }}</a>
+                                                        </td>
                                                         <td class="left">{{ utilisateur.fonction }} </td>
                                                         <td>{{ utilisateur.nom_service }} </td>
-
-                                                     
-                                                        <td>
+                                                        <!-- <td class="text-center align-middle">
                                                             <span
-                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-warning': utilisateur.status === '0' }">
+                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-danger': utilisateur.status === '0' }">
                                                                 {{ utilisateur.status === '1' ? 'Actif' : 'Inactif' }}
                                                             </span>
+                                                        </td> -->
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '1'">
+                                                            <span class="label label-sm label-success">
+                                                                Actif
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '0'"
+                                                            @click="activUser(utilisateur)">
+                                                            <a class="label label-sm label-danger">
+                                                                Inactif
+                                                            </a>
                                                         </td>
 
-                                                     
-
                                                         <td>
-
                                                             <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
@@ -203,38 +229,34 @@
                         </div>
 
                         <div class="tab-pane" id="tab3">
-                            <div class="row" v-for="(utilisateur, index) in utilisateursPer" :key="index">
-                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel d\'appui'">
-                                    <div class="card card-box">
-                                        <div class="card-body no-padding ">
-
-                                            <div class="doctor-profile">
-
-                                                <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
-                                                <div class="profile-usertitle">
-                                                    <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}
+                            <div class="row">
+                                <div class="col-md-4" v-for="(utilisateur, index) in utilisateursPer" :key="index">
+                                    <div>
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding">
+                                                <div class="doctor-profile">
+                                                    <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom
+                                                        }}</div>
+                                                        <div class="name-center">{{ utilisateur.role.intitule }}</div>
+                                                        <p><i class="fa fa-phone"></i> <a :href="utilisateur.telephone">{{
+                                                            utilisateur.telephone }}</a></p>
                                                     </div>
-                                                    <div class="name-center"> {{ utilisateur.role.intitule }} </div>
-                                                    <!-- </div>
-                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
-                                                <div> -->
-                                                    <p><i class="fa fa-phone"> </i> <a :href="utilisateur.telephone">
-                                                            {{ utilisateur.telephone }}</a></p>
+                                                    <div class="profile-userbuttons">
+                                                        <a
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">{{
+                                                                utilisateur.matricule }}</a>
+                                                    </div>
                                                 </div>
-                                                <div class="profile-userbuttons">
-                                                    <a href="professor_profile.html"
-                                                        class="btn btn-circle deepPink-bgcolor btn-sm">Read
-                                                        More</a>
-                                                </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -353,21 +375,12 @@ export default {
 
     methods: {
         initDataTable() {
-            /*  this.$nextTick(() => {
-                 $('#exemple1').DataTable({
-                     responsive: true,
-                     
-                 });
-                 $('#example47').DataTable({
-                     responsive: true,
-                    
-                 });
-             }); */
             this.$nextTick(() => {
                 // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#exemple1')) {
                     $('#exemple1').DataTable({
                         responsive: true,
+                        "autoWidth": true,
                         // ... (autres options)
                         language: {
                             // Messages pour la pagination
@@ -399,6 +412,7 @@ export default {
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
+                        "autoWidth": true,
                         // ... (autres options)
                         language: {
                             // Messages pour la pagination
@@ -431,9 +445,12 @@ export default {
         get_utilisateur() {
             axios.get('/user/getPersonnel')
                 .then(response => {
-                    this.utilisateursPer = response.data.user;
-                    console.log("this.utilisateursPer ")
-                    console.log(this.utilisateursPer )
+                    this.utilisateursPer = response.data.user.filter(utilisateur => {
+                        return utilisateur.role.categorie_personnel === 'Personnel d\'appui' || utilisateur.role.categorie_personnel === 'Personnel Appui';
+
+                    });
+                    /*      console.log("this.utilisateursPer ")
+                         console.log(this.utilisateursPer) */
                     const allUtilisateurs = response.data.user;
 
                     // Filtrer les utilisateurs en fonction de la catégorie du personnel
@@ -507,7 +524,7 @@ export default {
                     // Mettez à jour la liste des utilisateurs au format de tableau de dictionnaires
                     this.utilisateurs = formattedUtilisateurs;
                     this.utilisateurProf = formattedFormateur;
-                    console.log(this.utilisateurProf)
+                    /*  console.log(this.utilisateurProf) */
 
                     this.initDataTable();
 
@@ -542,14 +559,9 @@ export default {
             this.activePhase = step;
         },
 
-        async deleteUtilisateur(user) {
-            /*     showDialog7(
-                    "Oui, desactivez-le !",
-                    "Supprimé(e) !",
-                    "Utilisateur desactiver avec succès."
-                ).then((result) => { */
+        async activUser(user) {
             Swal.fire({
-                title: 'Êtes-vous sûr de désactiver cet utilisateur?',
+                title: 'Êtes-vous sûr de vouloir réactiver cet utilisateur?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -560,8 +572,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/user/delete/${user.id}`).then(resp => {
+                        showDialog6("Utilisateur réactiver avec succès")
                         this.get_utilisateur();
-                        showDialog6("Utilisateur supprimé avec succés")
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -569,21 +581,39 @@ export default {
             });
         },
 
+        async deleteUtilisateur(user) {
+            if (user.status === '1') {
+                Swal.fire({
+                    title: 'Êtes-vous sûr de vouloir désactiver cet utilisateur?',
+                    text: "Cette action sera irréversible!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui',
+                    cancelButtonText: 'Non'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`/user/delete/${user.id}`).then(resp => {
+                            showDialog6("Utilisateur désactivé avec succès");
+                            this.get_utilisateur();
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                    }
+                });
+            } else {
+                showDialog3("Cet utilisateur est déjà inactif")
+            }
+        },
+
         openModal(utilisateur) {
-
-            //  this.idUser = utilisateur.id;
-
             this.editModal = true;
-
-            // this.userEnCoursDeModification = utilisateur;
-
             const eventData = {
                 utilisateur: utilisateur,
             };
-
             bus.emit('userModifier', eventData);
             console.log("etatModal set to true:", this.etatModal);
-
         },
 
         getImageUrl(url) {

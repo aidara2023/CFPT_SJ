@@ -11,7 +11,22 @@ class batiment_controller extends Controller
 {
     public function index()
     {
-        $batiment = Batiment::with('salle')->get(); /* ->orderBy('created_at', 'desc') */
+        $batiment = Batiment::with('salle')->orderBy('created_at', 'desc')->get(); /* ->orderBy('created_at', 'desc') */
+        if ($batiment != null) {
+            return response()->json([
+                'statut' => 200,
+                'batiment' => $batiment
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement n\'a été trouvé',
+            ], 500);
+        }
+    }
+    public function get_last_value()
+    {
+        $batiment = Batiment::with('salle')->orderBy('created_at', 'desc')->take(5)->get(); /*  */
         if ($batiment != null) {
             return response()->json([
                 'statut' => 200,

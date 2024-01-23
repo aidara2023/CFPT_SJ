@@ -51,7 +51,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a :href="'/classe/create'" id="addRow" class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -62,7 +62,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th>Identifiant</th>
+                                                        <th>#</th>
                                                         <th>Nom</th>
                                                         <th>Type Classe</th>
                                                         <th>Niveau</th>
@@ -197,12 +197,7 @@ export default {
 
     methods: {
         initDataTable() {
-
             this.$nextTick(() => {
-                // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
-
-
-                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
@@ -294,9 +289,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/classe/delete/${type.id}`).then(resp => {
-                        this.get_classe();
                         showDialog6("Classe supprimée avec succés")
-
+                        this.get_classe();
 
                     }).catch(function (error) {
                         console.log(error);
@@ -315,9 +309,6 @@ export default {
             const eventData = {
                 classe: classe,
                 editModal: true
-
-
-                // Ajoutez d'autres propriétés si nécessaire
             };
 
             bus.emit('classeModifier', eventData);

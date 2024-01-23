@@ -23,6 +23,20 @@ class salle_controller extends Controller
             ],500 );
         }
      }
+    public function get_last_values() {
+        $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->take(5)->get();
+        if($salle!=null){
+            return response()->json([
+                'statut'=>200,
+                'salle'=>$salle
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
 
     public function store(salle_request $request){
         $data=$request->validated();

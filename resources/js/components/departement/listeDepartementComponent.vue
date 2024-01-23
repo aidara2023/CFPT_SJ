@@ -43,7 +43,7 @@
                                                     <div class="btn-group">
                                                         <a :href="'/departement/create'" id="addRow"
                                                             class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -54,7 +54,7 @@
                                                 id="example47">
                                                 <thead>
                                                     <tr>
-                                                        <th class="pd-2">Identifiant</th>
+                                                        <th>#</th>
                                                         <th>Département</th>
                                                         <th>Chef de département</th>
                                                         <th>Direction</th>
@@ -190,22 +190,26 @@ export default {
         },
         formatDate(date) {
             const day = date.getDate();
-            const month = date.getMonth() + 1;
+            const monthNumber = date.getMonth() + 1;
             const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
         },
         initDataTable() {
-
             this.$nextTick(() => {
-                // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
-
-
-                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
-
-                        // ... (autres options)
                         language: {
                             // Messages pour la pagination
                             paginate: {
@@ -243,10 +247,6 @@ export default {
                             departement: depart.nom_departement,
                             direction: depart.direction.nom_direction,
                             id_direction: depart.direction.id,
-                          /*   user_prenom: depart.user.prenom,
-                            user_nom: depart.user.nom,
-                            id_user: depart.user.id, */
-
                             user_prenom: depart.user ? depart.user.prenom : 'Non défini',
                             user_nom: depart.user ? depart.user.nom : 'Non défini',
                             id_user: depart.user ? depart.user.id : null,
@@ -257,7 +257,6 @@ export default {
 
                     this.departements = formattedDepartement;
                     this.initDataTable();
-                    console.log(this.departements);
 
                 }).catch(error => {
                     //Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des departements', 'error')
@@ -288,8 +287,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`/departement/delete/${type.id}`).then(resp => {
+                        showDialog6("Département supprimé avec succès")
                         this.get_departement();
-                        showDialog6("Département supprimé avec succés")
                     }).catch(function (error) {
                         console.log(error);
                         showDialog3("Erreur lors de la suppression du département")
@@ -300,12 +299,10 @@ export default {
 
         openModal(departement) {
             this.editModal = true;
-
             // Créez un objet avec les données à envoyer
             const eventData = {
                 departement: departement,
                 editModal: this.editModal,
-
             };
 
             bus.emit('departementModifier', eventData);
