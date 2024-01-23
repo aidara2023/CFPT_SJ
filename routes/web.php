@@ -138,6 +138,7 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 
 Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
+Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
 Route::post('direction/update/{id}', [direction_controller::class, 'update'])->name('direction_update');
 Route::delete('direction/delete/{id}',[direction_controller::class, 'delete'])->name('direction_delete');
@@ -202,6 +203,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 //Route unite de formation
 
 Route::get('unite_de_formation/all', [unite_de_formation_controller::class, 'all'])->name('unite_de_formation_all');
+Route::get('unite_de_formation/get/last', [unite_de_formation_controller::class, 'get_five_laste'])->name('unite_de_formation_all');
 Route::post('unite_de_formation/store',[unite_de_formation_controller::class, 'store'])->name('unite_de_formation_store');
 Route::post('unite_de_formation/update/{id}', [unite_de_formation_controller::class, 'update'])->name('unite_de_formation_update');
 Route::post('unite_de_formation/by/departement/{id}', [unite_de_formation_controller::class, 'get_filiere_by_departement'])->name('filiere_departement');
@@ -588,6 +590,7 @@ Route::get('role/all', [role_controller::class, 'all'])->name('role_all');
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
+Route::get('service/index/get/last' ,[service_controller::class, 'get_five_laste'])->name('service_index_get_last');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
 Route::post('service/update/{id}',[service_controller::class, 'update'])->name('service_update');
