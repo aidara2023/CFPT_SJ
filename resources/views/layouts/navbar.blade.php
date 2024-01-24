@@ -926,7 +926,7 @@
                         <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="all_students.html" class="nav-link "> <span
+                            <a href="rayon_create" class="nav-link "> <span
                                     class="title">Rayon</span>
                             </a>
                         </li>

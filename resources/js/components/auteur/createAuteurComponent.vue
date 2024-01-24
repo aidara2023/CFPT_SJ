@@ -52,10 +52,10 @@ import Form from 'vform';
     mounted(){
        
        this.get_user();
-       bus.on('ateurModifier', (eventData) => {
-           this.idAteur = eventData.idAteur;
+       bus.on('auteurModifier', (eventData) => {
+           this.idAuteur = eventData.idAuteur;
            this.editModal = eventData.editModal;
-           this.form.nom_Ateur = eventData.nom;
+           this.form.nom_Auteur = eventData.nom;
        });
    },
 
