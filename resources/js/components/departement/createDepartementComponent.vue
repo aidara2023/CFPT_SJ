@@ -1,141 +1,92 @@
 <template>
-    <div>
-
-        <div class="titres">
-            <h1>Nouveau Département</h1>
-           <!--  <h3>Informations Personnelles</h3> -->
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom">Nom Département</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom"
+                @input="validatedata('nom_departement')">
+            <span class="erreur">{{ this.nom_departement_erreur }}</span>
         </div>
-        
-              <form @submit.prevent="validerAvantAjout()" action="" method="dialog" >
-                
-                    
-                <!-- mettre class = "informations" uniquement pour un modal qui n'a pas de photo
-                Et enlever la div au dessus -->
-                <div class="informations">
-                    <div class="titres">
-                        <h1>Nouveau Département</h1>
-                    </div>
+    </div>
 
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.nom_departement_erreur)} ">Nom Département</label>
-                        <input  v-model="form.nom" id="nom"  @input="validatedata('nom_departement')" type="text" name="nom" :class="{ 'bordure_rouge': (this.nom_departement_erreur)} ">
-                        <span class="erreur" >{{this.nom_departement_erreur}}</span>
-                    </div>
-                
-                    <div class="groupe_champs">
+    <div class="col-lg-6 p-t-20 mt-1">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
 
-                    
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef Département</label>
-                        <select v-model="form.id_user"  @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} ">
-                            <option v-for="user in users" :value="user.id">{{ user.nom }} {{ user.prenom }} </option>
-                        </select>
-                        <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}></span>
-                    </div>
+            <label class="mdl-textfield__label" for="directionSelect" v-show="!form.id_direction"> Choisissez la direction
+            </label>
+            <select class="mdl-textfield__input" id="directionSelect" readonly tabIndex="-1" v-model="form.id_direction"
+                @change="validatedata('id_direction')">
 
-                    <div class="champ">
-                        <label for="nom" :class="{ 'couleur_rouge': (this.id_direction_erreur)} ">Direction</label>
-                        <select  v-model="form.id_direction" @change="validatedata('id_direction')" :class="{ 'bordure_rouge': (this.id_direction_erreur)} ">
-                            <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{ direction.nom_direction }}</option>
-                        </select>
-                        <span class="erreur" v-if="id_direction_erreur !== ''">{{id_direction_erreur}}></span>
-                    </div>
-                </div>
-                  <!--   <div class="champ">
-                        <input type="text" class="select">
-                        <div class="choix">
-                            <p class="option">choix </p>
-                            <p class="option">choix</p>
-                            <p class="option">choix</p>
-                        </div>
-                    </div>
+                <option v-for="(direction, index) in directions" :value="direction.id" :key="index">{{
+                    direction.nom_direction }}</option>
+            </select>
+            <span class="erreur">{{ id_direction_erreur }}</span>
+        </div>
+    </div>
 
-                    <div class="champ">
-                            <label for="nom">Sexe</label>
-                            
-                            <input type="text" name="nom" id="nom" class="select">
-                            <span class="erreur"></span>
-                            <div class="choix">
-                                <p class="option">Masculin</p>
-                                <p class="option">Féminin</p>
-                            </div>
-                        </div> -->
-<!-- 
-                    <div class="groupe_champs">     
 
-                        <div class="champ">
-                            <label for="nom">Lieu de Naissance</label>
-                            <input type="text" name="nom" id="nom">
-                            <span class="erreur"></span>
-                        </div>
+    <div class="col-lg-6 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_user">Choisissez le chef de département</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_user"
+                @change="validatedata('user')">
+                <option v-for="(user, index) in users" :value="user.id" :key="index">{{ user.prenom }} {{ user.nom }}
+                </option>
+            </select>
+            <span class="erreur">{{ id_user_erreur }}</span>
+        </div>
+    </div>
 
-                        <div class="champ">
-                            <label for="nom">Date de naissance</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
 
-                    </div> -->
-<!--                     <div class="groupe_champs">     
 
-                        <div class="champ">
-                            <label for="nom">Sexe</label>
-                            
-                            <input type="text" name="nom" id="nom" class="select">
-                            <span class="erreur"></span>
-                            <div class="choix">
-                                <p class="option">Masculin</p>
-                                <p class="option">Féminin</p>
-                            </div>
-                        </div>
 
-                        <div class="champ">
-                            <label for="nom">nationalité</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
+    <div class="col-lg-12 p-t-20 text-center">
 
-                    </div> -->
- <!--                    <div class="groupe_champs">     
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+    </div>
 
-                        <div class="champ">
-                            <label for="nom">Adresse</label>
-                            <input type="text" name="nom" id="nom">
-                            <span class="erreur"></span>
-                        </div>
 
-                        <div class="champ">
-                            <label for="nom">telephone</label>
-                            <input type="text" name="prenom" id="prenom">
-                            <span class="erreur"></span>
-                        </div>
-
-                    </div>
-
-                    <div class="champ">
-                        <label for="nom">Email</label>
-                        <input type="text" name="prenom" id="prenom">
-                        <span class="erreur"></span>
-                    </div> -->
-
-                    
-
-                    <!-- Le groupe qui contient les boutons -->
-                    <div class="groupe_champs validation">
-                        <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                        <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                        <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                        <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
-                    </div>
-
-                </div>
-
-                
-              
-            </form>
-    
-
-</div>
+    <div class="card card-box mt-4">
+        <div class="card-head">
+            <header>Liste des derniers Département</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Département</th>
+                        <th>Chef de département</th>
+                        <th>Direction</th>
+                        <th>Date de création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="odd gradeX" v-for="(departement, index) in departements" :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td> {{ departement.nom_departement }} </td>
+                        <td> {{ departement.user.prenom }} {{ departement.user.nom }}</td>
+                        <td> {{ departement.direction.nom_direction }}</td>
+                        <td> {{ this.formatDateTime(departement.created_at) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 
@@ -143,23 +94,31 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
-   export default {
-    name:"createDepartementCompenent",
-    data(){
+export default {
+    props: ['departement'],
+    name: "createDepartementCompenent",
+    components: {
+        flatPickr,
+    },
+    data() {
         return {
-            filieres:[],
-            form:new Form({
-                'nom':"",
-                'id_direction':"",
-                'id_user':""
+            filieres: [],
+            departements: [],
+            form: new Form({
+                'nom': "",
+                'id_direction': "",
+                'id_user': ""
             }),
 
-            directions:[],
-            users:[],
-            nom_departement_erreur:"",
-            id_direction_erreur:"",
-            id_user_erreur:"",
+            directions: [],
+            users: [],
+            nom_departement_erreur: "",
+            id_direction_erreur: "",
+            id_user_erreur: "",
             etatForm: false,
             editModal: false,
             idDepartement: "",
@@ -168,255 +127,274 @@ import Form from 'vform';
         }
     },
 
-    mounted(){
+    mounted() {
 
         this.get_direction();
+        this.get_departement();
         this.get_user();
         bus.on('departementModifier', (eventData) => {
-            this.idDepartement = eventData.idDepartement;
             this.editModal = eventData.editModal;
-            this.form.nom = eventData.nom;
-            this.form.id_direction = eventData.id_direction;
-            this.form.id_user = eventData.id_user;
+            this.monterToupdate(eventData.departement);
         });
     },
 
 
-    methods:{
-        async soumettre(){
+    methods: {
+        async soumettre() {
             const formdata = new FormData();
-            formdata.append('nom_departement', this.form.nom  );
+            formdata.append('nom', this.form.nom);
             formdata.append('id_direction', this.form.id_direction);
             formdata.append('id_user', this.form.id_user);
-
-             //if(this.form.nom!==""){
-            try{
+            try {
                 await axios.post('/departement/store', formdata);
-                this.resetForm();
+                showDialog6("Departement ajouté avec succès");
                 bus.emit('departementAjoutee');
+                this.resetForm();
+                window.location.href = '/departement/index';
+            }
+            catch (e) {
+                if (e.request.status === 404) {
+                    showDialog3("Ce département existe déjà");
+                }
+                else {
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
+                }
+            }
 
-            }
-            catch(e){
-                /* console.log(e.request.status) */
-                if(e.request.status===404){
-                Swal.fire('Erreur !','Ce département existe déjà','error')
-                }
-                else{
-                Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
-                }
-            }
+        },
+
+
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
 
         },
 
 
         validerAvantAjout() {
             const isNomDepartementValid = this.validatedataOld();
-          /*   const isIdDirectionValid = this.verifIdDirection();
- */
             console.log(isNomDepartementValid);
 
-            if ( isNomDepartementValid===true  ) {
-                this.etatForm= false;
-                this.editModal=false;
+            if (isNomDepartementValid === true) {
+                this.etatForm = false;
+                this.editModal = false;
                 return 0;
-            }else{
+            } else {
 
-                if(this.editModal===true){
-                    this.etatForm= true;
+                if (this.editModal === true) {
+                    this.etatForm = true;
                     this.form.nom = this.form.nom.toUpperCase();
                     this.update_departement(this.idDepartement);
-                    this.closeModal('[data-modal-confirmation-modifier]');
-                    this.editModal=false;
-                    
+
+                    this.editModal = false;
+
                 }
-                else{
-                    this.etatForm= true;
+                else {
+                    this.etatForm = true;
                     this.form.nom = this.form.nom.toUpperCase();
                     this.soumettre();
-                    this.closeModal('[data-modal-confirmation]');
-                    this.editModal=false;
+                    this.editModal = false;
                 }
             }
 
         },
 
-        get_user(){
+        get_user() {
             axios.get('/user_formateur/index')
-            .then(response => {
-                this.users=response.data.user
-                }).catch(error=>{
-                Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des membres administratifs','error')
-            });
+                .then(response => {
+                    this.users = response.data.user
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des membres administratifs', 'error')
+                });
         },
 
-        resetForm(){
-            this.form.nom="";
-            this.form.id_direction="";
-            this.form.id_user="";
-            this.editModal===false;
-            this.nom_departement_erreur="";
-            this.id_direction_erreur=""
-            this.id_user_erreur=""
+        get_departement() {
+            axios.get('/departement/get/last')
+                .then(response => {
+                    this.departements = response.data.departement
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des dernier departements', 'error')
+                });
         },
 
-        closeModal(selector){
-            var ajout=document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-            this.editModal===false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-                confirmation.showModal();
-                confirmation.classList.add("actif");
-            setTimeout(function(){
-                confirmation.close();
-
-                setTimeout(function(){
-                    confirmation.classList.remove("actif");
-            }, 100);
-
-            }, 1700);
+        resetForm() {
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('departementDejaModifier', eventData);
+            this.form.nom = "";
+            this.form.id_direction = "";
+            this.form.id_user = "";
+            this.editModal = false;
+            this.nom_departement_erreur = "";
+            this.id_direction_erreur = "";
+            this.id_user_erreur = "";
+           
         },
 
-        verifCaratere(nom){
-            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+
+
+        verifCaratere(nom) {
+            const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
         },
-        validatedata(champ){
-            var i=0;
-        switch (champ) {
-            case 'nom_departement':
-            this.nom_departement_erreur= "";
-            // Effectuez la validation pour le champ 'nom'
-            if(this.form.nom=== ""){
-                this.nom_departement_erreur= "Ce champ est obligatoire"
-                return true;
-            }
-            if(!this.verifCaratere(this.form.nom)){
-                this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                return true;
-            }
-            if(!this.verifCaratere(this.form.nom)){
-                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                 return true
-             }
-            if(this.form.nom.length <14 ){
-                this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
-                return true;
-            }
+        validatedata(champ) {
+            var i = 0;
+            switch (champ) {
+                case 'nom_departement':
+                    this.nom_departement_erreur = "";
+                    // Effectuez la validation pour le champ 'nom'
+                    if (this.form.nom === "") {
+                        this.nom_departement_erreur = "Ce champ est obligatoire"
+                        return true;
+                    }
+                    if (!this.verifCaratere(this.form.nom)) {
+                        this.nom_departement_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                        return true;
+                    }
+                    if (!this.verifCaratere(this.form.nom)) {
+                        this.nom_departement_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                        return true
+                    }
+                    if (this.form.nom.length < 14) {
+                        this.nom_departement_erreur = "Ce champ doit contenir au moins 14 Caratères"
+                        return true;
+                    }
 
-            break;
+                    break;
 
-            case 'user':
-            this.id_user_erreur="";
-            //pour user
-            if(this.form.id_user=== ""){
-                this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
-                i= 1;
-                return true
+                case 'user':
+                    this.id_user_erreur = "";
+                    //pour user
+                    if (this.editModal) {
+                        if (this.form.id_user === "") {
+                            this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de direction'"
+                            i = 1;
+                            return true
 
+                        }
+                    }
+                    break;
+
+                case 'id_direction':
+                    this.id_direction_erreur = "";
+                    if (this.form.id_direction === "") {
+                        this.id_direction_erreur = "Vous avez oublié de sélectionner la direction"
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
             }
-            break;
-
-            case 'id_direction' :  
-            this.id_direction_erreur= "";
-            if(this.form.id_direction=== ""){
-                this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
-                return true;
-            }
-            break;
-            default:
-                break;
-}
 
 
         },
 
-        validatedataOld(){
-            this.nom_departement_erreur= "";
-            var i= 0;
+        validatedataOld() {
+            this.nom_departement_erreur = "";
+            var i = 0;
 
-            if(this.form.nom=== ""){
-                this.nom_departement_erreur= "Ce champ est obligatoire"
-                 i=1;
+            if (this.form.nom === "") {
+                this.nom_departement_erreur = "Ce champ est obligatoire"
+                i = 1;
             }
-            if(!this.verifCaratere(this.form.nom)){
-                this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                 i=1;
+            if (!this.verifCaratere(this.form.nom)) {
+                this.nom_departement_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                i = 1;
             }
-            if(this.form.nom.length <14 ){
-                this.nom_departement_erreur= "Ce champ doit contenir au moins 14 Caratères"
-                 i=1;
+            if (this.form.nom.length < 14) {
+                this.nom_departement_erreur = "Ce champ doit contenir au moins 14 Caratères"
+                i = 1;
             }
-            if(!this.verifCaratere(this.form.nom)){
-                 this.nom_departement_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                 ;
-                 i=1;
-             }
-            if(this.form.id_user=== ""){
-              this.id_user_erreur= "Vous avez oublié de sélectionner le chef de Departement"
-                i=1;
+            if (!this.verifCaratere(this.form.nom)) {
+                this.nom_departement_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    ;
+                i = 1;
             }
-            if(this.form.id_direction=== ""){
-                this.id_direction_erreur= "Vous avez oublié de sélectionner la direction"
-                i=1;
+            if (this.editModal) {
+                if (this.form.id_user === "") {
+                    this.id_user_erreur = "Vous avez oublié de sélectionner le chef de Departement"
+                    i = 1;
+                }
             }
-            if(i==1) return true;
+            if (this.form.id_direction === "") {
+                this.id_direction_erreur = "Vous avez oublié de sélectionner la direction"
+                i = 1;
+            }
+            if (i == 1) return true;
 
             return false;
-          
+
 
         },
 
-       
 
-        get_direction(){
+
+        get_direction() {
             axios.get('/direction/index')
-            .then(response => {
-                this.directions=response.data.direction
-            }).catch(error=>{
-            this.resetForm();
-            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation de la direction','error')
-            });
+                .then(response => {
+                    this.directions = response.data.direction
+                }).catch(error => {
+                    this.resetForm();
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation de la direction', 'error')
+                });
         },
 
-    async update_departement(id){
-         const formdata = new FormData();
-            formdata.append('nom_departement', this.form.nom  );
+        async update_departement(id) {
+            const formdata = new FormData();
+            formdata.append('nom', this.form.nom);
             formdata.append('id_direction', this.form.id_direction);
             formdata.append('id_user', this.form.id_user);
 
-             //if(this.form.nom!==""){
-            try{
-                await axios.post('/departement/update/'+id, formdata);
+            try {
+                await axios.post('/departement/update/' + id, formdata);
+                showDialog6("Département modifié avec succès");
                 bus.emit('departementAjoutee');
-                this.resetForm();
-                this.editModal=false;
+                const eventData = {
+                    editModal: false,
+                };
+                bus.emit('departementDejaModifier', eventData);
             }
-            catch(e){
+            catch (e) {
                 /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Ce département existe déjà','error')
+                if (e.request.status === 404) {
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
-                else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                else {
+                    showDialog3("Une erreur est survenue lors de la modification");
                 }
             }
-    }
+        },
+        monterToupdate(departement) {
+            console.log("MonterToupdate called");
+            this.idDepartement = departement.id;
+            this.editModal = departement.editModal;
+            this.form.nom = departement.departement;
+            this.form.nom_direction = departement.direction;
+            this.form.id_direction = departement.id_direction;
+            this.form.id_user = departement.id_user;
+        }
 
     }
 
 
-   }
+}
 
 </script>
 

@@ -38,6 +38,7 @@ use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_controller;
+use App\Http\Controllers\connexion\connexion_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
@@ -135,7 +136,9 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 
 //Route de direction
 
+Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
+Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
 Route::post('direction/update/{id}', [direction_controller::class, 'update'])->name('direction_update');
 Route::delete('direction/delete/{id}',[direction_controller::class, 'delete'])->name('direction_delete');
@@ -200,8 +203,10 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 //Route unite de formation
 
 Route::get('unite_de_formation/all', [unite_de_formation_controller::class, 'all'])->name('unite_de_formation_all');
+Route::get('unite_de_formation/get/last', [unite_de_formation_controller::class, 'get_last_value'])->name('unite_de_formation_last');
 Route::post('unite_de_formation/store',[unite_de_formation_controller::class, 'store'])->name('unite_de_formation_store');
 Route::post('unite_de_formation/update/{id}', [unite_de_formation_controller::class, 'update'])->name('unite_de_formation_update');
+Route::post('unite_de_formation/by/departement/{id}', [unite_de_formation_controller::class, 'get_filiere_by_departement'])->name('filiere_departement');
 Route::delete('unite_de_formation/delete/{id}',[unite_de_formation_controller::class, 'delete'])->name('unite_de_formation_delete');
 Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 'get'])->name('unite_de_formation_get');
 
@@ -234,6 +239,7 @@ Route::get('/emprunter_livre/accueil',[emprunter_livre_view_controller::class, '
 
 //route type de formation
 Route::get('type_formation/all',[type_formation_controller::class, 'index'])->name('type_formation_all');
+Route::get('type_formation/get/last',[type_formation_controller::class, 'get_last_values'])->name('type_formation_last_values');
 Route::post('type_formation/store',[type_formation_controller::class, 'store'])->name('type_formation_store');
 Route::get('type_formation/show/{id}',[type_formation_controller::class, 'show'])->name('type_formation_show');
 Route::post('type_formation/update/{id}',[type_formation_controller::class, 'update'])->name('type_formation_update');
@@ -302,6 +308,7 @@ Route::get('/specialite/create',[specialite_view_controller::class, 'create'])->
 
 //route departement
 Route::get('departement/all',[departement_controller::class, 'all'])->name('departement_all');
+Route::get('departement/get/last',[departement_controller::class, 'get_five_laste'])->name('departement_get_last');
 Route::post('departement/store',[departement_controller::class, 'store'])->name('departement_store');
 Route::get('departement/show/{id}',[departement_controller::class, 'show'])->name('departement_show');
 Route::post('departement/update/{id}',[departement_controller::class, 'update'])->name('departement_update');
@@ -556,8 +563,15 @@ Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
 
 Route::get('utilisateur/create', [user_view_controller::class, 'create'])->name('utilisateur_create');
 Route::get('utilisateur/index', [user_view_controller::class, 'index'])->name('utilisateur_index');
+
+Route::get('utilisateur/profil', [user_view_controller::class, 'profil'])->name('utilisateur_profil');
+Route::get('utilisateur/service', [user_controller::class, 'getServiceUtilisateurConnecte'])->name('utilisateur_service');
+Route::get('utilisateur/direction', [user_controller::class, 'getDirectionUtilisateurConnecte'])->name('utilisateur_direction');
+ 
+
 Route::get('utilisateur/update/{id}',[user_view_controller::class, 'show'])->name('user_edit');
 Route::post('verif/mail', [user_controller::class, 'verifMail'])->name('verif_mail');
+
 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
 Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
@@ -578,6 +592,7 @@ Route::get('role/all', [role_controller::class, 'all'])->name('role_all');
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
+Route::get('service/index/get/last' ,[service_controller::class, 'get_five_laste'])->name('service_index_get_last');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
 Route::post('service/update/{id}',[service_controller::class, 'update'])->name('service_update');
@@ -587,6 +602,7 @@ Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name
 //Route pour classe
 
 Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
+Route::get('classe/get/last',[classe_controller::class, 'get_last_value'])->name('classe_last_values');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
 Route::get('classe/show/{id}',[classe_controller::class,'show'])->name('classe_show');
 Route::post('classe/update/{id}',[classe_controller::class,'update'])->name('classe_update');
@@ -598,6 +614,7 @@ Route::get('classe/index' ,[classe_view_controller::class, 'index'])->name('clas
 //Route pour batiment
 
 Route::get('batiment/index',[batiment_controller::class, 'index'])->name('batiment_index');
+Route::get('batiment/index/last/values',[batiment_controller::class, 'get_last_value'])->name('batiment_index_get_last');
 Route::post('batiment/store',[batiment_controller::class, 'store'])->name('batiment_store');
 Route::get('batiment/show/{id}',[batiment_controller::class,'show'])->name('batiment_show');
 Route::post('batiment/update/{id}',[batiment_controller::class,'update'])->name('batiment_update');
@@ -609,6 +626,7 @@ Route::get('batiment/accueil',[batiment_view_controller::class, 'index'])->name(
 //Route pour salle
 
 Route::get('salle/index',[salle_controller::class, 'index'])->name('salle_index');
+Route::get('salle/get/last',[salle_controller::class, 'get_last_values'])->name('salle_get_last_value');
 Route::post('salle/store',[salle_controller::class, 'store'])->name('salle_store');
 Route::get('salle/show/{id}',[salle_controller::class,'show'])->name('salle_show');
 Route::post('salle/update/{id}',[salle_controller::class,'update'])->name('salle_update');

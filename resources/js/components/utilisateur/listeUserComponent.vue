@@ -1,101 +1,4 @@
 <template >
-    <!--  <div class="liste ">
-        <div class="table-container">
-            <div class="rechercheOnglet onglets grand_ecran_seulement" style="margin-top: 0px;">
-                <div data-fenetre="actif"><a href="#" @click="goToStep(1)">Formateur</a></div>
-                <div data-fenetre=""><a href="#" @click="goToStep(2)">Personnel Administratif</a></div>
-                <div data-fenetre=""><a href="#" @click="goToStep(3)">Personnel d'appui</a></div>
-
-            </div>
-            <br>
-
-            <table>
-                <thead>
-                    <th>Image</th>
-                    <th>Matricule</th>
-                    <th>Nom Complet</th>
-                    <th>Telephone</th>
-                    <th>Email</th>
-                    <th>Fonction</th>
-                    <th>Statut</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-
-                    <tr v-for="(utilisateur, index) in utilisateurs" :key="index">
-                        <template v-if="this.activePhase === 1 && utilisateur.role.id === 2">
-                            <td><span><img :src="getImageUrl(utilisateur.photo)" alt="Etu"
-                                        style="width: 30px; height: 30px;"></span> </td>
-                                        <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span> {{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                        <template
-                            v-if="activePhase === 2 && utilisateur.role.categorie_personnel === 'Personnel Administratif'">
-                            <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
-                            </td>
-                            <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span>{{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                        <template v-if="activePhase === 3 && utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                            <td> <img :src="getImageUrl(utilisateur.photo)" alt="Etu" style="width: 30px; height: 30px;">
-                            </td>
-                            <td><span> {{ utilisateur.matricule }}</span></td>
-                            <td> <span>{{ utilisateur.prenom }} {{ utilisateur.nom }}</span></td>
-                            <td><span> {{ utilisateur.telephone }}</span></td>
-                            <td><span>{{ utilisateur.email }} </span></td>
-                            <td><span>{{ utilisateur.role.intitule }} </span></td>
-                            <td><span>{{ utilisateur.status }} </span></td>
-                            <td>
-                                <div class="boutons_actions">
-                                    <i class="fi fi-rr-edit modifier mdl" @click="openModal(utilisateur)"
-                                        title="Modifier"></i>
-                                    <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                    <i :class="utilisateur.status === 1 ? 'fi fi-rr-comment-alt-dots details mdl' : 'fi fi-rr-comment-alt-dots details mdl'"
-                                        title="Toggle Statut" @click="toggleUserStatus(utilisateur)">
-                                    </i>
-
-                                </div>
-                            </td>
-                        </template>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-
-    </div>
- -->
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
@@ -106,7 +9,7 @@
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                    <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateur</a>&nbsp;<i
+                    <li><a class="parent-item" :href="'/utilisateur/index'">Utilisateurs</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
                     <li class="active">Liste utilisateur</li>
@@ -151,7 +54,7 @@
                                                     <div class="btn-group">
                                                         <a :href="'/utilisateur/create'" id="addRow"
                                                             class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
                                                     </div>
@@ -170,6 +73,7 @@
                                                         <th> Téléphone </th>
                                                         <th> Unité de formation </th>
                                                         <th> Département </th>
+                                                        <th> Statut </th>
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -189,11 +93,32 @@
 
                                                         <td>{{ utilisateur.departement }} </td>
 
+                                                        <!--  <td class="text-center align-middle">
+                                                            <span
+                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-danger': utilisateur.status === '0' }">
+                                                                {{ utilisateur.status === '1' ? 'Actif' : 'Inactif' }}
+                                                            </span>
+                                                        </td> -->
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '1'">
+                                                            <span class="label label-sm label-success">
+                                                                Actif
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '0'"
+                                                            @click="activUser(utilisateur)">
+                                                            <a class="label label-sm label-danger">
+                                                                Inactif
+                                                            </a>
+                                                        </td>
+
+
                                                         <td>
-                                                            <a  class="tblEditBtn" @click="openModal(utilisateur)">
+                                                            <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                            <a class="tblDelBtn" @click="deleteUtilisateur(utilisateur)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -223,7 +148,7 @@
                                                     <div class="btn-group">
                                                         <a :href="'/utilisateur/create'" id="addRow"
                                                             class="btn btn-primary">
-                                                            Ajouter <i class="fa fa-plus"></i>
+                                                            Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -241,6 +166,8 @@
                                                         <th> Téléphone </th>
                                                         <th> Fonction </th>
                                                         <th> Service </th>
+                                                        <th> Statut </th>
+
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
@@ -252,19 +179,43 @@
                                                         <td> {{ utilisateur.matricule }}</td>
                                                         <td class="left"> {{ utilisateur.prenom }}</td>
                                                         <td class="left"> {{ utilisateur.nom }}</td>
-                                                        <td><a :href="'mailto:' + utilisateur.email">{{ utilisateur.email }}
-                                                            </a></td>
-                                                        <td><a :href="'tel:' + utilisateur.telephone">{{
-                                                            utilisateur.telephone }}</a></td>
+                                                        <td>
+                                                            <a :href="'mailto:' + utilisateur.email">{{ utilisateur.email
+                                                            }}</a>
+                                                        </td>
+                                                        <td>
+                                                            <a :href="'tel:' + utilisateur.telephone">{{
+                                                                utilisateur.telephone
+                                                            }}</a>
+                                                        </td>
                                                         <td class="left">{{ utilisateur.fonction }} </td>
                                                         <td>{{ utilisateur.nom_service }} </td>
+                                                        <!-- <td class="text-center align-middle">
+                                                            <span
+                                                                :class="{ 'label label-sm label-success': utilisateur.status === '1', 'label label-sm label-danger': utilisateur.status === '0' }">
+                                                                {{ utilisateur.status === '1' ? 'Actif' : 'Inactif' }}
+                                                            </span>
+                                                        </td> -->
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '1'">
+                                                            <span class="label label-sm label-success">
+                                                                Actif
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center align-middle"
+                                                            v-if="utilisateur.status === '0'"
+                                                            @click="activUser(utilisateur)">
+                                                            <a class="label label-sm label-danger">
+                                                                Inactif
+                                                            </a>
+                                                        </td>
 
                                                         <td>
-
                                                             <a class="tblEditBtn" @click="openModal(utilisateur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a href="javascript:void(0)" class="tblDelBtn">
+                                                            <a href="javascript:void(0)" class="tblDelBtn"
+                                                                @click="deleteUtilisateur(utilisateur)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -278,38 +229,34 @@
                         </div>
 
                         <div class="tab-pane" id="tab3">
-                            <div class="row" v-for="(utilisateur, index) in utilisateursPer" :key="index">
-                                <div class="col-md-4" v-if="utilisateur.role.categorie_personnel === 'Personnel Appui'">
-                                    <div class="card card-box">
-                                        <div class="card-body no-padding ">
-
-                                            <div class="doctor-profile">
-
-                                                <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
-                                                <div class="profile-usertitle">
-                                                    <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}
+                            <div class="row">
+                                <div class="col-md-4" v-for="(utilisateur, index) in utilisateursPer" :key="index">
+                                    <div>
+                                        <div class="card card-box">
+                                            <div class="card-body no-padding">
+                                                <div class="doctor-profile">
+                                                    <img :src="getImageUrl(utilisateur.photo)" class="doctor-pic" alt="">
+                                                    <div class="profile-usertitle">
+                                                        <div class="doctor-name">{{ utilisateur.prenom }} {{ utilisateur.nom
+                                                        }}</div>
+                                                        <div class="name-center">{{ utilisateur.role.intitule }}</div>
+                                                        <p><i class="fa fa-phone"></i> <a :href="utilisateur.telephone">{{
+                                                            utilisateur.telephone }}</a></p>
                                                     </div>
-                                                    <div class="name-center"> {{ utilisateur.role.intitule }} </div>
-                                                    <!-- </div>
-                                                <p>A-103, shyam gokul flats, Mahatma Road <br />Mumbai</p>
-                                                <div> -->
-                                                    <p><i class="fa fa-phone"> </i> <a :href="utilisateur.telephone">
-                                                            {{ utilisateur.telephone }}</a></p>
+                                                    <div class="profile-userbuttons">
+                                                        <a
+                                                            class="btn btn-circle deepPink-bgcolor btn-sm">{{
+                                                                utilisateur.matricule }}</a>
+                                                    </div>
                                                 </div>
-                                                <div class="profile-userbuttons">
-                                                    <a href="professor_profile.html"
-                                                        class="btn btn-circle deepPink-bgcolor btn-sm">Read
-                                                        More</a>
-                                                </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -317,7 +264,7 @@
     </div>
 
 
-    <div class="page-content-wrapper" v-if="this.editModal">
+    <div class="page-content-wrapper" v-show="editModal">
         <div class="page-content">
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
@@ -355,7 +302,7 @@
                             </ul>
                         </div>
                         <div class="card-body row">
-                            <FormulaireModification :utilisateur="userEnCoursDeModification"  />
+                            <FormulaireModification />
                         </div>
                     </div>
                 </div>
@@ -376,8 +323,8 @@ import FormulaireModification from './utilisateurComponent.vue';
 export default {
     name: "listeUserCompenent",
     components: {
-  FormulaireModification,
-},
+        FormulaireModification,
+    },
     data() {
         return {
             form: new Form({
@@ -402,6 +349,7 @@ export default {
             utilisateursPer: [],
             idUser: "",
             editModal: false,
+
             activePhase: 1,
             idUser: "",
             userEnCoursDeModification: null,
@@ -416,6 +364,11 @@ export default {
 
         });
 
+        bus.on('userDejaModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.get_utilisateur();
+        });
+
 
 
     },
@@ -423,73 +376,81 @@ export default {
     methods: {
         initDataTable() {
             this.$nextTick(() => {
-                $('#exemple1').DataTable({
-                    responsive: true,
-                    language: {
-                        // Messages pour la pagination
-                        paginate: {
-                            first: 'Premier',
-                            previous: 'Précédent',
-                            next: 'Suivant',
-                            last: 'Dernier'
-                        },
-                        // Message d'affichage du nombre d'éléments par page
-                        lengthMenu: 'Afficher _MENU_ entrées',
-                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
-                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
-                        // Message lorsque le tableau est vide
-                        emptyTable: 'Aucune donnée disponible dans le tableau',
-                        // Message indiquant que la recherche est en cours
-                        loadingRecords: 'Chargement en cours...',
-                        // Message indiquant que la recherche n'a pas renvoyé de résultats
-                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
-                        // Message indiquant le nombre total d'entrées
-                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
-                        // Message indiquant que la recherche est en cours dans le champ de recherche
-                        search: 'Recherche :'
-                    }
-                });
-                $('#example47').DataTable({
-                    responsive: true,
-                    language: {
-                        // Messages pour la pagination
-                        paginate: {
-                            first: 'Premier',
-                            previous: 'Précédent',
-                            next: 'Suivant',
-                            last: 'Dernier'
-                        },
-                        // Message d'affichage du nombre d'éléments par page
-                        lengthMenu: 'Afficher _MENU_ entrées',
-                        // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
-                        info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
-                        // Message lorsque le tableau est vide
-                        emptyTable: 'Aucune donnée disponible dans le tableau',
-                        // Message indiquant que la recherche est en cours
-                        loadingRecords: 'Chargement en cours...',
-                        // Message indiquant que la recherche n'a pas renvoyé de résultats
-                        zeroRecords: 'Aucun enregistrement correspondant trouvé',
-                        // Message indiquant le nombre total d'entrées
-                        infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
-                        // Message indiquant que la recherche est en cours dans le champ de recherche
-                        search: 'Recherche :'
-                    }
-                });
+                // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
+                if (!$.fn.DataTable.isDataTable('#exemple1')) {
+                    $('#exemple1').DataTable({
+                        responsive: true,
+                        "autoWidth": true,
+                        // ... (autres options)
+                        language: {
+                            // Messages pour la pagination
+                            paginate: {
+                                first: 'Premier',
+                                previous: 'Précédent',
+                                next: 'Suivant',
+                                last: 'Dernier'
+                            },
+                            // Message d'affichage du nombre d'éléments par page
+                            lengthMenu: 'Afficher _MENU_ entrées',
+                            // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                            info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                            // Message lorsque le tableau est vide
+                            emptyTable: 'Aucune donnée disponible dans le tableau',
+                            // Message indiquant que la recherche est en cours
+                            loadingRecords: 'Chargement en cours...',
+                            // Message indiquant que la recherche n'a pas renvoyé de résultats
+                            zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                            // Message indiquant le nombre total d'entrées
+                            infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                            // Message indiquant que la recherche est en cours dans le champ de recherche
+                            search: 'Recherche :'
+                        }
+                    });
+                }
+
+                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
+                if (!$.fn.DataTable.isDataTable('#example47')) {
+                    $('#example47').DataTable({
+                        responsive: true,
+                        "autoWidth": true,
+                        // ... (autres options)
+                        language: {
+                            // Messages pour la pagination
+                            paginate: {
+                                first: 'Premier',
+                                previous: 'Précédent',
+                                next: 'Suivant',
+                                last: 'Dernier'
+                            },
+                            // Message d'affichage du nombre d'éléments par page
+                            lengthMenu: 'Afficher _MENU_ entrées',
+                            // Message d'information sur le nombre total d'entrées et le nombre affiché actuellement
+                            info: 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+                            // Message lorsque le tableau est vide
+                            emptyTable: 'Aucune donnée disponible dans le tableau',
+                            // Message indiquant que la recherche est en cours
+                            loadingRecords: 'Chargement en cours...',
+                            // Message indiquant que la recherche n'a pas renvoyé de résultats
+                            zeroRecords: 'Aucun enregistrement correspondant trouvé',
+                            // Message indiquant le nombre total d'entrées
+                            infoEmpty: 'Affichage de 0 à 0 sur 0 entrées',
+                            // Message indiquant que la recherche est en cours dans le champ de recherche
+                            search: 'Recherche :'
+                        }
+                    });
+                }
             });
         },
 
         get_utilisateur() {
             axios.get('/user/getPersonnel')
                 .then(response => {
-                    this.utilisateursPer = response.data.user;
+                    this.utilisateursPer = response.data.user.filter(utilisateur => {
+                        return utilisateur.role.categorie_personnel === 'Personnel d\'appui' || utilisateur.role.categorie_personnel === 'Personnel Appui';
 
-                    // const scriptTag = document.getElementById('tableDataScript');
-                    /*  console.log("Données utilisateurs : ", this.utilisateurs); */
-                    //scriptTag.setAttribute('data-mydata', JSON.stringify(this.utilisateurs));
-
-                    //console.log("Chaîne JSON générée : ", JSON.stringify(this.utilisateurs));
-                    // $(document).trigger('donnees-pretent');
-                    // Obtenez toutes les données d'utilisateurs
+                    });
+                    /*      console.log("this.utilisateursPer ")
+                         console.log(this.utilisateursPer) */
                     const allUtilisateurs = response.data.user;
 
                     // Filtrer les utilisateurs en fonction de la catégorie du personnel
@@ -518,6 +479,7 @@ export default {
                             matricule: utilisateur.matricule,
                             prenom: utilisateur.prenom,
                             nom: utilisateur.nom,
+                            status: utilisateur.status,
                             email: utilisateur.email,
                             telephone: utilisateur.telephone,
                             editModal: true,
@@ -540,6 +502,7 @@ export default {
                             matricule: utilisateur.matricule,
                             prenom: utilisateur.prenom,
                             nom: utilisateur.nom,
+                            status: utilisateur.status,
                             email: utilisateur.email,
                             telephone: utilisateur.telephone,
                             editModal: true,
@@ -561,7 +524,7 @@ export default {
                     // Mettez à jour la liste des utilisateurs au format de tableau de dictionnaires
                     this.utilisateurs = formattedUtilisateurs;
                     this.utilisateurProf = formattedFormateur;
-                    console.log(this.utilisateurProf)
+                    /*  console.log(this.utilisateurProf) */
 
                     this.initDataTable();
 
@@ -596,36 +559,21 @@ export default {
             this.activePhase = step;
         },
 
-        async deleteUtilisateur(user) {
+        async activUser(user) {
             Swal.fire({
-                title: 'Êtes-vous sûr?',
+                title: 'Êtes-vous sûr de vouloir réactiver cet utilisateur?',
                 text: "Cette action sera irréversible!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimer!',
-                cancelButtonText: 'Annuler'
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/user/disable/${user.id}`).then(resp => {
+                    axios.delete(`/user/delete/${user.id}`).then(resp => {
+                        showDialog6("Utilisateur réactiver avec succès")
                         this.get_utilisateur();
-
-                        var confirmation = document.querySelector('[data-modal-confirmation-sup]');
-
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-
-                        confirmation.showModal();
-                        confirmation.classList.add("actif");
-                        setTimeout(function () {
-                            confirmation.close();
-
-                            setTimeout(function () {
-                                confirmation.classList.remove("actif");
-                            }, 100);
-
-                        }, 2000);
                     }).catch(function (error) {
                         console.log(error);
                     })
@@ -633,14 +581,39 @@ export default {
             });
         },
 
+        async deleteUtilisateur(user) {
+            if (user.status === '1') {
+                Swal.fire({
+                    title: 'Êtes-vous sûr de vouloir désactiver cet utilisateur?',
+                    text: "Cette action sera irréversible!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui',
+                    cancelButtonText: 'Non'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`/user/delete/${user.id}`).then(resp => {
+                            showDialog6("Utilisateur désactivé avec succès");
+                            this.get_utilisateur();
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                    }
+                });
+            } else {
+                showDialog3("Cet utilisateur est déjà inactif")
+            }
+        },
+
         openModal(utilisateur) {
-
-            this.idUser = utilisateur.id;
-
             this.editModal = true;
-
-            this.userEnCoursDeModification = utilisateur;
-
+            const eventData = {
+                utilisateur: utilisateur,
+            };
+            bus.emit('userModifier', eventData);
+            console.log("etatModal set to true:", this.etatModal);
         },
 
         getImageUrl(url) {
@@ -650,11 +623,3 @@ export default {
     }
 }
 </script>
-<style>
-.small-image {
-    width: 34px;
-    /* Ajustez la taille comme nécessaire */
-    height: 34px;
-    border-radius: 50%;
-}
-</style>

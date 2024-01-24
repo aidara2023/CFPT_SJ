@@ -23,6 +23,20 @@ class classe_controller extends Controller
             ],500 );
         }
      }
+    public function get_last_value() {
+        $classe=Classe::with('unite_de_formation', 'type_formation')->orderBy('created_at', 'desc')->take(5)->get();
+        if($classe!=null){
+            return response()->json([
+                'statut'=>200,
+                'classe'=>$classe
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été trouvé',
+            ],500 );
+        }
+     }
 
     public function store(classe_request $request){
         $data=$request->validated();

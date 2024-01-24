@@ -14,7 +14,6 @@ class Batiment extends Model
     ];
 
     public function salle (){
-        return $this->hasMany(Salle::class,'id_salle','id');
-        
+        return $this->hasMany(Salle::class, 'id_batiment');
     }
 }

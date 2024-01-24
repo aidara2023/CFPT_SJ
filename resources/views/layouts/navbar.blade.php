@@ -68,7 +68,12 @@
                             <a href="{{route('utilisateur_create')}}" class="nav-link "> <span
                                     class="title">Nouvel Utilisateur</span>
                             </a>
-                        </li>
+                        </li>   : 
+                        {{-- <li class="nav-item"> 
+                            <a href="{{route('utilisateur_profil')}}" class="nav-link "> <span
+                                    class="title">Profil Page</span>
+                            </a>
+                        </li> --}}
                        {{--  <li class="nav-item">
                             <a href="edit_professor.html" class="nav-link "> <span
                                     class="title">Edit
@@ -84,7 +89,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="event.html" class="nav-link nav-toggle"> <i
+                    <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
                             data-feather="calendar"></i>
                         <span class="title">Inscription</span>
                     </a>
@@ -94,50 +99,53 @@
                         <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="all_students.html" class="nav-link "> <span
-                                    class="title">Service</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="add_student.html" class="nav-link "> <span
+                            <a href="{{ route('direction_accueil') }}" class="nav-link "> <span
                                     class="title">Direction</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="add_student_bootstrap.html" class="nav-link "> <span
+                            <a href="{{ route('service_accueil') }}" class="nav-link "> <span
+                                    class="title">Service</span>
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a href="{{ route('departement_index') }}" class="nav-link "> <span
                                     class="title">Département</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="edit_student.html" class="nav-link "> <span
-                                    class="title">Classe</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a  href="{{ route('unite_de_formation_index') }}" class="nav-link "> <span
+
                                     class="title">Filière</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a  href="{{ route('type_formation_index') }}" class="nav-link "> <span
                                     class="title">Type Formation</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a href="{{ route('classe_index') }}" class="nav-link "> <span
+                                    class="title">Classe</span>
+                            </a>
+                        </li>
+                      
+                        <li class="nav-item">
+                            <a href="{{ route('batiment_accueil') }}" class="nav-link "> <span
                                     class="title">Batiment</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student_profile.html" class="nav-link "> <span
+                            <a href="{{ route('salle_accueil') }}"class="nav-link "> <span
                                     class="title">Salle</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                       {{--  <li class="nav-item">
                             <a href="student_profile.html" class="nav-link "> <span
                                     class="title">Message Alerte</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 {{-- <li class="nav-item">

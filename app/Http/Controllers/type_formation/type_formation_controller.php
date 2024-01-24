@@ -25,6 +25,21 @@ class type_formation_controller extends Controller
             ], 500);
         }
     }
+    public function get_last_values()
+    {
+        $type_formation = Type_formation::orderBy('created_at', 'desc')->take(5)->get();
+        if ($type_formation->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'formation' => $type_formation
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun donné trouvé',
+            ], 500);
+        }
+    }
 
     public function store(type_formation_request $request)
     {

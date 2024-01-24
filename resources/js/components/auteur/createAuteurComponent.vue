@@ -33,6 +33,9 @@
 <script>
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
    export default {
     name:"createAuteurCompenent",
@@ -66,22 +69,30 @@ import Form from 'vform';
         
             try{
                 const create_store=await axios.post('/auteur/store', formdata);
-
-                this.resetForm();
+                showDialog6("Auteur ajouté avec succès");
                 bus.emit('auteurAjoutee');
-
-                 } 
-                 catch(e){
-
-                /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette auteur existe déjà','error')
+                this.resetForm();
+                window.location.href = '/auteur/index';
+            }
+            catch (e) {
+                if (e.request.status === 404) {
+                    showDialog3("le nom de l'auteur existe déjà");
                 }
-                else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                else {
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
         },
+        get_auteur() {
+            axios.get('/auteur/get/last')
+                .then(response => {
+                    this.auteurs = response.data.auteur
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des dernier departements', 'error')
+                });
+        },
+
+
         verifCaratere(nom){
             const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
@@ -125,4 +136,4 @@ import Form from 'vform';
     }
    }
 </script>
-x
+

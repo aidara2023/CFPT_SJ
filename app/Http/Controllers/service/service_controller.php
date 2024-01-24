@@ -24,6 +24,26 @@ class service_controller extends Controller
         }
      }
 
+     public function get_five_laste() {
+        $services = Service::with('user', 'direction')
+            ->orderBy('created_at', 'desc')
+            ->take(5) // Ajout de cette ligne pour récupérer les 5 derniers enregistrements
+            ->get();
+    
+        if ($services->count() > 0) {
+            return response()->json([
+                'statut' => 200,
+                'service' => $services
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    }
+    
+
     public function store(service_request $request){
         $data=$request->validated();
         

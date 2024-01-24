@@ -1,309 +1,349 @@
 <template>
-<div>
-        <div class="titres">
-             <h1>Nouvelle Direction</h1>
-            <!--  <h3>Informations Personnelles</h3> -->
-         </div>
-
-        <form  @submit.prevent="validerAvantAjout()" action="" method="dialog">
-          
-          <!--Informations personnelles-->
-        <div class="informations">
-            <div class="titres">
-                <h1>Nouvelle direction</h1>
-            </div>
-
-            <div class="champ">
-                <label for="nom" :class="{ 'couleur_rouge': (this.nom_direction_erreur)} ">Nom direction</label>
-                <input type="text" v-model="form.nom_direction" id="nom"  @input="validatedata('nom_direction')" :class="{ 'bordure_rouge': (this.nom_direction_erreur)} " >
-                <span class="erreur" >{{this.nom_direction_erreur}}</span>
-            </div>
-
-           <div class="champ">
-            <label for="nom" :class="{ 'couleur_rouge': (this.id_user_erreur)} ">Chef direction</label>
-              <select name="user" id="user"  v-model="form.id_user" @change="validatedata('user')" :class="{ 'bordure_rouge': (this.id_user_erreur)} " >
-                <option v-for="(user, index) in users" :key="index" :value="user.id"> {{user.nom}} {{ user.prenom }}</option>
-              </select>
-              <span class="erreur" v-if="id_user_erreur !== ''">{{id_user_erreur}}</span>
-             </div>
-
-          
-      
+    <div class="col-lg-6 p-t-20">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtFirstName" v-show="!form.nom_direction">Nom Direction</label>
+            <input class="mdl-textfield__input" type="text" id="txtFirstName" v-model="form.nom_direction"
+                @input="validatedata('nom_direction')">
+            <span class="erreur">{{ this.nom_direction_erreur }}</span>
+        </div>
+    </div>
 
 
-            <div class="groupe_champs validation">
-                <!-- Mettre la valeur 1 dans le data-close-modal pour qu'il soit actif -->
-                <button type="button" data-close-modal="1" class="annuler"><span data-statut="visible" @click="resetForm">Annuler</span></button> 
-                <button v-if="this.editModal===false" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Ajouter</span></button>
-                <button  v-if="this.editModal===true" type="submit" data-close-modal="0" class="suivant"><span data-statut="visible">Modifier</span></button>
+    <div class="col-lg-6 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_user">Choisissez le chef de direction</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_user"
+                @change="validatedata('user')">
+                <option v-for="(user, index) in users" :value="user.id" :key="index">{{ user.prenom }} {{ user.nom }}
+                </option>
+            </select>
+            <span class="erreur">{{ id_user_erreur }}</span>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12 p-t-20 text-center">
+
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+    </div>
+
+    <div class="card card-box mt-4">
+        <div class="card-head">
+            <header>Liste des dernieres directions</header>
+            <div class="tools">
+                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
             </div>
         </div>
-    </form>
-  
-</div>
+        <div class="card-body ">
+            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                id="example47">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Direction </th>
+                        <th> Chef de direction </th>
+                        <th> Date de création</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr class="odd gradeX" v-for="(direction, index) in directions" :key="index">
+                        <td> {{ index + 1 }} </td>
+                        <td> {{ direction.nom_direction }} </td>
+                        <td> {{ direction.user.prenom }} {{ direction.user.nom }}</td>
+                        <td>{{ this.formatDateTime(direction.created_at) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import Swal from 'sweetalert2';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
- export default {
-  name:"createDirectionCompenent",
-    data(){
+export default {
+    props: ['direction'],
+    name: "createDirectionCompenent",
+    components: {
+        flatPickr,
+    },
+    data() {
         return {
-            users:[],
-            form:new Form({
-                'nom_direction':"",
-                'id_user':"",
+            users: [],
+            form: new Form({
+                'nom_direction': "",
+                'id_user': "",
 
             }),
-           
-            nom_direction_erreur:"",
-            id_user_erreur:"",
-            etatForm:false,
+
+            nom_direction_erreur: "",
+            id_user_erreur: "",
+            etatForm: false,
             editModal: false,
+            directions: [],
             idDirection: "",
 
         }
     },
-    mounted(){
-       
+    mounted() {
+
         this.get_user();
+        this.get_direction();
         bus.on('directionModifier', (eventData) => {
-            this.idDirection = eventData.idDirection;
             this.editModal = eventData.editModal;
-            this.form.nom_direction = eventData.nom;
-            this.form.id_user = eventData.id_user;
+            this.monterToupdate(eventData.direction);
         });
     },
 
-    methods:{
-        async soumettre(){
-          const formdata = new FormData();
-          formdata.append('nom_direction', this.form.nom_direction  );
-          formdata.append('id_user', this.form.id_user  );
-
-            try{
-                const create_store=await axios.post('/direction/store', formdata);
-
+    methods: {
+        async soumettre() {
+            const formdata = new FormData();
+            formdata.append('nom_direction', this.form.nom_direction);
+            formdata.append('id_user', this.form.id_user);
+            try {
+                const create_store = await axios.post('/direction/store', formdata);
+                showDialog6("Direction ajoutée avec succès");
+                bus.emit('directionAjoutee;')
                 this.resetForm();
                 bus.emit('directionAjoutee');
+                window.location.href = '/direction/accueil';
 
-                 } 
-                 catch(e){
-
+            }
+            catch (e) {
                 /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette direction existe déjà','error')
+                if (e.request.status === 404) {
+                    showDialog3("Ce service existe déjà");
                 }
-                else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                else {
+                    showDialog3("Une erreur est survenue lors de l\'enregistrement");
                 }
             }
         },
 
-        verifCaratere(nom){
-            const valeur= /^[a-zA-ZÀ-ÿ\s]*$/;
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
+        },
+
+        verifCaratere(nom) {
+            const valeur = /^[a-zA-ZÀ-ÿ\s]*$/;
             return valeur.test(nom);
         },
 
 
-        validatedata(champ){
-           
-            
-            var i=0;
+        validatedata(champ) {
+            var i = 0;
+            switch (champ) {
+                case 'nom_direction':
+                    this.nom_direction_erreur = "";
+                    // Effectuez la validation pour le champ 'nom'
+                    if (this.form.nom_direction === "") {
+                        this.nom_direction_erreur = "Ce champ est obligatoire"
+                        i = 1;
+                        return true
 
-                switch (champ) {
-            case 'nom_direction':
-            this.nom_direction_erreur= "";
-                // Effectuez la validation pour le champ 'nom'
-                if(this.form.nom_direction=== ""){
-                this.nom_direction_erreur= "Ce champ est obligatoire"
-                i= 1;
-                return true
+                    }
+                    if (!this.verifCaratere(this.form.nom_direction)) {
+                        this.nom_direction_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                        /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
+                        i = 1;
+                        return true
+                    }
 
-                }
-                if(!this.verifCaratere(this.form.nom_direction)){
-                    this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-                    /* this.erreur= "Ce champ ne peut comporter que des lettres et des espaces" */
-                    i= 1;
-                    return true
-                }
+                    break;
 
-                break;
-            
-            case 'user':
-            this.id_user_erreur="";
-                //pour user
-                if(this.form.id_user=== ""){
-                    this.id_user_erreur= "Vous avez oublié de sélectionner  le chef de direction'"
-                    i= 1;
-                    return true
+                case 'user':
+                    this.id_user_erreur = "";
+                    //pour user
+                    if (this.editModal) {
+                        if (this.form.id_user === "") {
+                            this.id_user_erreur = "Vous avez oublié de sélectionner  le chef de direction'"
+                            i = 1;
+                            return true
 
-                }
-                break;
+                        }
+                    }
+                    break;
 
 
                 default:
-            break;
-        }
-    },
+                    break;
+            }
+        },
 
 
-    validatedataOld(){
-        this.nom_direction_erreur= "";
-      
-        this.id_user_erreur="";
-        var i=0;
+        validatedataOld() {
+            this.nom_direction_erreur = "";
 
-        if(this.form.nom_direction=== ""){
-            this.nom_direction_erreur= "Ce champ est obligatoire"
-            i=1;
-        }else{
-            if(!this.verifCaratere(this.form.nom_direction)){
-            this.nom_direction_erreur= "Ce champ ne peut comporter que des lettres et des espaces"
-           i=1;
-        } 
-    }
-        if(this.form.id_user=== ""){
-            this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
-             i=1;
-        }
+            this.id_user_erreur = "";
+            var i = 0;
 
+            if (this.form.nom_direction === "") {
+                this.nom_direction_erreur = "Ce champ est obligatoire"
+                i = 1;
+            } else {
+                if (!this.verifCaratere(this.form.nom_direction)) {
+                    this.nom_direction_erreur = "Ce champ ne peut comporter que des lettres et des espaces"
+                    i = 1;
+                }
+            }
+            if (this.editModal) {
+                if (this.form.id_user === "") {
+                    this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
+                    i = 1;
+                }
+            }
 
+            if (i == 1) return true;
 
-    if(i==1) return true;
+            return false;
+        },
+        verifId() {
+            this.id_user_erreur = "";
+            var i = 0;
+            if (this.editModal) {
+                if (this.form.id_user === "") {
+                    this.id_user_erreur = "Vous avez oublié de sélectionner le chef de direction "
+                    i = 1;
+                    return true
+                }
+            }
 
-        return false;
-    },
-    verifId(){
-       
-        this.id_user_erreur="";
-        var i=0;
+            if (i == 1) return true;
+            return false;
 
-       
-
-        if(this.form.id_user=== ""){
-            this.id_user_erreur= "Vous avez oublié de sélectionner le chef de direction "
-             i=1;
-             return true
-        }
-
-    if(i==1) return true;
-
-        return false;
-
-    },
-    validerAvantAjout() {
-            
-           //const isIdChampValid = this.validatedataOld();
-
-
+        },
+        validerAvantAjout() {
             const isNomDirectionValid = this.validatedataOld();
             const isIdDirectionValid = this.verifId();
-        
 
             console.log(isNomDirectionValid);
             console.log(isIdDirectionValid);
 
-            if ( isNomDirectionValid===true || isIdDirectionValid===true ) {
-                this.etatForm= false;
-                this.editModal=false;
+            if (isNomDirectionValid === true || isIdDirectionValid === true) {
+                this.etatForm = false;
+                this.editModal = false;
                 return 0;
-            }else{
+            } else {
 
-                if(this.editModal===true){
-                    this.etatForm= false;
+                if (this.editModal === true) {
+                    this.etatForm = false;
                     this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.update_direction(this.idDirection);
-                    this.closeModal('[data-modal-confirmation-modifier]');
-                    this.editModal=false;
+
+                    this.editModal = false;
                 }
-                else{
-                    this.etatForm= true;
+                else {
+                    this.etatForm = true;
                     this.form.nom_direction = this.form.nom_direction.toUpperCase();
                     this.soumettre();
-                    this.closeModal('[data-modal-confirmation]');
-                    this.editModal=false;
+
+                    this.editModal = false;
                 }
             }
 
-            },
-
-      resetForm(){
-          this.form.nom_direction="";
-          this.form.id_user="";
-          this.editModal=false;
-          this.nom_direction_erreur= "";
-          this.id_user_erreur="";
-         
-      },
-      closeModal(selector){
-            var ajout=document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            /* console.log(ajout); */
-            var actif = document.querySelectorAll('.actif');
-                actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            //ajout.classList.remove("actif");
-            ajout.close();
-            this.editModal=false;
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-                confirmation.showModal();
-                confirmation.classList.add("actif");
-            setTimeout(function(){
-                confirmation.close();
-
-                setTimeout(function(){
-                    confirmation.classList.remove("actif");
-            }, 100);
-
-            }, 1700);
         },
 
-      get_user(){
-          axios.get('/user/getpersoadminunique')
-          .then(response => {
-              this.users=response.data.user
+        resetForm() {
+            this.form.nom_direction = "";
+            this.form.id_user = "";
+            this.editModal = false;
+            this.nom_direction_erreur = "";
+            this.id_user_erreur = "";
+            const eventData = {
+                editModal: false,
+            };
+            bus.emit('directionDejaModifier', eventData);
+
+        },
+
+        get_user() {
+            axios.get('/user/getpersoadminunique')
+                .then(response => {
+                    this.users = response.data.user
 
 
-         }).catch(error=>{
-             Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des roles','error')
-         });
-     },
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des roles', 'error')
+                });
+        },
 
-     async update_direction(id){
-         const formdata = new FormData();
-            formdata.append('nom_direction', this.form.nom_direction  );
+        get_direction() {
+            axios.get('/direction/index/get/last')
+                .then(response => {
+                    this.directions = response.data.direction
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des dernieres directions', 'error')
+                });
+        },
+
+        async update_direction(id) {
+            const formdata = new FormData();
+            formdata.append('nom_direction', this.form.nom_direction);
             formdata.append('id_user', this.form.id_user);
 
-             //if(this.form.nom!==""){
-            try{
-                await axios.post('/direction/update/'+id, formdata);
+            //if(this.form.nom!==""){
+            try {
+                await axios.post('/direction/update/' + id, formdata);
+                showDialog6("Direction modifiée avec succès");
                 bus.emit('directionAjoutee');
-                this.resetForm();
-                this.editModal=false;
+                const eventData = {
+                    editModal: false,
+                };
+                bus.emit('directionDejaModifier', eventData);
             }
-            catch(e){
+            catch (e) {
                 /* console.log(e.request.status) */
-                if(e.request.status===404){
-                    Swal.fire('Erreur !','Cette direction existe déjà','error')
+                if (e.request.status === 404) {
+                    Swal.fire('Erreur !', 'Cette direction existe déjà', 'error')
                 }
-                else{
-                    Swal.fire('Erreur !','Une erreur est survenue lors de l\'enregistrement','error')
+                else {
+                    Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
                 }
             }
+        },
+        monterToupdate(direction) {
+            this.idDirection = direction.id;
+            this.editModal = direction.editModal;
+            this.form.nom_direction = direction.direction;
+            this.form.id_user = direction.id_user;
+        },
+
     }
-     
-  }
- }
+}
 </script>
 
-<style>
-</style>
+

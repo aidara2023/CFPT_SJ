@@ -23,6 +23,20 @@ class direction_controller extends Controller
             ],500 );
         }
      }
+    public function get_five_laste() {
+        $direction=Direction::with('user' ,'services')->orderBy('created_at', 'desc')->take(5)->get();
+        if($direction!=null){
+            return response()->json([
+                'statut'=>200,
+                'direction'=>$direction
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été trouvé',
+            ],500 );
+        }
+     }
 
     public function store(direction_request $request){
         $data=$request->validated();

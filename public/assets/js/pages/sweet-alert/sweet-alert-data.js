@@ -89,7 +89,7 @@ function showDialog6( title) {
 }
 
 
-function showDialog7() {
+/* function showDialog7() {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -103,7 +103,24 @@ function showDialog7() {
       Swal.fire("Deleted!", "Your file has been deleted.", "success");
     }
   });
+} */
+
+function showDialog7(confirmButtonText, successTitle, successText) {
+  Swal.fire({
+    title: "Êtes-vous sûr(e) ?",
+    text: "Vous ne pourrez pas revenir en arrière !",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: confirmButtonText,
+  }).then((result) => {
+    if (result.value) {
+      Swal.fire(successTitle, successText, "success");
+    }
+  });
 }
+
 
 function showDialog8() {
   Swal.fire({

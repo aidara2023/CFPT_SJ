@@ -22,9 +22,9 @@ class departement_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom_departement' => 'required',
+            'nom' => 'required',
             'id_direction' => 'required',
-            'id_user' => 'required'
+            'id_user' => ''
         ];
     }
 }
