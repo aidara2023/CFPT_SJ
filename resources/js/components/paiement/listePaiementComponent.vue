@@ -60,7 +60,7 @@
                                 </li>
                             </ul> -->
                     <ul class="nav customtab nav-tabs" role="tablist">
-                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Salle</a>
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Paiement</a>
                         </li>
 
                     </ul>
@@ -70,7 +70,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>Toutes les salles</header>
+                                            <header>Toutes les paiements</header>
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -145,7 +145,7 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class=" pull-left">
-                        <div class="page-title">Nouveau paiment</div>
+                        <div class="page-title">Nouveau paiement</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
