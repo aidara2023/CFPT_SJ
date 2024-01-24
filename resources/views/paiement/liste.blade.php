@@ -1,5 +1,7 @@
-{{-- 
-@extends('layout.app')
+{{-- @extends('layout.app')
+@section('titre')
+    Paiement
+@endsection
 
 @section('content')
 
@@ -9,7 +11,27 @@
         @include('layout.header')
     </div>
 
-  
+
+
+        <div class="controle">
+            <div class="recherche_filtre">
+                <div class="recherche">
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <div></div>
+               
+            </div>
+            <div></div>
+         
+
+            <button class="ajouter mdl">
+                <i class="fi fi-rr-plus"></i>
+                <span class="grand_ecran_seulement">Ajouter</span>
+            </button>
+        </div>
+
+    <paiement-liste></paiement-liste>
+
     <dialog data-modal-modification class="modal">
         <h1>Modification</h1>
         <div class="contenu">
@@ -105,60 +127,56 @@
             <button type="button" data-close-modal class="texte">Annuler</button>
         </div>
     </dialog>
-  
-    <personnel-administratif-create></personnel-administratif-create>
+   
+ <dialog data-modal-ajout class="modal">
+    <paiement-create></paiement-create>
+ </dialog>
 
-    <dialog data-modal-suppression class="modal">
-        <h1>Suppression</h1>
-        <div class="contenu">
-            <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
-        </div>
-        <div class="boutons">
-            <button type="button" data-close-modal class="texte">Annuler</button>
-            <input type="submit" value="Confirmer">
-        </div>
-    </dialog>
+  <dialog data-modal-confirmation class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
+            <h1>Ajouté avec succés</h1>
+        </dialog>
 
+        <dialog data-modal-erreur class="modal message ">
 
-    <dialog data-modal-confirmation class="modal">
-        <img src="../assetsCFPT/image/verified.gif" alt="" class="anime">
-        <h1>Réussi !</h1>
-        <br>
-        <p class="">departement ajouté avec succès</p>
-    </dialog>
+            <div class="bordure">
+                <span class="croix"></span>
+                <span class="croix"></span>
+            </div>
+            <h1>Erreur lors de l'Ajout</h1>
+        </dialog>
 
+        <dialog data-modal-détails class="modal message">
+            <h1>Détails</h1>
+            <div>
+                <h3>Service Comptabilité</h3>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias at adipisci eum? Architecto sunt nisi
+                    unde, asperiores omnis culpa voluptatum reiciendis, non odit delectus est nihil, itaque iste!</p>
+            </div>
+        </dialog>
+
+        <dialog data-modal-suppression class="modal message">
+            <img src="../assetsCFPT/image/verified.gif" alt="" style="width:30%; height:50%">
+            <h1>Suppression</h1>
+            <p style="color:red">Paiement supprimé avec succés </p>
+
+        </dialog>
 </div>
-<span class="fond"></span>
-@endsection
---}}
 
+<span class="fond"></span>
+
+@endsection
+
+ --}}
 
 @extends('layouts.app')
 @section('fonction')
-        Caissier
-        @endsection
-@section('content')
- <div class="page-content-wrapper" id="app">
-    {{--<div class="page-content">
-        <div class="page-bar">
-            <div class="page-title-breadcrumb">
-                <div class=" pull-left">
-                    <div class="page-title">Tableau de Bord</div>
-                </div>
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
-                            href="{{ route('admin_index') }}">Accueil</a>&nbsp;<i class="fa fa-angle-right"></i>
-                    </li>
-                    <li class="active">Tableau de Bord</li>
-                </ol>
-            </div>
-        </div> --}}
-       {{--  <div  > --}}
-       <caissier-dashboard></dashboard-user>
-    </div>
-   {{--  </div>
-</div> --}}
+   Caissier
 @endsection
-
-
+@section('content')
+   
+    <div class="page-content-wrapper" id="app">
+        <paiement-liste></paiement-liste>
+    </div>
+@endsection
 

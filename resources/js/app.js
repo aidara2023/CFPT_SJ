@@ -18,6 +18,7 @@ import createEleveComponent from './components/eleve/createEleveComponent.vue';
 import createInfirmierComponent from './components/infirmier/createInfirmierComponent.vue';
 
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
+import dashboardCaissierComponent from './components/caissier/dashboardComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
 import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
 
@@ -127,6 +128,7 @@ app.component("create-eleve", createEleveComponent);
 app.component("create-infirmier",createInfirmierComponent);
 
 app.component("caissier-create", createCaissierComponent);
+app.component("caissier-dashboard", dashboardCaissierComponent);
 app.component("tuteur-create", createTuteurComponent);
 app.component("create-bibliothecaire", createBibliothecaireComponent);
 app.component("create-matiere", createMatiereComponent);

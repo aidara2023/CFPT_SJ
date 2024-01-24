@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class paiement_view_controller extends Controller
 {
+    public function liste(){
+        return view('paiement.liste');
+    }
+
     public function create(){
         return view('paiement.create');
     }
