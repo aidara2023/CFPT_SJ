@@ -11,7 +11,6 @@
                     <h1 >Nouveau paiement</h1>
                 </div>
                 
-
                 <div class="champ">
                     <label for="nom" :class="{ 'couleur_rouge': (this.id_eleve_erreur)} ">Matricule</label>
                     <input type="text" v-model="this.search_query" @input="performSearch" :class="{ 'bordure_rouge': (this.id_eleve_erreur)} ">
@@ -21,8 +20,6 @@
                 <div v-for="(eleve, key) in eleves" :key="key" @click="selectEleve(eleve)">
                     <a href="#"> {{ eleve.nom }} {{ eleve.prenom }}</a>
                 </div>
-
-
 
                 <div v-if="form.id_eleve !== '' && selectedEleve.id">
                     <div class="champ">
@@ -143,7 +140,6 @@ import Form from 'vform';
         this.get_annee_academique();
         this.get_mois();
         this.rafraichissementAutomatique();
-
     },
 
     methods:{

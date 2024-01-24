@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 class paiement_controller extends Controller
 {
     public function index(){
-        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe'  )->orderBy('created_at', 'desc')->get();
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique' )->orderBy('created_at', 'desc')->get();
         if($paiement != null){
             return response()->json([
                 'statut' => 200,

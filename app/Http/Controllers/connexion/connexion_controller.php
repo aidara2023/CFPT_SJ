@@ -66,7 +66,7 @@ class connexion_controller extends Controller
         return response([
             'url' => $url,
             'user' => $user
-        ]);
+        ])->header('Location', url($url));
 
 
     }
