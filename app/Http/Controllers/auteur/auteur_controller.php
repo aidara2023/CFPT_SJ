@@ -24,6 +24,21 @@ class auteur_controller extends Controller
             ],500 );
         }
      }
+     public function get_last_value()
+    {
+        $auteur = Auteur::with('livre')->orderBy('created_at', 'desc')->take(5)->get(); /*  */
+        if ($auteur != null) {
+            return response()->json([
+                'statut' => 200,
+                'auteur' => $auteur
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement n\'a été trouvé',
+            ], 500);
+        }
+    }
     public function store (auteur_request $request){
         $data=$request->validated();
         $auteur=Auteur::create($data);

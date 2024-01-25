@@ -926,29 +926,27 @@
                         <span class="title">Inscription</span>
                     </a>
                 </li> --}}
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
+                        <span class="title">Paramétres</span><span class="arrow"></span></a>
+                    <ul class="sub-menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
-                                <span class="title">Paramétres</span><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li class="nav-item">
-                                    <a href="rayon_create" class="nav-link "> <span class="title">Rayon</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add_student.html" class="nav-link "> <span
-                                            class="title">Categorie</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add_student_bootstrap.html" class="nav-link "> <span
-                                            class="title">Auteur</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="edit_student.html" class="nav-link "> <span
-                                            class="title">Editeur</span>
-                                    </a>
-                                </li>
+                            <a href="rayon_create" class="nav-link "> <span
+                                    class="title">Rayon</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="add_student.html" class="nav-link "> <span
+                                    class="title">Categorie</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/auteur/create" class="nav-link "> <span
+                                    class="title">Auteur</span>
+                            </a>
+                        </li>
+
                                 <li class="nav-item">
                                     <a href="student_profile.html" class="nav-link "> <span
                                             class="title">Edition</span>
