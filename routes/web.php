@@ -372,6 +372,9 @@ Route::get('/editeur/accueil',[editeur_view_controller::class, 'accueil'])->name
 
 //route auteur
 Route::get('auteur/index', [auteur_controller::class, 'index']) -> name('auteur_index');
+Route::get('auteur/index/last/values',[auteur_controller::class, 'get_last_value'])->name('auteur_index_get_last');
+
+
 Route::post('auteur/store', [auteur_controller::class, 'store']) -> name('auteur_store');
 Route::post('auteur/update/{id}', [auteur_controller::class, 'update']) -> name('auteur_update');
 Route::delete('auteur/delete/{id}', [auteur_controller::class, 'delete']) -> name('auteur_delete');
