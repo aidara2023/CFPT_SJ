@@ -52,6 +52,8 @@ class paiement_controller extends Controller
                                      'id_caissier'=>$caissier->id,
                                      'montant'=>$paiement['montant'],
                                      'id_eleve'=>$eleve->id,
+                                     'mode_paiement'=>$request->mode_paiement,
+                                     'paiement_type'=>$request->paiement_type,
                                  ];
                                 
                                  $paiementValid= Paiement::create($dataPaiement);

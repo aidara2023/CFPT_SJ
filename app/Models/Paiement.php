@@ -13,7 +13,8 @@ class Paiement extends Model
     'id_caissier',
     'montant',
     'mode_paiement',
-    'reference'
+    'reference',
+    'paiement_type',
   ]; 
 
  
