@@ -1009,7 +1009,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('paiement_create') }}" class="nav-link nav-toggle"> <i
+                            <a href="{{ route('paiement_accueil') }}" class="nav-link nav-toggle"> <i
                                     data-feather="user"></i>
                                 <span class="title">Paiement</span> 
                             </a>

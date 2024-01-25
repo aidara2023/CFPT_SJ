@@ -162,7 +162,6 @@ export default {
                     this.etatForm = true;
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.update_salle(this.idSalle);
-                    this.closeModal('[data-modal-confirmation-modifier]');
                     this.editModal = false;
                 }
 
@@ -170,7 +169,6 @@ export default {
                     this.form.intitule = this.form.intitule.toUpperCase();
                     this.soumettre();
                     this.etatForm = true;
-                    this.closeModal('[data-modal-confirmation]');
                     this.editModal = false;
 
                 }

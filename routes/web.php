@@ -135,8 +135,13 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 */
 
 //Route de direction
-
 Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
+//Route pour la connexion
+ Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
+Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
 Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
@@ -337,7 +342,8 @@ Route::post('paiement/update/{id}',[paiement_controller::class, 'update'])->name
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
 Route::get('reçu/index',[paiement_view_controller::class, 'reçu'])->name('reçu_index');
-Route::get('/paiement/create',[paiement_view_controller::class, 'liste'])->name('paiement_create');
+Route::get('paiement/accueil',[paiement_view_controller::class, 'liste'])->name('paiement_accueil');
+Route::get('paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
 
 //route mois
 Route::get('mois/index',[mois_controller::class, 'index'])->name('mois_index');
@@ -554,9 +560,7 @@ Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('fo
 Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
 Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->name('formateur_profil');
 Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
-//Route pour la connexion
-Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
-Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
+
 
 //Route pour utilisateur
 
@@ -718,3 +722,4 @@ Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('ale
 Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
+});
