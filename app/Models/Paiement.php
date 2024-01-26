@@ -14,7 +14,7 @@ class Paiement extends Model
     'montant',
     'mode_paiement',
     'reference',
-    'paiement_type',
+    'type_recouvrement',
   ]; 
 
  
