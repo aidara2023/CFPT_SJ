@@ -17,4 +17,8 @@ class Tuteur extends Model
     public function eleves(){
         return $this->hasMany(Eleve::class,'id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'id_user');
+    }
 }

@@ -223,7 +223,7 @@ Route::post('eleve/update/{id}',[eleve_controller::class, 'update'])->name('elev
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
 
 Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
-Route::get('/eleve/create',[eleve_view_controller::class, 'create'])->name('eleve_create');
+Route::get('/liste/inscription',[eleve_view_controller::class, 'liste'])->name('liste_inscription');
 
 //route emprunter livre
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');

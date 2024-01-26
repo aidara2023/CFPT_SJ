@@ -11,13 +11,17 @@ use App\Models\Role;
 use App\Models\Tuteur;
 use App\Models\Unite_de_formation;
 use App\Models\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class inscription_controller extends Controller
 {
     public function index() {
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation')->orderBy('created_at', 'desc')->get();
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc')->get();
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
@@ -30,6 +34,26 @@ class inscription_controller extends Controller
             ],500 );
         }
      }
+     public function verifMail(Request $request)
+     {
+         $validator = Validator::make($request->all(), [
+             'email' => [
+                 'required',
+                 'email',
+                 Rule::unique('users')->ignore(auth()->id()),
+             ],
+             // Ajoutez d'autres règles de validation pour les champs nécessaires
+         ]);
+ 
+         if ($validator->fails()) {
+             return response()->json(['errors' => $validator->errors()], 422);
+         }
+ 
+         // Le reste de votre code pour le traitement du formulaire
+ 
+         return response()->json(['success' => true]);
+     }
+ 
 
      public function show($id){
 

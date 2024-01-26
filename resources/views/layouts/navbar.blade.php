@@ -87,7 +87,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
+                    <a href="{{ route('liste_inscription') }}" class="nav-link nav-toggle"> <i
                             data-feather="calendar"></i>
                         <span class="title">Inscription</span>
                     </a>
