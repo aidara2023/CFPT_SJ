@@ -388,7 +388,9 @@ export default {
                 bus.emit('utilisateurAjoutee');
                
                 this.resetForm();
+                setTimeout(() => {
                 window.location.href = '/utilisateur/index';
+                }, 1500);
 
             }
             catch (e) {

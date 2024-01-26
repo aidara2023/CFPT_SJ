@@ -31,6 +31,7 @@ class paiement_request extends FormRequest
             'type_recouvrement' => '',
             'reference' => '',
             'mode_paiement' => '',
+            'reference' => '',
         ];
     }
 }

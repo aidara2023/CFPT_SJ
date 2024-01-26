@@ -95,7 +95,9 @@ export default {
                 showDialog6("Type de formation ajouté avec succès");
                 bus.emit('formationAjoutee');
                 this.resetForm();
+                setTimeout(() => {
                 window.location.href = '/type_formation/index';
+                }, 1500);
             }
             catch (e) {
                 /* console.log(e.request.status) */

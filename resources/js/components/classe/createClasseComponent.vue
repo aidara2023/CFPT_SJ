@@ -193,7 +193,9 @@ export default {
                 showDialog6("Classe ajoutée avec succès");
                 this.resetForm();
                 bus.emit('classeAjoutee');
-                window.location.href = '/classe/index';
+                setTimeout(() => {
+                    window.location.href = '/classe/index';
+                }, 1500);
 
             }
             catch (e) {

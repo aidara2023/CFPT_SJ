@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use App\Models\Caissier;
+use App\Models\Eleve;
 use App\Models\Formateur;
 use App\Models\Infirmier;
 use App\Models\personnel_admin_appui;
@@ -352,6 +353,22 @@ class user_controller extends Controller
         }
     }
 
+
+    public function find_eleve_in_user($id)
+    {
+        $user = Eleve::with('user')->find($id);
+        if ($user != null) {
+            return response()->json([
+                'statut' => 200,
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'L utilisateur n\'existe pas',
+            ], 500);
+        }
+    }
 
     public function show($id)
     {

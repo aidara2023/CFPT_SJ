@@ -134,7 +134,9 @@ export default {
                 showDialog6("Salle ajoutée avec succès");
                 bus.emit('salleAjoutee');
                 this.resetForm();
-                window.location.href = '/salle/accueil';
+                setTimeout(() => {
+                    window.location.href = '/salle/accueil';
+                }, 1500);
             }
             catch (e) {
                 /* console.log(e.request.status) */
