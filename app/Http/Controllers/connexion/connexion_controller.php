@@ -20,6 +20,7 @@ class connexion_controller extends Controller
         $user = Auth::user();
         $role = $user->role->intitule;
         $url = '';
+
         if ($user->status == 0) {
             // Utilisateur bloqué
             //Auth::logout();
@@ -50,7 +51,7 @@ class connexion_controller extends Controller
                     $url = '/infirmier/index';
                     break;
                 case "Bibliothecaire":
-                    $url = '/bibliothecaire/index';
+                    $url = '/bibliothecaire/accueil';
                     break;
                 case "Surveillant":
                     $url = '/surveillant/index';
@@ -59,12 +60,13 @@ class connexion_controller extends Controller
                     $url = '/login';
             }
 
+
           
         }
         return response([
             'url' => $url,
             'user' => $user
-        ]);
+        ])->header('Location', url($url));
 
 
     }

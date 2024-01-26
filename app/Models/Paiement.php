@@ -13,7 +13,8 @@ class Paiement extends Model
     'id_caissier',
     'montant',
     'mode_paiement',
-    'reference'
+    'reference',
+    'type_recouvrement',
   ]; 
 
  
@@ -28,7 +29,7 @@ class Paiement extends Model
     }
 
     public function concerner() {
-      return $this -> hasMany(Concerner::class, 'id');
+      return $this -> hasMany(Concerner::class, 'id_paiement');
   }
 
 

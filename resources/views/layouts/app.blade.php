@@ -41,6 +41,8 @@
         type="text/css" />
     <!-- favicon -->
     <link rel="shortcut icon" href="/assets/img/logoCFPT--clr" />
+
+
 </head>
 <!-- END HEAD -->
 

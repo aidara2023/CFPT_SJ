@@ -81,7 +81,7 @@
                     <tr class="odd gradeX" v-for="(unite_de_formation, index) in unite_de_formations" :key="index">
                         <td> {{ index + 1 }} </td>
                         <td> {{ unite_de_formation.nom_unite_formation }} </td>
-                        <td>{{ unite_de_formation.user.prenom }} {{
+                        <td v-show=" unite_de_formation.user.prenom!='' && unite_de_formation.user.nom ">{{ unite_de_formation.user.prenom }} {{
                             unite_de_formation.user.nom }}</td>
                         <td> {{ unite_de_formation.departement.nom_departement }}</td>
                     </tr>
