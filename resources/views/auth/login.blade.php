@@ -1,139 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta name="description" content="Responsive Admin Template" />
-    <meta name="author" content="RedstarHospital" />
-    <title>CFPT digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/assetsCFPT/css/administrateur/admin 9.css">
+    <link rel="stylesheet" href="assetsCFPT/css/Login2.css">
     @vite('resources/js/app.js')
-    <!-- google font -->
-    {{-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-        type="text/css" /> --}}
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
-
-    <!-- icons -->
-    <link rel="stylesheet" href="/assets/plugins/iconic/css/material-design-iconic-font.min.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Jquery Toast css -->
-    <link rel="stylesheet" href="/assets/plugins/jquery-toast/dist/jquery.toast.min.css">
-    <!-- bootstrap -->
-    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme Styles -->
-    <link href="/assets/css/theme/light/theme_style.css" rel="stylesheet" id="rt_style_components" type="text/css" />
-    <!-- style -->
-    <link rel="stylesheet" href="/assets/css/pages/login.css">
-    <!-- favicon -->
-    <link rel="shortcut icon" href="/assets/img/logoCFPT--clr" />
-
-    {{-- Icones Flaticon rr --}}
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <style>
-        body {
-            font-family: 'Poppins';
-        }
-
-        /* Styles pour le div après le div du container */
-        /* .container>div:last-child {
-            position: absolute;
-            top: 100px;
-        } */
-    </style>
 </head>
 
-<body>
-    {{--  <div id="app"> --}}
-    <!-- Sing in  Form -->
-    <div class="" style="margin-left: 20%; margin-top: 8%; width: 50vw; height: 50vh;" id="app">
-        <div class="border"
-            style=" width: 638px; height: 785px; background: rgba(255, 255, 255, 0.80); box-shadow: -2px 5px 22.899999618530273px -2px rgb(89, 83, 83, .4); border-radius: 16px 0 0 16px; backdrop-filter: blur(29.50px)">
-
-            <div class=""
-                style=" width: 364px; height: 350px; left: 67px; top: 20%; position: absolute; background:rgba(255, 255, 255, 0.80);">
-
-                <div>
-                    <div
-                        style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 
-                        400; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
-                        CONNEXION</div>
-                    <user-login></user-login>
-                </div>
-            </div>
-            <div
-                style="width: 268px; height: 60px; left: 115px; top: 70px; position: absolute; text-align: center; color: #5038ED; font-size: 37px; font-family: Poppins; font-weight: 700; line-height: 18px; letter-spacing: 1.11px; word-wrap: break-word">
-                CFPT-Digital</div>
-            <div
-                style="width: 638px; height: 808px; left: 461px; top: 0px; position: absolute; width: 50vw; height: 50vh;">
-                <div class="border-color-none"
-                    style=" 
-                        box-shadow: -2px 5px 22.899999618530273px -2px #595353;
-						   border-radius: 0 16px 16px 0; 
-						   border: 0px solid linear-gradient(218deg, #9181F4 0%, #5038ED 100%);
-						   backdrop-filter: blur(29.50px); 
-						   width: 585px; 
-						   margin-top: 45px; 
-						   height: 784px; 
-						   left: 53px; 
-						   top: -45px; 
-						   position: absolute; 
-						   background: linear-gradient(218deg, #9181F4 0%, #5038ED 100%)">
-                </div>
-
-                <img style="width: 585px; height: 784px; left: 53px; top: 0px; position: absolute; opacity: 0.13"
-                    src="/assets/auth/images/fond.jpg" />
-                <img style="width: 555px; height: 539px; left: 10%; top: 125px; position: absolute"
-                    src="/assets/auth/images/logo2.png" />
-                <div
-                    style="width: 380px; height: 29px; left: 182px; top: 729px; position: absolute; color: white; font-size: 16px; font-family: Poppins; font-style: italic; font-weight: 700; letter-spacing: 1.28px; word-wrap: break-word">
-                    ‘’L'excellence au service de l’industrie’’</div>
-            </div>
-
-            <div style="width: 155.28px; height: 21.21px; left: 171px; top: 737px; position: absolute">
-                <div style="width: 155.28px; height: 21.21px; left: 0px; top: 0px; position: absolute">
-                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
-                        <img src="/images/facebook.png" alt="">
-                    </div>
-                </div>
-                <div style="width: 20.78px; height: 19.76px; left: 44.33px; top: 0.50px; position: absolute">
-                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
-                        <img src="/images/instagram.png" alt="">
-                    </div>
-                </div>
-                <div style="width: 20.78px; height: 19.76px; left: 92.20px; top: 0.50px; position: absolute">
-                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
-                        <img src="/images/youtube.png" alt="">
-                    </div>
-                </div>
-                <div style="width: 22.30px; height: 21.21px; left: 132.98px; top: -0px; position: absolute">
-                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
-                        <img src="/images/linkedin.png" alt="">
-                    </div>
-                </div>
-
-                {{-- <div><img src="/images/instagram.png" alt=""></div>
-
-                <div><img src="/images/youtube.png" alt=""></div>
-
-                <div><img src="/images/linkedin.png" alt=""></div> --}}
-
-            </div>
-        </div>
+<body id="app">
+    {{-- <div class="chargement">
+    <div class="roue">
+      <div class="roue">
+        <div class="roue"></div>
+      </div>
     </div>
-    </div>
-    {{--  </div> --}}
+    <p>Encore un petit instant...</p>
+  </div> --}}
 
-    <!-- start js include path -->
-    <script src="/assets/plugins/jquery/jquery.min.js"></script>
-    <!-- bootstrap -->
-    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- end js include path -->
-    <!-- notifications -->
-    <script src="/assets/plugins/jquery-toast/dist/jquery.toast.min.js"></script>
-    <script src="/assets/plugins/jquery-toast/dist/toast.js"></script>
+    <div class="partie accueil">
+        <img class="logo-cfpt" src="/assetsCFPT/image/logoCFPT--clr.png" alt="">
+        <h3>Bienvenue sur</h3>
+        <h1>CFPT Digital</h1>
+    </div>
+
+    <div class="partie connexion">
+        <img src="/assetsCFPT/image/logoCFPT--clr_plus_clair.png" alt="">
+        <user-login></user-login>
+    </div>
+
+    <script>
+      const chargement = document.querySelector('.chargement');
+        window.addEventListener('load', () => {
+            chargement.classList.add('disparition');
+        });
+
+        var suivant = document.querySelector('.suivant')
+        //Pour éffectuer tous les changements à faire 
+        //une fois que l'on passe d'une étape à une autre
+        function changement_etape(avancer) {
+            //suivant.innerHTML = "<span data-statut='visible'> Vérification</span><div class='roue'></div>";
+
+            suivant.innerHTML = "<span data-statut='visible'>Réessayer</span>";
+            suivant.previousElementSibling.style.color = "var(--rouge)";
+            suivant.style.backgroundColor = "var(--rouge)";
+            suivant.style.color = "white";
+
+        }
+
+        suivant.addEventListener('click', function() {
+            suivant.firstChild.dataset.statut = "apres";
+
+            setTimeout(function() {
+                suivant.firstChild.dataset.statut = "avant";
+            }, 700);
+
+            setTimeout(function() {
+                suivant.firstChild.dataset.statut = "visible";
+            }, 1000);
+
+            setTimeout(function() {
+                changement_etape(true);
+            }, 1600);
+
+        });
+    </script>
 </body>
 
 </html>
