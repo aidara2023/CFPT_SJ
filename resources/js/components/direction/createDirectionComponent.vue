@@ -55,12 +55,12 @@
                         <th> Chef de direction </th>
                         <th> Date de création</th>
                     </tr>
-                </thead> 
+                </thead>
                 <tbody>
                     <tr class="odd gradeX" v-for="(direction, index) in directions" :key="index">
                         <td> {{ index + 1 }} </td>
                         <td> {{ direction.nom_direction }} </td>
-                        <td> {{ direction.user.prenom }} {{ direction.user.nom }}</td>
+                        <td v-show="direction.user.prenom!='' && direction.user.nom!='' "> {{ direction.user.prenom }} {{ direction.user.nom }}</td>
                         <td>{{ this.formatDateTime(direction.created_at) }}</td>
                     </tr>
                 </tbody>

@@ -14,7 +14,7 @@ class Classe extends Model
         'type_classe',
         'niveau',
         'id_type_formation',
-        'id_unite_de_formation'
+        'id_unite_de_formation',
     ];
     public function inscription() {
         return $this -> hasMany(Inscription::class);

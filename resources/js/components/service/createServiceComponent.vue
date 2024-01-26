@@ -75,7 +75,7 @@
                     <tr class="odd gradeX" v-for="(service, index) in services" :key="index">
                         <td> {{ index + 1 }} </td>
                         <td> {{ service.nom_service }} </td>
-                        <td> {{ service.user.prenom }} {{ service.user.nom }}</td>
+                        <td v-show="service.user.prenom!='' && service.user.nom!=''"> {{ service.user.prenom }} {{ service.user.nom }}</td>
                         <td> {{ service.direction.nom_direction }}</td>
                     </tr>
                 </tbody>
@@ -83,7 +83,7 @@
         </div>
     </div>
 </template>
-     
+
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
@@ -389,5 +389,4 @@ export default {
     }
 }
 </script>
-     
-     
+

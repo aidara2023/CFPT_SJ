@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 class paiement_controller extends Controller
 {
     public function index(){
-        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe'  )->orderBy('created_at', 'desc')->get();
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique' )->orderBy('created_at', 'desc')->get();
         if($paiement != null){
             return response()->json([
                 'statut' => 200,
@@ -35,6 +35,7 @@ class paiement_controller extends Controller
 
      public function store(paiement_request $request) {
          $request -> validated();
+         $statut=0;
          $paiements= $request->input('paiements');
          $caissiers=Caissier::all();
          $eleves=Eleve::all();
@@ -52,15 +53,29 @@ class paiement_controller extends Controller
                                      'id_caissier'=>$caissier->id,
                                      'montant'=>$paiement['montant'],
                                      'id_eleve'=>$eleve->id,
+                                     'mode_paiement'=>$request->mode_paiement,
+                                     'type_recouvrement'=>$request->type_recouvrement,
+                                     'reference'=>$request->reference,
                                  ];
                                 
                                  $paiementValid= Paiement::create($dataPaiement);
+
+                                 $search_type_classe= Inscription::with('classe.type_formation')->where('id_eleve', $eleve->id)->first();
+                                 if($search_type_classe->classe->type_classe=="FPJ" && $search_type_classe->classe->type_formation->intitule=="BTS" && $paiement['montant']<70000){
+                                    $statut=0;
+                                 }elseif($search_type_classe->classe->type_classe=="FPJ" && $search_type_classe->classe->type_formation->intitule=="BTI" && $paiement['montant']<50000){
+                                    $statut= 0;
+                                 }elseif($search_type_classe->classe->type_classe=="FPJ" && $search_type_classe->classe->type_formation->intitule=="BTI" && $paiement['montant']==50000){
+                                    $statut= 1;
+                                 }elseif($search_type_classe->classe->type_classe=="FPJ" && $search_type_classe->classe->type_formation->intitule=="BTS" && $paiement['montant']==70000){
+                                    $statut= 1;
+                                 }
 
                                  $dataConcerner= [
                                      'id_paiement'=>$paiementValid->id,
                                      'id_mois'=>$paiement['id_mois'],
                                      'id_annee_academique'=>$paiement['id_annee_academique'],
-                                     'statut'=>1,
+                                     'statut'=> $statut,
                                  ];
 
                                  $concerner=Concerner::create($dataConcerner);
