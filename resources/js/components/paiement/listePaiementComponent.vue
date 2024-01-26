@@ -98,20 +98,26 @@
                                                         <th>Nom</th>
                                                         <th>Prenom</th>
                                                         <th>Classe</th>
+                                                        <th>Mode de paiement</th>
+                                                        <th>Type recouvrement</th>
                                                         <th>Année Académique</th>
                                                         <th>Mois</th>
                                                         <th>Montant</th>
                                                         <th>Actions</th>
                                                     </tr>
-                                                </thead> 
+                                                </thead>
                                                 <tbody>
                                                     <tr class="odd gradeX" v-for="(paiement, index) in paiements"
                                                         :key="index">
-                                                        <td> {{ index + 1 }} </td>
+                                                        <td class="patient-img"> <img :src="getImageUrl(paiement.photo)"
+                                                                alt="Etu">
+                                                        </td>
                                                         <td> {{ paiement.matricule }} </td>
                                                         <td> {{ paiement.eleve_nom }}</td>
                                                         <td> {{ paiement.eleve_prenom }}</td>
                                                         <td> {{ paiement.classe }}</td>
+                                                        <td> {{ paiement.mode_paiement }}</td>
+                                                        <td> {{ paiement.type_recouvrement }}</td>
                                                         <td> {{ paiement.annee }} </td>
                                                         <td> {{ paiement.mois }} </td>
                                                         <td> {{ paiement.montant }} </td>
@@ -148,10 +154,10 @@
                         <div class="page-title">Nouveau paiement</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
-                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/caissier/accueil'">Tableau
                                 de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
-                        <li><a class="parent-item" href="{{ route('salle_create') }}">Salle</a>&nbsp;<i
+                        <li><a class="parent-item" :href="'/paiement/accueil'">Paiement</a>&nbsp;<i
                                 class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Modifier Paiement</li>
@@ -208,6 +214,7 @@ export default {
 
             }),
             paiements: [],
+            editModal: false,
 
 
         }
@@ -265,18 +272,35 @@ export default {
                     const formattedPaiement = allpaiement.map(paie => {
                         return {
                             id: paie.id,
+                            id_eleve: paie.eleve.user.id,
                             matricule: paie.eleve.user.matricule,
+                            photo: paie.eleve.user.photo,
                             eleve_prenom: paie.eleve.user.prenom,
                             eleve_nom: paie.eleve.user.nom,
+                            date_naissance: paie.eleve.user.date_naissance,
+                            adresse: paie.eleve.user.adresse,
+                            matricule: paie.eleve.user.matricule,
+
+                            type_recouvrement : paie.type_recouvrement,
+                            mode_paiement : paie.mode_paiement,
+                            reference : paie.reference,
+
+                           /*  montant : paie.montant,
+                            mois : paie.id_mois,
+                            annee : paie.id_annee_academique, */
+
                             //nom_service: utilisateur.personnel_admin_appui.map(ele => ele.service.nom_service).join(', '),
                             classe: paie.eleve.inscription.map(p => p.classe.nom_classe).join(', '),
                             annee: paie.concerner.map(p => p.annee_academique.intitule).join(', '),
                             mois: paie.concerner.map(p => p.mois.intitule).join(', '),
+                            id_annee: paie.concerner.map(p => p.annee_academique.id).join(', '),
+                            id_mois: paie.concerner.map(p => p.mois.id).join(', '),
                             montant: paie.montant,
                             editModal: true,
                         };
                     });
                     this.paiements = formattedPaiement;
+                    console.log( this.paiements)
                     this.initDataTable();
 
 
@@ -336,6 +360,9 @@ export default {
                 // Ajoutez d'autres propriétés si nécessaire
             };
             bus.emit('paiementModifier', eventData);
+        },
+        getImageUrl(url) {
+            return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
 

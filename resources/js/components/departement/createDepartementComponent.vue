@@ -150,7 +150,9 @@ export default {
                 showDialog6("Departement ajouté avec succès");
                 bus.emit('departementAjoutee');
                 this.resetForm();
-                window.location.href = '/departement/index';
+                setTimeout(() => {
+                    window.location.href = '/departement/index';
+                }, 1500);
             }
             catch (e) {
                 if (e.request.status === 404) {

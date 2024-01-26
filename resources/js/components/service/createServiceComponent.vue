@@ -140,7 +140,10 @@ export default {
                 showDialog6("Service ajouté avec succès");
                 bus.emit('serviceAjoutee;')
                 this.resetForm();
-                window.location.href = '/service/accueil';
+                setTimeout(() => {
+                    window.location.href = '/service/accueil';
+                }, 1500);
+                
             }
             catch (e) {
                 /* console.log(e.request.status) */

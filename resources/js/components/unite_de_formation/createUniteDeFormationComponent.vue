@@ -151,7 +151,9 @@ export default {
                 showDialog6("Filière ajoutée avec succès");
                 bus.emit('unite_formationAjoutee');
                 this.resetForm();
+                setTimeout(() => {
                 window.location.href = '/unite_de_formation/index';
+                }, 1500);
 
             }
             catch (e) {

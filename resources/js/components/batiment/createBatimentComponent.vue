@@ -101,7 +101,9 @@ export default {
                 bus.emit('batimentAjoutee');
                 showDialog6("Batiment ajouté avec succès");
                 this.resetForm();
-                window.location.href = '/batiment/accueil';
+                setTimeout(() => {
+                    window.location.href = '/batiment/accueil';
+                }, 1500);
             }
             catch (e) {
                 if (e.request.status === 404) {

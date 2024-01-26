@@ -388,7 +388,9 @@ export default {
                 bus.emit('utilisateurAjoutee');
                 showDialog6("Utilisateur ajouté avec succès");
                 this.resetForm();
+                setTimeout(() => {
                 window.location.href = '/utilisateur/index';
+                }, 1500);
 
             }
             catch (e) {

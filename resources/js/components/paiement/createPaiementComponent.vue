@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 p-t-20" v-show="searchMatricule">
+    <div class="col-lg-12 p-t-20" v-show="searchMatricule && editModal">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <label class="mdl-textfield__label" for="txtMatricule" v-show="!search_query">Matricule</label>
             <input class="mdl-textfield__input" type="text" id="txtMatricule" v-model="this.search_query"
@@ -51,8 +51,10 @@
         <div class="col-lg-12 p-t-20">
             <div
                 class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-                <label for="list3" class="mdl-textfield__label" v-show="!form.mode_paiement">Choisissez le mode de paiement</label>
-                <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement" @change="validatedata('mode_paiement')">
+                <label for="list3" class="mdl-textfield__label" v-show="!form.mode_paiement">Choisissez le mode de
+                    paiement</label>
+                <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement"
+                    @change="validatedata('mode_paiement')">
                     <option value="Cash">Cash</option>
                     <option value="Cheque">Cheque</option>
                     <option value="Orange">Orange</option>
@@ -62,7 +64,7 @@
             </div>
         </div>
 
-        <div class="col-lg-12 p-t-20" v-show="form.mode_paiement=='Cheque'">
+        <div class="col-lg-12 p-t-20" v-show="form.mode_paiement == 'Cheque'">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
                 <label class="mdl-textfield__label" for="txtReference" v-show="!form.reference">Reference</label>
                 <input class="mdl-textfield__input" type="text" id="txtReference" v-model="form.reference"
@@ -187,6 +189,7 @@ export default {
                 photo: ""
             },
             eleve_classe: "",
+            idPaiement: "",
             id_eleve_erreur: "",
             id_annee_accademique_erreur: "",
             mode_paiement_erreur: "",
@@ -208,7 +211,7 @@ export default {
         this.rafraichissementAutomatique();
         bus.on('paiementModifier', (eventData) => {
             this.editModal = eventData.editModal;
-            this.monterToupdate(eventData.salle);
+            this.monterToupdate(eventData.paiement);
         });
     },
 
@@ -219,7 +222,7 @@ export default {
             formdata.append('id_eleve', this.form.id_eleve);
             formdata.append('mode_paiement', this.form.mode_paiement);
             formdata.append('type_recouvrement', this.form.type_recouvrement);
-            if(this.form.reference){
+            if (this.form.reference) {
                 formdata.append('reference', this.form.reference);
             }
 
@@ -230,7 +233,10 @@ export default {
                 showDialog6("Paiement effectué avec succès");
                 bus.emit('paiementAjoutee');
                 this.resetForm();
-                window.location.href = '/paiement/accueil';
+                setTimeout(() => {
+                    window.location.href = '/paiement/accueil';
+                }, 1500);
+               
                 bus.emit('paiementAjoutee');
 
             }
@@ -276,7 +282,7 @@ export default {
             } else {
                 if (this.editModal === true) {
                     this.etatForm = true;
-                    this.update_salle(this.idSalle);
+                    this.update_paiement(this.idPaiement);
                     this.editModal = false;
                 }
                 else {
@@ -430,30 +436,30 @@ export default {
             return false;
         },
 
-        closeModal(selector) {
-            var ajout = document.querySelector('[data-modal-ajout]');
-            var confirmation = document.querySelector(selector);
-
-            var actif = document.querySelectorAll('.actif');
-            actif.forEach(item => {
-                item.classList.remove("actif");
-            });
-            ajout.close();
-
-            confirmation.style.backgroundColor = 'white';
-            confirmation.style.color = 'var(--clr)';
-
-            confirmation.showModal();
-            confirmation.classList.add("actif");
-            setTimeout(function () {
-                confirmation.close();
-
-                setTimeout(function () {
-                    confirmation.classList.remove("actif");
-                }, 100);
-
-            }, 1700);
-        },
+        /*       closeModal(selector) {
+                  var ajout = document.querySelector('[data-modal-ajout]');
+                  var confirmation = document.querySelector(selector);
+      
+                  var actif = document.querySelectorAll('.actif');
+                  actif.forEach(item => {
+                      item.classList.remove("actif");
+                  });
+                  ajout.close();
+      
+                  confirmation.style.backgroundColor = 'white';
+                  confirmation.style.color = 'var(--clr)';
+      
+                  confirmation.showModal();
+                  confirmation.classList.add("actif");
+                  setTimeout(function () {
+                      confirmation.close();
+      
+                      setTimeout(function () {
+                          confirmation.classList.remove("actif");
+                      }, 100);
+      
+                  }, 1700);
+              }, */
 
         async performSearch() {
             this.id_eleve_erreur = "";
@@ -553,8 +559,15 @@ export default {
 
         async update_paiement(id) {
             const formdata = new FormData();
-            formdata.append('paiements', JSON.stringify(this.form_paiement.paiement));
+            formdata.append('id_mois',  this.form_paiement.paiement[0].id_mois );
+            formdata.append('id_annee_academique',  this.form_paiement.paiement[0].id_annee_academique );
+            formdata.append('montant', this.form_paiement.paiement[0].montant );
             formdata.append('id_eleve', this.form.id_eleve);
+            formdata.append('mode_paiement', this.form.mode_paiement);
+            formdata.append('type_recouvrement', this.form.type_recouvrement);
+            if (this.form.reference) {
+                formdata.append('reference', this.form.reference);
+            }
 
             //if(this.form.nom!==""){
             try {
@@ -579,18 +592,45 @@ export default {
             }
         },
 
+        async findEleve(id_eleve) {
+            await axios.post('/eleve/find/user/' + id_eleve)
+                .then(response => {
+                    console.log(response.data.user)
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation de l\'eleve ', 'error')
+                });
+        },
+
         monterToupdate(paiement) {
-            console.log("MonterToupdate called");
+           
 
             this.idPaiement = paiement.id;
+          /*   console.log("MonterToupdate called");
+            console.log("this.idPaiement")
+            console.log(this.idPaiement).   */                                                                                                                                                                                                                                                                                                               
             this.editModal = paiement.editModal;
-            this.form.intitule = paiement.paiement;
-            this.form.nombre_place = paiement.nombre_de_place;
-            this.form.id_batiment = paiement.id_batiment;
-            this.form.nom_batiment = paiement.batiment;
+            console.log(paiement);
 
+            this.form.id_eleve = paiement.id_eleve;
+            this.selectedEleve.id = paiement.id_eleve;
+            this.selectedEleve.photo = paiement.photo;
+            this.selectedEleve.nom = paiement.eleve_nom;
+            this.selectedEleve.prenom = paiement.eleve_prenom;
+            this.selectedEleve.classe = paiement.classe;
+            this.selectedEleve.date_naissance = paiement.date_naissance;
+            this.selectedEleve.adresse = paiement.adresse;
+            this.search_query = paiement.matricule;
 
-        },
+            this.form.type_recouvrement = paiement.type_recouvrement;
+            this.form.mode_paiement = paiement.mode_paiement;
+            this.form.reference = paiement.reference;
+
+            // Accès aux propriétés de l'objet paiement dans le tableau paiement de form_paiement
+            this.form_paiement.paiement[0].id_mois = paiement.id_mois;
+            this.form_paiement.paiement[0].id_annee_academique = paiement.id_annee;
+            this.form_paiement.paiement[0].montant = paiement.montant;
+        }
+
 
     }
 

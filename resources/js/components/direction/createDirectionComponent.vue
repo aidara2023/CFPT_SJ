@@ -122,7 +122,9 @@ export default {
                 bus.emit('directionAjoutee;')
                 this.resetForm();
                 bus.emit('directionAjoutee');
-                window.location.href = '/direction/accueil';
+                setTimeout(() => {
+                    window.location.href = '/direction/accueil';
+                }, 1500);
 
             }
             catch (e) {

@@ -225,6 +225,7 @@ Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
 Route::get('eleve/show_by_where/{id}',[eleve_controller::class, 'show_by_where'])->name('eleve_search');
 Route::post('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve_update');
+Route::post('eleve/find/user/{id}',[user_controller::class, 'find_eleve_in_user'])->name('eleve_find_user');
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
 
 Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
