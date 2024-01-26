@@ -16,106 +16,105 @@
         </div>
         <!-- start widget -->
         <div class="row">
-          
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Total Students</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="l-bg-green info-icon">
-                                            <i class="fa fa-users pull-left col-orange font-30"></i>
-                                        </div>
-                                    </div>
+            <div class="row">
+                <div class="col-xl-3 ">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Total Students</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="l-bg-green info-icon">
+                                    <i class="fa fa-users pull-left col-orange font-30"></i>
                                 </div>
-                                <h1 class="mt-1 mb-3 info-box-title">4,586</h1>
-                                <div class="mb-0">
-                                    <span class="text-success m-r-10"><i
-                                            class="material-icons col-green align-middle">trending_up</i>
-                                        10.32%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!--  </div> -->
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Total Course</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-indigo info-icon">
-                                            <i class="fa fa-book pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">103</h1>
-                                <div class="mb-0">
-                                    <span class="text-danger m-r-10"><i
-                                            class="material-icons col-red align-middle">trending_down</i>
-                                        -10.64%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!--   </div> -->
-                            </div>
+                        <h1 class="mt-1 mb-3 info-box-title">4,586</h1>
+                        <div class="mb-0">
+                            <span class="text-success m-r-10"><i
+                                    class="material-icons col-green align-middle">trending_up</i>
+                                10.32%
+                            </span>
+                            <span class="text-muted">Since last week</span>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">New Students</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-teal info-icon">
-                                            <i class="fa fa-user pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">323</h1>
-                                <div class="mb-0">
-                                    <span class="text-success m-r-10"><i
-                                            class="material-icons col-green align-middle">trending_up</i>
-                                        21..19%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Visitors</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-pink info-icon">
-                                            <i class="fa fa-coffee pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">2,352</h1>
-                                <div class="mb-0">
-                                    <span class="text-danger m-r-10"><i
-                                            class="material-icons col-red align-middle">trending_down</i>
-                                        -4.27%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!-- </div> -->
-                            </div>
-                        </div>
+                        <!--  </div> -->
                     </div>
-            
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Total Course</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-indigo info-icon">
+                                    <i class="fa fa-book pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">103</h1>
+                        <div class="mb-0">
+                            <span class="text-danger m-r-10"><i
+                                    class="material-icons col-red align-middle">trending_down</i>
+                                -10.64%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div>
+                        <!--   </div> -->
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">New Students</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-teal info-icon">
+                                    <i class="fa fa-user pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">323</h1>
+                        <div class="mb-0">
+                            <span class="text-success m-r-10"><i
+                                    class="material-icons col-green align-middle">trending_up</i>
+                                21..19%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Visitors</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-pink info-icon">
+                                    <i class="fa fa-coffee pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">2,352</h1>
+                        <div class="mb-0">
+                            <span class="text-danger m-r-10"><i
+                                    class="material-icons col-red align-middle">trending_down</i>
+                                -4.27%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
             <!-- <div class="col-xl-7">
                     <div class="card card-box">
                         <div class="card-head">

@@ -22,8 +22,9 @@
                             {{ search_query }} <br>
                             <b>Nom complet :</b> {{ selectedEleve.nom }} {{ selectedEleve.prenom }}, <br> <b>Classe :</b> {{
                                 selectedEleve.classe }} <br>
-                            <b>Date Naissance :</b> {{ selectedEleve.date_naissance }}, <br> <b>Adresse :</b> {{
-                                selectedEleve.adresse }}
+                            <b>Date Naissance :</b> {{ this.formatDateTime(selectedEleve.date_naissance) }}, <br> <b>Adresse
+                                :</b> {{
+                                    selectedEleve.adresse }}
                         </p>
 
                     </address>
@@ -31,57 +32,44 @@
             </div>
         </div>
 
-        <div class="col-lg-2 p-t-20">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="Mensuel" v-model="form.paiement_type">
-                <span class="mdl-radio__label">Mensuel</span>
-            </label>
-        </div>
-        <div class="col-lg-2 p-t-20">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="Annuel" checked v-model="form.paiement_type">
-                <span class="mdl-radio__label">Annuel</span>
-            </label>
-        </div>
-<!--         <div class="col-lg-2 p-t-20">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" v-model="paie.paiement_type">
-                <span class="mdl-radio__label">Session</span>
-            </label>
-        </div> -->
-
-       <!--  <div class="col-lg-12 p-t-20">
+        <div class="col-lg-12 p-t-20">
             <div
                 class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-                <input class="mdl-textfield__input" type="text" id="list9" value="" readonly tabIndex="-1" v-model="paie.paiement_type" @change="validatedata('paiement_type')">
-                <label for="list9" class="pull-right margin-0">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                </label>
-                <label for="list9" class="mdl-textfield__label">Payment Type</label>
-                <ul data-mdl-for="list9" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                    <li class="mdl-menu__item" data-val="DE">Cash</li>
-                    <li class="mdl-menu__item" data-val="BY">Cheque</li>
-                    <li class="mdl-menu__item" data-val="BY">Online Transfer</li>
-                    <li class="mdl-menu__item" data-val="BY">Draft</li>
-                    <li class="mdl-menu__item" data-val="OT">Other</li>
-                </ul>
+                <label for="list3" class="mdl-textfield__label" v-show="!form.type_recouvrement">Choisissez le Type de
+                    recouvrement</label>
+                <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.type_recouvrement"
+                    @change="validatedata('type_recouvrement')">
+                    <option value="Seminaire">Seminaire</option>
+                    <option value="Etudiant">Etudiant</option>
+                    <option value="Location">Location</option>
+                    <option value="Prise en charge">Prise en charge</option>
+                </select>
+                <span class="erreur">{{ this.type_recouvrement_erreur }}</span>
             </div>
-        </div> -->
-        <div class="col-lg-12 p-t-20">
-        <div
-            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list3" class="mdl-textfield__label" v-show="!form.mode_paiement">Choisissez Genre</label>
-            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement"
-                @change="validatedata('form.mode_paiement')">
-                <option value="Cash">Cash</option>
-                <option value="Cheque">Cheque</option>
-                <option value="Orange">Orange</option>
-                <option value="Wave">Wave</option>
-            </select>
-            <span class="erreur">{{ this.mode_paiement_erreur }}</span>
         </div>
 
-    </div>
+        <div class="col-lg-12 p-t-20">
+            <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                <label for="list3" class="mdl-textfield__label" v-show="!form.mode_paiement">Choisissez le mode de paiement</label>
+                <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement" @change="validatedata('mode_paiement')">
+                    <option value="Cash">Cash</option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Wave">Wave</option>
+                </select>
+                <span class="erreur">{{ this.mode_paiement_erreur }}</span>
+            </div>
+        </div>
+
+        <div class="col-lg-12 p-t-20" v-show="form.mode_paiement=='Cheque'">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                <label class="mdl-textfield__label" for="txtReference" v-show="!form.reference">Reference</label>
+                <input class="mdl-textfield__input" type="text" id="txtReference" v-model="form.reference"
+                    @input="validatedata('reference')">
+                <span class="erreur">{{ this.reference_erreur }}</span>
+            </div>
+        </div>
 
         <div class="card-body row" v-for="(paie, index) in form_paiement.paiement" :key="index">
             <div class="header d-flex justify-content-end ">
@@ -134,7 +122,9 @@
                     <label class="mdl-textfield__label" for="txtMontant" v-show="!paie.montant">Montant</label>
                     <input class="mdl-textfield__input" type="text" id="txtMontant" v-model="paie.montant"
                         @input="validatedata('montant')">
+                    <span class="erreur">{{ montant_erreur }}</span>
                 </div>
+
             </div>
         </div>
 
@@ -168,10 +158,11 @@ export default {
             form: new Form({
 
                 'id_eleve': "",
+                'reference': "",
 
                 'statut': "",
-                'mode_paiement':"",
-                'paiement_type':""
+                'mode_paiement': "",
+                'type_recouvrement': ""
 
             }),
             form_paiement: new Form({
@@ -199,9 +190,10 @@ export default {
             id_eleve_erreur: "",
             id_annee_accademique_erreur: "",
             mode_paiement_erreur: "",
-            paiement_type_erreur: "",
+            type_recouvrement_erreur: "",
             id_mois_erreur: "",
             montant_erreur: "",
+            reference_erreur: "",
             id_eleve_erreur: "",
             etatForm: false,
             editModal: false,
@@ -225,6 +217,11 @@ export default {
             const formdata = new FormData();
             formdata.append('paiements', JSON.stringify(this.form_paiement.paiement));
             formdata.append('id_eleve', this.form.id_eleve);
+            formdata.append('mode_paiement', this.form.mode_paiement);
+            formdata.append('type_recouvrement', this.form.type_recouvrement);
+            if(this.form.reference){
+                formdata.append('reference', this.form.reference);
+            }
 
             try {
                 const create_store = await axios.post('/paiement/store', formdata, {
@@ -241,6 +238,28 @@ export default {
                 console.log(e)
                 showDialog3("Une erreur est survenue lors de l\'enregistrement");
             }
+
+        },
+
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
 
         },
 
@@ -279,6 +298,14 @@ export default {
                             this.montant_erreur = "Le montant pour le paiement " + (i + 1) + " est invalide";
                             return true;
                         }
+                    }
+                    break;
+                case 'reference':
+                    this.reference_erreur = "";
+                    if (this.form.reference === "" & this.form.mode_paiement) {
+                        this.reference_erreur = "La reference est obligatoire "
+                        i = 1;
+                        return true
                     }
                     break;
                 case 'id_annee_accademique':
@@ -323,6 +350,26 @@ export default {
                     }
 
                     break;
+                case 'mode_paiement':
+                    this.mode_paiement_erreur = "";
+                    //Vérification de l'eleve selectionner
+                    if (this.form.mode_paiement === "") {
+                        this.mode_paiement_erreur = "Le mode de paiement est obligatoire "
+                        i = 1;
+                        return true
+                    }
+
+                    break;
+                case 'type_recouvrement':
+                    this.type_recouvrement_erreur = "";
+                    //Vérification de l'eleve selectionner
+                    if (this.form.type_recouvrement === "") {
+                        this.type_recouvrement_erreur = "Le type de recouvrement est obligatoire "
+                        i = 1;
+                        return true
+                    }
+
+                    break;
                 default:
                     break;
             }
@@ -334,6 +381,9 @@ export default {
             this.id_mois_erreur = "";
             this.montant_erreur = "";
             this.id_eleve_erreur = "";
+            this.type_recouvrement_erreur = "";
+            this.mode_paiement = "";
+            this.reference_erreur = "";
             var j = 0;
 
             for (let i = 0; i < this.form_paiement.paiement.length; i++) {
@@ -358,6 +408,20 @@ export default {
                 this.id_eleve_erreur = "Matricule invalide "
                 j = 1;
 
+            }
+
+            if (this.form.mode_paiement === "") {
+                this.mode_paiement_erreur = "Le mode de paiement est obligatoire "
+                j = 1;
+            }
+
+            if (this.form.type_recouvrement === "") {
+                this.type_recouvrement_erreur = "Le type de recouvrement est obligatoire "
+                j = 1;
+            }
+            if (this.form.reference === "" && this.form.mode_paiement) {
+                this.reference_erreur = "La reference est obligatoire "
+                j = 1;
             }
 
 
@@ -466,6 +530,9 @@ export default {
             this.id_annee_accademique_erreur = "";
             this.id_mois_erreur = "";
             this.montant_erreur = "";
+            this.type_recouvrement_erreur = "";
+            this.mode_paiement = "";
+            this.reference_erreur = "";
             this.searchMatricule = true;
         },
 

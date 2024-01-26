@@ -10,10 +10,10 @@
     <title>CFPT digital</title>
     @vite('resources/js/app.js')
     <!-- google font -->
-  {{--   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-        type="text/css" />
+    {{-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+        type="text/css" /> --}}
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
- --}}
+
     <!-- icons -->
     <link rel="stylesheet" href="/assets/plugins/iconic/css/material-design-iconic-font.min.css">
 
@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="/assets/css/pages/login.css">
     <!-- favicon -->
     <link rel="shortcut icon" href="/assets/img/logoCFPT--clr" />
+
+    {{-- Icones Flaticon rr --}}
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <style>
         body {
             font-family: 'Poppins';
@@ -47,14 +50,15 @@
     <!-- Sing in  Form -->
     <div class="" style="margin-left: 20%; margin-top: 8%; width: 50vw; height: 50vh;" id="app">
         <div class="border"
-            style=" width: 638px; height: 785px; background: rgba(255, 255, 255, 0.80); box-shadow: -2px 5px 22.899999618530273px -2px #595353; border-radius: 16px 0 0 16px; backdrop-filter: blur(29.50px)">
+            style=" width: 638px; height: 785px; background: rgba(255, 255, 255, 0.80); box-shadow: -2px 5px 22.899999618530273px -2px rgb(89, 83, 83, .4); border-radius: 16px 0 0 16px; backdrop-filter: blur(29.50px)">
 
             <div class=""
                 style=" width: 364px; height: 350px; left: 67px; top: 20%; position: absolute; background:rgba(255, 255, 255, 0.80);">
 
                 <div>
                     <div
-                        style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 700; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
+                        style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 
+                        400; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
                         CONNEXION</div>
                     <user-login></user-login>
                 </div>
@@ -88,36 +92,37 @@
                     ‘’L'excellence au service de l’industrie’’</div>
             </div>
 
-            {{-- <div style="width: 155.28px; height: 21.21px; left: 171px; top: 737px; position: absolute">
-
+            <div style="width: 155.28px; height: 21.21px; left: 171px; top: 737px; position: absolute">
                 <div style="width: 155.28px; height: 21.21px; left: 0px; top: 0px; position: absolute">
-
-                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;background: #1877F2"> </div>
-                    <div style="width: 20.78px; height: 19.76px; left: 65.16px; top: 0.50px; position:absolute"></div>
-
-                    <div style="width: 26.36px; height: 17.35px; left: 93.54px; top: 2.01px; position:absolute">
-                        <div style="width: 7.11px; height: 6.95px; left: 10.46px; top: 4.94px; position:absolute; background: white"></div>
-                        <div style="width: 7.10px; height: 4.10px; left: 10.46px; top: 4.94px; position:absolute; background: #E8E0E0"></div>
-                        <div style="width: 26.36px; height: 17.35px; left: 0px; top: 0px; position: absolute;background: #CD201F"></div>
-                    </div>
-
-                    <div style="width: 22.30px; height: 21.21px; left: 132.98px; top: -0px; position: absolute">
-                        <div style="width: 22.30px; height: 21.21px; left: 0px; top: 0px; position: absolute; background: linear-gradient(135deg, #2489BE 0%, #0575B3 100%)"></div>
+                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
+                        <img src="/images/facebook.png" alt="">
                     </div>
                 </div>
-
                 <div style="width: 20.78px; height: 19.76px; left: 44.33px; top: 0.50px; position: absolute">
-
-                    <div style="width: 20.78px; height: 19.76px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #FED576 0%, #F47133 26%, #BC3081 61%, #4C63D2 100%)"></div>
-                    <div style="width: 13.54px; height: 12.88px; left: 3.59px; top: 3.42px; position: absolute">
-                        <div style="width: 13.54px; height: 12.88px; left: 0px; top: 0px; position: absolute; background: white"></div>
-                        <div style="width: 7.05px; height: 6.71px; left: 3.35px; top: 3.18px; position: absolute; background: white"></div>
-                        <div style="width: 1.73px; height: 1.64px; left: 9.61px; top: 2.22px; position: absolute; background: white"></div>
+                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
+                        <img src="/images/instagram.png" alt="">
                     </div>
-
                 </div>
-            </div> --}}
+                <div style="width: 20.78px; height: 19.76px; left: 92.20px; top: 0.50px; position: absolute">
+                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
+                        <img src="/images/youtube.png" alt="">
+                    </div>
+                </div>
+                <div style="width: 22.30px; height: 21.21px; left: 132.98px; top: -0px; position: absolute">
+                    <div style="width: 20.78px; height: 19.76px; left: -0px; top: 0.50px; position: absolute;">
+                        <img src="/images/linkedin.png" alt="">
+                    </div>
+                </div>
+
+                {{-- <div><img src="/images/instagram.png" alt=""></div>
+
+                <div><img src="/images/youtube.png" alt=""></div>
+
+                <div><img src="/images/linkedin.png" alt=""></div> --}}
+
+            </div>
         </div>
+    </div>
     </div>
     {{--  </div> --}}
 

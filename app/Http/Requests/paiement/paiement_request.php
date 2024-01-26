@@ -27,7 +27,10 @@ class paiement_request extends FormRequest
             'id_annee_academique' => '',
             'id_mois' => '',
             'montant' => '',
-            'statut' => ''
+            'statut' => '',
+            'type_recouvrement' => '',
+            'reference' => '',
+            'mode_paiement' => '',
         ];
     }
 }

@@ -51,16 +51,20 @@
 
       <input v-model="form.matricule" type="email" class="form-control ml-6" id="floatingInput"
         placeholder="name@example.com"
-        style="width: 88%; background: rgba(245, 241, 241, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #595353; border-radius: 16px; backdrop-filter: blur(29.50px)">
+        style="width: 88%; background: rgba(255, 255, 255, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #595353; border-radius: 16px; backdrop-filter: blur(29.50px)">
       <label for="floatingInput"><i class="fa fa-user"></i> Matricule</label>
 
     </div>
     <div class="form-floating mt-4 " style="margin-left: 9%;">
       <input v-model="form.password" :type="passwordFieldType" class="form-control" id="floatingPassword" placeholder="Password"
-          style="width: 88%; background: rgba(245, 241, 241, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #595353; border-radius: 16px; backdrop-filter: blur(29.50px)">
-      <button class="btn-outline-secondary border-0 position-absolute top-50 end-0 translate-middle-y"
-          @click.prevent="togglePasswordVisibility" type="button" id="togglePassword" style="margin-right: 15%;">
-          <i class="fa" :class="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+          style="width: 88%; background: rgba(255, 255, 255, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #59535300; border-radius: 16px; backdrop-filter: blur(29.50px)">
+      <button class=" border-0 position-absolute top-50 end-0 translate-middle-y"
+          @click.prevent="togglePasswordVisibility" type="button" id="togglePassword" style="margin-right: 15%; background-color: white;">
+          <i class="fi" :class="passwordFieldType === 'password' ? 'fi-rr-eye' : 'fi-rr-eye-crossed'" ></i>
+          <!-- <i class="fi fi-rr-eye"></i>
+          <i class="fi fi-rr-eye-crossed"></i> 
+        btn-outline-secondary
+        -->
       </button>
       <label for="floatingPassword"><i class="fa fa-lock"></i> Mot de passe</label>
     </div>
@@ -71,10 +75,10 @@
 
     <div style="width: 205px; height: 52px; left: 79px; top: 250px; position: absolute">
       <div
-        style="width: 205px; height: 52px; left: 0px; top: 0px; position: absolute; background: linear-gradient(9deg, #9181F4 0%, #5038ED 100%); box-shadow: 0px 8px 21px rgba(0, 0, 0, 0.16); border-radius: 16px">
+        style="width: 205px; height: 52px; left: 0px; top: 0px; position: absolute; background: linear-gradient(9deg, #9181F4 0%, #5038ED 100%); box-shadow: 0px 8px 21px rgb(80, 56, 237, .4); border-radius: 16px">
       </div>
       <a @click.prevent="verification()" href=""
-        style="text-align:center; text-decoration:none; left:12%; top: 8px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 700; word-wrap: break-word">
+        style="width:100%;text-align:center; text-decoration:none; top: 8px; position: absolute; color: white; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">
         Se connecter</a>
     </div>
   </form>
