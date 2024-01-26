@@ -33,13 +33,13 @@
 
         <div class="col-lg-2 p-t-20">
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="Mensuel" v-model="paie.paiement_type">
+                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="Mensuel" v-model="form.paiement_type">
                 <span class="mdl-radio__label">Mensuel</span>
             </label>
         </div>
         <div class="col-lg-2 p-t-20">
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="Annuel" checked v-model="paie.paiement_type">
+                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="Annuel" checked v-model="form.paiement_type">
                 <span class="mdl-radio__label">Annuel</span>
             </label>
         </div>
@@ -70,13 +70,13 @@
         <div class="col-lg-12 p-t-20">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
-            <label for="list3" class="mdl-textfield__label" v-show="!paie.mode_paiement">Choisissez Genre</label>
-            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="paie.mode_paiement"
-                @change="validatedata('paie.mode_paiement')">
-                <option value="Masculin">Cash</option>
-                <option value="Féminin">Cheque</option>
-                <option value="Féminin">Orange</option>
-                <option value="Féminin">Wave</option>
+            <label for="list3" class="mdl-textfield__label" v-show="!form.mode_paiement">Choisissez Genre</label>
+            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement"
+                @change="validatedata('form.mode_paiement')">
+                <option value="Cash">Cash</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Orange">Orange</option>
+                <option value="Wave">Wave</option>
             </select>
             <span class="erreur">{{ this.mode_paiement_erreur }}</span>
         </div>
@@ -170,6 +170,8 @@ export default {
                 'id_eleve': "",
 
                 'statut': "",
+                'mode_paiement':"",
+                'paiement_type':""
 
             }),
             form_paiement: new Form({
@@ -177,8 +179,7 @@ export default {
                     id_mois: "",
                     montant: "",
                     id_annee_academique: "",
-                    mode_paiement:"",
-                    paiement_type:""
+
                 }]
             }),
             eleves: [],
