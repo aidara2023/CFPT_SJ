@@ -86,8 +86,31 @@
                                     Professor</span>
                             </a>
                         </li> --}}
-                            </ul>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('liste_inscription') }}" class="nav-link nav-toggle"> <i
+                            data-feather="calendar"></i>
+                        <span class="title">Inscription</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
+                        <span class="title">Paramétres</span><span class="arrow"></span></a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('direction_accueil') }}" class="nav-link "> <span
+                                    class="title">Direction</span>
+                            </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('service_accueil') }}" class="nav-link "> <span
+                                    class="title">Service</span>
+                            </a>
+
+                            </ul>
+         </li>
                         <li class="nav-item">
                             <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
                                     data-feather="calendar"></i>

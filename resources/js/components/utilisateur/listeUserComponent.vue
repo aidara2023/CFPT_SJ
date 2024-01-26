@@ -451,7 +451,7 @@ export default {
                     });
                     /*      console.log("this.utilisateursPer ")
                          console.log(this.utilisateursPer) */
-                    const allUtilisateurs = response.data.user;
+                    const allUtilisateurs = response.data.user;   
 
                     // Filtrer les utilisateurs en fonction de la catégorie du personnel
                     const filteredUtilisateurs = allUtilisateurs.filter(utilisateur => {
