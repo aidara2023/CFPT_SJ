@@ -86,7 +86,11 @@
                                     Professor</span>
                             </a>
                         </li> --}}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4e284f09d6bcd0c5343e256e5dcad3c0a4c58225
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -99,6 +103,12 @@
                     <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
                         <span class="title">Paramétres</span><span class="arrow"></span></a>
                     <ul class="sub-menu">
+<<<<<<< HEAD
+=======
+                            </ul>
+                        </li>
+>>>>>>> ff867e63b1f4c53906b79f953ced36519d7dea58
+=======
                         <li class="nav-item">
                             <a href="{{ route('direction_accueil') }}" class="nav-link "> <span
                                     class="title">Direction</span>
@@ -111,6 +121,7 @@
 
                             </ul>
          </li>
+>>>>>>> 4e284f09d6bcd0c5343e256e5dcad3c0a4c58225
                         <li class="nav-item">
                             <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
                                     data-feather="calendar"></i>
