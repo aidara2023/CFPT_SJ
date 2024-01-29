@@ -12,8 +12,8 @@
     <!-- google font -->
     {{-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
         type="text/css" /> --}}
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
-
+{{--     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
+ --}}
     <!-- icons -->
     <link rel="stylesheet" href="/assets/plugins/iconic/css/material-design-iconic-font.min.css">
 
