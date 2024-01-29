@@ -115,9 +115,8 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-                                            <table
-                                                class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example47">
+                                            <table id="example47" class="table table-striped table-bordered table-hover table-checkable order-column valign-middle dt-buttons">
+
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -157,9 +156,16 @@
 import bus from '../../eventBus';
 import html2pdf from 'html2pdf.js';
 import datatable from 'datatables.net-bs5';
+/* require('datatables.net-buttons/js/buttons.html5') */
+import print from 'datatables.net-buttons/js/buttons.print'
+import jszip from 'jszip/dist/jszip'
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFont from "pdfmake/build/vfs_fonts"
 
 import axios from 'axios';
 import Form from 'vform';
+
+pdfMake.vfs= pdfFont.pdfMake.vfs
 
 
 
@@ -206,10 +212,9 @@ export default {
                         paginate: false,
                         searching: false, // Désactive la barre de recherche
 
-
                         dom: 'Bfrtip', // Affiche les boutons
                         buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
+                            'copy', 'excel', 'pdf'
                         ],
 
                         language: {
