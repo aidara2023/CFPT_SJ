@@ -277,7 +277,7 @@ export default {
             if (isVerifIdValid === true) {
                 this.etatForm = false;
                 this.editModal = false;
-                //console.log("erreur");
+                console.log("erreur");
                 return 0;
             } else {
                 if (this.editModal === true) {
@@ -308,7 +308,7 @@ export default {
                     break;
                 case 'reference':
                     this.reference_erreur = "";
-                    if (this.form.reference === "" & this.form.mode_paiement) {
+                    if (this.form.reference === "" & this.form.mode_paiement==='Cheque') {
                         this.reference_erreur = "La reference est obligatoire "
                         i = 1;
                         return true
@@ -425,7 +425,7 @@ export default {
                 this.type_recouvrement_erreur = "Le type de recouvrement est obligatoire "
                 j = 1;
             }
-            if (this.form.reference === "" && this.form.mode_paiement) {
+            if (this.form.reference === "" && this.form.mode_paiement==='Cheque') {
                 this.reference_erreur = "La reference est obligatoire "
                 j = 1;
             }
