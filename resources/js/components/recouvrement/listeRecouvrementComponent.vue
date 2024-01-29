@@ -71,7 +71,7 @@
                             bord</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
 
-                    <li class="active"> Récouvrement </li>
+                    <li class="active"> Recouvrement </li>
 
                 </ol>
             </div>
@@ -83,6 +83,15 @@
                         <button @click="filtre()"
                             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-info"
                             data-bs-toggle="tab">Filtre</button>
+                            <div class="paiemen" style="display: flex;" v-if="this.viewbutton === true">
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-success"
+        style="width: 150px; background-color: var(--clr); color: rgb(152, 14, 14); border: 1px solid; outline: none; gap: 0; margin-left: 10%;"
+        @click="imprimerEnPDF()">
+    <i class="fi fi-rr-bars-sort" style="color: white;"></i>
+    <span>Imprimer</span>
+</button>
+
+                </div>
 
 
 
@@ -91,12 +100,12 @@
                         <div class="tab-pane active fontawesome-demo" id="tab1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card card-box">
-                                        <div class="card-head">
-                                            <header v-if="this.nom_classe_selected !== ''">Liste récouvrement {{
+                                    <div class="card card-box" id="contenu-a-imprimer">
+                                        <div class="card-head" >
+                                            <header v-if="this.nom_classe_selected !== ''">Liste recouvrement {{
                                                 nom_classe_selected.type_formation.intitule }} {{
         nom_classe_selected.nom_classe }} {{
-        nom_classe_selected.niveau }} {{ nom_classe_selected.type_classe }}</header>
+        nom_classe_selected.niveau }} {{ nom_classe_selected.type_classe }} {{ annee_selected.intitule }}</header>
 
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
@@ -104,7 +113,7 @@
                                                 <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                                             </div>
                                         </div>
-                                        <div class="card-body ">
+                                        <div class="card-body " >
                                             <!--  <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
@@ -115,7 +124,7 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-                                            <table id="example47" class="table table-striped table-bordered table-hover table-checkable order-column valign-middle dt-buttons">
+                                            <table id="example47" class="table table-striped table-bordered table-hover table-checkable order-column valign-middle ">
 
                                                 <thead>
                                                     <tr>
@@ -155,17 +164,11 @@
 <script>
 import bus from '../../eventBus';
 import html2pdf from 'html2pdf.js';
-import datatable from 'datatables.net-bs5';
-/* require('datatables.net-buttons/js/buttons.html5') */
-import print from 'datatables.net-buttons/js/buttons.print'
-import jszip from 'jszip/dist/jszip'
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFont from "pdfmake/build/vfs_fonts"
+import 'datatables.net-buttons-bs5/js/buttons.bootstrap5';
 
 import axios from 'axios';
 import Form from 'vform';
 
-pdfMake.vfs= pdfFont.pdfMake.vfs
 
 
 
@@ -182,6 +185,7 @@ export default {
             eleves: [],
             viewbutton: false,
             nom_classe_selected: "",
+            annee_selected: "",
             viewListe: false,
             /* idService: "", */
         }
@@ -191,6 +195,7 @@ export default {
             this.eleves = eventData.eleve_non_payers;
             this.initDataTable();
             this.nom_classe_selected = eventData.nom_classe_selected;
+            this.annee_selected = eventData.annee_selected;
             this.viewListe = eventData.viewListe;
             console.log("this.nom_classe_selected");
             console.log(this.nom_classe_selected);
@@ -207,15 +212,12 @@ export default {
             this.$nextTick(() => {
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
+                        dom: "Bfrtip",
+    buttons: ["copy", "csv", "excel", "pdf", "print"],
                         responsive: true,
                         "autoWidth": true,
                         paginate: false,
                         searching: false, // Désactive la barre de recherche
-
-                        dom: 'Bfrtip', // Affiche les boutons
-                        buttons: [
-                            'copy', 'excel', 'pdf'
-                        ],
 
                         language: {
                             paginate: {

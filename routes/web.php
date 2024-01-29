@@ -169,7 +169,7 @@ Route::get('annee_academique/index', [annee_academique_controller::class, 'index
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
-Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+Route::get('annee_academique/show/{id}', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
 Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
 
@@ -613,6 +613,7 @@ Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
 Route::get('classe/get/last',[classe_controller::class, 'get_last_value'])->name('classe_last_values');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
 Route::get('classe/show/{id}',[classe_controller::class,'show'])->name('classe_show');
+
 Route::post('classe/update/{id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');

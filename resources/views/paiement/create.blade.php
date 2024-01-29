@@ -8,15 +8,17 @@ Administrateur
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
-                    <div class="page-title">Nouveau Service</div>
+                    <div class="page-title">Nouveau paiement</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb pull-right">
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
                             href="{{ route('admin_index') }}">Tableau de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
-                    <li class="active" >Paramétres &nbsp;<a class="parent-item"></a>&nbsp;<i class="fa fa-angle-right"></i>
-                    <li><a class="parent-item" :href="'/service/accueil'">Service</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><a class="parent-item" href="{{ route('paiement_accueil') }}">Liste Paiement</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
+                    <li class="active" >Nouveau Paiement &nbsp;<a class="parent-item"></a>&nbsp;<i class="fa fa-angle-right"></i>
+                   {{--  <li><a class="parent-item" :href="'/service/accueil'">Service</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li> --}}
                    
                 </ol>
             </div>
