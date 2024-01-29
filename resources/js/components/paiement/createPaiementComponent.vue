@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 p-t-20" v-show="searchMatricule && editModal">
+    <div class="col-lg-12 p-t-20" v-show="searchMatricule && !editModal">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
             <label class="mdl-textfield__label" for="txtMatricule" v-show="!search_query">Matricule</label>
             <input class="mdl-textfield__input" type="text" id="txtMatricule" v-model="this.search_query"
@@ -234,7 +234,7 @@ export default {
                 bus.emit('paiementAjoutee');
                 this.resetForm();
                 setTimeout(() => {
-                    window.location.href = '/paiement/accueil';
+                     window.location.href = '/paiement/accueil';
                 }, 1500);
                
                 bus.emit('paiementAjoutee');
