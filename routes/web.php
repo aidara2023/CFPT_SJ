@@ -710,6 +710,8 @@ Route::get('/create-default-admin', [administrateur_view_controller::class, 'cre
 
 Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
 Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
+Route::get('valider/paiement/inscription' ,[caissier_view_controller::class, 'valider'])->name('valider_paiement');
+Route::get('valider/paiement/inscription/{id}' ,[caissier_view_controller::class, 'valider'])->name('valider_paiement');
 
 
 Route::get('recherche/code',[caissier_controller::class, 'recherche_id_inscription'])->name('recherche_id_inscription');

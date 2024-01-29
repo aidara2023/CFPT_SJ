@@ -208,7 +208,7 @@ app.component("liste-personnel-appui", listePersonnelAppuiComponent);
 app.component("recouvrement-create", createRecouvrementComponent);
 app.component("recouvrement-tableau", tableauRecouvrementComponent);
 app.component("liste-valider-inscription", listeValiderInscriptionComponent);
-app.component("inscription-valider", validerInscriptionComponent);
+app.component("valider-paiement-inscription", validerInscriptionComponent);
 app.component("alerte-create", createAlerteComponent);
 app.component("liste-alerte", listeAlerteComponent);
  app.component("dash-board", dashboardComponent);

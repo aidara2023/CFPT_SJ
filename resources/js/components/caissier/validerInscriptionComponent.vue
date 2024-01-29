@@ -1,6 +1,5 @@
 <template>
-    
-        <div class="titres">
+    <!--  <div class="titres">
             <h1>Validation Inscription</h1>
         </div>
         <div>
@@ -92,8 +91,76 @@
                     </div>
                 </div>
             </form>
+        </div> -->
+    <div class="col-lg-12 p-t-20" v-show="searchidInscription && !editModal">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+            <label class="mdl-textfield__label" for="txtCode" v-show="!search_query">Code Inscription</label>
+            <input class="mdl-textfield__input" type="text" id="txtCode" v-model="this.search_query" @input="performSearch">
+            <span class="erreur">{{ this.id_eleve_erreur }}</span>
         </div>
-    
+    </div>
+    <div v-for="(inscription, key) in inscriptions" :key="key" @click="selectEleve(inscription)">
+        <a href="#"> {{ inscription.eleve.user.nom }} {{ inscription.eleve.user.prenom }} {{
+            inscription.eleve.user.matricule }}</a>
+    </div>
+    <div class="card-body row" v-show="form.id_eleve !== '' && selectedEleve.id">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-left">
+                <p class=" ">
+                    <b>Code :</b> {{ search_query }} <br>
+                    <b>Matricule :</b> {{ selectedEleve.matricule}} <br>
+                    <b>Nom complet :</b> {{ selectedEleve.prenom }} {{ selectedEleve.nom }}, <br> <b>Classe :</b> {{
+                       selectedEleve.classe }} <br>
+                    <b>Date Naissance :</b> {{ this.formatDateTime(selectedEleve.date_naissance) }}, 
+                            <br> <b>Lieu de naissance :</b> {{
+                       selectedEleve.lieu_de_naissance }} <br>
+                </p>
+
+           
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list6" class="mdl-textfield__label" v-show="!form.id_annee_academique">Choisissez
+                l'année</label>
+            <select class="mdl-textfield__input" id="list6" readonly tabIndex="-1" v-model="form.id_annee_academique"
+                @change="validatedata('id_annee_accademique')">
+                <option v-for="annee_academique in annee_academiques" :value="annee_academique.id" :key="index">
+                    {{ annee_academique.intitule }}
+                </option>
+            </select>
+            <span class="erreur">{{ id_annee_accademique_erreur }}</span>
+        </div>
+    </div>
+    <div class="col-lg-12 p-t-20">
+        <div
+            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+            <label for="list3" class="mdl-textfield__label" v-show="!form.montant">Choisissez le montant
+            </label>
+            <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.montant"
+                @change="validatedata('montant')">
+                <option value="140000">140 000</option>
+                <option value="50000">50 000</option>
+            </select>
+            <span class="erreur">{{ this.montant_erreur }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 p-t-20 text-center">
+        <button type="submit" v-if="!this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Enregistrer</button>
+        <button type="submit" v-if="this.editModal"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary"
+            @click.prevent="validerAvantAjout()">Modifier</button>
+        <button type="button"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-circle btn-danger"
+            @click="resetForm">Annuler</button>
+    </div>
 </template>
 
 <script>
@@ -111,7 +178,9 @@ export default {
                 'id_classe': "",
                 'statut': "",
                 'montant': "",
-                'id_annee_academique': ""
+                'id_annee_academique': "",
+
+
 
             }),
             inscriptions: [],
@@ -135,6 +204,8 @@ export default {
             id_eleve_erreur: "",
             id_classe_erreur: "",
             etatForm: false,
+            searchidInscription: true,
+            editModal: false,
 
         }
     },
@@ -148,6 +219,28 @@ export default {
     },
 
     methods: {
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
+        },
+
         async soumettre() {
             const formdata = new FormData();
 
@@ -162,10 +255,10 @@ export default {
                 });
                 this.resetForm();
                 // Swal.fire('Succes!','paiement ajouté avec succes','success')
-                bus.emit('paiementAjoutee');
+                bus.emit('inscriptionAjoutee');
                 var ajout = document.querySelector('[data-modal-ajout]');
 
-                this.closeModal('[data-modal-confirmation]');
+                showDialog6("Inscription effectuée avec succés");
             }
             catch (e) {
                 console.log(e)
@@ -186,7 +279,7 @@ export default {
             } else {
                 this.soumettre();
                 this.etatForm = true;
-                this.closeModal('[data-modal-confirmation]');
+               /*  this.closeModal('[data-modal-confirmation]'); */
                 console.log("Tokkos");
             }
         },
@@ -208,12 +301,12 @@ export default {
                             i = 1;
                             return true
                         } */
-                    
-                        if (this.form.id_annee_academique === "") {
-                            this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l'\ année académique "  ;
-                            
-                            return true;
-                        
+
+                    if (this.form.id_annee_academique === "") {
+                        this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l'\ année académique ";
+
+                        return true;
+
                     }
                     break;
 
@@ -222,7 +315,7 @@ export default {
                     //Vérification de l'eleve selectionner
                     if (this.form.id_eleve === "") {
                         this.id_eleve_erreur = "Code invalide "
-                        
+
                         return true
                     }
 
@@ -235,20 +328,20 @@ export default {
 
         validatedataOld() {
             this.id_annee_accademique_erreur = "";
-            this.id_eleve_erreur="";
+            this.id_eleve_erreur = "";
             this.montant_erreur = "";
             var i = 0;
 
 
-                if (this.form.id_annee_academique === "") {
-                    this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l'\ annee academique" ;
-                    i = 1;
-                }
-                if (this.form.montant === "") {
-                    this.montant_erreur = "Vous avez oublié de sélectionner le montant de l'inscription";
-                    i = 1;
-                }
-            
+            if (this.form.id_annee_academique === "") {
+                this.id_annee_accademique_erreur = "Vous avez oublié de sélectionner l'\ annee academique";
+                i = 1;
+            }
+            if (this.form.montant === "") {
+                this.montant_erreur = "Vous avez oublié de sélectionner le montant de l'inscription";
+                i = 1;
+            }
+
             if (this.form.id_eleve === "") {
                 this.id_eleve_erreur = "Code invalide "
                 i = 1;
@@ -259,7 +352,7 @@ export default {
             return false;
         },
 
-        closeModal(selector) {
+      /*   closeModal(selector) {
             var ajout = document.querySelector('[data-modal-ajout]');
             var confirmation = document.querySelector(selector);
             this.resetForm();
@@ -283,7 +376,7 @@ export default {
                 }, 100);
 
             }, 1700);
-        },
+        }, */
 
         async performSearch() {
             this.id_eleve_erreur = "";
@@ -305,20 +398,26 @@ export default {
             this.search_query = inscription.id;
             this.selectedEleve.id = inscription.eleve.id;
             this.selectedEleve.nom = inscription.eleve.user.nom;
+            this.selectedEleve.date_naissance = inscription.eleve.user.date_naissance;
+            this.selectedEleve.lieu_de_naissance = inscription.eleve.user.lieu_naissance;
             this.selectedEleve.prenom = inscription.eleve.user.prenom;
             this.selectedEleve.matricule = inscription.eleve.user.matricule;
             this.selectedEleve.id_classe = inscription.classe.id;
             // this.selectedEleve.classe = eleve.eleves.inscription.classe.nom_classe;
-            this.selectedEleve.classe = inscription.classe.type_formation + ' ' + inscription.classe.nom_classe + ' ' + inscription.classe.niveau+ ''+inscription.classe.type_classe;
-            this.selectEleve.montant  = inscription.montant;
-            if(this.selectEleve.montant>0){
-               this.closeModal('[data-modal-confirmation-inscription]');
+            this.selectedEleve.classe = inscription.classe.type_formation + ' ' + inscription.classe.nom_classe + ' ' + inscription.classe.niveau + '' + inscription.classe.type_classe;
+            this.selectEleve.montant = inscription.montant;
+            if (this.selectEleve.montant > 0) {
+              /*   this.closeModal('[data-modal-confirmation-inscription]'); */
+              showDialog3("Cette inscription a été déjà effectuée.")
+              window.location.href = '/valider/paiement/inscription';
             }
 
 
 
             this.inscriptions = [];
             console.log(this.selectedEleve.id_classe)
+            this.inscriptions = [];
+            this.searchidInscription = false;
             // Pour vider la liste après avoir sélectionné un élève
         },
 
@@ -365,6 +464,7 @@ export default {
             this.eleve_classe = ""
             this.id_annee_accademique_erreur = "";
             this.montant_erreur = "";
+            this.searchidInscription = true;
         },
 
 

@@ -18,5 +18,9 @@ class caissier_view_controller extends Controller
     public function inscription(){
         return view('caissier.inscription');
     }
+
+    public function valider(){
+        return view('caissier.valider');
+    }
      
 }
