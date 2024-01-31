@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\service;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\service\service_request;
 use App\Models\Service;
@@ -57,6 +60,7 @@ class service_controller extends Controller
         }else{
         $service=Service::create($data);
         if($service!=null){
+            event(new ModelCreated($service));
             return response()->json([
                 'statut'=>200,
                 'service'=>$service
@@ -77,6 +81,7 @@ class service_controller extends Controller
            $service->id_direction=$request['id_direction'];
           
            $service->save();
+           event(new ModelUpdated($service));
             return response()->json([
                 'statut'=>200,
                 'service'=>$service
@@ -92,6 +97,7 @@ class service_controller extends Controller
         $service=Service::find($id);
         if($service!=null){
             $service->delete();
+            event(new ModelDeleted($service));
             return response()->json([
                 'statut'=>200,
                 'message'=>'service supprimer avec succes',

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\salle;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\salle\salle_request;
 use App\Models\Salle;
@@ -42,6 +45,7 @@ class salle_controller extends Controller
         $data=$request->validated();
         $salle=Salle::create($data);
         if($salle!=null){
+            event(new ModelCreated($salle));
             return response()->json([
                 'statut'=>200,
                 'salle'=>$salle
@@ -61,6 +65,7 @@ class salle_controller extends Controller
            $salle->id_batiment=$request['id_batiment'];
           
            $salle->save();
+           event(new ModelUpdated($salle));
             return response()->json([
                 'statut'=>200,
                 'salle'=>$salle
@@ -76,6 +81,7 @@ class salle_controller extends Controller
         $salle=Salle::find($id);
         if($salle!=null){
             $salle->delete();
+            event(new ModelDeleted($salle));
             return response()->json([
                 'statut'=>200,
                 'message'=>'La salle est supprimeé avec succes',

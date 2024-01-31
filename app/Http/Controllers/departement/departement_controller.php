@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\departement;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\departement\departement_request;
 use Illuminate\Http\Request;
@@ -56,6 +59,7 @@ class departement_controller extends Controller
         $departement -> id_user = $request['id_user'];
         $departement->save();
         if($departement != null){
+            event(new ModelCreated($departement));
             return response()->json([
                 'statut' => 200,
                 'departement' => $departement
@@ -78,6 +82,8 @@ class departement_controller extends Controller
             $departement -> id_user = $request['id_user'];
             $departement -> save();
 
+            event(new ModelUpdated($departement));
+
             return response()->json([
                 'statut' => 200,
                 'departement' => $departement
@@ -94,6 +100,7 @@ class departement_controller extends Controller
         $departement = Departement::find($id);
         if($departement != null){
             $departement -> delete();
+            event(new ModelDeleted($departement));
             return response()->json([
                 'statut' => 200,
                 'message' => 'L\'enregistrement a été supprimé avec succés'

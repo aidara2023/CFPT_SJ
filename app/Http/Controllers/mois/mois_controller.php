@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\mois;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\mois\mois_request;
 use App\Models\mois;
@@ -28,6 +31,7 @@ class mois_controller extends Controller
         $data=$request->validated();
         $mois=Mois::create($data);
         if($mois!=null){
+            event(new ModelCreated($mois));
             return response()->json([
                 'statut'=>200,
                 'mois'=>$mois
@@ -46,6 +50,7 @@ class mois_controller extends Controller
         if($mois!=null){
            $mois->intitule=$request['intitule'];
            $mois->save();
+           event(new ModelUpdated($mois));
             return response()->json([
                 'statut'=>200,
                 'mois'=>$mois
@@ -62,6 +67,7 @@ class mois_controller extends Controller
         $mois=Mois::find($id);
         if($mois!=null){
             $mois->delete();
+            event(new ModelDeleted($mois));
             return response()->json([
                 'statut'=>200,
                 'message'=>'Le mois a été supprimé avec succes',

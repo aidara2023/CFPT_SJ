@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\inscription;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\inscription\inscription_request;
 use App\Models\Classe;
@@ -155,6 +158,7 @@ class inscription_controller extends Controller
         ]);
 
         if($inscription!=null){
+            event(new ModelCreated($inscription));
             return response()->json([
                 'statut'=>200,
                 'inscription'=>$inscription
@@ -180,6 +184,7 @@ class inscription_controller extends Controller
 
 
         $inscription->update($validatedData);
+        event(new ModelUpdated($inscription));
 
 
         return response()->json($inscription);
@@ -194,6 +199,7 @@ class inscription_controller extends Controller
         }
 
         $inscription->delete();
+        event(new ModelDeleted($inscription));
 
 
         return response()->json(['message' => 'Inscription supprimée avec succès']);

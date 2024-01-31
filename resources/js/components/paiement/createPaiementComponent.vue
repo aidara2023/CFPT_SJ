@@ -285,7 +285,7 @@ export default {
                     this.update_paiement(this.idPaiement);
                     this.editModal = false;
                 }
-                else {
+                else {console.log("ok top")
                     this.soumettre();
                     this.etatForm = true;
                     this.editModal = false;
