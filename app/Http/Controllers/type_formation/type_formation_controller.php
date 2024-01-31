@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\type_formation;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\type_formation\type_formation_request;
 use App\Models\Type_formation;
@@ -56,6 +59,7 @@ class type_formation_controller extends Controller
 
         $Type_Formation = Type_formation::create($data);
         if ($Type_Formation) {
+            event(new ModelCreated($Type_Formation));
             return response()->json([
                 'status' => 200,
                 'Type_Formation' => $Type_Formation
@@ -78,6 +82,7 @@ class type_formation_controller extends Controller
             ]);
 
             $Type_Formation->update($data);
+            event(new ModelUpdated($Type_Formation));
 
             return response()->json([
                 'status' => 200,
@@ -96,6 +101,7 @@ class type_formation_controller extends Controller
         $Type_Formation = Type_formation::find($id);
         if ($Type_Formation) {
             $Type_Formation->delete();
+            event(new ModelDeleted($Type_Formation));
             return response()->json([
                 'status' => 200,
                 'message' => 'Type de formation supprimé avec succès',
