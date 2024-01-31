@@ -552,12 +552,14 @@ export default {
                 bus.emit('inscriptionAjoutee');
                 showDialog6("Inscription ajoutée avec succès");
                 this.resetForm();
-                /*  window.location.href = '/utilisateur/index';
-  */
+                  window.location.href = '/liste/inscription';
+  
             }
             catch (e) {
                 if (e.request.status === 404) {
                     showDialog3("Inscription déja effectuée");
+                    window.location.href = '/liste/inscription';
+  
                 }
                 else {
                     Swal.fire('Erreur !', 'Une erreur est survenue lors de l\'enregistrement', 'error')
