@@ -169,21 +169,19 @@ class inscription_controller extends Controller
 
     public function update(inscription_request $request, $id)
     {
-
-        $validatedData = $request->validated();
-
         $inscription = Inscription::find($id);
-
+    
         if (!$inscription) {
             return response()->json(['message' => 'Inscription non trouvée'], 404);
         }
-
-
-        $inscription->update($validatedData);
-
-
+    
+        $inscription->montant = $request->montant;
+        $inscription->id_annee_academique = $request->id_annee_academique;
+    
+        $inscription->save();
+    
         return response()->json($inscription);
-    }
+    } 
 
     public function delete($id)
     {
@@ -228,8 +226,27 @@ class inscription_controller extends Controller
                 'message'=>'Classe introuvable ',
             ],500 );
         }
-    }
+       
 
+
+
+        
+
+     }
+    public function getEleveIdByInscriptionId($id)
+    {
+        $inscription = Inscription::with( 'eleve.user', 'classe' , 'annee_academique')->find($id);
+    
+        if (!$inscription) {
+            return response()->json(['message' => 'Inscription non trouvée'], 404);
+        }
+    
+      /*   $eleveId = $inscription->id_eleve; */
+        $eleve = $inscription;
+    
+       /*  return response()->json(['eleve_id' => $eleveId]); */
+        return response()->json(['eleve' => $eleve]);
+    }
 
 
 
