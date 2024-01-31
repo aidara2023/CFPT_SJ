@@ -31,13 +31,13 @@
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3 info-box-title">4,586</h1>
-                        <div class="mb-0">
+                       <!--  <div class="mb-0">
                             <span class="text-success m-r-10"><i
                                     class="material-icons col-green align-middle">trending_up</i>
                                 10.32%
                             </span>
                             <span class="text-muted">Since last week</span>
-                        </div>
+                        </div> -->
                         <!--  </div> -->
                     </div>
                 </div>

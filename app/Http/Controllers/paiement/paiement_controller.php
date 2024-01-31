@@ -36,6 +36,21 @@ class paiement_controller extends Controller
             ], 500);
         }
     }
+    public function get_last()
+    {
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(5)->orderBy('created_at', 'desc')->get();
+        if ($paiement != null) {
+            return response()->json([
+                'statut' => 200,
+                'paiement' => $paiement
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée'
+            ], 500);
+        }
+    }
 
     public function store(paiement_request $request)
     {

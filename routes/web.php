@@ -8,6 +8,7 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\archive\archive_view_controller;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\batiment\batiment_controller;
 use App\Http\Controllers\batiment\batiment_view_controller;
@@ -204,6 +205,9 @@ Route::get('infirmier/get/{id}',[infirmier_controller::class, 'get'])->name('inf
 
 Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->name('infirmier_create');
 
+//Route Audit
+Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
+
 
 //Route unite de formation
 
@@ -336,6 +340,7 @@ Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tu
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
+Route::get('paiement/get_last',[paiement_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
 Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('paiement_show');
