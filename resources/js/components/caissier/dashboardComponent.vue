@@ -46,7 +46,9 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Total Course</h4>
+
+                                <h4 class="info-box-title">Total Etudiant Inscrit</h4>
+
                             </div>
                             <div class="col-auto">
                                 <div class="col-indigo info-icon">
@@ -54,14 +56,19 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 class="mt-1 mb-3 info-box-title">103</h1>
-                        <div class="mb-0">
+
+                         <!--  <h1 class="mt-1 mb-3 info-box-title">103</h1>
+                        <div class="mb-0"> -->
+
+                        <h1 class="mt-1 mb-3 info-box-title">2500</h1>
+                       <!--  <div class="mb-0">
+
                             <span class="text-danger m-r-10"><i
                                     class="material-icons col-red align-middle">trending_down</i>
                                 -10.64%
                             </span>
                             <span class="text-muted">Since last week</span>
-                        </div>
+                        </div> -->
                         <!--   </div> -->
                     </div>
                 </div>
@@ -70,7 +77,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">New Students</h4>
+                                <h4 class="info-box-title">Nombre Caissier</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-teal info-icon">
@@ -78,14 +85,14 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 class="mt-1 mb-3 info-box-title">323</h1>
-                        <div class="mb-0">
+                        <h1 class="mt-1 mb-3 info-box-title">5</h1>
+                        <!-- <div class="mb-0">
                             <span class="text-success m-r-10"><i
                                     class="material-icons col-green align-middle">trending_up</i>
                                 21..19%
                             </span>
                             <span class="text-muted">Since last week</span>
-                        </div>
+                        </div> -->
                         <!-- </div> -->
                     </div>
                 </div>
@@ -94,7 +101,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Visitors</h4>
+                                <h4 class="info-box-title">Transactions</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-pink info-icon">
@@ -103,13 +110,13 @@
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3 info-box-title">2,352</h1>
-                        <div class="mb-0">
+                        <!-- <div class="mb-0">
                             <span class="text-danger m-r-10"><i
                                     class="material-icons col-red align-middle">trending_down</i>
                                 -4.27%
                             </span>
                             <span class="text-muted">Since last week</span>
-                        </div>
+                        </div> -->
                         <!-- </div> -->
                     </div>
                 </div>

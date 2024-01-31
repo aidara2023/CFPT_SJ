@@ -1,7 +1,6 @@
 <template>
-
-   <!--  <div class="liste"> -->
-       <!-- <div class="avant" style=" margin-left: 80%;">
+    <!--  <div class="liste"> -->
+    <!-- <div class="avant" style=" margin-left: 80%;">
          
            <a href="#">
                <button class="texte ajout mdl" > <i class="fi fi-rr-plus"></i><span>Ajouter</span></button>
@@ -39,7 +38,7 @@
                </div>
            </div>
        </div> -->
-       <!-- <div class="avant">
+    <!-- <div class="avant">
            <h1 class="texte">Inscription valide</h1>
            <a href="#">
               
@@ -88,8 +87,8 @@
    </div>
  -->
 
-<!-- <span class="fond "></span> -->
-<div class="page-content" v-if="!this.editModal">
+    <!-- <span class="fond "></span> -->
+    <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
                 <div class=" pull-left">
@@ -102,7 +101,7 @@
                     <li><a class="parent-item" :href="'/caissier/inscription'"> Valider Inscription</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-                   <!--  <li class="active">Valider Inscription</li> -->
+                    <!--  <li class="active">Valider Inscription</li> -->
                 </ol>
             </div>
         </div>
@@ -112,7 +111,7 @@
 
                     <ul class="nav customtab nav-tabs" role="tablist">
                         <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Inscription
-                              En Cours</a>
+                                En Cours</a>
                         </li>
                         <li class="nav-item"><a href="#tab2" class="nav-link" data-bs-toggle="tab">Inscription Validée</a>
                         </li>
@@ -124,7 +123,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>Inscription  En Cours</header>
+                                            <header>Inscription En Cours</header>
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -135,7 +134,8 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a :href="'/valider/paiement/inscription'" id="addRow" class="btn btn-primary">
+                                                        <a :href="'/valider/paiement/inscription'" id="addRow"
+                                                            class="btn btn-primary">
                                                             Valider <i class="fa fa-plus text-white"></i>
                                                         </a>
 
@@ -161,9 +161,9 @@
                                                 <tbody>
                                                     <tr class="odd gradeX" v-for="(inscription, index) in inscriptionInv"
                                                         :key="index">
-                                                        <td> <a :href="'/valider/paiement/inscription'" id="addRow" >
-                                                            {{ inscription.id }}
-                                                        </a></td>
+                                                        <td> <a :href="'/valider/paiement/inscription'" id="addRow">
+                                                                {{ inscription.id }}
+                                                            </a></td>
                                                         <td class="patient-img"> <img :src="getImageUrl(inscription.photo)"
                                                                 alt="Etu">
                                                         </td>
@@ -217,7 +217,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body ">
-                                             <!-- <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a :href="'/eleve/inscription'" id="addRow" class="btn btn-primary">
@@ -242,8 +242,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX" v-for="(inscription, index) in inscriptionVal"
-                                                        >
+                                                    <tr class="odd gradeX" v-for="(inscription, index) in inscriptionVal">
                                                         <td class="patient-img"> <img :src="getImageUrl(inscription.photo)"
                                                                 alt="Etu">
                                                         </td>
@@ -256,12 +255,12 @@
                                                         }} </td>
                                                         <td class="left">{{ inscription.annee_academique }}
                                                         </td>
-                                                       
+
                                                         <td>
                                                             <a class="tblEditBtn" @click="openModal(inscription)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                           <!--  <a href="javascript:void(0)" class="tblDelBtn"
+                                                            <!--  <a href="javascript:void(0)" class="tblDelBtn"
                                                                 @click="deleteInscription(inscription)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a> -->
@@ -295,8 +294,8 @@
                         <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
                                 de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
-                        <li><a class="parent-item" href="{{ route('inscription_eleve') }}">Inscrire eleve</a>&nbsp;<i
-                                class="fa fa-angle-right"></i>
+                        <li><a class="parent-item" href="{{ route('valider/paiement/inscription') }}">Inscrire
+                                eleve</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
                         <li class="active">Modifier Inscription</li>
                     </ol>
@@ -321,51 +320,92 @@
                                     here</li>
                             </ul>
                         </div>
-                        <!-- <div class="card-body row">
+                        <div class="card-body row">
                             <FormulaireModification />
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import FormulaireModification from './validerInscriptionComponent.vue';
 
 
 
-  export default {
-   name:"listeUserCompenent",
-   data(){
-       return {
-           form:new Form({
-               'inscription':"",
-              
 
-           }),
-           inscriptions: [],
-           inscriptionInv:[],
-               inscriptionVal:[],
-               editModal: false ,
+export default {
+    name: "listeUserCompenent",
+    components: {
+        FormulaireModification,
+    },
+    data() {
+        return {
+            form: new Form({
+
+                'id_eleve': "",
+                'id_classe': "",
+                'statut': "",
+                'montant': "",
+                'id_annee_academique': "",
+                'id_user': ""
 
 
-       }
-   },
-   mounted(){
-       this.get_inscription_valider();
-       bus.on('paiementAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-           this.get_inscription_valider(); // Mettre à jour la liste des utilisateurs
-       });
-   },
 
-   methods:{
+            }),
+            inscriptions: [],
+            inscriptions: [],
+            classes: [],
 
-    initDataTable() {
+            annee_academiques: [],
+            search_query: "",
+            selectedEleve: {
+                id: "",
+                prenom: "",
+                nom: "",
+                classe: "",
+                id_classe: ""
+            },
+            eleve_classe: "",
+            id_eleve_erreur: "",
+            id_annee_accademique_erreur: "",
+
+            montant_erreur: "",
+            id_eleve_erreur: "",
+            id_classe_erreur: "",
+            etatForm: false,
+            searchidInscription: true,
+
+            inscriptions: [],
+            inscriptionInv: [],
+            inscriptionVal: [],
+            editModal: false,
+            idInscription: "",
+            eleveId: [],
+
+
+        }
+    },
+    mounted() {
+        this.get_inscription_valider();
+        bus.on('inscriptionAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
+            this.get_inscription_valider(); // Mettre à jour la liste des utilisateurs
+        });
+        bus.on('inscriptionDejaModifier', (eventData) => {
+            this.editModal = eventData.editModal;
+            this.get_inscription_valider();
+        });
+
+    },
+
+    methods: {
+
+        initDataTable() {
             this.$nextTick(() => {
                 // Initialiser DataTable sur la table avec l'id 'exemple1' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#exemple1')) {
@@ -433,211 +473,220 @@ import Form from 'vform';
             });
         },
 
-    get_inscription_valider(){
-        axios.get('/inscription/all')
-           .then(response => {
-               this.inscriptions=response.data.inscription
+        get_inscription_valider() {
+            axios.get('/inscription/all')
+                .then(response => {
+                    this.inscriptions = response.data.inscription
 
-               const allInscriptions = response.data.inscription;
-                   
+                    const allInscriptions = response.data.inscription;
 
-                   const inscriptionInv = allInscriptions.filter(inscription => {
-                    if (inscription.statut == 0 && inscription.montant == null)
-                       return ([inscription.statut, inscription.montant])
-                     
-                   });
-                  
-                   const inscriptionVal = allInscriptions.filter(inscription => {
-                    if (inscription.statut == 1)
-                       return inscription.statut
-                    else if ( inscription.montant !== null)   
-                      return inscription.montant 
-                   });
-                 
-                   const formattedInscriptionVal = inscriptionVal.map(inscrit => {
-                       return {
-                           id: inscrit.id,
-                            photo: inscrit.eleve.user.photo, 
-                           matricule: inscrit.eleve.user.matricule, 
-                            nom: inscrit.eleve.user.nom, 
-                            genre_eleve: inscrit.eleve.user.genre, 
+
+                    const inscriptionInv = allInscriptions.filter(inscription => {
+                        if (inscription.statut == 0 && inscription.montant == null)
+                            return ([inscription.statut, inscription.montant])
+
+                    });
+
+                    const inscriptionVal = allInscriptions.filter(inscription => {
+                        if (inscription.statut == 1)
+                            return inscription.statut
+                        else if (inscription.montant !== null)
+                            return inscription.montant
+                    });
+
+                    const formattedInscriptionVal = inscriptionVal.map(inscrit => {
+                        return {
+                            id: inscrit.id,
+                            photo: inscrit.eleve.user.photo,
+                            matricule: inscrit.eleve.user.matricule,
+                            nom: inscrit.eleve.user.nom,
+                            genre_eleve: inscrit.eleve.user.genre,
                             prenom: inscrit.eleve.user.prenom,
                             adresse_eleve: inscrit.eleve.user.adresse,
                             telephone_eleve: inscrit.eleve.user.telephone,
                             mail_eleve: inscrit.eleve.user.email,
                             date: inscrit.eleve.user.date_naissance,
-                           lieu_naissance_eleve: inscrit.eleve.user.lieu_naissance,
-                          id_eleve:inscrit.eleve.id,
-                           nationalite_eleve: inscrit.eleve.user.nationalite,
-                           classe: inscrit.classe.type_formation.intitule + ' ' + inscrit.classe.nom_classe + ' ' +inscrit.classe.niveau + ' ' +inscrit.classe.type_classe ,
-                          annee_academique: inscrit.annee_academique.intitule, 
-                          contact1: inscrit.eleve.contact_urgence1,
-                          contact2: inscrit.eleve.contact_urgence2,
-                          editModal: true,  
-                          statut: inscrit.statut, 
-                          id_tuteur:inscrit.eleve.tuteur.id,
-                          nom_tuteur: inscrit.eleve.tuteur.user.nom, 
+                            lieu_naissance_eleve: inscrit.eleve.user.lieu_naissance,
+                            id_eleve: inscrit.eleve.id,
+                            nationalite_eleve: inscrit.eleve.user.nationalite,
+                            classe: inscrit.classe.type_formation.intitule + ' ' + inscrit.classe.nom_classe + ' ' + inscrit.classe.niveau + ' ' + inscrit.classe.type_classe,
+                            annee_academique: inscrit.annee_academique.intitule,
+                            contact1: inscrit.eleve.contact_urgence1,
+                            contact2: inscrit.eleve.contact_urgence2,
+                            editModal: true,
+                            statut: inscrit.statut,
+                            id_tuteur: inscrit.eleve.tuteur.id,
+                            nom_tuteur: inscrit.eleve.tuteur.user.nom,
 
-  
-                            genre_tuteur: inscrit.eleve.tuteur.user.genre, 
+
+                            genre_tuteur: inscrit.eleve.tuteur.user.genre,
                             prenom_tuteur: inscrit.eleve.tuteur.user.prenom,
                             adresse_tuteur: inscrit.eleve.tuteur.user.adresse,
                             telephone_tuteur: inscrit.eleve.tuteur.user.telephone,
                             mail_tuteur: inscrit.eleve.tuteur.user.email,
                             date: inscrit.eleve.tuteur.user.date_naissance,
-                           lieu_naissance_tuteur: inscrit.eleve.tuteur.user.lieu_naissance,
-                         
-                           nationalite_tuteur: inscrit.eleve.tuteur.user.nationalite, 
-                           
-                           id_classe: inscrit.classe.id,
-                          id_departement: inscrit.classe.unite_de_formation.departement.id,
-                           id_filiere: inscrit.classe.unite_de_formation.id,
-                           id_annee_academique: inscrit.annee_academique.id,
+                            lieu_naissance_tuteur: inscrit.eleve.tuteur.user.lieu_naissance,
 
-                           nom_departement: inscrit.classe.unite_de_formation.departement.nom_departement,
-                           nom_filiere: inscrit.classe.unite_de_formation.nom_unite_formation,
-                           annee_academique: inscrit.annee_academique.intitule,
+                            nationalite_tuteur: inscrit.eleve.tuteur.user.nationalite,
 
-                         
-                       };
-                       
-                   });
-                   const formattedInscriptionInv = inscriptionInv.map(inscrit => {
-                       return {
-                           id: inscrit.id,
-                            photo: inscrit.eleve.user.photo, 
-                           matricule: inscrit.eleve.user.matricule, 
-                            nom: inscrit.eleve.user.nom, 
-                            genre_eleve: inscrit.eleve.user.genre, 
+                            id_classe: inscrit.classe.id,
+                            id_departement: inscrit.classe.unite_de_formation.departement.id,
+                            id_filiere: inscrit.classe.unite_de_formation.id,
+                            id_annee_academique: inscrit.annee_academique.id,
+                            montant: inscrit.montant,
+
+
+
+                            nom_departement: inscrit.classe.unite_de_formation.departement.nom_departement,
+                            nom_filiere: inscrit.classe.unite_de_formation.nom_unite_formation,
+                            annee_academique: inscrit.annee_academique.intitule,
+
+
+                        };
+
+                    });
+                    const formattedInscriptionInv = inscriptionInv.map(inscrit => {
+                        return {
+                            id: inscrit.id,
+                            photo: inscrit.eleve.user.photo,
+                            matricule: inscrit.eleve.user.matricule,
+                            nom: inscrit.eleve.user.nom,
+                            genre_eleve: inscrit.eleve.user.genre,
                             prenom: inscrit.eleve.user.prenom,
                             adresse_eleve: inscrit.eleve.user.adresse,
                             telephone_eleve: inscrit.eleve.user.telephone,
                             mail_eleve: inscrit.eleve.user.email,
                             date: inscrit.eleve.user.date_naissance,
-                           lieu_naissance_eleve: inscrit.eleve.user.lieu_naissance,
-                          id_eleve:inscrit.eleve.id,
-                           nationalite_eleve: inscrit.eleve.user.nationalite,
-                           classe: inscrit.classe.type_formation.intitule + ' ' + inscrit.classe.nom_classe + ' ' +inscrit.classe.niveau + ' ' +inscrit.classe.type_classe ,
-                          annee_academique: inscrit.annee_academique.intitule, 
-                          contact1: inscrit.eleve.contact_urgence1,
-                          contact2: inscrit.eleve.contact_urgence2,
-                          editModal: true,  
-                          statut: inscrit.statut, 
-                          id_tuteur:inscrit.eleve.tuteur.id,
-                          nom_tuteur: inscrit.eleve.tuteur.user.nom, 
+                            lieu_naissance_eleve: inscrit.eleve.user.lieu_naissance,
+                            id_eleve: inscrit.eleve.id,
+                            nationalite_eleve: inscrit.eleve.user.nationalite,
+                            classe: inscrit.classe.type_formation.intitule + ' ' + inscrit.classe.nom_classe + ' ' + inscrit.classe.niveau + ' ' + inscrit.classe.type_classe,
+                            annee_academique: inscrit.annee_academique.intitule,
+                            contact1: inscrit.eleve.contact_urgence1,
+                            contact2: inscrit.eleve.contact_urgence2,
+                            editModal: true,
+                            statut: inscrit.statut,
+                            id_tuteur: inscrit.eleve.tuteur.id,
+                            nom_tuteur: inscrit.eleve.tuteur.user.nom,
 
-  
-                            genre_tuteur: inscrit.eleve.tuteur.user.genre, 
+
+                            genre_tuteur: inscrit.eleve.tuteur.user.genre,
                             prenom_tuteur: inscrit.eleve.tuteur.user.prenom,
                             adresse_tuteur: inscrit.eleve.tuteur.user.adresse,
                             telephone_tuteur: inscrit.eleve.tuteur.user.telephone,
                             mail_tuteur: inscrit.eleve.tuteur.user.email,
                             date: inscrit.eleve.tuteur.user.date_naissance,
-                           lieu_naissance_tuteur: inscrit.eleve.tuteur.user.lieu_naissance,
-                         
-                           nationalite_tuteur: inscrit.eleve.tuteur.user.nationalite, 
-                           
-                           id_classe: inscrit.classe.id,
-                          id_departement: inscrit.classe.unite_de_formation.departement.id,
-                           id_filiere: inscrit.classe.unite_de_formation.id,
-                           id_annee_academique: inscrit.annee_academique.id,
+                            lieu_naissance_tuteur: inscrit.eleve.tuteur.user.lieu_naissance,
 
-                           nom_departement: inscrit.classe.unite_de_formation.departement.nom_departement,
-                           nom_filiere: inscrit.classe.unite_de_formation.nom_unite_formation,
-                           annee_academique: inscrit.annee_academique.intitule,
+                            nationalite_tuteur: inscrit.eleve.tuteur.user.nationalite,
 
-                       }; 
+                            id_classe: inscrit.classe.id,
+                            id_departement: inscrit.classe.unite_de_formation.departement.id,
+                            id_filiere: inscrit.classe.unite_de_formation.id,
+                            id_annee_academique: inscrit.annee_academique.id,
 
-                   });
-                   console.log(formattedInscriptionInv)
-                   this.inscriptionVal = formattedInscriptionVal;
-                  
-                   this.inscriptionInv = formattedInscriptionInv;
-                   
-                   this.initDataTable();
+                            nom_departement: inscrit.classe.unite_de_formation.departement.nom_departement,
+                            nom_filiere: inscrit.classe.unite_de_formation.nom_unite_formation,
+                            annee_academique: inscrit.annee_academique.intitule,
 
+                        };
 
+                    });
+                    console.log(formattedInscriptionInv)
+                    this.inscriptionVal = formattedInscriptionVal;
+
+                    this.inscriptionInv = formattedInscriptionInv;
+
+                    this.initDataTable();
 
 
-           }).catch(error=>{
-           Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des inscrits','error')
-           console.log(error)
-           });
-       },
 
-       changement(event){
-           this.interesser= event;
-       },
 
-       resetForm(){
-           this.form.input="";
-           this.form.nom_paiement="";
-       },
-
-       async deleteInscription(type) {
-           Swal.fire({
-               title: 'Êtes-vous sûr?',
-               text: "Cette action sera irréversible!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Oui, supprimer!',
-               cancelButtonText: 'Annuler'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   axios.delete(`/inscription/delete/${type.id}`).then(resp => {
-                       this.get_inscription_valider();
-
-                   /*     Swal.fire(
-                           'Supprimé!',
-                           'Le paiement a été supprimé avec succès.',
-                           'success',
-                       ) */
-                       var confirmation = document.querySelector('[data-modal-confirmation-sup]');
-
-                        confirmation.style.backgroundColor = 'white';
-                        confirmation.style.color = 'var(--clr)';
-
-                        //setTimeout(function(){
-                            confirmation.showModal();
-                            confirmation.classList.add("actif");
-                            //confirmation.close();
-                        //}, 1000);
-
-                        setTimeout(function(){
-                            confirmation.close();
-
-                            setTimeout(function(){
-                                confirmation.classList.remove("actif");
-                        }, 100);
-
-                        }, 2000);
-
-                   }).catch(function (error) {
-                       console.log(error);
-                   })
-               }
-           });
-       },
-       openModal(inscription) {
-            this.editModal = true;
-            // Créez un objet avec les données à envoyer
-            const eventData = {
-                inscription: inscription,
-                editModal: true
-                // Ajoutez d'autres propriétés si nécessaire
-            };
-            bus.emit('inscriptionModifier', eventData);
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des inscrits', 'error')
+                    console.log(error)
+                });
         },
+
+        changement(event) {
+            this.interesser = event;
+        },
+
+        resetForm() {
+            this.form.input = "";
+            this.form.id_annee_academique = "";
+            this.form.montant = "";
+
+        },
+
+        async deleteInscription(type) {
+            Swal.fire({
+                title: 'Voulez-vous confirmer la suppression?',
+                text: "Cette action sera irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`/inscription/delete/${type.id}`).then(resp => {
+                        this.get_inscription_valider();
+
+
+                        showModal3("Inscription supprimée avec succés")
+
+
+
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
+        },
+        openModal(inscription) {
+            this.editModal = true;
+            this.get_id_eleve_by_inscrit(inscription.id)
+                .then(eleveId => {
+                    // Maintenant que la promesse est résolue, vous avez accès à la valeur de eleveId
+                  // Vérifiez que la valeur est correcte
+                    console.log(eleveId); // Vérifiez que la valeur est correcte
+                    const eventData = {
+                        inscription: inscription,
+                        eleve: eleveId,
+                        editModal: true
+                        
+                    };
+                    console.log("eventData");
+                    console.log(eventData);
+                    bus.emit('inscriptionModifier', eventData);
+                    // Vous pouvez utiliser eleveId ici ou le passer à d'autres fonctions
+                })
+                .catch(error => {
+                    // Gérez les erreurs ici
+                    Swal.fire('Erreur!', 'une erreur est survenue ', 'error');
+                    console.log(error);
+                });
+        },
+
         getImageUrl(url) {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },
 
-       
+        get_id_eleve_by_inscrit(id) {
+            // Retourne la promesse pour pouvoir la chaîner
+            return axios.get('/inscription/get_id_eleve_by_inscription/' + id)
+                .then(response => {
+                    console.log(response.data.eleve)
+                    return response.data.eleve;
+                  
+                });
+               
+        }
 
 
 
-   }
+    }
 }
 </script>
