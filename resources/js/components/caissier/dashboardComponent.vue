@@ -22,7 +22,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Etudiants</h4>
+                                <h4 class="info-box-title">Nombre Caissier</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="l-bg-green info-icon">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 class="mt-1 mb-3 info-box-title">3000</h1>
+                        <h1 class="mt-1 mb-3 info-box-title">5</h1>
                        <!--  <div class="mb-0">
                             <span class="text-success m-r-10"><i
                                     class="material-icons col-green align-middle">trending_up</i>
@@ -70,7 +70,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Nombre Caissier</h4>
+                                <h4 class="info-box-title">Budget</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-teal info-icon">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 class="mt-1 mb-3 info-box-title">5</h1>
+                        <h1 class="mt-1 mb-3 info-box-title">2500000</h1>
                         <!-- <div class="mb-0">
                             <span class="text-success m-r-10"><i
                                     class="material-icons col-green align-middle">trending_up</i>
@@ -139,7 +139,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="card card-box">
                     <div class="card-head">
-                        <header>Sport Student List</header>
+                        <header>Liste des derniers paiements</header>
                         <div class="tools">
                             <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                             <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -503,7 +503,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="card card-box">
                     <div class="card-head">
-                        <header>Professors List</header>
+                        <header>Liste des caissiers</header>
                     </div>
                     <div class="card-body ">
                         <div class="row">
