@@ -2,7 +2,7 @@
     <ul class="nav navbar-nav pull-right">
         <li><a class="fullscreen-btn"><i data-feather="maximize"></i></a></li>
         <!-- start language menu -->
-        <li class="dropdown language-switch">
+     {{--    <li class="dropdown language-switch">
             <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> <img
                     src="/assets/img/flags/gb.png" class="position-left" alt=""> English
             </a>
@@ -23,7 +23,7 @@
                     <a class="russian"><img src="/assets/img/flags/ru.png" alt=""> Русский</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
         <!-- end language menu -->
         <!-- start notification dropdown -->
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
