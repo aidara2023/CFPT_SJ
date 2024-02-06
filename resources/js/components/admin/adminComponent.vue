@@ -465,7 +465,7 @@
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card card-box">
                 <div class="card-head">
-                    <header>Audit</header>
+                    <header>Audits</header>
                 </div>
                 <div class="card-body ">
                     <div class="row">

@@ -20,7 +20,7 @@ import createInfirmierComponent from './components/infirmier/createInfirmierComp
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import dashboardCaissierComponent from './components/caissier/dashboardComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
-import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+import createTuteurComponent from './components/tuteur/createTuteurcomponent.vue';
 
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
 

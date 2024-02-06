@@ -22,7 +22,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Total Students</h4>
+                                <h4 class="info-box-title">Etudiants</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="l-bg-green info-icon">
@@ -47,7 +47,7 @@
                         <div class="row">
                             <div class="col mt-0">
 
-                                <h4 class="info-box-title">Total Etudiant Inscrit</h4>
+                                <h4 class="info-box-title">Paiements mois</h4>
 
                             </div>
                             <div class="col-auto">
@@ -77,7 +77,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Nombre Caissier</h4>
+                                <h4 class="info-box-title">Paiements Semaine</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-teal info-icon">
@@ -101,7 +101,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Transactions</h4>
+                                <h4 class="info-box-title">Paiements jour</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-pink info-icon">
@@ -142,7 +142,7 @@
         </div>
 
         <!-- end widget -->
-        <div class="row">
+   <!--      <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="card card-box">
                     <div class="card-head">
@@ -640,7 +640,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row" >
             <div class="col-md-4 col-sm-12 col-12">
                 <div class="white-box border-gray">
@@ -710,14 +710,14 @@
             <div class="col-sm-12">
                 <div class="card-box">
                     <div class="card-head">
-                        <header>Salary Status</header>
+                        <header>Derniers encaissement</header>
                     </div>
                     <div class="card-body ">
                         <div class="mdl-tabs mdl-js-tabs">
                             <div class="mdl-tabs__tab-bar tab-left-side">
-                                <a href="#tab4-panel" class="mdl-tabs__tab tabs_three is-active">Professors</a>
-                                <a href="#tab5-panel" class="mdl-tabs__tab tabs_three">Librarian</a>
-                                <a href="#tab6-panel" class="mdl-tabs__tab tabs_three">Other</a>
+                                <a href="#tab4-panel" class="mdl-tabs__tab tabs_three is-active">Ce Mois</a>
+                                <a href="#tab5-panel" class="mdl-tabs__tab tabs_three">Cette Semaine</a>
+                                <a href="#tab6-panel" class="mdl-tabs__tab tabs_three">Aujourd'hui</a>
                             </div>
                             <div class="mdl-tabs__panel is-active p-t-20" id="tab4-panel">
                                 <div class="table-responsive">
