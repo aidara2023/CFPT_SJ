@@ -101,7 +101,7 @@
                         <!--  <div class="card-body"> -->
                         <div class="row">
                             <div class="col mt-0">
-                                <h4 class="info-box-title">Paiements jour</h4>
+                                <h4 class="info-box-title">Paiements mois</h4>
                             </div>
                             <div class="col-auto">
                                 <div class="col-pink info-icon">
@@ -517,7 +517,7 @@
                             <ul class="docListWindow small-slimscroll-style">
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="/assets/img/user/user1.jpg" alt="" width="40" height="40">
+                                        <img :src="'/assets/img/user/user1.jpg'" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -733,7 +733,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user6.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user6.jpg'" alt="">
                                                 </td>
                                                 <td>John Deo</td>
                                                 <td>05-01-2017</td>
@@ -743,7 +743,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user4.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user4.jpg'" alt="">
                                                 </td>
                                                 <td>Eugine Turner</td>
                                                 <td>04-01-2017</td>
@@ -753,7 +753,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user2.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user2.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -783,7 +783,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user1.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user1.jpg'" alt="">
                                                 </td>
                                                 <td>Eugine Turner</td>
                                                 <td>04-01-2017</td>
@@ -793,7 +793,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user4.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user4.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -803,7 +803,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user5.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user5.jpg'" alt="">
                                                 </td>
                                                 <td>Jayesh Parmar</td>
                                                 <td>03-01-2017</td>
@@ -833,7 +833,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user8.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user8.jpg'" alt="">
                                                 </td>
                                                 <td>Jane Elliott</td>
                                                 <td>06-01-2017</td>
@@ -843,7 +843,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user7.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user7.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -853,7 +853,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="/assets/img/user/user9.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user9.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>

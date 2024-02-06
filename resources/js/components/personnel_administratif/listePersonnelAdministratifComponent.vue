@@ -12,7 +12,7 @@
    <div class="sections" v-for="(personnel_administratif, index) in personnel_administratifs" :key="index">
            <!-- Répéter la div utilisateur pour un autre utilisateur -->
            <div class="utilisateur">
-               <img src="/assetsCFPT/image/image1.png" alt="Etu" class="petite">
+               <img src="" alt="Etu" class="petite">
                <p class="texte" id="n">{{ personnel_administratif.intitule}} </p>
               
                <div  class="presences">

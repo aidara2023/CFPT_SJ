@@ -321,7 +321,7 @@
 									<h5 class="list-heading">Online</h5>
 								</div>
 								<ul class="media-list list-items">
-									<li class="media"><img class="media-object" src="../assets/img/user/user3.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user3.jpg'"
 											width="35" height="35" alt="...">
 										<i class="online dot"></i>
 										<div class="media-body">
@@ -332,7 +332,7 @@
 									<li class="media">
 										<div class="media-status">
 											<span class="badge badge-success">5</span>
-										</div> <img class="media-object" src="../assets/img/user/user1.jpg" width="35"
+										</div> <img class="media-object" :src="'/assets/img/user/user1.jpg'" width="35"
 											height="35" alt="...">
 										<i class="busy dot"></i>
 										<div class="media-body">
@@ -340,7 +340,7 @@
 											<div class="media-heading-sub">Director</div>
 										</div>
 									</li>
-									<li class="media"><img class="media-object" src="../assets/img/user/user5.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user5.jpg'"
 											width="35" height="35" alt="...">
 										<i class="away dot"></i>
 										<div class="media-body">
@@ -351,7 +351,7 @@
 									<li class="media">
 										<div class="media-status">
 											<span class="badge badge-danger">8</span>
-										</div> <img class="media-object" src="../assets/img/user/user4.jpg" width="35"
+										</div> <img class="media-object" :src="'/assets/img/user/user4.jpg'" width="35"
 											height="35" alt="...">
 										<i class="online dot"></i>
 										<div class="media-body">
@@ -359,7 +359,7 @@
 											<div class="media-heading-sub">CEO</div>
 										</div>
 									</li>
-									<li class="media"><img class="media-object" src="../assets/img/user/user2.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user2.jpg'"
 											width="35" height="35" alt="...">
 										<i class="busy dot"></i>
 										<div class="media-body">
@@ -367,7 +367,7 @@
 											<div class="media-heading-sub">Anaesthetics</div>
 										</div>
 									</li>
-									<li class="media"><img class="media-object" src="../assets/img/user/user7.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user7.jpg'"
 											width="35" height="35" alt="...">
 										<i class="online dot"></i>
 										<div class="media-body">
@@ -383,7 +383,7 @@
 									<li class="media">
 										<div class="media-status">
 											<span class="badge badge-warning">4</span>
-										</div> <img class="media-object" src="../assets/img/user/user6.jpg" width="35"
+										</div> <img class="media-object" :src="'/assets/img/user/user6.jpg'" width="35"
 											height="35" alt="...">
 										<i class="offline dot"></i>
 										<div class="media-body">
@@ -392,7 +392,7 @@
 											<div class="media-heading-small">Last seen 01:20 AM</div>
 										</div>
 									</li>
-									<li class="media"><img class="media-object" src="../assets/img/user/user8.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user8.jpg'"
 											width="35" height="35" alt="...">
 										<i class="offline dot"></i>
 										<div class="media-body">
@@ -404,7 +404,7 @@
 									<li class="media">
 										<div class="media-status">
 											<span class="badge badge-success">9</span>
-										</div> <img class="media-object" src="../assets/img/user/user9.jpg" width="35"
+										</div> <img class="media-object" :src="'/assets/img/user/user9.jpg'" width="35"
 											height="35" alt="...">
 										<i class="offline dot"></i>
 										<div class="media-body">
@@ -413,7 +413,7 @@
 											<div class="media-heading-small">Last seen 3:31 PM</div>
 										</div>
 									</li>
-									<li class="media"><img class="media-object" src="../assets/img/user/user10.jpg"
+									<li class="media"><img class="media-object" :src="'/assets/img/user/user10.jpg'"
 											width="35" height="35" alt="...">
 										<i class="offline dot"></i>
 										<div class="media-body">
