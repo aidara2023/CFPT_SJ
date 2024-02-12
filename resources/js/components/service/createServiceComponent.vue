@@ -6,6 +6,7 @@
                 @input="validatedata('nom_service')">
             <span class="erreur">{{ this.nom_service_erreur }}</span>
         </div>
+        
     </div>
 
     <div class="col-lg-6 p-t-20 mt-1">

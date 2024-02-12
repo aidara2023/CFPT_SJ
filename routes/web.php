@@ -398,6 +398,8 @@ Route::get('/rayon/accueil',[rayon_view_controller::class, 'accueil'])->name('ra
 //route categorie
 Route::get('categorie/index',[categorie_controller::class, 'index'])->name('categorie_index');
 Route::post('categorie/store',[categorie_controller::class, 'store'])->name('categorie_store');
+Route::get('categorie/index/get/last', [categorie_controller::class, 'get_five_laste'])->name('categorie_index_get_last');
+
 Route::get('categorie/show/{id}',[categorie_controller::class, 'show'])->name('categorie_show');
 Route::post('categorie/update/{id}',[categorie_controller::class, 'update'])->name('categorie_update');
 Route::delete('categorie/delete/{id}',[categorie_controller::class, 'delete'])->name('categorie_delete');
@@ -419,14 +421,17 @@ Route::get('/bibliothecaire/accueil',[bibliothecaire_view_controller::class, 'ac
 
 
 //rout exemplaire
-/* Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
-Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
-Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
-Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
-Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
- */
+// Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
+// Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
+// Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
+// Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
+// Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
+ 
 Route::get('/exemplaire/create',[exemplaire_view_controller::class, 'create'])->name('exemplaire_create');
 Route::get('/exemplaire/accueil',[exemplaire_view_controller::class, 'accueil'])->name('exemplaire_accueil');
+// Route::get('exemplaire/index/get/last' ,[exemplaire_controller::class, 'get_five_laste'])->name('exemplaire_index_get_last');
+
+
 //route ressource_pedagogique
 Route::get('ressource_pedagogique/index',[ressource_pedagogique_controller::class, 'index'])->name('ressource_pedagogique_index');
 Route::post('ressource_pedagogique/store',[ressource_pedagogique_controller::class, 'store'])->name('ressource_pedagogique_store');
