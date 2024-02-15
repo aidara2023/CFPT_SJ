@@ -928,6 +928,12 @@
                 </li> --}}
                         <li class="nav-item">
 
+                            <a href="/auteur/accueil" class="nav-link "> <span
+                                    class="title">Auteur</span>
+                            </a>
+                        </li>
+
+
                             <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
                                 <span class="title">Paramétres</span><span class="arrow"></span></a>
 

@@ -29,7 +29,7 @@ class Livre extends Model
     }
 
     public function auteur() {
-        return $this -> belongsToMany(Auteur::class, 'id_auteur');
+        return $this -> belongsTo(Auteur::class, 'id_auteur');
     }
 
     public function categorie() {

@@ -63,6 +63,7 @@ import createEditeurComponent from './components/editeur/createEditeurComponent.
 import createEditionComponent from './components/edition/createEditionComponent.vue';
 import createCategorieComponent from './components/categorie/createCategorieComponent.vue';
 import createAuteurComponent from './components/auteur/createAuteurComponent.vue';
+import listeAuteurComponent from './components/auteur/listeAuteurComponent.vue';
 import createRayonComponent from './components/rayon/createRayonComponent.vue';
 import createLivreComponent from './components/livre/createLivreComponent.vue';
 
@@ -181,6 +182,7 @@ app.component("editeur-create", createEditeurComponent);
 app.component("edition-create", createEditionComponent);
 app.component("categorie-create", createCategorieComponent);
 app.component("auteur-create", createAuteurComponent);
+app.component("liste-auteur", listeAuteurComponent);
 app.component("rayon-create", createRayonComponent);
 app.component("livre-create", createLivreComponent);
 
