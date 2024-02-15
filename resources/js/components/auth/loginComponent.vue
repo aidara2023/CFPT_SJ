@@ -1,50 +1,4 @@
 <template>
-  <!--
-    <form action="" method="">
-    <h1>Connexion</h1>
-
-    <div class="informationsLogin">
-      <div class="champ">
-        <label for="matricule"><span>Matricule</span></label>
-        <input type="text" id="matricule" name="matricule" placeholder="Matricule" v-model="form.matricule">
-      </div>
-      <div class="champ">
-        <label for="mdp">Mot de passe</label>
-        <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" v-model="form.password">
-      </div>
-    </div>
-
-    <div class="groupe_champs">
-      <p class="b">{{ message }}</p>
-      <button type="submit" class="suivant" @click.prevent="verification()">
-        <span data-statut="visible">Je me connecte</span>
-      </button>
-      <p class="text-danger" v-if="erreur" style="color: white;">{{ errorMessage }}</p>
-    </div>
-  </form>-->
-  <!-- <form class="register-form" id="login-form">
-    <div class="form-group">
-      <div class="">
-        <input name="uname" type="text" placeholder="Matricule" class="form-control input-height"
-          v-model="form.matricule" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="">
-        <input name="pwd" type="password" placeholder="Mot de passe" class="form-control input-height"
-          v-model="form.password" />
-      </div>
-    </div>
-    <div class="form-group">
-      <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" v-model="rememberMe" />
-      <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
-        me</label>
-    </div>
-    <div class="form-group form-button">
-      <button class="btn btn-round btn-primary" name="signin" id="signin" @click.prevent="verification()">Se
-        Connecter</button>
-    </div>
-  </form> -->
   <form action="votre_action.php" method="post" id="login-form">
 
     <div class="form-floating mb-2 mt-4" style="margin-left: 9%;">
@@ -61,17 +15,9 @@
       <button class=" border-0 position-absolute top-50 end-0 translate-middle-y"
           @click.prevent="togglePasswordVisibility" type="button" id="togglePassword" style="margin-right: 15%; background-color: white;">
           <i class="fi" :class="passwordFieldType === 'password' ? 'fi-rr-eye' : 'fi-rr-eye-crossed'" ></i>
-          <!-- <i class="fi fi-rr-eye"></i>
-          <i class="fi fi-rr-eye-crossed"></i> 
-        btn-outline-secondary
-        -->
       </button>
       <label for="floatingPassword"><i class="fa fa-lock"></i> Mot de passe</label>
     </div>
-
-
-
-
 
     <div style="width: 205px; height: 52px; left: 79px; top: 250px; position: absolute">
       <div
