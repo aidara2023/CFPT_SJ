@@ -10,7 +10,8 @@ class Edition extends Model
     use HasFactory;
     protected $fillable =[
         'nom_edition',
-        'id_editeur'
+        'id_editeur',
+        'annee_edition'
     ];
 
     public function livre() {
