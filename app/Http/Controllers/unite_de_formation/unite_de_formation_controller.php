@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\unite_de_formation;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\unite_de_formation\unite_de_formation_request;
 use App\Models\Role;
@@ -89,6 +92,7 @@ class unite_de_formation_controller extends Controller
         }else{
         $unite_de_formation=Unite_de_formation::create($data);
         if($unite_de_formation!=null){
+            event(new ModelCreated($unite_de_formation));
             return response()->json([
                 'statut'=>200,
                 'unite_de_formation'=>$unite_de_formation
@@ -109,6 +113,7 @@ class unite_de_formation_controller extends Controller
            $unite_de_formation->id_user=$request['id_user'];
            $unite_de_formation->id_departement=$request['id_departement'];
            $unite_de_formation->save();
+           event(new ModelUpdated($unite_de_formation));
             return response()->json([
                 'statut'=>200,
                 'unite_de_formation'=>$unite_de_formation
@@ -125,6 +130,7 @@ class unite_de_formation_controller extends Controller
         $unite_de_formation=Unite_de_formation::find($id);
         if($unite_de_formation!=null){
             $unite_de_formation->delete();
+            event(new ModelDeleted($unite_de_formation));
             return response()->json([
                 'statut'=>200,
                 'message'=>'L\'unite de formation a été supprimée avec succes',

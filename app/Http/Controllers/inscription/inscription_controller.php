@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\inscription;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\inscription\inscription_request;
 use App\Models\Classe;
@@ -11,13 +14,17 @@ use App\Models\Role;
 use App\Models\Tuteur;
 use App\Models\Unite_de_formation;
 use App\Models\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class inscription_controller extends Controller
 {
     public function index() {
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation')->orderBy('created_at', 'desc')->get();
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc')->get();
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
@@ -30,6 +37,26 @@ class inscription_controller extends Controller
             ],500 );
         }
      }
+     public function verifMail(Request $request)
+     {
+         $validator = Validator::make($request->all(), [
+             'email' => [
+                 'required',
+                 'email',
+                 Rule::unique('users')->ignore(auth()->id()),
+             ],
+             // Ajoutez d'autres règles de validation pour les champs nécessaires
+         ]);
+ 
+         if ($validator->fails()) {
+             return response()->json(['errors' => $validator->errors()], 422);
+         }
+ 
+         // Le reste de votre code pour le traitement du formulaire
+ 
+         return response()->json(['success' => true]);
+     }
+ 
 
      public function show($id){
 
@@ -131,6 +158,7 @@ class inscription_controller extends Controller
         ]);
 
         if($inscription!=null){
+            event(new ModelCreated($inscription));
             return response()->json([
                 'statut'=>200,
                 'inscription'=>$inscription
@@ -145,21 +173,21 @@ class inscription_controller extends Controller
 
     public function update(inscription_request $request, $id)
     {
-
-        $validatedData = $request->validated();
-
         $inscription = Inscription::find($id);
-
+    
         if (!$inscription) {
             return response()->json(['message' => 'Inscription non trouvée'], 404);
         }
 
-
-        $inscription->update($validatedData);
-
+    
+        $inscription->montant = $request->montant;
+        $inscription->id_annee_academique = $request->id_annee_academique;
+    
+        $inscription->save();
+       event(new ModelUpdated($inscription));
 
         return response()->json($inscription);
-    }
+    } 
 
     public function delete($id)
     {
@@ -170,6 +198,7 @@ class inscription_controller extends Controller
         }
 
         $inscription->delete();
+        event(new ModelDeleted($inscription));
 
 
         return response()->json(['message' => 'Inscription supprimée avec succès']);
@@ -204,8 +233,27 @@ class inscription_controller extends Controller
                 'message'=>'Classe introuvable ',
             ],500 );
         }
-    }
+       
 
+
+
+        
+
+     }
+    public function getEleveIdByInscriptionId($id)
+    {
+        $inscription = Inscription::with( 'eleve.user', 'classe' , 'annee_academique')->find($id);
+    
+        if (!$inscription) {
+            return response()->json(['message' => 'Inscription non trouvée'], 404);
+        }
+    
+      /*   $eleveId = $inscription->id_eleve; */
+        $eleve = $inscription;
+    
+       /*  return response()->json(['eleve_id' => $eleveId]); */
+        return response()->json(['eleve' => $eleve]);
+    }
 
 
 

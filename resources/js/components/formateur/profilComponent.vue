@@ -1,6 +1,6 @@
 <template>
     <div class="entete">
-        <img class="tres_grande" src="/assetsCFPT/image/professeur.png" alt="">
+        <img class="tres_grande" src="" alt="">
        
             <h1 class="titre" >Amadou GUEYEE</h1>
             <h1 class="sous_titre">Professeur</h1>

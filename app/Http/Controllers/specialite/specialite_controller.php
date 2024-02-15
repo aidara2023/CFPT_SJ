@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\specialite;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\specialite\specialite_request;
 use Illuminate\Http\Request;
@@ -30,6 +33,7 @@ class specialite_controller extends Controller
 
         $specialite = Specialite::create($data);
         if($specialite != null){
+            event(new ModelCreated($specialite));
             return response() -> json([
                 'statut' => 200,
                 'specialite' => $specialite
@@ -48,6 +52,8 @@ class specialite_controller extends Controller
             $specialite -> intitule = $request['intitule'];
             $specialite -> save();
 
+            event(new ModelUpdated($specialite));
+
             return response()->json([
                 'statut' => 200,
                 '$specialite' => $specialite
@@ -64,6 +70,7 @@ class specialite_controller extends Controller
         $specialite = Specialite::find($id);
         if($specialite != null){
             $specialite -> delete();
+            event(new ModelDeleted($specialite));
             return response()->json([
                 'statut' => 200,
                 'message' => 'L\'enregistrement a pas été supprimé avec succés'

@@ -79,7 +79,7 @@
                     <tr class="odd gradeX" v-for="(departement, index) in departements" :key="index">
                         <td>{{ index + 1 }}</td>
                         <td> {{ departement.nom_departement }} </td>
-                        <td> {{ departement.user.prenom }} {{ departement.user.nom }}</td>
+                        <td v-show="departement.user.prenom!='' && departement.user.nom!='' "> {{ departement.user.prenom }} {{ departement.user.nom }}</td>
                         <td> {{ departement.direction.nom_direction }}</td>
                         <td> {{ this.formatDateTime(departement.created_at) }}</td>
                     </tr>
@@ -150,7 +150,9 @@ export default {
                 showDialog6("Departement ajouté avec succès");
                 bus.emit('departementAjoutee');
                 this.resetForm();
-                window.location.href = '/departement/index';
+                setTimeout(() => {
+                    window.location.href = '/departement/index';
+                }, 1500);
             }
             catch (e) {
                 if (e.request.status === 404) {
@@ -245,7 +247,7 @@ export default {
             this.nom_departement_erreur = "";
             this.id_direction_erreur = "";
             this.id_user_erreur = "";
-           
+
         },
 
 

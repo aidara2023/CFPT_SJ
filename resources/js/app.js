@@ -20,7 +20,7 @@ import createInfirmierComponent from './components/infirmier/createInfirmierComp
 import createCaissierComponent from './components/caissier/createCaissierComponent.vue';
 import dashboardCaissierComponent from './components/caissier/dashboardComponent.vue';
 import createBibliothecaireComponent from './components/bibliothecaire/createBibliothecaireComponent.vue';
-import createTuteurComponent from './components/tuteur/createTuteurComponent.vue';
+import createTuteurComponent from './components/tuteur/createTuteurcomponent.vue';
 
 import createMatiereComponent from './components/matiere/createMatiereComponent.vue';
 
@@ -97,6 +97,12 @@ import createAlerteComponent from './components/alerte/createAlerteComponent.vue
 import listeAlerteComponent from './components/alerte/listeAlerteComponent.vue';
 import dashboardComponent from './components/dashboard/dashboardComponent.vue';
 import profileUserComponent from './components/utilisateur/profileUserComponent.vue';
+
+/* import dashboardComponent from './components/surveillant/dashboardComponent.vue';
+import inscriptionComponent from './components/surveillant/inscriptionComponent.vue';
+import listeInscriptionComponent from './components/surveillant/listeInscriptionComponent.vue'; */
+
+ 
 
 
 
@@ -202,12 +208,13 @@ app.component("liste-personnel-appui", listePersonnelAppuiComponent);
 app.component("recouvrement-create", createRecouvrementComponent);
 app.component("recouvrement-tableau", tableauRecouvrementComponent);
 app.component("liste-valider-inscription", listeValiderInscriptionComponent);
-app.component("inscription-valider", validerInscriptionComponent);
+app.component("valider-paiement-inscription", validerInscriptionComponent);
 app.component("alerte-create", createAlerteComponent);
 app.component("liste-alerte", listeAlerteComponent);
-app.component("dash-board", dashboardComponent);
-app.component("dashboard-user", adminComponent);
+ app.component("dash-board", dashboardComponent);
+ app.component("dashboard-user", adminComponent);
 app.component("profil-user", profileUserComponent);
+
 
 
 

@@ -167,7 +167,9 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
-import FormulaireModification from './createBatimentCmponent.vue';
+
+import FormulaireModification from './createBatimentComponent.vue';
+
 import datatable from 'datatables.net-bs5';
 
 

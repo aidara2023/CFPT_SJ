@@ -30,7 +30,7 @@ function showDialog1() {
 }
 
 function showDialog2() {
-  Swal.fire("The Internet?", "That thing is still around?", "question");
+  Swal.fire("Votre filtre est vide.", "Réessayez en cas d'erreur?", "success");
 }
 
 function showDialog3(text) {

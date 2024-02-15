@@ -89,7 +89,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('eleve_inscription') }}" class="nav-link nav-toggle"> <i
+                            <a href="{{ route('liste_inscription') }}" class="nav-link nav-toggle"> <i
                                     data-feather="calendar"></i>
                                 <span class="title">Inscription</span>
                             </a>
@@ -1013,7 +1013,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('paiement_create') }}" class="nav-link nav-toggle"> <i
+                            <a href="{{ route('paiement_accueil') }}" class="nav-link nav-toggle"> <i
                                     data-feather="user"></i>
                                 <span class="title">Paiement</span> 
                             </a>
@@ -1037,4 +1037,56 @@
             </div>
         </div>
     @endif
+
+
+    @if (Auth::user()->id_role == 12)
+    <div class="sidebar-container">
+      
+        <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+            <div id="remove-scroll" class="left-sidemenu">
+                <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false"
+                    data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </li>
+                    <li class="sidebar-user-panel">
+                        <div class="sidebar-user">
+                            <div class="sidebar-user-picture">
+                                <img alt="image" src="{{ asset('/storage/' . Auth::user()->photo) }}">
+                            </div>
+                            <div class="sidebar-user-details">
+                                <div class="user-name">{{ Auth::user()->nom }} {{ Auth::user()->prenom }}</div>
+                                <div class="user-role">@yield('fonction')</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item start active open">
+                        <a href="{{ route('caissier_accueil') }}" class="nav-link nav-toggle">
+                            <i data-feather="airplay"></i>
+                            <span class="title">Tableau de Bord</span>
+                            <span class="selected"></span>
+                            {{-- <span class="arrow open"></span> --}}
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('liste_inscription') }}" class="nav-link nav-toggle"> <i
+                                data-feather="user"></i>
+                            <span class="title"> Inscription</span> 
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a href="{{ route('logout') }}" class="nav-link nav-toggle"> <i class="icon-logout"></i>
+                            <span class="title">Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+@endif
 @endif

@@ -16,106 +16,112 @@
         </div>
         <!-- start widget -->
         <div class="row">
-          
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Total Students</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="l-bg-green info-icon">
-                                            <i class="fa fa-users pull-left col-orange font-30"></i>
-                                        </div>
-                                    </div>
+            <div class="row">
+                <div class="col-xl-3 ">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Etudiants</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="l-bg-green info-icon">
+                                    <i class="fa fa-users pull-left col-orange font-30"></i>
                                 </div>
-                                <h1 class="mt-1 mb-3 info-box-title">4,586</h1>
-                                <div class="mb-0">
-                                    <span class="text-success m-r-10"><i
-                                            class="material-icons col-green align-middle">trending_up</i>
-                                        10.32%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!--  </div> -->
                             </div>
                         </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Total Course</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-indigo info-icon">
-                                            <i class="fa fa-book pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">103</h1>
-                                <div class="mb-0">
-                                    <span class="text-danger m-r-10"><i
-                                            class="material-icons col-red align-middle">trending_down</i>
-                                        -10.64%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!--   </div> -->
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">New Students</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-teal info-icon">
-                                            <i class="fa fa-user pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">323</h1>
-                                <div class="mb-0">
-                                    <span class="text-success m-r-10"><i
-                                            class="material-icons col-green align-middle">trending_up</i>
-                                        21..19%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <!--  <div class="card-body"> -->
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h4 class="info-box-title">Visitors</h4>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="col-pink info-icon">
-                                            <i class="fa fa-coffee pull-left card-icon font-30"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 info-box-title">2,352</h1>
-                                <div class="mb-0">
-                                    <span class="text-danger m-r-10"><i
-                                            class="material-icons col-red align-middle">trending_down</i>
-                                        -4.27%
-                                    </span>
-                                    <span class="text-muted">Since last week</span>
-                                </div>
-                                <!-- </div> -->
-                            </div>
-                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">4,586</h1>
+                       <!--  <div class="mb-0">
+                            <span class="text-success m-r-10"><i
+                                    class="material-icons col-green align-middle">trending_up</i>
+                                10.32%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div> -->
+                        <!--  </div> -->
                     </div>
-            
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+
+                                <h4 class="info-box-title">Paiements mois</h4>
+
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-indigo info-icon">
+                                    <i class="fa fa-book pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!--  <h1 class="mt-1 mb-3 info-box-title">103</h1>
+                        <div class="mb-0"> -->
+
+                        <h1 class="mt-1 mb-3 info-box-title">2500</h1>
+                       <!--  <div class="mb-0">
+
+                            <span class="text-danger m-r-10"><i
+                                    class="material-icons col-red align-middle">trending_down</i>
+                                -10.64%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div> -->
+                        <!--   </div> -->
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Paiements Semaine</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-teal info-icon">
+                                    <i class="fa fa-user pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">5</h1>
+                        <!-- <div class="mb-0">
+                            <span class="text-success m-r-10"><i
+                                    class="material-icons col-green align-middle">trending_up</i>
+                                21..19%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="card p-4">
+                        <!--  <div class="card-body"> -->
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h4 class="info-box-title">Paiements mois</h4>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-pink info-icon">
+                                    <i class="fa fa-coffee pull-left card-icon font-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3 info-box-title">2,352</h1>
+                        <!-- <div class="mb-0">
+                            <span class="text-danger m-r-10"><i
+                                    class="material-icons col-red align-middle">trending_down</i>
+                                -4.27%
+                            </span>
+                            <span class="text-muted">Since last week</span>
+                        </div> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
             <!-- <div class="col-xl-7">
                     <div class="card card-box">
                         <div class="card-head">
@@ -136,7 +142,7 @@
         </div>
 
         <!-- end widget -->
-        <div class="row">
+   <!--      <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="card card-box">
                     <div class="card-head">
@@ -181,7 +187,7 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover table-checkable order-column"
-                                id="example4">
+                                id="example4" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>
@@ -511,7 +517,7 @@
                             <ul class="docListWindow small-slimscroll-style">
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user1.jpg" alt="" width="40" height="40">
+                                        <img :src="'/assets/img/user/user1.jpg'" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -524,7 +530,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user2.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user2.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -537,7 +543,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user3.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user3.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -550,7 +556,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user4.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user4.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -563,7 +569,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user5.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user5.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -576,7 +582,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user6.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user6.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -589,7 +595,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user2.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user2.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -602,7 +608,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user3.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user3.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -615,7 +621,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="../assets/img/user/user4.jpg" alt="" width="40" height="40">
+                                        <img src="/assets/img/user/user4.jpg" alt="" width="40" height="40">
                                     </div>
                                     <div class="details">
                                         <div class="title">
@@ -634,8 +640,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <div class="row" >
             <div class="col-md-4 col-sm-12 col-12">
                 <div class="white-box border-gray">
                     <h4 class="box-title"><small class="pull-right m-t-10 text-success"><i class="fa fa-sort-asc"></i>
@@ -704,14 +710,14 @@
             <div class="col-sm-12">
                 <div class="card-box">
                     <div class="card-head">
-                        <header>Salary Status</header>
+                        <header>Derniers encaissement</header>
                     </div>
                     <div class="card-body ">
                         <div class="mdl-tabs mdl-js-tabs">
                             <div class="mdl-tabs__tab-bar tab-left-side">
-                                <a href="#tab4-panel" class="mdl-tabs__tab tabs_three is-active">Professors</a>
-                                <a href="#tab5-panel" class="mdl-tabs__tab tabs_three">Librarian</a>
-                                <a href="#tab6-panel" class="mdl-tabs__tab tabs_three">Other</a>
+                                <a href="#tab4-panel" class="mdl-tabs__tab tabs_three is-active">Ce Mois</a>
+                                <a href="#tab5-panel" class="mdl-tabs__tab tabs_three">Cette Semaine</a>
+                                <a href="#tab6-panel" class="mdl-tabs__tab tabs_three">Aujourd'hui</a>
                             </div>
                             <div class="mdl-tabs__panel is-active p-t-20" id="tab4-panel">
                                 <div class="table-responsive">
@@ -727,7 +733,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user6.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user6.jpg'" alt="">
                                                 </td>
                                                 <td>John Deo</td>
                                                 <td>05-01-2017</td>
@@ -737,7 +743,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user4.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user4.jpg'" alt="">
                                                 </td>
                                                 <td>Eugine Turner</td>
                                                 <td>04-01-2017</td>
@@ -747,7 +753,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user2.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user2.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -777,7 +783,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user1.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user1.jpg'" alt="">
                                                 </td>
                                                 <td>Eugine Turner</td>
                                                 <td>04-01-2017</td>
@@ -787,7 +793,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user4.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user4.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -797,7 +803,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user5.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user5.jpg'" alt="">
                                                 </td>
                                                 <td>Jayesh Parmar</td>
                                                 <td>03-01-2017</td>
@@ -827,7 +833,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user8.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user8.jpg'" alt="">
                                                 </td>
                                                 <td>Jane Elliott</td>
                                                 <td>06-01-2017</td>
@@ -837,7 +843,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user7.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user7.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -847,7 +853,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="patient-img sorting_1">
-                                                    <img src="../assets/img/user/user9.jpg" alt="">
+                                                    <img :src="'/assets/img/user/user9.jpg'" alt="">
                                                 </td>
                                                 <td>Jacqueline Howell</td>
                                                 <td>03-01-2017</td>
@@ -876,6 +882,9 @@
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
+import * as sparklineData from '/public/assets/js/pages/sparkline/sparkline-data.js';
+
+
 
 export default {
     data() {
@@ -903,11 +912,22 @@ export default {
 
     },
     mounted() {
+        sparklineData.initSparklines();
 
-        this.fetchUtilisateurs();
-        this.fetchRoles().then(() => {
+        //this.fetchUtilisateurs();
+       // this.fetchRoles().then(() => {
             // ... (autres actions au montage)
-        });
+        //});
+      /*   $("#sparkline13").sparkline([2, 5, 9, 6, 8, 4, 5, 6, 2, 8, 4, 1], {
+  type: "line",
+  width: "100%",
+  height: "150",
+  lineColor: "#f79304",
+  fillColor: "#ff9c0f85",
+  highlightLineColor: "rgba(0, 0, 0, 0.2)",
+  highlightSpotColor: "#4f4f4f",
+}); */
+
     },
 
     methods: {

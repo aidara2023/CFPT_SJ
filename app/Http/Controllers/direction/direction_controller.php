@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\direction;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\direction\direction_request;
 use App\Models\Direction;
@@ -50,6 +53,7 @@ class direction_controller extends Controller
         }else{
             $direction=Direction::create($data);
             if($direction!=null){
+                event(new ModelCreated($direction));
                 return response()->json([
                     'statut'=>200,
                     'direction'=>$direction
@@ -70,6 +74,7 @@ class direction_controller extends Controller
          
 
            $direction->save();
+           event(new ModelUpdated($direction));
             return response()->json([
                 'statut'=>200,
                 'direction'=>$direction
@@ -85,6 +90,7 @@ class direction_controller extends Controller
         $direction=Direction::find($id);
         if($direction!=null){
             $direction->delete();
+            event(new ModelDeleted($direction));
             return response()->json([
                 'statut'=>200,
                 'message'=>'Direction supprimer avec succes',

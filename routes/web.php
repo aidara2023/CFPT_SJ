@@ -8,6 +8,7 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\archive\archive_view_controller;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\batiment\batiment_controller;
 use App\Http\Controllers\batiment\batiment_view_controller;
@@ -135,8 +136,13 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 */
 
 //Route de direction
-
 Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
+//Route pour la connexion
+ Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
+Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
 Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
@@ -164,7 +170,7 @@ Route::get('annee_academique/index', [annee_academique_controller::class, 'index
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
-Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+Route::get('annee_academique/show/{id}', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
 Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
 
@@ -199,6 +205,9 @@ Route::get('infirmier/get/{id}',[infirmier_controller::class, 'get'])->name('inf
 
 Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->name('infirmier_create');
 
+//Route Audit
+Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
+
 
 //Route unite de formation
 
@@ -220,10 +229,11 @@ Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
 Route::get('eleve/show_by_where/{id}',[eleve_controller::class, 'show_by_where'])->name('eleve_search');
 Route::post('eleve/update/{id}',[eleve_controller::class, 'update'])->name('eleve_update');
+Route::post('eleve/find/user/{id}',[user_controller::class, 'find_eleve_in_user'])->name('eleve_find_user');
 Route::delete('eleve/delete/{id}',[eleve_controller::class, 'destroy'])->name('eleve_delete');
 
 Route::get('/eleve/inscription',[eleve_view_controller::class, 'inscription'])->name('eleve_inscription');
-Route::get('/eleve/create',[eleve_view_controller::class, 'create'])->name('eleve_create');
+Route::get('/liste/inscription',[eleve_view_controller::class, 'liste'])->name('liste_inscription');
 
 //route emprunter livre
 Route::get('emprunter_livre/index',[emprunter_livre_controller::class, 'index'])->name('emprunter_livre_index');
@@ -330,6 +340,7 @@ Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tu
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
+Route::get('paiement/get_last',[paiement_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
 Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('paiement_show');
@@ -337,7 +348,8 @@ Route::post('paiement/update/{id}',[paiement_controller::class, 'update'])->name
 Route::delete('paiement/delete/{id}',[paiement_controller::class, 'destroy'])->name('paiement_delete');
 
 Route::get('reçu/index',[paiement_view_controller::class, 'reçu'])->name('reçu_index');
-Route::get('/paiement/create',[paiement_view_controller::class, 'liste'])->name('paiement_create');
+Route::get('paiement/accueil',[paiement_view_controller::class, 'liste'])->name('paiement_accueil');
+Route::get('paiement/create',[paiement_view_controller::class, 'create'])->name('paiement_create');
 
 //route mois
 Route::get('mois/index',[mois_controller::class, 'index'])->name('mois_index');
@@ -524,6 +536,7 @@ Route::post('inscription/store',[inscription_controller::class, 'store'])->name(
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::post('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
 Route::delete('inscription/delete/{id}',[inscription_controller::class, 'delete'])->name('inscription_delete');
+Route::get('inscription/get_id_eleve_by_inscription/{id}',[inscription_controller::class, 'getEleveIdByInscriptionId'])->name('getEleveIdByInscriptionId');
 Route::get('find/filieres/{id}',[inscription_controller::class, 'get_filiere_by_departement'])->name('find_filiere');
 Route::get('find/classes/{id}',[inscription_controller::class, 'get_classe_by_filiere'])->name('find_classe');
 
@@ -562,9 +575,7 @@ Route::get('/formateur',[formateur_view_controller::class, 'accueil'])->name('fo
 Route::get('/formateur/liste_note',[formateur_view_controller::class, 'liste_note'])->name('formateur_liste_note');
 Route::get('/formateur/profil',[formateur_view_controller::class, 'profil'])->name('formateur_profil');
 Route::get('/formateur/cours',[formateur_view_controller::class, 'cours'])->name('formateur_cours');
-//Route pour la connexion
-Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion');
-Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
+
 
 //Route pour utilisateur
 
@@ -613,6 +624,7 @@ Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
 Route::get('classe/get/last',[classe_controller::class, 'get_last_value'])->name('classe_last_values');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
 Route::get('classe/show/{id}',[classe_controller::class,'show'])->name('classe_show');
+
 Route::post('classe/update/{id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
@@ -706,10 +718,12 @@ Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
-Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+//Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
 Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
+Route::get('valider/paiement/inscription' ,[caissier_view_controller::class, 'valider'])->name('valider_paiement');
+Route::get('valider/paiement/inscription/{id}' ,[caissier_view_controller::class, 'valider'])->name('valider_paiement');
 
 
 Route::get('recherche/code',[caissier_controller::class, 'recherche_id_inscription'])->name('recherche_id_inscription');
@@ -726,3 +740,5 @@ Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('ale
 Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
+});
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);

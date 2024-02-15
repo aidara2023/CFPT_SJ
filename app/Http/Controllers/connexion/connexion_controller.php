@@ -33,10 +33,10 @@ class connexion_controller extends Controller
             
             switch ($role) {
                 case "Etudiant":
-                    $url = 'eleve/index';
+                    $url = '/eleve/index';
                     break;
                 case "Formateur":
-                    $url = 'formateur';
+                    $url = '/formateur';
                     break;
                 case "Administrateur":
                     $url = '/admin/index';

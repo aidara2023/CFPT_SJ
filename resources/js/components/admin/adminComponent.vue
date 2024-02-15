@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="info-box bg-b-green">
-                    <span class="info-box-icon push-bottom"><i data-feather="users"></i></span>
+                    <span class="info-box-icon push-bottom"><i data-feather="grid"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Départements</span>
-                        <span class="info-box-number">4</span>
+                        <span class="info-box-number">{{ this.countDep }}</span>
                         <div class="progress">
-                            <div class="progress-bar" style="width: 45%"></div>
+                            <div class="progress-bar" :style="{ width: countDep + '%' }"></div>
                         </div>
                         <span class="progress-description">
                             Disponible
@@ -22,12 +22,12 @@
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="info-box bg-b-yellow">
-                    <span class="info-box-icon push-bottom"><i data-feather="user"></i></span>
+                    <span class="info-box-icon push-bottom"><i data-feather="user-check"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Etudiants</span>
-                        <span class="info-box-number">1300</span>
+                        <span class="info-box-number">{{ countElev }}</span>
                         <div class="progress">
-                            <div class="progress-bar" style="width: 40%"></div>
+                            <div class="progress-bar" :style="{ width: countElev + '%' }"></div>
                         </div>
                         <span class="progress-description">
                             Disponible
@@ -40,12 +40,12 @@
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="info-box bg-b-blue">
-                    <span class="info-box-icon push-bottom"><i data-feather="book"></i></span>
+                    <span class="info-box-icon push-bottom"><i data-feather="user-plus"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Formateurs</span>
-                        <span class="info-box-number">48</span>
+                        <span class="info-box-number">{{ countFormateur }}</span>
                         <div class="progress">
-                            <div class="progress-bar" style="width: 85%"></div>
+                            <div class="progress-bar" :style="{ width: countFormateur + '%' }"></div>
                         </div>
                         <span class="progress-description">
                             Disponible
@@ -58,12 +58,12 @@
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="info-box bg-b-pink">
-                    <span class="info-box-icon push-bottom"><i class="material-icons">monetization_on</i></span>
+                    <span class="info-box-icon push-bottom"><i data-feather="layers"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Unité de formation</span>
-                        <span class="info-box-number">11</span><span></span>
+                        <span class="info-box-number">{{ countFiliere }}</span><span></span>
                         <div class="progress">
-                            <div class="progress-bar" style="width: 50%"></div>
+                            <div class="progress-bar" :style="{ width: countFiliere + '%' }"></div>
                         </div>
                         <span class="progress-description">
                             Disponible
@@ -254,7 +254,7 @@
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card-box">
                 <div class="card-head">
-                    <header>Recent Transactions</header>
+                    <header>dernières Transactions</header>
                     <button id="panel-button8" class="mdl-button mdl-js-button mdl-button--icon pull-right"
                         data-upgraded=",MaterialButton">
                         <i class="material-icons">more_vert</i>
@@ -271,93 +271,39 @@
                 </div>
                 <div class="card-body ">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" style="width: 100%;">
                             <tbody>
                                 <tr>
                                     <th>#</th>
-                                    <th>Order No</th>
-                                    <th>Student Name</th>
+                                    <th>Matricule</th>
+                                    <th>Nom</th>
                                     <th>Status</th>
-                                    <th>Amount</th>
-                                    <th>Receipt</th>
+                                    <th>Montant</th>
+                                    <th>Classe</th>
                                     <th>Edit</th>
                                 </tr>
-                                <tr>
+                                <tr v-for="paiement in paiements">
                                     <td class="patient-img">
-                                        <img src="../assets/img/user/user10.jpg" alt="">
+                                        <img :src="this.getImageUrl(paiement.photo)" alt="">
                                     </td>
-                                    <td>XY56987</td>
-                                    <td>John Deo</td>
-                                    <td><i class="fas fa-circle col-green me-2"></i>Confirm
+                                    <td>{{ paiement.matricule }}</td>
+                                    <td>{{ paiement.eleve_nom }} {{ paiement.eleve_prenom }}</td>
+                                    <td v-if="paiement.type_formation==='BTS ' && paiement.montant >= 70000 "><i class="fas fa-circle col-green me-2"></i>
                                     </td>
-                                    <td>$955</td>
-                                    <td><i class="fas fa-file-pdf col-red"></i></td>
+                                    <td v-if="paiement.type_formation==='BTS ' && paiement.montant < 70000 "><i class="fas fa-circle col-red me-2"></i> 
+                                    </td>
+                                    <td v-if="paiement.type_formation==='BTI' && paiement.montant < 50000 "><i class="fas fa-circle col-red me-2"></i> 
+                                    </td>
+                                    <td v-if="paiement.type_formation==='BTI' && paiement.montant >= 50000 "><i class="fas fa-circle col-green me-2"></i>
+                                    </td>
+                                    <td>{{ paiement.montant }} F CFA</td> 
+                                    <td>{{ paiement.classe }} {{ paiement.niveau }} {{ paiement.type_classe }}</td>
                                     <td>
                                         <a data-toggle="tooltip" title="" data-bs-original-title="Edit" aria-label="Edit"><i
                                                 class="fas fa-pencil-alt"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="patient-img">
-                                        <img src="../assets/img/user/user3.jpg" alt="">
-                                    </td>
-                                    <td>XY12587</td>
-                                    <td>Sarah Smith</td>
-                                    <td><i class="fas fa-circle col-orange me-2"></i>Payment
-                                        Failed
-                                    </td>
-                                    <td>$215</td>
-                                    <td><i class="fas fa-file-pdf col-red"></i></td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="" data-bs-original-title="Edit" aria-label="Edit"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="patient-img">
-                                        <img src="../assets/img/user/user7.jpg" alt="">
-                                    </td>
-                                    <td>XY58987</td>
-                                    <td>John Doe</td>
-                                    <td><i class="fas fa-circle col-green me-2"></i>Confirm
-                                    </td>
-                                    <td>$125</td>
-                                    <td><i class="fas fa-file-pdf col-red"></i></td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="" data-bs-original-title="Edit" aria-label="Edit"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="patient-img">
-                                        <img src="../assets/img/user/user2.jpg" alt="">
-                                    </td>
-                                    <td>XY87452</td>
-                                    <td>Sagar Patel</td>
-                                    <td><i class="fas fa-circle col-green me-2"></i>Confirm
-                                    </td>
-                                    <td>$498</td>
-                                    <td><i class="fas fa-file-pdf col-red"></i></td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="" data-bs-original-title="Edit" aria-label="Edit"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="patient-img">
-                                        <img src="../assets/img/user/user8.jpg" alt="">
-                                    </td>
-                                    <td>XY87452</td>
-                                    <td>Sagar Patel</td>
-                                    <td><i class="fas fa-circle col-green me-2"></i>Confirm
-                                    </td>
-                                    <td>$498</td>
-                                    <td><i class="fas fa-file-pdf col-red"></i></td>
-                                    <td>
-                                        <a data-toggle="tooltip" title="" data-bs-original-title="Edit" aria-label="Edit"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -417,7 +363,7 @@
         </div>
         <!-- Quick Mail end -->
         <!-- Activity feed start -->
-        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+        <!--  <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card-box">
                 <div class="card-head">
                     <header>Activity Feed</header>
@@ -435,10 +381,10 @@
                     </ul>
                 </div>
                 <div class="card-body ">
-                    <ul class="feedBody">
+                    <ul class="feedBody docListWindow small-slimscroll-style">
                         <li class="active-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user1.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user1.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblFileStyle">File</span> Sarah
@@ -450,7 +396,7 @@
                         </li>
                         <li class="diactive-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user2.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user2.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblTaskStyle">Task </span> Jalpa
@@ -463,7 +409,7 @@
                         </li>
                         <li class="diactive-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user3.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user3.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblCommentStyle">comment</span> Lina
@@ -475,7 +421,7 @@
                         </li>
                         <li class="active-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user4.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user4.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblReplyStyle">Reply</span> Jacob
@@ -488,7 +434,7 @@
                         </li>
                         <li class="active-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user5.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user5.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblFileStyle">File</span> Sarah
@@ -500,7 +446,7 @@
                         </li>
                         <li class="diactive-feed">
                             <div class="feed-user-img">
-                                <img src="../assets/img/user/user6.jpg" class="img-radius " alt="User-Profile-Image">
+                                <img src="/assets/img/user/user6.jpg" class="img-radius " alt="User-Profile-Image">
                             </div>
                             <h6>
                                 <span class="feedLblStyle lblTaskStyle">Task </span> Jalpa
@@ -514,8 +460,46 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Activity feed end -->
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="card card-box">
+                <div class="card-head">
+                    <header>Audits</header>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <ul class="docListWindow small-slimscroll-style">
+                            <li v-for="audit in audits">
+                                <div class="prog-avatar">
+                                    <img :src="this.getImageUrl(audit.user.photo)" alt="" width="40" height="40">
+                                </div>
+                                <div class="details">
+                                    <div class="title">
+                                        <a href="#">{{ audit.user.nom }} {{ audit.user.prenom }}</a> -{{ formatTime(audit.created_at) }}
+                                    </div>
+                                    <div v-show="audit.action == 'Suppression'">
+                                        <span class="feedLblStyle lblFileStyle">{{ audit.action }}</span> {{ audit.details }}
+                                        <small class="text-muted">{{ formatDateTime(audit.created_at) }}</small>
+                                    </div>
+                                    <div v-show="audit.action == 'Creation'">
+                                        <span class="feedLblStyle lblTaskStyle">{{ audit.action }}</span> {{ audit.details }}
+                                        <small class="text-muted">{{ formatDateTime(audit.created_at) }}</small>
+                                    </div>
+                                    <div v-show="audit.action == 'Modification'">
+                                        <span class="feedLblStyle lblCommentStyle">{{ audit.action }}</span> {{ audit.details }}
+                                        <small class="text-muted">{{ formatDateTime(audit.created_at)}}</small>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <div class="full-width text-center p-t-10">
+                            <a href="#" class="btn purple btn-outline btn-circle margin-0">View All</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -728,19 +712,108 @@ export default {
                 'situation_matrimoniale': ""
             }),
             utilisateurs: [],
+            paiements: [],
             roles: [],
+            audits: [],
+            countDep:null,
+            countElev:null,
+            countFormateur:null,
+            countFiliere:null,
         };
 
     },
     mounted() {
 
         this.fetchUtilisateurs();
-        this.fetchRoles().then(() => {
+        this.get_audit();
+        this.get_departement();
+        this.get_eleve();
+        this.get_formateur();
+        this.get_filiere();
+        this.get_paiement();
+       // this.fetchRoles().then(() => {
             // ... (autres actions au montage)
-        });
+       //});
     },
 
     methods: {
+        get_paiement() {
+            axios.get('/paiement/get_last')
+                .then(response => {
+                    const allpaiement = response.data.paiement;
+                    
+                    const formattedPaiement = allpaiement.map(paie => {
+                        return {
+                            id: paie.id,
+                            id_eleve: paie.eleve.user.id,
+                            matricule: paie.eleve.user.matricule,
+                            photo: paie.eleve.user.photo,
+                            eleve_prenom: paie.eleve.user.prenom,
+                            eleve_nom: paie.eleve.user.nom,
+                            date_naissance: paie.eleve.user.date_naissance,
+                            adresse: paie.eleve.user.adresse,
+                            matricule: paie.eleve.user.matricule,
+
+                            type_recouvrement : paie.type_recouvrement,
+                            mode_paiement : paie.mode_paiement,
+                            reference : paie.reference,
+                            classe: paie.eleve.inscription.map(p => p.classe.nom_classe).join(', '),
+                            niveau: paie.eleve.inscription.map(p => p.classe.niveau).join(', '),
+                            type_classe: paie.eleve.inscription.map(p => p.classe.type_classe).join(', '),
+                            type_formation: paie.eleve.inscription.map(p => p.classe.type_formation.intitule).join(', '),
+                            annee: paie.concerner.map(p => p.annee_academique.intitule).join(', '),
+                            mois: paie.concerner.map(p => p.mois.intitule).join(', '),
+                            id_annee: paie.concerner.map(p => p.annee_academique.id).join(', '),
+                            id_mois: paie.concerner.map(p => p.mois.id).join(', '),
+                            montant: paie.montant,
+                            editModal: true,
+                        };
+                    });
+                    this.paiements = formattedPaiement;
+                    console.log( this.paiements)
+                   /*  this.initDataTable(); */
+
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des paiements', 'error')
+                });
+        },
+        formatDateTime(dateTime) {
+            // Utilisez une fonction pour formater la date
+            return this.formatDate(new Date(dateTime));
+        },
+        formatDate(date) {
+            const day = date.getDate();
+            const monthNumber = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // Tableau des trois premières lettres des mois en français
+            const monthAbbreviations = [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
+            ];
+
+            // Obtenez les trois premières lettres du mois correspondant au numéro du mois
+            const month = monthAbbreviations[monthNumber - 1];
+
+            return `${day} ${month} ${year}`;
+
+        },
+        formatTime(timerecup){
+            return this.getTime(new Date(timerecup))
+        },
+
+        getTime(date) {
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+
+            // Ajoutez un zéro devant les heures ou les minutes si elles sont inférieures à 10
+            const formattedHours = hours < 10 ? `0${hours}` : hours;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+            return `${formattedHours}:${formattedMinutes}`;
+        },
+        
         getImageUrl(url) {
             return url ? `${window.location.origin}/storage/${url}` : '';
         },
@@ -756,21 +829,67 @@ export default {
                     console.error('Erreur lors de la récupération des utilisateurs', error);
                 });
         },
+        get_departement() {
+            axios.get('/departement/all')
+                .then(response => {
+                    this.countDep = response.data.departement.length;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération du nombre de département', 'error')
+                });
+        },
+        get_filiere() {
+            axios.get('/unite_de_formation/all')
+                .then(response => {
+                    this.countFiliere = response.data.unite_de_formation.length;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération du nombre de filiere', 'error')
+                });
+        },
+        get_formateur() {
+            axios.get('/formateur/index')
+                .then(response => {
+                    this.countFormateur = response.data.formateur.length;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des audit', 'error')
+                });
+        },
+        get_eleve() {
+            axios.get('/eleve/index')
+                .then(response => {
+                    this.countElev = response.data.eleve.length;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération du nombre des étudiants', 'error')
+                });
+        },
+        get_audit() {
+            axios.get('/audit/all')
+                .then(response => {
+                    this.audits = response.data.audit;
+
+                }).catch(error => {
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recupération des audit', 'error')
+                });
+        },
+
         countRoleOccurrences() {
-  const roleOccurrences = {};
+            const roleOccurrences = {};
 
-  this.utilisateurs.forEach(user => {
-    const roleIntitule = user.role ? user.role.intitule : 'Non défini';
+            this.utilisateurs.forEach(user => {
+                const roleIntitule = user.role ? user.role.intitule : 'Non défini';
 
-    if (!roleOccurrences[roleIntitule]) {
-      roleOccurrences[roleIntitule] = 1;
-    } else {
-      roleOccurrences[roleIntitule]++;
-    }
-  });
+                if (!roleOccurrences[roleIntitule]) {
+                    roleOccurrences[roleIntitule] = 1;
+                } else {
+                    roleOccurrences[roleIntitule]++;
+                }
+            });
 
-  return roleOccurrences;
-},
+            return roleOccurrences;
+        },//audit/all
 
     }
 }

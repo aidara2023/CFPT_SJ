@@ -154,6 +154,7 @@
     </div>
 
 
+
     <div class="col-lg-6 p-t-20" v-show="this.interesser === 2 || this.form.id_role === 2">
         <div
             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
@@ -384,11 +385,12 @@ export default {
 
             try {
                 const user_store = await axios.post('/user/store', formdata, {});
-                showDialog6("Utilisateur ajouté avec succès");
                 bus.emit('utilisateurAjoutee');
-               
+                showDialog6("Utilisateur ajouté avec succès");
                 this.resetForm();
+                setTimeout(() => {
                 window.location.href = '/utilisateur/index';
+                }, 1500);
 
             }
             catch (e) {

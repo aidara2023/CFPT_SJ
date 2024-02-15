@@ -12,7 +12,7 @@
         </div>
         <div class="sections">
             <div class="etudiant">
-                <img src="/assetsCFPT/image/etudiant.png" alt="Etu" class="petite">
+                <img src="" alt="Etu" class="petite">
                 <p class="texte">Abdoulaye SARR</p>
                 <form method="" action="" class="notes">
                     <input type="number" inputmode="numeric" name="note1" id="note1" placeholder="17">
