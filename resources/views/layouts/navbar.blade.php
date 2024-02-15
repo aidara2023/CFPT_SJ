@@ -926,29 +926,41 @@
                         <span class="title">Inscription</span>
                     </a>
                 </li> --}}
+                        <li class="nav-item">
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
-                        <span class="title">Paramétres</span><span class="arrow"></span></a>
-                    <ul class="sub-menu">
-                        <li class="nav-item">
-                            <a href="rayon_create" class="nav-link "> <span
-                                    class="title">Rayon</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="add_student.html" class="nav-link "> <span
-                                    class="title">Categorie</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="/auteur/accueil" class="nav-link "> <span
                                     class="title">Auteur</span>
                             </a>
                         </li>
 
+
+                            <a href="#" class="nav-link nav-toggle"><i data-feather="users"></i>
+                                <span class="title">Paramétres</span><span class="arrow"></span></a>
+
+                            <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a href="student_profile.html" class="nav-link "> <span
+                                    <a href="{{ route('rayon_accueil') }}" class="nav-link "> 
+                                    <span class="title">Rayon</span>
+                                    </a>
+                                </li>
+                               
+                                <li class="nav-item">
+                                    <a href="{{ route('categorie_accueil') }}" class="nav-link "> <span
+                                            class="title">Categorie</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/auteur/create" class="nav-link "> <span
+                                            class="title">Auteur</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/editeur/create" class="nav-link "> <span
+                                            class="title">Editeur</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/edition/create" class="nav-link "> <span
                                             class="title">Edition</span>
                                     </a>
                                 </li>

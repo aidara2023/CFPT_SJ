@@ -1,41 +1,15 @@
 <template>
-    <!--     <div class="liste">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <th>Batiment</th>
-
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(batiment, index) in batiments" :key="index">
-                        <td><span>{{ batiment.intitule }}</span></td>
-                        <td>
-                            <div class="boutons_actions">
-                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(batiment)" title="Modifier"></i>
-                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-trash supprimer mdl" @click="deleteBatiment(batiment)"
-                                    title="Supprimer"></i>
-                            </div>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div> -->
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">
 
                 <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
+                    <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/bibliothecaire/accueil'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
 
                     <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i></li>
-                    <li><a class="parent-item" :href="'/batiment/accueil'"> Batiment </a>&nbsp;<i
+                    <li><a class="parent-item" :href="'/exemplaire/accueil'"> Exemplaire</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
                 </ol>
@@ -44,9 +18,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tabbable-line">
-
                     <ul class="nav customtab nav-tabs" role="tablist">
-                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Batiment</a>
+                        <li class="nav-item"><a href="#tab1" class="nav-link active" data-bs-toggle="tab">Exemplaire</a>
                         </li>
 
                     </ul>
@@ -56,7 +29,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>Tous les batiments</header>
+                                            <header>Tous les exemplaires</header>
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -67,7 +40,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
-                                                        <a :href="'/batiment/create'" id="addRow" class="btn btn-primary">
+                                                        <a :href="'/exemplaire/create'" id="addRow" class="btn btn-primary">
                                                             Ajouter <i class="fa fa-plus text-white"></i>
                                                         </a>
 
@@ -80,23 +53,28 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Batiment</th>
-                                                        <th>Nombre de Salle</th>
-                                                        <th>Actions</th>
+                                                        <th> Exemplaire </th>
+                                                        <th> id livre</th>
+                                                        <th> id rayon </th>
+
+
+                                                        <th> Action </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX" v-for="(batiment, index) in batiments"
+                                                    <tr class="odd gradeX" v-for="(exemplaire, index) in exemplaires"
                                                         :key="index">
-                                                        <td>{{ index + 1 }}</td>
-                                                        <td class="left"> {{ batiment.intitule }} </td>
-                                                        <td class="left"> {{ batiment.nbr_salle }} </td>
+                                                        <td> {{ index + 1 }} </td>
+                                                        <td> {{ exemplaire.exemplaire }} </td>
+                                                        <td> {{ exemplaire.livre }}</td>
+                                                        <td> {{ exemplaire.rayon }}</td>
 
-                                                        <td class="left">
-                                                            <a class="tblEditBtn" @click="openModal(batiment)">
+
+                                                        <td>
+                                                            <a class="tblEditBtn" @click="openModal(exemplaire)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a class="tblDelBtn" @click="deleteBatiment(batiment)">
+                                                            <a class="tblDelBtn" @click="deleteExemplaire(exemplaire)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -121,16 +99,16 @@
             <div class="page-bar">
                 <div class="page-title-breadcrumb">
                     <div class=" pull-left">
-                        <div class="page-title">Nouveau batiment</div>
+                        <div class="page-title">Nouveau Exemplaire</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
-                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('admin_index') }}">Tableau
+                        <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{{ route('bibliothecaire_accueil') }}">Tableau
                                 de Bord</a>&nbsp;<i class="fa fa-angle-right"></i>
                         </li>
-                        <li><a class="parent-item" href="{{ route('batiment_create') }}">Batiment</a>&nbsp;<i
+                        <li><a class="parent-item" href="{{ route('exemplaire_create') }}">Exemplaire</a>&nbsp;<i
                                 class="fa fa-angle-right"></i>
                         </li>
-                        <li class="active">Modifier Batiment</li>
+                        <li class="active">Modifier Exemplaire</li>
                     </ol>
                 </div>
             </div>
@@ -163,54 +141,57 @@
     </div>
 </template>
 
+
 <script>
 import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
-
-import FormulaireModification from './createBatimentComponent.vue';
-
 import datatable from 'datatables.net-bs5';
+import FormulaireModification from '../createExemplaireComponent.vue';
+
 
 
 
 export default {
-    name: "listeBatimentComponent",
+    name: "listeExemplaireCompenent",
     components: {
         FormulaireModification,
     },
+
     data() {
         return {
             form: new Form({
-                'intitule': ""
-
+                'intitule': "",
+                'id_livre': "",
+                'id_rayon': ""
             }),
-            batiments: [],
-            idBatiment: "",
+            exemplaires: [],
             editModal: false,
-
+            idExemplaire: "",
         }
     },
+
     mounted() {
-        this.get_batiment();
-        bus.on('batimentAjoutee', () => { // Écouter l'événement de nouvelle utilisateur ajoutée
-            this.get_batiment(); // Mettre à jour la liste des utilisateurs
+        this.get_exemplaire();
+        bus.on('exemplaireAjoutee', () => {
+            this.get_exemplaire();
         });
-        bus.on('batimentDejaModifier', (eventData) => {
+        bus.on('exemplaireDejaModifier', (eventData) => {
             this.editModal = eventData.editModal;
-            this.get_batiment();
+            this.get_exemplaire();
         });
+
     },
 
     methods: {
         initDataTable() {
             this.$nextTick(() => {
-                // Initialiser DataTable sur la table avec l'id 'example47' si elle n'a pas déjà été initialisée
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
                         responsive: true,
+                        "autoWidth": true,
+
                         language: {
-                            // Messages pour la pagination
                             paginate: {
                                 first: 'Premier',
                                 previous: 'Précédent',
@@ -236,26 +217,27 @@ export default {
                 }
             });
         },
-        get_batiment() {
-            axios.get('/batiment/index')
+
+        get_exemplaire() {
+            axios.get('/exemplaire/index')
                 .then(response => {
-                    const allbatiment = response.data.batiment
-                    const formattedBatiment = allbatiment.map(bati => {
+                    const allexemplaire = response.data.exemplaire;
+                    const formattedExemplaire = allexemplaire.map(ser => {
                         return {
-                            id: bati.id,
-                            intitule: bati.intitule,
-                            nbr_salle:bati.salle.length,
+                            id: ser.id,
+                            exemplaire: ser.intitule,
+                            livre:ser.livre.titre,
+                            id_livre:ser.livre.id,
+                            rayon: ser.rayon.nom_rayon,
+                            id_rayon: ser.rayon.id,
                             editModal: true,
                         };
                     });
-
-                    this.batiments = formattedBatiment;
+                    this.exemplaires = formattedExemplaire;
                     this.initDataTable();
 
-
                 }).catch(error => {
-                    //Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des batiments', 'error')
-                    showDialog3("Une erreur est survenue lors de la recuperation des batiments")
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des exemplaires', 'error')
                 });
         },
 
@@ -263,12 +245,15 @@ export default {
             this.interesser = event;
         },
 
+
         resetForm() {
             this.form.input = "";
             this.form.intitule = "";
+            this.form.id_livre = "";
+            this.form.id_rayon = "";
         },
 
-        async deleteBatiment(type) {
+        async deleteExemplaire(exemplaire) {
             Swal.fire({
                 title: 'Voulez-vous confirmer la suppression?',
                 text: "Cette action sera irréversible!",
@@ -280,26 +265,25 @@ export default {
                 cancelButtonText: 'Non'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/batiment/delete/${type.id}`).then(resp => {
-                        showDialog6("Batiment supprimé avec succés")
-                        this.get_batiment();
+                    axios.delete(`/exemplaire/delete/${exemplaire.id}`).then(resp => {
+                        showDialog6("Exemplaire supprimé avec succés");
+                        this.get_exemplaire();
 
                     }).catch(function (error) {
                         console.log(error);
-                        showDialog3("Une erreur est survenue lors de la suppression du batiment")
-                        
+                        showDialog3("Erreur lors de la suppression du exemplaire")
                     })
                 }
             });
         },
-        openModal(batiment) {
+        openModal(exemplaire) {
             this.editModal = true;
             // Créez un objet avec les données à envoyer
             const eventData = {
-                batiment: batiment,
-                editModal: this.editModal,
+                exemplaire: exemplaire,
+                editModal: true
             };
-            bus.emit('batimentModifier', eventData);
+            bus.emit('exemplaireModifier', eventData);
         },
     }
 }

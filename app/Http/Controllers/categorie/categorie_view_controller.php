@@ -10,4 +10,7 @@ class categorie_view_controller extends Controller
     public function create(){
         return view('categorie.create');
     }
+    public function accueil(){
+        return view('categorie.accueil');
+    }
 }
