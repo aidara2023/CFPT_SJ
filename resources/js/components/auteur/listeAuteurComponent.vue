@@ -63,14 +63,14 @@
                                                     <tr class="odd gradeX" v-for="(auteur, index) in auteurs"
                                                         :key="index">
                                                         <td>{{ index + 1 }}</td>
-                                                        <td class="left"> {{ auteur.nom_auteur }} </td>
-                                                        <td class="left"> {{ auteur.livre }} </td>
+                                                        <td class="left"> {{ auteur.intitule }} </td>
+                                                        <td class="left"> {{ auteur.nbr_livre }} </td>
 
                                                         <td class="left">
                                                             <a class="tblEditBtn" @click="openModal(auteur)">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a class="tblDelBtn" @click="deleteauteur(auteur)">
+                                                            <a class="tblDelBtn" @click="deleteAuteur(auteur)">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
                                                         </td>
@@ -208,17 +208,19 @@ import FormulaireModification from './createAuteurComponent.vue';
            axios.get('/auteur/index')
            .then(response => {
             const allauteur = response.data.auteur
+            console.log( allauteur)
                     const formattedAuteur = allauteur.map(aut => {
                         return {
                             id: aut.id,
-                            intitule: aut.intitule,
+                            intitule: aut.nom_auteur,
                             nbr_livre:aut.livre.length,
                             editModal: true,
                         };
                     });
 
-                    this.auteur = formatted;
+                    this.auteurs = formattedAuteur;
                     this.initDataTable();
+                   
 
            }).catch(error=>{
            Swal.fire('Erreur!','Une erreur est survenue lors de la recuperation des auteurs','error')

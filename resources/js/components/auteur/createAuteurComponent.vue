@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import bus from '../../eventBus';
 import axios from 'axios';
 import Form from 'vform';
 import Swal from 'sweetalert2';
@@ -64,12 +65,14 @@ import 'flatpickr/dist/flatpickr.css';
             nom_auteur_erreur:"",
             etatForm:false,
             editModal:false,
-            idAuteur:""
+            idAuteur:"",
+            auteurs: [],
         }
     },
     mounted(){
        
-       this.get_user();
+       //this.get_user();
+       this.get_auteur();
        bus.on('auteurModifier', (eventData) => {
            this.idAuteur = eventData.idAuteur;
            this.editModal = eventData.editModal;
@@ -102,6 +105,7 @@ import 'flatpickr/dist/flatpickr.css';
             axios.get('/auteur/index/last/values')
                 .then(response => {
                     this.auteurs = response.data.auteur
+                   
                 }).catch(error => {
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation des dernier departements', 'error')
                 });

@@ -942,7 +942,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/auteur/create" class="nav-link "> <span
+                            <a href="/auteur/accueil" class="nav-link "> <span
                                     class="title">Auteur</span>
                             </a>
                         </li>

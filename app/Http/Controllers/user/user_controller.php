@@ -294,7 +294,7 @@ class user_controller extends Controller
                 $tuteur->id_user = $user->id;
                 $tuteur->save();
                 event(new ModelUpdated($tuteur));
-            } elseif ($request->id_role == 4 || $request->id_role == 3 || $request->id_role == 5 || $request->id_role == 6 || $request->id_role == 7 || $request->id_role == 12 || $request->id_role == 14 || $request->id_role == 15 || $request->id_role == 16 || $request->id_role == 17 || $request->id_role == 22 || $request->id_role == 23 || $request->id_role == 25) {
+            } elseif ($request->id_role == 4 || $request->id_role == 3 || $request->id_role == 5 || $request->id_role == 6 || $request->id_role == 7 || $request->id_role == 12 || $request->id_role == 14 || $request->id_role == 13 || $request->id_role == 15 || $request->id_role == 16 || $request->id_role == 17 || $request->id_role == 22 || $request->id_role == 23 || $request->id_role == 25) {
 
                 $personnel_admin = personnel_admin_appui::where('id_user', $user->id)->first();
                 if ($personnel_admin) {
