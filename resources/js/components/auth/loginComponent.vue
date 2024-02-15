@@ -25,7 +25,7 @@
       </div>
       <a @click.prevent="verification()"
         style="width:100%;text-align:center; text-decoration:none; top: 8px; position: absolute; color: white; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">
-        Se connecterffffff</a>
+        Se connecter</a>
     </div>
   </form>
 </template>
