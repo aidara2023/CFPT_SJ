@@ -23,9 +23,9 @@
       <div
         style="width: 205px; height: 52px; left: 0px; top: 0px; position: absolute; background: linear-gradient(9deg, #9181F4 0%, #5038ED 100%); box-shadow: 0px 8px 21px rgb(80, 56, 237, .4); border-radius: 16px">
       </div>
-      <a @click.prevent="verification()" href=""
+      <a @click.prevent="verification()"
         style="width:100%;text-align:center; text-decoration:none; top: 8px; position: absolute; color: white; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">
-        Se connecter</a>
+        Se connecterffffff</a>
     </div>
   </form>
 </template>
@@ -80,8 +80,8 @@ export default {
         this.bouton = document.querySelector('.suivant'); */
 
       if (this.form.matricule !== "" && this.form.password !== "") {
-        await this.form.post('/connexion').then(({ data }) => {
-          console.log("bonjour")
+        await this.form.post('connexion').then(({ data }) => {
+          console.log(data.url)
           this.message = "";
           if (this.rememberMe) {
             // Stockez l'état dans un cookie ou localStorage
@@ -89,7 +89,8 @@ export default {
             localStorage.setItem('rememberMe', true);
           }
           if (data.statut !== "Error") {
-            window.location.href = data.url;
+  console.log("teste reussi");
+           window.location.href = data.url;
           } else {
             if (data.message === "L'utilisateur est bloqué") {
               this.message = "Vous avez été bloqué. Rapprochez-vous de votre administrateur pour plus d\'informations."

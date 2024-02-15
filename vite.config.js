@@ -9,8 +9,14 @@ export default defineConfig({
         }),
         vue(),
     ],
-    build: {
-        outDir: 'public/dist',
-        manifest: true,
+   build: {
+        outDir: 'public/builds',
+       manifest: true,
+	   rollupOptions: {
+      // Exclure certains dossiers de la transpilation
+     // exclude: ['node_modules/**'],
+		  // input: '/var/www/html/CFPT_SJ/node_modules',
+    },
+	 
     }
 });

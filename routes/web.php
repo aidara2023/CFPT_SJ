@@ -713,7 +713,7 @@ Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
-Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+//Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
 Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
@@ -736,3 +736,4 @@ Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
 });
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);

@@ -1,4 +1,5 @@
 {
+
     "private": true,
     "type": "module",
     "scripts": {
@@ -28,4 +29,6 @@
         "vue": "^3.2.36",
         "vue-flatpickr-component": "^11.0.3"
     }
+
 }
+
