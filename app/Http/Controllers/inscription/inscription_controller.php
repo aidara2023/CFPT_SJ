@@ -37,6 +37,20 @@ class inscription_controller extends Controller
             ],500 );
         }
      }
+    public function last() {
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->take(7)->orderBy('created_at', 'desc')->get();
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
      public function verifMail(Request $request)
      {
          $validator = Validator::make($request->all(), [
