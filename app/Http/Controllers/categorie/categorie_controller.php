@@ -11,7 +11,7 @@ class categorie_controller extends Controller
 {
     
     public function index() {
-        $categorie=Categorie::orderBy('created_at', 'desc')->get();
+        $categorie=Categorie::with('livre')->orderBy('created_at', 'desc')->get();
         if($categorie!=null){
             return response()->json([
                 'statut'=>200,
@@ -24,21 +24,49 @@ class categorie_controller extends Controller
             ],500 );
         }
      }
-    public function store (categorie_request $request){
-        $data=$request->validated();
-        $categorie=Categorie::create($data);
-        if($categorie!=null){
+     public function get_five_laste(){
+        $categorie = Categorie::with('livre')->orderBy('created_at', 'desc')->take(5)->get();
+        if($categorie != null){
             return response()->json([
-                'statut'=>200,
-                'categorie'=>$categorie
-            ],200)  ;
-        }else{
-            return response()->json([ 
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
-            ],500 );
+                'statut' => 200,
+                'categorie' => $categorie
+            ],200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement n\'a été trouvé'
+            ],500);
         }
     }
+     
+
+
+    public function store (categorie_request $request){
+        $data=$request->validated();
+        $verification =Categorie::where('intitule', $request['intitule'])->get();
+        if($verification->count()!=0){
+            return response()->json([
+                'statut'=>404,
+                'message'=>'Cette categorie existe déja',
+            ],404 );
+        }else{
+            $categorie=Categorie::create($data);
+            if($categorie!=null){
+                return response()->json([
+            'statut'=>200,
+                    'categorie'=>$categorie
+                ],200)  ;
+            }else{
+                return response()->json([
+                    'statut'=>500,
+                    'message'=>'L\'enregistrement n\'a pas été éffectué',
+                ],500 );
+            }
+        }
+    }
+    
+
+
     public function update(categorie_request $request, $id){
         $categorie=Categorie::find($id);
         if($categorie!=null){

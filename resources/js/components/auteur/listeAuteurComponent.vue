@@ -12,6 +12,7 @@
                     <li><a class="parent-item" :href="'/auteur/accueil'"> Auteur </a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
+                    <li class="active">Liste auteur</li>
                 </ol>
             </div>
         </div>
@@ -50,11 +51,12 @@
                                             </div>
                                             <table
                                                 class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
-                                                id="example47">
+                                                id="example47"  style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Auteur</th>
+                                                        <th> Prénom </th>
+                                                        <th> Nom </th>
                                                         <th>Nombre de Livre</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -63,8 +65,10 @@
                                                     <tr class="odd gradeX" v-for="(auteur, index) in auteurs"
                                                         :key="index">
                                                         <td>{{ index + 1 }}</td>
+
                                                         <td class="left"> {{ auteur.intitule }} </td>
                                                         <td class="left"> {{ auteur.nbr_livre }} </td>
+
 
                                                         <td class="left">
                                                             <a class="tblEditBtn" @click="openModal(auteur)">

@@ -13,7 +13,8 @@ class Emprunter_livre extends Model
         'id_bibliothecaire',
         'id_exemplaire',
         'Date_emprunter',
-        'date_retour'
+        'date_retour',
+        'date_retour_effective'
     ];
 
     public function exemplaire() {

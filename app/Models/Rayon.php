@@ -9,7 +9,8 @@ class Rayon extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'intitule'
+        'intitule',
+        'description'
     ];
 
     public function exemplaire() {
