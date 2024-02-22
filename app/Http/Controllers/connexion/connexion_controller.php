@@ -20,6 +20,8 @@ class connexion_controller extends Controller
         $user = Auth::user();
         $role = $user->role->intitule;
         $url = '';
+        $userConnect= $request->user();
+        $token= $userConnect->createToken('authToken')->plainTextToken;
 
         if ($user->status == 0) {
             // Utilisateur bloqué
@@ -65,14 +67,16 @@ class connexion_controller extends Controller
         }
         return response([
             'url' => $url,
-            'user' => $user
+            'user' => $user,
+            'token'=>$token
         ])->header('Location', url($url));
 
 
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->user()->tokens()->delete();
         Auth::logout();
         return redirect()->route('login');
     }
