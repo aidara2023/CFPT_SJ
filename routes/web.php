@@ -136,7 +136,7 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 */
 
 //Route de direction
-Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
+/* Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 //Route pour la connexion
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
@@ -744,3 +744,4 @@ Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus
 
 });
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+ */
