@@ -29,7 +29,7 @@ class connexion_controller extends Controller
             //return response([
               /*   'message' => 'Vous avez été bloqué, rapprochez-vous de votre administrateur pour plus d\'informations.',
                 'statut' => 'Blocked', */
-                $url = 'compte/bloquer';
+                $url = '/compte/bloquer';
            // ]);
         }else{
             
@@ -41,7 +41,7 @@ class connexion_controller extends Controller
                     $url = '/formateur';
                     break;
                 case "Administrateur":
-                    $url = '/admin/index';
+                    $url = '/dashboard';
                     break;
                 case "Caissier":
                     $url = '/caissier/accueil';
@@ -68,7 +68,8 @@ class connexion_controller extends Controller
         return response([
             'url' => $url,
             'user' => $user,
-            'token'=>$token
+            'token'=>$token,
+            'message'=>"teste"
         ])->header('Location', url($url));
 
 
