@@ -230,6 +230,16 @@ class user_controller extends Controller
             ], 500);
         }
     }
+    public function setPassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        if ($user != null) {
+            $user->password=Hash::make($request['newpasswords']);
+           
+            $user->save();
+
+        }
+    }
     public function update(Request $request, $id)
     {
         $user = User::find($id);

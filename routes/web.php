@@ -136,7 +136,7 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 */
 
 //Route de direction
-Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
+/* Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 //Route pour la connexion
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
@@ -532,6 +532,7 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 //Route pourinscription
 
 Route::get('inscription/all',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::get('inscription/last',[inscription_controller::class, 'last'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::post('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
@@ -589,6 +590,7 @@ Route::get('utilisateur/direction', [user_controller::class, 'getDirectionUtilis
  
 
 Route::get('utilisateur/update/{id}',[user_view_controller::class, 'show'])->name('user_edit');
+Route::post('utilisateur/password/{id}',[user_controller::class, 'setPassword'])->name('set_password');
 Route::post('verif/mail', [user_controller::class, 'verifMail'])->name('verif_mail');
 
 
@@ -713,7 +715,7 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 
 
-Route::put('/user/disable/{id}', 'UserController@disableUser');
+//Route::put('/user/disable/{id}', 'UserController@disableUser');
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
@@ -742,3 +744,4 @@ Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus
 
 });
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+ */

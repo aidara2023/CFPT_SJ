@@ -476,6 +476,7 @@
             <script src="/assets/js/pages/sparkline/sparkline-data.js"></script>
             <script src="/assets/plugins/flatpicker/js/flatpicker.min.js"></script>
             <script src="/assets/js/pages/date-time/date-time.init.js"></script>
+          
             <!-- Common js-->
             <script src="/assets/js/app.js"></script>
             <script src="/assets/js/layout.js"></script>
