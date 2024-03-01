@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\type_evaluation;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\type_evaluation\type_evaluation_request;
 use App\Models\Type_evaluation;
@@ -31,6 +34,7 @@ class type_evaluation_controller extends Controller
 
         $type_Evaluation = Type_evaluation::create($data);
         if ($type_Evaluation) {
+            event(new ModelCreated($type_Evaluation));
             return response()->json([
                 'status' => 200,
                 'type_Evaluation' => $type_Evaluation
@@ -52,6 +56,7 @@ class type_evaluation_controller extends Controller
             ]);
 
             $type_Evaluation->update($data);
+            event(new ModelUpdated($type_Evaluation));
 
             return response()->json([
                 'status' => 200,
@@ -70,6 +75,7 @@ class type_evaluation_controller extends Controller
         $type_Evaluation = Type_evaluation::find($id);
         if ($type_Evaluation) {
             $type_Evaluation->delete();
+            event(new ModelDeleted($type_Evaluation));
             return response()->json([
                 'status' => 200,
                 'message' => 'Type d\'évaluation supprimé avec succès',

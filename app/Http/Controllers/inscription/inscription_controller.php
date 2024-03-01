@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\inscription;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\inscription\inscription_request;
 use App\Models\Classe;
@@ -22,6 +25,20 @@ class inscription_controller extends Controller
 {
     public function index() {
         $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc')->get();
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+    public function last() {
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->take(7)->orderBy('created_at', 'desc')->get();
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
@@ -155,6 +172,7 @@ class inscription_controller extends Controller
         ]);
 
         if($inscription!=null){
+            event(new ModelCreated($inscription));
             return response()->json([
                 'statut'=>200,
                 'inscription'=>$inscription
@@ -174,12 +192,14 @@ class inscription_controller extends Controller
         if (!$inscription) {
             return response()->json(['message' => 'Inscription non trouvée'], 404);
         }
+
     
         $inscription->montant = $request->montant;
         $inscription->id_annee_academique = $request->id_annee_academique;
     
         $inscription->save();
-    
+       event(new ModelUpdated($inscription));
+
         return response()->json($inscription);
     } 
 
@@ -192,6 +212,7 @@ class inscription_controller extends Controller
         }
 
         $inscription->delete();
+        event(new ModelDeleted($inscription));
 
 
         return response()->json(['message' => 'Inscription supprimée avec succès']);

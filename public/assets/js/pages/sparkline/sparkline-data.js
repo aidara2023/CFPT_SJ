@@ -1,3 +1,4 @@
+export function initSparklines() {
 $("#sparkline").sparkline([5, 6, 7, 2, 0, -4, -2, 4], {
   type: "bar",
 });
@@ -261,3 +262,4 @@ $("#sparklinedash4").sparkline([0, 5, 6, 10, 9, 12, 4, 9], {
   barSpacing: "5",
   barColor: "#fb9678",
 });
+}

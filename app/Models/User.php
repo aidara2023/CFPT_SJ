@@ -67,6 +67,9 @@ class User extends Authenticatable
     public function service() {
         return $this -> belongsTo(Service::class, 'id_service', 'id');
     }
+    public function audit (){
+        return $this->hasMany(Audit::class, 'id');
+    }
 
     public function direction() {
         return $this -> hasOne(Direction::class, 'id_direction', 'id');

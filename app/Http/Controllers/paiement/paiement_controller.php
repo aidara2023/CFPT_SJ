@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\paiement;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\paiement\paiement_request;
 use App\Models\Caissier;
@@ -33,6 +36,21 @@ class paiement_controller extends Controller
             ], 500);
         }
     }
+    public function get_last()
+    {
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(5)->orderBy('created_at', 'desc')->get();
+        if ($paiement != null) {
+            return response()->json([
+                'statut' => 200,
+                'paiement' => $paiement
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée'
+            ], 500);
+        }
+    }
 
     public function store(paiement_request $request)
     {
@@ -43,11 +61,11 @@ class paiement_controller extends Controller
         $eleves = Eleve::all();
         $concerner = null;
         if (!empty($paiements)) {
-
+          
             $paiements = json_decode($paiements, true);
             foreach ($caissiers as $caissier) {
                 if ($caissier->id_user == Auth::user()->id) {
-
+                 
                     foreach ($paiements as $paiement) {
                         foreach ($eleves as $eleve) {
                             if ($eleve->id_user == $request['id_eleve']) {
@@ -61,6 +79,7 @@ class paiement_controller extends Controller
                                 ];
 
                                 $paiementValid = Paiement::create($dataPaiement);
+                                event(new ModelCreated($paiementValid));
 
                                 $search_type_classe = Inscription::with('classe.type_formation')->where('id_eleve', $eleve->id)->first();
                                 if ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTS" && $paiement['montant'] < 70000) {
@@ -458,6 +477,7 @@ class paiement_controller extends Controller
                             $paiement->type_recouvrement = $request->type_recouvrement;
                             $paiement->reference = $request->reference;
                             $paiement->save();
+                            event(new ModelUpdated($paiement));
 
                             
 
@@ -506,6 +526,7 @@ class paiement_controller extends Controller
         $paiement = Paiement::find($id);
         if ($paiement != null) {
             $paiement->delete();
+            event(new ModelDeleted($paiement));
             return response()->json([
                 'statut' => 200,
                 'message' => 'L\'enregistrement a été supprimé avec succés'

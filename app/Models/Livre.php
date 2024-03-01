@@ -10,6 +10,9 @@ class Livre extends Model
     use HasFactory;
     protected $fillable =[
         'id',
+        'genre',
+        'annee_publication',
+        'exemplaire_disponible',
         'titre_livre',
         'id_categorie',
         'id_auteur',
@@ -26,7 +29,7 @@ class Livre extends Model
     }
 
     public function auteur() {
-        return $this -> belongsToMany(Auteur::class, 'id_auteur');
+        return $this -> belongsTo(Auteur::class, 'id_auteur');
     }
 
     public function categorie() {

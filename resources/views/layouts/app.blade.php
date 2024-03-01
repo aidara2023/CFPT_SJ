@@ -462,6 +462,7 @@
                 @include('layouts.footer')
                 <!-- end footer -->
             </div>
+
             <!-- start js include path -->
             <script src="/assets/plugins/jquery/jquery.min.js"></script>
             <script src="/assets/plugins/popper/popper.js"></script>
@@ -475,6 +476,7 @@
             <script src="/assets/js/pages/sparkline/sparkline-data.js"></script>
             <script src="/assets/plugins/flatpicker/js/flatpicker.min.js"></script>
             <script src="/assets/js/pages/date-time/date-time.init.js"></script>
+          
             <!-- Common js-->
             <script src="/assets/js/app.js"></script>
             <script src="/assets/js/layout.js"></script>
@@ -499,6 +501,15 @@
             <script src="/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap5.min.js"></script>
             <script type="module" id="tableDataScript" src="/assets/js/pages/table/table_data.js"></script>
             {{-- <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script> --}}
+            <!-- counterup -->
+            <script src="/assets/plugins/counterup/jquery.waypoints.min.js"></script>
+            <script src="/assets/plugins/counterup/jquery.counterup.min.js"></script>
+            <!-- chart js -->
+            <script src="/assets/plugins/chart-js/Chart.min.js"></script>
+            <script src="/assets/plugins/chart-js/utils.js"></script>
+            <script src="/assets/js/pages/chart/chartjs/home-data2.js"></script>
+            <script src="/assets/plugins/sparkline/jquery.sparkline.js"></script>
+            <script src="/assets/js/pages/sparkline/sparkline-data.js"></script>
             <!-- end js include path -->
 
 

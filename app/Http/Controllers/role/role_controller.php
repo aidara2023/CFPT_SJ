@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\role;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\role\role_request;
 use App\Models\Role;
@@ -28,6 +31,7 @@ class role_controller extends Controller
         $data=$request->validated();
         $role=Role::create($data);
         if($role!=null){
+            event(new ModelCreated($role));
             return response()->json([
                 'statut'=>200,
                 'role'=>$role
@@ -46,6 +50,7 @@ class role_controller extends Controller
            $role->intitule=$request['categorie_personnel'];
 
            $role->save();
+           event(new ModelUpdated($role));
             return response()->json([
                 'statut'=>200,
                 'role'=>$role
@@ -61,6 +66,7 @@ class role_controller extends Controller
         $role=role::find($id);
         if($role!=null){
             $role->delete();
+            event(new ModelDeleted($role));
             return response()->json([
                 'statut'=>200,
                 'message'=>'Role supprimer avec succes',

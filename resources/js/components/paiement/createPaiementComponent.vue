@@ -11,6 +11,9 @@
         <a href="#"> {{ eleve.nom }} {{ eleve.prenom }}</a>
     </div>
 
+
+
+
     <div class="card-body row" v-show="form.id_eleve !== '' && selectedEleve.id">
         <div class="row">
             <div class="col-md-12">
@@ -19,14 +22,57 @@
                         <img :src="getImageUrl(selectedEleve.photo)" alt="logo" class="logo-default"
                             style="width: 10%; height: 10%;" />
                         <p class=" ">
-                            {{ search_query }} <br>
-                            <b>Nom complet :</b> {{ selectedEleve.nom }} {{ selectedEleve.prenom }}, <br> <b>Classe :</b> {{
-                                selectedEleve.classe }} <br>
-                            <b>Date Naissance :</b> {{ this.formatDateTime(selectedEleve.date_naissance) }}, <br> <b>Adresse
-                                :</b> {{
-                                    selectedEleve.adresse }}
-                        </p>
+                           
+                                <ul class="performance-list">
 
+                                    <li>
+                                   
+                                <i class=" fa fa-circle-o" style="color:#AA00AA;"> </i>
+                              
+                            {{ search_query }}
+                                    </li>
+
+
+   
+                                    <li>
+                                      
+                                <i class=" fa fa-circle-o" style="color:#F39C12;"> </i>
+                               Nom complet : {{ selectedEleve.nom }} {{ selectedEleve.prenom }},
+                           
+                         
+                                    </li>
+                              
+
+
+                         
+                           
+                          
+                           <li>
+                            <i class=" fa fa-circle-o" style="color:#DD4B39;"> </i>
+                                
+                                Classe : {{selectedEleve.classe }} ,
+
+                           </li>
+                               
+                            <li>
+                                <i class=" fa fa-circle-o" style="color:#00A65A;"> </i>
+                                
+                           
+                                Date Naissance : {{ this.formatDateTime(selectedEleve.date_naissance) }},
+                            </li>
+                            
+                                
+                           <li>
+                            <i class=" fa fa-circle-o" style="color:#555555;"> </i>
+                                
+                                Adresse :{{selectedEleve.adresse }}
+                           </li>
+                            
+                            
+                              
+                        </ul>
+                        </p>
+                    
                     </address>
                 </div>
             </div>
@@ -55,7 +101,7 @@
                     paiement</label>
                 <select class="mdl-textfield__input" id="list3" readonly tabIndex="-1" v-model="form.mode_paiement"
                     @change="validatedata('mode_paiement')">
-                    <option value="Cash">Cash</option>
+                    <option value="Cash">Espèce</option>
                     <option value="Cheque">Cheque</option>
                     <option value="Orange">Orange</option>
                     <option value="Wave">Wave</option>
@@ -277,7 +323,7 @@ export default {
             if (isVerifIdValid === true) {
                 this.etatForm = false;
                 this.editModal = false;
-                //console.log("erreur");
+                console.log("erreur");
                 return 0;
             } else {
                 if (this.editModal === true) {
@@ -285,7 +331,7 @@ export default {
                     this.update_paiement(this.idPaiement);
                     this.editModal = false;
                 }
-                else {
+                else {console.log("ok top")
                     this.soumettre();
                     this.etatForm = true;
                     this.editModal = false;
@@ -308,7 +354,7 @@ export default {
                     break;
                 case 'reference':
                     this.reference_erreur = "";
-                    if (this.form.reference === "" & this.form.mode_paiement) {
+                    if (this.form.reference === "" & this.form.mode_paiement==='Cheque') {
                         this.reference_erreur = "La reference est obligatoire "
                         i = 1;
                         return true
@@ -425,7 +471,7 @@ export default {
                 this.type_recouvrement_erreur = "Le type de recouvrement est obligatoire "
                 j = 1;
             }
-            if (this.form.reference === "" && this.form.mode_paiement) {
+            if (this.form.reference === "" && this.form.mode_paiement==='Cheque') {
                 this.reference_erreur = "La reference est obligatoire "
                 j = 1;
             }

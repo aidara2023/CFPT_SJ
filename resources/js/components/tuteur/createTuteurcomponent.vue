@@ -74,7 +74,7 @@ import axios from 'axios';
 import Form from 'vform';
 
    export default {
-    name:"createTuteurCompenent",
+    name:"createTuteurcompenent",
     data(){
         return {
             filieres:[],
@@ -179,4 +179,4 @@ import Form from 'vform';
     }
    }
 </script>
-x
+

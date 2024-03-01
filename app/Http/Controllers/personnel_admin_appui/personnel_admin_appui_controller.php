@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\personnel_admin_appui;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\personnel_admin_appui\personnel_admin_appui_request;
 use App\Models\personnel_admin_appui;
@@ -28,7 +31,9 @@ class personnel_admin_appui_controller extends Controller
         $data = $request -> validated();
 
         $personnel_admin_appui = Personnel_admin_appui::create($data);
+       
         if($personnel_admin_appui != null){
+            event(new ModelCreated($personnel_admin_appui));
             return response()->json([
                 'statut' => 200,
                 'personnel_admin_appui' => $personnel_admin_appui
@@ -48,6 +53,7 @@ class personnel_admin_appui_controller extends Controller
             $personnel_admin_appui -> id_service = $request['id_service'];
             $personnel_admin_appui -> type_personnel = $request['type_personnel'];
             $personnel_admin_appui -> save();
+            event(new ModelUpdated($personnel_admin_appui));
 
             return response()->json([
                 'statut' => 200,
@@ -65,6 +71,7 @@ class personnel_admin_appui_controller extends Controller
         $personnel_admin_appui = Personnel_admin_appui::find($id);
         if($personnel_admin_appui != null){
             $personnel_admin_appui -> delete();
+            event(new ModelDeleted($personnel_admin_appui));
             return response()->json([
                 'statut' => 200,
                 'message' => 'L\'enregistrement a été supprimé avec succés'

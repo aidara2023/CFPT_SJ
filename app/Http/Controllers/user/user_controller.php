@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\user;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\user_request;
 use App\Models\Caissier;
@@ -191,26 +194,31 @@ class user_controller extends Controller
             $formateur->id_user = $user->id;
             $formateur->id_unite_de_formation = $request['id_unite_de_formation'];
             $formateur->save();
+            event(new ModelCreated($formateur));
         } elseif ($request['id_role'] == 11) {
             $tuteur = new Tuteur();
             $tuteur->id_user = $user->id;
             $tuteur->save();
+            event(new ModelCreated($tuteur));
         } elseif ($request['id_role'] == 4 || $request['id_role'] == 3 || $request['id_role'] == 5 || $request['id_role'] == 6 || $request['id_role'] == 7 || $request['id_role'] == 12 || $request['id_role'] == 14 || $request['id_role'] == 15 || $request['id_role'] == 16 || $request['id_role'] == 17 || $request['id_role'] == 22 || $request['id_role'] == 23 || $request['id_role'] == 25) {
             $personnel_admin = new Personnel_admin_appui();
             $personnel_admin->id_user = $user->id;
             $personnel_admin->id_service = $request->id_service;
             $personnel_admin->type_personnel = "Personnel Administratif";
             $personnel_admin->save();
+            event(new ModelCreated($personnel_admin));
         } else {
             $personnel_appui = new Personnel_admin_appui();
             $personnel_appui->type_personnel = "Personnel Appui";
             $personnel_appui->id_user = $user->id;
             $personnel_appui->id_service = $request->id_service;
             $personnel_appui->save();
+            event(new ModelCreated($personnel_appui));
         }
 
 
         if ($user != null) {
+            event(new ModelCreated($user));
             return response()->json([
                 'statut' => 200,
                 'user' => $user
@@ -220,6 +228,16 @@ class user_controller extends Controller
                 'statut' => 500,
                 'message' => 'L\'enregistrement n\'a pas été éffectué',
             ], 500);
+        }
+    }
+    public function setPassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        if ($user != null) {
+            $user->password=Hash::make($request['newpasswords']);
+           
+            $user->save();
+
         }
     }
     public function update(Request $request, $id)
@@ -266,6 +284,7 @@ class user_controller extends Controller
                 $formateur->id_user = $user->id;
                 $formateur->id_unite_de_formation = $request['id_unite_de_formation'];
                 $formateur->save();
+                event(new ModelUpdated($formateur));
                } else {
                 $personnel_admin = personnel_admin_appui::where('id_user', $user->id)->first();
                 if ($personnel_admin) {
@@ -277,19 +296,22 @@ class user_controller extends Controller
                     $formateur->id_user = $user->id;
                     $formateur->id_unite_de_formation = $request['id_unite_de_formation'];
                     $formateur->save();
+                    event(new ModelUpdated($formateur));
                 }
                }
             } elseif ($request->id_role == 11) {
                 $tuteur = Tuteur::where('id_user', $user->id)->first();
                 $tuteur->id_user = $user->id;
                 $tuteur->save();
-            } elseif ($request->id_role == 4 || $request->id_role == 3 || $request->id_role == 5 || $request->id_role == 6 || $request->id_role == 7 || $request->id_role == 12 || $request->id_role == 14 || $request->id_role == 15 || $request->id_role == 16 || $request->id_role == 17 || $request->id_role == 22 || $request->id_role == 23 || $request->id_role == 25) {
+                event(new ModelUpdated($tuteur));
+            } elseif ($request->id_role == 4 || $request->id_role == 3 || $request->id_role == 5 || $request->id_role == 6 || $request->id_role == 7 || $request->id_role == 12 || $request->id_role == 14 || $request->id_role == 13 || $request->id_role == 15 || $request->id_role == 16 || $request->id_role == 17 || $request->id_role == 22 || $request->id_role == 23 || $request->id_role == 25) {
 
                 $personnel_admin = personnel_admin_appui::where('id_user', $user->id)->first();
                 if ($personnel_admin) {
                     $personnel_admin->id_service =  $request['id_service'];
                     $personnel_admin->type_personnel = "Personnel Administratif";
                     $personnel_admin->save();
+                    event(new ModelUpdated($personnel_admin));
                 } else {
                     $formateur = Formateur::where('id_user', $user->id)->first();
                     if ($formateur) {
@@ -299,6 +321,7 @@ class user_controller extends Controller
                         $personnel_admin->id_service = $request->id_service;
                         $personnel_admin->type_personnel = "Personnel Administratif";
                         $personnel_admin->save();
+                        event(new ModelUpdated($personnel_admin));
                     }
                 }
             } else {
@@ -307,8 +330,10 @@ class user_controller extends Controller
                 //    $personnel_appui->id_user= $user->id;
                 $personnel_appui->id_service = $request->id_service;
                 $personnel_appui->save();
+                event(new ModelUpdated($personnel_appui));
             }
             $user->save();
+            event(new ModelUpdated($user));
 
 
             return response()->json([
@@ -331,6 +356,7 @@ class user_controller extends Controller
             // Mettre à jour le statut au lieu de supprimer
             $user->status = 0; // 0 pour inactif, ajustez selon vos besoins
             $user->save();
+            event(new ModelDeleted($user));
 
             return response()->json([
                 'statut' => 200,
@@ -340,6 +366,7 @@ class user_controller extends Controller
             // Mettre à jour le statut au lieu de supprimer
             $user->status = 1; // 0 pour inactif, ajustez selon vos besoins
             $user->save();
+            event(new ModelDeleted($user));
 
             return response()->json([
                 'statut' => 200,

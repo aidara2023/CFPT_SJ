@@ -11,38 +11,31 @@ class connexion_controller extends Controller
     public function connexion(Request $request)
     {
         if (!Auth::attempt($request->only('matricule', 'password'))) {
-            return response([
-                'message' => 'Connexion échouée',
-                'statut' => 'Error'
-            ]);
+            return response()->json([
+                'message' => 'Connexion échouée. Vérifiez vos informations de connexion.',
+                'statut' => 'Erreur'
+            ], 401);
         }
-
-        $user = Auth::user();
-        $role = $user->role->intitule;
+    
+        $user = $request->user();
         $url = '';
-
+    
         if ($user->status == 0) {
             // Utilisateur bloqué
-            //Auth::logout();
-            //return response([
-              /*   'message' => 'Vous avez été bloqué, rapprochez-vous de votre administrateur pour plus d\'informations.',
-                'statut' => 'Blocked', */
-                $url = 'compte/bloquer';
-           // ]);
-        }else{
-            
-            switch ($role) {
+            $url = '/compte/bloquer';
+        } else {
+            switch ($user->role->intitule) {
                 case "Etudiant":
-                    $url = 'eleve/index';
+                    $url = '/eleve/index';
                     break;
                 case "Formateur":
-                    $url = 'formateur';
+                    $url = '/formateur';
                     break;
                 case "Administrateur":
-                    $url = '/admin/index';
+                    $url = '/dashboard';
                     break;
                 case "Caissier":
-                    $url = '/caissier/accueil';
+                    $url = '/dashboardCaissier';
                     break;
                 case "Comptable":
                     $url = '/comptable/index';
@@ -57,23 +50,30 @@ class connexion_controller extends Controller
                     $url = '/surveillant/index';
                     break;
                 default:
-                    $url = '/login';
+                    return response()->json([
+                        'message' => 'Rôle utilisateur inconnu. Impossible de déterminer la destination.',
+                        'statut' => 'Erreur'
+                    ], 400);
             }
-
-
-          
         }
-        return response([
+    
+        $token = $user->createToken('authToken')->plainTextToken;
+    
+        return response()->json([
             'url' => $url,
-            'user' => $user
-        ])->header('Location', url($url));
-
-
+            'user' => $user,
+            'token' => $token,
+            'message' => "Connexion réussie"
+        ]);
     }
+    
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
-    }
+
+    public function logout(Request $request)
+{
+    $request->user()->tokens()->delete();
+  
+    return response()->json(['message' => 'Déconnexion réussie']);
+}
+
 }

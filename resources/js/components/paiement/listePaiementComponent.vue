@@ -41,10 +41,11 @@
                     <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" :href="'/admin/index'">Accueil</a>&nbsp;<i
                             class="fa fa-angle-right"></i>
                     </li>
-
-                    <li class="active"> Paramétres &nbsp;<i class="fa fa-angle-right"></i> </li>
-                    <li><a class="parent-item" :href="'/service/accueil'"> Salle</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    <li><a class="parent-item" :href="'/paiement/create'"> Nouevau Paiement</a>&nbsp;<i class="fa fa-angle-right"></i>
                     </li>
+                    <li class="active">Liste Paiements &nbsp;<i class="fa fa-angle-right"></i> </li>
+                   <!--  <li><a class="parent-item" :href="'/service/accueil'"> Salle</a>&nbsp;<i class="fa fa-angle-right"></i>
+                    </li> -->
                 </ol>
             </div>
         </div>
@@ -70,7 +71,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-box">
                                         <div class="card-head">
-                                            <header>Toutes les paiements</header>
+                                            <header>Liste des paiements</header>
                                             <div class="tools">
                                                 <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                                                 <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -236,6 +237,7 @@ export default {
             this.$nextTick(() => {
                 if (!$.fn.DataTable.isDataTable('#example47')) {
                     $('#example47').DataTable({
+                        
                         responsive: true,
                         language: {
                             // Messages pour la pagination

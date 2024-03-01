@@ -240,6 +240,7 @@ export default {
             id_unite_de_formation_erreur: "",
             id_classe_erreur: "",
             nom_classe_selected: "",
+            annee_selected: "",
             etatForm: false,
             viewListe: false,
             i: 0,
@@ -270,6 +271,7 @@ export default {
             formdata.append('id_classe', this.form.id_classe);
 
             this.get_classe_by_id(this.form.id_classe);
+            this.get_annee_by_id(this.form.id_annee_academique);
            
             try {
                 const response = await axios.post('/recouvrement/filtre', formdata);
@@ -282,6 +284,7 @@ export default {
                     const eventData = {
                         eleve_non_payers: response.data.eleve_non_payer,
                         nom_classe_selected: this.nom_classe_selected,
+                        annee_selected: this.annee_selected,
                         viewListe:true
                     };
 
@@ -376,6 +379,18 @@ export default {
                 }).catch(error => {
                     //this.resetForm();
                     Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation du nom de la classe choisi', 'error')
+                });
+           }
+        },
+        get_annee_by_id(id) {
+         
+           if(this.form.id_classe){
+            axios.get('/annee_academique/show/'+id)
+                .then(response => {
+                    this.annee_selected = response.data.annee_academique
+                }).catch(error => {
+                    //this.resetForm();
+                    Swal.fire('Erreur!', 'Une erreur est survenue lors de la recuperation de l\'annee  choisi', 'error')
                 });
            }
         },

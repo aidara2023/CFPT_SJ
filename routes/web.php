@@ -8,6 +8,7 @@ use App\Http\Controllers\annee_academique\annee_academique_controller;
 use App\Http\Controllers\annee_academique\annee_academique_view_controller;
 use App\Http\Controllers\archive\archive_controller;
 use App\Http\Controllers\archive\archive_view_controller;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\auteur\auteur_controller;
 use App\Http\Controllers\batiment\batiment_controller;
 use App\Http\Controllers\batiment\batiment_view_controller;
@@ -135,7 +136,7 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 */
 
 //Route de direction
-Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
+/* Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 //Route pour la connexion
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
@@ -169,7 +170,7 @@ Route::get('annee_academique/index', [annee_academique_controller::class, 'index
 Route::get('annee_academique/ajouter', [annee_academique_controller::class, 'ajouter']) -> name('annee_academique_ajouter');
 Route::get('annee_academique/mise_a_jour', [annee_academique_controller::class, 'mise_a_jour']) -> name('annee_academique_mise_a_jour');
 Route::get('annee_academique/delete', [annee_academique_controller::class, 'delete']) -> name('annee_academique_delete');
-Route::get('annee_academique/show', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
+Route::get('annee_academique/show/{id}', [annee_academique_controller::class, 'show']) -> name('annee_academique_show');
 
 Route::get('/annee_academique/create',[annee_academique_view_controller::class, 'create'])->name('annee_academique_create');
 
@@ -203,6 +204,9 @@ Route::delete('infirmier/delete/{id}',[infirmier_controller::class, 'delete'])->
 Route::get('infirmier/get/{id}',[infirmier_controller::class, 'get'])->name('infirmier_get');
 
 Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->name('infirmier_create');
+
+//Route Audit
+Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
 
 
 //Route unite de formation
@@ -336,6 +340,7 @@ Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tu
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
+Route::get('paiement/get_last',[paiement_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
 Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('paiement_show');
@@ -405,6 +410,8 @@ Route::get('/rayon/accueil',[rayon_view_controller::class, 'accueil'])->name('ra
 //route categorie
 Route::get('categorie/index',[categorie_controller::class, 'index'])->name('categorie_index');
 Route::post('categorie/store',[categorie_controller::class, 'store'])->name('categorie_store');
+Route::get('categorie/index/get/last', [categorie_controller::class, 'get_five_laste'])->name('categorie_index_get_last');
+
 Route::get('categorie/show/{id}',[categorie_controller::class, 'show'])->name('categorie_show');
 Route::post('categorie/update/{id}',[categorie_controller::class, 'update'])->name('categorie_update');
 Route::delete('categorie/delete/{id}',[categorie_controller::class, 'delete'])->name('categorie_delete');
@@ -426,14 +433,17 @@ Route::get('/bibliothecaire/accueil',[bibliothecaire_view_controller::class, 'ac
 
 
 //rout exemplaire
-/* Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
-Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
-Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
-Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
-Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
- */
+// Route::get('exemplaire/index',[exemplaire_controller::class, 'index'])->name('exemplaire_index');
+// Route::post('exemplaire/store',[exemplaire_controller::class, 'store'])->name('exemplaire_store');
+// Route::get('exemplaire/show/{id}',[exemplaire_controller::class, 'show'])->name('exemplaire_show');
+// Route::post('exemplaire/update/{id}',[exemplaire_controller::class, 'update'])->name('exemplaire_update');
+// Route::delete('exemplaire/delete/{id}',[exemplaire_controller::class, 'delete'])->name('exemplaire_delete');
+ 
 Route::get('/exemplaire/create',[exemplaire_view_controller::class, 'create'])->name('exemplaire_create');
 Route::get('/exemplaire/accueil',[exemplaire_view_controller::class, 'accueil'])->name('exemplaire_accueil');
+// Route::get('exemplaire/index/get/last' ,[exemplaire_controller::class, 'get_five_laste'])->name('exemplaire_index_get_last');
+
+
 //route ressource_pedagogique
 Route::get('ressource_pedagogique/index',[ressource_pedagogique_controller::class, 'index'])->name('ressource_pedagogique_index');
 Route::post('ressource_pedagogique/store',[ressource_pedagogique_controller::class, 'store'])->name('ressource_pedagogique_store');
@@ -522,6 +532,7 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 //Route pourinscription
 
 Route::get('inscription/all',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::get('inscription/last',[inscription_controller::class, 'last'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
 Route::post('inscription/update/{id}',[inscription_controller::class,'update'])->name('inscription_update');
@@ -579,6 +590,7 @@ Route::get('utilisateur/direction', [user_controller::class, 'getDirectionUtilis
  
 
 Route::get('utilisateur/update/{id}',[user_view_controller::class, 'show'])->name('user_edit');
+Route::post('utilisateur/password/{id}',[user_controller::class, 'setPassword'])->name('set_password');
 Route::post('verif/mail', [user_controller::class, 'verifMail'])->name('verif_mail');
 
 
@@ -614,6 +626,7 @@ Route::get('classe/all',[classe_controller::class, 'all'])->name('classe_all');
 Route::get('classe/get/last',[classe_controller::class, 'get_last_value'])->name('classe_last_values');
 Route::post('classe/store',[classe_controller::class, 'store'])->name('classe_store');
 Route::get('classe/show/{id}',[classe_controller::class,'show'])->name('classe_show');
+
 Route::post('classe/update/{id}',[classe_controller::class,'update'])->name('classe_update');
 Route::delete('classe/delete/{id}',[classe_controller::class, 'delete'])->name('classe_delete');
 Route::get('classe/create' ,[classe_view_controller::class, 'create'])->name('classe_create');
@@ -702,12 +715,12 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
 
 
-Route::put('/user/disable/{id}', 'UserController@disableUser');
+//Route::put('/user/disable/{id}', 'UserController@disableUser');
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
 
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
-Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+//Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
 Route::get('caissier/inscription' ,[caissier_view_controller::class, 'inscription'])->name('validation_inscription');
@@ -730,3 +743,5 @@ Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
 });
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+ */

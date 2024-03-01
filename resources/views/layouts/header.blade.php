@@ -2,28 +2,7 @@
     <ul class="nav navbar-nav pull-right">
         <li><a class="fullscreen-btn"><i data-feather="maximize"></i></a></li>
         <!-- start language menu -->
-        <li class="dropdown language-switch">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> <img
-                    src="/assets/img/flags/gb.png" class="position-left" alt=""> English
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="deutsch"><img src="/assets/img/flags/de.png" alt=""> Deutsch</a>
-                </li>
-                <li>
-                    <a class="ukrainian"><img src="/assets/img/flags/ua.png" alt=""> Українська</a>
-                </li>
-                <li>
-                    <a class="english"><img src="/assets/img/flags/gb.png" alt=""> English</a>
-                </li>
-                <li>
-                    <a class="espana"><img src="/assets/img/flags/es.png" alt=""> España</a>
-                </li>
-                <li>
-                    <a class="russian"><img src="/assets/img/flags/ru.png" alt=""> Русский</a>
-                </li>
-            </ul>
-        </li>
+ 
         <!-- end language menu -->
         <!-- start notification dropdown -->
         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
@@ -194,22 +173,9 @@
                     <a  href="/utilisateur/profil">
                         <i class="icon-user"></i> Profil </a>
                 </li>
-         {{--        <li>
-                    <a href="#">
-                        <i class="icon-settings"></i> Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="icon-directions"></i> Help
-                    </a>
-                </li> --}}
+      
                 <li class="divider"> </li>
-               {{--  <li>
-                    <a href="lock_screen.html">
-                        <i class="icon-lock"></i> Lock
-                    </a>
-                </li> --}}
+          
                 <li>
                     <a href="{{ route('logout') }}">
                         <i class="icon-logout"></i> Déconnexion </a>

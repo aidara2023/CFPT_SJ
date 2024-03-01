@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\classe;
 
+use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
+use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\classe\classe_request;
 use App\Models\Classe;
@@ -51,6 +54,7 @@ class classe_controller extends Controller
         }else{
         $classe=Classe::create($data);
         if($classe!=null){
+        event(new ModelCreated($classe));
             return response()->json([
                 'statut'=>200,
                 'classe'=>$classe
@@ -74,6 +78,7 @@ class classe_controller extends Controller
            $classe->niveau=$request['niveau'];
 
            $classe->save();
+           event(new ModelUpdated($classe));
             return response()->json([
                 'statut'=>200,
                 'classe'=>$classe
@@ -89,6 +94,7 @@ class classe_controller extends Controller
         $classe=classe::find($id);
         if($classe!=null){
             $classe->delete();
+            event(new ModelDeleted($classe));
             return response()->json([
                 'statut'=>200,
                 'message'=>'La classe a été supprimé avec succes',
