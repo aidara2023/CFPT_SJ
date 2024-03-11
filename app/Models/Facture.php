@@ -15,4 +15,8 @@ class Facture extends Model
         'date_facture',
         'id_location',
     ];
+
+    public function location() {
+        return $this -> belongsTo(Salle::class, 'id_location');
+    }
 }

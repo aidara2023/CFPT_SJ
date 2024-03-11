@@ -28,5 +28,12 @@ class Salle extends Model
         return $this->belongsTo(Batiment::class,'id_batiment');
         
     }
+
+    public function locations() {
+        return $this -> hasMany(Location::class, 'id_partenaire', 'id');
+    }
+    public function factures() {
+        return $this -> hasMany(Facture::class, 'id_facture', 'id');
+    }
     
 }

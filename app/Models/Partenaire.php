@@ -33,4 +33,8 @@ class Partenaire extends Model
         return $this->belongsTo(Direction::class,'id_direction');
         
     }
+
+    public function locations() {
+        return $this -> hasMany(Location::class, 'id_partenaire', 'id');
+    }
 }
