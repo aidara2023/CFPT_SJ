@@ -137,9 +137,9 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 //Route pour la connexion
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
-//Route::get('/logout',[connexion_controller::class,'logout'])->name('logout');
+//Route::post('/logout',[connexion_controller::class,'logout'])->name('logout');
 
-//Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
 Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
@@ -739,7 +739,8 @@ Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('ale
 Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
-//});
+});
+
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 
@@ -754,9 +755,9 @@ Route::get('/create-default-admin', [administrateur_view_controller::class, 'cre
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); */
 
 Route::middleware('auth:sanctum')->post('/logout', [connexion_controller::class, 'logout']);
 

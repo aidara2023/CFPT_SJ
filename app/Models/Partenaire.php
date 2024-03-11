@@ -20,7 +20,8 @@ class Partenaire extends Model
         'date_fin',
         'id_direction',
 
-        'id_user'
+        'id_user',
+        'exoneration'
     ];
 
     public function user (){
@@ -31,5 +32,9 @@ class Partenaire extends Model
     public function direction (){
         return $this->belongsTo(Direction::class,'id_direction');
         
+    }
+
+    public function locations() {
+        return $this -> hasMany(Location::class, 'id_partenaire', 'id');
     }
 }
