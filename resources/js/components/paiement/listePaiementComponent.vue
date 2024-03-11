@@ -1,38 +1,4 @@
 <template>
-    <!--     <div class="liste">
-       <div class="table-container">
-            <table>
-                <thead>
-                    <th>Matricule</th>
-                    <th>Nom Complet</th>
-                    <th>Classe</th>
-                    <th>Année Académique</th>
-                    <th>Mois</th>
-                    <th>Montant</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(paiement, index) in paiements" :key="index">
-                        <td><span>{{ paiement.eleve.user.matricule }}</span></td>
-                        <td> <span>{{ paiement.eleve.user.prenom }} {{ paiement.eleve.user.nom }}</span></td>
-                        <td><span>{{ paiement.eleve.inscription.classe }} </span></td>
-                        <td><span>{{ paiement.annee_academique }} </span></td>
-                        <td><span>{{ paiement.mois }} </span></td>
-                        <td><span>{{ paiement.montant }} </span></td>
-                        <td>
-                            <div class="boutons_actions">
-                                <i class="fi fi-rr-edit modifier mdl" @click="openModal(paiement)" title="Modifier"></i>
-                                <i class="fi fi-rr-comment-alt-dots details mdl" title="Détails"></i>
-                                <i class="fi fi-rr-trash supprimer mdl" @click="deletepaiement(paiement)"
-                                    title="Supprimer"></i>
-                            </div>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-   </div> -->
     <div class="page-content" v-if="!this.editModal">
         <div class="page-bar">
             <div class="page-title-breadcrumb">

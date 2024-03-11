@@ -20,7 +20,8 @@ class Partenaire extends Model
         'date_fin',
         'id_direction',
 
-        'id_user'
+        'id_user',
+        'exoneration'
     ];
 
     public function user (){
