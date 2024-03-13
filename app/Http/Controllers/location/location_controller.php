@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 use App\Events\ModelCreated;
 use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
+use Illuminate\Support\Facades\Auth;
 
 class location_controller extends Controller
 {
     public function index() {
-        $location=Location::with('partenaire', 'salle')->orderBy('created_at', 'desc')->get();
+        $location=Location::with('partenaire', 'salle', 'user')->orderBy('created_at', 'desc')->get();
         if($location!=null){
             return response()->json([
                 'statut'=>200,
@@ -27,7 +28,7 @@ class location_controller extends Controller
      }
 
      public function get_five_laste() {
-        $locations = Location::with('partenaire', 'salle')
+        $locations = Location::with('partenaire', 'salle', 'user')
             ->orderBy('created_at', 'desc')
             ->take(5) // Ajout de cette ligne pour récupérer les 5 derniers enregistrements
             ->get();
@@ -87,6 +88,7 @@ class location_controller extends Controller
            $location->date_location=$request['date_location'];
            $location->id_partenaire=$request['id_partenaire'];
            $location->id_salle=$request['id_salle'];
+           $location->id_user=Auth::user()->id;
           
            $location->save();
            event(new ModelUpdated($location));

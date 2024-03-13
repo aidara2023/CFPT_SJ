@@ -14,9 +14,13 @@ class Facture extends Model
         'montant_payer',
         'date_facture',
         'id_location',
+        'id_user',
     ];
 
     public function location() {
-        return $this -> belongsTo(Salle::class, 'id_location');
+        return $this -> belongsTo(Location::class, 'id_location');
+    }
+    public function user() {
+        return $this -> belongsTo(User::class, 'id_user');
     }
 }

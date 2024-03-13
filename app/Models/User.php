@@ -114,6 +114,12 @@ class User extends Authenticatable
         return $this->hasMany(Consultation::class);
     }
 
+    public function factures(){
+        return $this->hasMany(Facture::class, 'id_user', 'id');
+    }
+    public function locations(){
+        return $this->hasMany(Location::class, 'id_user', 'id');
+    }
     public function personnel_admin_appui(){
         return $this->hasMany(Personnel_admin_appui::class, 'id_user', 'id');
     }
