@@ -34,6 +34,12 @@ class connexion_controller extends Controller
                 case "Administrateur":
                     $url = '/dashboard';
                     break;
+                case "Assistante SAF":
+                    $url = '/dashboard-saf';
+                    break;
+                case "SAF":
+                    $url = '/dashboard-saf';
+                    break;
                 case "Caissier":
 
                    //$url = '/caissier/accueil';
@@ -50,7 +56,7 @@ class connexion_controller extends Controller
                     $url = '/bibliothecaire/accueil';
                     break;
                 case "Surveillant":
-                    $url = '/surveillant/index';
+                    $url = '/surveillant-dashboard';
                     break;
                 default:
                     return response()->json([

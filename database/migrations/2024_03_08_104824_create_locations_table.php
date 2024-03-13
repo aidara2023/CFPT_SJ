@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('montant_jour')->nullable();
             $table->string('date_location')->nullable();
 
+            $table->boolean('reserver')->default(false);
+
             $table->unsignedBigInteger('id_partenaire')->nullable();
             $table->foreign('id_partenaire')->references('id')->on('partenaires')->onUpdate('cascade')->onDelete('cascade');
 
@@ -26,7 +28,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }
