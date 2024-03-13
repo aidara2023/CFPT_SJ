@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Events\ModelCreated;
 use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
+use App\Models\Partenaire;
 use Illuminate\Support\Facades\Auth;
 
 class location_controller extends Controller
@@ -47,24 +48,40 @@ class location_controller extends Controller
     }
     
 
-    public function store(Request $request){
-        /* 'designation',
-        'nombre_jour',
-        'montant_jour',
-        'date_location',
-        'id_partenaire',
-        'id_salle' */
-        $data=$request->validated();
+    /* public function store(Request $request){
         
-        //$verification =Location::where('nom_service', $request['nom_service'])->get();
+        $data=$request->validated();
+        if($request['id_partenaire']){
+            $partenaire= new Partenaire;
+            $partenaire->nom_partenaire= $request->nom_partenaire;
+            $partenaire->description= $request->description;
+            $partenaire->contact= $request->contact;
+            $partenaire->adresse= $request->adresse;
+            $partenaire->email= $request->email;
+            $partenaire->boite_postale= $request->boite_postale;
+            $partenaire->date_debut= $request->date_debut;
+            $partenaire->date_fin= $request->date_fin;
+            $partenaire->id_direction= $request->id_direction;
+            $partenaire->type= $request->type;
+            $partenaire->exoneration= $request->exoneration;
+
+            $partenaire->save();
+
+            $location= new Location;
+            $location->designation= $request->designation;
+            $location->nombre_jour= $request->nombre_jour;
+            $location->montant_jour= $request->montant_jour;
+            $location->date_location= $request->date_location;
+            $location->id_salle= $request->id_salle;
+            $location->id_partenaire= $partenaire->id;
+
+            $location->save();
+
+
+        }else{
+            $location=Location::create($data);
+        }
        
-      /*   if($verification->count()!=0){
-            return response()->json([ 
-                'statut'=>404,
-                'message'=>'Ce service existe déja',
-            ],404 );
-        }else{ */
-        $location=Location::create($data);
         if($location!=null){
             event(new ModelCreated($location));
             return response()->json([
@@ -77,8 +94,52 @@ class location_controller extends Controller
                 'message'=>'L\'enregistrement n\'a pas été ajouté',
             ],500 );
         }
-    //}
+} */
+
+public function store(Request $request) {
+    $data = $request->validated();
+
+    if ($request['id_partenaire']) {
+        $partenaire = Partenaire::create([
+            'nom_partenaire' => $request->nom_partenaire,
+            'description' => $request->description,
+            'contact'=> $request->contact,
+            'adresse'=> $request->adresse,
+            'email'=> $request->email,
+            'boite_postale'=> $request->boite_postale,
+            'date_debut'=> $request->date_debut,
+            'date_fin'=> $request->date_fin,
+            'id_direction'=> $request->id_direction,
+            'type'=> $request->type,
+            'exoneration'=> $request->exoneration,
+        ]);
+
+        $location = Location::create([
+            'designation' => $request->designation,
+            'nombre_jour' => $request->nombre_jour,
+            'montant_jour'=> $request->montant_jour,
+            'date_location'=> $request->date_location,
+            'id_salle'=> $request->id_salle,
+            'id_partenaire' => $partenaire->id,
+        ]);
+    } else {
+        $location = Location::create($data);
+    }
+
+    if ($location->exists) {
+        event(new ModelCreated($location));
+        return response()->json([
+            'status' => 200,
+            'service' => $location
+        ], 200);
+    } else {
+        return response()->json([
+            'status' => 500,
+            'message' => 'L\'enregistrement n\'a pas été ajouté',
+        ], 500);
+    }
 }
+
     public function update(Request $request, $id){
         $location=Location::find($id);
         if($location!=null){
