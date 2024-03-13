@@ -60,6 +60,8 @@ use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
 use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;
 use App\Http\Controllers\exemplaire\exemplaire_view_controller;
+use App\Http\Controllers\facture\facture_controller;
+use App\Http\Controllers\facture\facture_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
@@ -104,6 +106,8 @@ use App\Http\Controllers\type_formation\type_formation_controller;
 use App\Http\Controllers\type_formation\type_formation_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use App\Http\Controllers\inscription\inscription_view_controller;
+use App\Http\Controllers\location\location_controller;
+use App\Http\Controllers\location\location_view_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_controller;
@@ -617,6 +621,26 @@ Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name
 Route::post('service/update/{id}',[service_controller::class, 'update'])->name('service_update');
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
+
+//Route pour Facture
+
+Route::get('facture/index' ,[facture_controller::class, 'index'])->name('facture_index');
+Route::get('facture/index/get/last' ,[facture_controller::class, 'get_five_laste'])->name('facture_index_get_last');
+Route::post('facture/store' ,[facture_controller::class, 'store'])->name('facture_store');
+Route::delete('facture/delete/{id}',[facture_controller::class, 'delete'])->name('facture_delete');
+Route::post('facture/update/{id}',[facture_controller::class, 'update'])->name('facture_update');
+Route::get('create/facture', [facture_view_controller::class, 'create'])->name('create_facture');
+Route::get('facture/accueil', [facture_view_controller::class, 'accueil'])->name('facture_accueil');
+
+//Route pour Location
+
+Route::get('location/index' ,[location_controller::class, 'index'])->name('location_index');
+Route::get('location/index/get/last' ,[location_controller::class, 'get_five_laste'])->name('location_index_get_last');
+Route::post('location/store' ,[location_controller::class, 'store'])->name('location_store');
+Route::delete('location/delete/{id}',[location_controller::class, 'delete'])->name('location_delete');
+Route::post('location/update/{id}',[location_controller::class, 'update'])->name('location_update');
+Route::get('create/location', [location_view_controller::class, 'create'])->name('create_location');
+Route::get('location/accueil', [location_view_controller::class, 'accueil'])->name('location_accueil');
 
 //Route pour classe
 

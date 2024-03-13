@@ -14,7 +14,8 @@ class Location extends Model
         'montant_jour',
         'date_location',
         'id_partenaire',
-        'id_salle'
+        'id_salle',
+        'id_user'
     ];
 
     public function partenaire() {
@@ -23,5 +24,9 @@ class Location extends Model
 
     public function salle() {
         return $this -> belongsTo(Salle::class, 'id_salle');
+    }
+
+    public function user() {
+        return $this -> belongsTo(User::class, 'id_user');
     }
 }

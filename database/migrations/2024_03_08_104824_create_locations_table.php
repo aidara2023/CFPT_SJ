@@ -17,12 +17,16 @@ return new class extends Migration
             $table->integer('nombre_jour')->nullable();
             $table->integer('montant_jour')->nullable();
             $table->string('date_location')->nullable();
-            
+
             $table->unsignedBigInteger('id_partenaire')->nullable();
             $table->foreign('id_partenaire')->references('id')->on('partenaires')->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('id_salle')->nullable();
             $table->foreign('id_salle')->references('id')->on('salles')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

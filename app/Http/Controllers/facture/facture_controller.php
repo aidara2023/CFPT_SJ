@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Events\ModelCreated;
 use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
+use Illuminate\Support\Facades\Auth;
 
 class facture_controller extends Controller
 {
@@ -27,7 +28,7 @@ class facture_controller extends Controller
      }
 
      public function get_five_laste() {
-        $factures = Facture::with('user', 'direction')
+        $factures = Facture::with('user', 'location')
             ->orderBy('created_at', 'desc')
             ->take(5) // Ajout de cette ligne pour récupérer les 5 derniers enregistrements
             ->get();
@@ -85,6 +86,7 @@ class facture_controller extends Controller
            $facture->montant_payer=$request['montant_payer'];
            $facture->date_facture=$request['date_facture'];
            $facture->id_location=$request['id_location'];
+           $facture->id_user=Auth::user()->id;
           
            $facture->save();
            event(new ModelUpdated($facture));
