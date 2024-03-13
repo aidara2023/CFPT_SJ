@@ -152,7 +152,6 @@ Route::post('direction/update/{id}', [direction_controller::class, 'update'])->n
 Route::delete('direction/delete/{id}',[direction_controller::class, 'delete'])->name('direction_delete');
 Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('direction_get');
 
-Route::get('/direction/create',[direction_view_controller::class, 'create'])->name('direction_create');
 Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
 
 

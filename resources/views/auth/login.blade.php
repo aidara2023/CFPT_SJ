@@ -8,11 +8,11 @@
     <meta name="description" content="Responsive Admin Template" />
     <meta name="author" content="RedstarHospital" />
     <title>CFPT digital</title>
-    {{--  @vite('resources/js/app.js') --}}
+    @vite('resources/js/app.js')
     <!-- google font -->
     {{-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
         type="text/css" /> --}}
-    {{--     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
+{{--     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap" rel="stylesheet">
  --}}
     <!-- icons -->
     <link rel="stylesheet" href="/assets/plugins/iconic/css/material-design-iconic-font.min.css">
@@ -60,44 +60,7 @@
                         style="width: 275px; height: 31px; top: 0px; margin-left:50px;  text-align: center; color: #505050; font-size: 20px; font-family: Poppins; font-weight: 
                         400; text-transform: uppercase; letter-spacing: 3.20px; word-wrap: break-word">
                         CONNEXION</div>
-
-                     <user-login></user-login> 
-
-                   {{--  <form action="{{ route('login') }}" method="post" id="login-form">
-
-                        <div class="form-floating mb-2 mt-4" style="margin-left: 9%;">
-
-                            <input name="matricule" type="texte" class="form-control ml-6" id="floatingInput"
-                                placeholder="name@example.com"
-                                style="width: 88%; background: rgba(255, 255, 255, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #595353; border-radius: 16px; backdrop-filter: blur(29.50px)">
-                            <label for="floatingInput"><i class="fa fa-user"></i> Matricule</label>
-
-                        </div>
-                        <div class="form-floating mt-4 " style="margin-left: 9%;">
-                            <input name="password" :type="passwordFieldType" class="form-control"
-                                id="floatingPassword" placeholder="Password"
-                                style="width: 88%; background: rgba(255, 255, 255, 0.66); box-shadow: -2px 5px 10.899999618530273px -2px #59535300; border-radius: 16px; backdrop-filter: blur(29.50px)">
-                            <button class=" border-0 position-absolute top-50 end-0 translate-middle-y"
-                                @click.prevent="togglePasswordVisibility" type="button" id="togglePassword"
-                                style="margin-right: 15%; background-color: white;">
-                                <i class="fi"
-                                    :class="passwordFieldType === 'password' ? 'fi-rr-eye' : 'fi-rr-eye-crossed'"></i>
-                            </button>
-                            <label for="floatingPassword"><i class="fa fa-lock"></i> Mot de passe</label>
-                        </div>
-
-                        <div style="width: 205px; height: 52px; left: 79px; top: 250px; position: absolute">
-                            <div
-                                style="width: 205px; height: 52px; left: 0px; top: 0px; position: absolute; background: linear-gradient(9deg, #9181F4 0%, #5038ED 100%); box-shadow: 0px 8px 21px rgb(80, 56, 237, .4); border-radius: 16px">
-                            </div>
-                            <button type="submit"
-                                style="width:100%;text-align:center; text-decoration:none; top: 8px; position: absolute; color: white; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word; bac">
-                                Se connecter</button>
-                        </div>
-                    </form> --}}
-
-
-
+                    <user-login></user-login>
                 </div>
             </div>
             <div
@@ -171,67 +134,6 @@
     <!-- notifications -->
     <script src="/assets/plugins/jquery-toast/dist/jquery.toast.min.js"></script>
     <script src="/assets/plugins/jquery-toast/dist/toast.js"></script>
-    {{-- @section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('login-form');
-            const matriculeInput = document.getElementById('matricule');
-            const passwordInput = document.getElementById('password');
-            const togglePasswordButton = document.getElementById('togglePassword');
-        
-            function togglePasswordVisibility() {
-                const passwordFieldType = passwordInput.getAttribute('type');
-                passwordInput.setAttribute('type', passwordFieldType === 'password' ? 'text' : 'password');
-            }
-        
-            function afficherToastInfo(message) {
-                // Implémentez votre logique pour afficher le toast ici
-            }
-        
-            async function verification() {
-                const matricule = matriculeInput.value;
-                const password = passwordInput.value;
-        
-                if (matricule !== "" && password !== "") {
-                    try {
-                        const response = await axios.post("/connexion", { matricule, password });
-                        const data = response.data;
-        
-                        if (data.statut !== "Error" && data.token) {
-                            window.location.href = data.url;
-        
-                            localStorage.setItem("token", data.token);
-                            localStorage.setItem("userNom", data.user.nom);
-                            localStorage.setItem("userPrenom", data.user.prenom);
-                            localStorage.setItem("userIdrole", data.user.id_role);
-                            localStorage.setItem("userPhoto", data.user.photo);
-                            localStorage.setItem("userrole", data.user.role.intitule);
-                        } else {
-                            if (data.message === "L'utilisateur est bloqué") {
-                                afficherToastInfo("Vous avez été bloqué. Rapprochez-vous de votre administrateur pour plus d'informations.");
-                            } else {
-                                afficherToastInfo("Matricule ou mot de passe incorrect.");
-                            }
-                        }
-                    } catch (error) {
-                        console.error(error);
-                    }
-                } else {
-                    afficherToastInfo("Tous les champs sont obligatoires.");
-                }
-            }
-        
-            // Ajoutez les gestionnaires d'événements
-            togglePasswordButton.addEventListener('click', togglePasswordVisibility);
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                verification();
-            });
-        });
-        </script>
-        
-        
-    @endsection --}}
 </body>
 
 </html>
