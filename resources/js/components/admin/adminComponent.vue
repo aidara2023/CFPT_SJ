@@ -774,10 +774,15 @@
                                             {{ inscription.annee_academique }}
                                         </td>
                                         <td class="left">
-                                            {{ formatDateTime(inscription.date) }}
+                                            {{
+                                                formatDateTime(inscription.date)
+                                            }}
                                         </td>
                                         <td>
-                                            <span class="label label-sm label-success">Soldé</span>
+                                            <span
+                                                class="label label-sm label-success"
+                                                >Soldé</span
+                                            >
                                         </td>
                                         <td>
                                             <a
@@ -1009,11 +1014,9 @@ export default {
                                 photo: inscrit.eleve.user.photo,
                                 matricule: inscrit.eleve.user.matricule,
                                 nom: inscrit.eleve.user.nom,
-                               
+
                                 prenom: inscrit.eleve.user.prenom,
-                               
-                              
-                               
+
                                 classe:
                                     inscrit.classe.type_formation.intitule +
                                     " " +
@@ -1024,13 +1027,12 @@ export default {
                                     inscrit.classe.type_classe,
                                 annee_academique:
                                     inscrit.annee_academique.intitule,
-                                
+
                                 statut: inscrit.statut,
-                               
+
                                 date: inscrit.created_at,
                                 montant: inscrit.montant,
-                               
-                               
+
                                 nom_departement:
                                     inscrit.classe.unite_de_formation
                                         .departement.nom_departement,
