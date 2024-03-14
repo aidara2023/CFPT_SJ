@@ -12,7 +12,7 @@ class connexion_controller extends Controller
     {
         if (!Auth::attempt($request->only('matricule', 'password'))) {
             return response()->json([
-                'message' => 'Connexion échouée. Vérifiez vos informations de connexion.',
+                'message' => 'Connexion échouée.',
                 'statut' => 'Erreur'
             ], 401);
         }
@@ -22,7 +22,7 @@ class connexion_controller extends Controller
     
         if ($user->status == 0) {
             // Utilisateur bloqué
-            $url = '/compte/bloquer';
+            $url = '/compte-bloquer';
         } else {
             switch ($user->role->intitule) {
                 case "Etudiant":
@@ -41,9 +41,6 @@ class connexion_controller extends Controller
                     $url = '/dashboard-saf';
                     break;
                 case "Caissier":
-
-                   //$url = '/caissier/accueil';
-
                     $url = '/dashboardCaissier';
                     break;
                 case "Comptable":
@@ -60,7 +57,7 @@ class connexion_controller extends Controller
                     break;
                 default:
                     return response()->json([
-                        'message' => 'Rôle utilisateur inconnu. Impossible de déterminer la destination.',
+                        'message' => 'Rôle utilisateur inconnu.',
                         'statut' => 'Erreur'
                     ], 400);
             }
@@ -72,7 +69,6 @@ class connexion_controller extends Controller
             'url' => $url,
             'user' => $user,
             'token' => $token,
-            'message' => "Connexion réussie"
         ]);
     }
     
