@@ -97,9 +97,8 @@ class location_controller extends Controller
 } */
 
 public function store(Request $request) {
-    $data = $request->validated();
-
-    if ($request['id_partenaire']) {
+  
+    if (!$request['id_partenaire']) {
         $partenaire = Partenaire::create([
             'nom_partenaire' => $request->nom_partenaire,
             'description' => $request->description,
@@ -123,7 +122,14 @@ public function store(Request $request) {
             'id_partenaire' => $partenaire->id,
         ]);
     } else {
-        $location = Location::create($data);
+        $location = Location::create([
+            'designation' => $request->designation,
+            'nombre_jour' => $request->nombre_jour,
+            'montant_jour'=> $request->montant_jour,
+            'date_location'=> $request->date_location,
+            'id_salle'=> $request->id_salle,
+            'id_partenaire' => $request->id_partenaire,
+        ]);
     }
 
     if ($location->exists) {
