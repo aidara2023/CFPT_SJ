@@ -120,6 +120,7 @@ public function store(Request $request) {
             'date_location'=> $request->date_location,
             'id_salle'=> $request->id_salle,
             'id_partenaire' => $partenaire->id,
+            'id_user' => Auth::user()->id,
         ]);
     } else {
         $location = Location::create([
