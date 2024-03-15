@@ -38,7 +38,7 @@ class paiement_controller extends Controller
     }
     public function get_last()
     {
-        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(5)->orderBy('created_at', 'desc')->get();
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(6)->orderBy('created_at', 'desc')->get();
         if ($paiement != null) {
             return response()->json([
                 'statut' => 200,
