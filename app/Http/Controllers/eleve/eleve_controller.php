@@ -29,6 +29,21 @@ class eleve_controller extends Controller
             ],500 );
         }
     }
+    public function countUser()
+    {
+        $eleves = User::orderBy('created_at', 'desc')->get();
+        if($eleves!=null){
+            return response()->json([
+                'statut'=>200,
+                'eleve'=>$eleves
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucun donnée trouvée',
+            ],500 );
+        }
+    }
 
     public function show($id)
     {

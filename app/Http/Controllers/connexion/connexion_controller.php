@@ -74,11 +74,23 @@ class connexion_controller extends Controller
     
 
 
-    public function logout(Request $request)
+/*     public function logout(Request $request)
 {
     $request->user()->tokens()->delete();
   
     return response()->json(['message' => 'Déconnexion réussie']);
+} */
+public function logout(Request $request)
+{
+    $request->user()->currentAccessToken()->delete();
+
+    if (Auth::guest() || !Auth::user()->token()->exists()) {
+        return redirect('/login');
+    }
+    
+    return response()->json([
+        'message' => 'Déconnexion réussie.'
+    ]);
 }
 
 }
