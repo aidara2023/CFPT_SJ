@@ -64,7 +64,7 @@ class facture_controller extends Controller
             ],404 );
         }else{ */
         $facture=Facture::create($data);
-        if($facture!=null){
+        if($facture!=null){ 
             event(new ModelCreated($facture));
             return response()->json([
                 'statut'=>200,

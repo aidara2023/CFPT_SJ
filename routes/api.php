@@ -226,6 +226,7 @@ Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class
 
 //route eleve
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
+Route::get('user/count',[eleve_controller::class, 'countUser'])->name('user_count');
 Route::post('eleve/store',[eleve_controller::class, 'store'])->name('eleve_store');
 Route::get('eleve/show/{id}',[eleve_controller::class, 'show'])->name('eleve_show');
 Route::get('eleve/show_by_where/{id}',[eleve_controller::class, 'show_by_where'])->name('eleve_search');
