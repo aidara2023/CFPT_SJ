@@ -11,11 +11,11 @@ class reservation_controller extends Controller
 {
     public function index()
     {
-        $reservations = Reservation::orderBy('created_at', 'desc')->get();
+        $reservations = Reservation::with('location.partenaire', 'salle')->orderBy('created_at', 'desc')->get();
         if ($reservations->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'reservations' => $reservations
+                'reservation' => $reservations
             ], 200);
         } else {
             return response()->json([
@@ -25,11 +25,17 @@ class reservation_controller extends Controller
         }
     }
 
-    public function store(reservation_request $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
 
-        $reservation = Reservation::create($data);
+        $reservation = Reservation::create(
+       [ 
+        'id_location' => $request->id_location,
+        'date_debut' => $request->date_debut,
+        'date_fin'=> $request->date_fin,
+        'id_salle'=> $request->id_salle
+        ]);
+
         if ($reservation) {
             return response()->json([
                 'status' => 200,
