@@ -31,7 +31,7 @@ class connexion_controller extends Controller
                 case "Formateur":
                     $url = '/formateur';
                     break;
-                case "Administrateur":
+                case "Administrateur": 
                     $url = '/dashboard';
                     break;
                 case "Assistante SAF":
