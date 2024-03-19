@@ -114,7 +114,7 @@ use App\Http\Controllers\personnel_appui\personnel_appui_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_view_controller;
 use App\Http\Controllers\recouvrement\recouvrement_controller;
 use App\Http\Controllers\recouvrement\recouvrement_view_controller;
-
+use App\Http\Controllers\reservation\reservation_controller;
 use App\Http\Controllers\type_materiel\type_materiel_controller;
 use App\Http\Controllers\type_materiel\type_materiel_view_controller;
 use App\Http\Controllers\unite_de_formation\unite_de_formation_view_controller;
@@ -762,6 +762,11 @@ Route::get('alerte/create',[alerte_view_controller::class, 'create'])->name('ale
 
 Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'])->name('alerte_show');
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
+
+Route::get('reservation/index',[reservation_controller::class, 'index'])->name('reservation_index');
+Route::post('reservation/store',[reservation_controller::class, 'store'])->name('reservation_store');
+Route::post('reservation/update/{id}',[reservation_controller::class,'update'])->name('reservation_update');
+Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');
 
 });
 

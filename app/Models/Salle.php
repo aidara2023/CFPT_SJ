@@ -23,6 +23,9 @@ class Salle extends Model
         return $this->hasMany(Materiel::class,'id');
         
     }
+    public function reservation() {
+        return $this -> hasMany(Reservation::class);
+    }
 
     public function batiment (){
         return $this->belongsTo(Batiment::class,'id_batiment');
