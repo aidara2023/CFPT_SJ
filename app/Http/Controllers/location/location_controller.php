@@ -48,54 +48,6 @@ class location_controller extends Controller
     }
     
 
-    /* public function store(Request $request){
-        
-        $data=$request->validated();
-        if($request['id_partenaire']){
-            $partenaire= new Partenaire;
-            $partenaire->nom_partenaire= $request->nom_partenaire;
-            $partenaire->description= $request->description;
-            $partenaire->contact= $request->contact;
-            $partenaire->adresse= $request->adresse;
-            $partenaire->email= $request->email;
-            $partenaire->boite_postale= $request->boite_postale;
-            $partenaire->date_debut= $request->date_debut;
-            $partenaire->date_fin= $request->date_fin;
-            $partenaire->id_direction= $request->id_direction;
-            $partenaire->type= $request->type;
-            $partenaire->exoneration= $request->exoneration;
-
-            $partenaire->save();
-
-            $location= new Location;
-            $location->designation= $request->designation;
-            $location->nombre_jour= $request->nombre_jour;
-            $location->montant_jour= $request->montant_jour;
-            $location->date_location= $request->date_location;
-            $location->id_salle= $request->id_salle;
-            $location->id_partenaire= $partenaire->id;
-
-            $location->save();
-
-
-        }else{
-            $location=Location::create($data);
-        }
-       
-        if($location!=null){
-            event(new ModelCreated($location));
-            return response()->json([
-                'statut'=>200,
-                'service'=>$location
-            ],200)  ;
-        }else{
-            return response()->json([ 
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été ajouté',
-            ],500 );
-        }
-} */
-
 public function store(Request $request) {
   
     if (!$request['id_partenaire']) {
@@ -190,7 +142,7 @@ public function store(Request $request) {
     }
     
     public function show($id){
-        $location=Location::find($id);
+        $location=Location::with('partenaire', 'salle', 'user')->find($id);
         if($location!=null){
             return response()->json([
                 'statut'=>200,
