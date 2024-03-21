@@ -4,6 +4,7 @@ namespace App\Http\Controllers\reservation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\reservation\reservation_request;
+use App\Models\Location;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -27,26 +28,37 @@ class reservation_controller extends Controller
 
     public function store(Request $request)
     {
+    $reservation= null;
 
-        $reservation = Reservation::create(
-       [ 
-        'id_location' => $request->id_location,
-        'date_debut' => $request->date_debut,
-        'date_fin'=> $request->date_fin,
-        'id_salle'=> $request->id_salle
-        ]);
+        $location= Location::find($request->id_location);
 
-        if ($reservation) {
+        if( $location->reserver== 0){
+
+            $location->reserver= true;
+            $location->id_salle= $request->id_salle;
+            $location->save();
+
+            $reservation = Reservation::create(
+                [ 
+                 'id_location' => $request->id_location,
+                 'date_debut' => $request->date_debut,
+                 'date_fin'=> $request->date_fin,
+                 'id_salle'=> $request->id_salle
+                 ]);
+
+        }
+        if (!empty($reservation)) {
             return response()->json([
                 'status' => 200,
                 'reservation' => $reservation
             ], 200);
         } else {
-            return response()->json([
-                'status' => 500,
-                'message' => 'L\'enregistrement n\'a pas été effectué',
-            ], 500);
+            return response()->json(
+                401,
+             );
         }
+
+       
     }
 
     public function update(reservation_request $request, $id)

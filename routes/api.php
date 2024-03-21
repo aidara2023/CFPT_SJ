@@ -629,6 +629,8 @@ Route::get('facture/index/get/last' ,[facture_controller::class, 'get_five_laste
 Route::post('facture/store' ,[facture_controller::class, 'store'])->name('facture_store');
 Route::delete('facture/delete/{id}',[facture_controller::class, 'delete'])->name('facture_delete');
 Route::post('facture/update/{id}',[facture_controller::class, 'update'])->name('facture_update');
+Route::post('get/facture/{id}',[facture_controller::class,'show'])->name('show facture');
+
 Route::get('create/facture', [facture_view_controller::class, 'create'])->name('create_facture');
 Route::get('facture/accueil', [facture_view_controller::class, 'accueil'])->name('facture_accueil');
 
@@ -641,6 +643,7 @@ Route::delete('location/delete/{id}',[location_controller::class, 'delete'])->na
 Route::post('location/update/{id}',[location_controller::class, 'update'])->name('location_update');
 Route::get('create/location', [location_view_controller::class, 'create'])->name('create_location');
 Route::get('location/accueil', [location_view_controller::class, 'accueil'])->name('location_accueil');
+Route::post('get/location/by/id/{id}',[location_controller::class,'show'])->name('show_location');
 
 //Route pour classe
 

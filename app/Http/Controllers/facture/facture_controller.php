@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class facture_controller extends Controller
 {
     public function index() {
-        $facture=Facture::with('location', 'user')->orderBy('created_at', 'desc')->get();
+        $facture=Facture::with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->get();
         if($facture!=null){
             return response()->json([
                 'statut'=>200,
@@ -53,7 +53,7 @@ class facture_controller extends Controller
         'montant_payer',
         'date_facture',
         'id_location', */
-        $data=$request->validated();
+
         
         //$verification =Facture::where('nom_facture', $request['nom_facture'])->get();
        
@@ -63,7 +63,14 @@ class facture_controller extends Controller
                 'message'=>'Ce facture existe déja',
             ],404 );
         }else{ */
-        $facture=Facture::create($data);
+        $facture=Facture::create([
+            'type'=> $request->type,
+            'objet'=>$request->objet,
+            'montant_payer'=>$request->montant_payer,
+            'id_location'=>$request->id_location,
+            'date_facture'=>$request->date_facture,
+            'id_user'=>$request->id_user
+        ]);
         if($facture!=null){ 
             event(new ModelCreated($facture));
             return response()->json([
@@ -120,7 +127,7 @@ class facture_controller extends Controller
     }
     
     public function show($id){
-        $facture=Facture::find($id);
+        $facture=Facture::with('location.partenaire', 'user', 'location.salle', 'reservation')->find($id);
         if($facture!=null){
             return response()->json([
                 'statut'=>200,

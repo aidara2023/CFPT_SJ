@@ -31,6 +31,6 @@ class Location extends Model
         return $this -> belongsTo(User::class, 'id_user');
     }
     public function reservation() {
-        return $this -> hasMany(Reservation::class);
+        return $this -> hasMany(Reservation::class,'id_location', 'id');
     }
 }
