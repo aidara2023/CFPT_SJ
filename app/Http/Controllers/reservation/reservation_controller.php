@@ -26,7 +26,7 @@ class reservation_controller extends Controller
         }
     }
 
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
     $reservation= null;
 
@@ -59,7 +59,51 @@ class reservation_controller extends Controller
         }
 
        
+    } */
+
+    public function store(Request $request)
+{
+    // Vérifier si la salle est disponible pour la période demandée
+    $existingReservation = Reservation::where('id_salle', $request->id_salle)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('date_debut', [$request->date_debut, $request->date_fin])
+                ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin]);
+        })
+        ->exists();
+
+    // Si aucune réservation existante n'occupe la salle pour la période demandée
+    if (!$existingReservation) {
+        $location = Location::find($request->id_location);
+
+        if ($location->reserver == 0) {
+            $location->reserver = true;
+            $location->id_salle = $request->id_salle;
+            $location->save();
+
+            $reservation = Reservation::create([
+                'id_location' => $request->id_location,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
+                'id_salle' => $request->id_salle
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'reservation' => $reservation
+            ], 200);
+        } else {
+            return response()->json(401); /* [
+                'status' => 401,
+                'message' => 'La salle est déjà réservée.'
+            ],  */
+        }
+    } else {
+        return response()->json(402); /* [
+            'status' => 401,
+            'message' => 'La salle est déjà occupée pour la période demandée.'
+        ], */
     }
+}
 
     public function update(reservation_request $request, $id)
     {
