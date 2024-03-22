@@ -82,6 +82,7 @@ public function store(Request $request) {
             'date_location'=> $request->date_location,
             'id_salle'=> $request->id_salle,
             'id_partenaire' => $request->id_partenaire,
+            'id_user' => Auth::user()->id,
         ]);
     }
 
