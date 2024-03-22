@@ -15,7 +15,7 @@ class partenaire_controller extends Controller
             if ($partenaires->count() > 0) {
                 return response()->json([
                     'status' => 200,
-                    'partenaires' => $partenaires
+                    'partenaire' => $partenaires
                 ], 200);
             } else {
                 return response()->json([
