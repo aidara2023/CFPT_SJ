@@ -116,12 +116,12 @@ class facture_controller extends Controller
             event(new ModelDeleted($facture));
             return response()->json([
                 'statut'=>200,
-                'message'=>'Facture supprimer avec succes',
+                'message'=>'Facture supprimée avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La Facture n\'est pas supprimé',
+                'message'=>'La Facture n\'est pas supprimée',
             ],500 );
         }
        
