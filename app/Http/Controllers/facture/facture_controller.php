@@ -68,6 +68,7 @@ class facture_controller extends Controller
             'objet'=>$request->objet,
             'montant_payer'=>$request->montant_payer,
             'id_location'=>$request->id_location,
+            'id_reservation'=>$request->id_reservation,
             'date_facture'=>$request->date_facture,
             'id_user'=>$request->id_user
         ]);
