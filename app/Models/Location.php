@@ -16,7 +16,8 @@ class Location extends Model
         'id_partenaire',
         'id_salle',
         'id_user',
-        'reserver'
+        'reserver',
+        'objet'
     ];
 
     public function partenaire() {

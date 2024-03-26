@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Events\ModelCreated;
 use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
+use App\Models\Location;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 
 class facture_controller extends Controller
@@ -48,24 +50,55 @@ class facture_controller extends Controller
     
 
     public function store(Request $request){
-        /* 'type',
-        'objet',
-        'montant_payer',
-        'date_facture',
-        'id_location', */
 
-        
-        //$verification =Facture::where('nom_facture', $request['nom_facture'])->get();
-       
-      /*   if($verification->count()!=0){
-            return response()->json([ 
-                'statut'=>404,
-                'message'=>'Ce facture existe déja',
-            ],404 );
-        }else{ */
         $facture=Facture::create([
             'type'=> $request->type,
             'objet'=>$request->objet,
+            'montant_payer'=>$request->montant_payer,
+            'id_location'=>$request->id_location,
+            'id_reservation'=>$request->id_reservation,
+            'date_facture'=>now(),
+            'id_user'=>$request->id_user
+        ]);
+
+        //if($request->type!=="Solde"){
+            $reservation= Reservation::find('id', $request->id_reservation)->first();
+            
+            if($request->type=="Definitive"){
+                $reservation->facturer=true;
+                $reservation->save();
+            }
+            else if($request->type=="Acompte"){
+                $reservation->acompter=true;
+                $reservation->save();
+            }
+            else if($request->type=="Solde"){
+                $reservation->solder=true;
+                $reservation->save();
+            }
+       // }
+      
+
+        if($facture!=null){ 
+            event(new ModelCreated($facture));
+            return response()->json([
+                'statut'=>200,
+                'facture'=>$facture
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été ajouté',
+            ],500 );
+        }
+    }
+    
+    public function storeFactureSolde(Request $request){
+        $location= Location::find('id', $request->id_location)->first();
+
+        $facture=Facture::create([
+            'type'=> "Solde",
+            'objet'=>$location->objet,
             'montant_payer'=>$request->montant_payer,
             'id_location'=>$request->id_location,
             'id_reservation'=>$request->id_reservation,
@@ -84,7 +117,7 @@ class facture_controller extends Controller
                 'message'=>'L\'enregistrement n\'a pas été ajouté',
             ],500 );
         }
-    //}
+ 
 }
     public function update(Request $request, $id){
         $facture=Facture::find($id);
