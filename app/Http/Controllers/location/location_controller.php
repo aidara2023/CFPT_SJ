@@ -69,7 +69,8 @@ public function store(Request $request) {
             'designation' => $request->designation,
             'nombre_jour' => $request->nombre_jour,
             'montant_jour'=> $request->montant_jour,
-            'date_location'=> $request->date_location,
+            'date_location'=> now(),
+            'objet'=> $request->objet,
             'id_salle'=> $request->id_salle,
             'id_partenaire' => $partenaire->id,
             'id_user' => Auth::user()->id,
@@ -79,9 +80,10 @@ public function store(Request $request) {
             'designation' => $request->designation,
             'nombre_jour' => $request->nombre_jour,
             'montant_jour'=> $request->montant_jour,
-            'date_location'=> $request->date_location,
+            'date_location'=> now(),
             'id_salle'=> $request->id_salle,
             'id_partenaire' => $request->id_partenaire,
+            'objet' => $request->objet,
             'id_user' => Auth::user()->id,
         ]);
     }

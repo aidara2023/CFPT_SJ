@@ -13,6 +13,9 @@ class Reservation extends Model
         'date_fin',
         'id_salle',
         'id_location',
+        'facturer',
+        'acompter',
+        'solder',
     ];
     
     public function salle (){
