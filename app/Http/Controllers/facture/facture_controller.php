@@ -62,7 +62,7 @@ class facture_controller extends Controller
         ]);
 
         //if($request->type!=="Solde"){
-            $reservation= Reservation::find('id', $request->id_reservation)->first();
+            $reservation= Reservation::where('id', $request->id_reservation)->first();
             
             if($request->type=="Definitive"){
                 $reservation->facturer=true;
@@ -92,7 +92,7 @@ class facture_controller extends Controller
             ],500 );
         }
     }
-    
+
     public function storeFactureSolde(Request $request){
         $location= Location::find('id', $request->id_location)->first();
 

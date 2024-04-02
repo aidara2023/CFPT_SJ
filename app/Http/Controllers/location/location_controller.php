@@ -80,7 +80,7 @@ public function store(Request $request) {
             'designation' => $request->designation,
             'nombre_jour' => $request->nombre_jour,
             'montant_jour'=> $request->montant_jour,
-            'date_location'=> now(),
+            'date_location'=> $request->date_location,
             'id_salle'=> $request->id_salle,
             'id_partenaire' => $request->id_partenaire,
             'objet' => $request->objet,
