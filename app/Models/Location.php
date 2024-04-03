@@ -34,4 +34,8 @@ class Location extends Model
     public function reservation() {
         return $this -> hasMany(Reservation::class,'id_location', 'id');
     }
+
+    public function factures() {
+        return $this -> hasMany(Facture::class, 'id_location');
+    }
 }
