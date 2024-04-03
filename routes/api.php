@@ -738,13 +738,11 @@ Route::get('personnel_appui/create' ,[personnel_appui_view_controller::class, 'c
 
 //Route pour recouvrement
 Route::get('recouvrement/index' ,[recouvrement_view_controller::class, 'index'])->name('recouvrement_index');
-
-
 //Route::put('/user/disable/{id}', 'UserController@disableUser');
 Route::get('user_formateur/index' ,[unite_de_formation_controller::class, 'index'])->name('unite_de_formation_index_user');
 Route::get('user/getpersoadminunique' ,[user_controller::class, 'getUniquementPersonnelAdministratif'])->name('getUniquementPersonnelAdministratif_user');
-
 Route::post('recouvrement/filtre' ,[recouvrement_controller::class, 'filtre'])->name('recouvrement_filtre');
+Route::post('recouvrement/saf' ,[recouvrement_controller::class, 'filtre_saf'])->name('recouvrement_filtre_saf');
 //Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 Route::get('/imprimer-pdf', [ImprimerController::class, 'index'])->name('imprimer-pdf');
