@@ -743,5 +743,6 @@ Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
 });
-Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
+
  */
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
