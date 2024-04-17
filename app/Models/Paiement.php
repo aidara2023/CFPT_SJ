@@ -29,7 +29,7 @@ class Paiement extends Model
     }
 
     public function concerner() {
-      return $this -> hasMany(Concerner::class, 'id_paiement');
+      return $this -> hasMany(concerner::class, 'id_paiement');
   }
 
 

@@ -83,7 +83,7 @@ class user_controller extends Controller
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
         if ($roles->isNotEmpty()) {
-            $users = User::with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')->whereIn('id_role', $roles->pluck('id'))->get();
+            $users = User::orderBy('created_at', 'desc')->with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')->whereIn('id_role', $roles->pluck('id'))->get();
 
             if ($users->isNotEmpty()) {
                 return response()->json([
@@ -175,7 +175,10 @@ class user_controller extends Controller
 
         /* Uploader une image */
         $image = $request->file('photo');
-        $imageName = time() . '_' . $image->getClientOriginalName();
+        //$imageName = time() . '_' . $image->getClientOriginalName();
+        $extension = $image->getClientOriginalExtension();
+        $imageName = date('Y-m-d_H-i-s') . '.' . $extension;
+        
         //$image->move(public_path('image'), $imageName);
         $user->photo = $image->storeAs('image', $imageName, 'public');
         //$user->photo=$imageName;
@@ -260,7 +263,9 @@ class user_controller extends Controller
             // dd($request);
             if ($request->hasFile('photo')) {
                 $image = $request->file('photo');
-                $imageName = time() . '_' . $image->getClientOriginalName();
+               // $imageName = time() . '_' . $image->getClientOriginalName();
+               $extension = $image->getClientOriginalExtension();
+               $imageName = date('Y-m-d_H-i-s') . '.' . $extension;
                 //$image->move(public_path('image'), $imageName);
                 $user->photo = $image->storeAs('image', $imageName, 'public');
                 //$user->photo=$imageName;
