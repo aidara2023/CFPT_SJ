@@ -121,7 +121,7 @@ class User extends Authenticatable
         return $this->hasMany(Location::class, 'id_user', 'id');
     }
     public function personnel_admin_appui(){
-        return $this->hasMany(Personnel_admin_appui::class, 'id_user', 'id');
+        return $this->hasMany(personnel_admin_appui::class, 'id_user', 'id');
     }
 
    /*  public static function generateur_matricule($prefix= 'M'){
