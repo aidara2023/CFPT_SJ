@@ -27,4 +27,7 @@ class Facture extends Model
     public function user() {
         return $this -> belongsTo(User::class, 'id_user');
     }
+    public function paiement_partenaire() {
+        return $this -> hasMany(Paiement_partenaire::class);
+    }
 }
