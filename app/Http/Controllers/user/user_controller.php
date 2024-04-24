@@ -25,7 +25,7 @@ class user_controller extends Controller
 {
     public function index()
     {
-        $user = User::orderBy('created_at', 'desc')->with('formateur.unite_de_formation.departement', 'role')->get();
+        $user = User::orderBy('created_at', 'desc')->with('formateur.unite_de_formation.departement', 'role')->paginate(10);
         if ($user != null) {
             return response()->json([
                 'statut' => 200,
@@ -78,7 +78,7 @@ class user_controller extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function getPersonnelAdministratif()
+ public function getPersonnelAdministratif()
     {
         $roles = Role::whereNotIn('intitule', ['Eleve'])->get();
 
@@ -102,7 +102,119 @@ class user_controller extends Controller
                 'message' => 'Aucun rôle "Eleve" trouvé.',
             ], 500);
         }
+    } 
+    public function getPersonnelAdminin(Request $request)
+{
+   /*  $roles = Role::whereNotIn('intitule', ['Eleve'])->get(); */
+   $roles = Role::whereNotIn('intitule', ['Eleve'])
+            ->whereIn('categorie_personnel', ['Personnel Administratif'])
+            ->get();
+
+    if ($roles->isNotEmpty()) {
+        // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
+        $perPage = $request->has('per_page') ? $request->per_page : 5;
+
+            // Paginer les utilisateurs
+            $users = User::orderBy('created_at', 'desc')
+            ->with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')
+            ->whereIn('id_role', $roles->pluck('id'))
+            ->paginate($perPage);
+
+
+        if ($users->isNotEmpty()) {
+            return response()->json([
+                'status' => 200,
+                'users' => $users,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+            ], 500);
+        }
+    } else {
+        return response()->json([
+            'status' => 500,
+            'message' => 'Aucun rôle "Eleve" trouvé.',
+        ], 500);
     }
+}
+    public function getFormateur(Request $request)
+{
+   /*  $roles = Role::whereNotIn('intitule', ['Eleve'])->get(); */
+   $roles = Role::whereNotIn('intitule', ['Eleve'])
+            ->whereIn('intitule', ['Formateur'])
+            ->get();
+
+    if ($roles->isNotEmpty()) {
+        // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
+        $perPage = $request->has('per_page') ? $request->per_page : 5;
+
+            // Paginer les utilisateurs
+            $users = User::orderBy('created_at', 'desc')
+            ->with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')
+            ->whereIn('id_role', $roles->pluck('id'))
+            ->paginate($perPage);
+
+
+        if ($users->isNotEmpty()) {
+            return response()->json([
+                'status' => 200,
+                'users' => $users,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+            ], 500);
+        }
+    } else {
+        return response()->json([
+            'status' => 500,
+            'message' => 'Aucun rôle "Eleve" trouvé.',
+        ], 500);
+    }
+}
+
+    public function getPersonnelApui(Request $request)
+{
+   /*  $roles = Role::whereNotIn('intitule', ['Eleve'])->get(); */
+   $roles = Role::whereNotIn('intitule', ['Eleve'])
+   ->where(function ($query) {
+       $query->whereIn('categorie_personnel', ['Personnel d\'appui'])
+             ->orWhereIn('categorie_personnel', ['Personnel Appui']);
+   })
+   ->get();
+
+    if ($roles->isNotEmpty()) {
+        // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
+        $perPage = $request->has('per_page') ? $request->per_page : 5;
+
+            // Paginer les utilisateurs
+            $users = User::orderBy('created_at', 'desc')
+            ->with('formateur.unite_de_formation.departement', 'role', 'personnel_admin_appui.service', 'formateur.specialite')
+            ->whereIn('id_role', $roles->pluck('id'))
+            ->paginate($perPage);
+
+
+        if ($users->isNotEmpty()) {
+            return response()->json([
+                'status' => 200,
+                'users' => $users,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun utilisateur trouvé pour les rôles spécifiés.',
+            ], 500);
+        }
+    } else {
+        return response()->json([
+            'status' => 500,
+            'message' => 'Aucun rôle "Eleve" trouvé.',
+        ], 500);
+    }
+}
 
     public function getUniquementPersonnelAdministratif()
     {

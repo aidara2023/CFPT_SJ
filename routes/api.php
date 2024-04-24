@@ -208,6 +208,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 
 //Route Audit
 Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
+Route::get('audit/last', [AuditController::class, 'getlast'])->name('audit_last');
 
 
 //Route unite de formation
@@ -598,6 +599,9 @@ Route::post('verif/mail', [user_controller::class, 'verifMail'])->name('verif_ma
 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
 Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
+Route::get('user/getFormateur',[user_controller::class, 'getFormateur'])->name('user_formateur');
+Route::get('user/getPersonnelAdmin',[user_controller::class, 'getPersonnelAdminin'])->name('user_personnel_admin');
+Route::get('user/getPersonnelApui',[user_controller::class, 'getPersonnelApui'])->name('user_personnel_apui');
 Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
 Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
 
