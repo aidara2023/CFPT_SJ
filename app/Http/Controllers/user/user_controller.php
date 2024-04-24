@@ -112,7 +112,7 @@ class user_controller extends Controller
 
     if ($roles->isNotEmpty()) {
         // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
-        $perPage = $request->has('per_page') ? $request->per_page : 5;
+        $perPage = $request->has('per_page') ? $request->per_page : 10;
 
             // Paginer les utilisateurs
             $users = User::orderBy('created_at', 'desc')
@@ -148,7 +148,7 @@ class user_controller extends Controller
 
     if ($roles->isNotEmpty()) {
         // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
-        $perPage = $request->has('per_page') ? $request->per_page : 5;
+        $perPage = $request->has('per_page') ? $request->per_page : 10;
 
             // Paginer les utilisateurs
             $users = User::orderBy('created_at', 'desc')
@@ -188,7 +188,7 @@ class user_controller extends Controller
 
     if ($roles->isNotEmpty()) {
         // Définir le nombre d'éléments par page (vous pouvez ajuster cette valeur selon vos besoins)
-        $perPage = $request->has('per_page') ? $request->per_page : 5;
+        $perPage = $request->has('per_page') ? $request->per_page : 10;
 
             // Paginer les utilisateurs
             $users = User::orderBy('created_at', 'desc')
