@@ -41,7 +41,6 @@ use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\comptable\comptable_controller;
-use App\Http\Controllers\comptable\comptable_view_controller;
 use App\Http\Controllers\connexion\connexion_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
@@ -109,8 +108,6 @@ use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use App\Http\Controllers\inscription\inscription_view_controller;
 use App\Http\Controllers\location\location_controller;
 use App\Http\Controllers\location\location_view_controller;
-use App\Http\Controllers\paiement_partenaire\paiement_partenaire_controller;
-use App\Http\Controllers\paiement_partenaire\paiement_partenaire_view_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_controller;
@@ -211,7 +208,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 
 //Route Audit
 Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
-Route::get('audit/caissier', [AuditController::class, 'audit_caissier'])->name('audit_caissier');
+Route::get('audit/last', [AuditController::class, 'getlast'])->name('audit_last');
 
 
 //Route unite de formation
@@ -602,6 +599,9 @@ Route::post('verif/mail', [user_controller::class, 'verifMail'])->name('verif_ma
 
 Route::get('user/index',[user_controller::class, 'index'])->name('user_index');
 Route::get('user/getPersonnel',[user_controller::class, 'getPersonnelAdministratif'])->name('user_personnel');
+Route::get('user/getFormateur',[user_controller::class, 'getFormateur'])->name('user_formateur');
+Route::get('user/getPersonnelAdmin',[user_controller::class, 'getPersonnelAdminin'])->name('user_personnel_admin');
+Route::get('user/getPersonnelApui',[user_controller::class, 'getPersonnelApui'])->name('user_personnel_apui');
 Route::post('user/store',[user_controller::class, 'store'])->name('user_store');
 Route::get('user/show/{id}',[user_controller::class, 'show'])->name('user_show');
 
@@ -773,21 +773,6 @@ Route::get('reservation/index',[reservation_controller::class, 'index'])->name('
 Route::post('reservation/store',[reservation_controller::class, 'store'])->name('reservation_store');
 Route::post('reservation/update/{id}',[reservation_controller::class,'update'])->name('reservation_update');
 Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');
-
-// Pour comptable
-Route::post('/paiement_partenaire/paiement-facture/{id}' ,[paiement_partenaire_controller::class, 'validerInscription'])->name('validerInscription');
-Route::get('paiement_partenaire/index' ,[paiement_partenaire_controller::class, 'index'])->name('paiement_partenaire_index');
-Route::get('paiement_partenaire/index/get/last' ,[paiement_partenaire_controller::class, 'get_five_laste'])->name('paiement_partenaire_index_get_last');
-Route::post('paiement_partenaire/store' ,[paiement_partenaire_controller::class, 'store'])->name('paiement_partenaire_store');
-Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller::class, 'delete'])->name('paiement_partenaire_delete');
-Route::post('paiement_partenaire/update/{id}',[paiement_partenaire_controller::class, 'update'])->name('paiement_partenaire_update');
-Route::post('get/paiement_partenaire/{id}',[paiement_partenaire_controller::class,'show'])->name('show paiement_partenaire');
-
-Route::get('create/paiement_partenaire', [paiement_partenaire_view_controller::class, 'create'])->name('create_paiement_partenaire');
-Route::get('paiement_partenaire/accueil', [paiement_partenaire_view_controller::class, 'accueil'])->name('paiement_partenaire_accueil');
-Route::get('recherche/id_facture',[paiement_partenaire_controller::class, 'recherche_id_facture'])->name('recherche_id_facture');
-Route::post('paiement_partenaire/valider-facture/{id}' ,[paiement_partenaire_controller::class, 'validerFacture'])->name('validerFacture');
-
 
 });
 

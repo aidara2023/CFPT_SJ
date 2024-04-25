@@ -52,7 +52,9 @@ class caissier_controller extends Controller
  
          /* Uploader une image */
          $image= $request->file('photo');
-         $imageName=time() . '_' . $image->getClientOriginalName();
+         //$imageName=time() . '_' . $image->getClientOriginalName();
+         $extension = $image->getClientOriginalExtension();
+         $imageName = date('Y-m-d_H-i-s') . '.' . $extension;
          /* $image->move(public_path('image'), $imageName); 
          $userCaissier->photo=$image; */
          /* Fin upload */

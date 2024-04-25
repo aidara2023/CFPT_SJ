@@ -17,7 +17,7 @@ class Concerner extends Model
 
     public function mois()
     {
-        return $this->belongsTo(Mois::class, 'id_mois');
+        return $this->belongsTo(mois::class, 'id_mois');
     }
 
     // Définir la relation avec la table annee_academique

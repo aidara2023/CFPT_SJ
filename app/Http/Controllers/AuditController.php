@@ -21,25 +21,18 @@ class AuditController extends Controller
             ],500 );
         }
      }
-     public function audit_caissier() {
-        // Récupérer uniquement les audits des caissiers
-        $audit = Audit::with('user')
-                    ->whereHas('user', function ($query) {
-                        $query->where('role', 'Caissier');
-                    })
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-
-        if ($audit->isNotEmpty()) {
+    public function getlast() {
+        $audit=Audit::with('user')->take(3)->orderBy('created_at', 'desc')->get();
+        if($audit!=null){
             return response()->json([
-                'status' => 200,
-                'audit' => $audit
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Aucun audit trouvé pour les caissiers',
-            ], 404);
+                'statut'=>200,
+                'audit'=>$audit
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
         }
-    }
+     }
 }

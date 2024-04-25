@@ -23,8 +23,10 @@ use Illuminate\Validation\Rule;
 
 class inscription_controller extends Controller
 {
-    public function index() {
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc')->get();
+    public function index(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 10;
+
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc') ->paginate($perPage);;
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
@@ -139,7 +141,9 @@ class inscription_controller extends Controller
 
          /* Uploader une image */
          $image= $request->file('photo');
-         $imageName=time() . '_' . $image->getClientOriginalName();
+        // $imageName=time() . '_' . $image->getClientOriginalName();
+        $extension = $image->getClientOriginalExtension();
+        $imageName = date('Y-m-d_H-i-s') . '.' . $extension;
          $eleve_user->photo= $image->storeAs('image', $imageName, 'public');
         /*  $image->move(public_path('image'), $imageName);
          $eleve_user->photo=$image; */
