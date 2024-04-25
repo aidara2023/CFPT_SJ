@@ -211,6 +211,7 @@ Route::get('/infirmier/create',[infirmier_view_controller::class, 'create'])->na
 
 //Route Audit
 Route::get('audit/all', [AuditController::class, 'index'])->name('audit_all');
+Route::get('audit/caissier', [AuditController::class, 'audit_caissier'])->name('audit_caissier');
 
 
 //Route unite de formation
