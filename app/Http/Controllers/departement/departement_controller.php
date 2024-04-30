@@ -26,6 +26,22 @@ class departement_controller extends Controller
             ],500);
         }
     }
+    public function all_paginate(Request $request){
+
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        $departement = Departement::with('direction' , 'user')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($departement != null){
+            return response()->json([
+                'statut' => 200,
+                'departement' => $departement
+            ],200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement n\'a été trouvé'
+            ],500);
+        }
+    }
     public function get_five_laste(){
         $departement = Departement::with('direction' , 'user')->orderBy('created_at', 'desc')->take(5)->get();
         if($departement != null){

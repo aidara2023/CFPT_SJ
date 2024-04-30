@@ -28,6 +28,21 @@ class unite_de_formation_controller extends Controller
             ],500 );
         }
      }
+    public function all_paginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        $unite_de_formation=Unite_de_formation::with('departement' , 'user')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($unite_de_formation!=null){
+            return response()->json([
+                'statut'=>200,
+                'unite_de_formation'=>$unite_de_formation
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
      public function get_filiere_by_departement($id){
         $filiere= Unite_de_formation::where('id_departement', $id)->get();
         if ($filiere->isNotEmpty()) {

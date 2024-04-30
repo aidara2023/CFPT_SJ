@@ -24,6 +24,23 @@ class batiment_controller extends Controller
             ], 500);
         }
     }
+    public function index_paginate(Request $request)
+    {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        
+        $batiment = Batiment::with('salle')->orderBy('created_at', 'desc')->paginate($perPage); /* ->orderBy('created_at', 'desc') */
+        if ($batiment != null) {
+            return response()->json([
+                'statut' => 200,
+                'batiment' => $batiment
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement n\'a été trouvé',
+            ], 500);
+        }
+    }
     public function get_last_value()
     {
         $batiment = Batiment::with('salle')->orderBy('created_at', 'desc')->take(5)->get(); /*  */
