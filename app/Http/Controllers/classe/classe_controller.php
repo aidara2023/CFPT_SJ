@@ -26,6 +26,22 @@ class classe_controller extends Controller
             ],500 );
         }
      }
+    public function all_paginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $classe=Classe::with('unite_de_formation', 'type_formation')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($classe!=null){
+            return response()->json([
+                'statut'=>200,
+                'classe'=>$classe
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été trouvé',
+            ],500 );
+        }
+     }
     public function get_last_value() {
         $classe=Classe::with('unite_de_formation', 'type_formation')->orderBy('created_at', 'desc')->take(5)->get();
         if($classe!=null){

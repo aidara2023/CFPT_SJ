@@ -28,6 +28,23 @@ class type_formation_controller extends Controller
             ], 500);
         }
     }
+    public function index_paginate(Request $request)
+    {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $type_formation = Type_formation::orderBy('created_at', 'desc')->paginate($perPage);
+        if ($type_formation->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'type_formation' => $type_formation
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucun donné trouvé',
+            ], 500);
+        }
+    }
     public function get_last_values()
     {
         $type_formation = Type_formation::orderBy('created_at', 'desc')->take(5)->get();

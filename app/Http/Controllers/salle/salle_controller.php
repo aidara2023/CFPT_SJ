@@ -12,6 +12,22 @@ use Illuminate\Http\Request;
 
 class salle_controller extends Controller
 {
+    public function index_paginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($salle!=null){
+            return response()->json([
+                'statut'=>200,
+                'salle'=>$salle
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
     public function index() {
         $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->get();
         if($salle!=null){
