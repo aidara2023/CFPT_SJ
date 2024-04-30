@@ -146,6 +146,7 @@ Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name(
 Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('direction/index', [direction_controller::class, 'index'])->name('direction_index');
+Route::get('direction/index/paginate', [direction_controller::class, 'indexpagine'])->name('direction_index_paginate');
 Route::get('direction/index/get/last', [direction_controller::class, 'get_five_laste'])->name('direction_index_get_last');
 Route::post('direction/store',[direction_controller::class, 'store'])->name('direction_store');
 Route::post('direction/update/{id}', [direction_controller::class, 'update'])->name('direction_update');
