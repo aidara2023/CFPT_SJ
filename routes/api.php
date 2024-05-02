@@ -538,7 +538,8 @@ Route::get('cour/create',[cours_view_controller::class, 'create'])->name('cour_c
 
 //Route pourinscription
 
-Route::get('inscription/all',[inscription_controller::class, 'index'])->name('inscription_index');
+Route::get('inscription/valide',[inscription_controller::class, 'index_val'])->name('inscription_index_val');
+Route::get('inscription/invalide',[inscription_controller::class, 'index_inval'])->name('inscription_index_inval');
 Route::get('inscription/last',[inscription_controller::class, 'last'])->name('inscription_index');
 Route::post('inscription/store',[inscription_controller::class, 'store'])->name('inscription_store');
 Route::get('inscription/show/{id}',[inscription_controller::class,'show'])->name('inscription_show');
