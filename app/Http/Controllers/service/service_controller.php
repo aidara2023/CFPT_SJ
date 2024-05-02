@@ -26,6 +26,22 @@ class service_controller extends Controller
             ],500 );
         }
      }
+    public function get_all_services(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        $service=Service::with('user', 'direction')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($service!=null){
+           
+            return response()->json([
+                'statut'=>200,
+                'service'=>$service
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
 
      public function get_five_laste() {
         $services = Service::with('user', 'direction')

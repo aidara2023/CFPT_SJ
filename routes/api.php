@@ -623,6 +623,7 @@ Route::get('role/all', [role_controller::class, 'all'])->name('role_all');
 //Route pour service
 
 Route::get('service/index' ,[service_controller::class, 'index'])->name('service_index');
+Route::get('service/all' ,[service_controller::class, 'get_all_services'])->name('all_services');
 Route::get('service/index/get/last' ,[service_controller::class, 'get_five_laste'])->name('service_index_get_last');
 Route::post('service/store' ,[service_controller::class, 'store'])->name('service_store');
 Route::delete('service/delete/{id}',[service_controller::class, 'delete'])->name('service_delete');
