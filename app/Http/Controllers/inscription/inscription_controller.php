@@ -23,10 +23,26 @@ use Illuminate\Validation\Rule;
 
 class inscription_controller extends Controller
 {
-    public function index(Request $request) {
-        $perPage = $request->has('per_page') ? $request->per_page : 10;
+    public function index_val(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
 
-        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc') ->paginate($perPage);;
+        $inscription=Inscription::where('statut', 1)->with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc') ->paginate($perPage);;
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+    public function index_inval(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $inscription=Inscription::where('statut', 0)->with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc') ->paginate($perPage);;
         if($inscription!=null){
             return response()->json([
                 'statut'=>200,
