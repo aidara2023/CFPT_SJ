@@ -347,6 +347,7 @@ Route::get('/tuteur/create',[tuteur_view_controller::class, 'create'])->name('tu
 
 //route paiement
 Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paiement_index');
+Route::get('paiement/index/paginate',[paiement_controller::class, 'indexpaginate'])->name('paiement_index_paginate');
 Route::get('paiement/get_last',[paiement_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
@@ -635,6 +636,7 @@ Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name
 //Route pour Facture
 
 Route::get('facture/index' ,[facture_controller::class, 'index'])->name('facture_index');
+Route::get('facture/index/facture/paginate' ,[facture_controller::class, 'indexpaginate'])->name('facture_index_facture_paginate');
 Route::get('facture/index/get/last' ,[facture_controller::class, 'get_five_laste'])->name('facture_index_get_last');
 Route::post('facture/store' ,[facture_controller::class, 'store'])->name('facture_store');
 Route::delete('facture/delete/{id}',[facture_controller::class, 'delete'])->name('facture_delete');
@@ -713,7 +715,7 @@ Route::get('retard/create' ,[retard_view_controller::class, 'create'])->name('re
 
 
 Route::get('service/create', [service_view_controller::class, 'create'])->name('create_service');
-Route::get('service/all',[service_controller::class, 'all'])->name('service_all');
+//Route::get('service/all',[service_controller::class, 'all'])->name('service_all');
 
 
 Route::get('/role/home',[role_controller::class, 'index']);
@@ -779,6 +781,7 @@ Route::get('alerte/showLatestAlert',[alerte_controller::class, 'showLatestAlert'
 Route::put('/user/toggle-status/{id}',[user_controller::class, 'toggleUserStatus'])->name('user.toggle-status');
 
 Route::get('reservation/index',[reservation_controller::class, 'index'])->name('reservation_index');
+Route::get('reservation/index/paginate',[reservation_controller::class, 'indexpaginate'])->name('reservation_index_paginate');
 Route::post('reservation/store',[reservation_controller::class, 'store'])->name('reservation_store');
 Route::post('reservation/update/{id}',[reservation_controller::class,'update'])->name('reservation_update');
 Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');

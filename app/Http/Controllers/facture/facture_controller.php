@@ -28,6 +28,22 @@ class facture_controller extends Controller
             ],500 );
         }
      }
+    public function indexpaginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $facture=Facture::with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($facture!=null){
+            return response()->json([
+                'statut'=>200,
+                'facture'=>$facture
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
 
      public function get_five_laste() {
         $factures = Facture::with('user', 'location')

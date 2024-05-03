@@ -25,6 +25,23 @@ class reservation_controller extends Controller
             ], 500);
         }
     }
+    public function indexpaginate(Request $request)
+    {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $reservations = Reservation::with('location.partenaire', 'salle')->orderBy('created_at', 'desc')->paginate($perPage);
+        if ($reservations->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'reservation' => $reservations
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    }
 
     /* public function store(Request $request)
     {
