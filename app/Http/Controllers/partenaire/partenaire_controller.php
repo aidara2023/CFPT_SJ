@@ -4,6 +4,7 @@ namespace App\Http\Controllers\partenaire;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\partenaire\partenaire_request;
+use App\Models\Paiement;
 use App\Models\Partenaire;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,22 @@ class partenaire_controller extends Controller
                 return response()->json([
                     'status' => 500,
                     'message' => 'Aucune donnée trouvée',
+                ], 500);
+            }
+        }
+
+        public function get_last()
+        {
+            $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(6)->orderBy('created_at', 'desc')->get();
+            if ($paiement != null) {
+                return response()->json([
+                    'statut' => 200,
+                    'paiement' => $paiement
+                ], 200);
+            } else {
+                return response()->json([
+                    'statut' => 500,
+                    'message' => 'Aucune donnée trouvée'
                 ], 500);
             }
         }

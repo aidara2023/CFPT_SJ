@@ -26,6 +26,22 @@ class paiement_partenaire_controller extends Controller
         ], 500);
     }
 }
+    public function indexpagination(Request $request)
+{
+    $perPage = $request->has('per_page') ? $request->per_page : 15;
+    $paiements = Paiement_partenaire::with(['facture.location.partenaire'])->orderBy('created_at', 'desc')->paginate($perPage);
+    if ($paiements->isNotEmpty()) {
+        return response()->json([
+            'status' => 200,
+            'paiement_partenaire' => $paiements
+        ], 200);
+    } else {
+        return response()->json([
+            'status' => 500,
+            'message' => 'Aucune donnée trouvée',
+        ], 500);
+    }
+}
 
     
 
