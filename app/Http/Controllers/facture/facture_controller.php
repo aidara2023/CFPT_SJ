@@ -28,10 +28,42 @@ class facture_controller extends Controller
             ],500 );
         }
      }
-    public function indexpaginate(Request $request) {
+    public function facture_definitve(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
-        $facture=Facture::with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
+        $facture=Facture::where('type', 'Definitive')->with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($facture!=null){
+            return response()->json([
+                'statut'=>200,
+                'facture'=>$facture
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+    public function facture_acompte(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $facture=Facture::where('type','Acompte' )->with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($facture!=null){
+            return response()->json([
+                'statut'=>200,
+                'facture'=>$facture
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+    public function facture_solde(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $facture=Facture::where('type','Solde' )->with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
         if($facture!=null){
             return response()->json([
                 'statut'=>200,

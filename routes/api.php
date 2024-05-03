@@ -108,6 +108,7 @@ use App\Http\Controllers\unite_de_formation\unite_de_formation_controller;
 use App\Http\Controllers\inscription\inscription_view_controller;
 use App\Http\Controllers\location\location_controller;
 use App\Http\Controllers\location\location_view_controller;
+use App\Http\Controllers\paiement_partenaire\paiement_partenaire_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_controller;
@@ -636,7 +637,9 @@ Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name
 //Route pour Facture
 
 Route::get('facture/index' ,[facture_controller::class, 'index'])->name('facture_index');
-Route::get('facture/index/facture/paginate' ,[facture_controller::class, 'indexpaginate'])->name('facture_index_facture_paginate');
+Route::get('facture/definitive' ,[facture_controller::class, 'facture_definitve'])->name('facture_definitive');
+Route::get('facture/acompte' ,[facture_controller::class, 'facture_acompte'])->name('facture_acompte');
+Route::get('facture/solde' ,[facture_controller::class, 'facture_solde'])->name('facture_solde');
 Route::get('facture/index/get/last' ,[facture_controller::class, 'get_five_laste'])->name('facture_index_get_last');
 Route::post('facture/store' ,[facture_controller::class, 'store'])->name('facture_store');
 Route::delete('facture/delete/{id}',[facture_controller::class, 'delete'])->name('facture_delete');
@@ -649,6 +652,7 @@ Route::get('facture/accueil', [facture_view_controller::class, 'accueil'])->name
 //Route pour Location
 
 Route::get('location/index' ,[location_controller::class, 'index'])->name('location_index');
+Route::get('location/index/proforma' ,[location_controller::class, 'index_proforma'])->name('index_proforma');
 Route::get('location/index/get/last' ,[location_controller::class, 'get_five_laste'])->name('location_index_get_last');
 Route::post('location/store' ,[location_controller::class, 'store'])->name('location_store');
 Route::delete('location/delete/{id}',[location_controller::class, 'delete'])->name('location_delete');
@@ -785,6 +789,19 @@ Route::get('reservation/index/paginate',[reservation_controller::class, 'indexpa
 Route::post('reservation/store',[reservation_controller::class, 'store'])->name('reservation_store');
 Route::post('reservation/update/{id}',[reservation_controller::class,'update'])->name('reservation_update');
 Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');
+
+
+//route paiement
+Route::get('paiement_partenaire/index',[paiement_partenaire_controller::class, 'index'])->name('paiement_index');
+Route::get('paiement_partenaire/pagination',[paiement_partenaire_controller::class, 'indexpagination'])->name('paiement_index_paginate');
+Route::get('paiement/get_last',[paiement_partenaire_controller::class, 'get_last'])->name('paiement_get_last');
+Route::get('recherche/facture',[paiement_partenaire_controller::class, 'recherche_eleve'])->name('recherche_eleve');
+Route::get('/recherche/id_facture',[paiement_partenaire_controller::class, 'recherche_id_facture'])->name('recherche_id_facture');
+Route::post('paiement_partenaire/store',[paiement_partenaire_controller::class, 'store'])->name('paiement_store');
+Route::get('paiement_partenaire/show/{id}',[paiement_partenaire_controller::class, 'show'])->name('paiement_show');
+Route::post('paiement_partenaire/update/{id}',[paiement_partenaire_controller::class, 'update'])->name('paiement_update');
+Route::post('/paiement_partenaire/valider-facture/{id}',[paiement_partenaire_controller::class, 'validerFacture'])->name('valider_facture');
+Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller::class, 'destroy'])->name('paiement_delete');
 
 });
 

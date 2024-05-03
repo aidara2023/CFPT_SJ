@@ -27,6 +27,22 @@ class location_controller extends Controller
             ],500 );
         }
      }
+    public function index_proforma(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $location=Location::with('partenaire', 'salle', 'user')->orderBy('created_at', 'desc')->paginate($perPage);
+        if($location!=null){
+            return response()->json([
+                'statut'=>200,
+                'location'=>$location
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
 
      public function get_five_laste() {
         $locations = Location::with('partenaire', 'salle', 'user')
