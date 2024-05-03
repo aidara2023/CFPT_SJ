@@ -36,6 +36,22 @@ class paiement_controller extends Controller
             ], 500);
         }
     }
+    public function indexpaginate(Request $request)
+    {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique')->orderBy('created_at', 'desc')->paginate($perPage);
+        if ($paiement != null) {
+            return response()->json([
+                'statut' => 200,
+                'paiement' => $paiement
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée'
+            ], 500);
+        }
+    }
     public function get_last()
     {
         $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(6)->orderBy('created_at', 'desc')->get();

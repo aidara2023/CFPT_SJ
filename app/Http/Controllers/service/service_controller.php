@@ -28,6 +28,7 @@ class service_controller extends Controller
      }
     public function get_all_services(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
+        
         $service=Service::with('user', 'direction')->orderBy('created_at', 'desc')->paginate($perPage);
         if($service!=null){
            
