@@ -794,7 +794,7 @@ Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'
 //route paiement
 Route::get('paiement_partenaire/index',[paiement_partenaire_controller::class, 'index'])->name('paiement_index');
 Route::get('paiement_partenaire/pagination',[paiement_partenaire_controller::class, 'indexpagination'])->name('paiement_index_paginate');
-Route::get('paiement/get_last',[paiement_partenaire_controller::class, 'get_last'])->name('paiement_get_last');
+//Route::get('paiement/get_last',[paiement_partenaire_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/facture',[paiement_partenaire_controller::class, 'recherche_eleve'])->name('recherche_eleve');
 Route::get('/recherche/id_facture',[paiement_partenaire_controller::class, 'recherche_id_facture'])->name('recherche_id_facture');
 Route::post('paiement_partenaire/store',[paiement_partenaire_controller::class, 'store'])->name('paiement_store');
