@@ -23,6 +23,21 @@ use Illuminate\Validation\Rule;
 
 class inscription_controller extends Controller
 {
+    public function index() {
+        $inscription=Inscription::with('annee_academique', 'eleve.user', 'classe', 'classe.type_formation', 'eleve.tuteur.user', 'classe.unite_de_formation', 'classe.unite_de_formation.departement')->orderBy('created_at', 'desc')->get();
+        if($inscription!=null){
+            return response()->json([
+                'statut'=>200,
+                'inscription'=>$inscription
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+     
     public function index_val(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
