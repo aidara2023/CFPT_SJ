@@ -192,7 +192,8 @@ class inscription_controller extends Controller
         'contact_urgence1'=>$request->contact_urgence1,
         'contact_urgence2'=>$request->contact_urgence2,
         'id_tuteur'=>$tuteur->id,
-        'id_user'=>$eleve_user->id
+        'id_user'=>$eleve_user->id,
+        'id_kairos'=>$request->id_kairos,
 
         ]);
 
@@ -203,6 +204,7 @@ class inscription_controller extends Controller
             'id_eleve'=>$eleve->id,
             'id_classe'=>$request->id_classe,
             'id_annee_academique'=>$request->id_annee_accademique,
+           
             /* 'dossier'=>$dossier */
         ]);
 

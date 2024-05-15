@@ -6,6 +6,7 @@ namespace App\Http\Controllers\caissier;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\caissier\caissier_request;
 use App\Models\Caissier;
+use App\Models\Eleve;
 use App\Models\Inscription;
 use App\Models\Role;
 use App\Models\User;
@@ -118,13 +119,13 @@ class caissier_controller extends Controller
     public function recherche_id_inscription(Request $request){
         $valeur = $request->input('query');
     
-        $inscriptions = Inscription::with( 'eleve.user', 'classe' , 'annee_academique') 
-             /* ->whereHas( function ($query) { */
-                // Filtrer les utilisateurs ayant un rôle avec id_role élevé
-               /*  $query->where('id_role', 1); */ // Assurez-vous de remplacer $valeur par la valeur souhaitée
-           /*  })  */
-            ->where('id', 'LIKE', "%$valeur%")
+        $inscriptions = Eleve::with( 'user', 'inscription.classe' , 'inscription.annee_academique') 
+            ->where('id_kairos', 'LIKE', "%$valeur%")
             ->get();
+
+      /*   $inscriptions = Inscription::with( 'eleve.user', 'classe' , 'annee_academique') 
+            ->where('id_kairos', 'LIKE', "%$valeur%")
+            ->get(); */
     
         if ($inscriptions->isNotEmpty()) {
             return response()->json($inscriptions);

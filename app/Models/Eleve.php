@@ -13,7 +13,8 @@ class Eleve extends Model
         'contact_urgence2',
         'id_tuteur',
         'id_user',
-        'id'
+        'id',
+        'id_kairos'
 
     ];
 
@@ -44,6 +45,9 @@ class Eleve extends Model
     }
     public function paiements() {
         return $this -> hasMany(Paiement::class);
+    }
+    public function hebergements() {
+        return $this->hasMany(Hebergement::class,'id_eleve', 'id');
     }
 
 
