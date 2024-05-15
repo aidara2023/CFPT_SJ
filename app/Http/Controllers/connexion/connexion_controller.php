@@ -46,7 +46,7 @@ class connexion_controller extends Controller
                 case "Comptable":
                     $url = '/dashboardComptable';
                     break;
-                case "Caisse SAF":
+                case "Recouvrement":
                     $url = '/dashboardCaissier';
                     break;
                 case "Infirmier":

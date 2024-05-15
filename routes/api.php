@@ -40,6 +40,7 @@ use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
+use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
@@ -65,6 +66,7 @@ use App\Http\Controllers\facture\facture_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
+use App\Http\Controllers\HebergementController;
 use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
@@ -687,6 +689,31 @@ Route::post('batiment/update/{id}',[batiment_controller::class,'update'])->name(
 Route::delete('batiment/delete/{id}',[batiment_controller::class, 'delete'])->name('batiment_delete');
 Route::get('batiment/create' ,[batiment_view_controller::class, 'create'])->name('batiment_create');
 Route::get('batiment/accueil',[batiment_view_controller::class, 'index'])->name('batiment_accueil');
+
+
+//Route pour hebergement
+
+Route::get('hebergement/index/paginate',[HebergementController::class, 'index_paginate'])->name('hebergement_index_paginate');
+Route::get('hebergement/index',[HebergementController::class, 'index'])->name('hebergement_index');
+Route::get('hebergement/get/last',[HebergementController::class, 'get_last_values'])->name('hebergement_get_last_value');
+Route::post('hebergement/store',[HebergementController::class, 'store'])->name('hebergement_store');
+Route::get('hebergement/show/{id}',[HebergementController::class,'show'])->name('hebergement_show');
+Route::post('hebergement/update/{id}',[HebergementController::class,'update'])->name('hebergement_update');
+Route::delete('hebergement/delete/{id}',[HebergementController::class, 'delete'])->name('hebergement_delete');
+
+Route::get('hebergement/all',[HebergementController::class, 'all'])->name('hebergement_all');
+
+//Route pour chambre
+
+Route::get('chambre/index/paginate',[ChambreController::class, 'index_paginate'])->name('chambre_index_paginate');
+Route::get('chambre/index',[ChambreController::class, 'index'])->name('chambre_index');
+Route::get('chambre/get/last',[ChambreController::class, 'get_last_values'])->name('chambre_get_last_value');
+Route::post('chambre/store',[ChambreController::class, 'store'])->name('chambre_store');
+Route::get('chambre/show/{id}',[ChambreController::class,'show'])->name('chambre_show');
+Route::post('chambre/update/{id}',[ChambreController::class,'update'])->name('chambre_update');
+Route::delete('chambre/delete/{id}',[ChambreController::class, 'delete'])->name('chambre_delete');
+
+Route::get('chambre/all',[ChambreController::class, 'all'])->name('chambre_all');
 
 
 //Route pour salle

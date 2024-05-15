@@ -154,6 +154,7 @@ class eleve_controller extends Controller
         $eleves->id_user=$ideleve;
         $eleves->contact_urgence1=$request['contact_urgence_1'];
         $eleves->contact_urgence2=$request['contact_urgence_2'];
+        $eleves->id_kairos=$request['id_kairos'];
         $eleves->id_tuteur=$idtuteur;
         $eleves->save();
 
@@ -203,6 +204,7 @@ class eleve_controller extends Controller
             $eleves -> id_user  = $user -> id;
             $eleves->contact_urgence1=$request['contact_urgence1'];
             $eleves->contact_urgence2=$request['contact_urgence2'];
+            $eleves->id_kairos=$request['id_kairos'];
 
             $eleves->id_tuteur=$request['id_tuteur'];
             $eleves->save();

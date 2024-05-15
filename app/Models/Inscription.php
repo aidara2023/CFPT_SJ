@@ -17,8 +17,6 @@ class Inscription extends Model
         'id_annee_academique',
         'dossier',
 
-
-
     ];
 
     public function eleve() {

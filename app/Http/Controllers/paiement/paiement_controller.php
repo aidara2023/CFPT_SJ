@@ -592,13 +592,21 @@ class paiement_controller extends Controller
     {
         $valeur = $request->input('query');
 
-        $users = User::with('eleves.inscription.classe')
+        //$inscription= Inscription::where('id_kairos', 'LIKE', "%$valeur%")->get();
+
+        //$eleve= Eleve::where('id_eleve', $inscription);
+
+        $users = Eleve::with('inscription.classe', 'user')
+            ->where('id_kairos', 'LIKE', "%$valeur%")
+            ->get();
+
+  /*       $users = User::with('eleves.inscription.classe')
             ->whereHas('role', function ($query) {
                 // Filtrer les utilisateurs ayant un rôle avec id_role élevé
                 $query->where('id_role', 1); // Assurez-vous de remplacer $valeur par la valeur souhaitée
             })
             ->where('matricule', 'LIKE', "%$valeur%")
-            ->get();
+            ->get(); */
 
         if ($users->isNotEmpty()) {
             return response()->json($users);
