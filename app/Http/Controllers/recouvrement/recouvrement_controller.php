@@ -217,6 +217,7 @@ class recouvrement_controller extends Controller
                             'photo' => optional($eleve->eleve)->user->photo,
                             'nom' => optional($eleve->eleve)->user->nom,
                             'prenom' => optional($eleve->eleve)->user->prenom,
+                            'paiement' =>$paiements
 
                         ];
                         //dd($eleve_non_payers);{{ classe.type_formation.intitule }} {{

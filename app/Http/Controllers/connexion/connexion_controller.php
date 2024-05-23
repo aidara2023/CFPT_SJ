@@ -58,9 +58,9 @@ class connexion_controller extends Controller
                 case "Surveillant":
                     $url = '/surveillant-dashboard';
                     break;
-               /*  case "Chef Agence Comptable":
-                    $url = '/recouvrement-dashboard';
-                    break; */
+                case "Caissier DAF":
+                    $url = '/dashboardCaissierDAF';
+                    break; 
                 default:
                     return response()->json([
                         'message' => 'Rôle utilisateur inconnu.',
