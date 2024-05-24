@@ -27,6 +27,37 @@ class role_controller extends Controller
         }
      }
 
+     public function all_paginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $classe=Role::orderBy('created_at', 'desc')->paginate($perPage);
+        if($classe!=null){
+            return response()->json([
+                'statut'=>200,
+                'role'=>$classe
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été trouvé',
+            ],500 );
+        }
+     }
+    public function get_last_value() {
+        $classe=Role::orderBy('created_at', 'desc')->take(5)->get();
+        if($classe!=null){
+            return response()->json([
+                'statut'=>200,
+                'role'=>$classe
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'aucun enregistrement n\'a été trouvé',
+            ],500 );
+        }
+     }
+
     public function store(role_request $request){
         $data=$request->validated();
         $role=Role::create($data);
@@ -47,7 +78,7 @@ class role_controller extends Controller
         $role=role::find($id);
         if($role!=null){
            $role->intitule=$request['intitule'];
-           $role->intitule=$request['categorie_personnel'];
+           $role->categorie_personnel=$request['categorie_personnel'];
 
            $role->save();
            event(new ModelUpdated($role));
@@ -62,7 +93,7 @@ class role_controller extends Controller
             ],500 );
         }
     }
-    public function supprimer($id){
+    public function delete($id){
         $role=role::find($id);
         if($role!=null){
             $role->delete();

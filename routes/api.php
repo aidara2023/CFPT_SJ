@@ -623,6 +623,11 @@ Route::get('user/getBibliothecaire',[user_controller::class, 'getBibliothecaire'
 //Route pour role
 
 Route::get('roles/index', [role_controller::class, 'index'])->name('role_index');
+Route::get('role/all/paginate',[role_controller::class, 'all_paginate'])->name('role_all_paginate');
+Route::get('role/get/last',[role_controller::class, 'get_last_value'])->name('role_last_values');
+Route::delete('role/delete/{id}',[role_controller::class, 'delete'])->name('role_delete');
+Route::post('role/update/{id}',[role_controller::class,'update'])->name('role_update');
+Route::post('role/store',[role_controller::class, 'store'])->name('role_store');
 Route::get('role/all', [role_controller::class, 'all'])->name('role_all');
 
 

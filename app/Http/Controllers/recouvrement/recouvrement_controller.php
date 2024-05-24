@@ -149,7 +149,7 @@ class recouvrement_controller extends Controller
         }
     } */
 
-    public function filtre(Request $request)
+  /*   public function filtre(Request $request)
     {
         $id_annee_academique = $request->input('id_annee_academique');
         $id_mois = $request->input('id_mois');
@@ -177,8 +177,6 @@ class recouvrement_controller extends Controller
             })
             ->get();
 
-
-
         // Charger les paiements en fonction des critères
         $paiements = Paiement::with('concerner.mois', 'concerner.annee_academique', 'eleve.inscription.classe.unite_de_formation')
             ->whereHas('concerner', function ($query) use ($id_annee_academique, $id_mois) {
@@ -194,35 +192,54 @@ class recouvrement_controller extends Controller
                     });
             })
             ->get();
-        //  dd($paiements);
 
         foreach ($elevess as $eleves) {
-            //dd($eleve);
-            //$inscriptions = $eleve->inscription;
             foreach ($eleves->inscription ?? [] as $eleve) {
                 $classe = optional($eleve->classe);
-                //$classeUnite = optional($classe->unite_de_formation);
-                //dd($classe->nom_classe);
-
                 if ($classe && ($classe->type_classe == "FPJ" || $classe->type_classe == "CS" || $classe->type_classe == "CPS")) {
-                    $paiementEleve = $paiements->where('id_eleve', $eleve->id)->first();
-                    // dd($paiementEleve);
+                    $montantTotalPaiements = 0;
 
-                    $hasPaiement = $paiementEleve && $paiementEleve->concerner->count() > 0;
+                     if (!$paiements->isEmpty()) {
+                        foreach($paiements as $paiement){
+                            if($paiement->id_eleve!== $eleves->id && $classe->type_formation->intitule == 'BTS '){
+                                $eleve_non_payers[] = [
+                                    'id_eleve' => $eleves->id,
+                                    'matricule' => optional($eleve->eleve)->user->matricule,
+                                    'photo' => optional($eleve->eleve)->user->photo,
+                                    'nom' => optional($eleve->eleve)->user->nom,
+                                    'prenom' => optional($eleve->eleve)->user->prenom,
+                                    'paiement' =>70000
+                                ];
+                            }
+                            elseif($paiement->id_eleve!== $eleves->id && $classe->type_formation->intitule == 'BTI'){
+                                $eleve_non_payers[] = [
+                                    'id_eleve' => $eleves->id,
+                                    'matricule' => optional($eleve->eleve)->user->matricule,
+                                    'photo' => optional($eleve->eleve)->user->photo,
+                                    'nom' => optional($eleve->eleve)->user->nom,
+                                    'prenom' => optional($eleve->eleve)->user->prenom,
+                                    'paiement' =>50000
+                                ];
+                            }
+                        }
+                    }
+                    
+                        foreach($paiements as $paiement){
+                            if ($paiement && $paiement->id_eleve == $eleves->id) {
+                            $montantTotalPaiements += $paiement->montant;
+                        }
+                        }
+                        $montantRestant = 70000 - $montantTotalPaiements;
 
-                    if (!$hasPaiement) {
                         $eleve_non_payers[] = [
-                            'id_eleve' => $eleve->id,
+                            'id_eleve' => $eleves->id,
                             'matricule' => optional($eleve->eleve)->user->matricule,
                             'photo' => optional($eleve->eleve)->user->photo,
                             'nom' => optional($eleve->eleve)->user->nom,
                             'prenom' => optional($eleve->eleve)->user->prenom,
-                            'paiement' =>$paiements
-
+                            'paiement' =>$montantRestant
                         ];
-                        //dd($eleve_non_payers);{{ classe.type_formation.intitule }} {{
-                        //classe.nom_classe }} {{ classe.niveau }} {{ classe.type_classe }}
-                    }
+                    
                 }
             }
         }
@@ -240,7 +257,97 @@ class recouvrement_controller extends Controller
                 'message' => 'Aucune donnée trouvée',
             ], 500);
         }
+    } */
+    public function filtre(Request $request)
+    {
+        $id_annee_academique = $request->input('id_annee_academique');
+        $id_mois = $request->input('id_mois');
+        $id_departement = $request->input('id_departement');
+        $id_unite_de_formation = $request->input('id_unite_de_formation');
+        $id_classe = $request->input('id_classe');
+    
+        $eleve_non_payers = [];
+    
+        $elevess = Eleve::with('inscription.classe.type_formation', 'user', 'inscription.classe.unite_de_formation.departement', 'inscription.classe')
+            ->whereHas('inscription.classe', function ($query) use ($id_classe, $id_unite_de_formation, $id_departement) {
+                $query->when($id_classe, function ($q) use ($id_classe) {
+                    $q->whereIn('id', (array) $id_classe);
+                })
+                    ->when($id_unite_de_formation, function ($q) use ($id_unite_de_formation) {
+                        $q->whereHas('unite_de_formation', function ($q) use ($id_unite_de_formation) {
+                            $q->whereIn('id', (array) $id_unite_de_formation);
+                        });
+                    })
+                    ->when($id_departement, function ($q) use ($id_departement) {
+                        $q->whereHas('unite_de_formation.departement', function ($q) use ($id_departement) {
+                            $q->whereIn('id', (array) $id_departement);
+                        });
+                    });
+            })
+            ->get();
+    
+        // Charger les paiements en fonction des critères
+        $paiements = Paiement::with('concerner.mois', 'concerner.annee_academique', 'eleve.inscription.classe.unite_de_formation')
+            ->whereHas('concerner', function ($query) use ($id_annee_academique, $id_mois) {
+                $query->when($id_annee_academique, function ($q) use ($id_annee_academique) {
+                    $q->whereHas('annee_academique', function ($q) use ($id_annee_academique) {
+                        $q->whereIn('id', (array) $id_annee_academique);
+                    });
+                })
+                    ->when($id_mois, function ($q) use ($id_mois) {
+                        $q->whereHas('mois', function ($q) use ($id_mois) {
+                            $q->whereIn('id', (array) $id_mois);
+                        });
+                    });
+            })
+            ->get();
+    
+        foreach ($elevess as $eleves) {
+            foreach ($eleves->inscription ?? [] as $eleve) {
+                $classe = optional($eleve->classe);
+                if ($classe && in_array($classe->type_classe, ["FPJ", "CS", "CPS"])) {
+                    $montantTotalPaiements = 0;
+    
+                    foreach ($paiements as $paiement) {
+                        if ($paiement->id_eleve == $eleves->id) {
+                            $montantTotalPaiements += $paiement->montant;
+                        }
+                    }
+    
+                    $montantRestant = ($classe->type_formation->intitule == 'BTS ') ? 70000 - $montantTotalPaiements : 50000 - $montantTotalPaiements;
+    
+                    if ($montantRestant > 0) {
+                        $eleve_non_payers[] = [
+                            'id_eleve' => $eleves->id,
+                            'matricule' => optional($eleve->eleve)->user->matricule,
+                            'photo' => optional($eleve->eleve)->user->photo,
+                            'nom' => optional($eleve->eleve)->user->nom,
+                            'prenom' => optional($eleve->eleve)->user->prenom,
+                            'paiement' => $montantRestant
+                        ];
+                    }
+                }
+            }
+        }
+    
+        if (!empty($eleve_non_payers)) {
+    
+            return response()->json([
+                'statut' => 200,
+                'eleve_non_payer' => $eleve_non_payers,
+            ], 200);
+        } else {
+    
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
     }
+    
+
+
+
     public function filtre_saf(Request $request)
     {
     
