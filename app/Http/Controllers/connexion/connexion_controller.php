@@ -58,7 +58,7 @@ class connexion_controller extends Controller
                 case "Surveillant":
                     $url = '/surveillant-dashboard';
                     break;
-                case "Caissier DAF":
+                case "Assistante DG":
                     $url = '/dashboardCaissierDAF';
                     break; 
                 default:
