@@ -617,4 +617,44 @@ class paiement_controller extends Controller
             ], 500);
         }
     }
+    public function historiquePaiementsEleve(Request $request)
+    {
+        // Récupérer l'identifiant kairos et l'année académique depuis la requête
+        $idKairos = $request->input('id_kairos');
+        $anneeAcademique = $request->input('id_annee_academique');
+    
+        // Rechercher l'élève correspondant à l'identifiant kairos
+        $eleve = Eleve::where('id_kairos', $idKairos)->first();
+    
+        if ($eleve) {
+            // Rechercher les paiements de l'élève pour l'année académique spécifiée
+            $paiements = Paiement::with(['concerner.mois', 'concerner.annee_academique'])
+                ->where('id_eleve', $eleve->id)
+                ->whereHas('concerner.annee_academique', function ($query) use ($anneeAcademique) {
+                    $query->where('id_annee_academique', $anneeAcademique);
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
+    
+            if ($paiements->isNotEmpty()) {
+                return response()->json([
+                    'statut' => 200,
+                    'historique_paiements' => $paiements
+                ], 200);
+            } else {
+                return response()->json([
+                    'statut' => 404,
+                    'message' => 'Aucun paiement trouvé pour cet étudiant pour l\'année académique spécifiée'
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                'statut' => 404,
+                'message' => 'Aucun étudiant trouvé avec l\'identifiant kairos spécifié'
+            ], 404);
+        }
+    }
+    
+
+
 }
