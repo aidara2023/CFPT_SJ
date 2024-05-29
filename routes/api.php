@@ -353,6 +353,7 @@ Route::get('paiement/index',[paiement_controller::class, 'index'])->name('paieme
 Route::get('paiement/index/paginate',[paiement_controller::class, 'indexpaginate'])->name('paiement_index_paginate');
 Route::get('paiement/get_last',[paiement_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/eleve',[paiement_controller::class, 'recherche_eleve'])->name('recherche_eleve');
+Route::get('historique/filtre/eleve',[paiement_controller::class, 'historiquePaiementsEleve'])->name('historiquePaiementsEleve');
 Route::post('paiement/store',[paiement_controller::class, 'store'])->name('paiement_store');
 Route::get('paiement/show/{id}',[paiement_controller::class, 'show'])->name('paiement_show');
 Route::post('paiement/update/{id}',[paiement_controller::class, 'update'])->name('paiement_update');
