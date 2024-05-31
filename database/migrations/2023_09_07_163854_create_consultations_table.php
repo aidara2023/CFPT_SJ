@@ -16,9 +16,9 @@ return new class extends Migration
             //$table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_infirmier');
             $table->unsignedBigInteger('id_dossier_medical');
-            //$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_infirmier')->references('id')->on('infirmiers')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_dossier_medical')->references('id')->on('dossier_medicals')->onUpdate('cascade')->onDelete('cascade');
+            //$table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_infirmier')->references('id')->on('infirmiers');
+            $table->foreign('id_dossier_medical')->references('id')->on('dossier_medicals');
         });
     }
 

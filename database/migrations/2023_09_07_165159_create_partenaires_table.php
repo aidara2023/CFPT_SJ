@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->unsignedBigInteger('id_direction');
-            $table->foreign('id_direction')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_direction')->references('id')->on('directions');
             $table->timestamps();
         });
     }

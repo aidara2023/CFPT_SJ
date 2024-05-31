@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('niveau');
             $table->unsignedBigInteger('id_type_formation');
             $table->unsignedBigInteger('id_unite_de_formation');
-            $table->foreign('id_type_formation')->references('id')->on('type_formations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_type_formation')->references('id')->on('type_formations');
+            $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations');
             $table->timestamps();
         });
     }

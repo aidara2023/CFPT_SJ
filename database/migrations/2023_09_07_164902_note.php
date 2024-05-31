@@ -19,17 +19,17 @@ return new class extends Migration
             $table->string('appreciation');
             $table->string('observation');
             $table->unsignedBigInteger('id_eleve');
-            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_eleve')->references('id')->on('eleves');
             $table->unsignedBigInteger('id_formateur');
-            $table->foreign('id_formateur')->references('id')->on('formateurs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_formateur')->references('id')->on('formateurs');
             $table->unsignedBigInteger('id_matiere');
-            $table->foreign('id_matiere')->references('id')->on('matieres')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_matiere')->references('id')->on('matieres');
             $table->unsignedBigInteger('id_type_evaluation');
-            $table->foreign('id_type_evaluation')->references('id')->on('type_evaluations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_type_evaluation')->references('id')->on('type_evaluations');
             $table->unsignedBigInteger('id_semestre');
-            $table->foreign('id_semestre')->references('id')->on('semestres')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_semestre')->references('id')->on('semestres');
             $table->unsignedBigInteger('id_annee_academique');
-            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques');
 
 
 

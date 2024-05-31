@@ -12,9 +12,9 @@ return new class extends Migration
             $table->string('date_debut');
             $table->string('date_fin');
             $table->unsignedBigInteger('id_salle')->nullable();
-            $table->foreign('id_salle')->references('id')->on('salles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_salle')->references('id')->on('salles');
             $table->unsignedBigInteger('id_location')->nullable();
-            $table->foreign('id_location')->references('id')->on('locations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_location')->references('id')->on('locations');
             $table->timestamps();
     
     

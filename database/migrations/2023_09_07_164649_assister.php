@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('presence');
             $table->unsignedBigInteger('id_cour');
-            $table->foreign('id_cour')->references('id')->on('cours')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_cour')->references('id')->on('cours');
             $table->unsignedBigInteger('id_eleve');
-            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_eleve')->references('id')->on('eleves');
 
 
 

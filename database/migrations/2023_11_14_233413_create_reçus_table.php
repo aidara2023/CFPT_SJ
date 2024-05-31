@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('relliquat');
             $table->string('numero_operation')->unique();
             $table->unsignedBigInteger('id_paiement');
-            $table->foreign('id_paiement')->references('id')->on('paiements')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_paiement')->references('id')->on('paiements');
             $table->timestamps();
         });
     }

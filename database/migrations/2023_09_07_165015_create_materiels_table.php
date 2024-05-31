@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('etat');
             $table->string('quantite');
             $table->unsignedBigInteger('id_service');
-            $table->foreign('id_service')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_service')->references('id')->on('services');
             $table->unsignedBigInteger('id_salle');
-            $table->foreign('id_salle')->references('id')->on('salles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_salle')->references('id')->on('salles');
             $table->unsignedBigInteger('id_type_materiel');
-            $table->foreign('id_type_materiel')->references('id')->on('type_materiels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_type_materiel')->references('id')->on('type_materiels');
             $table->unsignedBigInteger('id_statut');
-            $table->foreign('id_statut')->references('id')->on('statuts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_statut')->references('id')->on('statuts');
             $table->unsignedBigInteger('id_unite_de_formation');
-            $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_unite_de_formation')->references('id')->on('unite_de_formations');
             $table->timestamps();
         });
     }

@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\matiere;
+namespace App\Http\Controllers\fonctionnalite;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\matiere\matiere_request;
+use App\Models\Fonctionnalite;
 use Illuminate\Http\Request;
-use App\Models\Matiere;
 
-class matiere_controller extends Controller
+class fonctionnalite_controller extends Controller
 {
     public function index() {
-        $matiere=Matiere::orderBy('created_at', 'desc')->get();
-        if($matiere!=null){
+        $fonctionnalite=Fonctionnalite::orderBy('created_at', 'desc')->get();
+        if($fonctionnalite!=null){
             return response()->json([
                 'statut'=>200,
-                'matiere'=>$matiere
+                'fonctionnalite'=>$fonctionnalite
             ],200)  ;
         }else{
             return response()->json([ 
@@ -23,13 +22,12 @@ class matiere_controller extends Controller
             ],500 );
         }
      }
-
      public function get_five_laste(){
-        $matiere = Matiere::orderBy('created_at', 'desc')->take(5)->get();
-        if($matiere != null){
+        $fonctionnalite = Fonctionnalite::orderBy('created_at', 'desc')->take(5)->get();
+        if($fonctionnalite != null){
             return response()->json([
                 'statut' => 200,
-                'matiere' => $matiere
+                'fonctionnalite' => $fonctionnalite
             ],200);
         } else {
             return response()->json([
@@ -38,15 +36,14 @@ class matiere_controller extends Controller
             ],500);
         }
     }
-
      public function all_paginate(Request $request){
 
         $perPage = $request->has('per_page') ? $request->per_page : 15;
-        $matiere = Matiere::orderBy('created_at', 'desc')->paginate($perPage);
-        if($matiere != null){
+        $fonctionnalite = Fonctionnalite::orderBy('created_at', 'desc')->paginate($perPage);
+        if($fonctionnalite != null){
             return response()->json([
                 'statut' => 200,
-                'matiere' => $matiere
+                'fonctionnalite' => $fonctionnalite
             ],200);
         } else {
             return response()->json([
@@ -56,13 +53,15 @@ class matiere_controller extends Controller
         }
     }
 
-     public function store (matiere_request $request){
-        $data=$request->validated();
-        $matiere=Matiere::create($data);
-        if($matiere!=null){
+     public function store (Request $request){
+        
+        $fonctionnalite=new Fonctionnalite();
+        $fonctionnalite->intitule=$request->intitule;
+        $fonctionnalite->save();
+        if($fonctionnalite!=null){
             return response()->json([
                 'statut'=>200,
-                'matiere'=>$matiere
+                'fonctionnalite'=>$fonctionnalite
             ],200)  ;
         }else{
             return response()->json([ 
@@ -73,15 +72,14 @@ class matiere_controller extends Controller
     }
 
 
-    public function update(matiere_request $request, $id){
-        $matiere=Matiere::find($id);
-        if($matiere!=null){
-           $matiere->intitule=$request['intitule'];
-           $matiere->duree=$request['duree'];
-           $matiere->save();
+    public function update(Request $request, $id){
+        $fonctionnalite=Fonctionnalite::find($id);
+        if($fonctionnalite!=null){
+           $fonctionnalite->intitule=$request['intitule'];
+           $fonctionnalite->save();
             return response()->json([
                 'statut'=>200,
-                'matiere'=>$matiere
+                'fonctionnalite'=>$fonctionnalite
             ],200)  ;
         }else{
             return response()->json([ 
@@ -91,18 +89,18 @@ class matiere_controller extends Controller
         }
     }
 
-    public function delete($id){
-        $matiere=Matiere::find($id);
-        if($matiere!=null){
-            $matiere->delete();
+    public function destroy($id){
+        $fonctionnalite=Fonctionnalite::find($id);
+        if($fonctionnalite!=null){
+            $fonctionnalite->delete();
             return response()->json([
                 'statut'=>200,
-                'message'=>'La matiére a été supprimée avec succes',
+                'message'=>'La fonctionnalite a été supprimée avec succes',
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'Echec suppression de la matiére',
+                'message'=>'Echec suppression du lien',
             ],500 );
         }
        
@@ -110,19 +108,18 @@ class matiere_controller extends Controller
 
 
     public function show($id){
-        $matiere=Matiere::find($id);
-        if($matiere!=null){
+        $fonctionnalite=Fonctionnalite::find($id);
+        if($fonctionnalite!=null){
             return response()->json([
                 'statut'=>200,
-                'matiere'=>$matiere
+                'fonctionnalite'=>$fonctionnalite
             ],200)  ;
         }else{
             return response()->json([ 
                 'statut'=>500,
-                'message'=>'La matiere n\'existe pas ',
+                'message'=>'La fonctionnalite n\'existe pas ',
             ],500 );
         }
        
     }
-
 }

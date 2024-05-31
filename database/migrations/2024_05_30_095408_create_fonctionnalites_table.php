@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('paiements', function (Blueprint $table) {
-            $table->float('montant');
-   /*          $table->unsignedBigInteger('id_mois');
-            $table->foreign('id_mois')->references('id')->on('mois'); */
-        
-
+        Schema::create('fonctionnalites', function (Blueprint $table) {
+            $table->id();
+            $table->string('intitule');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('fonctionnalites');
     }
 };

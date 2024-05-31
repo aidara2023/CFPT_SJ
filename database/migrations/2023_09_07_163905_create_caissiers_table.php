@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('caissiers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users');
             $table->unsignedBigInteger('id_service');
-            $table->foreign('id_service')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade'); 
+            $table->foreign('id_service')->references('id')->on('services'); 
             $table->timestamps();
         });
     }

@@ -19,11 +19,11 @@ return new class extends Migration
             $table->double('date_facture')->nullable();
 
             $table->unsignedBigInteger('id_location')->nullable();
-            $table->foreign('id_location')->references('id')->on('locations')->onUpdate('cascade');
+            $table->foreign('id_location')->references('id')->on('locations');
 
 
             $table->unsignedBigInteger('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreign('id_user')->references('id')->on('users');
             
             $table->timestamps();
         });

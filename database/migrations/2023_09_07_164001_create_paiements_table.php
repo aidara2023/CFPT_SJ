@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_eleve');
             $table->unsignedBigInteger('id_caissier');
-            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_caissier')->references('id')->on('caissiers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_eleve')->references('id')->on('eleves');
+            $table->foreign('id_caissier')->references('id')->on('caissiers');
             $table->timestamps();
         });
     }
