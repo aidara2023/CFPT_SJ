@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_bibliothecaire');
             $table->unsignedBigInteger('id_exemplaire');
-            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_bibliothecaire')->references('id')->on('bibliothecaires')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_exemplaire')->references('id')->on('exemplaires')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_bibliothecaire')->references('id')->on('bibliothecaires');
+            $table->foreign('id_exemplaire')->references('id')->on('exemplaires');
             
             $table->timestamps();
         });

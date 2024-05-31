@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('paiement_partenaires', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_facture');
-            $table->foreign('id_facture')->references('id')->on('factures')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_facture')->references('id')->on('factures');
             $table->float('montant_payer');
             $table->string('mode_paiement');
             $table->date('date_paiement');

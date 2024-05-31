@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_categorie');
             $table->unsignedBigInteger('id_auteur');
             $table->unsignedBigInteger('id_edition');
-            $table->foreign('id_categorie')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_auteur')->references('id')->on('auteurs')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_edition')->references('id')->on('editions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_categorie')->references('id')->on('categories');
+            $table->foreign('id_auteur')->references('id')->on('auteurs');
+            $table->foreign('id_edition')->references('id')->on('editions');
 
             $table->timestamps();
         });

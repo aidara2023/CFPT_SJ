@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->boolean('statut');
             $table->unsignedBigInteger('id_paiement');
-            $table->foreign('id_paiement')->references('id')->on('paiements')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_paiement')->references('id')->on('paiements');
              $table->unsignedBigInteger('id_mois');
-            $table->foreign('id_mois')->references('id')->on('mois')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_mois')->references('id')->on('mois');
             $table->unsignedBigInteger('id_annee_academique');
-            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques');
             $table->timestamps();
         });
     }

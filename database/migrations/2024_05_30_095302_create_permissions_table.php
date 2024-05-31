@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departements', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_departement');
-            $table->unsignedBigInteger('id_direction');
-            $table->foreign('id_direction')->references('id')->on('directions');
+            $table->boolean('create')->default(false);
+            $table->boolean('update')->default(false);
+            $table->boolean('read')->default(false);
+            $table->boolean('delete')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departements');
+        Schema::dropIfExists('permissions');
     }
 };

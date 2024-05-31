@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('directions', function (Blueprint $table) {
            
             $table->unsignedBigInteger('id_service')->nullable();
-            $table->foreign('id_service')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_service')->references('id')->on('services');
         });
     }
 

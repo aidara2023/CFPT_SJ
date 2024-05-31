@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('situation_matrimoniale');
             $table->unsignedBigInteger('id_specialite');
             $table->unsignedBigInteger('id_departement');
-            $table->foreign('id_specialite')->references('id')->on('specialites')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_departement')->references('id')->on('departements')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_specialite')->references('id')->on('specialites');
+            $table->foreign('id_departement')->references('id')->on('departements');
             $table->timestamps();
         });
     }

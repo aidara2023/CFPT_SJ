@@ -41,6 +41,7 @@ use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
 use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\ChambreController;
+use App\Http\Controllers\classe_matiere\classe_matiere_controller;
 use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_view_controller;
 use App\Http\Controllers\consultation\consultation_controller;
@@ -64,6 +65,7 @@ use App\Http\Controllers\exemplaire\exemplaire_view_controller;
 use App\Http\Controllers\facture\facture_controller;
 use App\Http\Controllers\facture\facture_view_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
+use App\Http\Controllers\fonctionnalite\fonctionnalite_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
 use App\Http\Controllers\HebergementController;
@@ -111,6 +113,7 @@ use App\Http\Controllers\inscription\inscription_view_controller;
 use App\Http\Controllers\location\location_controller;
 use App\Http\Controllers\location\location_view_controller;
 use App\Http\Controllers\paiement_partenaire\paiement_partenaire_controller;
+use App\Http\Controllers\permission\permission_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_controller;
 use App\Http\Controllers\personnel_administratif\personnel_administratif_view_controller;
 use App\Http\Controllers\personnel_appui\personnel_appui_controller;
@@ -162,6 +165,7 @@ Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->
 //Route de matiere
 
 Route::get('matiere/index', [matiere_controller::class, 'index'])->name('matiere_index');
+Route::get('matiere/all/paginate',[matiere_controller::class, 'all_paginate'])->name('matiere_all_paginate');
 Route::post('matiere/store',[matiere_controller::class, 'store'])->name('matiere_store');
 Route::post('matiere/update/{id}', [matiere_controller::class, 'update'])->name('matiere_update');
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
@@ -338,6 +342,34 @@ Route::get('/departement/create',[departement_view_controller::class, 'create'])
 Route::get('departement/index',[departement_view_controller::class, 'index'])->name('departement_index');
 
 
+//route fonctionnalite
+Route::get('fonctionnalite/all',[fonctionnalite_controller::class, 'index'])->name('fonctionnalite_all');
+Route::get('fonctionnalite/all/paginate',[fonctionnalite_controller::class, 'all_paginate'])->name('fonctionnalite_all_paginate');
+Route::get('fonctionnalite/get/last',[fonctionnalite_controller::class, 'get_five_laste'])->name('fonctionnalite_get_last');
+Route::post('fonctionnalite/store',[fonctionnalite_controller::class, 'store'])->name('fonctionnalite_store');
+Route::get('fonctionnalite/show/{id}',[fonctionnalite_controller::class, 'show'])->name('fonctionnalite_show');
+Route::post('fonctionnalite/update/{id}',[fonctionnalite_controller::class, 'update'])->name('fonctionnalite_update');
+Route::delete('fonctionnalite/delete/{id}',[fonctionnalite_controller::class, 'destroy'])->name('fonctionnalite_delete');
+
+//route permission
+Route::get('permission/all',[permission_controller::class, 'index'])->name('permission_all');
+Route::get('permission/all/paginate',[permission_controller::class, 'all_paginate'])->name('permission_all_paginate');
+Route::get('permission/get/last',[permission_controller::class, 'get_five_laste'])->name('permission_get_last');
+Route::post('permission/store',[permission_controller::class, 'store'])->name('permission_store');
+Route::get('permission/show/{id}',[permission_controller::class, 'show'])->name('permission_show');
+Route::post('permission/update/{id}',[permission_controller::class, 'update'])->name('permission_update');
+Route::delete('permission/delete/{id}',[permission_controller::class, 'destroy'])->name('permission_delete');
+
+//route classeMatiere
+Route::get('classe_matiere/all',[classe_matiere_controller::class, 'index'])->name('classe_matiere_all');
+Route::get('classe_matiere/all/paginate',[classe_matiere_controller::class, 'all_paginate'])->name('classe_matiere_all_paginate');
+Route::get('classe_matiere/get/last',[classe_matiere_controller::class, 'get_five_laste'])->name('classe_matiere_get_last');
+Route::post('classe_matiere/store',[classe_matiere_controller::class, 'store'])->name('classe_matiere_store');
+Route::get('classe_matiere/show/{id}',[classe_matiere_controller::class, 'show'])->name('classe_matiere_show');
+Route::post('classe_matiere/update/{id}',[classe_matiere_controller::class, 'update'])->name('classe_matiere_update');
+Route::delete('classe_matiere/delete/{id}',[classe_matiere_controller::class, 'destroy'])->name('classe_matiere_delete');
+
+
 //route tuteur
 Route::get('tuteur/index',[tuteur_controller::class, 'index'])->name('tuteur_index');
 Route::post('tuteur/store',[tuteur_controller::class, 'store'])->name('tuteur_store');
@@ -502,7 +534,7 @@ Route::get('/financer_bourse/create',[financer_bourse_view_controller::class, 'c
 //administrateur
 Route::get('admin/index',[administrateur_view_controller::class, 'index'])->middleware('auth')->name('admin_index');
 
-//type materiel
+//type typemateriel
 
 Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
 Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');

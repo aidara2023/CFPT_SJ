@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('date_destruction');
             $table->string('contenu');
             $table->unsignedBigInteger('id_departement');
-            $table->foreign('id_departement')->references('id')->on('directions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_departement')->references('id')->on('directions');
             $table->unsignedBigInteger('id_service');
-            $table->foreign('id_service')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_service')->references('id')->on('services');
             $table->timestamps();
         });
     }

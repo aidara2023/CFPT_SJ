@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nom_unite_formation');
             $table->unsignedBigInteger('id_formateur');
             $table->unsignedBigInteger('id_departement');
-            $table->foreign('id_formateur')->references('id')->on('formateurs')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_departement')->references('id')->on('departements')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_formateur')->references('id')->on('formateurs');
+            $table->foreign('id_departement')->references('id')->on('departements');
             $table->timestamps();
         });
     }

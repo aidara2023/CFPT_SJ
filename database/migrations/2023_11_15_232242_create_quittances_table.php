@@ -20,9 +20,9 @@ return new class extends Migration
             $table->float('montant');
             $table->string('numero')->unique();
             $table->unsignedBigInteger('id_eleve');
-            $table->foreign('id_eleve')->references('id')->on('eleves')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_eleve')->references('id')->on('eleves');
             $table->unsignedBigInteger('id_mois');
-            $table->foreign('id_mois')->references('id')->on('mois')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_mois')->references('id')->on('mois');
             $table->timestamps();
         });
     }

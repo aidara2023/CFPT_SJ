@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('paiements', function (Blueprint $table) {
-            $table->float('montant');
-   /*          $table->unsignedBigInteger('id_mois');
-            $table->foreign('id_mois')->references('id')->on('mois'); */
-        
-
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_fonctionnalite');
+            $table->foreign('id_fonctionnalite')->references('id')->on('fonctionnalites');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('permissions', function (Blueprint $table) {
+            //
+        });
     }
 };

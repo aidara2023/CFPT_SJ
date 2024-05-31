@@ -21,13 +21,13 @@ return new class extends Migration
             $table->boolean('reserver')->default(false);
 
             $table->unsignedBigInteger('id_partenaire')->nullable();
-            $table->foreign('id_partenaire')->references('id')->on('partenaires')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_partenaire')->references('id')->on('partenaires');
 
             $table->unsignedBigInteger('id_salle')->nullable();
-            $table->foreign('id_salle')->references('id')->on('salles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_salle')->references('id')->on('salles');
 
             $table->unsignedBigInteger('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users');
 
             $table->timestamps();
         });

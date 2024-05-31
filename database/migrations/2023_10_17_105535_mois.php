@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('intitule');
             /* $table->unsignedBigInteger('id_annee_academique');
-            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques')->onUpdate('cascade')->onDelete('cascade'); */
+            $table->foreign('id_annee_academique')->references('id')->on('annee_academiques'); */
         
 
         });
