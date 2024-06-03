@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('formateurs', function (Blueprint $table) {
-            $table->dropForeign('formateurs_id_departement_foreign');
-            $table->dropColumn('id_departement');
+            //$table->dropForeign('formateurs_id_departement_foreign');
+           // $table->dropColumn('id_departement');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('formateurs', function (Blueprint $table) {
-            $table->foreignId('id_departement')->constrained('formateurs');
+           // $table->foreignId('id_departement')->constrained('formateurs');
         });
     }
 };
