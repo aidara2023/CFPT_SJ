@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('unite_de_formations', function (Blueprint $table) {
-            $table->dropColumn('id_formateur');
+           // $table->dropColumn('id_formateur');
         });
     }
 
