@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('unite_de_formations', function (Blueprint $table) {
             $table->id();
             $table->string('nom_unite_formation');
-            $table->unsignedBigInteger('id_formateur');
+           // $table->unsignedBigInteger('id_formateur');
             $table->unsignedBigInteger('id_departement');
-            $table->foreign('id_formateur')->references('id')->on('formateurs');
+            //$table->foreign('id_formateur')->references('id')->on('formateurs');
             $table->foreign('id_departement')->references('id')->on('departements');
             $table->timestamps();
         });
