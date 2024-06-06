@@ -357,6 +357,7 @@ Route::get('permission/all/paginate',[permission_controller::class, 'all_paginat
 Route::get('permission/get/last',[permission_controller::class, 'get_five_laste'])->name('permission_get_last');
 Route::post('permission/store',[permission_controller::class, 'store'])->name('permission_store');
 Route::get('permission/show/{id}',[permission_controller::class, 'show'])->name('permission_show');
+Route::get('get/all/permission/{id}',[permission_controller::class, 'get_permission_by_id_role'])->name('permission_get_id_role');
 Route::post('permission/update/{id}',[permission_controller::class, 'update'])->name('permission_update');
 Route::delete('permission/delete/{id}',[permission_controller::class, 'destroy'])->name('permission_delete');
 

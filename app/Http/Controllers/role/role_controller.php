@@ -7,6 +7,7 @@ use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\role\role_request;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -57,8 +58,79 @@ class role_controller extends Controller
             ],500 );
         }
      }
+     public function store(role_request $request){
+        $data = $request->validated();
+        $permissions = json_decode($request->input('permis'), true);
 
-    public function store(role_request $request){
+        $roledata = [
+            'intitule' => $data['intitule'],
+            'categorie_personnel' => $data['categorie_personnel'],
+        ];
+        $role = Role::create($roledata);
+        event(new ModelCreated($role));
+    
+        foreach ($permissions as $permission) {
+            $permi = [
+                'id_role' => $role['id'],
+                'id_fonctionnalite' => $permission['id_fonctionnalite'],
+                'read' => $permission['read'],
+                'update' => $permission['update'],
+                'create' => $permission['create'],
+                'delete' => $permission['delete'],
+            ];
+    
+            $rolepermi = Permission::create($permi);
+            event(new ModelCreated($rolepermi));
+        }
+    
+        if(isset($role) && isset($rolepermi)){
+            return response()->json([
+                'statut'=>200,
+                'role'=>$role
+            ],200);
+        } else {
+            return response()->json([
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été effectué',
+            ],500);
+        }
+    }
+    
+
+/*     public function store(role_request $request){
+        $data=$request->validated();
+        $role = null;
+        $permissions = $request->input('permis');
+  foreach ($permissions as $permission) {
+                   
+            $permi = [
+                'intitule' => $request->intitule,
+                'categorie_personnel' => $request['categorie_personnel'],
+                'id_fonctionnalite' => $permission->id_fonctionnalite,
+                'read' => $permission->read,
+                'update' => $permission->update,
+                'create' => $permission->create,
+                'delete' => $permission->delete,
+            ];
+
+            $role = Role::create($permi);
+            event(new ModelCreated($role));
+       // $role=Role::create($data);
+        }
+        if($role!=null){
+            //event(new ModelCreated($role));
+            return response()->json([
+                'statut'=>200,
+                'role'=>$role
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été éffectué',
+            ],500 );
+        }
+    } */
+/*     public function store(role_request $request){
         $data=$request->validated();
         $role=Role::create($data);
         if($role!=null){
@@ -73,7 +145,7 @@ class role_controller extends Controller
                 'message'=>'L\'enregistrement n\'a pas été éffectué',
             ],500 );
         }
-    }
+    } */
     public function update(role_request $request, $id){
         $role=role::find($id);
         if($role!=null){
