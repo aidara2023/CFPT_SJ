@@ -17,7 +17,7 @@ class classe_controller extends Controller
         if($classe!=null){
             return response()->json([
                 'statut'=>200,
-                'classe'=>$classe
+                'classe'=>$classe,
             ],200)  ;
         }else{
             return response()->json([

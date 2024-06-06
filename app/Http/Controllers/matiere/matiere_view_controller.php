@@ -10,4 +10,7 @@ class matiere_view_controller extends Controller
     public function create(){
         return view('matiere.create');
     }
+    public function index(){
+        return view('matiere.index');
+    }
 }

@@ -169,7 +169,7 @@ Route::get('matiere/all/paginate',[matiere_controller::class, 'all_paginate'])->
 Route::post('matiere/store',[matiere_controller::class, 'store'])->name('matiere_store');
 Route::post('matiere/update/{id}', [matiere_controller::class, 'update'])->name('matiere_update');
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
-Route::get('matiere/get/{id}',[matiere_controller::class, 'get'])->name('matiere_get');
+Route::get('matiere/get',[matiere_controller::class, 'get_five_laste'])->name('matiere_get');
 
 Route::get('/matiere/create',[matiere_view_controller::class, 'create'])->name('matiere_create');
 //annee academique
@@ -565,7 +565,9 @@ Route::delete('note/delete/{id}',[note_controller::class, 'delete'])->name('note
 
 //Route pour cour
 
-Route::get('cour/index',[cours_controller::class, 'index'])->name('cour_index');
+Route::get('cour/all',[cours_controller::class, 'all'])->name('cour_all');
+Route::get('cour/all/paginate',[cours_controller::class, 'all_paginate'])->name('cour_all_paginate');
+Route::get('cour/get/last',[cours_controller::class, 'get_last_value'])->name('cour_get_last');
 Route::post('cour/store',[cours_controller::class, 'store'])->name('cour_store');
 Route::get('cour/show/{id}',[cours_controller::class,'show'])->name('cour_show');
 Route::post('cour/update/{id}',[cours_controller::class,'update'])->name('cour_update');
