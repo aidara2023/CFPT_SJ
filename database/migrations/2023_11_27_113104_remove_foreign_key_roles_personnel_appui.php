@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('roles', function ($table) {
-            $table->dropForeign(['id_personnel_appui']);
-            $table->dropColumn('id_personnel_appui');
+           // $table->dropForeign(['id_personnel_appui']);
+           // $table->dropColumn('id_personnel_appui');
         });
     }
 

@@ -873,7 +873,6 @@ Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller:
 
 });
 
-Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
 
 /*
@@ -892,4 +891,5 @@ Route::get('/create-default-admin', [administrateur_view_controller::class, 'cre
 }); */
 
 Route::middleware('auth:sanctum')->post('/logout', [connexion_controller::class, 'logout']);
+Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
 
