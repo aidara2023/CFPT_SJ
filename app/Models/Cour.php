@@ -26,7 +26,7 @@ class Cour extends Model
     }
 
     public function Semestre(){
-        return $this->belongsTo(Semestrre::class, 'id_semestre');
+        return $this->belongsTo(Semestre::class, 'id_semestre');
     }
 
     public function Classe(){
@@ -34,7 +34,7 @@ class Cour extends Model
     }
 
     public function assister(){
-        return $this->hasMany(assiter::class);
+        return $this->hasMany(Assister::class);
     }
 
     public function Salle(){
