@@ -22,9 +22,14 @@ class role_request extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule'=>'required',
-            'categorie_personnel'=>'required',
-          
+            'intitule' => 'required',
+            'categorie_personnel' => 'required',
+            'id_fonctionnalite' => '',
+            'read' => '',
+            'update' => '',
+            'create' => '',
+            'delete' => '',
+
         ];
     }
 }

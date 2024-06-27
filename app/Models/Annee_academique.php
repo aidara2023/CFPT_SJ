@@ -28,5 +28,8 @@ class Annee_academique extends Model
     public function concerner() {
         return $this->hasMany(Concerner::class); 
     }
+    public function Emploi_du_temps() {
+        return $this->hasMany(emploi_du_temps::class); 
+    }
 }
 
