@@ -36,6 +36,9 @@ class Cour extends Model
     public function assister(){
         return $this->hasMany(Assister::class);
     }
+    public function emploi_du_temps(){
+        return $this->hasMany(Emploi_du_temps::class);
+    }
 
     public function Salle(){
         return $this->belongsTo(Salle::class, 'id_salle');
