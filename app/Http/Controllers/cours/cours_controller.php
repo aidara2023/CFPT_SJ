@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class cours_controller extends Controller
 {
     public function all() {
-        $cour=Cour::with('classe', 'formateur' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->get();
+        $cour=Cour::with('classe', 'formateur.user' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->get();
         if($cour!=null){
             return response()->json([
                 'statut'=>200,
@@ -30,7 +30,7 @@ class cours_controller extends Controller
     public function all_paginate(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
-        $cour=Cour::with('classe', 'formateur' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->paginate($perPage);
+        $cour=Cour::with('classe', 'formateur.user' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->paginate($perPage);
         if($cour!=null){
             return response()->json([
                 'statut'=>200,
@@ -45,7 +45,7 @@ class cours_controller extends Controller
     }
 
     public function get_last_value() {
-        $cour=Cour::with('classe', 'formateur' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->take(5)->get();
+        $cour=Cour::with('classe', 'formateur.user' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->take(5)->get();
         if($cour!=null){
             return response()->json([
                 'statut'=>200,
