@@ -126,4 +126,20 @@ class permission_controller extends Controller
         }
        
     }
+
+    public function get_permission_by_id_role($id){
+        $permission=Permission::with('fonctionnalite', 'role')->where('id_role', $id)->get();
+        if($permission!=null){
+            return response()->json([
+                'statut'=>200,
+                'permission'=>$permission
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'La matiere n\'existe pas ',
+            ],500 );
+        }
+       
+    }
 }
