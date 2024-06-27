@@ -31,7 +31,8 @@ class partenaire_request extends FormRequest
                 'boite_postale' => 'required',
                 'date_debut' => 'required',
                 'date_fin' => 'required',
-                'id_direction' => 'required'
+                'id_direction' => 'required',
+                'exoneration' => 'required',
         ];
     }
 }

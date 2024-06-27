@@ -283,10 +283,12 @@ Route::get('/type_evaluation/create',[type_evaluation_view_controller::class, 'c
 
 //route partenaire
 Route::get('partenaire/index',[partenaire_controller::class, 'index'])->name('partenaire_index');
+Route::get('partenaire/all/paginate',[partenaire_controller::class, 'all_paginate'])->name('partenaire_all_paginate');
+Route::get('partenaire/get/last',[partenaire_controller::class, 'get_last'])->name('partenaire_last_values');
 Route::post('partenaire/store',[partenaire_controller::class, 'store'])->name('partenaire_store');
 Route::get('partenaire/show/{id}',[partenaire_controller::class, 'show'])->name('partenaire_show');
 Route::post('partenaire/update/{id}',[partenaire_controller::class, 'update'])->name('partenaire_update');
-Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'destroy'])->name('partenaire_delete');
+Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'delete'])->name('partenaire_delete');
 
 Route::get('/partenaire/create',[partenaire_view_controller::class, 'create'])->name('partenaire_create');
 
