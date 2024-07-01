@@ -25,7 +25,8 @@ class cours_controller extends Controller
                 'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
-     }
+    }
+
     public function all_paginate(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
@@ -41,7 +42,8 @@ class cours_controller extends Controller
                 'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
-     }
+    }
+
     public function get_last_value() {
         $cour=Cour::with('classe', 'formateur.user' ,'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->take(5)->get();
         if($cour!=null){
@@ -55,10 +57,10 @@ class cours_controller extends Controller
                 'message'=>'aucun enregistrement n\'a été trouvé',
             ],500 );
         }
-     }
+    }
 
     public function store(cours_request $request){
-        $data=$request->validated();
+        $data=$request->validated();           
 
         $verification =cour::where([['intitule','=', $request['intitule']],['date_cour','=', $request['date_cour']],['id_formateur','=', $request['id_formateur']]])->get();
 
@@ -68,21 +70,22 @@ class cours_controller extends Controller
                 'message'=>'Cette cour existe déja',
             ],404 );
         }else{
-        $cour=cour::create($data);
-        if($cour!=null){
-        event(new ModelCreated($cour));
-            return response()->json([
-                'statut'=>200,
-                'cour'=>$cour
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
-            ],500 );
+            $cour=cour::create($data);
+            if($cour!=null){
+            event(new ModelCreated($cour));
+                return response()->json([
+                    'statut'=>200,
+                    'cour'=>$cour
+                ],200)  ;
+            }else{
+                return response()->json([
+                    'statut'=>500,
+                    'message'=>'L\'enregistrement n\'a pas été éffectué',
+                ],500 );
+            }
         }
     }
-}
+
     public function update(cours_request $request, $id){
         $cour=cour::find($id);
         if($cour!=null){
@@ -109,6 +112,7 @@ class cours_controller extends Controller
             ],500 );
         }
     }
+
     public function delete($id){
         $cour=cour::find($id);
         if($cour!=null){
@@ -124,7 +128,6 @@ class cours_controller extends Controller
                 'message'=>'Le cours n\'a pas été supprimé',
             ],500 );
         }
-
     }
 
     public function show($id){
@@ -141,6 +144,6 @@ class cours_controller extends Controller
                 'message'=>'Le cours n\'a pas été trouvé',
             ],500 );
         }
-
     }
+    
 }

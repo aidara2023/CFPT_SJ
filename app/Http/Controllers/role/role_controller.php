@@ -10,7 +10,7 @@ use App\Http\Requests\role\role_request;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class role_controller extends Controller
 {
     public function index() {
@@ -31,7 +31,7 @@ class role_controller extends Controller
      public function all_paginate(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
-        $classe=Role::orderBy('created_at', 'desc')->paginate($perPage);
+        $classe=Role::with('permissions')->orderBy('created_at', 'desc')->paginate($perPage);
         if($classe!=null){
             return response()->json([
                 'statut'=>200,
@@ -97,74 +97,122 @@ class role_controller extends Controller
     }
     
 
-/*     public function store(role_request $request){
-        $data=$request->validated();
-        $role = null;
-        $permissions = $request->input('permis');
-  foreach ($permissions as $permission) {
-                   
-            $permi = [
-                'intitule' => $request->intitule,
-                'categorie_personnel' => $request['categorie_personnel'],
-                'id_fonctionnalite' => $permission->id_fonctionnalite,
-                'read' => $permission->read,
-                'update' => $permission->update,
-                'create' => $permission->create,
-                'delete' => $permission->delete,
-            ];
 
-            $role = Role::create($permi);
-            event(new ModelCreated($role));
-       // $role=Role::create($data);
-        }
-        if($role!=null){
-            //event(new ModelCreated($role));
-            return response()->json([
-                'statut'=>200,
-                'role'=>$role
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
-            ],500 );
-        }
-    } */
-/*     public function store(role_request $request){
-        $data=$request->validated();
-        $role=Role::create($data);
-        if($role!=null){
-            event(new ModelCreated($role));
-            return response()->json([
-                'statut'=>200,
-                'role'=>$role
-            ],200)  ;
-        }else{
-            return response()->json([
-                'statut'=>500,
-                'message'=>'L\'enregistrement n\'a pas été éffectué',
-            ],500 );
-        }
-    } */
-    public function update(role_request $request, $id){
+/*     public function update(role_request $request, $id){
         $role=role::find($id);
         if($role!=null){
-           $role->intitule=$request['intitule'];
-           $role->categorie_personnel=$request['categorie_personnel'];
 
-           $role->save();
-           event(new ModelUpdated($role));
+            $data = $request->validated();
+            $permissions = json_decode($request->input('permis'), true);
+
+            $role->intitule=$data['intitule'];
+            $role->categorie_personnel=$data['categorie_personnel'];
+            $role->save();
+ 
+            event(new ModelUpdated($role));
+        
+            foreach ($permissions as $permission) {
+                $permis=Permission::find($permission['id']);
+    
+               $permis->id_fonctionnalite = $permission['id_fonctionnalite'];
+                   $permis->read = $permission['read'];
+                   $permis->update = $permission['update'];
+                   $permis->create = $permission['create'];
+                   $permis->delete = $permission['delete'];
+
+                   $permis->save();
+
+                event(new ModelUpdated($permis));
+            }
             return response()->json([
-                'statut'=>200,
-                'role'=>$role
-            ],200)  ;
+                'statut' => 200,
+                'role' => $role
+            ], 200);
         }else{
             return response()->json([
                 'statut'=>500,
                 'message'=>'La mise à jour n\'a pas été éffectué',
             ],500 );
         }
+    } */
+   
+
+public function update(role_request $request, $id)
+{
+    $role = Role::find($id);
+    if ($role) {
+        $data = $request->validated();
+        $permissions = json_decode($request->input('permis'), true);
+
+        DB::beginTransaction();
+
+        try {
+            // Mise à jour du rôle
+            $role->intitule = $data['intitule'];
+            $role->categorie_personnel = $data['categorie_personnel'];
+            $role->save();
+
+            event(new ModelUpdated($role));
+
+            // Mise à jour des permissions
+            foreach ($permissions as $permission) {
+                $permis = Permission::find($permission['id']);
+                if(""===$permission['id']){
+                    $nouvellepermission= new Permission();
+                    $nouvellepermission->id_role = $role->id;
+                    $nouvellepermission->id_fonctionnalite = $permission['id_fonctionnalite'];
+                    $nouvellepermission->read = $permission['read'];
+                    $nouvellepermission->update = $permission['update'];
+                    $nouvellepermission->create = $permission['create'];
+                    $nouvellepermission->delete = $permission['delete'];
+                    $nouvellepermission->save();
+
+                    event(new ModelCreated($nouvellepermission));
+
+                } else{
+                    if ($permis) {
+                        $permis->id_fonctionnalite = $permission['id_fonctionnalite'];
+                        $permis->read = $permission['read'];
+                        $permis->update = $permission['update'];
+                        $permis->create = $permission['create'];
+                        $permis->delete = $permission['delete'];
+                        $permis->save();
+    
+                        event(new ModelUpdated($permis));
+                    }
+                    else {
+                        // Gérer le cas où la permission n'existe pas
+                        return response()->json([
+                            'statut' => 404,
+                            'message' => 'Permission non trouvée : ' . $permission['id'],
+                        ], 404);
+                    }
+                }
+               
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'statut' => 200,
+                'role' => $role
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la mise à jour : ' . $e->getMessage(),
+            ], 500);
+        }
+    } else {
+        return response()->json([
+            'statut' => 404,
+            'message' => 'Rôle non trouvé',
+        ], 404);
     }
+}
+
     public function delete($id){
         $role=role::find($id);
         if($role!=null){

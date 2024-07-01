@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\EmploiDuTemps;
+namespace App\Http\Controllers\emploi_du_temps;
 
 use App\Events\ModelCreated;
 use App\Events\ModelDeleted;
@@ -12,7 +12,7 @@ use App\Models\emploi_du_temps;
 use Illuminate\Http\Request;
 use App\Models\EmploiDuTemps;
 
-class EmploiDuTempsController extends Controller
+class emploi_du_temps_controller extends Controller
 {
     public function all() {
         $emploiDuTemps = Emploi_du_temps::with('cour', 'anne_academique')->orderBy('created_at', 'desc')->get();
