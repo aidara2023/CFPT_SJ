@@ -57,7 +57,7 @@ use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 
 use App\Http\Controllers\editeur\editeur_view_controller;
 use App\Http\Controllers\edition\edition_view_controller;
-
+use App\Http\Controllers\emploi_du_temps\emploi_du_temps_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
 use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;
@@ -161,6 +161,10 @@ Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('dir
 
 Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
 
+
+//Route de emploi du temps
+
+Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
 
 //Route de matiere
 
