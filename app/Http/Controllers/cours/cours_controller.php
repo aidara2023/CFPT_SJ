@@ -90,7 +90,7 @@ class cours_controller extends Controller
         $cour=cour::find($id);
         if($cour!=null){
             $request->validated();
-           $cour->intitule=$request['intitule'];
+           /* $cour->intitule=$request['intitule']; */
            $cour->heure_debut=$request['heure_debut'];
            $cour->heure_fin=$request['heure_fin'];
            $cour->id_formateur=$request['id_formateur'];
