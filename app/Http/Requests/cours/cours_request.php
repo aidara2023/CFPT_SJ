@@ -22,7 +22,6 @@ class cours_request extends FormRequest
     public function rules(): array
     {
         return [
-        'intitule' => 'required',
         'heure_debut' => 'required',
         'heure_fin' => 'required',
         'date_cour' => '',
