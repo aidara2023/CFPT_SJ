@@ -22,6 +22,7 @@ class Partenaire extends Model
 
         'id_user',
         'exoneration'
+
     ];
 
     public function user (){

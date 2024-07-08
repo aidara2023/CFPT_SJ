@@ -24,41 +24,41 @@ class connexion_controller extends Controller
             // Utilisateur bloqué
             $url = '/compte-bloquer';
         } else {
-            switch ($user->role->intitule) {
-                case "Etudiant":
+            switch (strtolower($user->role->intitule)) {
+                case "etudiant":
                     $url = '/eleve/index';
                     break;
-                case "Formateur":
+                case "formateur":
                     $url = '/formateur';
                     break;
-                case "Administrateur": 
+                case "administrateur": 
                     $url = '/dashboard';
                     break;
-                case "Assistante SAF":
+                case "assistante saf":
                     $url = '/dashboard-saf';
                     break;
-                case "SAF":
+                case "saf":
                     $url = '/dashboard-saf';
                     break;
-                case "Caissier":
+                case "caissier":
                     $url = '/dashboardCaissier';
                     break;
-                case "Comptable":
+                case "comptable":
                     $url = '/dashboardComptable';
                     break;
-                case "Recouvrement":
+                case "recouvrement":
                     $url = '/dashboardCaissier';
                     break;
-                case "Infirmier":
+                case "infirmier":
                     $url = '/infirmier/index';
                     break;
-                case "Bibliothecaire":
+                case "bibliothecaire":
                     $url = '/bibliothecaire/accueil';
                     break;
-                case "Surveillant":
+                case "surveillant":
                     $url = '/surveillant-dashboard';
                     break;
-                case "Assistante DG":
+                case "assistante dg":
                     $url = '/dashboardCaissierDAF';
                     break; 
                 default:

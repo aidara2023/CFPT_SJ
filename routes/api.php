@@ -57,7 +57,7 @@ use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 
 use App\Http\Controllers\editeur\editeur_view_controller;
 use App\Http\Controllers\edition\edition_view_controller;
-
+use App\Http\Controllers\emploi_du_temps\emploi_du_temps_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
 use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;
@@ -161,6 +161,10 @@ Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('dir
 
 Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
 
+
+//Route de emploi du temps
+
+Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
 
 //Route de matiere
 
@@ -283,10 +287,12 @@ Route::get('/type_evaluation/create',[type_evaluation_view_controller::class, 'c
 
 //route partenaire
 Route::get('partenaire/index',[partenaire_controller::class, 'index'])->name('partenaire_index');
+Route::get('partenaire/all/paginate',[partenaire_controller::class, 'all_paginate'])->name('partenaire_all_paginate');
+Route::get('partenaire/get/last',[partenaire_controller::class, 'get_last'])->name('partenaire_last_values');
 Route::post('partenaire/store',[partenaire_controller::class, 'store'])->name('partenaire_store');
 Route::get('partenaire/show/{id}',[partenaire_controller::class, 'show'])->name('partenaire_show');
 Route::post('partenaire/update/{id}',[partenaire_controller::class, 'update'])->name('partenaire_update');
-Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'destroy'])->name('partenaire_delete');
+Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'delete'])->name('partenaire_delete');
 
 Route::get('/partenaire/create',[partenaire_view_controller::class, 'create'])->name('partenaire_create');
 
