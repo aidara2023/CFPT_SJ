@@ -29,7 +29,7 @@ class connexion_controller extends Controller
                     $url = '/eleve/index';
                     break;
                 case "formateur":
-                    $url = '/dashboard';
+                    $url = '/dashboardFormateur';
                     break;
                 case "administrateur": 
                     $url = '/dashboard';
