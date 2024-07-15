@@ -11,8 +11,11 @@ class emploi_du_temps extends Model
     protected $fillable =[
         'id_cour',
         'id_annee_academique',
-        'date_debut',
+        'date_debut',       
         'date_fin',
+        'heure_debut',
+        
+        'heure_fin',
        
     ];
     public function cour() {

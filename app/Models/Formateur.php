@@ -16,15 +16,19 @@ class Formateur extends Model
         'id_unite_de_formation',
         'id_user'
     ];
+
     public function user() {
         return $this->belongsTo(User::class,'id_user'); 
     }
+
     public function specialite() {
         return $this-> belongsTo(Specialite::class,'id_specialite');
     }
+
     public function cour() {
         return $this -> hasMany(Cour::class);
     }
+    
     public function notes() {
         return $this->hasMany(note::class); 
     }
