@@ -148,6 +148,7 @@ Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name(
 //Route pour la connexion
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 //Route::post('/logout',[connexion_controller::class,'logout'])->name('logout');
+Route::get('get/emploi',[emploi_du_temps_controller::class, 'getcoursfromemploidutemps'])->name('emploi_get');
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -165,6 +166,7 @@ Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->
 //Route de emploi du temps
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
+Route::post('emploidutemps/store', [emploi_du_temps_controller::class, 'store'])->name('emploi_du_temps_store');
 
 //Route de matiere
 

@@ -26,6 +26,8 @@ class emploi_du_temps_request extends FormRequest
            'id_annee_academique'=>'required',
            'date_debut'=>'required',
            'date_fin'=>'required',
+           'heure_debut'=>'required',
+           'heure_fin'=>'required',
         ];
     }
 }
