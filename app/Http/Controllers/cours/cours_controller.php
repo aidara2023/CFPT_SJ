@@ -154,8 +154,5 @@ class cours_controller extends Controller
             ], 500);
         }
     }
-<<<<<<< HEAD
-=======
-      
->>>>>>> a1681834f36d8a2b0b4bdba94a6f657eaa3b0a05
+
 }
