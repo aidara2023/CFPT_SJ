@@ -22,7 +22,7 @@ class Classe extends Model
     
     public function cour() {
         return $this -> hasMany(Cour::class);
-    }
+    }      
 
     public function unite_de_formation() {
         return $this -> belongsTo(Unite_de_formation::class,'id_unite_de_formation');
