@@ -11,7 +11,7 @@ class auteur_controller extends Controller
 
 {
     public function index() {
-        $auteur=Auteur::with('livre')->orderBy('created_at', 'desc')->get();
+        $auteur=Auteur::orderBy('created_at', 'desc')->get();
         if($auteur!=null){
             return response()->json([
                 'statut'=>200,
