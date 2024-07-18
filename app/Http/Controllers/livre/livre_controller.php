@@ -43,6 +43,9 @@ class livre_controller extends Controller
         $livre=Livre::find($id);
         if($livre!=null){
            $livre->titre_livre=$request['titre_livre'];
+           $livre->genre=$request['genre'];
+           $livre->exemplaire_disponible=$request['exemplaire_disponible'];
+           $livre->annee_publication=$request['annee_publication'];
            $livre->id_categorie=$request['id_categorie'];
            $livre->id_auteur=$request['id_auteur'];
            $livre->id_edition=$request['id_edition'];
@@ -73,6 +76,44 @@ class livre_controller extends Controller
             ],500 );
         }
        
+    }
+    public function getLastThreeBooks() {
+        $livres = Livre::orderBy('created_at', 'desc')->take(3)->get();
+        if ($livres->isNotEmpty()) {
+            return response()->json([
+                'statut' => 200,
+                'livres' => $livres
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    }
+
+    public function indexpagine(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+        $search = $request->has('search') ? $request->search : '';
+    
+        $livres = Livre::where('titre_livre', 'LIKE', "%{$search}%")
+                        ->orWhere('genre', 'LIKE', "%{$search}%")
+                        ->orWhere('annee_publication', 'LIKE', "%{$search}%")
+                        ->orWhere('exemplaire_disponible', 'LIKE', "%{$search}%")
+                        ->orderBy('created_at', 'desc')
+                        ->paginate($perPage);
+    
+        if ($livres != null) {
+            return response()->json([
+                'statut' => 200,
+                'livre' => $livres
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun enregistrement trouvé',
+            ], 500);
+        }
     }
     
     public function show($id){
