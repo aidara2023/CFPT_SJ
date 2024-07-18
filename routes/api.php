@@ -417,12 +417,12 @@ Route::get('/mois/create',[mois_view_controller::class, 'create'])->name('mois_c
 Route::get('livre/index',[livre_controller::class, 'index'])->name('livre_index');
 Route::post('livre/store',[livre_controller::class, 'store'])->name('livre_store');
 Route::get('livre/show/{id}',[livre_controller::class, 'show'])->name('livre_show');
-Route::post('livre/update/{id}',[livre_controller::class, 'update'])->name('livre_update');
+Route::get('/livre/last-three', [livre_controller::class, 'getLastThreeBooks']);
 Route::delete('livre/delete/{id}',[livre_controller::class, 'delete'])->name('livre_delete');
-
+Route::put('/livre/update/{id}', [livre_controller::class, 'update']);
 Route::get('/livre/create',[livre_view_controller::class, 'create'])->name('livre_create');
 Route::get('/livre/accueil',[livre_view_controller::class, 'accueil'])->name('livre_accueil');
-
+Route::get('/livre/index/paginate', [livre_controller::class, 'indexpagine']);
 
 //route editeur
 Route::get('editeur/index',[editeur_controller::class, 'index'])->name('editeur_index');
