@@ -62,12 +62,15 @@ class emploi_du_temps_controller extends Controller
             // Initialise un tableau pour stocker les événements
             $events = [];
     
-            // Parcourt chaque enregistrement pour le transformer en événement
+            // Parcourt chaque enregistrement pour le transformer en événement  unite_de_formation type_formation type_classe
             foreach ($emploiDuTempss as $emploiDuTemps) {
                 $events[] = [
                     'title' => $emploiDuTemps->cour->Matiere->intitule ?? 'Sans titre',
                     'start' => $emploiDuTemps->date_debut . 'T' . $emploiDuTemps->heure_debut,
                     'end' => $emploiDuTemps->date_fin . 'T' . $emploiDuTemps->heure_fin,
+                    'professeur' => $emploiDuTemps->cour->Formateur->user->nom ?? 'Aucune professeur',  // Ajouter la description ici
+                    'salle' => $emploiDuTemps->cour->Salle->intitule ?? 'Aucune salle',  // Ajouter la description ici
+                    'classe' => $emploiDuTemps->cour->Classe->type_formation->intitule ." ".$emploiDuTemps->cour->Classe->niveau." ".$emploiDuTemps->cour->Classe->nom_classe." ".$emploiDuTemps->cour->Classe->type_classe?? 'Aucune classe',  // Ajouter la description ici
                 ];
             }
     
