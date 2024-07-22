@@ -25,7 +25,7 @@ class livre_request extends FormRequest
             'titre_livre'=>'required',
             'genre' => 'nullable|string|max:255',
             'annee_publication' => 'nullable|integer|min:0',
-             'exemplaire_disponible' => 'nullable|integer|min:0',
+            'exemplaire_disponible' => 'nullable|integer|min:0',
             'id_categorie'=>'required',
             'id_auteur'=>'required',
             'id_edition'=>'required',
