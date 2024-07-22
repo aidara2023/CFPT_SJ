@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::table('livres', function (Blueprint $table) {
             //
             $table->string('genre');
-            $table->date('annee_publication');
-            $table->integer('exemplaire_disponibles');
-            
+            $table->integer('annee_publication');
+            $table->integer('exemplaire_disponible');
            
         });
     }
