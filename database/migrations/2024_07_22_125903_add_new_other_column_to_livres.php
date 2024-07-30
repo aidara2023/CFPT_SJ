@@ -12,12 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('livres', function (Blueprint $table) {
-            //
-           $table->dropColumn('genre');
-            $table->dropColumn('annee_publication');
-            $table->dropColumn('exemplaire_disponibles');
-
-           
+            $table->string('genre');
+            $table->integer('annee_publication')->nullable();
+            $table->integer('exemplaire_disponible');
         });
     }
 
@@ -27,9 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('livres', function (Blueprint $table) {
-            $table->string('genre');
-            $table->date('annee_publication')->nullable();
-            $table->integer('exemplaire_disponibles');
+            //
         });
     }
 };

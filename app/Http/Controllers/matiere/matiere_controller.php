@@ -4,6 +4,7 @@ namespace App\Http\Controllers\matiere;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\matiere\matiere_request;
+use App\Models\FormateurMatiere;
 use Illuminate\Http\Request;
 use App\Models\Matiere;
 
@@ -123,6 +124,22 @@ class matiere_controller extends Controller
             ],500 );
         }
        
+    }
+
+    public function find_professeur_assign_to_matiere($id){
+        $formateurmatiere=FormateurMatiere::with('formateur.user', 'formateur.specialite')->where('id_matiere', $id)->get();
+        if($formateurmatiere!=null){
+            return response()->json([
+                'statut'=>200,
+                'formateurmatiere'=>$formateurmatiere
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune formateur n\'à été assigné a cette matiere',
+            ],500 );
+        }
+
     }
 
 }

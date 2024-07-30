@@ -68,6 +68,7 @@ use App\Http\Controllers\financer_bourse\financer_bourse_view_controller;
 use App\Http\Controllers\fonctionnalite\fonctionnalite_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
+use App\Http\Controllers\formateurMatiere\FormateurMatiereController;
 use App\Http\Controllers\HebergementController;
 use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
@@ -167,6 +168,10 @@ Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
 Route::post('emploidutemps/store', [emploi_du_temps_controller::class, 'store'])->name('emploi_du_temps_store');
+Route::post('planification/emploidutemps/store', [emploi_du_temps_controller::class, 'store_planification'])->name('planification_emploi_du_temps_store');
+Route::post('/generate-schedule', [emploi_du_temps_controller::class, 'generateSchedule']);
+Route::post('/save-schedule', [emploi_du_temps_controller::class, 'saveSchedule']);
+
 
 //Route de matiere
 
@@ -176,6 +181,8 @@ Route::post('matiere/store',[matiere_controller::class, 'store'])->name('matiere
 Route::post('matiere/update/{id}', [matiere_controller::class, 'update'])->name('matiere_update');
 Route::delete('matiere/delete/{id}',[matiere_controller::class, 'delete'])->name('matiere_delete');
 Route::get('matiere/get',[matiere_controller::class, 'get_five_laste'])->name('matiere_get');
+Route::get('matiere/find/formateur/assign/{id}',[matiere_controller::class,'find_professeur_assign_to_matiere'])->name('matiere_find_professeur_assign');
+
 
 Route::get('/matiere/create',[matiere_view_controller::class, 'create'])->name('matiere_create');
 //annee academique
@@ -621,11 +628,23 @@ Route::delete('consultation/delete/{id}',[consultation_controller::class, 'delet
 Route::get('/consultation/create',[consultation_view_controller::class, 'create'])->name('consultation_create');
 
 
+//Route pour formateur Matiere
+
+Route::get('matiere/formateur/index',[FormateurMatiereController::class, 'index'])->name('matiere_formateur_index');
+Route::get('matiere/formateur/all/paginate',[FormateurMatiereController::class, 'all_paginate'])->name('matiere_formateur_all_paginate');
+Route::post('matiere/formateur/store',[FormateurMatiereController::class, 'store_matiere_professeur'])->name('matiere_formateur_store');
+Route::delete('matiere/formateur/delete/{id}',[FormateurMatiereController::class, 'delete'])->name('matiere_formateur_delete');
+
+
+
 //Route pour formateur
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
 Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
 Route::get('formateur/show/{id}',[formateur_controller::class,'show'])->name('formateur_show');
+Route::get('formateur/find/by/unite/formation/{id}',[formateur_controller::class,'get_formateur_by_id_uniteformation'])->name('get_formateur_by_id_uniteformation');
+Route::get('formateur/find/professeur/{id}',[formateur_controller::class,'find_professeur'])->name('formateur_find_professeur');
+Route::get('formateur/find/matiere/professeur/{id}',[formateur_controller::class,'find_matiere_professeur'])->name('formateur_find_matiere_professeur');
 Route::post('formateur/update/{id}',[formateur_controller::class,'update'])->name('formateur_update');
 Route::delete('formateur/delete/{id}',[formateur_controller::class, 'delete'])->name('formateur_delete');
 

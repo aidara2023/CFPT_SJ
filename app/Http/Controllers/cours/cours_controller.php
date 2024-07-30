@@ -14,7 +14,7 @@ class cours_controller extends Controller
 {
     public function all()
     {
-        $cour = Cour::with('Classe', 'Formateur.user', 'Matiere', 'Salle', 'Semestre')->orderBy('created_at', 'desc')->get();
+        $cour = Cour::with('Classe', 'Formateur.user', 'Matiere', 'annee', 'Semestre')->orderBy('created_at', 'desc')->get();
         if ($cour != null) {
             return response()->json([
                 'statut' => 200,
@@ -32,7 +32,7 @@ class cours_controller extends Controller
     {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
-        $cour = Cour::with('classe', 'formateur.user', 'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->paginate($perPage);
+        $cour = Cour::with('classe', 'formateur.user', 'matiere', 'annee', 'semestre')->orderBy('created_at', 'desc')->paginate($perPage);
         if ($cour != null) {
             return response()->json([
                 'statut' => 200,
@@ -48,7 +48,7 @@ class cours_controller extends Controller
 
     public function get_last_value()
     {
-        $cour = Cour::with('classe', 'formateur.user', 'matiere', 'salle', 'semestre')->orderBy('created_at', 'desc')->take(5)->get();
+        $cour = Cour::with('classe', 'formateur.user', 'matiere', 'annee', 'semestre')->orderBy('created_at', 'desc')->take(5)->get();
         if ($cour != null) {
             return response()->json([
                 'statut' => 200,
@@ -68,12 +68,12 @@ class cours_controller extends Controller
 
         /*         $verification =cour::where([['intitule','=', $request['intitule']],['date_cour','=', $request['date_cour']],['id_formateur','=', $request['id_formateur']]])->get();
  */
-        $verification = cour::where([['date_cour', '=', $request['date_cour']], ['id_formateur', '=', $request['id_formateur']]])->get();
+        $verification = cour::where([['id_classe', '=', $request['id_classe']], ['id_formateur', '=', $request['id_formateur']],  ['id_matiere', '=', $request['id_matiere']],  ['id_annee_academique', '=', $request['id_annee_academique']],  ['id_semestre', '=', $request['id_semestre']]])->get();
 
         if ($verification->count() != 0) {
             return response()->json([
                 'statut' => 404,
-                'message' => 'Cette cour existe déja',
+                'message' => 'Ce cours existe deja',
             ], 404);
         } else {
             $cour = cour::create($data);
@@ -98,11 +98,11 @@ class cours_controller extends Controller
         if ($cour != null) {
             $request->validated();
             /* $cour->intitule=$request['intitule']; */
-            $cour->heure_debut = $request['heure_debut'];
-            $cour->heure_fin = $request['heure_fin'];
+           /*  $cour->heure_debut = $request['heure_debut'];
+            $cour->heure_fin = $request['heure_fin']; */
             $cour->id_formateur = $request['id_formateur'];
             $cour->id_classe = $request['id_classe'];
-            $cour->id_salle = $request['id_salle'];
+            $cour->id_annee_academique = $request['id_annee_academique'];
             $cour->id_matiere = $request['id_matiere'];
             $cour->id_semestre = $request['id_semestre'];
 
@@ -140,7 +140,7 @@ class cours_controller extends Controller
 
     public function show($id)
     {
-        $cour = cour::with('classe', 'formateur', 'matiere', 'salle', 'semestre')->find($id);
+        $cour = cour::with('classe', 'formateur', 'matiere', 'annee', 'semestre')->find($id);
 
         if ($cour != null) {
             return response()->json([
