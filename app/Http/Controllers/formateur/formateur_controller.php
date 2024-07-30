@@ -5,6 +5,8 @@ namespace App\Http\Controllers\formateur;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\formateur\formateur_request;
 use App\Models\Formateur;
+use App\Models\FormateurMatiere;
+use App\Models\Unite_de_formation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -96,6 +98,69 @@ class formateur_controller extends Controller
             return response()->json([
                 'statut'=>500,
                 'message'=>'Le formateur n\'existe pas',
+            ],500 );
+        }
+
+    }
+    public function find_professeur($id){
+        $formateur=Formateur::where('id_user', $id)->first();
+        if($formateur!=null){
+            return response()->json([
+                'statut'=>200,
+                'formateur'=>$formateur
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Le formateur n\'existe pas',
+            ],500 );
+        }
+
+    }
+
+    public function get_formateur_by_id_uniteformation($id){
+        // Rechercher toutes les unités de formation associées au département
+        $unite_de_formation = Unite_de_formation::where('id_departement', $id)->get();
+    
+        if ($unite_de_formation->isEmpty()) {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune unité de formation trouvée pour ce département',
+            ], 500);
+        }
+    
+        // Accumuler tous les formateurs associés aux unités de formation
+        $formateurs = [];
+        foreach ($unite_de_formation as $unite) {
+            $formateurs_unite = Formateur::with('user')->where('id_unite_de_formation', $unite->id)->get();
+            $formateurs = array_merge($formateurs, $formateurs_unite->toArray());
+        }
+    
+        if (!empty($formateurs)) {
+            return response()->json([
+                'statut' => 200,
+                'formateur' => $formateurs
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun formateur trouvé pour ce département',
+            ], 500);
+        }
+    }
+    
+
+    public function find_matiere_professeur($id){
+        $matiereformateur=FormateurMatiere::with('matiere')->where('id_formateur', $id)->get();
+        if($matiereformateur!=null){
+            return response()->json([
+                'statut'=>200,
+                'matiereformateur'=>$matiereformateur
+            ],200)  ;
+        }else{
+            return response()->json([
+                'statut'=>500,
+                'message'=>'Aucune matiere n\'à été assigné a ce professeur',
             ],500 );
         }
 

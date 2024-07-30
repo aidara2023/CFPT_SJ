@@ -14,12 +14,15 @@ class emploi_du_temps extends Model
         'date_debut',       
         'date_fin',
         'heure_debut',
-        
         'heure_fin',
+        'id_salle',
        
     ];
     public function cour() {
         return $this -> belongsTo(Cour::class, 'id_cour');
+    }
+    public function salle() {
+        return $this -> belongsTo(Salle::class, 'id_salle');
     }
     public function annee_academique() {
         return $this -> belongsTo(Annee_academique::class, 'id_annee_academique');

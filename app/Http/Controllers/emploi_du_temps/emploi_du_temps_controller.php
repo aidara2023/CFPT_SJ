@@ -8,10 +8,13 @@ use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\emploi_du_temps\emploi_du_temps_request;
 use App\Http\Requests\EmploiDuTempsRequest;
+use App\Models\Annee_academique;
 use App\Models\Cour;
 use App\Models\emploi_du_temps;
 use Illuminate\Http\Request;
 use App\Models\EmploiDuTemps;
+use App\Models\Salle;
+use Carbon\Carbon;
 
 class emploi_du_temps_controller extends Controller
 {
@@ -32,7 +35,7 @@ class emploi_du_temps_controller extends Controller
 
     public function getcoursfromemploidutemps(Request $request) {
         // Initialise la requête pour inclure les relations nécessaires
-        $query = Emploi_du_temps::with(['cour.Matiere', 'cour.Classe', 'cour.Semestre'])
+        $query = Emploi_du_temps::with(['cour.Matiere', 'cour.Classe', 'cour.Semestre', 'salle'])
                                  ->orderBy('created_at', 'desc');
     
         // Filtrage par année académique
@@ -69,7 +72,7 @@ class emploi_du_temps_controller extends Controller
                     'start' => $emploiDuTemps->date_debut . 'T' . $emploiDuTemps->heure_debut,
                     'end' => $emploiDuTemps->date_fin . 'T' . $emploiDuTemps->heure_fin,
                     'professeur' => $emploiDuTemps->cour->Formateur->user->nom ?? 'Aucune professeur',  // Ajouter la description ici
-                    'salle' => $emploiDuTemps->cour->Salle->intitule ?? 'Aucune salle',  // Ajouter la description ici
+                    'salle' => $emploiDuTemps->salle->intitule ?? 'Aucune salle',  // Ajouter la description ici
                     'classe' => $emploiDuTemps->cour->Classe->type_formation->intitule ." ".$emploiDuTemps->cour->Classe->niveau." ".$emploiDuTemps->cour->Classe->nom_classe." ".$emploiDuTemps->cour->Classe->type_classe?? 'Aucune classe',  // Ajouter la description ici
                 ];
             }
@@ -183,6 +186,7 @@ class emploi_du_temps_controller extends Controller
             ['date_debut', '=', $request['date_debut']],
             ['date_fin', '=', $request['date_fin']],
             ['id_cour', '=', $request['id_cour']],
+            ['id_salle', '=', $request['id_salle']],
             ['id_annee_academique', '=', $request['id_annee_academique']]
         ])->get();
 
@@ -207,6 +211,197 @@ class emploi_du_temps_controller extends Controller
             }
         }
     }
+   /*  public function store_planification(Request $request){
+       // $data = $request->validated();
+        $planifications = json_decode($request->input('emploiplanifiers'), true);
+    
+        foreach ($planifications as $planification) {
+       
+            $planif = [
+                'id_cour' => $planification['id_cour'],
+                'id_annee_academique' => $planification['id_annee_academique'],
+                'date_debut' => $planification['date_debut'],
+                'date_fin' => $planification['date_fin'],
+                'heure_debut' => $planification['heure_debut'],
+                'heure_fin' => $planification['heure_fin'],
+                'id_salle' => $planification['id_salle'],
+            ];
+    
+            $emploiplanifier = Emploi_du_temps::create($planif);
+            event(new ModelCreated($emploiplanifier));
+        }
+    
+        if(isset($emploiplanifier)){
+            return response()->json([
+                'statut'=>200,
+                'role'=>$emploiplanifier
+            ],200);
+        } else {
+            return response()->json([
+                'statut'=>500,
+                'message'=>'L\'enregistrement n\'a pas été effectué',
+            ],500);
+        }
+    } */
+  /*   public function store_planification(Request $request)
+{
+    $planifications = json_decode($request->input('emploiplanifiers'), true);
+
+    foreach ($planifications as $planification) {
+        // Check if repetition is set, otherwise default to 'aucune'
+        $repetition = isset($planification['repetition']) ? $planification['repetition'] : 'aucune';
+        $repeatedPlanifications = $this->generateRepetitions($planification, $repetition);
+
+        foreach ($repeatedPlanifications as $planif) {
+            $emploiplanifier = Emploi_du_temps::create($planif);
+            event(new ModelCreated($emploiplanifier));
+        }
+    }
+
+    if (isset($emploiplanifier)) {
+        return response()->json([
+            'statut' => 200,
+            'role' => $emploiplanifier
+        ], 200);
+    } else {
+        return response()->json([
+            'statut' => 500,
+            'message' => 'L\'enregistrement n\'a pas été effectué',
+        ], 500);
+    }
+}
+
+private function generateRepetitions($planification, $repetition)
+{
+    $repeatedPlanifications = [];
+    $intervalDays = 0;
+    $repeatCount = 1; // Default to 1 to handle 'aucune' case
+
+    switch ($repetition) {
+        case 'semaine':
+            $intervalDays = 7; // Repeat weekly
+            $repeatCount = 4; // Repeat for 4 weeks
+            break;
+        case 'mois':
+            $intervalDays = 30; // Repeat monthly
+            $repeatCount = 2; // Repeat for 2 months
+            break;
+    }
+
+    $currentStartDate = new \DateTime($planification['date_debut']);
+    $currentEndDate = new \DateTime($planification['date_fin']);
+
+    for ($i = 0; $i < $repeatCount; $i++) {
+        $newPlanification = [
+            'id_cour' => $planification['id_cour'],
+            'id_annee_academique' => $planification['id_annee_academique'],
+            'date_debut' => $currentStartDate->format('Y-m-d'),
+            'date_fin' => $currentEndDate->format('Y-m-d'),
+            'heure_debut' => $planification['heure_debut'],
+            'heure_fin' => $planification['heure_fin'],
+            'id_salle' => $planification['id_salle'],
+        ];
+        $repeatedPlanifications[] = $newPlanification;
+
+        $currentStartDate->modify("+$intervalDays days");
+        $currentEndDate->modify("+$intervalDays days");
+    }
+
+    return $repeatedPlanifications;
+} */
+public function store_planification(Request $request)
+{
+    $planifications = json_decode($request->input('emploiplanifiers'), true);
+
+    foreach ($planifications as $planification) {
+        // Check if repetition is set, otherwise default to 'aucune'
+        $repetition = isset($planification['repetition']) ? $planification['repetition'] : 'aucune';
+        $repeatedPlanifications = $this->generateRepetitions($planification, $repetition);
+
+        foreach ($repeatedPlanifications as $planif) {
+            // Check room availability
+            if ($this->isRoomAvailable($planif['id_salle'], $planif['date_debut'], $planif['heure_debut'], $planif['heure_fin'])) {
+                $emploiplanifier = Emploi_du_temps::create($planif);
+                event(new ModelCreated($emploiplanifier));
+            } else {
+                return response()->json([
+                    'statut' => 409, // Conflict status code
+                    'message' => 'La salle ' . $planif['id_salle'] . ' est déjà occupée pour la période sélectionnée.',
+                ], 409);
+            }
+        }
+    }
+
+    if (isset($emploiplanifier)) {
+        return response()->json([
+            'statut' => 200,
+            'role' => $emploiplanifier
+        ], 200);
+    } else {
+        return response()->json([
+            'statut' => 500,
+            'message' => 'L\'enregistrement n\'a pas été effectué',
+        ], 500);
+    }
+}
+
+private function isRoomAvailable($roomId, $date, $startTime, $endTime)
+{
+    $conflict = Emploi_du_temps::where('id_salle', $roomId)
+        ->where('date_debut', $date)
+        ->where(function ($query) use ($startTime, $endTime) {
+            $query->whereBetween('heure_debut', [$startTime, $endTime])
+                  ->orWhereBetween('heure_fin', [$startTime, $endTime])
+                  ->orWhere(function ($query) use ($startTime, $endTime) {
+                      $query->where('heure_debut', '<=', $startTime)
+                            ->where('heure_fin', '>=', $endTime);
+                  });
+        })
+        ->exists();
+
+    return !$conflict;
+}
+
+private function generateRepetitions($planification, $repetition)
+{
+    $repeatedPlanifications = [];
+    $intervalDays = 0;
+    $repeatCount = 1; // Default to 1 to handle 'aucune' case
+
+    switch ($repetition) {
+        case 'semaine':
+            $intervalDays = 7; // Repeat weekly
+            $repeatCount = 4; // Repeat for 4 weeks
+            break;
+        case 'mois':
+            $intervalDays = 30; // Repeat monthly
+            $repeatCount = 2; // Repeat for 2 months
+            break;
+    }
+
+    $currentStartDate = new \DateTime($planification['date_debut']);
+    $currentEndDate = new \DateTime($planification['date_fin']);
+
+    for ($i = 0; $i < $repeatCount; $i++) {
+        $newPlanification = [
+            'id_cour' => $planification['id_cour'],
+            'id_annee_academique' => $planification['id_annee_academique'],
+            'date_debut' => $currentStartDate->format('Y-m-d'),
+            'date_fin' => $currentEndDate->format('Y-m-d'),
+            'heure_debut' => $planification['heure_debut'],
+            'heure_fin' => $planification['heure_fin'],
+            'id_salle' => $planification['id_salle'],
+        ];
+        $repeatedPlanifications[] = $newPlanification;
+
+        $currentStartDate->modify("+$intervalDays days");
+        $currentEndDate->modify("+$intervalDays days");
+    }
+
+    return $repeatedPlanifications;
+}
+
+
 
     public function update(emploi_du_temps_request $request, $id) {
         $emploiDuTemps = Emploi_du_temps::find($id);
@@ -262,5 +457,122 @@ class emploi_du_temps_controller extends Controller
                 'message' => 'L\'emploi du temps n\'a pas été trouvé',
             ], 500);
         }
+    }
+
+
+public function generateSchedule(Request $request)
+{
+    $data = $request->all();
+    
+    // Extract parameters
+    $totalHours = $data['totalHours'];
+    $durationPerSession = $data['durationPerSession'];
+    $offset = $data['offset'];
+    $numberOfWeeks = $data['numberOfWeeks'];
+    $courseTimes = $data['courseTimes'];
+    $selectedCourses = $data['selectedCourses'];
+    
+    // Determine time slots
+    $timeSlots = ($courseTimes == 'morning') 
+        ? ['08:00', '09:00', '10:00', '11:00', '12:00']
+        : ['14:00', '15:00', '16:00', '17:00'];
+    
+    $events = [];
+    $startDate = Carbon::now();
+    $existingSchedules = emploi_du_temps::whereBetween('date_debut', [$startDate->format('Y-m-d'), $startDate->addWeeks($numberOfWeeks)->format('Y-m-d')])
+    ->get();
+    
+    foreach ($selectedCourses as $courseId) {
+        $course = Cour::find($courseId);
+        for ($week = 0; $week < $numberOfWeeks; $week++) {
+            foreach ($timeSlots as $timeSlot) {
+                if ($totalHours <= 0) break;
+                
+                $startTime = Carbon::parse($timeSlot);
+                $endTime = $startTime->copy()->addMinutes($durationPerSession * 60);
+                $currentDate = $startDate->copy()->addWeeks($week)->format('Y-m-d');
+                
+                // Check room availability
+               // $availableRoom = $this->findAvailableRoom($currentDate, $startTime, $endTime);
+                $availableRoom = $this->findAvailableRoom($currentDate, $startTime, $endTime, $existingSchedules);
+
+                
+                if ($availableRoom) {
+                    // Generate event for each selected course
+                    $events[] = [
+                        'title' => $course->Matiere->intitule,
+                        'id_cour' => $course->id,
+                        'start' => $currentDate . 'T' . $startTime->format('H:i:s'),
+                        'end' => $currentDate . 'T' . $endTime->format('H:i:s'),
+                      
+                        'professeur' => $course->Formateur->user->nom ?? 'Aucune professeur',
+'salle' => $availableRoom->intitule ?? 'Aucune salle', 
+'id_salle' => $availableRoom->id, 
+ 'classe' => $course->Classe->type_formation->intitule ." ".$course->Classe->niveau." ".$course->Classe->nom_classe." ".$course->Classe->type_classe?? 'Aucune classe',
+                    ];
+
+                    $totalHours -= $durationPerSession;
+
+                    // Apply offset for next session
+                    $startDate->addDays($offset);
+                } else {
+                    // If no room is available, you might want to handle it
+                    // For example, you can skip the session or log a warning
+                }
+            }
+        }
+    }
+    
+    return response()->json(['events' => $events]);
+}
+
+
+private function findAvailableRoom($date, $startTime, $endTime, $existingSchedules)
+{
+    $rooms = Salle::all(); // Assuming you have a Salle model for rooms
+    
+    foreach ($rooms as $room) {
+        $isAvailable = true;
+        foreach ($existingSchedules as $schedule) {
+            if ($schedule->id_salle == $room->id &&
+                $schedule->date_debut == $date &&
+                !($endTime <= Carbon::parse($schedule->heure_debut) || $startTime >= Carbon::parse($schedule->heure_fin))) {
+                $isAvailable = false;
+                break;
+            }
+        }
+        
+        if ($isAvailable) {
+            return $room;
+        }
+    }
+    
+    return null; // No available room found
+}
+
+
+    public function saveSchedule(Request $request)
+    {
+        $events = $request->events;
+        $currentYear = Carbon::now()->year;
+
+// Construct the academic year string, e.g., "2023 - 2024"
+$academicYearString = ($currentYear - 1) . ' - ' . $currentYear;
+$academicYear = Annee_academique::where('intitule', $academicYearString)->first();
+
+        
+        foreach ($events as $event) {
+            emploi_du_temps::create([
+                'id_cour' => $event['id_cour'], // Assuming you send courseId with the event
+                'id_annee_academique' => $academicYear->id, // Assuming you send yearId with the event
+                'date_debut' => Carbon::parse($event['start'])->toDateString(),
+                'date_fin' => Carbon::parse($event['start'])->toDateString(),
+                'heure_debut' => Carbon::parse($event['start'])->toTimeString(),
+                'heure_fin' => Carbon::parse($event['end'])->toTimeString(),
+                'id_salle' => $event['id_salle'], // Assuming you send roomId with the event
+            ]);
+        }
+        
+        return response()->json(['success' => true]);
     }
 }

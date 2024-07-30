@@ -23,6 +23,7 @@ class emploi_du_temps_request extends FormRequest
     {
         return [
            'id_cour'=>'required',
+           'id_salle'=>'required',
            'id_annee_academique'=>'required',
            'date_debut'=>'required',
            'date_fin'=>'required',

@@ -10,13 +10,13 @@ class Cour extends Model
     use HasFactory;
     protected $fillable =[
         'id_cours',
-        'heure_debut',
-        'heure_fin',
+     /*    'heure_debut',
+        'heure_fin', */
         'id_classe',
         'id_formateur',
         'id_matiere',
-        'id_salle',
-        'date_cour',
+        'id_annee_academique',
+        /* 'date_cour', */
         'id_semestre'
     ];
 
@@ -40,8 +40,8 @@ class Cour extends Model
         return $this->hasMany(Emploi_du_temps::class);
     }
 
-    public function Salle(){
-        return $this->belongsTo(Salle::class, 'id_salle');
+    public function annee(){
+        return $this->belongsTo(Annee_academique::class, 'id_annee_academique');
     }
 
     public function Formateur(){
