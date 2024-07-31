@@ -154,4 +154,20 @@ class cours_controller extends Controller
             ], 500);
         }
     }
+    public function find_cours_by_id_classe($id)
+    {
+        $cour = cour::with('Classe', 'Formateur.user', 'Matiere', 'annee', 'Semestre')->where('id_classe', $id)->get();
+
+        if ($cour != null) {
+            return response()->json([
+                'statut' => 200,
+                'cour' => $cour
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Le cours n\'a pas été trouvé',
+            ], 500);
+        }
+    }
 }

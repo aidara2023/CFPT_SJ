@@ -44,6 +44,7 @@ class service_controller extends Controller
         }
      }
 
+ 
      public function get_five_laste() {
         $services = Service::with('user', 'direction')
             ->orderBy('created_at', 'desc')
