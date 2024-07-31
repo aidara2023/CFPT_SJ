@@ -29,7 +29,7 @@ return new class extends Migration
             $table->date('date_cour');
             $table->string('heure_debut');
             $table->string('heure_fin');
-            $table->foreign('id_salle')->references('id')->on('salles')->onDelete('cascade');
+           // $table->foreign('id_salle')->references('id')->on('salles')->onDelete('cascade');
 
         });
     }
