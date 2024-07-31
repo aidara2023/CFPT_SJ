@@ -334,10 +334,12 @@ Route::get('/participer/create',[participer_view_controller::class, 'create'])->
 
 //route specialite
 Route::get('specialite/index',[specialite_controller::class, 'index'])->name('specialite_index');
+Route::get('specialite/all/paginate',[specialite_controller::class, 'all_paginate'])->name('specialite_all_paginate');
+Route::get('specialite/get/last',[specialite_controller::class, 'get_five_laste'])->name('specialite_get_last');
 Route::post('specialite/store',[specialite_controller::class, 'store'])->name('specialite_store');
 Route::get('specialite/show/{id}',[specialite_controller::class, 'show'])->name('specialite_show');
 Route::post('specialite/update/{id}',[specialite_controller::class, 'update'])->name('specialite_update');
-Route::delete('specialite/delete/{id}',[specialite_controller::class, 'destroy'])->name('specialite_delete');
+Route::delete('specialite/delete/{id}',[specialite_controller::class, 'delete'])->name('specialite_delete');
 
 Route::get('/specialite/create',[specialite_view_controller::class, 'create'])->name('specialite_create');
 
@@ -585,6 +587,7 @@ Route::get('cour/all/paginate',[cours_controller::class, 'all_paginate'])->name(
 Route::get('cour/get/last',[cours_controller::class, 'get_last_value'])->name('cour_get_last');
 Route::post('cour/store',[cours_controller::class, 'store'])->name('cour_store');
 Route::get('cour/show/{id}',[cours_controller::class,'show'])->name('cour_show');
+Route::get('find/cours/by/classe/{id}',[cours_controller::class,'find_cours_by_id_classe'])->name('cour_show');
 Route::post('cour/update/{id}',[cours_controller::class,'update'])->name('cour_update');
 Route::delete('cour/delete/{id}',[cours_controller::class, 'delete'])->name('cour_delete');
 
