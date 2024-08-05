@@ -13,8 +13,10 @@ use App\Models\Cour;
 use App\Models\emploi_du_temps;
 use Illuminate\Http\Request;
 use App\Models\EmploiDuTemps;
+use App\Models\Formateur;
 use App\Models\Salle;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class emploi_du_temps_controller extends Controller
 {
@@ -574,5 +576,27 @@ $academicYear = Annee_academique::where('intitule', $academicYearString)->first(
         }
         
         return response()->json(['success' => true]);
+    }
+
+    public function afficherEmploiDuTemps()
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user(); 
+
+        // Trouver le formateur correspondant à cet utilisateur
+        $formateur = Formateur::where('id_user', $user->id)->first();
+
+        if (!$formateur) {
+            return response()->json(['message' => 'Formateur non trouvé'], 404);
+        }
+
+        // Récupérer les cours du formateur
+        $cours = Cour::where('id_formateur', $formateur->id)->get();
+
+        // Récupérer l'emploi du temps des cours du formateur
+        $emploiDuTemps = Emploi_du_temps::whereIn('id_cours', $cours->pluck('id'))->get();
+
+        // Retourner la vue avec l'emploi du temps
+        return view('emploi_du_temps', compact('emploiDuTemps'));
     }
 }
