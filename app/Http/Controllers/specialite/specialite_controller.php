@@ -27,6 +27,39 @@ class specialite_controller extends Controller
             ] ,500);
         }
     }
+    public function all_paginate(Request $request) {
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+
+        $specialite=Specialite::orderBy('created_at', 'desc')->paginate($perPage);
+        if($specialite!=null){
+            return response()->json([
+                'statut'=>200,
+                'specialite'=>$specialite
+            ],200)  ;
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
+     public function get_five_laste() {
+        $specialite = Specialite::orderBy('created_at', 'desc')
+            ->take(5) // Ajout de cette ligne pour récupérer les 5 derniers enregistrements
+            ->get();
+    
+        if ($specialite->count() > 0) {
+            return response()->json([
+                'statut' => 200,
+                'specialite' => $specialite
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    }
 
     public function store(specialite_request $request){
         $data = $request -> validated();

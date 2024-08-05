@@ -476,8 +476,8 @@ public function generateSchedule(Request $request)
     
     // Determine time slots
     $timeSlots = ($courseTimes == 'morning') 
-        ? ['08:00', '09:00', '10:00', '11:00', '12:00']
-        : ['14:00', '15:00', '16:00', '17:00'];
+        ? ['08:00', '09:00', '10:00', '11:00', '13:00']
+        : ['14:30', '15:00', '16:00', '16:30'];
     
     $events = [];
     $startDate = Carbon::now();
