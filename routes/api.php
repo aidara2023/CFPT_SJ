@@ -150,7 +150,7 @@ Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name(
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 //Route::post('/logout',[connexion_controller::class,'logout'])->name('logout');
 Route::get('get/emploi',[emploi_du_temps_controller::class, 'getcoursfromemploidutemps'])->name('emploi_get');
-Route::get('get/emploiformateur',[emploi_du_temps_controller::class, 'afficherEmploiDuTemps'])->name('emploi_get_formateur');
+Route::get('get/formateur/schedule',[emploi_du_temps_controller::class, 'getFormateurSchedule'])->name('emploi_get_formateur');
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -172,6 +172,8 @@ Route::post('emploidutemps/store', [emploi_du_temps_controller::class, 'store'])
 Route::post('planification/emploidutemps/store', [emploi_du_temps_controller::class, 'store_planification'])->name('planification_emploi_du_temps_store');
 Route::post('/generate-schedule', [emploi_du_temps_controller::class, 'generateSchedule']);
 Route::post('/save-schedule', [emploi_du_temps_controller::class, 'saveSchedule']);
+Route::get('emploi-du-temps/formateur',[emploi_du_temps_controller::class, 'getEmploiDuTempsForConnectedFormateur'])->name('emploi_get_formateurs');
+
 
 
 //Route de matiere
@@ -644,6 +646,8 @@ Route::delete('matiere/formateur/delete/{id}',[FormateurMatiereController::class
 //Route pour formateur
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
+Route::get('formateur/getClassesByFormateur',[formateur_controller::class, 'getClassesByFormateur'])->name('formateur_classe_formateur');
+Route::get('formateur/getClassesByFormateurs',[formateur_controller::class, 'getClassesByFormateurs'])->name('formateur_classe_formateurs');
 Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
 Route::get('formateur/show/{id}',[formateur_controller::class,'show'])->name('formateur_show');
 Route::get('formateur/find/by/unite/formation/{id}',[formateur_controller::class,'get_formateur_by_id_uniteformation'])->name('get_formateur_by_id_uniteformation');

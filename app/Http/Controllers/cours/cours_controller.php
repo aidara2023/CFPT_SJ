@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\cours\cours_request;
 use App\Models\Cour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class cours_controller extends Controller
 {
@@ -170,4 +171,21 @@ class cours_controller extends Controller
             ], 500);
         }
     }
+    /* public function getCoursesForConnectedTrainer(Request $request)
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
+        
+        // Vérifier si l'utilisateur est un formateur
+        if ($user->formateur()->exists()) {
+            $formateur = $user->formateur()->first();
+
+            // Récupérer les cours associés au formateur
+            $cours = Cour::where('id_formateur', $formateur->id)->with(['matiere', 'classe', 'semestre', 'annee'])->get();
+
+            return response()->json($cours);
+        } else {
+            return response()->json(['message' => 'L\'utilisateur connecté n\'est pas un formateur'], 403);
+        }
+    } */
 }

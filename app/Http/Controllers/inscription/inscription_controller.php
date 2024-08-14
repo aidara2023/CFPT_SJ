@@ -270,27 +270,25 @@ class inscription_controller extends Controller
             ],500 );
         }
     }
-    public function get_classe_by_filiere($id){
-        $classe=Classe::with('unite_de_formation', 'type_formation')->where('id_unite_de_formation', $id)->get();
-
-        if($classe!=null){
+    public function get_classe_by_filiere($id)
+    {
+        $classe = Classe::with('unite_de_formation', 'type_formation')
+                        ->where('id_unite_de_formation', $id)
+                        ->get();
+    
+        if (!$classe->isEmpty()) {
             return response()->json([
-                'statut'=>200,
-                'classe'=>$classe
-            ],200)  ;
-        }else{
+                'statut' => 200,
+                'classe' => $classe
+            ], 200);
+        } else {
             return response()->json([
-                'statut'=>500,
-                'message'=>'Classe introuvable ',
-            ],500 );
+                'statut' => 404,
+                'message' => 'Classe introuvable',
+            ], 404);
         }
-       
-
-
-
-        
-
-     }
+    }
+    
     public function getEleveIdByInscriptionId($id)
     {
         $inscription = Inscription::with( 'eleve.user', 'classe' , 'annee_academique')->find($id);

@@ -578,25 +578,64 @@ $academicYear = Annee_academique::where('intitule', $academicYearString)->first(
         return response()->json(['success' => true]);
     }
 
-    public function afficherEmploiDuTemps()
-    {
-        // Récupérer l'utilisateur connecté
-        $user = Auth::user(); 
-
-        // Trouver le formateur correspondant à cet utilisateur
-        $formateur = Formateur::where('id_user', $user->id)->first();
-
-        if (!$formateur) {
-            return response()->json(['message' => 'Formateur non trouvé'], 404);
+    
+    
+    
+    public function getEmploiDuTempsForConnectedFormateur(Request $request) {
+        // Vérifie si l'utilisateur est connecté
+        if (!Auth::check()) {
+            return response()->json([
+                'statut' => 404,
+                'message' => 'Utilisateur non authentifié.',
+            ], 404);
         }
-
-        // Récupérer les cours du formateur
-        $cours = Cour::where('id_formateur', $formateur->id)->get();
-
-        // Récupérer l'emploi du temps des cours du formateur
-        $emploiDuTemps = Emploi_du_temps::whereIn('id_cours', $cours->pluck('id'))->get();
-
-        // Retourner la vue avec l'emploi du temps
-        return view('emploi_du_temps', compact('emploiDuTemps'));
+    
+        // Obtenir l'utilisateur connecté
+        $user = Auth::user();
+        
+        // Vérifier que l'utilisateur est bien associé à un formateur
+        $formateur = $user->formateur->first(); // Utilisez first() pour obtenir le premier formateur
+        if (!$formateur) {
+            return response()->json([
+                'statut' => 404,
+                'message' => 'Formateur non trouvé pour l\'utilisateur connecté.',
+            ], 404);
+        }
+    
+        $formateurId = $formateur->id;
+    
+        // Filtrer les emplois du temps pour le formateur connecté
+        $emploiDuTemps = Emploi_du_temps::with(['cour.matiere', 'cour.classe', 'cour.semestre', 'salle'])
+            ->whereHas('cour', function ($query) use ($formateurId) {
+                $query->where('id_formateur', $formateurId);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        if ($emploiDuTemps->isNotEmpty()) {
+            // Transformer les résultats en événements pour l'affichage
+            $events = [];
+            foreach ($emploiDuTemps as $emploi) {
+                $events[] = [
+                    'title' => $emploi->cour->matiere->intitule ?? 'Sans titre',
+                    'start' => $emploi->date_debut . 'T' . $emploi->heure_debut,
+                    'end' => $emploi->date_fin . 'T' . $emploi->heure_fin,
+                    'professeur' => $emploi->cour->formateur->user->nom ?? 'Aucun professeur',
+                    'salle' => $emploi->salle->intitule ?? 'Aucune salle',
+                    'classe' => $emploi->cour->classe->type_formation->intitule . " " . $emploi->cour->classe->niveau . " " . $emploi->cour->classe->nom_classe . " " . $emploi->cour->classe->type_classe ?? 'Aucune classe',
+                ];
+            }
+    
+            return response()->json($events);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucun emploi du temps trouvé pour le formateur connecté.',
+            ], 500);
+        }
     }
+    
+    
+    
+    
 }
