@@ -9,6 +9,7 @@ use App\Models\FormateurMatiere;
 use App\Models\Unite_de_formation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class formateur_controller extends Controller
 {
@@ -49,6 +50,25 @@ class formateur_controller extends Controller
             ],500 );
         }
     }
+    public function getClassesByFormateur()
+    {
+        $formateur = Formateur::where('id_user', Auth::id())->first();
+
+        if ($formateur) {
+            // Récupère les cours du formateur
+            $cours = $formateur->cour;
+
+            // Récupère les classes associées à ces cours
+            $classes = $cours->map(function($cour) {
+                return $cour->classe;
+            })->unique('id'); // Utilisation de unique pour éviter les doublons
+
+            return response()->json($classes);
+        } else {
+            return response()->json(['message' => 'Formateur non trouvé'], 404);
+        } 
+    }
+    
     public function update(formateur_request $request, $id){
         $formateur=Formateur::find($id);
         if($formateur!=null){
@@ -165,4 +185,35 @@ class formateur_controller extends Controller
         }
 
     }
+   
+    
+    public function getClassesByFormateurs()
+    {
+        // Récupérer le formateur connecté
+        $formateur = Formateur::where('id_user', Auth::id())->first();
+    
+        if ($formateur) {
+            // Récupérer les cours associés au formateur
+            $cours = $formateur->cour;
+    
+            // Récupérer les classes associées aux cours du formateur
+            $classes = $cours->map(function($cour) {
+                return $cour->classe;
+            })->unique('id'); // Utilisation de unique pour éviter les doublons
+    
+            return response()->json([
+                'status' => 200,
+                'classes' => $classes
+            ]);
+        } else {
+            return response()->json(['message' => 'Formateur non trouvé'], 404);
+        }
+    }
+    
+    
+    
+    
+    
+
+
 }

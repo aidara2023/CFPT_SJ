@@ -77,8 +77,7 @@ class connexion_controller extends Controller
             'token' => $token,
         ]);
     }
-    
-
+ 
 
 /*     public function logout(Request $request)
 {
