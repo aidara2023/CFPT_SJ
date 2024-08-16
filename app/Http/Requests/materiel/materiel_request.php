@@ -23,16 +23,14 @@ class materiel_request extends FormRequest
     {
         return [
 
-            'Nom' => 'required',
+            
             'date_entree' => 'required',
-            'date_sortie' => 'required',
-            'Etat' => 'required',
-            'Quantité' => 'required',
-            'id_service' => 'required',
-            'id_salle' => 'required',
+            'quantite' => 'required',
+            'marque' => 'required',
+            'libelle' => 'required',
             'id_type_materiel' => 'required',
             'id_statut' => 'required',
-             'id_unite_formation' => 'required'
+             'id_departement' => 'required'
         ];
     }
 }

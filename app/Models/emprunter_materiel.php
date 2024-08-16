@@ -10,14 +10,14 @@ class Emprunter_materiel extends Model
 {
     use HasFactory;
     protected $fillable =[
+        'quantite',
+        'date_retour_prevue',
+        'date_retour_effective',
+        'etat',
+        'date_emprunt',
         'id_materiel',
         'id_user',
-       'id_date_emprunt',
-      'date_retour_prevue',
-      'date_retour_effective',
-      'statut'
         
-
     ];
 
     public function materiels (){
@@ -25,10 +25,7 @@ class Emprunter_materiel extends Model
         
     }
 
-    public function date_emprunters (){
-        return $this->belongsToMany(Date_emprunter::class,'id_date_emprunt');
-        
-    }
+   
 
     public function users (){
         return $this->belongsToMany(User::class,'id_user');

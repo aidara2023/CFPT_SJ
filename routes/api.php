@@ -44,14 +44,16 @@ use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\classe_matiere\classe_matiere_controller;
 use App\Http\Controllers\comptable\comptable_controller;
 use App\Http\Controllers\connexion\connexion_view_controller;
+use App\Http\Controllers\consommable\consommable_controller;
 use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\cours\cours_view_controller;
-
+use App\Http\Controllers\demande\demande_controller;
 use App\Http\Controllers\departement\departement_view_controller;
 use App\Http\Controllers\direction\direction_controller;
 use App\Http\Controllers\direction\direction_view_controller;
+use App\Http\Controllers\dispatching\dispatching_controller;
 use App\Http\Controllers\dossier_medical\dossier_medical_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 
@@ -102,6 +104,7 @@ use App\Http\Controllers\service\service_controller;
 use App\Http\Controllers\service\service_view_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\specialite\specialite_view_controller;
+use App\Http\Controllers\statut\statut_controller;
 use App\Http\Controllers\tuteur\tuteur_controller;
 use App\Http\Controllers\tuteur\tuteur_view_controller;
 use App\Http\Controllers\type_evaluation\type_evaluation_controller;
@@ -306,7 +309,60 @@ Route::get('materiel/show/{id}',[materiel_controller::class, 'show'])->name('mat
 Route::post('materiel/update/{id}',[materiel_controller::class, 'update'])->name('materiel_update');
 Route::delete('materiel/delete/{id}',[materiel_controller::class, 'estroy'])->name('materiel_delete');
 
-//route seminaire
+
+Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
+Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');
+Route::get('type_materiel/show/{id}',[type_materiel_controller::class,'show'])->name('type_materiel_show');
+Route::post('type_materiel/update/{id}',[type_materiel_controller::class,'update'])->name('type_materiel_update');
+Route::delete('type_materiel/delete/{id}',[type_materiel_controller::class, 'delete'])->name('type_materiel_delete');
+
+Route::get('/type_materiel/create',[type_materiel_view_controller::class, 'create'])->name('type_materiel_create');
+
+Route::get('emprunter_materiel/index',[emprunter_materiel_controller::class, 'index'])->name('emprunter_materiel_index');
+Route::post('emprunter_materiel/store',[emprunter_materiel_controller::class, 'store'])->name('emprunter_materiel_store');
+Route::get('emprunter_materiel/show/{id}',[emprunter_materiel_controller::class,'show'])->name('emprunter_materiel_show');
+Route::post('emprunter_materiel/update/{id}',[emprunter_materiel_controller::class,'update'])->name('emprunter_materiel_update');
+Route::delete('emprunter_materiel/delete/{id}',[emprunter_materiel_controller::class, 'delete'])->name('emprunter_materiel_delete');
+
+Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::class, 'create'])->name('emprunter_materiel_create');
+
+
+Route::prefix('consommables')->group(function () {
+    Route::get('/', [consommable_controller::class, 'index'])->name('consommable_index'); // Récupérer tous les consommables
+    Route::post('/', [consommable_controller::class, 'store'])->name('consommable_store'); // Créer un nouveau consommable
+    Route::put('/{id}', [consommable_controller::class, 'update'])->name('consommable_update'); // Mettre à jour un consommable
+    Route::delete('/{id}', [consommable_controller::class, 'destroy'])->name('consommable_delete'); // Supprimer un consommable
+    Route::get('/{id}', [consommable_controller::class, 'show'])->name('consommable_show'); // Afficher un consommable spécifique
+});
+
+Route::prefix('demandes')->group(function () {
+    Route::get('/', [demande_controller::class, 'index']); 
+    Route::post('/', [demande_controller::class, 'store']); 
+    Route::get('/{id}', [demande_controller::class, 'show']); 
+    Route::put('/{id}', [demande_controller::class, 'update']); 
+    Route::delete('/{id}', [demande_controller::class, 'destroy']); 
+});
+
+
+
+Route::prefix('dispatchings')->group(function () {
+    Route::get('/', [dispatching_controller::class, 'index'])->name('dispatching_index'); // Récupérer tous les dispatchings
+    Route::post('/', [dispatching_controller::class, 'store'])->name('dispatching_store'); // Créer un nouveau dispatching
+    Route::put('/{id}', [dispatching_controller::class, 'update'])->name('dispatching_update'); // Mettre à jour un dispatching
+    Route::delete('/{id}', [dispatching_controller::class, 'destroy'])->name('dispatching_delete'); // Supprimer un dispatching
+    Route::get('/{id}', [dispatching_controller::class, 'show'])->name('dispatching_show'); // Afficher un dispatching spécifique
+});
+
+
+
+Route::prefix('statuts')->group(function () {
+    Route::get('/', [statut_controller::class, 'index'])->name('statut_index'); // Récupérer tous les statuts
+    Route::post('/', [statut_controller::class, 'store'])->name('statut_store'); // Créer un nouveau statut
+    Route::put('/{id}', [statut_controller::class, 'update'])->name('statut_update'); // Mettre à jour un statut
+    Route::delete('/{id}', [statut_controller::class, 'destroy'])->name('statut_delete'); // Supprimer un statut
+    Route::get('/{id}', [statut_controller::class, 'show'])->name('statut_show'); // Afficher un statut spécifique
+});
+
 Route::get('seminaire/index',[seminaire_controller::class, 'index'])->name('seminaire_index');
 Route::post('seminaire/store',[seminaire_controller::class, 'store'])->name('seminaire_store');
 Route::get('seminaire/show/{id}',[seminaire_controller::class, 'show'])->name('seminaire_show');
@@ -420,7 +476,7 @@ Route::get('livre/show/{id}',[livre_controller::class, 'show'])->name('livre_sho
 Route::get('/livre/last-three', [livre_controller::class, 'getLastThreeBooks']);
 Route::delete('livre/delete/{id}',[livre_controller::class, 'delete'])->name('livre_delete');
 Route::put('/livre/update/{id}', [livre_controller::class, 'update']);
-Route::get('/livre/create',[livre_view_controller::class, 'create'])->name('livre_create');
+//Route::get('/livre/create',[livre_view_controller::class, 'create'])->name('livre_create');
 Route::get('/livre/accueil',[livre_view_controller::class, 'accueil'])->name('livre_accueil');
 Route::get('/livre/index/paginate', [livre_controller::class, 'indexpagine']);
 
@@ -545,13 +601,6 @@ Route::get('admin/index',[administrateur_view_controller::class, 'index'])->midd
 
 //type typemateriel
 
-Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
-Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');
-Route::get('type_materiel/show/{id}',[type_materiel_controller::class,'show'])->name('type_materiel_show');
-Route::post('type_materiel/update/{id}',[type_materiel_controller::class,'update'])->name('type_materiel_update');
-Route::delete('type_materiel/delete/{id}',[type_materiel_controller::class, 'delete'])->name('type_materiel_delete');
-
-Route::get('/type_materiel/create',[type_materiel_view_controller::class, 'create'])->name('type_materiel_create');
 
 //Route pour caissier
 Route::get('caissier/index',[caissier_controller::class, 'index'])->name('caissier_index');
@@ -602,13 +651,7 @@ Route::get('inscription/index', [inscription_view_controller::class, 'index'])->
 
 //Route pour emprunter materiel
 
-Route::get('emprunter_materiel/index',[emprunter_materiel_controller::class, 'index'])->name('emprunter_materiel_index');
-Route::post('emprunter_materiel/store',[emprunter_materiel_controller::class, 'store'])->name('emprunter_materiel_store');
-Route::get('emprunter_materiel/show/{id}',[emprunter_materiel_controller::class,'show'])->name('emprunter_materiel_show');
-Route::post('emprunter_materiel/update/{id}',[emprunter_materiel_controller::class,'update'])->name('emprunter_materiel_update');
-Route::delete('emprunter_materiel/delete/{id}',[emprunter_materiel_controller::class, 'delete'])->name('emprunter_materiel_delete');
 
-Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::class, 'create'])->name('emprunter_materiel_create');
 
 //Route pour consultation
 

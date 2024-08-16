@@ -22,12 +22,13 @@ class emprunter_materiel_request extends FormRequest
     public function rules(): array
     {
         return [
+            'quantite' => 'required|integer',
             'id_materiel' => 'required|integer',
             'id_user' => 'required|integer',
-            'id_date_emprunt' => 'required|integer',
+            'date_emprunt' => 'required|date',
             'date_retour_prevue' => 'required|date',
             'date_retour_effective' => 'date|nullable',
-            'statut' => 'required|string',
+            'etat' => 'required|',
         
         ];
     }
