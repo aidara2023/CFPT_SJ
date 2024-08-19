@@ -53,7 +53,6 @@ use App\Http\Controllers\emprunter_livre\emprunter_livre_view_controller;
 
 use App\Http\Controllers\editeur\editeur_view_controller;
 use App\Http\Controllers\edition\edition_view_controller;
-
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_controller;
 use App\Http\Controllers\emprunter_materiel\emprunter_materiel_view_controller;
 use App\Http\Controllers\exemplaire\exemplaire_controller as ExemplaireExemplaire_controller;

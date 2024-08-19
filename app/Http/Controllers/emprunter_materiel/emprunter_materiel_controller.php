@@ -12,62 +12,45 @@ class emprunter_materiel_controller extends Controller
     public function index()
     {
         $emprunts = emprunter_materiel::orderBy('created_at', 'desc')->get();
-
-        return response()->json($emprunts);
+        return response()->json([
+            'statut' => 200,
+            'emprunts' => $emprunts
+        ]);
     }
 
     public function store(emprunter_materiel_request $request)
     {
-        
         $validatedData = $request->validated();
-
-        
         $emprunt = emprunter_materiel::create($validatedData);
-
-        
-        return response()->json($emprunt, 201);
+        return response()->json([
+            'statut' => 201,
+            'emprunt' => $emprunt
+        ]);
     }
 
     public function update(emprunter_materiel_request $request, $id)
     {
-        
-        $validatedData = $request->validate([
-            'id_materiel' => 'required|integer',
-            'id_user' => 'required|integer',
-            'id_date_emprunt' => 'required|integer',
-            'date_retour_prevue' => 'required|date',
-            'date_retour_effective' => 'date|nullable',
-            'statut' => 'required|string',
-            
-        ]);
-
-        
         $emprunt = emprunter_materiel::find($id);
-
         if (!$emprunt) {
-            return response()->json(['message' => 'Emprunt de matériel non trouvé'], 404);
+            return response()->json(['statut' => 404, 'message' => 'Emprunt de matériel non trouvé'], 404);
         }
 
-        
+        $validatedData = $request->validated();
         $emprunt->update($validatedData);
-
-        
-        return response()->json($emprunt);
+        return response()->json([
+            'statut' => 200,
+            'emprunt' => $emprunt
+        ]);
     }
 
     public function destroy($id)
     {
-        
         $emprunt = emprunter_materiel::find($id);
-
         if (!$emprunt) {
-            return response()->json(['message' => 'Emprunt de matériel non trouvé'], 404);
+            return response()->json(['statut' => 404, 'message' => 'Emprunt de matériel non trouvé'], 404);
         }
 
-        
         $emprunt->delete();
-
-        
-        return response()->json(['message' => 'Emprunt de matériel supprimé avec succès']);
+        return response()->json(['statut' => 200, 'message' => 'Emprunt de matériel supprimé avec succès']);
     }
 }

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('id_categorie')->references('id')->on('categories');
             $table->foreign('id_auteur')->references('id')->on('auteurs');
             $table->foreign('id_edition')->references('id')->on('editions');
-
             $table->timestamps();
         });
     }

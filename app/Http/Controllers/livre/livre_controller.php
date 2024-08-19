@@ -16,7 +16,7 @@ class livre_controller extends Controller
             return response()->json([
                 'statut'=>200,
                 'livre'=>$livre
-            ],200)  ;
+            ],200);
         }else{
             return response()->json([ 
                 'statut'=>500,
