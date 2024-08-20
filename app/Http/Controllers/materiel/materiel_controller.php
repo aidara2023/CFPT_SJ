@@ -5,18 +5,20 @@ namespace App\Http\Controllers\materiel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\materiel\materiel_request;
 use App\Models\Materiel;
+use Illuminate\Support\Facades\Log;
+
+
 use Illuminate\Http\Request;
 
 class materiel_controller extends Controller
 {
+    
     public function index()
     {
-        $materiels = Materiel::orderBy('created_at', 'desc')->get();
-        return response()->json([
-            'statut' => $materiels->count() > 0 ? 200 : 500,
-            'materiels' => $materiels->count() > 0 ? $materiels : null,
-            'message' => $materiels->count() > 0 ? null : 'Aucune donnée trouvée',
-        ]);
+        Log::info('Récupération des matériels');
+        $materiels = Materiel::all();
+        Log::info('Materiels récupérés:', ['materiels' => $materiels]);
+        return response()->json(['materiels' => $materiels]);
     }
 
     public function store(materiel_request $request)

@@ -6,18 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\consommable\consommable_request;
 use App\Models\Consommable; // Assurez-vous que le modèle Consommable existe
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class consommable_controller extends Controller
 {
     public function index()
     {
-        $consommables = Consommable::orderBy('created_at', 'desc')->get();
-        return response()->json([
-            'statut' => 200,
-            'consommables' => $consommables,
-            'message' => $consommables->isEmpty() ? 'Aucune donnée trouvée' : null,
-        ]);
+        Log::info('Récupération des consommables');
+        $consommables = Consommable::all();
+        Log::info('Consommables récupérés:', ['consommables' => $consommables]);
+        return response()->json(['consommables' => $consommables]);
     }
+   
 
     public function store(consommable_request $request)
     {

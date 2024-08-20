@@ -7,6 +7,8 @@ use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\departement\departement_request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Departement;
 
@@ -56,6 +58,48 @@ class departement_controller extends Controller
             ],500);
         }
     }
+    // app/Http/Controllers/departement/departement_controller.php
+
+// app/Http/Controllers/departement/departement_controller.php
+
+
+
+// app/Http/Controllers/departement/departement_controller.php
+
+
+
+public function findChefDepartement() {
+    $userId = Auth::id();
+
+    // Log de l'ID de l'utilisateur connecté
+    Log::info('Vérification du chef de département pour l\'utilisateur ID: ' . $userId);
+
+    // Recherche du département associé à l'utilisateur
+    $departement = Departement::where('id_user', $userId)->first();
+
+    if ($departement) {
+        // Log si un département est trouvé
+        Log::info('Chef de département trouvé pour l\'utilisateur ID: ' . $userId);
+
+        return response()->json([
+            'statut' => 200,
+            'isChef' => true,
+            'departement' => $departement
+        ], 200);
+    } else {
+        // Log si aucun département n'est trouvé
+        Log::warning('Aucun chef de département trouvé pour l\'utilisateur ID: ' . $userId);
+
+        return response()->json([
+            'statut' => 404,
+            'isChef' => false,
+            'message' => 'Aucun chef de département trouvé pour cet utilisateur'
+        ], 404);
+    }
+}
+    
+    
+    
 
     public function store(departement_request $request) {
         $data = $request -> validated();

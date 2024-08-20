@@ -35,7 +35,6 @@ use App\Http\Controllers\financer_bourse\financer_bourse_controller;
 use App\Http\Controllers\infirmier\infirmier_controller;
 use App\Http\Controllers\livre\livre_controller;
 use App\Http\Controllers\login\login_view_controller;
-use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\caissier\caissier_controller;
 use App\Http\Controllers\classe\classe_controller;
 use App\Http\Controllers\classe\classe_view_controller;
@@ -76,6 +75,7 @@ use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
 use App\Http\Controllers\inscription\inscription_controller;
 use App\Http\Controllers\livre\livre_view_controller;
+use App\Http\Controllers\materiel\materiel_controller;
 use App\Http\Controllers\matiere\matiere_controller;
 use App\Http\Controllers\matiere\matiere_view_controller;
 use App\Http\Controllers\mois\mois_controller;
@@ -312,6 +312,7 @@ Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'delete'])
 Route::get('/partenaire/create',[partenaire_view_controller::class, 'create'])->name('partenaire_create');
 
 
+
 //route materiel
 Route::get('materiel/index',[materiel_controller::class, 'index'])->name('materiel_index');
 Route::post('materiel/store',[materiel_controller::class, 'store'])->name('materiel_store');
@@ -319,6 +320,11 @@ Route::get('materiel/show/{id}',[materiel_controller::class, 'show'])->name('mat
 Route::post('materiel/update/{id}',[materiel_controller::class, 'update'])->name('materiel_update');
 Route::delete('materiel/delete/{id}',[materiel_controller::class, 'estroy'])->name('materiel_delete');
 
+Route::get('consommable/index', [consommable_controller::class, 'index'])->name('consommable_index');
+Route::post('consommable/store', [consommable_controller::class, 'store'])->name('consommable_store');
+Route::get('consommable/show/{id}', [consommable_controller::class, 'show'])->name('consommable_show');
+Route::post('consommable/update/{id}', [consommable_controller::class, 'update'])->name('consommable_update');
+Route::delete('consommable/delete/{id}', [consommable_controller::class, 'destroy'])->name('consommable_delete');
 
 Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
 Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');
@@ -337,21 +343,14 @@ Route::delete('emprunter_materiel/delete/{id}',[emprunter_materiel_controller::c
 Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::class, 'create'])->name('emprunter_materiel_create');
 
 
-Route::prefix('consommables')->group(function () {
-    Route::get('/', [consommable_controller::class, 'index'])->name('consommable_index'); // Récupérer tous les consommables
-    Route::post('/', [consommable_controller::class, 'store'])->name('consommable_store'); // Créer un nouveau consommable
-    Route::put('/{id}', [consommable_controller::class, 'update'])->name('consommable_update'); // Mettre à jour un consommable
-    Route::delete('/{id}', [consommable_controller::class, 'destroy'])->name('consommable_delete'); // Supprimer un consommable
-    Route::get('/{id}', [consommable_controller::class, 'show'])->name('consommable_show'); // Afficher un consommable spécifique
-});
 
-Route::prefix('demandes')->group(function () {
-    Route::get('/', [demande_controller::class, 'index']); 
-    Route::post('/', [demande_controller::class, 'store']); 
-    Route::get('/{id}', [demande_controller::class, 'show']); 
-    Route::put('/{id}', [demande_controller::class, 'update']); 
-    Route::delete('/{id}', [demande_controller::class, 'destroy']); 
-});
+
+Route::get('/demandes', [demande_controller::class, 'index']);
+Route::post('/demandes', [demande_controller::class, 'store']);
+Route::get('/demandes/{id}', [demande_controller::class, 'show']);
+Route::put('/demandes/{id}', [demande_controller::class, 'update']);
+Route::delete('/demandes/{id}', [demande_controller::class, 'destroy']);
+Route::get('/user/demandes', [demande_controller::class, 'userDemandes']); // Route pour les demandes de l'utilisateur connecté
 
 
 
@@ -413,7 +412,7 @@ Route::post('departement/store',[departement_controller::class, 'store'])->name(
 Route::get('departement/show/{id}',[departement_controller::class, 'show'])->name('departement_show');
 Route::post('departement/update/{id}',[departement_controller::class, 'update'])->name('departement_update');
 Route::delete('departement/delete/{id}',[departement_controller::class, 'destroy'])->name('departement_delete');
-
+Route::get('/departement/find-chef', [departement_controller::class, 'findChefDepartement']);
 Route::get('/departement/create',[departement_view_controller::class, 'create'])->name('departement_create');
 Route::get('departement/index',[departement_view_controller::class, 'index'])->name('departement_index');
 

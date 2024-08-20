@@ -11,7 +11,7 @@ class demande_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Autoriser la requête
     }
 
     /**
@@ -23,7 +23,7 @@ class demande_request extends FormRequest
     {
         return [
             'quantite' => 'required|integer|min:1',
-            'id_user' => 'required|exists:users,id',
+            'id_user' => 'nullable|exists:users,id', // Nullable car ajouté côté serveur
             'id_materiel' => 'nullable|exists:materiels,id',
             'id_consommable' => 'nullable|exists:consommables,id',
         ];
