@@ -8,7 +8,6 @@ use App\Models\Consommable; // Assurez-vous que le modèle Consommable existe
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-
 class consommable_controller extends Controller
 {
     public function index()
@@ -18,6 +17,7 @@ class consommable_controller extends Controller
         Log::info('Consommables récupérés:', ['consommables' => $consommables]);
         return response()->json(['consommables' => $consommables]);
     }
+    
    
 
     public function store(consommable_request $request)

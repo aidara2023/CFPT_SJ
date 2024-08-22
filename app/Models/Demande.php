@@ -10,10 +10,12 @@ class Demande extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quantite',
+        'type_demande', // 'materiel', 'consommable', 'both'
+        'quantite_materiel',
+        'quantite_consommable',
         'id_user',
-        'id_materiel',
-        'id_consommable'
+        'description_materiel',  // Saisie libre pour le matériel
+        'description_consommable' // Saisie libre pour le consommable
     ];
 
     // Relation avec la table User
@@ -21,17 +23,4 @@ class Demande extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
-
-    // Relation avec la table Materiel
-    public function materiel()
-    {
-        return $this->belongsTo(Materiel::class, 'id_materiel');
-    }
-
-    // Relation avec la table Consommable
-    public function consommable()
-    {
-        return $this->belongsTo(Consommable::class, 'id_consommable');
-    }
 }
-

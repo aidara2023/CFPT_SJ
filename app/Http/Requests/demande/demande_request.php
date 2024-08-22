@@ -22,10 +22,12 @@ class demande_request extends FormRequest
     public function rules(): array
     {
         return [
-            'quantite' => 'required|integer|min:1',
+            'type_demande' => 'required|string|in:materiel,consommable,both',
+            'quantite_materiel' => 'nullable|required_if:type_demande,materiel,both|integer|min:1',
+            'quantite_consommable' => 'nullable|required_if:type_demande,consommable,both|integer|min:1',
+            'description_materiel' => 'nullable|string|max:1000',
+            'description_consommable' => 'nullable|string|max:1000',
             'id_user' => 'nullable|exists:users,id', // Nullable car ajouté côté serveur
-            'id_materiel' => 'nullable|exists:materiels,id',
-            'id_consommable' => 'nullable|exists:consommables,id',
         ];
     }
 }

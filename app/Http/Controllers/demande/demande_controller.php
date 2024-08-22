@@ -10,14 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class demande_controller extends Controller
 {
+   
     public function index()
     {
-        $demandes = Demande::orderBy('created_at', 'desc')->get();
-        return response()->json([
-            'statut' => $demandes->count() > 0 ? 200 : 500,
-            'demandes' => $demandes->count() > 0 ? $demandes : null,
-            'message' => $demandes->count() > 0 ? null : 'Aucune donnée trouvée',
-        ]);
+        $demandes = Demande::with('user')->get(); // Récupérer les demandes avec les informations utilisateur associées
+        return response()->json($demandes);
     }
 
     public function store(demande_request $request)
@@ -83,3 +80,4 @@ class demande_controller extends Controller
         ]);
     }
 }
+
