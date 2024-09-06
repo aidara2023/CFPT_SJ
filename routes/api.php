@@ -200,12 +200,10 @@ Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::cla
 
 
 
-
-
-
 // Route pour l'affichage de toutes les demandes
 Route::get('demandes', [demande_controller::class, 'index'])->name('demandes.index');
 
+Route::put('/demandes/{id}/change-statut', [demande_controller::class, 'changeStatut']);
 // Route pour la création d'une demande
 Route::post('demandes', [demande_controller::class, 'store'])->name('demandes.store');
 
@@ -220,6 +218,9 @@ Route::get('demandes/{id}', [demande_controller::class, 'show'])->name('demandes
 
 // Route pour afficher les demandes de l'utilisateur connecté
 Route::get('demandes/user', [demande_controller::class, 'userDemandes'])->name('demandes.user');
+Route::get('demandes/last-three', [demande_controller::class, 'getLastThreeDemandes'])->name('demandes.last_three');
+Route::get('demandes/index/paginate', [demande_controller::class, 'indexpagine'])->name('demandes.index_paginate');
+
 
 
 

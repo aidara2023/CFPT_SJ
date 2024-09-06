@@ -17,8 +17,8 @@ class AddFieldsToDemandesTable extends Migration
             $table->string('type_demande'); // 'materiel', 'consommable', 'both'
             $table->integer('quantite_materiel')->nullable();
             $table->integer('quantite_consommable')->nullable();
-            $table->text('description_materiel')->nullable();  // Saisie libre pour le matériel
-            $table->text('description_consommable')->nullable(); // Saisie libre pour le consommable
+            $table->text('description_materiel')->nullable();  
+            $table->text('description_consommable')->nullable(); 
         });
     }
 

@@ -10,17 +10,26 @@ class Demande extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type_demande', // 'materiel', 'consommable', 'both'
-        'quantite_materiel',
-        'quantite_consommable',
+        'type_demande',
         'id_user',
-        'description_materiel',  // Saisie libre pour le matériel
-        'description_consommable' // Saisie libre pour le consommable
+        'statut',
     ];
 
     // Relation avec la table User
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    // Relation avec la table DemandeMateriel
+    public function materiels()
+    {
+        return $this->hasMany(DemandeMateriel::class, 'id_demande');
+    }
+
+    // Relation avec la table DemandeConsommable
+    public function consommables()
+    {
+        return $this->hasMany(DemandeConsommable::class, 'id_demande');
     }
 }
