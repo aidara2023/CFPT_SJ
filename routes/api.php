@@ -646,7 +646,7 @@ Route::delete('matiere/formateur/delete/{id}',[FormateurMatiereController::class
 //Route pour formateur
 
 Route::get('formateur/index',[formateur_controller::class, 'index'])->name('formateur_index');
-Route::get('formateur/getClassesByFormateur',[formateur_controller::class, 'getClassesByFormateur'])->name('formateur_classe_formateur');
+Route::get('formateur/getClassesByFormateur/{id}',[formateur_controller::class, 'getClassesByFormateur'])->name('formateur_classe_formateur');
 Route::get('formateur/getClassesByFormateurs',[formateur_controller::class, 'getClassesByFormateurs'])->name('formateur_classe_formateurs');
 Route::post('formateur/store',[formateur_controller::class, 'store'])->name('formateur_store');
 Route::get('formateur/show/{id}',[formateur_controller::class,'show'])->name('formateur_show');

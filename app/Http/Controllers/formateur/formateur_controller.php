@@ -198,7 +198,7 @@ class formateur_controller extends Controller
     
             // Récupérer les classes associées aux cours du formateur
             $classes = $cours->map(function($cour) {
-                return $cour->classe;
+                return $cour->Classe; // Ensure 'Classe' matches your relationship method
             })->unique('id'); // Utilisation de unique pour éviter les doublons
     
             return response()->json([
@@ -209,6 +209,7 @@ class formateur_controller extends Controller
             return response()->json(['message' => 'Formateur non trouvé'], 404);
         }
     }
+    
     
     
     
