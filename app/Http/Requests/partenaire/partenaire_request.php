@@ -22,7 +22,7 @@ class partenaire_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nom_partenaire' => 'required',
+                'nom_partenaire' => 'required',
                 'type' => 'required',
                 'description' => 'required',
                 'contact' => 'required',
@@ -30,7 +30,7 @@ class partenaire_request extends FormRequest
                 'adresse' => 'required',
                 'boite_postale' => 'required',
                 'date_debut' => 'required',
-                'date_fin' => 'required',
+                'date_fin' => 'required',   
                 'id_direction' => 'required',
                 'exoneration' => 'required',
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\partenaire;
 
+use App\Events\ModelCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\partenaire\partenaire_request;
 use App\Models\Paiement;
@@ -45,32 +46,29 @@ class partenaire_controller extends Controller
         public function store(partenaire_request $request)
         {
             $data = $request->validated();
-    
-            $partenaire = Partenaire::create([
-                'nom_partenaire' => $data->nom_partenaire,
-                'description' => $data->description,
-                'contact'=> $data->contact,
-                'adresse'=> $data->adresse,
-                'email'=> $data->email,
-                'boite_postale'=> $data->boite_postale,
-                'date_debut'=> $data->date_debut,
-                'date_fin'=> $data->date_fin,
-                'id_direction'=> $data->id_direction,
-                'type'=> $data->type,
-                'exoneration'=> $data->exoneration,
-                'id_user'=> $data->id_user,
-            ]);
-            if ($partenaire) {
-                return response()->json([
-                    'status' => 200,
-                    'partenaire' => $partenaire
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'L\'enregistrement n\'a pas été effectué',
-                ], 500);
+            $verification =Partenaire::where('nom_partenaire', $request['nom_partenaire'])->get();
+
+            if($verification->count()!=0){
+                return response()->json([ 
+                    'statut'=>404,
+                    'message'=>'Ce partenaire existe déja',
+                ],404 );
+            }else{
+                $partenaire = Partenaire::create($data);
+                if($partenaire!=null){
+                    event(new ModelCreated($partenaire));
+                    return response()->json([
+                        'statut'=>200,
+                        'partenaire'=>$partenaire
+                    ],200)  ;
+                }else{
+                    return response()->json([ 
+                        'statut'=>500,
+                        'message'=>'L\'enregistrement n\'a pas été ajouté',
+                    ],500 );
+                }
             }
+          
         }
 
         public function all_paginate(Request $request){
