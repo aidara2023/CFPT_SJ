@@ -26,6 +26,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cours', function (Blueprint $table) {
+           /*  $table->dropColumn('date_cour');
+            $table->dropColumn('heure_debut');
+            $table->dropColumn('heure_fin'); */
             $table->date('date_cour');
             $table->string('heure_debut');
             $table->string('heure_fin');

@@ -13,17 +13,12 @@ return new class extends Migration
     {
         Schema::create('emploi_du_temps', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('id_cour');
             $table->foreign('id_cour')->references('id')->on('cours');
-
             $table->unsignedBigInteger('id_annee_academique');
             $table->foreign('id_annee_academique')->references('id')->on('annee_academiques');
-            
             $table->date('date_debut');
             $table->date('date_fin');
-
-
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('emploi_du_temps');
     }
 };
