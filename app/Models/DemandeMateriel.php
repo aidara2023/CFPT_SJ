@@ -11,6 +11,7 @@ class DemandeMateriel extends Model
 
     protected $fillable = [
         'id_demande',
+        'materiel_id',
         'libelle',
         'quantite',
         'description',
@@ -19,5 +20,10 @@ class DemandeMateriel extends Model
     public function demande()
     {
         return $this->belongsTo(Demande::class, 'id_demande');
+    }
+
+    public function materiel()
+    {
+        return $this->belongsTo(Materiel::class, 'materiel_id');
     }
 }

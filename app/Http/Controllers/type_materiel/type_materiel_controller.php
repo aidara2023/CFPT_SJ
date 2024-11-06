@@ -10,12 +10,22 @@ use Illuminate\Http\Request;
 
 class type_materiel_controller extends Controller
 {
-    public function index(){
-        $data = Type_materiel::orderBy('created_at', 'desc')->get();
+   
 
-        return response()->json($data);
-
-    }
+    public function index() {
+        $Type_materiel=Type_materiel::orderBy('created_at', 'desc')->get();
+        if($Type_materiel!=null){
+            return response()->json([
+                'statut'=>200,
+                'type_materiel'=>$Type_materiel
+            ],200);
+        }else{
+            return response()->json([ 
+                'statut'=>500,
+                'message'=>'Aucune donnée trouvée',
+            ],500 );
+        }
+     }
 
     public function show($id){
         $Type_materiel = Type_materiel::find($id);
@@ -36,9 +46,10 @@ class type_materiel_controller extends Controller
 
     }
 
+    
     public function update(type_materiel_request $request, $id){
         $validatedData = $request->validate([
-            'name' => 'required|string',
+            'intitule' => 'required|string',
             
         ]);
 

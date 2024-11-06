@@ -11,6 +11,7 @@ class DemandeConsommable extends Model
 
     protected $fillable = [
         'id_demande',
+        'consommable_id',
         'libelle',
         'quantite',
         'description',
@@ -19,5 +20,10 @@ class DemandeConsommable extends Model
     public function demande()
     {
         return $this->belongsTo(Demande::class, 'id_demande');
+    }
+
+    public function consommable()
+    {
+        return $this->belongsTo(Consommable::class, 'consommable_id');
     }
 }

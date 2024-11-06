@@ -24,7 +24,7 @@ class demande_request extends FormRequest
             'consommables.*.quantite' => 'required_with:consommables|integer|min:0',
             'consommables.*.description' => 'required_with:consommables|string|max:1000',
             'id_user' => 'nullable|exists:users,id', 
-            'statut' => 'nullable|in:en_attente,en_cours,reçu,rejete' 
+            'statut' => 'nullable|in:en_attente,validé,en_cours,reçu,rejete' 
         ];
     }
 }

@@ -15,26 +15,29 @@ class Materiel extends Model
         'quantite',
         'marque',
         'libelle',
-        'id_statut',
+        'id_etat',
         'id_type_materiel',
+        'id_demande',
         'id_departement'
     ];
 
-    // Relation avec la table Statut
-    public function statut()
+    public function etat()
     {
-        return $this->belongsTo(Statut::class, 'id_statut');
+        return $this->belongsTo(Etat::class, 'id_etat');
     }
 
-    // Relation avec la table TypeMateriel
     public function typeMateriel()
     {
         return $this->belongsTo(Type_materiel::class, 'id_type_materiel');
     }
 
-    // Relation avec la table Departement
     public function departement()
     {
         return $this->belongsTo(Departement::class, 'id_departement');
+    }
+
+    public function demande()
+    {
+        return $this->belongsTo(Demande::class, 'id_demande');
     }
 }

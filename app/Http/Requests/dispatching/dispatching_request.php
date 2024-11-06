@@ -22,10 +22,13 @@ class dispatching_request extends FormRequest
     public function rules(): array
     {
         return [
-            'quantite' => 'required|integer|min:1',
-            'id_departement' => 'required|exists:departements,id',
+            'id_user' => 'nullable|exists:users,id', 
+            'id_departement' => 'nullable|exists:departements,id',
             'id_salle' => 'required|exists:salles,id',
             'id_materiel' => 'required|exists:materiels,id',
+            'id_consommable' => 'required',
+            'id_demande' => 'required',
+            'id_batiment' => 'required',
         ];
     }
 }

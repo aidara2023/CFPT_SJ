@@ -13,25 +13,54 @@ use Illuminate\Support\Facades\Auth;
 
 class demande_controller extends Controller
 {
-    public function index(Request $request) {
+  /*  public function index(Request $request) {
         $userId = Auth::id();
-        $user = Auth::user();
-        $userRole = $user->role->intitule;
+        $userRole = Auth::user()->role->intitule;
 
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
         if ($userRole === 'Logisticien') {
-            $demandes = Demande::with(['user', 'materiels', 'consommables'])
+            $demandes = Demande::with(['user.departement']) // Charger l'utilisateur et son département
                 ->orderBy('created_at', 'desc')
                 ->paginate($perPage);
         } else {
-            $demandes = Demande::with(['user', 'materiels', 'consommables'])
+            $demandes = Demande::with(['user.departement']) // Charger l'utilisateur et son département
                 ->where('id_user', $userId)
                 ->orderBy('created_at', 'desc')
                 ->paginate($perPage);
         }
 
         return response()->json($demandes);
+    }*/
+    public function index(Request $request) {
+        $userId = Auth::id();
+        $userRole = Auth::user()->role->intitule;
+    
+        $perPage = $request->has('per_page') ? $request->per_page : 15;
+    
+        if ($userRole === 'Logisticien') {
+            $demandes = Demande::with(['user.departement']) // Charger l'utilisateur et son département
+                ->orderBy('created_at', 'desc')
+                ->paginate($perPage);
+        } else {
+            $demandes = Demande::with(['user.departement']) // Charger l'utilisateur et son département
+                ->where('id_user', $userId)
+                ->orderBy('created_at', 'desc')
+                ->paginate($perPage);
+        }
+    
+        // Vérifiez si les demandes ne sont pas vides
+        if ($demandes->isNotEmpty()) {
+            return response()->json([
+                'statut' => 200,
+                'demandes' => $demandes
+            ], 200);
+        } else {
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
     }
 
     public function store(demande_request $request) {
@@ -119,7 +148,7 @@ class demande_controller extends Controller
     }
 
     public function show($id) {
-        $demande = Demande::with(['materiels', 'consommables'])->find($id);
+        $demande = Demande::with(['materiels', 'consommables', 'user.departement'])->find($id); // Ajout de 'user.departement'
         if (!$demande) {
             return response()->json(['statut' => 404, 'message' => 'Demande non trouvée'], 404);
         }
@@ -142,13 +171,13 @@ class demande_controller extends Controller
     
             // Valider le statut
             $request->validate([
-                'statut' => 'required|in:en_attente,en_cours,reçu,rejete'
+                'statut' => 'required|in:en_attente,validé,en_cours,reçu,rejete'
             ]);
+            Log::info("Validation du statut réussie pour l'ID: {$id}");
     
             // Mettre à jour le statut de la demande
             $demande->statut = $request->input('statut'); 
             $demande->save();
-    
             Log::info("Statut mis à jour avec succès pour la demande ID: {$id}");
     
             return response()->json(['statut' => 200, 'message' => 'Statut mis à jour avec succès']);

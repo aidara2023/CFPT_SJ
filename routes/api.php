@@ -31,6 +31,7 @@ use App\Http\Controllers\edition\edition_controller;
 use App\Http\Controllers\eleve\eleve_controller;
 use App\Http\Controllers\eleve\eleve_view_controller;
 use App\Http\Controllers\emprunter_livre\emprunter_livre_controller;
+use App\Http\Controllers\etat\etat_controller;
 use App\Http\Controllers\financer_bourse\financer_bourse_controller;
 use App\Http\Controllers\infirmier\infirmier_controller;
 use App\Http\Controllers\livre\livre_controller;
@@ -49,6 +50,7 @@ use App\Http\Controllers\consultation\consultation_controller;
 use App\Http\Controllers\consultation\consultation_view_controller;
 use App\Http\Controllers\cours\cours_controller;
 use App\Http\Controllers\cours\cours_view_controller;
+
 use App\Http\Controllers\demande\demande_controller;
 use App\Http\Controllers\departement\departement_view_controller;
 use App\Http\Controllers\direction\direction_controller;
@@ -71,6 +73,7 @@ use App\Http\Controllers\fonctionnalite\fonctionnalite_controller;
 use App\Http\Controllers\Formateur\formateur_controller;
 use App\Http\Controllers\Formateur\formateur_view_controller;
 use App\Http\Controllers\formateurMatiere\FormateurMatiereController;
+use App\Http\Controllers\Fournisseur\FournisseurController;
 use App\Http\Controllers\HebergementController;
 use App\Http\Controllers\ImprimerController;
 use App\Http\Controllers\infirmier\infirmier_view_controller;
@@ -133,7 +136,7 @@ use App\Http\Controllers\user\user_controller;
 use App\Http\Controllers\user\user_view_controller;
 use App\Http\Controllers\user\userViewController;
 
-
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\roleController;
 use App\Http\Controllers\surveillant\surveillant_view_controller;
 
@@ -148,6 +151,8 @@ use App\Http\Controllers\surveillant\surveillant_view_controller;
 |
 */
 
+
+
 //Route de direction
 Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name('compte_locked');
 //Route pour la connexion
@@ -155,6 +160,10 @@ Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name(
 //Route::post('/logout',[connexion_controller::class,'logout'])->name('logout');
 Route::get('get/emploi',[emploi_du_temps_controller::class, 'getcoursfromemploidutemps'])->name('emploi_get');
 Route::get('get/formateur/schedule',[emploi_du_temps_controller::class, 'getFormateurSchedule'])->name('emploi_get_formateur');
+Route::get('test', function () {
+    Log::info("Route de test atteinte");
+    return response()->json(['message' => 'Route de test atteinte']);
+});
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -168,21 +177,35 @@ Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('dir
 
 Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
 
-Route::get('materiel/index',[materiel_controller::class, 'index'])->name('materiel_index');
-Route::post('materiel/store',[materiel_controller::class, 'store'])->name('materiel_store');
-Route::get('materiel/show/{id}',[materiel_controller::class, 'show'])->name('materiel_show');
-Route::post('materiel/update/{id}',[materiel_controller::class, 'update'])->name('materiel_update');
-Route::delete('materiel/delete/{id}',[materiel_controller::class, 'estroy'])->name('materiel_delete');
+Route::get('demandes', [demande_controller::class, 'index'])->name('demandes.index');
+Route::put('demandes/{id}/change-statut', [demande_controller::class, 'changeStatut'])->name('demande_change_statut');
+Route::post('demandes', [demande_controller::class, 'store'])->name('demandes.store');
+Route::put('demandes/{id}', [demande_controller::class, 'update'])->name('demandes.update');
+Route::delete('demandes/{id}', [demande_controller::class, 'destroy'])->name('demandes.destroy');
+Route::get('demandes/{id}', [demande_controller::class, 'show'])->name('demandes.show');
+Route::get('demandes/user', [demande_controller::class, 'userDemandes'])->name('demandes.user');
+Route::get('demandes/last-three', [demande_controller::class, 'getLastThreeDemandes'])->name('demandes.last_three');
+Route::get('demandes/index/paginate', [demande_controller::class, 'indexpagine'])->name('demandes.index_paginate');
 
-Route::namespace('App\Http\Controllers\consommable')->group(function () {
-    Route::get('consommable/index', [consommable_controller::class, 'index'])->name('consommable_index');
-    Route::post('consommable/store', [consommable_controller::class, 'store'])->name('consommable_store');
-    Route::get('consommable/show/{id}', [consommable_controller::class, 'show'])->name('consommable_show');
-    Route::post('consommable/update/{id}', [consommable_controller::class, 'update'])->name('consommable_update');
-    Route::delete('consommable/delete/{id}', [consommable_controller::class, 'destroy'])->name('consommable_delete');
-});
+// routes/web.php ou routes/api.php
+Route::get('materiel/index', [materiel_controller::class, 'index'])->name('materiel_index');
+Route::post('materiel/store', [materiel_controller::class, 'store'])->name('materiel_store');
+Route::get('materiel/show/{id}', [materiel_controller::class, 'show'])->name('materiel_show');
+Route::post('materiel/update/{id}', [materiel_controller::class, 'update'])->name('materiel_update');
+Route::delete('materiel/delete/{id}', [materiel_controller::class, 'destroy'])->name('materiel_delete');
+Route::get('materiel/search', [materiel_controller::class, 'search'])->name('materiel_search');
 
-Route::get('Type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
+Route::get('consommable/index', [consommable_controller::class, 'index'])->name('consommable_index');
+Route::post('consommable/store', [consommable_controller::class, 'store'])->name('consommable_store');
+Route::get('consommables/show/{id}', [consommable_controller::class, 'show'])->name('consommable_show');
+Route::post('consommable/update/{id}', [consommable_controller::class, 'update'])->name('consommable_update');
+Route::delete('consommable/delete/{id}', [consommable_controller::class, 'destroy'])->name('consommable_delete');
+Route::get('consommable/search', [consommable_controller::class, 'search'])->name('consommable_search');
+
+Route::get('/demandes/received', [dispatching_controller::class, 'getReceivedDemandes']);
+
+
+Route::get('type_materiel/index',[type_materiel_controller::class, 'index'])->name('type_materiel_index');
 Route::post('type_materiel/store',[type_materiel_controller::class, 'store'])->name('type_materiel_store');
 Route::get('type_materiel/show/{id}',[type_materiel_controller::class,'show'])->name('type_materiel_show');
 Route::post('type_materiel/update/{id}',[type_materiel_controller::class,'update'])->name('type_materiel_update');
@@ -199,49 +222,39 @@ Route::delete('emprunter_materiel/delete/{id}',[emprunter_materiel_controller::c
 Route::get('/emprunter_materiel/create',[emprunter_materiel_view_controller::class, 'create'])->name('emprunter_materiel_create');
 
 
+Route::get('/statut/index', [statut_controller::class, 'index']); // Récupérer tous les statuts
+Route::post('/statut/store', [statut_controller::class, 'store']); // Créer un nouveau statut
+Route::put('/statut/update/{id}', [statut_controller::class, 'update']); // Mettre à jour un statut existant
+Route::delete('/statut/delete/{id}', [statut_controller::class, 'destroy']); // Supprimer un statut
+Route::get('/statut/show/{id}', [statut_controller::class, 'show']); // Afficher un statut spécifique
 
-// Route pour l'affichage de toutes les demandes
-Route::get('demandes', [demande_controller::class, 'index'])->name('demandes.index');
-
-Route::put('/demandes/{id}/change-statut', [demande_controller::class, 'changeStatut']);
-// Route pour la création d'une demande
-Route::post('demandes', [demande_controller::class, 'store'])->name('demandes.store');
-
-// Route pour la mise à jour d'une demande spécifique
-Route::put('demandes/{id}', [demande_controller::class, 'update'])->name('demandes.update');
-
-// Route pour la suppression d'une demande spécifique
-Route::delete('demandes/{id}', [demande_controller::class, 'destroy'])->name('demandes.destroy');
-
-// Route pour l'affichage d'une demande spécifique
-Route::get('demandes/{id}', [demande_controller::class, 'show'])->name('demandes.show');
-
-// Route pour afficher les demandes de l'utilisateur connecté
-Route::get('demandes/user', [demande_controller::class, 'userDemandes'])->name('demandes.user');
-Route::get('demandes/last-three', [demande_controller::class, 'getLastThreeDemandes'])->name('demandes.last_three');
-Route::get('demandes/index/paginate', [demande_controller::class, 'indexpagine'])->name('demandes.index_paginate');
-
-
-
+Route::get('/etats', [etat_controller::class, 'index']);
+Route::get('/etats/{id}', [etat_controller::class, 'show']);
+Route::post('/etats', [etat_controller::class, 'store']);
+Route::put('/etats/{id}', [etat_controller::class, 'update']);
+Route::delete('/etats/{id}', [etat_controller::class, 'destroy']);
 
 
 Route::prefix('dispatchings')->group(function () {
     Route::get('/', [dispatching_controller::class, 'index'])->name('dispatching_index'); // Récupérer tous les dispatchings
-    Route::post('/', [dispatching_controller::class, 'store'])->name('dispatching_store'); // Créer un nouveau dispatching
-    Route::put('/{id}', [dispatching_controller::class, 'update'])->name('dispatching_update'); // Mettre à jour un dispatching
+   
+   
     Route::delete('/{id}', [dispatching_controller::class, 'destroy'])->name('dispatching_delete'); // Supprimer un dispatching
     Route::get('/{id}', [dispatching_controller::class, 'show'])->name('dispatching_show'); // Afficher un dispatching spécifique
 });
+Route::put('/dispatchings/{id}', [dispatching_controller::class, 'update'])->name('dispatching_update');
+Route::get('/dispatching/search', [dispatching_controller::class, 'search']);
+Route::post('/dispatching', [dispatching_controller::class, 'dispatchItems']);
+Route::get('/batiments', [dispatching_controller::class, 'getBatiments']);
+Route::get('/salles/batiment/{batimentId}', [dispatching_controller::class, 'getSallesByBatiment']);
 
 
 
-Route::prefix('statuts')->group(function () {
-    Route::get('/', [statut_controller::class, 'index'])->name('statut_index'); // Récupérer tous les statuts
-    Route::post('/', [statut_controller::class, 'store'])->name('statut_store'); // Créer un nouveau statut
-    Route::put('/{id}', [statut_controller::class, 'update'])->name('statut_update'); // Mettre à jour un statut
-    Route::delete('/{id}', [statut_controller::class, 'destroy'])->name('statut_delete'); // Supprimer un statut
-    Route::get('/{id}', [statut_controller::class, 'show'])->name('statut_show'); // Afficher un statut spécifique
-});
+Route::get('/fournisseurs', [FournisseurController::class, 'index']);
+Route::get('/fournisseurs/{id}', [FournisseurController::class, 'show']);
+Route::post('/fournisseurs', [FournisseurController::class, 'store']);
+Route::put('/fournisseurs/{id}', [FournisseurController::class, 'update']);
+Route::delete('/fournisseurs/{id}', [FournisseurController::class, 'delete']);
 
 //Route de emploi du temps
 
@@ -327,7 +340,6 @@ Route::get('unite_de_formation/get/{id}',[unite_de_formation_controller::class, 
 Route::get('/unite_de_formation/create',[unite_de_formation_view_controller::class, 'create'])->name('unite_deformation_create');
 Route::get('unite_de_formation/index',[unite_de_formation_view_controller::class, 'index'])->name('unite_de_formation_index');
 
-
 //route eleve
 Route::get('eleve/index',[eleve_controller::class, 'index'])->name('eleve_index');
 Route::get('user/count',[eleve_controller::class, 'countUser'])->name('user_count');
@@ -385,8 +397,6 @@ Route::post('partenaire/update/{id}',[partenaire_controller::class, 'update'])->
 Route::delete('partenaire/delete/{id}',[partenaire_controller::class, 'delete'])->name('partenaire_delete');
 
 Route::get('/partenaire/create',[partenaire_view_controller::class, 'create'])->name('partenaire_create');
-
-
 
 //route materiel
 

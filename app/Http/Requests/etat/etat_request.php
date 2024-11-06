@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\statut;
+namespace App\Http\Requests\etat;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class statut_request extends FormRequest
+class etat_request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +19,10 @@ class statut_request extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
-{
-    return [
-        'intitule' => 'required|string|max:255',
-    ];
-}
+    public function rules(): array
+    {
+        return [
+            'intitule' => 'required|string|max:255', // Validation pour 'intitule'
+        ];
+    }
 }

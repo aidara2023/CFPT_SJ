@@ -28,20 +28,30 @@ class salle_controller extends Controller
             ],500 );
         }
      }
-    public function index() {
-        $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->get();
-        if($salle!=null){
-            return response()->json([
-                'statut'=>200,
-                'salle'=>$salle
-            ],200)  ;
-        }else{
-            return response()->json([ 
-                'statut'=>500,
-                'message'=>'Aucune donnée trouvée',
-            ],500 );
+   
+
+     public function index(Request $request) {
+        $query = Salle::with('batiment')->orderBy('created_at', 'desc');
+    
+        // Vérifiez si un id_batiment est fourni dans la requête
+        if ($request->has('id_batiment')) {
+            $query->where('id_batiment', $request->id_batiment);
         }
-     }
+    
+        $salle = $query->get();
+    
+        if ($salle->isNotEmpty()) {
+            return response()->json([
+                'statut' => 200,
+                'salle' => $salle
+            ], 200);
+        } else {
+            return response()->json([ 
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
+        }
+    }
     public function get_last_values() {
         $salle=Salle::with('batiment')->orderBy('created_at', 'desc')->take(5)->get();
         if($salle!=null){
