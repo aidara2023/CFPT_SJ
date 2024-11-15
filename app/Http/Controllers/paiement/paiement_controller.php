@@ -18,6 +18,7 @@ use App\Models\Paiement;
 use App\Models\Type_formation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class paiement_controller extends Controller
 {
@@ -39,19 +40,24 @@ class paiement_controller extends Controller
     public function indexpaginate(Request $request)
     {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
-        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique')->orderBy('created_at', 'desc')->paginate($perPage);
-        if ($paiement != null) {
+        $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'concerner.mois', 'concerner.annee_academique')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate($perPage);
+        
+        // Vérifier si la collection de paiements est vide
+        if ($paiement->isEmpty()) {
             return response()->json([
-                'statut' => 200,
-                'paiement' => $paiement
-            ], 200);
-        } else {
-            return response()->json([
-                'statut' => 500,
+                'statut' => 404, // Utiliser un code de statut 404 pour "non trouvé"
                 'message' => 'Aucune donnée trouvée'
-            ], 500);
+            ], 404);
         }
+    
+        return response()->json([
+            'statut' => 200,
+            'paiement' => $paiement
+        ], 200);
     }
+    
     public function get_last()
     {
         $paiement = Paiement::with('eleve.user', 'eleve.inscription.classe', 'eleve.inscription.classe.type_formation' , 'concerner.mois', 'concerner.annee_academique')->take(6)->orderBy('created_at', 'desc')->get();
@@ -70,21 +76,26 @@ class paiement_controller extends Controller
 
     public function store(paiement_request $request)
     {
+        // Valider les données entrantes
         $request->validated();
+        
         $statut = 0;
         $paiements = $request->input('paiements');
         $caissiers = Caissier::all();
         $eleves = Eleve::all();
         $concerner = null;
+    
+        // Vérifier si les paiements ne sont pas vides
         if (!empty($paiements)) {
-          
             $paiements = json_decode($paiements, true);
+            Log::info('Paiements reçus :', $paiements); // Log des paiements reçus
+    
             foreach ($caissiers as $caissier) {
                 if ($caissier->id_user == Auth::user()->id) {
-                 
                     foreach ($paiements as $paiement) {
                         foreach ($eleves as $eleve) {
                             if ($eleve->id_user == $request['id_eleve']) {
+                                // Préparer les données pour le paiement
                                 $dataPaiement = [
                                     'id_caissier' => $caissier->id,
                                     'montant' => $paiement['montant'],
@@ -93,52 +104,66 @@ class paiement_controller extends Controller
                                     'type_recouvrement' => $request->type_recouvrement,
                                     'reference' => $request->reference,
                                 ];
-
-                                $paiementValid = Paiement::create($dataPaiement);
-                                event(new ModelCreated($paiementValid));
-
-                                $search_type_classe = Inscription::with('classe.type_formation')->where('id_eleve', $eleve->id)->first();
-                                if ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTS" && $paiement['montant'] < 70000) {
-                                    $statut = 0;
-                                } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTI" && $paiement['montant'] < 50000) {
-                                    $statut = 0;
-                                } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTI" && $paiement['montant'] >= 50000) {
-                                    $statut = 1;
-                                } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTS" && $paiement['montant'] >= 70000) {
-                                    $statut = 1;
+    
+                                try {
+                                    // Créer le paiement
+                                    $paiementValid = Paiement::create($dataPaiement);
+                                    event(new ModelCreated($paiementValid));
+    
+                                    // Vérifier le type de classe et ajuster le statut
+                                    $search_type_classe = Inscription::with('classe.type_formation')->where('id_eleve', $eleve->id)->first();
+                                    if ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTS" && $paiement['montant'] < 70000) {
+                                        $statut = 0;
+                                    } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTI" && $paiement['montant'] < 50000) {
+                                        $statut = 0;
+                                    } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTI" && $paiement['montant'] >= 50000) {
+                                        $statut = 1;
+                                    } elseif ($search_type_classe->classe->type_classe == "FPJ" && $search_type_classe->classe->type_formation->intitule == "BTS" && $paiement['montant'] >= 70000) {
+                                        $statut = 1;
+                                    }
+    
+                                    // Préparer les données pour la table Concerner
+                                    $dataConcerner = [
+                                        'id_paiement' => $paiementValid->id,
+                                        'id_mois' => $paiement['id_mois'],
+                                        'id_annee_academique' => $paiement['id_annee_academique'],
+                                        'statut' => $statut,
+                                    ];
+    
+                                    // Créer l'enregistrement dans la table Concerner
+                                    $concerner = Concerner::create($dataConcerner);
+                                } catch (\Exception $e) {
+                                    Log::error('Erreur lors de la création du paiement: ' . $e->getMessage());
+                                    return response()->json(['statut' => 600, 'message' => 'Erreur lors de la création du paiement.'], 500);
                                 }
-
-                                $dataConcerner = [
-                                    'id_paiement' => $paiementValid->id,
-                                    'id_mois' => $paiement['id_mois'],
-                                    'id_annee_academique' => $paiement['id_annee_academique'],
-                                    'statut' => $statut,
-                                ];
-
-                                $concerner = Concerner::create($dataConcerner);
                             }
                         }
                     }
                 }
             }
+    
+            // Vérifier si Concerner a été créé avec succès
             if ($concerner != null) {
                 return response()->json([
                     'statut' => 200,
                     'paiement' => $concerner
                 ], 200);
             } else {
+                Log::error('L\'enregistrement n\'a pas été effectué.'); // Log d'erreur
                 return response()->json([
                     'statut' => 600,
                     'message' => 'L\'enregistrement n\'a pas été éffectué'
                 ], 500);
             }
         } else {
+            Log::warning('Aucun paiement reçu.'); // Log d'avertissement
             return response()->json([
                 'statut' => 500,
                 'message' => 'L\'enregistrement n\'a pas été éffectué'
             ], 500);
         }
     }
+    
 
     /*   public function store(paiement_request $request) {
         $data = $request -> validated();
