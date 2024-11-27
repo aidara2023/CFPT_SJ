@@ -97,18 +97,18 @@ class emploi_du_temps_controller extends Controller
 
 
 
-    /*     
+    /*
     public function getcoursfromemploidutemps() {
         $emploiDuTempss = Cour::with('Matiere')->orderBy('created_at', 'desc')->get();
         if ($emploiDuTempss != null) {
             foreach($emploiDuTempss as $emploiDuTemps){
                 return response()->json([
-                  
+
                      'title' => $emploiDuTemps->Matiere->intitule,
                      'start' => '2024-07-13T11:30:00',
                  ]);
             }
-          
+
         } else {
             return response()->json([
                 'statut' => 500,
@@ -223,9 +223,9 @@ class emploi_du_temps_controller extends Controller
     /*  public function store_planification(Request $request){
        // $data = $request->validated();
         $planifications = json_decode($request->input('emploiplanifiers'), true);
-    
+
         foreach ($planifications as $planification) {
-       
+
             $planif = [
                 'id_cour' => $planification['id_cour'],
                 'id_annee_academique' => $planification['id_annee_academique'],
@@ -235,11 +235,11 @@ class emploi_du_temps_controller extends Controller
                 'heure_fin' => $planification['heure_fin'],
                 'id_salle' => $planification['id_salle'],
             ];
-    
+
             $emploiplanifier = Emploi_du_temps::create($planif);
             event(new ModelCreated($emploiplanifier));
         }
-    
+
         if(isset($emploiplanifier)){
             return response()->json([
                 'statut'=>200,
@@ -476,48 +476,138 @@ private function generateRepetitions($planification, $repetition)
     {
         $request->validate([
             'formRecord.selectedCourses' => 'required|array',
+            'formRecord.selectedCourses.*.id_cour' => 'required|integer',
+            'formRecord.selectedCourses.*.parameters' => 'required|array',
+            'formRecord.selectedCourses.*.parameters.totalHours' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.durationPerSession' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.offset' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.startDate' => 'required|date',
+            'formRecord.selectedCourses.*.parameters.courseTimes' => 'required|string|in:morning,afternoon',
+            'formRecord.selectedCourses.*.parameters.numberOfWeeks' => 'required|numeric|min:1'
         ]);
-    
+
+
+        Log::info('Données reçues dans generateSchedule:', $request->all());
+        // Validation des données reçues
+        $request->validate([
+            'formRecord.selectedCourses' => 'required|array',
+            'formRecord.selectedCourses.*.parameters' => 'required|array',
+            'formRecord.selectedCourses.*.parameters.totalHours' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.durationPerSession' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.offset' => 'required|numeric|min:1',
+            'formRecord.selectedCourses.*.parameters.startDate' => 'required|date',
+            'formRecord.selectedCourses.*.parameters.courseTimes' => 'required|string|in:morning,afternoon',
+            'formRecord.selectedCourses.*.parameters.numberOfWeeks' => 'required|numeric|min:1',
+        ]);
+
+        // Récupération des données
         $data = $request->input('formRecord');
         $allEvents = [];
-    
-        foreach ($data['selectedCourses'] as $course) {
-            $courseParams = $course['parameters'];
-    
-            // Logique pour créer l'événement
-            $event = [
-                'title' => $course['title'],
-                'id_cour' => $course['id_cour'],
-                'start' => $courseParams['startDate'],
-                'duration' => $courseParams['durationPerSession'],
-                'totalHours' => $courseParams['totalHours'],
-                'offset' => $courseParams['offset'],
-                'courseTimes' => $courseParams['courseTimes'],
-            ];
-    
-            $allEvents[] = $event;
+
+        Log::info('Données reçues pour la génération :', $data);
+
+        // Traitement de chaque cours individuellement
+        foreach ($data['selectedCourses'] as $courseData) {
+            Log::warning("Paramètres manquants pour le cours ID : {$courseData['id_cour']}");
+            $parameters = $courseData['parameters'];
+            Log::info("Traitement du cours ID : {$courseData['id_cour']}", $parameters);
+
+            $course = Cour::with(['Matiere', 'Formateur.user', 'Classe.type_formation'])->find($courseData['id_cour']);
+
+            if (!$course) {
+                Log::warning("Cours non trouvé pour l'ID : {$courseData['id_cour']}");
+                continue;
+            }
+
+            $remainingHours = $parameters['totalHours'];
+            $currentDate = Carbon::parse($parameters['startDate']);
+            $sessionsPerWeek = floor(6 / $parameters['offset']); // Max sessions par semaine
+            $sessionsThisWeek = 0;
+
+            // Génération des sessions pour ce cours
+            while ($remainingHours > 0 && $currentDate->diffInWeeks(Carbon::parse($parameters['startDate'])) < $parameters['numberOfWeeks']) {
+                // Ignorer les weekends
+                if ($currentDate->isWeekend()) {
+                    $currentDate->addDay();
+                    continue;
+                }
+
+                // Vérifier le nombre maximum de sessions par semaine
+                if ($sessionsThisWeek >= $sessionsPerWeek) {
+                    $currentDate->addWeek();
+                    $sessionsThisWeek = 0; // Réinitialiser le compteur
+                    continue;
+                }
+
+                // Obtenir les créneaux disponibles
+                $timeSlots = $this->getTimeSlots($parameters['courseTimes'], $parameters['durationPerSession'], $currentDate);
+
+                foreach ($timeSlots as $slot) {
+                    $room = $this->findAvailableRoom($currentDate->format('Y-m-d'), $slot['start'], $slot['end']);
+
+                    if (!$room) {
+                        Log::warning("Aucune salle disponible pour le créneau : {$slot['start']} - {$slot['end']}");
+                        continue;
+                    }
+
+                    // Créer l'événement
+                    $event = [
+                        'title' => "{$course->Matiere->intitule} ({$parameters['durationPerSession']}h)",
+                        'id_cour' => $courseData['id_cour'],
+                        'start' => $currentDate->format('Y-m-d') . 'T' . $slot['start'],
+                        'end' => $currentDate->format('Y-m-d') . 'T' . $slot['end'],
+                        'professeur' => $course->Formateur->user->nom ?? 'Non assigné',
+                        'salle' => $room->intitule,
+                        'id_salle' => $room->id,
+                        'classe' => $this->formatClassName($course->Classe),
+                        'backgroundColor' => $this->generateCourseColor($course->id),
+                        'extendedProps' => [
+                            'matiere' => $course->Matiere->intitule,
+                            'professeur' => $course->Formateur->user->nom ?? 'Non assigné',
+                            'salle' => $room->intitule,
+                            'classe' => $this->formatClassName($course->Classe),
+                            'duree' => $parameters['durationPerSession'],
+                            'heuresRestantes' => max(0, $remainingHours - $parameters['durationPerSession']),
+                        ],
+                    ];
+
+                    $allEvents[] = $event;
+                    $remainingHours -= $parameters['durationPerSession'];
+                    $sessionsThisWeek++;
+                    break; // Passer au prochain créneau
+                }
+
+                // Avancer à la prochaine date
+                $currentDate->addDays($parameters['offset']);
+            }
         }
-    
+
+        Log::info('Événements générés :', $allEvents);
+
         return response()->json([
             'success' => true,
             'events' => $allEvents,
         ]);
     }
-    
+
+
+
+
+
     private function checkAllAvailabilities($course, $date, $slot)
     {
         $startDateTime = Carbon::parse($date->format('Y-m-d') . ' ' . $slot['start']);
         $endDateTime = Carbon::parse($date->format('Y-m-d') . ' ' . $slot['end']);
-    
+
         return $this->isFormateurAvailable($course->Formateur->id, $date, $startDateTime, $endDateTime) &&
                $this->isClasseAvailable($course->Classe->id, $date, $startDateTime, $endDateTime);
     }
-    
+
     private function getTimeSlots($period, $duration, $date)
     {
         $slots = [];
         $durationMinutes = $duration * 60;
-    
+
         if ($period === 'morning') {
             $startTimes = ['08:00', '10:00', '14:00'];
             $maxEndTime = '16:00';
@@ -525,11 +615,11 @@ private function generateRepetitions($planification, $repetition)
             $startTimes = ['17:00', '18:30'];
             $maxEndTime = '20:00';
         }
-    
+
         foreach ($startTimes as $startTime) {
             $start = Carbon::parse($startTime);
             $end = $start->copy()->addMinutes($durationMinutes);
-            
+
             // Vérifier que le créneau ne dépasse pas la limite
             if ($end->format('H:i') <= $maxEndTime) {
                 $slots[] = [
@@ -538,14 +628,14 @@ private function generateRepetitions($planification, $repetition)
                 ];
             }
         }
-    
+
         return $slots;
     }
-    
+
     private function findAvailableRoom($date, $startTime, $endTime)
     {
         $rooms = Salle::all();
-    
+
         foreach ($rooms as $room) {
             $isAvailable = !Emploi_du_temps::where('id_salle', $room->id)
                 ->where('date_debut', $date)
@@ -555,98 +645,87 @@ private function generateRepetitions($planification, $repetition)
                           ->where('heure_fin', '>', $startTime);
                     });
                 })->exists();
-    
+
             if ($isAvailable) {
                 return $room; // Retourne la première salle disponible
             }
         }
-    
+
         return null; // Aucune salle disponible
     }
-    
     public function saveSchedule(Request $request)
     {
-        Log::info('Données reçues dans saveSchedule:', $request->all());
-    
-        // Récupérer les événements et les enregistrements de formulaire
-        $events = $request->input('formRecord.selectedCourses', []); // Assurez-vous que cela correspond à la structure envoyée
-        $formRecords = $request->input('formRecords', []);
-    
+        $events = $request->input('events');
+
+        if (empty($events)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Aucun événement à enregistrer.',
+            ], 400);
+        }
+
+        DB::beginTransaction();
+
         try {
-            DB::beginTransaction();
-    
-            $savedEvents = [];
-            foreach ($events as $course) {
-                $courseParams = $course['parameters']; // Récupérer les paramètres du cours
-    
-                // Trouver le prochain créneau disponible
-                $availableSlot = $this->findNextAvailableSlot($courseParams); // Vous pouvez adapter cette méthode pour utiliser les paramètres
-    
-                if (!$availableSlot) {
-                    throw new \Exception("Impossible de trouver un créneau disponible pour le cours: " . $course['title']);
-                }
-    
-                // Créer l'enregistrement de l'emploi du temps
-                $emploiDuTemps = Emploi_du_temps::create([
-                    'id_cour' => $course['id_cour'],
-                    'id_salle' => $availableSlot['salle']->id,
+            foreach ($events as $event) {
+                emploi_du_temps::create([
+                    'id_cour' => $event['id_cour'],
+                    'date_debut' => Carbon::parse($event['start'])->format('Y-m-d'),
+                    'date_fin' => Carbon::parse($event['end'])->format('Y-m-d'),
+                    'heure_debut' => Carbon::parse($event['start'])->format('H:i:s'),
+                    'heure_fin' => Carbon::parse($event['end'])->format('H:i:s'),
                     'id_annee_academique' => $this->getCurrentAcademicYear()->id,
-                    'date_debut' => $availableSlot['date'],
-                    'date_fin' => $availableSlot['date'],
-                    'heure_debut' => $availableSlot['heure_debut'],
-                    'heure_fin' => $availableSlot['heure_fin'],
-                    // Ajoutez d'autres champs si nécessaire
+                    // 'total_heures' => $event['parameters']['totalHours'],
+                    // 'offset' => $event['parameters']['offset'],
+                    // 'course_times' => $event['parameters']['courseTimes'],
                 ]);
-    
-                event(new ModelCreated($emploiDuTemps));
-                $savedEvents[] = $emploiDuTemps;
             }
-    
+
             DB::commit();
             return response()->json([
                 'success' => true,
-                'savedEvents' => count($savedEvents),
-                'message' => 'Emploi du temps enregistré avec succès'
+                'message' => 'Emploi du temps enregistré avec succès.',
             ]);
-    
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Erreur lors de la sauvegarde:', ['error' => $e->getMessage()]);
-            
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
-            ], 422);
+                'message' => 'Erreur lors de l\'enregistrement : ' . $e->getMessage(),
+            ], 500);
         }
     }
-   
-    
-    
-    
+
+
+
+
+
+
+
+
     private function generateEventForSlot($courseId, $date, $period, $slotIndex)
     {
         $course = Cour::with(['Matiere', 'Formateur.user', 'Classe.type_formation'])->find($courseId);
         if (!$course) {
             throw new \Exception("Cours non trouvé: $courseId");
         }
-    
+
         // Obtenir le créneau horaire basé sur l'index
         $timeSlot = $this->getTimeSlotForIndex($slotIndex % 3, $period);  // modulo 3 pour les 3 créneaux par jour
         if (!$timeSlot) {
             return null;
         }
-    
+
         // Trouver une salle disponible
         $room = $this->findAvailableRoom(
             $date->format('Y-m-d'),
             $timeSlot['start'],
             $timeSlot['end']
         );
-    
+
         if (!$room) {
             return null;
         }
-    
+
         return [
             'title' => $course->Matiere->intitule,
             'id_cour' => $course->id,
@@ -665,7 +744,7 @@ private function generateRepetitions($planification, $repetition)
             ]
         ];
     }
-    
+
     private function getTimeSlotForIndex($index, $period)
     {
         if ($period === 'morning') {
@@ -680,14 +759,14 @@ private function generateRepetitions($planification, $repetition)
                 ['start' => '18:30:00', 'end' => '20:00:00']
             ];
         }
-    
+
         return $slots[$index] ?? null;
     }
-    
+
    /*  private function findAvailableRoom($date, $startTime, $endTime)
     {
         $rooms = Salle::all();
-        
+
         foreach ($rooms as $room) {
             $isAvailable = !Emploi_du_temps::where('id_salle', $room->id)
                 ->where('date_debut', $date)
@@ -697,12 +776,12 @@ private function generateRepetitions($planification, $repetition)
                           ->where('heure_fin', '>', $startTime);
                     });
                 })->exists();
-                
+
             if ($isAvailable) {
                 return $room;
             }
         }
-        
+
         return null;
     } */
 
@@ -815,7 +894,7 @@ private function isTimeSlotAvailable($course, $date, $startTime, $endTime)
 private function isSlotInPeriod($slotTime, $period)
 {
     $hour = (int)$slotTime->format('H');
-    
+
     if ($period === 'morning') {
         // Vérifier si l'heure est entre 8h et 16h30
         return $hour >= 8 && $hour <= 16;
@@ -829,7 +908,7 @@ private function findAvailableSlotsForDay($date, $durationPerSession, $course, $
 {
     $availableSlots = [];
     $baseTimeSlots = $this->getBaseTimeSlots($period);
-    
+
     foreach ($baseTimeSlots as $baseSlot) {
         $startTime = Carbon::parse($date->format('Y-m-d') . ' ' . $baseSlot);
         $endTime = $startTime->copy()->addMinutes($durationPerSession);
@@ -844,7 +923,7 @@ private function findAvailableSlotsForDay($date, $durationPerSession, $course, $
 
         if ($this->isSlotAvailable($date, $startTime, $endTime, $course)) {
             $room = $this->findAvailableRoom($date->format('Y-m-d'), $startTime->format('H:i:s'), $endTime->format('H:i:s'));
-            
+
             if ($room) {
                 $availableSlots[] = [
                     'start' => $date->format('Y-m-d') . 'T' . $startTime->format('H:i:s'),
@@ -911,7 +990,7 @@ private function isSlotAvailable($date, $startTime, $endTime, $course)
         foreach ($events as $event) {
             // Trouver le prochain créneau disponible
             $availableSlot = $this->findNextAvailableSlot($event);
-            
+
             if (!$availableSlot) {
                 throw new \Exception("Impossible de trouver un créneau disponible");
             }
@@ -940,7 +1019,7 @@ private function isSlotAvailable($date, $startTime, $endTime, $course)
     } catch (\Exception $e) {
         DB::rollBack();
         Log::error('Erreur lors de la sauvegarde:', ['error' => $e->getMessage()]);
-        
+
         return response()->json([
             'success' => false,
             'message' => $e->getMessage()
@@ -953,13 +1032,13 @@ private function findNextAvailableSlot($event)
     $startDateTime = Carbon::parse($event['start']);
     $duration = Carbon::parse($event['end'])->diffInMinutes($startDateTime);
     $course = Cour::with(['Formateur', 'Classe'])->find($event['id_cour']);
-    
+
     // Déterminer la période (morning/afternoon)
     $period = $startDateTime->format('H') < 17 ? 'morning' : 'afternoon';
-    
+
     // Obtenir tous les créneaux possibles pour cette période
     $timeSlots = $this->getBaseTimeSlots($period);
-    
+
     // Commencer à chercher à partir de la date donnée
     $currentDate = $startDateTime->copy();
     $maxAttempts = 10; // Limite de jours à vérifier
@@ -1024,7 +1103,7 @@ private function findNextAvailableSlot($event)
     }
 
     return null;
-} 
+}
 
 private function isRoomBooked($roomId, $date, $startTime, $endTime)
 {
@@ -1169,8 +1248,8 @@ private function generateCourseColor($courseId)
     ];
     return $colors[$courseId % count($colors)];
 }
-    
-    
+
+
 
 
 /* private function findAvailableRoom($date, $startTime, $endTime)
@@ -1234,7 +1313,7 @@ private function isTeacherAvailable($formateurId, $date, $startTime, $endTime)
 {
     Log::info('Données reçues dans saveSchedule:', $request->all());
 
-    
+
     $validatedData = $request->validate([
         'formRecords' => 'required|array',
         'formRecords.*.totalHours' => 'required|integer',
@@ -1242,7 +1321,7 @@ private function isTeacherAvailable($formateurId, $date, $startTime, $endTime)
         'formRecords.*.date_debut' => 'required|date',
         'formRecords.*.offset' => 'required|integer',
         'formRecords.*.numberOfWeeks' => 'required|integer',
-        'formRecords.*.id_cour' => 'required|integer', 
+        'formRecords.*.id_cour' => 'required|integer',
     ]);
 
     $formRecords = $validatedData['formRecords'];
@@ -1284,7 +1363,7 @@ private function isTeacherAvailable($formateurId, $date, $startTime, $endTime)
         'invalidEvents' => $invalidEvents
     ]);
 } */
-    
+
 
 
     public function getEmploiDuTempsForConnectedFormateur(Request $request)
