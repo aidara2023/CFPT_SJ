@@ -153,7 +153,7 @@ Route::get('compte/bloquer', [connexion_view_controller::class, 'index'])->name(
  Route::post('/connexion',[connexion_controller::class,'connexion'])->name('connexion'); 
 //Route::post('/logout',[connexion_controller::class,'logout'])->name('logout');
 Route::get('get/emploi',[emploi_du_temps_controller::class, 'getcoursfromemploidutemps'])->name('emploi_get');
-Route::get('get/formateur/schedule',[emploi_du_temps_controller::class, 'getFormateurSchedule'])->name('emploi_get_formateur');
+Route::get('/classes/{idClasse}/has-emploi-du-temps', [emploi_du_temps_controller::class, 'hasEmploiDuTemps']);Route::get('get/formateur/schedule',[emploi_du_temps_controller::class, 'getFormateurSchedule'])->name('emploi_get_formateur');
 
 Route::middleware('auth:sanctum')->group(function () {
 
