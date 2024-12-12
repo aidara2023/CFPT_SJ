@@ -46,48 +46,56 @@ class emploi_du_temps_controller extends Controller
     public function getcoursfromemploidutemps(Request $request)
     {
         // Initialise la requête pour inclure les relations nécessaires
-        $query = Emploi_du_temps::with(['cour.Matiere', 'cour.Classe', 'cour.Semestre', 'salle'])
-            ->orderBy('created_at', 'desc');
-
+        $query = Emploi_du_temps::with([
+            'cour.Matiere', 
+            'cour.Classe.unite_de_formation.departement', // Ajout des relations pour l'unité de formation et le département
+            'cour.Semestre', 
+            'salle'
+        ])->orderBy('created_at', 'desc');
+    
         // Filtrage par année académique
         if ($request->has('annee_academique') && !empty($request->annee_academique)) {
             $query->where('id_annee_academique', $request->annee_academique);
         }
-
+    
         // Filtrage par classe
         if ($request->has('id_classe') && !empty($request->id_classe)) {
             $query->whereHas('cour', function ($q) use ($request) {
                 $q->where('id_classe', $request->id_classe);
             });
         }
-
+    
         // Filtrage par semestre
         if ($request->has('id_semestre') && !empty($request->id_semestre)) {
             $query->whereHas('cour', function ($q) use ($request) {
                 $q->where('id_semestre', $request->id_semestre);
             });
         }
-
+    
         // Exécute la requête
         $emploiDuTempss = $query->get();
-
+    
         // Vérifie si des enregistrements ont été trouvés
         if ($emploiDuTempss->isNotEmpty()) {
             // Initialise un tableau pour stocker les événements
             $events = [];
-
-            // Parcourt chaque enregistrement pour le transformer en événement  unite_de_formation type_formation type_classe
+    
+            // Parcourt chaque enregistrement pour le transformer en événement
             foreach ($emploiDuTempss as $emploiDuTemps) {
                 $events[] = [
                     'title' => $emploiDuTemps->cour->Matiere->intitule ?? 'Sans titre',
                     'start' => $emploiDuTemps->date_debut . 'T' . $emploiDuTemps->heure_debut,
                     'end' => $emploiDuTemps->date_fin . 'T' . $emploiDuTemps->heure_fin,
-                    'professeur' => $emploiDuTemps->cour->Formateur->user->nom ?? 'Aucune professeur',  // Ajouter la description ici
-                    'salle' => $emploiDuTemps->salle->intitule ?? 'Aucune salle',  // Ajouter la description ici
-                    'classe' => $emploiDuTemps->cour->Classe->type_formation->intitule . " " . $emploiDuTemps->cour->Classe->niveau . " " . $emploiDuTemps->cour->Classe->nom_classe . " " . $emploiDuTemps->cour->Classe->type_classe ?? 'Aucune classe',  // Ajouter la description ici
+                    'professeur' => $emploiDuTemps->cour->Formateur->user->nom ?? 'Aucune professeur',
+                    'genre' => $emploiDuTemps->cour->Formateur->user->genre ?? 'pas de genre' ,// 'M' pour masculin, 'F' pour féminin, 'U' pour inconnu
+                    'salle' => $emploiDuTemps->salle->intitule ?? 'Aucune salle',
+                    'unite_de_formation' => $emploiDuTemps->cour->Classe->unite_de_formation->nom_unite_formation ?? 'Aucune unité de formation',
+                    'departement' => $emploiDuTemps->cour->Classe->unite_de_formation->departement->nom_departement ?? 'Aucun département',
+                    'classe' => $emploiDuTemps->cour->Classe->type_formation->intitule . " " . $emploiDuTemps->cour->Classe->niveau . " " . $emploiDuTemps->cour->Classe->nom_classe . " " . $emploiDuTemps->cour->Classe->type_classe ?? 'Aucune classe',
+                    'semestre' => $emploiDuTemps->cour->Semestre->intitule ?? 'Non défini',
                 ];
             }
-
+    
             // Retourne le tableau d'événements en JSON
             return response()->json($events);
         } else {
@@ -474,6 +482,20 @@ private function generateRepetitions($planification, $repetition)
             ], 500);
         }
     }
+
+    
+    public function hasEmploiDuTemps($idClasse)
+    {
+        // Vérifie si un emploi du temps existe pour cette classe en passant par la table `cour`
+        $hasEmploi = emploi_du_temps::whereHas('cour', function ($query) use ($idClasse) {
+            $query->where('id_classe', $idClasse);
+        })->exists();
+    
+        return response()->json(['hasEmploiDuTemps' => $hasEmploi]);
+    }
+    
+    
+
 
     public function generateSchedule(Request $request)
     {
@@ -1475,7 +1497,8 @@ private function formatClassName($classe)
         $classe->type_formation->intitule ?? '',
         $classe->niveau ?? '',
         $classe->nom_classe ?? '',
-        $classe->type_classe ?? ''
+        $classe->type_classe ?? '',
+        $classe->id_unite_de_formation ?? '',
     ]);
 }
 
