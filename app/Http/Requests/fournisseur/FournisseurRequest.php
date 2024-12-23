@@ -24,7 +24,13 @@ class FournisseurRequest extends FormRequest
         return [
             'nom' => 'required|string',
             'telephone' => 'required|string',
-            'email' => 'required|email|unique:fournisseurs,email,' . $this->route('id'), // Assurez-vous que l'ID est exclu de la validation unique
+            'email' => 'required|email|unique:fournisseurs,email,' . $this->route('id'),
+            'adresse' => 'nullable|string',
+            'secteur_activite_id' => 'required',
+            'produits_services' => 'required|string',
+            'nom_contact' => 'nullable|string|max:100',
+            'telephone_contact' => 'nullable|string|max:20',
+            'statut' => 'required|in:actif,inactif'
         ];
     }
 }

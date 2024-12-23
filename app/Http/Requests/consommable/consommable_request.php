@@ -26,7 +26,7 @@ class consommable_request extends FormRequest
             'marque' => 'required',
             'quantite' => 'required',
             'date_entree' => 'required',
-            'id_demande' => 'required',
+            'id_commande' => 'required',
             'id_etat' => 'required',
             'id_departement' => 'required',
         ];

@@ -27,7 +27,7 @@ class dispatching_request extends FormRequest
             'id_salle' => 'required|exists:salles,id',
             'id_materiel' => 'required|exists:materiels,id',
             'id_consommable' => 'required',
-            'id_demande' => 'required',
+            'id_commande' => 'required',
             'id_batiment' => 'required',
         ];
     }

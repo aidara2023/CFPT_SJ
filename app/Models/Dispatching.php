@@ -19,7 +19,7 @@ class Dispatching extends Model
         'id_materiel',
         'id_consommable',
         'id_batiment',
-        'id_demande',
+        'id_commande',
     ];
 
     // Relations (à définir selon les autres modèles)
@@ -51,8 +51,8 @@ class Dispatching extends Model
         return $this->belongsTo(Batiment::class, 'id_batiment');
     }
 
-    public function demande()
+    public function commande()
     {
-        return $this->belongsTo(Demande::class, 'id_demande');
+        return $this->belongsTo(Commande::class, 'id_commande');
     }
 }

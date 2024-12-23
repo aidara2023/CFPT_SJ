@@ -13,19 +13,19 @@ class type_materiel_controller extends Controller
    
 
     public function index() {
-        $Type_materiel=Type_materiel::orderBy('created_at', 'desc')->get();
-        if($Type_materiel!=null){
+        $Type_materiel = Type_materiel::orderBy('created_at', 'desc')->get();
+        if ($Type_materiel != null) {
             return response()->json([
-                'statut'=>200,
-                'type_materiel'=>$Type_materiel
-            ],200);
-        }else{
+                'statut' => 200,
+                'type_materiel' => $Type_materiel
+            ], 200);
+        } else {
             return response()->json([ 
-                'statut'=>500,
-                'message'=>'Aucune donnée trouvée',
-            ],500 );
+                'statut' => 500,
+                'message' => 'Aucune donnée trouvée',
+            ], 500);
         }
-     }
+    }
 
     public function show($id){
         $Type_materiel = Type_materiel::find($id);

@@ -17,7 +17,7 @@ class Materiel extends Model
         'libelle',
         'id_etat',
         'id_type_materiel',
-        'id_demande',
+        'id_commande',
         'id_departement'
     ];
 
@@ -36,8 +36,10 @@ class Materiel extends Model
         return $this->belongsTo(Departement::class, 'id_departement');
     }
 
-    public function demande()
+    public function commande()
     {
-        return $this->belongsTo(Demande::class, 'id_demande');
+        return $this->belongsTo(Commande::class, 'id_commande');
     }
+
+    
 }

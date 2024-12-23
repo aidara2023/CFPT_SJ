@@ -13,9 +13,24 @@ class Demande extends Model
         'type_demande',
         'id_user',
         'statut',
+        'urgence',
+        'observations',
+        'id_commande', // Ajout de la relation avec Commande
     ];
 
-    // Relation avec la table User
+    const URGENCE_BASSE = 'basse';
+    const URGENCE_MOYENNE = 'moyenne';
+    const URGENCE_HAUTE = 'haute';
+
+    public static function getUrgences()
+    {
+        return [
+            self::URGENCE_BASSE,
+            self::URGENCE_MOYENNE,
+            self::URGENCE_HAUTE,
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
@@ -31,5 +46,11 @@ class Demande extends Model
     public function consommables()
     {
         return $this->hasMany(DemandeConsommable::class, 'id_demande');
+    }
+
+    // Relation avec Commande
+    public function commande()
+    {
+        return $this->belongsTo(Commande::class, 'id_commande'); // Lien vers la commande associée
     }
 }

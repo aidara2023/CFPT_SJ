@@ -13,7 +13,7 @@ class consommable_controller extends Controller
     public function index()
     {
         try {
-            $consommables = Consommable::with(['etat', 'departement'])->orderBy('created_at', 'desc')->get();
+            $consommables = Consommable::with(['etat', 'departement','commande'])->orderBy('created_at', 'desc')->get();
             if ($consommables->isNotEmpty()) {
                 return response()->json([
                     'statut' => 200,
@@ -61,15 +61,17 @@ class consommable_controller extends Controller
         $perPage = $request->has('per_page') ? $request->per_page : 15;
         $search = $request->has('search') ? $request->search : '';
     
-        $consommables = Consommable::with(['etat','departement', 'demande'])
+        $consommables = Consommable::with(['etat', 'departement', 'commande']) // Changé de 'demande' à 'commande'
             ->where('libelle', 'LIKE', "%{$search}%")
             ->orWhere('marque', 'LIKE', "%{$search}%")
             ->orWhereHas('etat', function($query) use ($search) {
                 $query->where('intitule', 'LIKE', "%{$search}%");
             })
-           
             ->orWhereHas('departement', function($query) use ($search) {
                 $query->where('nom_departement', 'LIKE', "%{$search}%");
+            })
+            ->orWhereHas('commande', function($query) use ($search) { // Ajout de la recherche sur commande
+                $query->where('reference_commande', 'LIKE', "%{$search}%");
             })
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);

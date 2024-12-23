@@ -58,62 +58,56 @@ class dispatching_controller extends Controller
 
   
 
-    public function dispatchItems(Request $request)
-    {
-        $user = Auth::user();
-        $departement = $user->departement;
-    
-        try {
-            $validatedData = $request->validate([
-                'id_demande' => 'required|integer',
-                'items' => 'required|array',
-                'items.*.id' => 'required|integer',
-                'items.*.type' => 'required|string',
-                'items.*.quantite' => 'required|integer|min:1',
-                'items.*.id_batiment' => 'required|integer',
-                'items.*.id_salle' => 'required|integer',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+public function dispatchItems(Request $request)
+{
+    $user = Auth::user();
+    $departement = $user->departement;
+
+    try {
+        $validatedData = $request->validate([
+            'id_commande' => 'required|integer', // Changé de id_demande à id_commande
+            'items' => 'required|array',
+            'items.*.id' => 'required|integer',
+            'items.*.type' => 'required|string',
+            'items.*.quantite' => 'required|integer|min:1',
+            'items.*.id_batiment' => 'required|integer',
+            'items.*.id_salle' => 'required|integer',
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'statut' => 400,
+            'message' => 'Erreur de validation',
+            'errors' => $e->validator->errors()
+        ], 400);
+    }
+
+    foreach ($validatedData['items'] as $item) {
+        $salle = Salle::where('id', $item['id_salle'])
+                      ->where('id_batiment', $item['id_batiment'])
+                      ->first();
+
+        if (!$salle) {
             return response()->json([
                 'statut' => 400,
-                'message' => 'Erreur de validation',
-                'errors' => $e->validator->errors()
+                'message' => 'La salle sélectionnée n\'appartient pas au bâtiment choisi.'
             ], 400);
         }
-    
-        foreach ($validatedData['items'] as $item) {
-            // Vérifiez que la salle appartient bien au bâtiment sélectionné
-            $salle = Salle::where('id', $item['id_salle'])
-                          ->where('id_batiment', $item['id_batiment'])
-                          ->first();
-    
-            if (!$salle) {
-                return response()->json([
-                    'statut' => 400,
-                    'message' => 'La salle sélectionnée n\'appartient pas au bâtiment choisi.'
-                ], 400);
-            }
-    
-            Dispatching::create([
-                'id_departement' => $departement->id,
-                'id_user' => $user->id,
-                'id_demande' => $validatedData['id_demande'],
-                'id_salle' => $item['id_salle'],
-                'id_batiment' => $item['id_batiment'],
-                $item['type'] === 'materiel' ? 'id_materiel' : 'id_consommable' => $item['id'],
-                'quantite' => $item['quantite'],
-            ]);
-    
-            // Supprimez cette partie qui mettait à jour la quantité
-            // $model = $item['type'] === 'materiel' ? Materiel::find($item['id']) : Consommable::find($item['id']);
-            // $model->quantite -= $item['quantite'];
-            // $model->save();
-        }
-        return response()->json([
-            'statut' => 200,
-            'message' => 'Dispatching effectué avec succès'
+
+        Dispatching::create([
+            'id_departement' => $departement->id,
+            'id_user' => $user->id,
+            'id_commande' => $validatedData['id_commande'], // Changé de id_demande à id_commande
+            'id_salle' => $item['id_salle'],
+            'id_batiment' => $item['id_batiment'],
+            $item['type'] === 'materiel' ? 'id_materiel' : 'id_consommable' => $item['id'],
+            'quantite' => $item['quantite'],
         ]);
     }
+    return response()->json([
+        'statut' => 200,
+        'message' => 'Dispatching effectué avec succès'
+    ]);
+}
 
     public function update(Request $request, $id)
     {
@@ -148,15 +142,15 @@ class dispatching_controller extends Controller
         }
     }
     public function search(Request $request)
-{
-    $dispatching = Dispatching::with(['batiment', 'salle'])
-        ->where('id_demande', $request->id_demande)
-        ->get();
+    {
+        $dispatching = Dispatching::with(['batiment', 'salle'])
+            ->where('id_commande', $request->id_commande) // Changé de id_demande à id_commande
+            ->get();
 
-    return response()->json([
-        'dispatching' => $dispatching
-    ]);
-}
+        return response()->json([
+            'dispatching' => $dispatching
+        ]);
+    }
 
 
     public function destroy($id)
@@ -183,3 +177,7 @@ class dispatching_controller extends Controller
         ]);
     }
 }
+
+
+
+

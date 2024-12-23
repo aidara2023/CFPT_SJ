@@ -43,6 +43,7 @@ use App\Http\Controllers\categorie\categorie_view_controller;
 use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\classe_matiere\classe_matiere_controller;
 use App\Http\Controllers\comptable\comptable_controller;
+use App\Http\Controllers\Commande\CommandeController;
 use App\Http\Controllers\consommable\consommable_controller;
 use App\Http\Controllers\connexion\connexion_view_controller;
 
@@ -102,6 +103,7 @@ use App\Http\Controllers\retard\retard_view_controller;
 use App\Http\Controllers\role\role_controller;
 use App\Http\Controllers\salle\salle_controller;
 use App\Http\Controllers\salle\salle_view_controller;
+use App\Http\Controllers\SecteurActivite\SecteurActiviteController;
 use App\Http\Controllers\semestre\semestre_controller;
 use App\Http\Controllers\seminaire\seminaire_controller;
 use App\Http\Controllers\seminaire\seminaire_view_controller;
@@ -110,6 +112,8 @@ use App\Http\Controllers\service\service_view_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\specialite\specialite_view_controller;
 use App\Http\Controllers\statut\statut_controller;
+use App\Http\Controllers\Stock\StockMaterielController;
+use App\Http\Controllers\Stock\StockConsommableController;
 use App\Http\Controllers\tuteur\tuteur_controller;
 use App\Http\Controllers\tuteur\tuteur_view_controller;
 use App\Http\Controllers\type_evaluation\type_evaluation_controller;
@@ -186,7 +190,8 @@ Route::get('demandes/{id}', [demande_controller::class, 'show'])->name('demandes
 Route::get('demandes/user', [demande_controller::class, 'userDemandes'])->name('demandes.user');
 Route::get('demandes/last-three', [demande_controller::class, 'getLastThreeDemandes'])->name('demandes.last_three');
 Route::get('demandes/index/paginate', [demande_controller::class, 'indexpagine'])->name('demandes.index_paginate');
-
+Route::patch('demandes/{id}/urgence', [demande_controller::class, 'updateUrgence']);
+Route::post('/demandes/{id}/valider', [demande_controller::class, 'validerDemande']);
 // routes/web.php ou routes/api.php
 Route::get('materiel/index', [materiel_controller::class, 'index'])->name('materiel_index');
 Route::post('materiel/store', [materiel_controller::class, 'store'])->name('materiel_store');
@@ -256,6 +261,39 @@ Route::post('/fournisseurs', [FournisseurController::class, 'store']);
 Route::put('/fournisseurs/{id}', [FournisseurController::class, 'update']);
 Route::delete('/fournisseurs/{id}', [FournisseurController::class, 'delete']);
 
+
+
+Route::get('/secteurs-activite', [SecteurActiviteController::class, 'index']);
+Route::post('/secteurs-activite', [SecteurActiviteController::class, 'store']);
+Route::get('/secteurs-activite/{id}', [SecteurActiviteController::class, 'show']);
+Route::put('/secteurs-activite/{id}', [SecteurActiviteController::class, 'update']);
+Route::delete('/secteurs-activite/{id}', [SecteurActiviteController::class, 'destroy']);
+
+
+
+Route::prefix('commandes')->group(function () {
+    Route::get('/', [CommandeController::class, 'index']);
+    Route::get('/{id}', [CommandeController::class, 'show']);
+    Route::post('/', [CommandeController::class, 'store']);
+    Route::put('/{id}', [CommandeController::class, 'update']);
+    Route::delete('/{id}', [CommandeController::class, 'delete']);
+});
+Route::prefix('stocks-materiels')->group(function () {
+    Route::get('/', [StockMaterielController::class, 'index']);
+    Route::post('/', [StockMaterielController::class, 'store']);
+    Route::get('/{id}', [StockMaterielController::class, 'show']);
+    Route::put('/{id}', [StockMaterielController::class, 'update']);
+    Route::delete('/{id}', [StockMaterielController::class, 'destroy']);
+});
+
+// Routes pour StockConsommable
+Route::prefix('stocks-consommables')->group(function () {
+    Route::get('/', [StockConsommableController::class, 'index']);
+    Route::post('/', [StockConsommableController::class, 'store']);
+    Route::get('/{id}', [StockConsommableController::class, 'show']);
+    Route::put('/{id}', [StockConsommableController::class, 'update']);
+    Route::delete('/{id}', [StockConsommableController::class, 'destroy']);
+});
 //Route de emploi du temps
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');

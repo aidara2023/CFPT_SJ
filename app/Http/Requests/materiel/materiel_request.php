@@ -28,7 +28,7 @@ class materiel_request extends FormRequest
         'date_entree' => 'required',
         'id_etat' => 'required',
         'id_type_materiel' => 'required|',
-        'id_demande' => 'required',
+        'id_commande' => 'required',
         'id_departement' => 'required',
     ];
 }

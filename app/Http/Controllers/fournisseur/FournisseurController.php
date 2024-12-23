@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 class FournisseurController extends Controller
 {
     public function index() {
-        $fournisseurs = Fournisseur::orderBy('created_at', 'desc')->get();
+        $fournisseurs = Fournisseur::with('secteurActivite')  // Ajout de with()
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
         if ($fournisseurs != null) {
             return response()->json([
                 'statut' => 200,
@@ -23,7 +26,6 @@ class FournisseurController extends Controller
             ], 500);
         }
     }
-
     public function show($id) {
         $fournisseur = Fournisseur::find($id);
 
