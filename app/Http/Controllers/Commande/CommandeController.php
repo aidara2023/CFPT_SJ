@@ -28,6 +28,11 @@ class CommandeController extends Controller
             $commandes = $commandes->map(function ($commande) {
                 $idDemandes = json_decode($commande->id_demande ?? '[]', true);
                 
+                // S'assurer que $idDemandes est un tableau
+                if (!is_array($idDemandes)) {
+                    $idDemandes = [];
+                }
+                
                 return [
                     'id' => $commande->id,
                     'reference_commande' => $commande->reference_commande,
