@@ -112,6 +112,7 @@ use App\Http\Controllers\service\service_view_controller;
 use App\Http\Controllers\specialite\specialite_controller;
 use App\Http\Controllers\specialite\specialite_view_controller;
 use App\Http\Controllers\statut\statut_controller;
+use App\Http\Controllers\Stock\StockController;
 use App\Http\Controllers\Stock\StockMaterielController;
 use App\Http\Controllers\Stock\StockConsommableController;
 use App\Http\Controllers\tuteur\tuteur_controller;
@@ -182,6 +183,7 @@ Route::get('direction/get/{id}',[direction_controller::class, 'get'])->name('dir
 Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->name('direction_accueil');
 
 Route::get('demandes', [demande_controller::class, 'index'])->name('demandes.index');
+Route::get('demandes-a-commander', [demande_controller::class, 'getDemandesACommander'])->name('demandes.a_commander');
 Route::put('demandes/{id}/change-statut', [demande_controller::class, 'changeStatut'])->name('demande_change_statut');
 Route::post('demandes', [demande_controller::class, 'store'])->name('demandes.store');
 Route::put('demandes/{id}', [demande_controller::class, 'update'])->name('demandes.update');
@@ -294,6 +296,29 @@ Route::prefix('stocks-consommables')->group(function () {
     Route::put('/{id}', [StockConsommableController::class, 'update']);
     Route::delete('/{id}', [StockConsommableController::class, 'destroy']);
 });
+Route::prefix('stock')->group(function () {
+    Route::get('/materiels', [StockMaterielController::class, 'index']);
+    Route::get('/consommables', [StockConsommableController::class, 'index']);
+    Route::get('/verifier/{id}', [StockController::class, 'verifierDisponibilite']);
+    Route::post('/dispatcher', [StockController::class, 'dispatcherStock']);
+});
+
+Route::prefix('stock')->group(function () {
+    Route::get('demande/{id}/verifier', [StockController::class, 'verifierDisponibilite']);
+    Route::post('demande/{id}/dispatcher', [StockController::class, 'dispatcherStock']);
+    Route::get('demande/{id}/non-disponibles', [StockController::class, 'getItemsNonDisponibles']);
+    Route::get('/transactions', [App\Http\Controllers\Stock\TransactionController::class, 'index']);
+});
+
+Route::prefix('stock')->group(function () {
+    Route::get('materiel/all', [StockController::class, 'allMateriel']);
+    Route::get('consommable/all', [StockController::class, 'allConsommable']);
+    Route::get('demande/{id}/verifier', [StockController::class, 'verifierDisponibilite']);
+    Route::post('demande/{id}/dispatcher', [StockController::class, 'dispatcherStock']);
+    Route::get('demande/{id}/non-disponibles', [StockController::class, 'getItemsNonDisponibles']);
+    Route::get('transactions', [App\Http\Controllers\Stock\TransactionController::class, 'index']);
+});
+
 //Route de emploi du temps
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
@@ -302,7 +327,6 @@ Route::post('planification/emploidutemps/store', [emploi_du_temps_controller::cl
 Route::post('/generate-schedule', [emploi_du_temps_controller::class, 'generateSchedule']);
 Route::post('/save-schedule', [emploi_du_temps_controller::class, 'saveSchedule']);
 Route::get('emploi-du-temps/formateur',[emploi_du_temps_controller::class, 'getEmploiDuTempsForConnectedFormateur'])->name('emploi_get_formateurs');
-
 
 
 //Route de matiere
@@ -317,7 +341,7 @@ Route::get('matiere/find/formateur/assign/{id}',[matiere_controller::class,'find
 
 
 Route::get('/matiere/create',[matiere_view_controller::class, 'create'])->name('matiere_create');
-//annee academique
+
 
 //Route anne academique
 Route::get('annee_academique/index', [annee_academique_controller::class, 'index']) -> name('annee_academique_index');
@@ -1015,9 +1039,30 @@ Route::post('paiement_partenaire/update/{id}',[paiement_partenaire_controller::c
 Route::post('/paiement_partenaire/valider-facture/{id}',[paiement_partenaire_controller::class, 'validerFacture'])->name('valider_facture_');
 Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller::class, 'destroy'])->name('paiement_delete_');
 
+// Routes pour les demandes
+Route::prefix('demandes')->group(function () {
+    Route::get('/', [demande_controller::class, 'index']);
+    Route::post('/', [demande_controller::class, 'store']);
+    Route::get('/{id}', [demande_controller::class, 'show']);
+    Route::post('/{id}/traiter', [demande_controller::class, 'traiterDemande']);
+    Route::put('/{id}/statut', [demande_controller::class, 'updateStatut']);
+    Route::get('/pour-commande', [demande_controller::class, 'getDemandesForCommande']);
+    Route::get('/last-three', [demande_controller::class, 'getLastThreeDemandes']);
+});
+
+// Routes pour les commandes
+Route::prefix('commandes')->group(function () {
+    Route::get('/', [CommandeController::class, 'index']);
+    Route::post('/', [CommandeController::class, 'store']);
+    Route::get('/{id}', [CommandeController::class, 'show']);
+    Route::put('/{id}/statut', [CommandeController::class, 'updateStatut']);
 });
 
 
+
+
+
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -1036,4 +1081,3 @@ Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller:
 
 Route::middleware('auth:sanctum')->post('/logout', [connexion_controller::class, 'logout']);
 Route::get('/create-default-admin', [administrateur_view_controller::class, 'create_admin']);
-

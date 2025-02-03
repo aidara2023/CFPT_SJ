@@ -20,4 +20,11 @@ class StockMateriel extends Model
     {
         return $this->belongsTo(Type_materiel::class, 'id_type_materiel');
     }
+
+    public function demandes()
+    {
+        return $this->belongsToMany(Demande::class, 'demande_stock_materiel')
+            ->withPivot('quantite_demandee', 'quantite_disponible')
+            ->withTimestamps();
+    }
 }

@@ -16,6 +16,7 @@ class Consommable extends Model
         'date_entree',
         'id_etat',
         'id_departement',
+        'source'
     ];
 
     // Relation avec le modèle Statut

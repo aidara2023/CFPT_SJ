@@ -20,6 +20,7 @@ class Dispatching extends Model
         'id_consommable',
         'id_batiment',
         'id_commande',
+        'id_demande'
     ];
 
     // Relations (à définir selon les autres modèles)
@@ -32,6 +33,7 @@ class Dispatching extends Model
     {
         return $this->belongsTo(Salle::class, 'id_salle');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
@@ -41,6 +43,7 @@ class Dispatching extends Model
     {
         return $this->belongsTo(Materiel::class, 'id_materiel');
     }
+
     public function consommable()
     {
         return $this->belongsTo(Consommable::class, 'id_consommable');
@@ -54,5 +57,10 @@ class Dispatching extends Model
     public function commande()
     {
         return $this->belongsTo(Commande::class, 'id_commande');
+    }
+
+    public function demande()
+    {
+        return $this->belongsTo(Demande::class, 'id_demande');
     }
 }

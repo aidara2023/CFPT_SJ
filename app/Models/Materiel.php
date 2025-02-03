@@ -18,7 +18,8 @@ class Materiel extends Model
         'id_etat',
         'id_type_materiel',
         'id_commande',
-        'id_departement'
+        'id_departement',
+        'source'
     ];
 
     public function etat()

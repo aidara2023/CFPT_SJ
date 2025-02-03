@@ -9,11 +9,19 @@ class Commande extends Model
 {
     use HasFactory;
 
+    // Constantes pour les statuts
+    const STATUTS = [
+        'envoyé',
+        'en_attente',
+        'livré',
+        'non_livré'
+    ];
+
     protected $fillable = [
         'reference_commande',
+        'statut',
         'id_demande',
         'date_commande',
-        'statut',
     ];
 
     protected $casts = [
@@ -24,10 +32,10 @@ class Commande extends Model
 
     public function getNombreDemandesAttribute()
     {
-        return count(json_decode($this->id_demande ?? '[]', true));
+        return is_array($this->id_demande) ? count($this->id_demande) : 0;
     }
 
-    // Modifiez la relation demandes comme ceci
+    // Relation avec les demandes
     public function demandes()
     {
         return $this->hasManyThrough(
@@ -37,6 +45,40 @@ class Commande extends Model
             'id',
             null,
             null
-        )->whereIn('id', json_decode($this->id_demande ?? '[]', true));
+        )->whereIn('id', is_array($this->id_demande) ? $this->id_demande : []);
+    }
+
+    // Accesseur pour id_demande (decode JSON)
+    public function getIdDemandeAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    // Mutateur pour id_demande (encode JSON)
+    public function setIdDemandeAttribute($value)
+    {
+        $this->attributes['id_demande'] = is_array($value) ? json_encode($value) : $value;
+    }
+
+    public static function getStatuts()
+    {
+        return self::STATUTS;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($commande) {
+            if ($commande->isDirty('statut')) {
+                if ($commande->statut === 'livré') {
+                    // Mettre à jour le statut de toutes les demandes associées
+                    $demandes = Demande::whereIn('id', json_decode($commande->id_demande, true))->get();
+                    foreach ($demandes as $demande) {
+                        $demande->update(['statut' => Demande::STATUT_RECU]);
+                    }
+                }
+            }
+        });
     }
 }

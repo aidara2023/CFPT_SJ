@@ -26,11 +26,15 @@ class CommandeController extends Controller
             $commandes = Commande::orderBy('created_at', 'desc')->get();
             
             $commandes = $commandes->map(function ($commande) {
-                $idDemandes = json_decode($commande->id_demande ?? '[]', true);
+                $idDemandes = [];
                 
-                // S'assurer que $idDemandes est un tableau
-                if (!is_array($idDemandes)) {
-                    $idDemandes = [];
+                // Gérer le cas où id_demande est déjà un array ou une string JSON
+                if (!empty($commande->id_demande)) {
+                    if (is_string($commande->id_demande)) {
+                        $idDemandes = json_decode($commande->id_demande, true) ?? [];
+                    } elseif (is_array($commande->id_demande)) {
+                        $idDemandes = $commande->id_demande;
+                    }
                 }
                 
                 return [
@@ -57,60 +61,129 @@ class CommandeController extends Controller
             ], 500);
         }
     }
-    
 
-   /* public function show($id)
-    {
-        $commande = Commande::with([
-            'demande.user.departement',
-            'demande.materiels',    // Relation avec DemandeMateriel
-            'demande.consommables', // Relation avec DemandeConsommable
-            'fournisseur'
-        ])->find($id);
-    
-        if (!$commande) {
-            return response()->json([
-                'statut' => 404,
-                'message' => 'Commande non trouvée'
-            ], 404);
-        }
-    
-        return response()->json([
-            'statut' => 200,
-            'commande' => $commande
-        ]);
-    }*/
     public function show($id)
     {
         try {
+            Log::info("Début de la méthode show pour la commande ID: " . $id);
+            
             $commande = Commande::find($id);
+            Log::info("Commande trouvée:", ['commande' => $commande]);
     
             if (!$commande) {
+                Log::warning("Commande non trouvée avec l'ID: " . $id);
                 return response()->json([
                     'statut' => 404,
                     'message' => 'Commande non trouvée'
                 ], 404);
             }
     
-            $demandeIds = is_string($commande->id_demande) 
-                ? json_decode($commande->id_demande, true) 
-                : $commande->id_demande;
+            // Extraire les IDs de demande
+            $demandeIds = [];
+            if (!empty($commande->id_demande)) {
+                if (is_string($commande->id_demande)) {
+                    $demandeIds = json_decode($commande->id_demande, true) ?? [];
+                    Log::info("IDs de demande décodés depuis JSON:", ['ids' => $demandeIds]);
+                } elseif (is_array($commande->id_demande)) {
+                    $demandeIds = $commande->id_demande;
+                    Log::info("IDs de demande depuis tableau:", ['ids' => $demandeIds]);
+                }
+            }
+            
+            // S'assurer que demandeIds est un tableau plat d'IDs uniques
+            $demandeIds = array_unique(array_filter($demandeIds));
+            Log::info("IDs de demande après nettoyage:", ['ids' => $demandeIds]);
     
-            $demandes = Demande::whereIn('id', $demandeIds ?? [])
-                ->with([
-                    'user.departement',
-                    'materiels',
-                    'consommables'
-                ])
+            // Récupérer les demandes avec leurs relations
+            Log::info("Récupération des demandes avec les relations");
+            $demandes = Demande::whereIn('id', $demandeIds)
+                ->with(['demandeMateriels.materiel', 'demandeConsommables.stockConsommable', 'user.departement'])
                 ->get();
+
+            Log::info("Demandes récupérées:", ['count' => $demandes->count()]);
     
-            return response()->json([
+            // Transformer les demandes pour inclure les détails
+            $demandes = $demandes->map(function ($demande) {
+                Log::info("Traitement de la demande ID: " . $demande->id);
+                
+                // Traiter les matériels
+                $materiels = $demande->demandeMateriels->filter(function ($item) {
+                    return $item->a_commander === true;
+                })->map(function ($item) {
+                    Log::info("Traitement du matériel:", [
+                        'id' => $item->id,
+                        'materiel_relation' => isset($item->materiel)
+                    ]);
+                    
+                    return [
+                        'id' => $item->id,
+                        'libelle' => $item->libelle,
+                        'quantite' => $item->quantite,
+                        'description' => $item->description,
+                        'a_commander' => $item->a_commander,
+                        'materiel' => $item->materiel
+                    ];
+                });
+                
+                Log::info("Matériels transformés:", ['count' => count($materiels)]);
+                
+                // Traiter les consommables
+                $consommables = $demande->demandeConsommables->filter(function ($item) {
+                    return $item->a_commander === true;
+                })->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'libelle' => $item->libelle,
+                        'quantite' => $item->quantite,
+                        'description' => $item->description,
+                        'a_commander' => $item->a_commander,
+                        'consommable' => $item->stockConsommable
+                    ];
+                });
+                
+                Log::info("Consommables transformés:", ['count' => count($consommables)]);
+
+                // Retourner la demande avec les relations transformées
+                return [
+                    'id' => $demande->id,
+                    'statut' => $demande->statut,
+                    'checking_status' => $demande->checking_status,
+                    'type_demande' => $demande->type_demande,
+                    'observations' => $demande->observations,
+                    'urgence' => $demande->urgence,
+                    'created_at' => $demande->created_at,
+                    'updated_at' => $demande->updated_at,
+                    'user' => $demande->user,
+                    'materiels' => $materiels,
+                    'consommables' => $consommables
+                ];
+            });
+    
+            $response = [
                 'statut' => 200,
-                'commande' => $commande,
+                'commande' => [
+                    'id' => $commande->id,
+                    'reference_commande' => $commande->reference_commande,
+                    'date_commande' => $commande->date_commande,
+                    'statut' => $commande->statut,
+                    'id_demande' => $demandeIds,
+                    'nombre_demandes' => count($demandeIds)
+                ],
                 'demandes' => $demandes
+            ];
+            
+            Log::info("Réponse finale préparée:", [
+                'commande_id' => $commande->id,
+                'nombre_demandes' => count($demandes),
+                'demandes_avec_materiels' => collect($demandes)->pluck('materiels')->flatten()->count(),
+                'demandes_avec_consommables' => collect($demandes)->pluck('consommables')->flatten()->count()
             ]);
+
+            return response()->json($response);
+            
         } catch (\Exception $e) {
             Log::error('Erreur dans show(): ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
             return response()->json([
                 'statut' => 500,
                 'message' => 'Erreur lors de la récupération des détails',
@@ -119,114 +192,168 @@ class CommandeController extends Controller
         }
     }
 
+    public function getDemandesACommander()
+    {
+        try {
+            // Récupérer uniquement les demandes validées avec des items non disponibles
+            $demandes = Demande::where('statut', Demande::STATUT_VALIDE)
+                ->whereIn('checking_status', [
+                    Demande::CHECKING_NON_DISPONIBLE,
+                    Demande::CHECKING_PARTIELLEMENT_DISPONIBLE
+                ])
+                ->whereNull('id_commande')
+                ->with(['materiels', 'consommables', 'user.departement'])
+                ->get();
+
+            $demandesFormatted = $demandes->map(function ($demande) {
+                // Récupérer les items_non_disponibles depuis la base de données
+                $itemsNonDisponibles = $demande->items_non_disponibles;
+                
+                return [
+                    'id' => $demande->id,
+                    'user' => $demande->user->nom . ' ' . $demande->user->prenom,
+                    'departement' => $demande->user->departement->nom,
+                    'date_demande' => $demande->created_at,
+                    'checking_status' => $demande->checking_status,
+                    // Pour les matériels, ne montrer que ceux qui sont dans items_non_disponibles
+                    'materiels_a_commander' => isset($itemsNonDisponibles['materiels']) ? 
+                        collect($itemsNonDisponibles['materiels'])->map(function ($item) {
+                            return [
+                                'libelle' => $item['libelle'],
+                                'marque' => $item['marque'],
+                                'quantite' => $item['quantite_demandee']
+                            ];
+                        })->values()->all() : [],
+                    // Pour les consommables, ne montrer que ceux qui sont dans items_non_disponibles
+                    'consommables_a_commander' => isset($itemsNonDisponibles['consommables']) ? 
+                        collect($itemsNonDisponibles['consommables'])->map(function ($item) {
+                            return [
+                                'libelle' => $item['libelle'],
+                                'quantite' => $item['quantite_demandee']
+                            ];
+                        })->values()->all() : []
+                ];
+            });
+
+            return response()->json([
+                'statut' => 200,
+                'demandes' => $demandesFormatted
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la récupération des demandes à commander: ' . $e->getMessage());
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la récupération des demandes'
+            ], 500);
+        }
+    }
+
     public function store(CommandeRequest $request)
     {
         try {
-            $validatedData = $request->validated();
+            $demandeIds = $request->id_demande;
             
-            $demandeIds = is_array($validatedData['id_demande']) 
-                ? $validatedData['id_demande'] 
-                : json_decode($validatedData['id_demande']);
-    
-            Log::info('Demandes reçues:', ['ids' => $demandeIds]);
-            
-            if (empty($demandeIds)) {
+            // Vérifier que toutes les demandes sont valides et ont besoin d'une commande
+            $demandes = Demande::whereIn('id', $demandeIds)
+                ->where('statut', Demande::STATUT_VALIDE)
+                ->whereIn('checking_status', [
+                    Demande::CHECKING_NON_DISPONIBLE,
+                    Demande::CHECKING_PARTIELLEMENT_DISPONIBLE
+                ])
+                ->whereNull('id_commande')
+                ->get();
+
+            if ($demandes->count() !== count($demandeIds)) {
                 return response()->json([
                     'statut' => 400,
-                    'message' => 'Aucune demande fournie'
+                    'message' => 'Certaines demandes ne sont pas valides pour la commande'
                 ], 400);
             }
-    
-            $demandes = Demande::whereIn('id', $demandeIds)
-                              ->where('statut', 'validé')
-                              ->get();
-    
-            if ($demandes->isEmpty()) {
-                return response()->json([
-                    'statut' => 404,
-                    'message' => 'Aucune demande validée trouvée'
-                ], 404);
-            }
-    
-            $validatedDemandeIds = $demandes->pluck('id')->toArray();
-            $reference = 'CMD' . date('dmY') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
-    
+
+            // Créer la commande
             $commande = Commande::create([
-                'reference_commande' => $reference,
-                'id_demande' => json_encode($validatedDemandeIds),
+                'reference_commande' => 'CMD-' . time(),
                 'date_commande' => now(),
-                'statut' => $validatedData['statut']
+                'statut' => 'envoyé',
+                'id_demande' => json_encode($demandeIds)
             ]);
-    
-            Demande::whereIn('id', $validatedDemandeIds)
-                   ->update(['statut' => 'en_cours']);
-                   return response()->json([
-                    'statut' => 200,
-                    'message' => 'Commande créée avec succès',
-                    'commande' => $commande
-                ], 200);
-        
-            } catch (\Exception $e) {
-                Log::error('Erreur lors de la création de la commande: ' . $e->getMessage());
-                return response()->json([
-                    'statut' => 500,
-                    'message' => 'Erreur lors de la création de la commande: ' . $e->getMessage(),
-                ], 500);
-            }
-        }    
 
-public function update(CommandeRequest $request, $id)
-{
-    try {
-        $commande = Commande::find($id); // Retirez le with('demandes')
-
-        if (!$commande) {
-            return response()->json([
-                'statut' => 404,
-                'message' => 'Commande non trouvée'
-            ], 404);
-        }
-
-        $validatedData = $request->validated();
-
-        // Mise à jour de la commande
-        $commande->update([
-            'statut' => $validatedData['statut']
-        ]);
-
-        // Si la commande est marquée comme livrée
-        if ($validatedData['statut'] === 'livré') {
-            // Décoder les IDs des demandes si nécessaire
-            $demandeIds = is_string($commande->id_demande) 
-                ? json_decode($commande->id_demande, true) 
-                : $commande->id_demande;
-
-            if (!empty($demandeIds)) {
-                Demande::whereIn('id', $demandeIds)
-                    ->update(['statut' => 'reçu']);
-
-                Log::info('Mise à jour des demandes', [
-                    'commande_id' => $id,
-                    'demandes' => $demandeIds
+            // Mettre à jour les demandes
+            foreach ($demandes as $demande) {
+                $demande->update([
+                    'statut' => Demande::STATUT_EN_COURS,
+                    'id_commande' => $commande->id
                 ]);
             }
+
+            return response()->json([
+                'statut' => 200,
+                'message' => 'Commande créée avec succès',
+                'commande' => $commande
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la création de la commande: ' . $e->getMessage());
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la création de la commande'
+            ], 500);
         }
-
-        return response()->json([
-            'statut' => 200,
-            'message' => 'Commande mise à jour avec succès',
-            'commande' => $commande->fresh()
-        ], 200);
-
-    } catch (\Exception $e) {
-        Log::error('Erreur lors de la mise à jour de la commande: ' . $e->getMessage());
-        return response()->json([
-            'statut' => 500,
-            'message' => 'Erreur lors de la mise à jour de la commande',
-            'error' => $e->getMessage()
-        ], 500);
     }
-}
+
+    public function update(CommandeRequest $request, $id)
+    {
+        try {
+            $commande = Commande::find($id); // Retirez le with('demandes')
+
+            if (!$commande) {
+                return response()->json([
+                    'statut' => 404,
+                    'message' => 'Commande non trouvée'
+                ], 404);
+            }
+
+            $validatedData = $request->validated();
+
+            // Mise à jour de la commande
+            $commande->update([
+                'statut' => $validatedData['statut']
+            ]);
+
+            // Si la commande est marquée comme livrée
+            if ($validatedData['statut'] === 'livré') {
+                // Décoder les IDs des demandes si nécessaire
+                $demandeIds = is_string($commande->id_demande) 
+                    ? json_decode($commande->id_demande, true) 
+                    : $commande->id_demande;
+
+                if (!empty($demandeIds)) {
+                    Demande::whereIn('id', $demandeIds)
+                        ->update(['statut' => 'reçu']);
+
+                    Log::info('Mise à jour des demandes', [
+                        'commande_id' => $id,
+                        'demandes' => $demandeIds
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'statut' => 200,
+                'message' => 'Commande mise à jour avec succès',
+                'commande' => $commande->fresh()
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la mise à jour de la commande: ' . $e->getMessage());
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la mise à jour de la commande',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function delete($id)
     {
