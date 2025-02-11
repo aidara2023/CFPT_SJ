@@ -22,6 +22,21 @@ class Materiel extends Model
         'source'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Observer pour la mise à jour de la source quand la commande est livrée
+        static::updating(function ($materiel) {
+            if ($materiel->isDirty('id_commande') && $materiel->id_commande) {
+                $commande = Commande::find($materiel->id_commande);
+                if ($commande && $commande->statut === 'livré') {
+                    $materiel->source = 'commande';
+                }
+            }
+        });
+    }
+
     public function etat()
     {
         return $this->belongsTo(Etat::class, 'id_etat');
@@ -41,6 +56,4 @@ class Materiel extends Model
     {
         return $this->belongsTo(Commande::class, 'id_commande');
     }
-
-    
 }

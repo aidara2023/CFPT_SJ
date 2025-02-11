@@ -5,21 +5,32 @@ namespace App\Http\Controllers\Stock;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Stock\StockMaterielRequest;
 use App\Models\StockMateriel;
+use Illuminate\Support\Facades\Log;
 
 class StockMaterielController extends Controller
 {
     public function index()
     {
-        $stocks = StockMateriel::with('typeMateriel')->orderBy('created_at', 'desc')->get(); // Incluez la relation
-        if ($stocks != null) {
+        try {
+            Log::info('Début de la récupération des stocks matériels');
+            
+            $stocks = StockMateriel::with('typeMateriel')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            
+            Log::info('Stocks matériels récupérés', ['count' => $stocks->count()]);
+
             return response()->json([
                 'statut' => 200,
                 'stocks' => $stocks
             ], 200);
-        } else {
+
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la récupération des stocks matériels: ' . $e->getMessage());
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucune donnée trouvée',
+                'message' => 'Une erreur est survenue lors de la récupération des stocks',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\consommable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\consommable\consommable_request;
 use App\Models\Consommable;
+use App\Models\Commande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -36,10 +37,25 @@ class consommable_controller extends Controller
 
     public function store(consommable_request $request)
     {
-        
- 
         try {
             $data = $request->validated();
+            
+            // Définir la source par défaut à 'stock'
+            $data['source'] = 'stock';
+            
+            // Si la requête contient id_commande, la source devient 'commande'
+            if (isset($data['id_commande'])) {
+                // Vérifier si la commande existe
+                $commande = Commande::find($data['id_commande']);
+                if (!$commande) {
+                    return response()->json([
+                        'statut' => 404,
+                        'message' => 'La commande spécifiée n\'existe pas.',
+                    ], 404);
+                }
+                $data['source'] = 'commande';
+            }
+
             $consommable = Consommable::create($data);
             return response()->json([
                 'statut' => 200,

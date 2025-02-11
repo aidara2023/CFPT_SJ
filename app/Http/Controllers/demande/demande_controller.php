@@ -55,45 +55,49 @@ class demande_controller extends Controller
 
     public function getDemandesACommander(Request $request)
     {
-        $query = Demande::with(['demandeMateriels', 'demandeConsommables', 'user.departement'])
+        try {
+            Log::info('Début getDemandesACommander');
+            
+            $query = Demande::with([
+                'demandeMateriels' => function($query) {
+                    $query->where('a_commander', 1)
+                          ->with('stockMateriel');
+                },
+                'demandeConsommables' => function($query) {
+                    $query->where('a_commander', 1)
+                          ->with('stockConsommable');
+                },
+                'user.departement'
+            ])
             ->where('statut', 'validé')
-            ->whereIn('checking_status', ['partiellement_disponible', 'non_disponible'])
             ->where(function($q) {
                 $q->whereHas('demandeMateriels', function($q) {
-                    $q->where('a_commander', true);
+                    $q->where('a_commander', 1);
                 })
                 ->orWhereHas('demandeConsommables', function($q) {
-                    $q->where('a_commander', true);
+                    $q->where('a_commander', 1);
                 });
             });
 
-        // Pagination
-        $perPage = $request->input('per_page', 100);
-        $demandes = $query->orderBy('created_at', 'desc')->paginate($perPage);
+            // Pagination
+            $perPage = $request->input('per_page', 100);
+            $demandes = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
-        // Filtrer les relations pour ne garder que les articles à commander
-        $demandes->through(function ($demande) {
-            // Filtrer les matériels
-            $demande->setRelation('demandeMateriels', 
-                $demande->demandeMateriels->filter(function($materiel) {
-                    return $materiel->a_commander;
-                })
-            );
+            return response()->json([
+                'statut' => $demandes->isEmpty() ? 404 : 200,
+                'demandes' => $demandes
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la récupération des demandes à commander:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             
-            // Filtrer les consommables
-            $demande->setRelation('demandeConsommables', 
-                $demande->demandeConsommables->filter(function($consommable) {
-                    return $consommable->a_commander;
-                })
-            );
-            
-            return $demande;
-        });
-        
-        return response()->json([
-            'statut' => $demandes->isEmpty() ? 404 : 200,
-            'demandes' => $demandes
-        ]);
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la récupération des demandes à commander'
+            ], 500);
+        }
     }
 
     public function validerDemande($id)

@@ -45,7 +45,11 @@ class materiel_controller extends Controller
     {
         try {
             $data = $request->validated();
-            // Si la requête contient id_commande au lieu de id_demande
+            
+            // Définir la source par défaut à 'stock'
+            $data['source'] = 'stock';
+            
+            // Si la requête contient id_commande, la source devient 'commande'
             if (isset($data['id_commande'])) {
                 // Vérifier si la commande existe
                 $commande = Commande::find($data['id_commande']);
@@ -55,6 +59,7 @@ class materiel_controller extends Controller
                         'message' => 'La commande spécifiée n\'existe pas.',
                     ], 404);
                 }
+                $data['source'] = 'commande';
             }
 
             $materiel = Materiel::create($data);
@@ -163,5 +168,3 @@ class materiel_controller extends Controller
 
     // Autres méthodes inchangées...
 }
-
-

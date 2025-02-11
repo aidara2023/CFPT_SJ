@@ -97,22 +97,31 @@ class CommandeController extends Controller
             // Récupérer les demandes avec leurs relations
             Log::info("Récupération des demandes avec les relations");
             $demandes = Demande::whereIn('id', $demandeIds)
-                ->with(['demandeMateriels.materiel', 'demandeConsommables.stockConsommable', 'user.departement'])
+                ->with(['demandeMateriels' => function($query) {
+                    $query->where('a_commander', 1)
+                        ->with('stockMateriel');
+                }, 'demandeConsommables' => function($query) {
+                    $query->where('a_commander', 1)
+                        ->with('stockConsommable');
+                }, 'user.departement'])
                 ->get();
 
             Log::info("Demandes récupérées:", ['count' => $demandes->count()]);
     
             // Transformer les demandes pour inclure les détails
             $demandes = $demandes->map(function ($demande) {
-                Log::info("Traitement de la demande ID: " . $demande->id);
+                Log::info("Traitement de la demande ID: " . $demande->id, [
+                    'checking_status' => $demande->checking_status
+                ]);
                 
                 // Traiter les matériels
-                $materiels = $demande->demandeMateriels->filter(function ($item) {
-                    return $item->a_commander === true;
-                })->map(function ($item) {
+                $materiels = $demande->demandeMateriels->map(function ($item) {
                     Log::info("Traitement du matériel:", [
                         'id' => $item->id,
-                        'materiel_relation' => isset($item->materiel)
+                        'libelle' => $item->libelle,
+                        'a_commander' => $item->a_commander,
+                        'quantite' => $item->quantite,
+                        'quantite_disponible' => $item->quantite_disponible
                     ]);
                     
                     return [
@@ -120,23 +129,29 @@ class CommandeController extends Controller
                         'libelle' => $item->libelle,
                         'quantite' => $item->quantite,
                         'description' => $item->description,
-                        'a_commander' => $item->a_commander,
-                        'materiel' => $item->materiel
+                        'a_commander' => true,
+                        'materiel' => $item->stockMateriel
                     ];
                 });
                 
                 Log::info("Matériels transformés:", ['count' => count($materiels)]);
                 
                 // Traiter les consommables
-                $consommables = $demande->demandeConsommables->filter(function ($item) {
-                    return $item->a_commander === true;
-                })->map(function ($item) {
+                $consommables = $demande->demandeConsommables->map(function ($item) {
+                    Log::info("Traitement du consommable:", [
+                        'id' => $item->id,
+                        'libelle' => $item->libelle,
+                        'a_commander' => $item->a_commander,
+                        'quantite' => $item->quantite,
+                        'quantite_disponible' => $item->quantite_disponible
+                    ]);
+                    
                     return [
                         'id' => $item->id,
                         'libelle' => $item->libelle,
                         'quantite' => $item->quantite,
                         'description' => $item->description,
-                        'a_commander' => $item->a_commander,
+                        'a_commander' => true,
                         'consommable' => $item->stockConsommable
                     ];
                 });
