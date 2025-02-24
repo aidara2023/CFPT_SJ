@@ -11,12 +11,10 @@ use App\Events\ModelUpdated;
 use App\Models\Location;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class facture_controller extends Controller
 {
     public function index() {
-
         $facture=Facture::with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->get();
         if($facture!=null){
             return response()->json([
@@ -63,7 +61,6 @@ class facture_controller extends Controller
         }
      }
     public function facture_solde(Request $request) {
-        Log::info('id_location:', ['id_location' => $request->input('id_location')]);
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
         $facture=Facture::where('type','Solde' )->with('location.partenaire', 'user','location.salle')->orderBy('created_at', 'desc')->paginate($perPage);
@@ -106,7 +103,7 @@ class facture_controller extends Controller
             'type'=> $request->type,
             'objet'=>$request->objet,
             'montant_payer'=>$request->montant_payer,
-            'id_location' => $request->id_location,
+            'id_location'=>$request->id_location,
             'id_reservation'=>$request->id_reservation,
             'date_facture'=>now(),
             'id_user'=>$request->id_user
@@ -151,7 +148,7 @@ class facture_controller extends Controller
             'type'=> "Solde",
             'objet'=>$location->objet,
             'montant_payer'=>$request->montant_payer,
-            'id_location' => $request->id_location,
+            'id_location'=>$request->id_location,
             'id_reservation'=>$request->id_reservation,
             'date_facture'=>$request->date_facture,
             'id_user'=>$request->id_user

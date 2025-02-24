@@ -171,10 +171,16 @@ Route::get('/direction/accueil',[direction_view_controller::class, 'accueil'])->
 //Route de emploi du temps
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
+// Dans routes/api.php
+Route::get('/emploi-du-temps/classe/{classId}', [emploi_du_temps_controller::class, 'getScheduleByClass']);
 Route::post('emploidutemps/store', [emploi_du_temps_controller::class, 'store'])->name('emploi_du_temps_store');
+Route::post('/verify-schedule-conflict', [emploi_du_temps_controller::class, 'verifyScheduleConflict'])->name('emploi_du_temps_verify-schedule-conflict');
+Route::post('/exchange-events', [emploi_du_temps_controller::class, 'exchangeEvents'])->name('emploi_du_temps_exchangeEvents');
+Route::post('/emploi-du-temps/move', [emploi_du_temps_controller::class, 'moveEvent'])->name('emploi_du_temps_exchangeEvents');
 Route::post('planification/emploidutemps/store', [emploi_du_temps_controller::class, 'store_planification'])->name('planification_emploi_du_temps_store');
 Route::post('/generate-schedule', [emploi_du_temps_controller::class, 'generateSchedule']);
 Route::post('/save-schedule', [emploi_du_temps_controller::class, 'saveSchedule']);
+Route::post('/check-and-update-event', [emploi_du_temps_controller::class, 'checkAndUpdateEvent'])->name('checkAndUpdateEvent');
 Route::get('emploi-du-temps/formateur',[emploi_du_temps_controller::class, 'getEmploiDuTempsForConnectedFormateur'])->name('emploi_get_formateurs');
 
 
