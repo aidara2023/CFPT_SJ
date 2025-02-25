@@ -58,6 +58,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function departement()
+    {
+        return $this->hasOne(Departement::class, 'id_user'); // Un utilisateur peut avoir un département
+    }
 
     public function role(){
         return $this->belongsTo(Role::class, 'id_role');
@@ -103,10 +107,7 @@ class User extends Authenticatable
     public function eleves(){
         return $this->hasMany(Eleve::class, 'id_user', 'id');
     }
-    public function departement()
-    {
-        return $this->hasOne(Departement::class, 'id_user'); // Un utilisateur peut avoir un département
-    }
+    
 
     public function formateur(){
         return $this->hasMany(Formateur::class, 'id_user', 'id');

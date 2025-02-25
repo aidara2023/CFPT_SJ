@@ -34,7 +34,9 @@ class StockController extends Controller
 
             // Vérifier les matériels
             foreach ($demande->demandeMateriels as $materiel) {
-                $stockMateriel = StockMateriel::where('libelle', $materiel->libelle)->first();
+                $stockMateriel = StockMateriel::where('libelle', $materiel->libelle)
+                    ->where('marque', $materiel->description)
+                    ->first();
                 $quantiteDisponible = $stockMateriel ? $stockMateriel->quantite_disponible : 0;
                 
                 if (!$stockMateriel || $quantiteDisponible === 0) {
@@ -55,7 +57,9 @@ class StockController extends Controller
 
             // Vérifier les consommables
             foreach ($demande->demandeConsommables as $consommable) {
-                $stockConsommable = StockConsommable::where('libelle', $consommable->libelle)->first();
+                $stockConsommable = StockConsommable::where('libelle', $consommable->libelle)
+                    ->where('marque', $consommable->description)
+                    ->first();
                 $quantiteDisponible = $stockConsommable ? $stockConsommable->quantite_disponible : 0;
                 
                 if (!$stockConsommable || $quantiteDisponible === 0) {

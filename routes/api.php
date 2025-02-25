@@ -244,11 +244,11 @@ Route::delete('/etats/{id}', [etat_controller::class, 'destroy']);
 
 Route::prefix('dispatchings')->group(function () {
     Route::get('/', [dispatching_controller::class, 'index'])->name('dispatching_index'); // Récupérer tous les dispatchings
-   
-   
+    Route::post('/{id}/dispatcher', [dispatching_controller::class, 'dispatcher'])->name('dispatching_dispatcher'); // Dispatcher une commande
     Route::delete('/{id}', [dispatching_controller::class, 'destroy'])->name('dispatching_delete'); // Supprimer un dispatching
     Route::get('/{id}', [dispatching_controller::class, 'show'])->name('dispatching_show'); // Afficher un dispatching spécifique
 });
+
 Route::put('/dispatchings/{id}', [dispatching_controller::class, 'update'])->name('dispatching_update');
 Route::get('/dispatching/search', [dispatching_controller::class, 'search']);
 Route::post('/dispatching', [dispatching_controller::class, 'dispatchItems']);
@@ -1058,7 +1058,10 @@ Route::prefix('commandes')->group(function () {
     Route::put('/{id}/statut', [CommandeController::class, 'updateStatut']);
 });
 
-
+// Routes pour le dispatching
+Route::get('/dispatchings', [dispatching_controller::class, 'index'])->name('dispatchings.index');
+Route::get('/dispatching/{id}', [dispatching_controller::class, 'show'])->name('dispatching.show');
+Route::post('/dispatching/{id}/dispatcher', [dispatching_controller::class, 'dispatcherVersSalle'])->name('dispatching.dispatcher');
 
 
 

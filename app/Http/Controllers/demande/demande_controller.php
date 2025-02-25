@@ -22,13 +22,21 @@ class demande_controller extends Controller
     {
         $query = Demande::with(['demandeMateriels', 'demandeConsommables', 'user.departement']);
 
-        // Filtrer par département si spécifié
-        if ($request->has('department_id') && $request->department_id !== 'all') {
-            $query->whereHas('user.departement', function($q) use ($request) {
-                $q->where('id', $request->department_id);
-            });
-        }
-
+         // Récupérer l'utilisateur connecté et son rôle
+         $user = auth()->user();
+         $userRole = $user->role->intitule;
+ 
+         if ($userRole !== 'Logisticien') {
+             $query->where('id_user', $user->id);
+         }
+ 
+   
+         if ($request->has('department_id') && $request->department_id !== 'all') {
+             $query->whereHas('user.departement', function($q) use ($request) {
+                 $q->where('id', $request->department_id);
+             });
+         }
+ 
         // Recherche si spécifiée
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
@@ -43,9 +51,17 @@ class demande_controller extends Controller
             });
         }
 
-        // Pagination
+        $query->orderByRaw("CASE 
+            WHEN urgence = 'haute' THEN 1
+            WHEN urgence = 'moyenne' THEN 2
+            WHEN urgence = 'basse' THEN 3
+            ELSE 4
+        END")
+        ->orderBy('created_at', 'desc');
+
+        
         $perPage = $request->input('per_page', 15);
-        $demandes = $query->orderBy('created_at', 'desc')->paginate($perPage);
+        $demandes = $query->paginate($perPage);
         
         return response()->json([
             'statut' => $demandes->isEmpty() ? 404 : 200,

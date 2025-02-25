@@ -14,18 +14,14 @@ class consommable_controller extends Controller
     public function index()
     {
         try {
-            $consommables = Consommable::with(['etat', 'departement','commande'])->orderBy('created_at', 'desc')->get();
-            if ($consommables->isNotEmpty()) {
-                return response()->json([
-                    'statut' => 200,
-                    'consommables' => $consommables
-                ], 200);
-            } else {
-                return response()->json([
-                    'statut' => 500,
-                    'message' => 'Aucune donnée trouvée',
-                ], 500);
-            }
+            $consommables = Consommable::with(['etat', 'departement', 'commande'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(10); // Ajouter la pagination avec 10 éléments par page
+                
+            return response()->json([
+                'statut' => 200,
+                'consommables' => $consommables
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Erreur lors de la récupération des consommables: ' . $e->getMessage());
             return response()->json([
@@ -74,33 +70,35 @@ class consommable_controller extends Controller
 
     public function search(Request $request)
     {
-        $perPage = $request->has('per_page') ? $request->per_page : 15;
-        $search = $request->has('search') ? $request->search : '';
-    
-        $consommables = Consommable::with(['etat', 'departement', 'commande']) // Changé de 'demande' à 'commande'
-            ->where('libelle', 'LIKE', "%{$search}%")
-            ->orWhere('marque', 'LIKE', "%{$search}%")
-            ->orWhereHas('etat', function($query) use ($search) {
-                $query->where('intitule', 'LIKE', "%{$search}%");
-            })
-            ->orWhereHas('departement', function($query) use ($search) {
-                $query->where('nom_departement', 'LIKE', "%{$search}%");
-            })
-            ->orWhereHas('commande', function($query) use ($search) { // Ajout de la recherche sur commande
-                $query->where('reference_commande', 'LIKE', "%{$search}%");
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-    
-        if ($consommables->isNotEmpty()) {
+        try {
+            $query = Consommable::with(['etat', 'departement', 'commande']);
+
+            // Appliquer la recherche si un terme est fourni
+            if ($request->has('search') && !empty($request->search)) {
+                $searchTerm = $request->search;
+                $query->where(function($q) use ($searchTerm) {
+                    $q->where('libelle', 'like', "%{$searchTerm}%")
+                      ->orWhere('marque', 'like', "%{$searchTerm}%");
+                });
+            }
+
+            // Trier par date de création décroissante
+            $query->orderBy('created_at', 'desc');
+
+            // Paginer les résultats
+            $perPage = $request->input('per_page', 10);
+            $consommables = $query->paginate($perPage);
+
             return response()->json([
                 'statut' => 200,
                 'consommables' => $consommables
             ], 200);
-        } else {
+            
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la recherche des consommables: ' . $e->getMessage());
             return response()->json([
                 'statut' => 500,
-                'message' => 'Aucun consommable trouvé',
+                'message' => 'Une erreur est survenue lors de la recherche des consommables.',
             ], 500);
         }
     }

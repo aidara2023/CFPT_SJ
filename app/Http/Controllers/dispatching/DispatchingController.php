@@ -7,6 +7,7 @@ use App\Models\Dispatching;
 use App\Models\Materiel;
 use App\Models\Consommable;
 use App\Models\Demande;
+use App\Models\Commande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -117,6 +118,83 @@ class DispatchingController extends Controller
                 'statut' => 500,
                 'message' => 'Erreur lors de la récupération des dispatchings'
             ], 500);
+        }
+    }
+
+    public function index()
+    {
+        try {
+            $dispatchings = Dispatching::with(['materiel', 'consommable', 'salle', 'user', 'demande'])
+                ->where('id_departement', auth()->user()->id_departement)
+                ->get();
+
+            return response()->json([
+                'statut' => 200,
+                'dispatchings' => $dispatchings
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la récupération des dispatchings: ' . $e->getMessage());
+            return response()->json([
+                'statut' => 500,
+                'message' => 'Erreur lors de la récupération des dispatchings'
+            ], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            // Récupérer la commande avec ses relations
+            $commande = \App\Models\Commande::with([
+                'demandes.user.departement',
+                'demandes.demandeMateriels.materiel',
+                'demandes.demandeConsommables.consommable'
+            ])->findOrFail($id);
+
+            return response()->json([
+                'statut' => 200,
+                'commande' => [
+                    'id' => $commande->id,
+                    'reference_commande' => $commande->reference,
+                    'date_commande' => $commande->created_at,
+                    'statut' => $commande->statut
+                ],
+                'demandes' => $commande->demandes->map(function ($demande) {
+                    return [
+                        'id' => $demande->id,
+                        'user' => [
+                            'name' => $demande->user->name,
+                            'departement' => [
+                                'nom' => $demande->user->departement->nom
+                            ]
+                        ],
+                        'demandeMateriels' => $demande->demandeMateriels->map(function ($dm) {
+                            return [
+                                'id' => $dm->id,
+                                'libelle' => $dm->materiel->libelle,
+                                'marque' => $dm->materiel->marque,
+                                'quantite' => $dm->quantite,
+                                'a_commander' => true
+                            ];
+                        }),
+                        'demandeConsommables' => $demande->demandeConsommables->map(function ($dc) {
+                            return [
+                                'id' => $dc->id,
+                                'libelle' => $dc->consommable->libelle,
+                                'marque' => $dc->consommable->marque,
+                                'quantite' => $dc->quantite,
+                                'a_commander' => true
+                            ];
+                        })
+                    ];
+                })
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la récupération de la commande: ' . $e->getMessage());
+            return response()->json([
+                'statut' => 404,
+                'message' => 'Commande non trouvée'
+            ], 404);
         }
     }
 }
