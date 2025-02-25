@@ -28,6 +28,7 @@ class facture_controller extends Controller
             ],500 );
         }
      }
+     
     public function facture_definitve(Request $request) {
         $perPage = $request->has('per_page') ? $request->per_page : 15;
 
