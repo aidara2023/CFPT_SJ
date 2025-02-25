@@ -322,10 +322,16 @@ Route::prefix('stock')->group(function () {
 //Route de emploi du temps
 
 Route::get('emploidutemps/all', [emploi_du_temps_controller::class, 'all'])->name('emploi_du_temps_all');
+// Dans routes/api.php
+Route::get('/emploi-du-temps/classe/{classId}', [emploi_du_temps_controller::class, 'getScheduleByClass']);
 Route::post('emploidutemps/store', [emploi_du_temps_controller::class, 'store'])->name('emploi_du_temps_store');
+Route::post('/verify-schedule-conflict', [emploi_du_temps_controller::class, 'verifyScheduleConflict'])->name('emploi_du_temps_verify-schedule-conflict');
+Route::post('/exchange-events', [emploi_du_temps_controller::class, 'exchangeEvents'])->name('emploi_du_temps_exchangeEvents');
+Route::post('/emploi-du-temps/move', [emploi_du_temps_controller::class, 'moveEvent'])->name('emploi_du_temps_exchangeEvents');
 Route::post('planification/emploidutemps/store', [emploi_du_temps_controller::class, 'store_planification'])->name('planification_emploi_du_temps_store');
 Route::post('/generate-schedule', [emploi_du_temps_controller::class, 'generateSchedule']);
 Route::post('/save-schedule', [emploi_du_temps_controller::class, 'saveSchedule']);
+Route::post('/check-and-update-event', [emploi_du_temps_controller::class, 'checkAndUpdateEvent'])->name('checkAndUpdateEvent');
 Route::get('emploi-du-temps/formateur',[emploi_du_temps_controller::class, 'getEmploiDuTempsForConnectedFormateur'])->name('emploi_get_formateurs');
 
 
@@ -845,8 +851,6 @@ Route::post('service/update/{id}',[service_controller::class, 'update'])->name('
 Route::get('create/service', [service_view_controller::class, 'create'])->name('create_service');
 Route::get('service/accueil', [service_view_controller::class, 'accueil'])->name('service_accueil');
 
-//Route pour Facture
-
 Route::get('facture/index' ,[facture_controller::class, 'index'])->name('facture_index');
 Route::get('facture/definitive' ,[facture_controller::class, 'facture_definitve'])->name('facture_definitive');
 Route::get('facture/acompte' ,[facture_controller::class, 'facture_acompte'])->name('facture_acompte');
@@ -860,7 +864,9 @@ Route::post('get/facture/{id}',[facture_controller::class,'show'])->name('show f
 Route::get('create/facture', [facture_view_controller::class, 'create'])->name('create_facture');
 Route::get('facture/accueil', [facture_view_controller::class, 'accueil'])->name('facture_accueil');
 
+
 //Route pour Location
+
 
 Route::get('location/index' ,[location_controller::class, 'index'])->name('location_index');
 Route::get('location/index/proforma' ,[location_controller::class, 'index_proforma'])->name('index_proforma');
@@ -871,7 +877,6 @@ Route::post('location/update/{id}',[location_controller::class, 'update'])->name
 Route::get('create/location', [location_view_controller::class, 'create'])->name('create_location');
 Route::get('location/accueil', [location_view_controller::class, 'accueil'])->name('location_accueil');
 Route::post('get/location/by/id/{id}',[location_controller::class,'show'])->name('show_location');
-
 //Route pour classe
 
 Route::get('classe/all/paginate',[classe_controller::class, 'all_paginate'])->name('classe_all_paginate');
@@ -1027,45 +1032,22 @@ Route::post('reservation/update/{id}',[reservation_controller::class,'update'])-
 Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');
 
 
+
 //route paiement
 Route::get('paiement_partenaire/index',[paiement_partenaire_controller::class, 'index'])->name('paiement_index_');
 Route::get('paiement_partenaire/pagination',[paiement_partenaire_controller::class, 'indexpagination'])->name('paiement_index_paginate_');
 //Route::get('paiement/get_last',[paiement_partenaire_controller::class, 'get_last'])->name('paiement_get_last');
 Route::get('recherche/facture',[paiement_partenaire_controller::class, 'recherche_eleve'])->name('recherche_eleve_');
 Route::get('/recherche/id_facture',[paiement_partenaire_controller::class, 'recherche_id_facture'])->name('recherche_id_facture');
-Route::post('paiement_partenaire/store',[paiement_partenaire_controller::class, 'store'])->name('paiement_store_');
-Route::get('paiement_partenaire/show/{id}',[paiement_partenaire_controller::class, 'show'])->name('paiement_show_');
-Route::post('paiement_partenaire/update/{id}',[paiement_partenaire_controller::class, 'update'])->name('paiement_update_');
-Route::post('/paiement_partenaire/valider-facture/{id}',[paiement_partenaire_controller::class, 'validerFacture'])->name('valider_facture_');
-Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller::class, 'destroy'])->name('paiement_delete_');
-
-// Routes pour les demandes
-Route::prefix('demandes')->group(function () {
-    Route::get('/', [demande_controller::class, 'index']);
-    Route::post('/', [demande_controller::class, 'store']);
-    Route::get('/{id}', [demande_controller::class, 'show']);
-    Route::post('/{id}/traiter', [demande_controller::class, 'traiterDemande']);
-    Route::put('/{id}/statut', [demande_controller::class, 'updateStatut']);
-    Route::get('/pour-commande', [demande_controller::class, 'getDemandesForCommande']);
-    Route::get('/last-three', [demande_controller::class, 'getLastThreeDemandes']);
-});
-
-// Routes pour les commandes
-Route::prefix('commandes')->group(function () {
-    Route::get('/', [CommandeController::class, 'index']);
-    Route::post('/', [CommandeController::class, 'store']);
-    Route::get('/{id}', [CommandeController::class, 'show']);
-    Route::put('/{id}/statut', [CommandeController::class, 'updateStatut']);
-});
-
-// Routes pour le dispatching
-Route::get('/dispatchings', [dispatching_controller::class, 'index'])->name('dispatchings.index');
-Route::get('/dispatching/{id}', [dispatching_controller::class, 'show'])->name('dispatching.show');
-Route::post('/dispatching/{id}/dispatcher', [dispatching_controller::class, 'dispatcherVersSalle'])->name('dispatching.dispatcher');
-
-
+Route::post('paiement_partenaire/store',[paiement_partenaire_controller::class, 'store'])->name('paiement_store');
+Route::get('paiement_partenaire/show/{id}',[paiement_partenaire_controller::class, 'show'])->name('paiement_show');
+Route::post('paiement_partenaire/update/{id}',[paiement_partenaire_controller::class, 'update'])->name('paiement_update');
+Route::post('/paiement_partenaire/valider-facture/{id}',[paiement_partenaire_controller::class, 'validerFacture'])->name('valider_facture');
+Route::delete('paiement_partenaire/delete/{id}',[paiement_partenaire_controller::class, 'destroy'])->name('paiement_delete');
 
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
