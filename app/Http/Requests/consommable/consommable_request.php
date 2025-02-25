@@ -11,7 +11,7 @@ class consommable_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,12 +22,13 @@ class consommable_request extends FormRequest
     public function rules(): array
     {
         return [
-            'libelle' => 'required|string|max:255',
-            'marque' => 'required|string|max:255',
-            'quantite' => 'required|integer|min:1',
-            'date_entree' => 'required|date',
-            'id_statut' => 'required|exists:statuts,id',
-            'id_departement' => 'required|exists:departements,id',
+            'libelle' => 'required',
+            'marque' => 'required',
+            'quantite' => 'required',
+            'date_entree' => 'required',
+            'id_commande' => 'required',
+            'id_etat' => 'required',
+            'id_departement' => 'required',
         ];
     }
 }

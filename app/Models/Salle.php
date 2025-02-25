@@ -23,6 +23,10 @@ class Salle extends Model
         return $this->hasMany(Materiel::class,'id');
         
     }
+    public function consommables (){
+        return $this->hasMany(Consommable::class,'id');
+        
+    }
     public function reservation() {
         return $this -> hasMany(Reservation::class);
     }

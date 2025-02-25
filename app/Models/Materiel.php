@@ -15,26 +15,45 @@ class Materiel extends Model
         'quantite',
         'marque',
         'libelle',
-        'id_statut',
+        'id_etat',
         'id_type_materiel',
-        'id_departement'
+        'id_commande',
+        'id_departement',
+        'source'
     ];
 
-    // Relation avec la table Statut
-    public function statut()
+    protected static function boot()
     {
-        return $this->belongsTo(Statut::class, 'id_statut');
+        parent::boot();
+
+        // Observer pour la mise à jour de la source quand la commande est livrée
+        static::updating(function ($materiel) {
+            if ($materiel->isDirty('id_commande') && $materiel->id_commande) {
+                $commande = Commande::find($materiel->id_commande);
+                if ($commande && $commande->statut === 'livré') {
+                    $materiel->source = 'commande';
+                }
+            }
+        });
     }
 
-    // Relation avec la table TypeMateriel
+    public function etat()
+    {
+        return $this->belongsTo(Etat::class, 'id_etat');
+    }
+
     public function typeMateriel()
     {
         return $this->belongsTo(Type_materiel::class, 'id_type_materiel');
     }
 
-    // Relation avec la table Departement
     public function departement()
     {
         return $this->belongsTo(Departement::class, 'id_departement');
+    }
+
+    public function commande()
+    {
+        return $this->belongsTo(Commande::class, 'id_commande');
     }
 }

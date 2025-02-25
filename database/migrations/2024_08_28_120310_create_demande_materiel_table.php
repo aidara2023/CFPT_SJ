@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('livres', function (Blueprint $table) {
-            $table->string('genre');
-            $table->integer('annee_publication')->nullable();
-            $table->integer('exemplaire_disponible');
+        Schema::create('demande_materiel', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_demande');
+
+            $table->foreign('id_demande')->references('id')->on('demandes')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -23,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('livres', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('demande_materiel');
     }
 };

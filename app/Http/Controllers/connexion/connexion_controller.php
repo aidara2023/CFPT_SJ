@@ -43,6 +43,7 @@ class connexion_controller extends Controller
                 case "gestionnaire de stock":
                     $url = '/dashboard-materiel';
                     break;
+                    
                 case "saf":
                     $url = '/dashboard-saf';
                     break;
