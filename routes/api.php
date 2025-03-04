@@ -1029,6 +1029,7 @@ Route::get('reservation/index',[reservation_controller::class, 'index'])->name('
 Route::get('reservation/index/paginate',[reservation_controller::class, 'indexpaginate'])->name('reservation_index_paginate');
 Route::post('reservation/store',[reservation_controller::class, 'store'])->name('reservation_store');
 Route::post('reservation/update/{id}',[reservation_controller::class,'update'])->name('reservation_update');
+Route::get('stats/reservations',[reservation_controller::class,'getReservationsStats'])->name('reservation_stats');
 Route::delete('reservation/delete/{id}',[reservation_controller::class, 'delete'])->name('reservation_delete');
 
 
