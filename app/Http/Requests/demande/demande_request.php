@@ -6,26 +6,27 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class demande_request extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true; // Autoriser la requête
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            'quantite' => 'required|integer|min:1',
-            'id_user' => 'required|exists:users,id',
-            'id_materiel' => 'nullable|exists:materiels,id',
-            'id_consommable' => 'nullable|exists:consommables,id',
+            'type_demande' => 'required|string|in:materiel,consommable,both',
+            'materiels' => 'required_if:type_demande,materiel,both|array',
+            'materiels.*.libelle' => 'required_with:materiels|string|max:1000',
+            'materiels.*.quantite' => 'required_with:materiels|integer|min:0',
+            'materiels.*.description' => 'required_with:materiels|string|max:1000',
+            'consommables' => 'required_if:type_demande,consommable,both|array',
+            'consommables.*.libelle' => 'required_with:consommables|string|max:1000',
+            'consommables.*.quantite' => 'required_with:consommables|integer|min:0',
+            'consommables.*.description' => 'required_with:consommables|string|max:1000',
+            'observations' => 'nullable', 
+            'id_user' => 'nullable|exists:users,id', 
+            'urgence' => 'nullable|in:basse,moyenne,haute',
+            'statut' => 'nullable|in:en_attente,validé,en_cours,reçu,rejete' 
         ];
     }
 }

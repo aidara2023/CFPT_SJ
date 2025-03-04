@@ -19,11 +19,10 @@ class statut_request extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            //
-            'intitule' => 'required',
-        ];
-    }
+    public function rules()
+{
+    return [
+        'intitule' => 'required|string|max:255',
+    ];
+}
 }

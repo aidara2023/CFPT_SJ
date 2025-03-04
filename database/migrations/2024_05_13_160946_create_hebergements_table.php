@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('id_chambre')->references('id')->on('chambres');
 
             $table->integer('quotient');
-
+            
             $table->timestamps();
         });
     }

@@ -19,18 +19,17 @@ class materiel_request extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
-    {
-        return [
-
-            
-            'date_entree' => 'required',
-            'quantite' => 'required',
-            'marque' => 'required',
-            'libelle' => 'required',
-            'id_type_materiel' => 'required',
-            'id_statut' => 'required',
-             'id_departement' => 'required'
-        ];
-    }
+    public function rules()
+{
+    return [
+        'libelle' => 'required',
+        'quantite' => 'required|integer|min:1',
+        'marque' => 'required',
+        'date_entree' => 'required',
+        'id_etat' => 'required',
+        'id_type_materiel' => 'required|',
+        'id_commande' => 'required',
+        'id_departement' => 'required',
+    ];
+}
 }

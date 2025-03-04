@@ -11,21 +11,27 @@ class Consommable extends Model
     protected $fillable = [
         'libelle',
         'marque',
+        'id_commande',
         'quantite',
         'date_entree',
-        'id_statut',
+        'id_etat',
         'id_departement',
+        'source'
     ];
 
     // Relation avec le modèle Statut
-    public function statut()
+    public function etat()
     {
-        return $this->belongsTo(Statut::class, 'id_statut');
+        return $this->belongsTo(Etat::class, 'id_etat');
     }
 
     // Relation avec le modèle Departement
     public function departement()
     {
         return $this->belongsTo(Departement::class, 'id_departement');
+    }
+    public function commande()
+    {
+        return $this->belongsTo(Commande::class, 'id_commande');
     }
 }

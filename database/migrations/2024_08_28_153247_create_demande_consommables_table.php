@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reçus', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_quittance')->nullable();
-            $table->foreign('id_quittance')->references('id')->on('quittances');
+        Schema::create('demande_consommables', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_demande');
+
+            $table->foreign('id_demande')->references('id')->on('demandes')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('demande_consommables');
     }
 };

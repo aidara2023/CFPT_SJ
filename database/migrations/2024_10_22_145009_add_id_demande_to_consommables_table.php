@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cours', function (Blueprint $table) {
-            $table->dropColumn('id_salle');
+        Schema::table('consommables', function (Blueprint $table) {
+            //
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cours', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_salle');
+        Schema::table('consommables', function (Blueprint $table) {
+            //
         });
     }
 };
