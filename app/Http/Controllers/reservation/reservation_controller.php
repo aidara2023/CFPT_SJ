@@ -179,4 +179,43 @@ class reservation_controller extends Controller
             ], 500);
         }
     }
+    public function getReservationsStats()
+    {
+        try {
+            $currentMonth = now();
+            $lastMonth = now()->subMonth();
+
+            // Nombre de réservations du mois en cours
+            $reservationsCurrent = Reservation::whereMonth('created_at', $currentMonth->month)
+                ->whereYear('created_at', $currentMonth->year)
+                ->count();
+
+            // Nombre de réservations du mois précédent
+            $reservationsLast = Reservation::whereMonth('created_at', $lastMonth->month)
+                ->whereYear('created_at', $lastMonth->year)
+                ->count();
+
+            // Calcul de l'évolution en pourcentage
+            $evolutionReservations = $reservationsLast > 0 
+                ? (($reservationsCurrent - $reservationsLast) / $reservationsLast) * 100 
+                : 0;
+
+            return response()->json([
+                'status' => 200,
+                'stats' => [
+                    'total' => $reservationsCurrent,
+                    'evolution' => round($evolutionReservations, 2),
+                    'lastMonth' => $reservationsLast
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Erreur lors de la récupération des statistiques',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+    
 }
